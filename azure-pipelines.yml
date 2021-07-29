@@ -1,0 +1,75 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: microsoft-fhir-proxy-ci
+- name: major
+  value: '0'
+- name: minor
+  value: '0'
+- name: patch
+  value: $[counter(format('{0}.{1}',variables['major'],variables['minor']),0)]
+- name: packageversiontype
+  value: '-prerelease'
+- name: packageversion
+  value: '$(major).$(minor).$(patch)$(packageversiontype)'
+
+steps:
+- task: CredScan@2
+  inputs:
+    toolMajorVersion: 'V2'
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    KeyVaultName: 'fhir-proxy-ci-vault'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+- task: UseDotNet@2
+  displayName: 'Install dotnet 5.0.x agent tools dir'
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: UseDotNet@2
+  displayName: 'Install dotnet 3.1.x SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet format'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'update -g dotnet-format'
+- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln --check --verbosity diagnostic'
+  displayName: 'Lint dotnet'
+- script: echo $(Build.BuildNumber)
+  displayName: 'Show the build number'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: '**/src/**/*.csproj'
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: RoslynAnalyzers@2
+  inputs:
+    userProvideBuildInfo: 'msBuildInfo'
+    msBuildVersion: '16.0'
+    msBuildArchitecture: 'DotNetCore'
+    msBuildCommandline: '"C:\Program Files\dotnet\dotnet.exe" build $(Build.SourcesDirectory)\src\*.sln'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/tests/*.csproj'
+  displayName: 'Run unit tests - $(buildConfiguration)'
