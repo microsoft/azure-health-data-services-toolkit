@@ -23,9 +23,11 @@ variables:
   value: '$(major).$(minor).$(patch)$(packageversiontype)'
 
 steps:
-- task: CredScan@2
+- task: CredScan@3
   inputs:
-    toolMajorVersion: 'V2'
+    outputFormat: 'csv'
+    toolVersion: '2.1.17.1'
+    verboseOutput: true
 - task: AzureKeyVault@1
   inputs:
     azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
