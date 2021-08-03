@@ -68,7 +68,7 @@ steps:
     userProvideBuildInfo: 'msBuildInfo'
     msBuildVersion: '16.0'
     msBuildArchitecture: 'DotNetCore'
-    msBuildCommandline: '"C:\Program Files\dotnet\dotnet.exe" build $(Build.SourcesDirectory)\src\*.sln'
+    msBuildCommandline: '"C:\Program Files\dotnet\dotnet.exe" build $(Build.SourcesDirectory)\src\Build.sln'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
