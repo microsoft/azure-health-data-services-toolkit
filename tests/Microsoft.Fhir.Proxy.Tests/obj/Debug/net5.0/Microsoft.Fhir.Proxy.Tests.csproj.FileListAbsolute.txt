@@ -100,3 +100,5 @@ C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\M
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\ref\Microsoft.Fhir.Proxy.Tests.dll
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.pdb
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.genruntimeconfig.cache
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Castle.Core.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Moq.dll
