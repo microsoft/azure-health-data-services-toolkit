@@ -58,7 +58,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
             filters.Add(filter);
 
             IEnumerator<IFilter> en = filters.GetEnumerator();
-            while(en.MoveNext())
+            while (en.MoveNext())
             {
                 Assert.AreEqual(filter.Name, en.Current.Name, "Name mismatch.");
             }
