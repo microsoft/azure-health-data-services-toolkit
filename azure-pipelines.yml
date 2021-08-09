@@ -10,7 +10,7 @@ pool:
   vmImage: windows-2019
 
 variables:
-- group: microsoft-fhir-proxy-ci
+- group: microsoft-fhir-proxy-ci-vars
 - name: major
   value: '0'
 - name: minor
