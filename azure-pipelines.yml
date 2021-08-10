@@ -29,6 +29,18 @@ steps:
     KeyVaultName: 'fhir-proxy-ci-vault'
     SecretsFilter: '*'
     RunAsPreJob: true
+- task: AzureCLI@2
+  displayName: 'Set Environment Variables'
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |        
+        Write-Host "##vso[task.setvariable variable=PROXY_TENANT_ID]$(proxy-tenant-id)"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_ID]$(kv-client-id)"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_SECRET]$(kv-client-secret)"
+        Write-Host "##vso[task.setvariable variable=FHIR_SERVER_URL]$(fhir-api-url)"
+
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
   inputs:
@@ -41,12 +53,15 @@ steps:
     packageType: 'sdk'
     version: '3.1.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.8.x'
+    checkLatest: true
 - task: CredScan@3
   inputs:
     outputFormat: 'csv'
     toolVersion: Latest
     verboseOutput: true
-
 - task: DotNetCoreCLI@2
   displayName: 'Install dotnet format'
   inputs:
