@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("4038a607-96a0-4fe6-93b3-539fc44ffcd1")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Microsoft.Fhir.Proxy.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

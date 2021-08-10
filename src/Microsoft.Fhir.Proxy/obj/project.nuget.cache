@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vM/rWg/OVyj+EKBOM1peviovvYaZeSkwuzbUXTiQe1z0R+uAjbXDWtoskRyN7OgGy/ra621SeC0MKb/E88hggA==",
+  "dgSpecHash": "G3p+Bk8T9f4EfxrkC01Jxb6xGyjvZogIrIlzp2aH17XfCVUg4/Kd/tHZC7W83FD1bcJBcEFaDbCbhu91JFP9tg==",
   "success": true,
   "projectFilePath": "C:\\_git\\microsoft-fhir-proxy\\src\\Microsoft.Fhir.Proxy\\Microsoft.Fhir.Proxy.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\malong\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

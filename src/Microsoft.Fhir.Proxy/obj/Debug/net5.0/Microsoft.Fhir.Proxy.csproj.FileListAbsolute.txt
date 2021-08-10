@@ -1,12 +1,11 @@
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.GeneratedMSBuildEditorConfig.editorconfig
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.AssemblyInfoInputs.cache
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.AssemblyInfo.cs
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.csproj.CoreCompileInputs.cache
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\bin\Debug\net5.0\Microsoft.Fhir.Proxy.deps.json
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\bin\Debug\net5.0\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\bin\Debug\net5.0\ref\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\bin\Debug\net5.0\Microsoft.Fhir.Proxy.pdb
+C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.GeneratedMSBuildEditorConfig.editorconfig
+C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.AssemblyInfoInputs.cache
+C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.AssemblyInfo.cs
+C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.csproj.CoreCompileInputs.cache
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\ref\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.pdb
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.csproj.AssemblyReference.cache
