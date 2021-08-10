@@ -51,12 +51,15 @@ steps:
     packageType: 'sdk'
     version: '3.1.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.8.x'
+    checkLatest: true
 - task: CredScan@3
   inputs:
     outputFormat: 'csv'
     toolVersion: Latest
     verboseOutput: true
-
 - task: DotNetCoreCLI@2
   displayName: 'Install dotnet format'
   inputs:
