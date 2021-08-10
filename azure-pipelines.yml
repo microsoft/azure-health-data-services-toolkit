@@ -36,9 +36,9 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |        
-        Write-Host "##vso[task.setvariable variable=PROXY_TENANT_ID]$(proxy-tenant-id)"
-        Write-Host "##vso[task.setvariable variable=KV_CLIENT_ID]$(kv-client-id)"
-        Write-Host "##vso[task.setvariable variable=KV_CLIENT_SECRET]$(kv-client-secret)"
+        Write-Host "##vso[task.setvariable variable=PROXY_TENANT_ID]$proxy-tenant-id"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_ID]$kv-client-id"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_SECRET]$kv-client-secret"
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
   inputs:
