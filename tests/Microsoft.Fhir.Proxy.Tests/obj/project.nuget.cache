@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TZCrs+XJH6hTPlPqVgOq5FKCvH7aVPpCiVVimBSpFD2YfshjiQZWpGxYaVrVJ2QK1ohs3I+pBOnAfadqNecP2w==",
+  "dgSpecHash": "dyfFGXtgFkTc2hQZ+EThbO2AswUUv0XEBKWXwvLTVCepakkwfPOCJTQJqnQR61pJsMX4YZ7qEERE2XSKuW8HNQ==",
   "success": true,
   "projectFilePath": "C:\\_git\\microsoft-fhir-proxy\\tests\\Microsoft.Fhir.Proxy.Tests\\Microsoft.Fhir.Proxy.Tests.csproj",
   "expectedPackageFiles": [

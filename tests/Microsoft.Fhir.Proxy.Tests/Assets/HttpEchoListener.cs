@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,8 +13,11 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
 
         public async Task StartAsync(int port)
         {
-            listener = new HttpListener();
-            listener.Realm = "localhost";
+            listener = new HttpListener
+            {
+                Realm = "localhost"
+            };
+
             listener.Prefixes.Add($"http://localhost:{port}/");
 
             try
@@ -30,15 +32,6 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
             while (true)
             {
                 HttpListenerContext context = await listener.GetContextAsync();
-                //var cert = await context.Request.GetClientCertificateAsync();
-                //if (!context.Request.Headers.AllKeys.ToArray().Contains("Authorization") &&
-                //    cert == null)
-                //{
-                //    context.Response.StatusCode = 503;
-                //    context.Response.Close();
-                //    return;
-                //}
-
                 await ProcessMessage(context);
             }
         }

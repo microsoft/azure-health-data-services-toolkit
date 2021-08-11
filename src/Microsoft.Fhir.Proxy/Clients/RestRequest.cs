@@ -7,8 +7,17 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Fhir.Proxy.Clients
 {
+    /// <summary>
+    /// Makes an HTTP request to a web server.
+    /// </summary>
     public class RestRequest
     {
+        /// <summary>
+        /// Creates an instance of the RestRequest.
+        /// </summary>
+        /// <param name="builder">REST request builder that creates the HttpWebRequest object.</param>
+        /// <param name="blockSize">The number of bytes to be read in block; default is 16384.</param>
+        /// <param name="logger">Optional logger.</param>
         public RestRequest(RestRequestBuilder builder, int blockSize = 16384, ILogger logger = null)
            : this(blockSize, logger)
         {
@@ -27,6 +36,10 @@ namespace Microsoft.Fhir.Proxy.Clients
         private readonly ILogger logger;
         private readonly RestRequestBuilder builder;
 
+        /// <summary>
+        /// Sends and http request and returns a response.
+        /// </summary>
+        /// <returns>HttpResponseMessage</returns>
         public virtual async Task<HttpResponseMessage> SendAsync()
         {
             _ = builder ?? throw new Exception("Builder not set");
