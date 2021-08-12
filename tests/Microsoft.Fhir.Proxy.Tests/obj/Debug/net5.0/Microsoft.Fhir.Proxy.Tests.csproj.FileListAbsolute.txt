@@ -125,3 +125,13 @@ C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\M
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\ref\Microsoft.Fhir.Proxy.Tests.dll
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.pdb
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.genruntimeconfig.cache
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Storage.Blobs.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Storage.Common.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Extensions.Caching.Memory.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Fhir.Proxy.Extensions.Channels.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Fhir.Proxy.Storage.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Fhir.Proxy.Extensions.Channels.pdb
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Fhir.Proxy.Storage.pdb

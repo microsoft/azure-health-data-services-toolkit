@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Microsoft.Fhir.Proxy.Bindings
 {
     /// <summary>
-    /// Binding that does not work, but couples an input to output pipeline or acts as a terminator for an input pipeline.
+    /// Binding that does no work, but couples an input to output pipeline or acts as a terminator for an input pipeline.
     /// </summary>
     public class CoupledPipelineBinding : PipelineBinding
     {

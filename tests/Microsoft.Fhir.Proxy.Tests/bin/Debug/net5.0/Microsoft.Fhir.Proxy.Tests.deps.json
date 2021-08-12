@@ -18,9 +18,13 @@
           "Microsoft.Extensions.Configuration.Binder": "5.0.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "5.0.0",
           "Microsoft.Fhir.Proxy": "1.0.0",
+          "Microsoft.Fhir.Proxy.Extensions.Channels": "1.0.0",
+          "Microsoft.Fhir.Proxy.Storage": "1.0.0",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "5.2.9",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "Moq": "4.16.1",
+          "System.Collections": "4.3.0",
+          "System.Collections.NonGeneric": "4.3.0",
           "coverlet.collector": "3.0.2"
         },
         "runtime": {
@@ -105,6 +109,29 @@
           }
         }
       },
+      "Azure.Storage.Blobs/12.9.1": {
+        "dependencies": {
+          "Azure.Storage.Common": "12.8.0",
+          "System.Text.Json": "4.6.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Storage.Blobs.dll": {
+            "assemblyVersion": "12.9.1.0",
+            "fileVersion": "12.900.121.32206"
+          }
+        }
+      },
+      "Azure.Storage.Common/12.8.0": {
+        "dependencies": {
+          "Azure.Core": "1.17.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Storage.Common.dll": {
+            "assemblyVersion": "12.8.0.0",
+            "fileVersion": "12.800.21.30804"
+          }
+        }
+      },
       "Castle.Core/4.4.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
@@ -160,6 +187,32 @@
           "System.Runtime.Extensions": "4.3.0",
           "System.Runtime.InteropServices": "4.3.0",
           "System.Threading": "4.3.0"
+        }
+      },
+      "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Memory/5.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "5.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Options": "5.0.0",
+          "Microsoft.Extensions.Primitives": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "Microsoft.Extensions.Configuration/5.0.0": {
@@ -239,6 +292,14 @@
           }
         }
       },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
       "Microsoft.Extensions.FileProviders.Abstractions/5.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "5.0.0"
@@ -274,6 +335,18 @@
       "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/5.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Primitives": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.Extensions.Options.dll": {
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.20.51904"
           }
@@ -1538,6 +1611,25 @@
         "runtime": {
           "Microsoft.Fhir.Proxy.dll": {}
         }
+      },
+      "Microsoft.Fhir.Proxy.Extensions.Channels/1.0.0": {
+        "dependencies": {
+          "Microsoft.Fhir.Proxy": "1.0.0",
+          "Microsoft.Fhir.Proxy.Storage": "1.0.0"
+        },
+        "runtime": {
+          "Microsoft.Fhir.Proxy.Extensions.Channels.dll": {}
+        }
+      },
+      "Microsoft.Fhir.Proxy.Storage/1.0.0": {
+        "dependencies": {
+          "Azure.Storage.Blobs": "12.9.1",
+          "Microsoft.Extensions.Caching.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Caching.Memory": "5.0.0"
+        },
+        "runtime": {
+          "Microsoft.Fhir.Proxy.Storage.dll": {}
+        }
       }
     }
   },
@@ -1582,6 +1674,20 @@
       "path": "azure.security.keyvault.secrets/4.2.0",
       "hashPath": "azure.security.keyvault.secrets.4.2.0.nupkg.sha512"
     },
+    "Azure.Storage.Blobs/12.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v6Pkjw1Pkb0GRlE2FzMLdXC5e5bEci3JzqsLX0ttKOyHecA1zlypXgVZjAiuRkkIac4ybEgnzH0RNjBfPginuQ==",
+      "path": "azure.storage.blobs/12.9.1",
+      "hashPath": "azure.storage.blobs.12.9.1.nupkg.sha512"
+    },
+    "Azure.Storage.Common/12.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2nR+kp1UfF+Ib3JHJkFf1VcVkx98ESIXoxUQ751uZ+fPtABAvA4C5JKuwLhksLVfnVMaljQRGS1BhHjrrUoz9g==",
+      "path": "azure.storage.common/12.8.0",
+      "hashPath": "azure.storage.common.12.8.0.nupkg.sha512"
+    },
     "Castle.Core/4.4.0": {
       "type": "package",
       "serviceable": true,
@@ -1616,6 +1722,20 @@
       "sha512": "sha512-P+MBhIM0YX+JqROuf7i306ZLJEjQYA9uUyRDE+OqwUI5sh41e2ZbPQV3LfAPh+29cmceE1pUffXsGfR4eMY3KA==",
       "path": "microsoft.csharp/4.3.0",
       "hashPath": "microsoft.csharp.4.3.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bu8As90/SBAouMZ6fJ+qRNo1X+KgHGrVueFhhYi+E5WqEhcnp2HoWRFnMzXQ6g4RdZbvPowFerSbKNH4Dtg5yg==",
+      "path": "microsoft.extensions.caching.abstractions/5.0.0",
+      "hashPath": "microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Memory/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/1qPCleFOkJe0O+xmFqCNLFYQZTJz965sVw8CUB/BQgsApBwzAUsL2BUkDvQW+geRUVTXUS9zLa0pBjC2VJ1gA==",
+      "path": "microsoft.extensions.caching.memory/5.0.0",
+      "hashPath": "microsoft.extensions.caching.memory.5.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/5.0.0": {
       "type": "package",
@@ -1659,6 +1779,13 @@
       "path": "microsoft.extensions.configuration.usersecrets/5.0.0",
       "hashPath": "microsoft.extensions.configuration.usersecrets.5.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ORj7Zh81gC69TyvmcUm9tSzytcy8AVousi+IVRAI8nLieQjOFryRusSFh7+aLk16FN9pQNqJAiMd7BTKINK0kA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/5.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.FileProviders.Abstractions/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1686,6 +1813,13 @@
       "sha512": "sha512-NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
       "path": "microsoft.extensions.logging.abstractions/5.0.0",
       "hashPath": "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CBvR92TCJ5uBIdd9/HzDSrxYak+0W/3+yxrNg8Qm6Bmrkh5L+nu6m3WeazQehcZ5q1/6dDA7J5YdQjim0165zg==",
+      "path": "microsoft.extensions.options/5.0.0",
+      "hashPath": "microsoft.extensions.options.5.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Primitives/5.0.0": {
       "type": "package",
@@ -2444,6 +2578,16 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "Microsoft.Fhir.Proxy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Fhir.Proxy.Extensions.Channels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Fhir.Proxy.Storage/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
