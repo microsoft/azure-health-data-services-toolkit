@@ -40,6 +40,7 @@ steps:
         Write-Host "##vso[task.setvariable variable=KV_CLIENT_ID]$(kv-client-id)"
         Write-Host "##vso[task.setvariable variable=KV_CLIENT_SECRET]$(kv-client-secret)"
         Write-Host "##vso[task.setvariable variable=FHIR_SERVER_URL]$(fhir-api-url)"
+        Write-Host "##vso[task.setvariable variable=STORAGE_CONNECTIONSTRING]$(storage-connectionstring)"
 
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
