@@ -242,7 +242,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Storage
             string contentString1 = "hi";
             byte[] content1 = Encoding.UTF8.GetBytes(contentString1);
             string contentString2 = "\nthere";
-            byte[] content2 = Encoding.UTF8.GetBytes(contentString2);            
+            byte[] content2 = Encoding.UTF8.GetBytes(contentString2);
             string propertyName = "Property1";
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
