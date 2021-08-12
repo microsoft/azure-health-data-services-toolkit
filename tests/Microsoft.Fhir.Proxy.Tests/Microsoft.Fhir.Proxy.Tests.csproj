@@ -21,9 +21,13 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy.Extensions.Channels\Microsoft.Fhir.Proxy.Extensions.Channels.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy.Storage\Microsoft.Fhir.Proxy.Storage.csproj" />
     <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
   </ItemGroup>
 

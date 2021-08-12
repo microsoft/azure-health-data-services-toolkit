@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Fhir.Proxy.Storage\Microsoft.Fhir.Proxy.Storage.csproj" />
+    <ProjectReference Include="..\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
+  </ItemGroup>
+
+</Project>
