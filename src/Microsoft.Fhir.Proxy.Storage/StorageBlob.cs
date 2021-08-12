@@ -177,7 +177,7 @@ namespace Microsoft.Fhir.Proxy.Storage
 
             using Stream stream = await blockBlobClient.OpenWriteAsync(true, options, cancellationToken);
             await stream.WriteAsync(content, cancellationToken);
-            await stream.FlushAsync();
+            await stream.FlushAsync(cancellationToken);
             await stream.DisposeAsync();
 
             if (metadata != null)
@@ -208,7 +208,7 @@ namespace Microsoft.Fhir.Proxy.Storage
             _ = await appendBlobClient.CreateIfNotExistsAsync(createOptions, cancellationToken);
             Stream stream = await appendBlobClient.OpenWriteAsync(false, writeOptions, cancellationToken);
             await stream.WriteAsync(content, cancellationToken);
-            await stream.FlushAsync();
+            await stream.FlushAsync(cancellationToken);
             await stream.DisposeAsync();
 
             if (metadata != null)

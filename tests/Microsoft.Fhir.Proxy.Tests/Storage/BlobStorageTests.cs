@@ -1,17 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections;
-using Azure.Storage.Blobs.Models;
-using System.IO;
-using Azure.Storage.Blobs.Specialized;
 
 namespace Microsoft.Fhir.Proxy.Tests.Storage
 {
@@ -20,8 +16,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Storage
     {
         private static ConcurrentQueue<string> cleanupContainers;
         private static StorageBlob storage;
-        private static string storageVariableName = "STORAGE_CONNECTIONSTRING";
-        private static string alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string storageVariableName = "STORAGE_CONNECTIONSTRING";
+        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
 
         [ClassInitialize]
@@ -246,8 +242,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Storage
             string contentString1 = "hi";
             byte[] content1 = Encoding.UTF8.GetBytes(contentString1);
             string contentString2 = "\nthere";
-            byte[] content2 = Encoding.UTF8.GetBytes(contentString2);
-            string contentString = $"{contentString1}{contentString2}";
+            byte[] content2 = Encoding.UTF8.GetBytes(contentString2);            
             string propertyName = "Property1";
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
@@ -358,9 +353,9 @@ namespace Microsoft.Fhir.Proxy.Tests.Storage
         }
 
 
-        private string GetRandomName()
+        private static string GetRandomName()
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new();
             int i = 0;
             while (i < 10)
             {

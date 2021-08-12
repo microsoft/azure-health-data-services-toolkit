@@ -19,8 +19,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         private static ConcurrentQueue<string> cleanupContainers;
         private static string connectionString;
         private static StorageBlob storage;
-        private static string storageVariableName = "STORAGE_CONNECTIONSTRING";
-        private static string alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string storageVariableName = "STORAGE_CONNECTIONSTRING";
+        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
 
         [ClassInitialize]
@@ -258,6 +258,11 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
                 Assert.Fail();
             };
 
+            channel.OnReceive += (i, args) =>
+            {
+                Assert.Fail();
+            };
+
             await channel.OpenAsync();
             await channel.ReceiveAsync();
             await channel.SendAsync(content1, new object[] { container, blob, contentType, type, metadata, conditions, token });
@@ -272,9 +277,9 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             Assert.AreEqual(value, props.Metadata[propertyName], "Metadata mismatch.");
         }
 
-        private string GetRandomName()
+        private static string GetRandomName()
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new();
             int i = 0;
             while (i < 10)
             {

@@ -51,9 +51,10 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
-        public Task AddMessageAsync(byte[] message)
+        public async Task AddMessageAsync(byte[] message)
         {
-            throw new NotImplementedException();
+            OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, null));
+            await Task.CompletedTask;
         }
 
         public async Task CloseAsync()
