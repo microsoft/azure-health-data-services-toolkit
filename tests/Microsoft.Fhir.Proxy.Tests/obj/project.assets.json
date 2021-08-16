@@ -92,6 +92,22 @@
           "lib/netstandard2.0/Azure.Messaging.EventHubs.Processor.dll": {}
         }
       },
+      "Azure.Messaging.ServiceBus/7.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.16.0",
+          "Azure.Core.Amqp": "1.2.0",
+          "Microsoft.Azure.Amqp": "2.4.13",
+          "Microsoft.Bcl.AsyncInterfaces": "1.0.0",
+          "System.Memory.Data": "1.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.Messaging.ServiceBus.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Messaging.ServiceBus.dll": {}
+        }
+      },
       "Azure.Security.KeyVault.Certificates/4.2.0": {
         "type": "package",
         "dependencies": {
@@ -2461,6 +2477,7 @@
         "dependencies": {
           "Azure.Messaging.EventHubs": "5.6.0",
           "Azure.Messaging.EventHubs.Processor": "5.6.0",
+          "Azure.Messaging.ServiceBus": "7.2.1",
           "Microsoft.Fhir.Proxy": "1.0.0",
           "Microsoft.Fhir.Proxy.Storage": "1.0.0",
           "Newtonsoft.Json": "13.0.1"
@@ -2573,6 +2590,22 @@
         "azure.messaging.eventhubs.processor.nuspec",
         "lib/netstandard2.0/Azure.Messaging.EventHubs.Processor.dll",
         "lib/netstandard2.0/Azure.Messaging.EventHubs.Processor.xml",
+        "pkgicon.png"
+      ]
+    },
+    "Azure.Messaging.ServiceBus/7.2.1": {
+      "sha512": "U6AlCVD1QyJe+G9qI1irRdcG2/S2xgg3K6Yl1SXPfjuc3iIbWk4eMJ5rHH0U9VkpqVeirBc0J3Dna+LyMH9Jmw==",
+      "type": "package",
+      "path": "azure.messaging.servicebus/7.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.messaging.servicebus.7.2.1.nupkg.sha512",
+        "azure.messaging.servicebus.nuspec",
+        "lib/netstandard2.0/Azure.Messaging.ServiceBus.dll",
+        "lib/netstandard2.0/Azure.Messaging.ServiceBus.xml",
         "pkgicon.png"
       ]
     },

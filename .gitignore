@@ -32,7 +32,8 @@ msbuild.log
 
 $ SRC
 **/src/TestResults
-/src/.vs
+/src/**/.vs
+/tests/**/.vs
 /src/*.binlog
 
 # VSMSBuild generated files in CoreXT

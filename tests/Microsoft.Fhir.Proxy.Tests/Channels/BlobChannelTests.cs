@@ -70,6 +70,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string content = "hi";
             byte[] message = Encoding.UTF8.GetBytes(content);
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Block;
@@ -105,6 +106,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string content = "hi";
             byte[] message = Encoding.UTF8.GetBytes(content);
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Block;
@@ -136,6 +138,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string content = "hi";
             byte[] message = Encoding.UTF8.GetBytes(content);
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Append;
@@ -168,6 +171,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string contentString = $"{contentString1}{contentString2}";
 
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Append;
@@ -204,6 +208,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string content = "hi";
             byte[] message = Encoding.UTF8.GetBytes(content);
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Append;
@@ -246,6 +251,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string contentString = $"{contentString1}{contentString2}";
 
             string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
             string blob = $"{GetRandomName()}.txt";
             string contentType = "text/plain";
             Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Append;

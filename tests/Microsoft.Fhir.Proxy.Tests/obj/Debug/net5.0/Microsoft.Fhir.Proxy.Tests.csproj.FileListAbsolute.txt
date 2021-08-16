@@ -139,3 +139,4 @@ C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\A
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Messaging.EventHubs.dll
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Messaging.EventHubs.Processor.dll
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Azure.Amqp.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Messaging.ServiceBus.dll
