@@ -135,3 +135,7 @@ C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\M
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\ref\Microsoft.Fhir.Proxy.Tests.dll
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.pdb
 C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\obj\Debug\net5.0\Microsoft.Fhir.Proxy.Tests.genruntimeconfig.cache
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Core.Amqp.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Messaging.EventHubs.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Azure.Messaging.EventHubs.Processor.dll
+C:\_git\microsoft-fhir-proxy\tests\Microsoft.Fhir.Proxy.Tests\bin\Debug\net5.0\Microsoft.Azure.Amqp.dll
