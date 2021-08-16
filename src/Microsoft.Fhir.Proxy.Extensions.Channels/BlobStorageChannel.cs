@@ -4,7 +4,6 @@ using Microsoft.Fhir.Proxy.Channels;
 using Microsoft.Fhir.Proxy.Storage;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,6 +13,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
     {
         public BlobStorageChannel(string connectionString, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
         {
+            this.logger = logger;
             Id = Guid.NewGuid().ToString();
             storage = new StorageBlob(connectionString, initialTransferSize, maxConcurrency, maxTransferSize, logger);
         }
@@ -21,6 +21,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         private StorageBlob storage;
         private bool disposed;
         private ChannelState state;
+        private readonly ILogger logger;
 
         public string Id { get; private set; }
 
@@ -63,6 +64,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
+                logger?.LogInformation($"{Name}-{Id} channel closed.");
             }
 
             await Task.CompletedTask;
@@ -72,6 +74,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         {
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
+            logger?.LogInformation($"{Name}-{Id} channel opened.");
             await Task.CompletedTask;
         }
 
@@ -122,9 +125,12 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
                         OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Undefined blob type.")));
                         break;
                 }
+
+                logger?.LogInformation($"{Name}-{Id} channel wrote blob.");
             }
             catch (Exception ex)
             {
+                logger?.LogError(ex.Message, $"{Name}-{Id} channel error writing blob.");
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
             }
         }
@@ -142,6 +148,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
                 disposed = true;
                 storage = null;
                 CloseAsync().GetAwaiter();
+                logger?.LogInformation($"{Name}-{Id} channel disposed.");
             }
         }
     }
