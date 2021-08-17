@@ -20,7 +20,6 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, false));
             return await Task.FromResult<OperationContext>(context);
         }
     }

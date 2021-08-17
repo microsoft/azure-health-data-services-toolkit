@@ -1,10 +1,26 @@
 {
   "version": 2,
-  "dgSpecHash": "gTqzCObnheWBS0zLaUnIRN+Q8cepr9epcCHp63lbcMNDaBXDGccAsAvVMjyzvIIbmLFu030WnvRUryhRSjNfqw==",
+  "dgSpecHash": "Qy1ehHBFKc/sXz4P/ZT/fFAakigCJ5l1Hd2fOrwHGSjfaKRNkPYeJv19+oe9l1L4dh8RJjyPxTe98Mc0mI22kg==",
   "success": true,
   "projectFilePath": "C:\\_git\\microsoft-fhir-proxy\\src\\Microsoft.Fhir.Proxy\\Microsoft.Fhir.Proxy.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\malong\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
+    "C:\\Users\\malong\\.nuget\\packages\\azure.core\\1.17.0\\azure.core.1.17.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\azure.identity\\1.4.1\\azure.identity.1.4.1.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\azure.security.keyvault.certificates\\4.2.0\\azure.security.keyvault.certificates.4.2.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\microsoft.identity.client\\4.30.1\\microsoft.identity.client.4.30.1.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\2.18.4\\microsoft.identity.client.extensions.msal.2.18.4.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.6.0\\system.diagnostics.diagnosticsource.4.6.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.memory.data\\1.0.2\\system.memory.data.1.0.2.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.text.json\\4.6.0\\system.text.json.4.6.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512"
   ],
   "logs": []
 }

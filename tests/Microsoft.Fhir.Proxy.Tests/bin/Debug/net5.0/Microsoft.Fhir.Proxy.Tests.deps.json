@@ -1692,7 +1692,10 @@
       },
       "Microsoft.Fhir.Proxy/1.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0"
+          "Azure.Identity": "1.4.1",
+          "Azure.Security.KeyVault.Certificates": "4.2.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "Microsoft.Fhir.Proxy.dll": {}
