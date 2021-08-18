@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CY/P2n6Z8vMH7w88c7ysABL7/gIoISY0zlc2SGJYZQbIXoOOX9mW4XCCiEuQUs//HROq0JaMslz9S3JK7a+1yw==",
+  "dgSpecHash": "zrjHzEHK4n53mEL4yX+NanJ3EutDJY1ItiAZ67tho0uItclSC4kK+qtwW54L8NCTfOd6bOqd2nNYrePk1DK+vw==",
   "success": true,
   "projectFilePath": "C:\\_git\\microsoft-fhir-proxy\\tests\\Microsoft.Fhir.Proxy.Tests\\Microsoft.Fhir.Proxy.Tests.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\malong\\.nuget\\packages\\azure.identity\\1.4.1\\azure.identity.1.4.1.nupkg.sha512",
     "C:\\Users\\malong\\.nuget\\packages\\azure.messaging.eventhubs\\5.6.0\\azure.messaging.eventhubs.5.6.0.nupkg.sha512",
     "C:\\Users\\malong\\.nuget\\packages\\azure.messaging.eventhubs.processor\\5.6.0\\azure.messaging.eventhubs.processor.5.6.0.nupkg.sha512",
+    "C:\\Users\\malong\\.nuget\\packages\\azure.messaging.servicebus\\7.2.1\\azure.messaging.servicebus.7.2.1.nupkg.sha512",
     "C:\\Users\\malong\\.nuget\\packages\\azure.security.keyvault.certificates\\4.2.0\\azure.security.keyvault.certificates.4.2.0.nupkg.sha512",
     "C:\\Users\\malong\\.nuget\\packages\\azure.security.keyvault.keys\\4.2.0\\azure.security.keyvault.keys.4.2.0.nupkg.sha512",
     "C:\\Users\\malong\\.nuget\\packages\\azure.security.keyvault.secrets\\4.2.0\\azure.security.keyvault.secrets.4.2.0.nupkg.sha512",

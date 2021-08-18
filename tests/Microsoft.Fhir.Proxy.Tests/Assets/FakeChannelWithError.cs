@@ -4,15 +4,17 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Fhir.Proxy.Tests.Assets
 {
-    public class FakeChannel : IChannel
+    public class FakeChannelWithError : IChannel
     {
-        public FakeChannel()
+        public FakeChannelWithError(Exception error)
         {
             Id = Guid.NewGuid().ToString();
+            this.error = error;
         }
 
         private ChannelState state;
         private bool disposed;
+        private Exception error;
 
         public string Id { get; private set; }
 
@@ -72,6 +74,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
 
         public async Task SendAsync(byte[] message, params object[] items)
         {
+            OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, error));
             await Task.CompletedTask;
         }
 

@@ -135,7 +135,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
             {
                 string typeName = "Value";
 
-                if ((settings.EventHubSku == EventHubSkuType.Basic && message.Length > 0x3E8) || (settings.EventHubSku != EventHubSkuType.Basic && message.Length > 0xF4240))
+                if ((settings.EventHubSku == EventHubSkuType.Basic && message.Length > 0x3E800) || (settings.EventHubSku != EventHubSkuType.Basic && message.Length > 0xF4240))
                 {
                     typeName = "Reference";
                 }
