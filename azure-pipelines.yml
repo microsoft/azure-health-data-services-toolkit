@@ -51,7 +51,7 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_TOPIC]$(proxy-servicebus-topic)"
         Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_SUBSCRIPTION]$(proxy-servicebus-subscription)"
         Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_SKU]$(proxy-servicebus-sku)"
-        Write-Host "##vso[task.setvariable variable=ROXY_SERVICEBUS_BLOBCONTAINER_NAME]$(proxy-servicebus-blobcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_BLOBCONTAINER_NAME]$(proxy-servicebus-blobcontainer-name)"
 
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
