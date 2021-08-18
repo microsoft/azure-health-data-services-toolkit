@@ -80,7 +80,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
             {
                 string typeName = "Value";
 
-                if ((settings.ServiceBusSku != ServiceBusSkuType.Premium && message.Length > 0x3E8) || (settings.ServiceBusSku == ServiceBusSkuType.Premium && message.Length > 0xF4240))
+                if ((settings.ServiceBusSku != ServiceBusSkuType.Premium && message.Length > 0x3E800) || (settings.ServiceBusSku == ServiceBusSkuType.Premium && message.Length > 0xF4240))
                 {
                     typeName = "Reference";
                 }
