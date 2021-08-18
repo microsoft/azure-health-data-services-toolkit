@@ -31,4 +31,10 @@
     <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\BundleRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
