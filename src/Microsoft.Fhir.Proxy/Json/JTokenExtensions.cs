@@ -36,6 +36,27 @@ namespace Microsoft.Fhir.Proxy.Json
         }
 
         /// <summary>
+        /// Indicates whether the value of a token found by JPath is a match.
+        /// </summary>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <param name="jtoken">JToken root.</param>
+        /// <param name="jpath">JPath to test for JToken.</param>
+        /// <param name="value">Value to test for JToken in path.</param>
+        /// <returns>True is match; otherwise false.</returns>
+        public static bool IsMatch<T>(this JToken jtoken, string jpath, T? value)
+        {
+            try
+            {
+                T val = jtoken.SelectToken(jpath).Value<T?>();
+                return val.Equals(value);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets JArray from a JPath from the root JToKen; otherwise null is array not present.
         /// </summary>
         /// <param name="token">JToken root.</param>

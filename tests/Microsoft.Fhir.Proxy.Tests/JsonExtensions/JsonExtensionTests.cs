@@ -24,7 +24,15 @@ namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
             string jpath = "$.resourceType";
             string value = "Bundle";
             Assert.IsTrue(token.IsMatch(jpath, value), "value mismatch.");
+        }
 
+        [TestMethod]
+        public void JToken_IsMatch2_True_Test()
+        {
+            JToken token = JToken.Parse(json);
+            string jpath = "$.resourceType";
+            string value = "Bundle";
+            Assert.IsTrue(token.IsMatch<string>(jpath, value), "value mismatch.");
         }
 
         [TestMethod]
@@ -34,6 +42,15 @@ namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
             string jpath = "$.resourceType";
             string value = "Patient";
             Assert.IsFalse(token.IsMatch(jpath, value), "value should not match.");
+        }
+
+        [TestMethod]
+        public void JToken_IsMatch2_False_Test()
+        {
+            JToken token = JToken.Parse(json);
+            string jpath = "$.resourceType";
+            string value = "Patient";
+            Assert.IsFalse(token.IsMatch<string>(jpath, value), "value should not match.");
         }
 
         [TestMethod]
@@ -94,8 +111,7 @@ namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
         {
             JToken token = JToken.Parse(json);
             string jpath = "$.entry";
-            JToken tokenCheck = token.GetToken(jpath);
-            Assert.IsFalse(tokenCheck.IsNullOrEmpty(), "must be not null.");
+            Assert.IsFalse(token.IsNullOrEmpty(jpath), "must be not null.");
         }
 
         [TestMethod]
@@ -103,8 +119,7 @@ namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
         {
             JToken token = JToken.Parse(json);
             string jpath = "$.foo";
-            JToken tokenCheck = token.GetToken(jpath);
-            Assert.IsTrue(tokenCheck.IsNullOrEmpty(), "must be null.");
+            Assert.IsTrue(token.IsNullOrEmpty(jpath), "Must be null or empty.");            
         }
     }
 }
