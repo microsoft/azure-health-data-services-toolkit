@@ -16,7 +16,7 @@ namespace Microsoft.Fhir.Proxy.Commands
 
         public void Execute()
         {
-            if(token.IsArray(jpath))
+            if (token.IsArray(jpath))
             {
                 return;
             }
