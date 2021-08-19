@@ -57,7 +57,7 @@ namespace Microsoft.Fhir.Proxy.Json
         }
 
         /// <summary>
-        /// Gets JArray from a JPath from the root JToKen; otherwise null is array not present.
+        /// Gets JArray from a JPath from the root JToKen; otherwise null if array not present.
         /// </summary>
         /// <param name="token">JToken root.</param>
         /// <param name="jpath">JPath to array.</param>
