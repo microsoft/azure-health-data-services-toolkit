@@ -20,7 +20,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
             get { return id; }
             set
             {
-                if(string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, "NA", true));
                 }
