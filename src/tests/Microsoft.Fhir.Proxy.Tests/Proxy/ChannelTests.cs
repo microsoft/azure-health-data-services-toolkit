@@ -20,6 +20,10 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
         {
             FakeChannel channel = new();
             ChannelCollection channels = new();
+            channel.OnError += (a, args) =>
+            {
+                Assert.Fail("Should not trigger error event.");
+            };
             channels.Add(channel);
             IChannel actual = channels[0];
             Assert.AreEqual(channel.Name, actual.Name, "Name mismatch.");

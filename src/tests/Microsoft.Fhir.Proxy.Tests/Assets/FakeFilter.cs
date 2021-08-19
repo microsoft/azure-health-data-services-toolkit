@@ -9,14 +9,30 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
     {
         public FakeFilter()
         {
-            Name = "Fake";
             Id = Guid.NewGuid().ToString();
         }
 
-        public event EventHandler<FilterErrorEventArgs> OnFilterError;
-        public string Id { get; private set; }
+        private string id;
 
-        public string Name { get; private set; }
+        public event EventHandler<FilterErrorEventArgs> OnFilterError;
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                if(string.IsNullOrEmpty(value))
+                {
+                    OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, "NA", true));
+                }
+                else
+                {
+                    id = value;
+                }
+            }
+        }
+
+
+        public string Name => "Fake";
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
