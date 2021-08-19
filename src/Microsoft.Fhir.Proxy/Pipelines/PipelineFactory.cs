@@ -35,7 +35,7 @@ namespace Microsoft.Fhir.Proxy.Pipelines
             container.Add(pipeline.Name, pipeline);
         }
 
-        public static Pipeline Create(string name, PipelineSettings settings)
+        public static Pipeline Create(PipelineSettings settings)
         {
             FilterCollection filters = new();
             ChannelCollection channels = new();
@@ -56,7 +56,7 @@ namespace Microsoft.Fhir.Proxy.Pipelines
                 }
             }
 
-            Pipeline pipeline = Create(name);
+            Pipeline pipeline = Create(settings.Name);
             pipeline.Filters = filters;
             pipeline.Channels = channels;
 

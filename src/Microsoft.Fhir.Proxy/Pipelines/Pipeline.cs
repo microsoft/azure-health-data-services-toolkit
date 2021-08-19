@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Fhir.Proxy.Pipelines
 {
-    public abstract class Pipeline
+    public abstract class Pipeline : IDisposable
     {
         public abstract event EventHandler<PipelineErrorEventArgs> OnError;
 
