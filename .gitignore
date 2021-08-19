@@ -13,7 +13,6 @@ OneBranch Specific
 /src/**/gen/**/*
 /src/**/*.nuspec
 /src/**/StyleCop.Cache
-/src/**/formatDiagnosticLog.binlog
 
 
 # QuickBuild and Build Exe
@@ -32,18 +31,7 @@ msbuild.log
 
 $ SRC
 **/src/TestResults
-/src/**/.vs
-/tests/**/.vs
-/src/*.binlog
-/src/*.manifest
-**/.vs
-**/.suo
-/src/**/*.dll
-**/src/**/bin
-**/scr/**/obj
-**/tests/**/*.dll
-**/tests/**/bin
-**/tests/**/obj
+/src/.vs
 
 # VSMSBuild generated files in CoreXT
 *.projhash*

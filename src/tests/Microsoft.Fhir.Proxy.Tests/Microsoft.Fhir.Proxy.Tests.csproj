@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy.Extensions.Channels\Microsoft.Fhir.Proxy.Extensions.Channels.csproj" />
-    <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy.Storage\Microsoft.Fhir.Proxy.Storage.csproj" />
-    <ProjectReference Include="..\..\src\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy.Extensions.Channels\Microsoft.Fhir.Proxy.Extensions.Channels.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy.Storage\Microsoft.Fhir.Proxy.Storage.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>

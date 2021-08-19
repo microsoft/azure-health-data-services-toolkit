@@ -29,6 +29,11 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
         public void ChannelCollection_Remove_Test()
         {
             FakeChannel channel = new();
+            channel.OnError += (a, args) =>
+            {
+                Assert.Fail("should not error");
+            };
+
             ChannelCollection channels = new();
             channels.Add(channel);
             IChannel actual = channels[0];
