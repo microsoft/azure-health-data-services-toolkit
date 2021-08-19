@@ -90,12 +90,7 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
     projects: '**/src/**/*.csproj'
   displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
-    projects: '**/tests/**/*.csproj'
-  displayName: 'dotnet build $(buildConfiguration)'
+
 - task: RoslynAnalyzers@2
   inputs:
     userProvideBuildInfo: 'msBuildInfo'

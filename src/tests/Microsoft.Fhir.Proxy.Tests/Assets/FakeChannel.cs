@@ -11,10 +11,25 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
             Id = Guid.NewGuid().ToString();
         }
 
+        private string id;
         private ChannelState state;
         private bool disposed;
 
-        public string Id { get; private set; }
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                if(string.IsNullOrEmpty(value))
+                {
+                    OnError?.Invoke(this, new ChannelErrorEventArgs("NA", Name, null));
+                }
+                else
+                {
+                    id = value;
+                }
+            }
+        }
 
         public string Name => "FakeChannel";
 

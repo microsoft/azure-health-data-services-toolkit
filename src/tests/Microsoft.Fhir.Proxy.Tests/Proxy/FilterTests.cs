@@ -23,6 +23,10 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
         public void FilterCollection_Add_Test()
         {
             FakeFilter filter = new();
+            filter.OnFilterError += (a, args) =>
+            {
+                Assert.Fail("Should not trigger on error event.");
+            };
             FilterCollection filters = new();
             filters.Add(filter);
             IFilter actual = filters[0];
