@@ -39,6 +39,8 @@ msbuild.log
 $ SRC
 **/src/TestResults
 **/src/.vs
+**/src/**/obj/**/*
+**/src/**/obj/**/*.cs
 **/src/**/obj
 **/src/**/bin
 
