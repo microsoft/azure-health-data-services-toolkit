@@ -13,6 +13,15 @@ OneBranch Specific
 /src/**/gen/**/*
 /src/**/*.nuspec
 /src/**/StyleCop.Cache
+/src/.vs
+/src/Microsoft.Fhir.Proxy/bin
+/src/Microsoft.Fhir.Proxy/obj
+/src/Microsoft.Fhir.Proxy.Extensions.Channels/bin
+/src/Microsoft.Fhir.Proxy.Extensions.Channels/obj
+/src/Microsoft.Fhir.Proxy.Storage/bin
+/src/Microsoft.Fhir.Proxy.Storage/obj
+/src/tests/Microsoft.Fhir.Proxy.Tests/bin
+/src/tests/Microsoft.Fhir.Proxy.Tests/obj
 
 
 # QuickBuild and Build Exe
