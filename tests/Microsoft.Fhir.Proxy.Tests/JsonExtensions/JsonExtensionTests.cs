@@ -119,7 +119,7 @@ namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
         {
             JToken token = JToken.Parse(json);
             string jpath = "$.foo";
-            Assert.IsTrue(token.IsNullOrEmpty(jpath), "Must be null or empty.");            
+            Assert.IsTrue(token.IsNullOrEmpty(jpath), "Must be null or empty.");
         }
     }
 }

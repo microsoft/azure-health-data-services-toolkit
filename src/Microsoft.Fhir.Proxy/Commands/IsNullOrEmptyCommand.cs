@@ -16,7 +16,7 @@ namespace Microsoft.Fhir.Proxy.Commands
 
         public void Execute()
         {
-            if(token.IsNullOrEmpty(jpath))
+            if (token.IsNullOrEmpty(jpath))
             {
                 return;
             }
