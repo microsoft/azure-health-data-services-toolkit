@@ -13,11 +13,15 @@ namespace Microsoft.Fhir.Proxy.Configuration
             ChannelNames = new List<string>();
         }
 
-        public PipelineSettings(IEnumerable<string> filterNames, IEnumerable<string> channelNames)
+        public PipelineSettings(string pipelineName, IEnumerable<string> filterNames, IEnumerable<string> channelNames)
         {
+            Name = pipelineName;
             FilterNames = filterNames != null ? new List<string>(filterNames) : new List<string>();
             ChannelNames = channelNames != null ? new List<string>(channelNames) : new List<string>();
         }
+
+        [JsonProperty("name")]
+        public virtual string Name { get; set; }
 
         [JsonProperty("filters")]
         public virtual List<string> FilterNames { get; set; }

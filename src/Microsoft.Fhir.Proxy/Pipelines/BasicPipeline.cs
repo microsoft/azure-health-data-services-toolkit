@@ -83,10 +83,19 @@ namespace Microsoft.Fhir.Proxy.Pipelines
         {
             if (disposing && !disposed)
             {
+                disposed = true;
                 this.context = null;
                 this.Filters = null;
+
+                if (this.Channels != null)
+                {
+                    foreach (var channel in this.Channels)
+                    {
+                        channel.Dispose();
+                    }
+                }
+
                 this.Channels = null;
-                disposed = true;
             }
         }
 
