@@ -20,7 +20,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
             get { return id; }
             set
             {
-                if(string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     OnError?.Invoke(this, new ChannelErrorEventArgs("NA", Name, null));
                 }
