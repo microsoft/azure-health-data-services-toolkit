@@ -9,6 +9,8 @@ OneBranch Specific
 # Build generated files in src
 /.vs
 /src/.vs
+/src/.vs/**
+/src/.vs/**/*
 /src/**/.vs
 /src/**/bin
 /src/**/obj
@@ -36,7 +38,10 @@ msbuild.log
 
 $ SRC
 **/src/TestResults
-/src/.vs
+**/src/.vs
+**/src/**/obj
+**/src/**/bin
+
 
 # VSMSBuild generated files in CoreXT
 *.projhash*
