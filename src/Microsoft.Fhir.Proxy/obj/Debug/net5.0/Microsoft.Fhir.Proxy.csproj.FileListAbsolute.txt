@@ -9,4 +9,3 @@ C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\ref\Microsoft.Fhir.Proxy.dll
 C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.pdb
-C:\_git\microsoft-fhir-proxy\src\Microsoft.Fhir.Proxy\obj\Debug\net5.0\Microsoft.Fhir.Proxy.csproj.AssemblyReference.cache

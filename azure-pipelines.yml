@@ -10,7 +10,7 @@ pool:
   vmImage: windows-2019
 
 variables:
-- group: microsoft-fhir-proxy-ci
+- group: microsoft-fhir-proxy-ci-vars
 - name: major
   value: '0'
 - name: minor
@@ -29,6 +29,30 @@ steps:
     KeyVaultName: 'fhir-proxy-ci-vault'
     SecretsFilter: '*'
     RunAsPreJob: true
+- task: AzureCLI@2
+  displayName: 'Set Environment Variables'
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |        
+        Write-Host "##vso[task.setvariable variable=PROXY_TENANT_ID]$(proxy-tenant-id)"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_ID]$(kv-client-id)"
+        Write-Host "##vso[task.setvariable variable=KV_CLIENT_SECRET]$(kv-client-secret)"
+        Write-Host "##vso[task.setvariable variable=FHIR_SERVER_URL]$(fhir-api-url)"
+        Write-Host "##vso[task.setvariable variable=STORAGE_CONNECTIONSTRING]$(storage-connectionstring-test)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EVENTHUB_PROCESSORCONTAINER_NAME]$(proxy-eventhub-processorcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EVENTHUB_BLOBCONTAINER_NAME]$(proxy-eventhub-blobcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EVENTHUB_SKU]$(proxy-eventhub-sku)"
+        Write-Host "##vso[task.setvariable variable=PROXY_STORAGE_CONNECTIONSTRING]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EVENTHUB_NAME]$(proxy-eventhub-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EVENTHUB_CONNECTIONSTRING]$(proxy-eventhub-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_CONNECTIONSTRING]$(proxy-servicebus-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_TOPIC]$(proxy-servicebus-topic)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_SUBSCRIPTION]$(proxy-servicebus-subscription)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_SKU]$(proxy-servicebus-sku)"
+        Write-Host "##vso[task.setvariable variable=PROXY_SERVICEBUS_BLOBCONTAINER_NAME]$(proxy-servicebus-blobcontainer-name)"
+
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
   inputs:
@@ -41,12 +65,15 @@ steps:
     packageType: 'sdk'
     version: '3.1.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.8.x'
+    checkLatest: true
 - task: CredScan@3
   inputs:
     outputFormat: 'csv'
     toolVersion: Latest
     verboseOutput: true
-
 - task: DotNetCoreCLI@2
   displayName: 'Install dotnet format'
   inputs:
@@ -74,5 +101,5 @@ steps:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '**/tests/*.csproj'
+    projects: '**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
