@@ -112,7 +112,7 @@ steps:
     packagesToPack: '**/Microsoft.Fhir.Proxy.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
-    versionEnvVar: packv
+    versionEnvVar: packageversion
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
@@ -121,7 +121,7 @@ steps:
     packagesToPack: '**/Microsoft.Fhir.Proxy.Extensions.Channels.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
-    versionEnvVar: packv
+    versionEnvVar: packageversion
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
@@ -130,7 +130,7 @@ steps:
     packagesToPack: '**/Microsoft.Fhir.Proxy.Storage.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
-    versionEnvVar: packv
+    versionEnvVar: packageversion
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
 - task: NuGetCommand@2
@@ -140,5 +140,5 @@ steps:
     nuGetFeedType: 'internal'
     publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
     versioningScheme: 'byEnvVar'
-    versionEnvVar: packv
+    versionEnvVar: packageversion
     allowPackageConflicts: true
