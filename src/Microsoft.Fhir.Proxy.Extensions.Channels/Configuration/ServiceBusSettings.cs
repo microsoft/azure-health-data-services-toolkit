@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
 {
@@ -13,7 +9,14 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
     {
         public ServiceBusSettings()
         {
-
+            string sku = Environment.GetEnvironmentVariable(Constants.ServiceBusSku) ?? null;
+            _ = Enum.TryParse(sku, out ServiceBusSkuType skuType);
+            ServiceBusSku = skuType;
+            ServiceBusConnectionString ??= Environment.GetEnvironmentVariable(Constants.ServiceBusConnectionString) ?? null;
+            ServiceBusTopic ??= Environment.GetEnvironmentVariable(Constants.ServiceBusTopic) ?? null;
+            ServiceBusSubscription ??= Environment.GetEnvironmentVariable(Constants.ServiceBusSubscription) ?? null;
+            ServiceBusBlobConnectionString ??= Environment.GetEnvironmentVariable(Constants.ServiceBusStorageConnectionString) ?? null;
+            ServiceBusBlobContainer ??= Environment.GetEnvironmentVariable(Constants.ServiceBusBlobContainerName);
         }
 
         [JsonProperty("servicebusConnectionString")]
@@ -23,13 +26,13 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
         public ServiceBusSkuType ServiceBusSku { get; set; }
 
         [JsonProperty("topic")]
-        public string Topic { get; set; }
+        public string ServiceBusTopic { get; set; }
 
         [JsonProperty("subscription")]
-        public string Subscription { get; set; }
+        public string ServiceBusSubscription { get; set; }
 
         [JsonProperty("blobConnectionString")]
-        public string BlobConnectionString { get; set; }
+        public string ServiceBusBlobConnectionString { get; set; }
 
         [JsonProperty("servicebusBlobContainer")]
         public string ServiceBusBlobContainer { get; set; }
