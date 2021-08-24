@@ -49,12 +49,12 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             settings = new()
             {
-                BlobConnectionString = Environment.GetEnvironmentVariable(storageName),
+                ServiceBusBlobConnectionString = Environment.GetEnvironmentVariable(storageName),
                 ServiceBusBlobContainer = Environment.GetEnvironmentVariable(serviceBusBlobContainerName),
                 ServiceBusConnectionString = Environment.GetEnvironmentVariable(servieBusConnectionName),
                 ServiceBusSku = (ServiceBusSkuType)Enum.Parse(typeof(ServiceBusSkuType), Environment.GetEnvironmentVariable(serviceBusSku), true),
-                Topic = Environment.GetEnvironmentVariable(topicName),
-                Subscription = Environment.GetEnvironmentVariable(subscriptionName),
+                ServiceBusTopic = Environment.GetEnvironmentVariable(topicName),
+                ServiceBusSubscription = Environment.GetEnvironmentVariable(subscriptionName),
             };
         }
 
@@ -62,7 +62,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         public async Task CleanupTest()
         {
             ServiceBusClient client = new(settings.ServiceBusConnectionString);
-            var receiver = client.CreateReceiver(settings.Topic, settings.Subscription);
+            var receiver = client.CreateReceiver(settings.ServiceBusTopic, settings.ServiceBusSubscription);
             while (await receiver.PeekMessageAsync() != null)
             {
                 var msg = await receiver.ReceiveMessageAsync();
@@ -74,7 +74,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         public async Task InitialTest()
         {
             ServiceBusClient client = new(settings.ServiceBusConnectionString);
-            var receiver = client.CreateReceiver(settings.Topic, settings.Subscription);
+            var receiver = client.CreateReceiver(settings.ServiceBusTopic, settings.ServiceBusSubscription);
             while (await receiver.PeekMessageAsync() != null)
             {
                 var msg = await receiver.ReceiveMessageAsync();

@@ -8,6 +8,14 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
     {
         public EventHubSettings()
         {
+            string sku = Environment.GetEnvironmentVariable(Constants.EventHubSku) ?? null;
+            _ = Enum.TryParse(sku, out EventHubSkuType skuType);
+            EventHubSku = skuType;
+            EventHubConnectionString ??= Environment.GetEnvironmentVariable(Constants.EventHubConnectionString) ?? null;
+            EventHubName ??= Environment.GetEnvironmentVariable(Constants.EventHubName) ?? null;
+            BlobConnectionString ??= Environment.GetEnvironmentVariable(Constants.EventHubStorageConnectionString) ?? null;
+            BlobContainer ??= Environment.GetEnvironmentVariable(Constants.EventHubBlobContainerName) ?? null;
+            EventHubProcessorContainer ??= Environment.GetEnvironmentVariable(Constants.EventHubProcessorContainerName) ?? null;
         }
 
         /// <summary>

@@ -64,9 +64,9 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
 
         public async Task OpenAsync()
         {
-            storage = new StorageBlob(settings.BlobConnectionString);
+            storage = new StorageBlob(settings.ServiceBusBlobConnectionString);
             client = new(settings.ServiceBusConnectionString);
-            sender = client.CreateSender(settings.Topic);
+            sender = client.CreateSender(settings.ServiceBusTopic);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
@@ -117,7 +117,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
                     ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete
                 };
 
-                processor = client.CreateProcessor(settings.Topic, settings.Subscription, options);
+                processor = client.CreateProcessor(settings.ServiceBusTopic, settings.ServiceBusSubscription, options);
                 processor.ProcessErrorAsync += async (args) =>
                 {
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
@@ -140,7 +140,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
                     }
                     else
                     {
-                        logger?.LogWarning($"{Name}-{Id} with topic {settings.Topic} and subscription {settings.Subscription} does not understand message.");
+                        logger?.LogWarning($"{Name}-{Id} with topic {settings.ServiceBusTopic} and subscription {settings.ServiceBusSubscription} does not understand message.");
                     }
                 };
 
