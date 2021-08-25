@@ -3,12 +3,14 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Fhir.Proxy.Clients;
+using Microsoft.Fhir.Proxy.Configuration;
 using Microsoft.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,28 +23,20 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
         private static HttpEchoListener listener;
         private static X509Certificate2 certificate;
         private static readonly int port = 1888;
+        private static ServiceConfig config;
 
         public RestRequestTests()
         {
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FHIR_SERVER_URL")))
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
-                    .Build();
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddEnvironmentVariables("PROXY_");
+            IConfigurationRoot root = builder.Build();
+            config = new ServiceConfig();
+            root.Bind(config);
 
-                Environment.SetEnvironmentVariable("PROXY_CLIENT_ID", configuration.GetValue<string>("PROXY_CLIENT_ID"));
-                Environment.SetEnvironmentVariable("PROXY_CLIENT_SECRET", configuration.GetValue<string>("PROXY_CLIENT_SECRET"));
-                Environment.SetEnvironmentVariable("PROXY_TENANT_ID", configuration.GetValue<string>("PROXY_TENANT_ID"));
-            }
-
-            string clientId = Environment.GetEnvironmentVariable("PROXY_CLIENT_ID");
-            string tenantId = Environment.GetEnvironmentVariable("PROXY_TENANT_ID");
-            string secret = Environment.GetEnvironmentVariable("PROXY_CLIENT_SECRET");
-            string keyVaultUriString = "https://fhir-proxy-ci-vault.vault.azure.net/";
-            string certificationName = "localhost";
-            ClientSecretCredential cred = new(tenantId, clientId, secret);
-            CertificateClient client = new(new Uri(keyVaultUriString), cred);
-            Response<KeyVaultCertificateWithPolicy> resp = client.GetCertificate(certificationName);
+            ClientSecretCredential cred = new(config.TenantId, config.ClientId, config.ClientSecret);
+            CertificateClient client = new(new Uri(config.KeyVaultUri), cred);
+            Response<KeyVaultCertificateWithPolicy> resp = client.GetCertificate(config.KeyVaultCertificateName);
             certificate = new(resp.Value.Cer);
         }
 
