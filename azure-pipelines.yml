@@ -57,7 +57,9 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusSubscription]$(proxy-servicebus-subscription)"
         Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusSku]$(proxy-servicebus-sku)"
         Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobConnectionString]$(proxy-storage-connectionstring)"
-        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobContainer]$(proxy-servicebus-blobcontainer-name)"        
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobContainer]$(proxy-servicebus-blobcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelConnectionString]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelContainer]$(proxy-blobchannel-container-name)"
         
 
 - task: UseDotNet@2
