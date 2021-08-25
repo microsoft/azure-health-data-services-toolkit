@@ -19,9 +19,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
     public class BlobChannelTests
     {
         private static ConcurrentQueue<string> cleanupContainers;
-        private static string connectionString;
         private static StorageBlob storage;
-        private static readonly string storageVariableName = "STORAGE_CONNECTIONSTRING";
         private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
         private static BlobStorageConfig config;
