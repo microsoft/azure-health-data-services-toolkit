@@ -17,7 +17,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
     [TestClass]
     public class EventHubChannelTests
     {
-        private static EventHubConfig settings;
+        private static EventHubConfig config;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -26,8 +26,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
-            settings = new EventHubConfig();
-            root.Bind(settings);
+            config = new EventHubConfig();
+            root.Bind(config);
 
             Console.WriteLine(context.TestName);
         }
@@ -37,8 +37,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         {
             //update the checkpoint
             string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-            var storageClient = new BlobContainerClient(settings.EventHubBlobConnectionString, settings.EventHubBlobContainer);
-            var processor = new EventProcessorClient(storageClient, consumerGroup, settings.EventHubConnectionString, settings.EventHubName);
+            var storageClient = new BlobContainerClient(config.EventHubBlobConnectionString, config.EventHubBlobContainer);
+            var processor = new EventProcessorClient(storageClient, consumerGroup, config.EventHubConnectionString, config.EventHubName);
 
             processor.ProcessEventAsync += async (args) =>
             {
@@ -74,7 +74,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
             byte[] message = Encoding.UTF8.GetBytes(contentString);
 
-            EventHubChannel channel = new(settings);
+            EventHubChannel channel = new(config);
             channel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
@@ -113,7 +113,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            EventHubChannel channel = new(settings);
+            EventHubChannel channel = new(config);
             channel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");

@@ -2,11 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Fhir.Proxy.Channels;
 using Microsoft.Fhir.Proxy.Extensions.Channels;
+using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,25 +24,22 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         private static readonly string storageVariableName = "STORAGE_CONNECTIONSTRING";
         private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
+        private static BlobStorageConfig config;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
+
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddEnvironmentVariables("PROXY_");
+            IConfigurationRoot root = builder.Build();
+            config = new BlobStorageConfig();
+            root.Bind(config);
             random = new Random();
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(storageVariableName)))
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
-                    .Build();
-
-                Environment.SetEnvironmentVariable(storageVariableName, configuration.GetValue<string>(storageVariableName));
-            }
-
-            connectionString = Environment.GetEnvironmentVariable(storageVariableName);
-            storage = new StorageBlob(connectionString);
-
             cleanupContainers = new();
+            storage = new StorageBlob(config.BlobStorageChannelConnectionString);
         }
 
         [TestCleanup]
@@ -52,6 +51,12 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
                 {
                     await storage.DeleteContainerIfExistsAsync(container);
                 }
+            }
+
+            List<string> names = await storage.ListBlobsAsync(config.BlobStorageChannelContainer);
+            foreach (string blobName in names)
+            {
+                await storage.DeleteBlobAsync(config.BlobStorageChannelContainer, blobName);
             }
         }
 
@@ -77,7 +82,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -85,12 +90,65 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(message, new object[] { container, blob, contentType, type, null, conditions, token });
+            await channel.SendAsync(message, new object[] { blob, container, contentType, type, null, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadBlockBlobAsync(container, blob);
 
             string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(content, actualContent, "Content mismatch.");
+        }
+
+        [TestMethod]
+        public async Task WriteBlockBlob_WithoutMetadata_ConfigContainerTest()
+        {
+            string content = "hi";
+            byte[] message = Encoding.UTF8.GetBytes(content);
+            string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
+            string blob = $"{GetRandomName()}.txt";
+            string contentType = "text/plain";
+            Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Block;
+            BlobRequestConditions conditions = null;
+            CancellationToken token = CancellationToken.None;
+
+            IChannel channel = new BlobStorageChannel(config);
+            channel.OnError += (i, args) =>
+            {
+                Assert.Fail();
+            };
+
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
+            await channel.SendAsync(message, new object[] { blob, null, contentType, type, null, conditions, token });
+
+            BlobDownloadResult result = await storage.DownloadBlockBlobAsync(config.BlobStorageChannelContainer, blob);
+
+            string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
+            Assert.AreEqual(content, actualContent, "Content mismatch.");
+        }
+
+        [TestMethod]
+        public async Task WriteBlockBlob_WithoutMetadata_EmptyParams_Test()
+        {
+            string content = "{ \"name\": \"hi\" }";
+            byte[] message = Encoding.UTF8.GetBytes(content);
+            Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Block;
+            BlobRequestConditions conditions = null;
+            CancellationToken token = CancellationToken.None;
+
+            IChannel channel = new BlobStorageChannel(config);
+            channel.OnError += (i, args) =>
+            {
+                Assert.Fail();
+            };
+
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
+            await channel.SendAsync(message, new object[] { null, null, null, type, null, conditions, token });
+
+            List<string> names = await storage.ListBlobsAsync(config.BlobStorageChannelContainer);
+
+            Assert.IsTrue(names.Count == 1, "Invalid # of blobs in container.");
         }
 
         [TestMethod]
@@ -113,7 +171,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -121,7 +179,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(message, new object[] { container, blob, contentType, type, metadata, conditions, token });
+            await channel.SendAsync(message, new object[] { blob, container, contentType, type, metadata, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadBlockBlobAsync(container, blob);
 
@@ -145,7 +203,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -153,7 +211,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(message, new object[] { container, blob, contentType, type, null, conditions, token });
+            await channel.SendAsync(message, new object[] { blob, container, contentType, type, null, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
 
@@ -178,7 +236,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -186,10 +244,44 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(content1, new object[] { container, blob, contentType, type, null, conditions, token });
-            await channel.SendAsync(content2, new object[] { container, blob, contentType, type, null, conditions, token });
+            await channel.SendAsync(content1, new object[] { blob, container, contentType, type, null, conditions, token });
+            await channel.SendAsync(content2, new object[] { blob, container, contentType, type, null, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
+
+            string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
+            Assert.AreEqual(contentString, actualContent, "Content mismatch.");
+        }
+
+        [TestMethod]
+        public async Task WriteAppendBlob_WithoutMetadata_WithAppending_ConfigContainerTest()
+        {
+            string contentString1 = "hi";
+            byte[] content1 = Encoding.UTF8.GetBytes(contentString1);
+            string contentString2 = "\nthere";
+            byte[] content2 = Encoding.UTF8.GetBytes(contentString2);
+            string contentString = $"{contentString1}{contentString2}";
+
+            string container = GetRandomName();
+            cleanupContainers.Enqueue(container);
+            string blob = $"{GetRandomName()}.txt";
+            string contentType = "text/plain";
+            Extensions.Channels.BlobType type = Extensions.Channels.BlobType.Append;
+            BlobRequestConditions conditions = null;
+            CancellationToken token = CancellationToken.None;
+
+            IChannel channel = new BlobStorageChannel(config);
+            channel.OnError += (i, args) =>
+            {
+                Assert.Fail();
+            };
+
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
+            await channel.SendAsync(content1, new object[] { blob, null, contentType, type, null, conditions, token });
+            await channel.SendAsync(content2, new object[] { blob, null, contentType, type, null, conditions, token });
+
+            BlobDownloadResult result = await storage.DownloadAppendBlobAsync(config.BlobStorageChannelContainer, blob);
 
             string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualContent, "Content mismatch.");
@@ -215,7 +307,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -223,7 +315,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(message, new object[] { container, blob, contentType, type, metadata, conditions, token });
+            await channel.SendAsync(message, new object[] { blob, container, contentType, type, metadata, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
 
@@ -258,7 +350,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(connectionString);
+            IChannel channel = new BlobStorageChannel(config);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -271,8 +363,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await channel.SendAsync(content1, new object[] { container, blob, contentType, type, metadata, conditions, token });
-            await channel.SendAsync(content2, new object[] { container, blob, contentType, type, null, conditions, token });
+            await channel.SendAsync(content1, new object[] { blob, container, contentType, type, metadata, conditions, token });
+            await channel.SendAsync(content2, new object[] { blob, container, contentType, type, null, conditions, token });
 
             BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
 

@@ -10,8 +10,9 @@ namespace Microsoft.Fhir.Proxy.Tests.Configuration
     public class ConfigurationTests
     {
         private static ServiceConfig config;
-        private static EventHubConfig eventHubSettings;
-        private static ServiceBusConfig serviceBusSettings;
+        private static EventHubConfig eventHubConfig;
+        private static ServiceBusConfig serviceBusConfig;
+        private static BlobStorageConfig blobConfig;
 
         public ConfigurationTests()
         {
@@ -20,11 +21,13 @@ namespace Microsoft.Fhir.Proxy.Tests.Configuration
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             config = new ServiceConfig();
-            eventHubSettings = new EventHubConfig();
-            serviceBusSettings = new ServiceBusConfig();
+            eventHubConfig = new EventHubConfig();
+            serviceBusConfig = new ServiceBusConfig();
+            blobConfig = new BlobStorageConfig();
             root.Bind(config);
-            root.Bind(eventHubSettings);
-            root.Bind(serviceBusSettings);
+            root.Bind(eventHubConfig);
+            root.Bind(serviceBusConfig);
+            root.Bind(blobConfig);
         }
 
         [TestMethod]
@@ -44,23 +47,23 @@ namespace Microsoft.Fhir.Proxy.Tests.Configuration
         [TestMethod]
         public void EventHubSettings_Test()
         {
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubSettings.EventHubBlobConnectionString));
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubSettings.EventHubBlobContainer));
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubSettings.EventHubConnectionString));
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubSettings.EventHubName));
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubSettings.EventHubProcessorContainer));
-            Assert.IsTrue(eventHubSettings.EventHubSku == Extensions.Channels.EventHubSkuType.Basic);
+            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubBlobConnectionString));
+            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubBlobContainer));
+            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubConnectionString));
+            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubName));
+            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubProcessorContainer));
+            Assert.IsTrue(eventHubConfig.EventHubSku == Extensions.Channels.EventHubSkuType.Basic);
         }
 
         [TestMethod]
         public void ServiceBusSettings_Test()
         {
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusSettings.ServiceBusBlobConnectionString));
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusSettings.ServiceBusBlobContainer));
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusSettings.ServiceBusConnectionString));
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusSettings.ServiceBusSubscription));
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusSettings.ServiceBusTopic));
-            Assert.IsTrue(serviceBusSettings.ServiceBusSku == Extensions.Channels.ServiceBusSkuType.Standard);
+            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusBlobConnectionString));
+            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusBlobContainer));
+            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusConnectionString));
+            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusSubscription));
+            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusTopic));
+            Assert.IsTrue(serviceBusConfig.ServiceBusSku == Extensions.Channels.ServiceBusSkuType.Standard);
         }
     }
 }

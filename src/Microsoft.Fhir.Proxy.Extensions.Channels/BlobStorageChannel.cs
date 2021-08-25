@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Fhir.Proxy.Channels;
+using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Fhir.Proxy.Storage;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,16 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
 {
     public class BlobStorageChannel : IChannel
     {
-        public BlobStorageChannel(string connectionString, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
+        public BlobStorageChannel(BlobStorageConfig config, ILogger logger = null)
         {
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
-            storage = new StorageBlob(connectionString, initialTransferSize, maxConcurrency, maxTransferSize, logger);
+            storage = new StorageBlob(config.BlobStorageChannelConnectionString, config.InitialTransferSize, config.MaxConcurrency, config.MaxTransferSize, logger);
+            blobContainer = config.BlobStorageChannelContainer;
         }
 
         private StorageBlob storage;
+        private string blobContainer;
         private bool disposed;
         private ChannelState state;
         private readonly ILogger logger;
@@ -91,10 +94,10 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         /// <param name="items"></param>
         /// <returns></returns>
         /// <remarks>The params object must be in the following order:
-        /// 1. string container name
-        /// 2. string blob name
-        /// 3. string content type
-        /// 4. Blob Type
+        /// 1. string blob name; if omitted a random name is used with .json extension.
+        /// 2. string container name; if omitted default is container from BlobConfig
+        /// 3. string content type; if omitted the default is "application/json"
+        /// 4. Blob Type; if omitted the default is Block
         /// 5. IDictionary<string,string> metadata, which can be null to omit.
         /// 6. AccessTier tier, which can be null to use default.
         /// 7. BlobRequestConditions conditions, which can be null to omit.
@@ -103,8 +106,13 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         {
             try
             {
-                string container = (string)items[0];
-                string blobName = (string)items[1];
+                items[0] ??= $"{Guid.NewGuid().ToString()}T{DateTime.UtcNow.ToString("HH-MM-ss-fffff")}.json";
+                items[1] ??= blobContainer;
+                items[2] ??= "application/json";
+                items[3] ??= BlobType.Block.ToString();
+
+                string blobName = (string)items[0];
+                string container = (string)items[1];
                 string contentType = (string)items[2];
                 BlobType type = (BlobType)items[3];
                 IDictionary<string, string> metadata = items[4] != null ? (Dictionary<string, string>)items[4] : null;

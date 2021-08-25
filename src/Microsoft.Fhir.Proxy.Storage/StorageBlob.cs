@@ -124,6 +124,26 @@ namespace Microsoft.Fhir.Proxy.Storage
         #endregion
 
         #region Read Methods
+
+        public async Task<List<string>> ListBlobsAsync(string containerName, int? segmentSize = null)
+        {
+            BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
+            var result = containerClient.GetBlobsAsync()
+                .AsPages(default, segmentSize);
+
+            List<string> blobNames = new();
+            await foreach (Azure.Page<BlobItem> blobPage in result)
+            {
+                foreach (BlobItem blobItem in blobPage.Values)
+                {
+                    blobNames.Add(blobItem.Name);
+                }
+            }
+
+            return blobNames;
+        }
+
+
         public async Task<byte[]> ReadBlockBlobAsync(string containerName, string blobName, BlobOpenReadOptions options, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
