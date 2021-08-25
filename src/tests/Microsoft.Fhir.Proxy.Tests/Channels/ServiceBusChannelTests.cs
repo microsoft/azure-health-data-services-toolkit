@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,41 +22,20 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
 
         }
 
-        private static readonly string storageName = "PROXY_STORAGE_CONNECTIONSTRING";
-        private static readonly string servieBusConnectionName = "PROXY_SERVICEBUS_CONNECTIONSTRING";
-        private static readonly string topicName = "PROXY_SERVICEBUS_TOPIC";
-        private static readonly string subscriptionName = "PROXY_SERVICEBUS_SUBSCRIPTION";
-        private static readonly string serviceBusBlobContainerName = "PROXY_SERVICEBUS_BLOBCONTAINER_NAME";
-        private static readonly string serviceBusSku = "PROXY_SERVICEBUS_SKU";
-        private static ServiceBusSettings settings;
+        private static ServiceBusConfig settings;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(servieBusConnectionName)))
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
-                    .Build();
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddEnvironmentVariables("PROXY_");
+            IConfigurationRoot root = builder.Build();
+            settings = new ServiceBusConfig();
+            root.Bind(settings);
 
-                Environment.SetEnvironmentVariable(servieBusConnectionName, configuration.GetValue<string>(servieBusConnectionName));
-                Environment.SetEnvironmentVariable(storageName, configuration.GetValue<string>(storageName));
-                Environment.SetEnvironmentVariable(serviceBusSku, configuration.GetValue<string>(serviceBusSku));
-                Environment.SetEnvironmentVariable(serviceBusBlobContainerName, configuration.GetValue<string>(serviceBusBlobContainerName));
-                Environment.SetEnvironmentVariable(topicName, configuration.GetValue<string>(topicName));
-                Environment.SetEnvironmentVariable(subscriptionName, configuration.GetValue<string>(subscriptionName));
-            }
-
-            settings = new()
-            {
-                ServiceBusBlobConnectionString = Environment.GetEnvironmentVariable(storageName),
-                ServiceBusBlobContainer = Environment.GetEnvironmentVariable(serviceBusBlobContainerName),
-                ServiceBusConnectionString = Environment.GetEnvironmentVariable(servieBusConnectionName),
-                ServiceBusSku = (ServiceBusSkuType)Enum.Parse(typeof(ServiceBusSkuType), Environment.GetEnvironmentVariable(serviceBusSku), true),
-                ServiceBusTopic = Environment.GetEnvironmentVariable(topicName),
-                ServiceBusSubscription = Environment.GetEnvironmentVariable(subscriptionName),
-            };
+            Console.WriteLine(context.TestName);
         }
 
         [TestCleanup]

@@ -12,7 +12,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
 {
     public class ServiceBusChannel : IChannel
     {
-        public ServiceBusChannel(ServiceBusSettings settings, ILogger logger = null)
+        public ServiceBusChannel(ServiceBusConfig settings, ILogger logger = null)
         {
             this.settings = settings;
             this.logger = logger;
@@ -20,7 +20,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
 
         private ChannelState state;
         private readonly ILogger logger;
-        private readonly ServiceBusSettings settings;
+        private readonly ServiceBusConfig settings;
         private StorageBlob storage;
         private bool disposed;
         private ServiceBusClient client;
