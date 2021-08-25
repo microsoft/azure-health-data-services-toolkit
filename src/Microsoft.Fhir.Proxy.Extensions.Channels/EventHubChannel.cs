@@ -15,7 +15,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
 {
     public class EventHubChannel : IChannel
     {
-        public EventHubChannel(EventHubSettings settings, ILogger logger = null)
+        public EventHubChannel(EventHubConfig settings, ILogger logger = null)
         {
             this.settings = settings;
             this.logger = logger;
@@ -24,7 +24,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         private ChannelState state;
         private EventHubProducerClient sender;
         private EventProcessorClient processor;
-        private readonly EventHubSettings settings;
+        private readonly EventHubConfig settings;
         private readonly ILogger logger;
         private StorageBlob storage;
         private bool disposed;
@@ -67,7 +67,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         public async Task OpenAsync()
         {
             sender = new EventHubProducerClient(settings.EventHubConnectionString, settings.EventHubName);
-            storage = new StorageBlob(settings.BlobConnectionString);
+            storage = new StorageBlob(settings.EventHubBlobConnectionString);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
@@ -93,7 +93,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-                var storageClient = new BlobContainerClient(settings.BlobConnectionString, settings.EventHubProcessorContainer);
+                var storageClient = new BlobContainerClient(settings.EventHubBlobConnectionString, settings.EventHubProcessorContainer);
                 processor = new EventProcessorClient(storageClient, consumerGroup, settings.EventHubConnectionString, settings.EventHubName);
 
                 processor.ProcessEventAsync += async (args) =>
@@ -177,13 +177,13 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         {
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(settings.BlobContainer, blob, contentType, message);
+            await storage.WriteBlockBlobAsync(settings.EventHubBlobContainer, blob, contentType, message);
             return blob;
         }
 
         private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
         {
-            EventDataByReference byref = new(settings.BlobContainer, blobName, contentType);
+            EventDataByReference byref = new(settings.EventHubBlobContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             EventData data = new(Encoding.UTF8.GetBytes(json));
             data.Properties.Add("PassedBy", typeName);

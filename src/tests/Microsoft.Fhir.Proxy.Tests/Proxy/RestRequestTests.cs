@@ -30,14 +30,14 @@ namespace Microsoft.Fhir.Proxy.Tests.Proxy
                     .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
                     .Build();
 
-                Environment.SetEnvironmentVariable("KV_CLIENT_ID", configuration.GetValue<string>("KV_CLIENT_ID"));
-                Environment.SetEnvironmentVariable("KV_CLIENT_SECRET", configuration.GetValue<string>("KV_CLIENT_SECRET"));
+                Environment.SetEnvironmentVariable("PROXY_CLIENT_ID", configuration.GetValue<string>("PROXY_CLIENT_ID"));
+                Environment.SetEnvironmentVariable("PROXY_CLIENT_SECRET", configuration.GetValue<string>("PROXY_CLIENT_SECRET"));
                 Environment.SetEnvironmentVariable("PROXY_TENANT_ID", configuration.GetValue<string>("PROXY_TENANT_ID"));
             }
 
-            string clientId = Environment.GetEnvironmentVariable("KV_CLIENT_ID");
+            string clientId = Environment.GetEnvironmentVariable("PROXY_CLIENT_ID");
             string tenantId = Environment.GetEnvironmentVariable("PROXY_TENANT_ID");
-            string secret = Environment.GetEnvironmentVariable("KV_CLIENT_SECRET");
+            string secret = Environment.GetEnvironmentVariable("PROXY_CLIENT_SECRET");
             string keyVaultUriString = "https://fhir-proxy-ci-vault.vault.azure.net/";
             string certificationName = "localhost";
             ClientSecretCredential cred = new(tenantId, clientId, secret);

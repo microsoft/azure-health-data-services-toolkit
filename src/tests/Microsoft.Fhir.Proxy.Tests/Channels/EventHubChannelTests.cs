@@ -4,11 +4,11 @@ using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Fhir.Proxy.Extensions.Channels;
 using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
-using Microsoft.Fhir.Proxy.Storage;
 using Microsoft.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,43 +17,19 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
     [TestClass]
     public class EventHubChannelTests
     {
-        private static readonly string storageVariableName = "PROXY_STORAGE_CONNECTIONSTRING";
-        private static readonly string eventHubConnectionVariableName = "PROXY_EVENTHUB_CONNECTIONSTRING";
-        private static readonly string eventHubVariableName = "PROXY_EVENTHUB_NAME";
-        private static readonly string eventHubSkuVariableName = "PROXY_EVENTHUB_SKU";
-        private static readonly string eventHubBlobContainerName = "PROXY_EVENTHUB_BLOBCONTAINER_NAME";
-        private static readonly string eventHubProcessorContainerName = "PROXY_EVENTHUB_PROCESSORCONTAINER_NAME";
-        private static EventHubSettings settings;
-
-
+        private static EventHubConfig settings;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddEnvironmentVariables("PROXY_");
+            IConfigurationRoot root = builder.Build();
+            settings = new EventHubConfig();
+            root.Bind(settings);
+
             Console.WriteLine(context.TestName);
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(eventHubConnectionVariableName)))
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
-                    .Build();
-
-                Environment.SetEnvironmentVariable(eventHubConnectionVariableName, configuration.GetValue<string>(eventHubConnectionVariableName));
-                Environment.SetEnvironmentVariable(eventHubVariableName, configuration.GetValue<string>(eventHubVariableName));
-                Environment.SetEnvironmentVariable(storageVariableName, configuration.GetValue<string>(storageVariableName));
-                Environment.SetEnvironmentVariable(eventHubSkuVariableName, configuration.GetValue<string>(eventHubSkuVariableName));
-                Environment.SetEnvironmentVariable(eventHubBlobContainerName, configuration.GetValue<string>(eventHubBlobContainerName));
-                Environment.SetEnvironmentVariable(eventHubProcessorContainerName, configuration.GetValue<string>(eventHubProcessorContainerName));
-            }
-
-            settings = new()
-            {
-                BlobConnectionString = Environment.GetEnvironmentVariable(storageVariableName),
-                BlobContainer = Environment.GetEnvironmentVariable(eventHubBlobContainerName),
-                EventHubConnectionString = Environment.GetEnvironmentVariable(eventHubConnectionVariableName),
-                EventHubName = Environment.GetEnvironmentVariable(eventHubVariableName),
-                EventHubSku = (EventHubSkuType)Enum.Parse(typeof(EventHubSkuType), Environment.GetEnvironmentVariable(eventHubSkuVariableName), true),
-                EventHubProcessorContainer = Environment.GetEnvironmentVariable(eventHubProcessorContainerName)
-            };
         }
 
         [TestInitialize]
@@ -61,8 +37,8 @@ namespace Microsoft.Fhir.Proxy.Tests.Channels
         {
             //update the checkpoint
             string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-            var storageClient = new BlobContainerClient(Environment.GetEnvironmentVariable(storageVariableName), Environment.GetEnvironmentVariable(eventHubProcessorContainerName));
-            var processor = new EventProcessorClient(storageClient, consumerGroup, Environment.GetEnvironmentVariable(eventHubConnectionVariableName), Environment.GetEnvironmentVariable(eventHubVariableName));
+            var storageClient = new BlobContainerClient(settings.EventHubBlobConnectionString, settings.EventHubBlobContainer);
+            var processor = new EventProcessorClient(storageClient, consumerGroup, settings.EventHubConnectionString, settings.EventHubName);
 
             processor.ProcessEventAsync += async (args) =>
             {

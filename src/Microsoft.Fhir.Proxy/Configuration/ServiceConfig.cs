@@ -14,16 +14,6 @@ namespace Microsoft.Fhir.Proxy.Configuration
     {
         public ServiceConfig()
         {
-            ClientId ??= Environment.GetEnvironmentVariable(Constants.ClientId) ?? null;
-            ClientSecret ??= Environment.GetEnvironmentVariable(Constants.ClientSecret) ?? null;
-            Tenant ??= Environment.GetEnvironmentVariable(Constants.TenantId) ?? null;
-            FhirServerUrl ??= Environment.GetEnvironmentVariable(Constants.FhirServerUrl) ?? null;
-            KeyVaultUriString ??= Environment.GetEnvironmentVariable(Constants.KeyVaultUriString) ?? null;
-            KeyVaultCertificateName ??= Environment.GetEnvironmentVariable(Constants.KeyVaultCertificateName) ?? null;
-            InstrumentationKey ??= Environment.GetEnvironmentVariable(Constants.InstrumentationKey) ?? null;
-            string logLevel = Environment.GetEnvironmentVariable(Constants.LogLevel) ?? null;
-            _ = Enum.TryParse(logLevel, out LogLevel loggingLevel);
-            LoggingLevel = loggingLevel;
         }
 
         private X509Certificate2 certificate;
@@ -34,8 +24,8 @@ namespace Microsoft.Fhir.Proxy.Configuration
         [JsonProperty("clientSecret")]
         public string ClientSecret { get; set; }
 
-        [JsonProperty("keyVaultUriString")]
-        public string KeyVaultUriString { get; set; }
+        [JsonProperty("keyVaultUri")]
+        public string KeyVaultUri { get; set; }
 
         [JsonProperty("keyVaultCertificateName")]
         public string KeyVaultCertificateName { get; set; }
@@ -46,11 +36,14 @@ namespace Microsoft.Fhir.Proxy.Configuration
             get
             {
                 if (!string.IsNullOrEmpty(KeyVaultCertificateName)
-                        && !string.IsNullOrEmpty(KeyVaultUriString)
-                        && certificate == null)
+                        && !string.IsNullOrEmpty(KeyVaultUri)
+                        && certificate == null
+                        && !string.IsNullOrEmpty(TenantId)
+                        && !string.IsNullOrEmpty(ClientId)
+                        && !string.IsNullOrEmpty(ClientSecret))
                 {
-                    ClientSecretCredential cred = new(Tenant, ClientId, ClientSecret);
-                    CertificateClient client = new(new Uri(KeyVaultUriString), cred);
+                    ClientSecretCredential cred = new(TenantId, ClientId, ClientSecret);
+                    CertificateClient client = new(new Uri(KeyVaultUri), cred);
                     Response<KeyVaultCertificateWithPolicy> resp = client.GetCertificate(KeyVaultCertificateName);
                     certificate = new(resp.Value.Cer);
                 }
@@ -59,8 +52,8 @@ namespace Microsoft.Fhir.Proxy.Configuration
             }
         }
 
-        [JsonProperty("tenant")]
-        public string Tenant { get; set; }
+        [JsonProperty("tenantId")]
+        public string TenantId { get; set; }
 
         [JsonProperty("fhirServiceUrl")]
         public string FhirServerUrl { get; set; }
