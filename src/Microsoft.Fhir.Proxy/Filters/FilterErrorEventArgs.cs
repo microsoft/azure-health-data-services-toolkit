@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Microsoft.Fhir.Proxy.Filters
+namespace Microsoft.Health.Fhir.Proxy.Filters
 {
     /// <summary>
     /// Filter error event arguments used when filters signal an error.

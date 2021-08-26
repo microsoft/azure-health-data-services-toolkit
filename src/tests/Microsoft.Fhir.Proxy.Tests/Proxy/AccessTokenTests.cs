@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Fhir.Proxy.Configuration;
-using Microsoft.Fhir.Proxy.Security;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Proxy
+namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class AccessTokenTests

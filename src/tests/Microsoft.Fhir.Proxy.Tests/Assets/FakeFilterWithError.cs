@@ -1,10 +1,10 @@
-﻿using Microsoft.Fhir.Proxy.Filters;
-using Microsoft.Fhir.Proxy.Pipelines;
+﻿using Microsoft.Health.Fhir.Proxy.Filters;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeFilterWithError : IFilter
     {

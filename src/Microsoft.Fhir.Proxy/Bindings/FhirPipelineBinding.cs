@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Clients;
-using Microsoft.Fhir.Proxy.Pipelines;
+using Microsoft.Health.Fhir.Proxy.Clients;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Bindings
+namespace Microsoft.Health.Fhir.Proxy.Bindings
 {
     /// <summary>
     /// A binding used to call the FHIR server and couples input/output pipelines or acts as terminator for an input pipeline.

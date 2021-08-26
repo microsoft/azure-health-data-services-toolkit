@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Channels
+namespace Microsoft.Health.Fhir.Proxy.Channels
 {
     public class ChannelCollection : ICollection<IChannel>, IList<IChannel>
     {

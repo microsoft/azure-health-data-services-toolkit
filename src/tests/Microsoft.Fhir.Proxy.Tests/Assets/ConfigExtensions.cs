@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Fhir.Proxy.Configuration;
-using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using System;
 using System.Reflection;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public static class ConfigExtensions
     {

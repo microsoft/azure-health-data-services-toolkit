@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Json
+namespace Microsoft.Health.Fhir.Proxy.Json
 {
     public class BundleEnumerator : IEnumerator<JToken>
     {
@@ -16,7 +16,7 @@ namespace Microsoft.Fhir.Proxy.Json
         private JArray array;
         private int index = -1;
         private bool disposed;
-        private bool ifNoneExist;
+        private readonly bool ifNoneExist;
 
         public JToken Current
         {

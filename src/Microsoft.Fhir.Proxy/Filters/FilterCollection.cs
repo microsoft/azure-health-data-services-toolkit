@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Filters
+namespace Microsoft.Health.Fhir.Proxy.Filters
 {
     public class FilterCollection : ICollection<IFilter>, IList<IFilter>
     {

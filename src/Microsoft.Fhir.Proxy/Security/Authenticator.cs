@@ -2,7 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Security
+namespace Microsoft.Health.Fhir.Proxy.Security
 {
     public class Authenticator
     {

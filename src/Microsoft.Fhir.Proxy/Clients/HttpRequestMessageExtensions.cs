@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Net.Http;
 
-namespace Microsoft.Fhir.Proxy.Clients
+namespace Microsoft.Health.Fhir.Proxy.Clients
 {
     public static class HttpRequestMessageExtensions
     {

@@ -1,9 +1,9 @@
-﻿using Microsoft.Fhir.Proxy.Json;
+﻿using Microsoft.Health.Fhir.Proxy.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-namespace Microsoft.Fhir.Proxy.Tests.JsonExtensions
+namespace Microsoft.Health.Fhir.Proxy.Tests.JsonExtensions
 {
     [TestClass]
     public class JTokenExtensionTests

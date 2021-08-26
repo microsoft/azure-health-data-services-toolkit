@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Fhir.Proxy.Configuration;
-using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 
-namespace Microsoft.Fhir.Proxy.Tests.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
 {
     [TestClass]
     public class ConfigurationTests

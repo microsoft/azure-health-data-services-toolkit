@@ -1,6 +1,6 @@
-﻿using Microsoft.Fhir.Proxy.Configuration;
+﻿using Microsoft.Health.Fhir.Proxy.Configuration;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     public class PipelineBuilder : IPipelineBuilder
     {

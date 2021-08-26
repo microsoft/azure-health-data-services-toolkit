@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Microsoft.Fhir.Proxy.Commands
+namespace Microsoft.Health.Fhir.Proxy.Commands
 {
     public class CommandException : Exception
     {

@@ -1,7 +1,7 @@
-﻿using Microsoft.Fhir.Proxy.Json;
+﻿using Microsoft.Health.Fhir.Proxy.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.Fhir.Proxy.Commands
+namespace Microsoft.Health.Fhir.Proxy.Commands
 {
     public class IsNullOrEmptyCommand : IExceptionCommand
     {

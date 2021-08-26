@@ -2,14 +2,14 @@
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Bindings;
-using Microsoft.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Bindings;
+using Microsoft.Health.Fhir.Proxy.Configuration;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     public sealed class AzureFunctionPipelineManager : IPipelineManager<HttpRequestData, HttpResponseData>
     {

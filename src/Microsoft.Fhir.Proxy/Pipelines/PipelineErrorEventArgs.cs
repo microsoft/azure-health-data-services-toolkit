@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     public class PipelineErrorEventArgs
     {

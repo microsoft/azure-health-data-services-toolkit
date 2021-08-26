@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     public static class Extensions
     {

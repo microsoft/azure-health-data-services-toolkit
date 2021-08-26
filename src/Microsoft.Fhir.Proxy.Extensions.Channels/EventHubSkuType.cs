@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     [Serializable]
     public enum EventHubSkuType

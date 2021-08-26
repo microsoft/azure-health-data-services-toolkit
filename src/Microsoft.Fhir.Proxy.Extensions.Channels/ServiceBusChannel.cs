@@ -1,14 +1,14 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Channels;
-using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
-using Microsoft.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     public class ServiceBusChannel : IChannel
     {

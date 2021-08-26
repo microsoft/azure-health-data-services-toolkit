@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Microsoft.Fhir.Proxy.Clients
+namespace Microsoft.Health.Fhir.Proxy.Clients
 {
     public class RestRequestBuilder
     {

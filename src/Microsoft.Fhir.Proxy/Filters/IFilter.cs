@@ -1,8 +1,8 @@
-﻿using Microsoft.Fhir.Proxy.Pipelines;
+﻿using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Filters
+namespace Microsoft.Health.Fhir.Proxy.Filters
 {
     /// <summary>
     /// IFilter interface to be implemented by filters.

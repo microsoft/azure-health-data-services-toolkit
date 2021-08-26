@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;
@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Storage
+namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
 {
     [TestClass]
     public class BlobStorageTests
@@ -28,7 +28,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Storage
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(storageVariableName)))
             {
                 var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
+                    .AddUserSecrets(typeof(Microsoft.Health.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
                     .Build();
 
                 Environment.SetEnvironmentVariable(storageVariableName, configuration.GetValue<string>(storageVariableName));

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 
-namespace Microsoft.Fhir.Proxy.Json
+namespace Microsoft.Health.Fhir.Proxy.Json
 {
     public static class JTokenExtensions
     {

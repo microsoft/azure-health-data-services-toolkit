@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
     public static class UriExtensions
     {

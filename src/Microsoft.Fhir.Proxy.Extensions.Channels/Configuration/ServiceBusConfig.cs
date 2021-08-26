@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration
 {
     [Serializable]
     [JsonObject]

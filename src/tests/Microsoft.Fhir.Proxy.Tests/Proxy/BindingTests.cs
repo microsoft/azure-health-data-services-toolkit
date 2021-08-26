@@ -1,13 +1,13 @@
-﻿using Microsoft.Fhir.Proxy.Bindings;
-using Microsoft.Fhir.Proxy.Pipelines;
-using Microsoft.Fhir.Proxy.Tests.Assets;
+﻿using Microsoft.Health.Fhir.Proxy.Bindings;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Proxy
+namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class BindingTests

@@ -1,8 +1,8 @@
-﻿using Microsoft.Fhir.Proxy.Channels;
+﻿using Microsoft.Health.Fhir.Proxy.Channels;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeChannelWithError : IChannel
     {
@@ -14,7 +14,7 @@ namespace Microsoft.Fhir.Proxy.Tests.Assets
 
         private ChannelState state;
         private bool disposed;
-        private Exception error;
+        private readonly Exception error;
 
         public string Id { get; private set; }
 

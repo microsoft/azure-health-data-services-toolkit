@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
 
     public class FakeFunctionContext : FunctionContext, IDisposable

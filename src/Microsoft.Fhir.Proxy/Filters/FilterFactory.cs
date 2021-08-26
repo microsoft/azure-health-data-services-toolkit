@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.Fhir.Proxy.Filters
+namespace Microsoft.Health.Fhir.Proxy.Filters
 {
     public abstract class FilterFactory
     {

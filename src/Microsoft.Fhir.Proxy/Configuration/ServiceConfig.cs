@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Microsoft.Fhir.Proxy.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
     [JsonObject]
     [Serializable]

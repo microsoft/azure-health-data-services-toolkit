@@ -1,11 +1,11 @@
-﻿using Microsoft.Fhir.Proxy.Configuration;
+﻿using Microsoft.Health.Fhir.Proxy.Configuration;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace Microsoft.Fhir.Proxy.Protocol
+namespace Microsoft.Health.Fhir.Proxy.Protocol
 {
     public class FhirPath : Uri
     {
