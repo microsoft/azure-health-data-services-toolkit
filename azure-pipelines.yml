@@ -118,7 +118,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Fhir.Proxy.csproj'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -127,7 +127,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Fhir.Proxy.Extensions.Channels.csproj'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -136,7 +136,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Fhir.Proxy.Storage.csproj'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
