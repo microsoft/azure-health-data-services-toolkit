@@ -1,11 +1,13 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,27 +18,24 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
     {
         private static ConcurrentQueue<string> cleanupContainers;
         private static StorageBlob storage;
-        private static readonly string storageVariableName = "STORAGE_CONNECTIONSTRING";
         private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
+        private static BlobStorageConfig config;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
-            Console.WriteLine(context.TestName);
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddEnvironmentVariables("PROXY_");
+            IConfigurationRoot root = builder.Build();
+            config = new BlobStorageConfig();
+            root.Bind(config);
             random = new Random();
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(storageVariableName)))
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(typeof(Microsoft.Health.Fhir.Proxy.Tests.Proxy.RestRequestTests).Assembly)
-                    .Build();
-
-                Environment.SetEnvironmentVariable(storageVariableName, configuration.GetValue<string>(storageVariableName));
-            }
-
-            storage = new StorageBlob(Environment.GetEnvironmentVariable(storageVariableName));
-
             cleanupContainers = new();
+            storage = new StorageBlob(config.BlobStorageChannelConnectionString);
+
+            Console.WriteLine(context.TestName);
         }
 
         [TestCleanup]
