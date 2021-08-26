@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy.Extensions.Channels\Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Fhir.Proxy\Microsoft.Health.Fhir.Proxy.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy.Extensions.Channels\Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy\Microsoft.Health.Fhir.Proxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>
