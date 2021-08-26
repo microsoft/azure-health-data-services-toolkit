@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Fhir.Proxy.Storage\Microsoft.Fhir.Proxy.Storage.csproj" />
-    <ProjectReference Include="..\Microsoft.Fhir.Proxy\Microsoft.Fhir.Proxy.csproj" />
+    <ProjectReference Include="..\Microsoft.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj" />
+    <ProjectReference Include="..\Microsoft.Fhir.Proxy\Microsoft.Health.Fhir.Proxy.csproj" />
   </ItemGroup>
 
 </Project>

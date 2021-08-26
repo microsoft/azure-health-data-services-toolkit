@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Fhir.Proxy.Channels
+namespace Microsoft.Health.Fhir.Proxy.Channels
 {
     public class ChannelCloseEventArgs : EventArgs
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.Fhir.Proxy.Channels
+namespace Microsoft.Health.Fhir.Proxy.Channels
 {
     public abstract class ChannelFactory
     {

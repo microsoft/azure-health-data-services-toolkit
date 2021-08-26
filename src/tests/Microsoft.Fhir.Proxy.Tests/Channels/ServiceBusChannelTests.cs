@@ -1,8 +1,8 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
-using Microsoft.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Channels
+namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 {
     [TestClass]
     public class ServiceBusChannelTests

@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeHttpResponseData : HttpResponseData
     {

@@ -1,8 +1,8 @@
-﻿using Microsoft.Fhir.Proxy.Pipelines;
+﻿using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Bindings
+namespace Microsoft.Health.Fhir.Proxy.Bindings
 {
     /// <summary>
     /// Abstract binding used to couple pipelines or act as pipeline termination.

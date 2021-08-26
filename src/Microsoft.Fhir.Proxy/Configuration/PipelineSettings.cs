@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
     public class PipelineSettings
     {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Fhir.Proxy.Bindings;
-using Microsoft.Fhir.Proxy.Channels;
-using Microsoft.Fhir.Proxy.Configuration;
-using Microsoft.Fhir.Proxy.Filters;
-using Microsoft.Fhir.Proxy.Pipelines;
-using Microsoft.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Bindings;
+using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Filters;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Tests.Proxy
+namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class PipelineTests

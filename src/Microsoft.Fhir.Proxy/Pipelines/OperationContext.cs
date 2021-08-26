@@ -1,9 +1,9 @@
-﻿using Microsoft.Fhir.Proxy.Protocol;
+﻿using Microsoft.Health.Fhir.Proxy.Protocol;
 using System;
 using System.Net;
 using System.Net.Http;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     /// <summary>
     /// Operation context used for input and output for a filter in a pipeline.

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels.Configuration
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration
 {
     public class BlobStorageConfig
     {

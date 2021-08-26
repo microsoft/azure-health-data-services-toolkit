@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     public enum ServiceBusSkuType
     {

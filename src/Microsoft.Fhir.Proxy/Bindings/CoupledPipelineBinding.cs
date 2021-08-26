@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Pipelines;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Bindings
+namespace Microsoft.Health.Fhir.Proxy.Bindings
 {
     /// <summary>
     /// Binding that does no work, but couples an input to output pipeline or acts as a terminator for an input pipeline.

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fhir.Proxy.Clients
+﻿namespace Microsoft.Health.Fhir.Proxy.Clients
 {
     public class Constants
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Json
+namespace Microsoft.Health.Fhir.Proxy.Json
 {
     public abstract class JObjectReader
     {

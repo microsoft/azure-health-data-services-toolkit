@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace Microsoft.Fhir.Proxy.Json
+namespace Microsoft.Health.Fhir.Proxy.Json
 {
     public class BundleReader : JObjectReader
     {
@@ -11,7 +11,7 @@ namespace Microsoft.Fhir.Proxy.Json
             this.ifNoneExist = ifNoneExist;
         }
 
-        private bool ifNoneExist;
+        private readonly bool ifNoneExist;
 
         public override IEnumerator<JToken> GetEnumerator()
         {

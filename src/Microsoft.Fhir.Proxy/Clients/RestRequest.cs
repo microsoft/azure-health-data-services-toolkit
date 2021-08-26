@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Clients
+namespace Microsoft.Health.Fhir.Proxy.Clients
 {
     /// <summary>
     /// Makes an HTTP request to a web server.

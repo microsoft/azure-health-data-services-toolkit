@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Microsoft.Fhir.Proxy.Json
+namespace Microsoft.Health.Fhir.Proxy.Json
 {
     public class JPathException : Exception
     {

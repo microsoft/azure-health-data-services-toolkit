@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using System;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeFunctionInvocation : FunctionInvocation
     {

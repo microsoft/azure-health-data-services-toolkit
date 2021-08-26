@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fhir.Proxy.Commands
+﻿namespace Microsoft.Health.Fhir.Proxy.Commands
 {
     public interface IExceptionCommand
     {

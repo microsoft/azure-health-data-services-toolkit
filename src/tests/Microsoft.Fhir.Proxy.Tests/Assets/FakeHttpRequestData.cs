@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 
-namespace Microsoft.Fhir.Proxy.Tests.Assets
+namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeHttpRequestData : HttpRequestData
     {

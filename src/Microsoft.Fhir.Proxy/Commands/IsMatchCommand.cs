@@ -1,8 +1,8 @@
-﻿using Microsoft.Fhir.Proxy.Json;
+﻿using Microsoft.Health.Fhir.Proxy.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace Microsoft.Fhir.Proxy.Commands
+namespace Microsoft.Health.Fhir.Proxy.Commands
 {
     public class IsMatchCommand<T> : IExceptionCommand
     {
@@ -24,7 +24,7 @@ namespace Microsoft.Fhir.Proxy.Commands
                 return;
             }
 
-            throw new CommandException($"Fault IsMatch command with {jpath} and {value.ToString()}.");
+            throw new CommandException($"Fault IsMatch command with {jpath} and {value}.");
         }
     }
 }

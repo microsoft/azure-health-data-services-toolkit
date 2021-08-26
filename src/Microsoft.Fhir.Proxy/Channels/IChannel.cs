@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Channels
+namespace Microsoft.Health.Fhir.Proxy.Channels
 {
     public interface IChannel : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fhir.Proxy.Channels
+﻿namespace Microsoft.Health.Fhir.Proxy.Channels
 {
     public enum ChannelState
     {

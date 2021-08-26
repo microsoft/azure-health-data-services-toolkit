@@ -12,7 +12,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Storage
+namespace Microsoft.Health.Fhir.Proxy.Storage
 {
     public class StorageBlob
     {

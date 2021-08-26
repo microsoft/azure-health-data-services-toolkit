@@ -1,14 +1,14 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Channels;
-using Microsoft.Fhir.Proxy.Extensions.Channels.Configuration;
-using Microsoft.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Extensions.Channels
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     public class BlobStorageChannel : IChannel
     {

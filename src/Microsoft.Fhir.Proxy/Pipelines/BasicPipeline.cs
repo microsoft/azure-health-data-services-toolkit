@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Fhir.Proxy.Channels;
-using Microsoft.Fhir.Proxy.Filters;
+using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Filters;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.Fhir.Proxy.Pipelines
+namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
     public class BasicPipeline : Pipeline
     {
