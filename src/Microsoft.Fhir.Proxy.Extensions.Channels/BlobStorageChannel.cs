@@ -21,7 +21,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         }
 
         private StorageBlob storage;
-        private string blobContainer;
+        private readonly string blobContainer;
         private bool disposed;
         private ChannelState state;
         private readonly ILogger logger;
@@ -106,7 +106,7 @@ namespace Microsoft.Fhir.Proxy.Extensions.Channels
         {
             try
             {
-                items[0] ??= $"{Guid.NewGuid().ToString()}T{DateTime.UtcNow.ToString("HH-MM-ss-fffff")}.json";
+                items[0] ??= $"{Guid.NewGuid()}T{DateTime.UtcNow:HH-MM-ss-fffff}.json";
                 items[1] ??= blobContainer;
                 items[2] ??= "application/json";
                 items[3] ??= BlobType.Block.ToString();
