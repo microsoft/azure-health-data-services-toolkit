@@ -11,7 +11,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
     [TestClass]
     public class RetryTests
     {
-        private int counter;        
+        private int counter;
 
         [TestMethod]
         public void Retry_Test()
@@ -32,7 +32,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         private async Task<int> RetryFunc()
         {
             counter++;
-            if(counter < 3)
+            if (counter < 3)
             {
                 throw new Exception("Fail < 3.");
             }
