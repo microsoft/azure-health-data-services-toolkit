@@ -6,12 +6,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
 {
     public static class Retry
     {
-        public static void Execute(Action retryOperation)
-        {
-            Execute(retryOperation, TimeSpan.FromMilliseconds(250), 3);
-        }
-
-        public static void Execute(Action retryOperation, TimeSpan deltaBackoff, int maxRetries)
+        public static async Task<T> Execute<T>(Func<Task<T>> func, TimeSpan deltaBackoff, int maxRetries, ILogger logger = null)
         {
             int delayMilliseconds = Convert.ToInt32(deltaBackoff.TotalMilliseconds);
             if (maxRetries < 1)
@@ -20,51 +15,11 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             }
 
             int attempt = 0;
-
             while (attempt < maxRetries)
             {
                 try
                 {
-                    retryOperation();
-                    return;
-                }
-                catch
-                {
-                    if (attempt == maxRetries)
-                    {
-                        throw;
-                    }
-
-                    Task.Delay(delayMilliseconds).GetAwaiter();
-                    attempt++;
-                }
-            }
-
-            throw new OperationCanceledException("Operation cancelled due to retry failure.");
-        }
-
-        public static async Task ExecuteAsync(Action retryOperation)
-        {
-            await ExecuteAsync(retryOperation, TimeSpan.FromMilliseconds(250), 3);
-        }
-
-        public static async Task ExecuteAsync(Action retryOperation, TimeSpan deltaBackoff, int maxRetries, ILogger logger = null)
-        {
-            int delayMilliseconds = Convert.ToInt32(deltaBackoff.TotalMilliseconds);
-
-            if (maxRetries < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxRetries));
-            }
-
-            int attempt = 0;
-
-            while (attempt < maxRetries)
-            {
-                try
-                {
-                    retryOperation();
-                    break;
+                    return await func();
                 }
                 catch (Exception ex)
                 {
@@ -80,10 +35,12 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                         logger?.LogError(ex, "Retrying due to exception.");
                     }
 
-                    await Task.Delay(delayMilliseconds);
+                    Task.Delay(delayMilliseconds).GetAwaiter().GetResult();
                     attempt++;
                 }
             }
+
+            throw new OperationCanceledException("Operation cancelled due to retry failure.");
         }
     }
 }
