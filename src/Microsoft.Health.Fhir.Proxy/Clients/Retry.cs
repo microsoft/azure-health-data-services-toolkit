@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Clients
@@ -15,7 +16,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             int delayMilliseconds = Convert.ToInt32(deltaBackoff.TotalMilliseconds);
             if (maxRetries < 1)
             {
-                throw new ArgumentOutOfRangeException("Retry maxRetries must be >= 1.");
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
             }
 
             int attempt = 0;
@@ -53,7 +54,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
 
             if (maxRetries < 1)
             {
-                throw new ArgumentOutOfRangeException("Retry maxRetries must be >= 1.");
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
             }
 
             int attempt = 0;
