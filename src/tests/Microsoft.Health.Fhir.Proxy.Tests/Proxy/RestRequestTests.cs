@@ -4,6 +4,7 @@ using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Health.Fhir.Proxy.Clients;
 using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

@@ -114,6 +114,17 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.ToString());
 
+            if (Headers != null)
+            {
+                Headers.Remove("Content-Type");
+                Headers.Remove("Content-Length");
+                Headers.Remove("Authorization");
+                Headers.Remove("Accept");
+                Headers.Remove("Host");
+                Headers.Add("Host", new Uri(BaseUrl).Authority);
+                request.Headers.Add(Headers);
+            }
+
             request.Method = Method;
 
             request.Accept = ContentType;
@@ -129,15 +140,6 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             if (Certificate != null)
             {
                 request.ClientCertificates.Add(Certificate);
-            }
-
-            if (Headers != null)
-            {
-                Headers.Remove("Content-Type");
-                Headers.Remove("Content-Length");
-                Headers.Remove("Authorization");
-                Headers.Remove("Accept");
-                request.Headers.Add(Headers);
             }
 
             return request;
