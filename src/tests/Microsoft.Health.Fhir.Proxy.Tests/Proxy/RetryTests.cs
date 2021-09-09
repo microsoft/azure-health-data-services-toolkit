@@ -19,17 +19,17 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             var backOff = TimeSpan.FromSeconds(1.0);
             int maxAttempts = 4;
 
-            Func<Task<int>> func = async () =>
+            async Task<int> func()
             {
                 return await RetryFunc();
-            };
+            }
 
             var output = Retry.Execute<int>(func, backOff, maxAttempts);
             int i = output.Result;
             Assert.AreEqual(maxAttempts - 1, i);
         }
 
-        private async Task<int> RetryFunc()
+        private Task<int> RetryFunc()
         {
             counter++;
             if (counter < 3)
@@ -38,10 +38,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             }
             else
             {
-                return counter;
+                return Task.FromResult(counter);
             }
-
-            await Task.CompletedTask;
         }
     }
 }

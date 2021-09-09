@@ -52,6 +52,12 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             }
         }
 
+        [JsonIgnore]
+        public bool SystemManagedIdentity
+        {
+            get { return string.IsNullOrEmpty(ClientId); }
+        }
+
         [JsonProperty("tenantId")]
         public string TenantId { get; set; }
 
