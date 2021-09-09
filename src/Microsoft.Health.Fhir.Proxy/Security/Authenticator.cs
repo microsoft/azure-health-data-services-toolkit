@@ -1,46 +1,53 @@
 ﻿using Microsoft.Identity.Client;
+using Azure.Identity;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Azure.Core;
+using System.Security;
 
 namespace Microsoft.Health.Fhir.Proxy.Security
 {
     public class Authenticator
     {
-        public Authenticator(string resource, string clientId, string clientSecret, string tenantId)
+        public Authenticator(string resource, ServiceConfig config)
         {
-            Resource = resource;
-            ClientId = clientId;
-            ClientSecret = clientSecret;
-            TenantId = tenantId;
+            this.resource = resource;
+            this.config = config;
         }
 
-        public Authenticator(string resource, X509Certificate2 certificate, string tenantId)
-        {
-            Resource = resource;
-            Certificate = certificate;
-            TenantId = tenantId;
-        }
-        public string ClientId { get; private set; }
+        private readonly ServiceConfig config;
+        private readonly string resource;
 
-        public string ClientSecret { get; private set; }
+        public string ClientId => config.ClientId;
 
-        public string TenantId { get; private set; }
+        public string ClientSecret => config.ClientSecret;
 
-        public string Resource { get; private set; }
+        public string TenantId => config.TenantId;
 
-        public X509Certificate2 Certificate { get; private set; }
+        public string Resource => resource;
+
+        public X509Certificate2 Certificate => config.Certficate;
 
         public async Task<string> AcquireTokenForClientAsync(string[] scopes = null)
         {
-            var app = GetApp();
-
             scopes ??= GetDefaultScopes();
 
-            var result = await app.AcquireTokenForClient(scopes)
-                       .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
-                       .ExecuteAsync();
-
-            return result.AccessToken;
+            if (config.SystemManagedIdentity)
+            {
+                DefaultAzureCredential credential = string.IsNullOrEmpty(ClientId) ? new(false) : new(new DefaultAzureCredentialOptions() { ManagedIdentityClientId = ClientId });
+                TokenRequestContext context = new(scopes);
+                var tokenResult = await credential.GetTokenAsync(context);
+                return tokenResult.Token;
+            }
+            else
+            {
+                var app = GetApp();
+                var result = await app.AcquireTokenForClient(scopes)
+                           .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
+                           .ExecuteAsync();
+                return result.AccessToken;
+            }
         }
 
         public async Task<string> AcquireTokenOnBehalfOfAsync(string bearerToken, string[] scopes = null)
@@ -61,19 +68,23 @@ namespace Microsoft.Health.Fhir.Proxy.Security
 
         private IConfidentialClientApplication GetApp()
         {
-            if (Certificate == null)
+            if (ClientSecret != null)
             {
                 return ConfidentialClientApplicationBuilder.Create(ClientId)
                         .WithClientSecret(ClientSecret)
                         .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
                         .Build();
             }
-            else
+            else if (Certificate != null)
             {
                 return ConfidentialClientApplicationBuilder.Create(ClientId)
                    .WithCertificate(Certificate)
                    .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
                    .Build();
+            }
+            else
+            {
+                throw new SecurityException("No secret found to authenticate.");
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         public async Task AccessToken_Acquisition_Test()
         {
             string resource = "https://localhost";
-            Authenticator auth = new(resource, config.ClientId, config.ClientSecret, config.TenantId);
+            Authenticator auth = new(resource, config);
             string token = await auth.AcquireTokenForClientAsync();
             Assert.IsNotNull(token, "Security token must not be null.");
         }
