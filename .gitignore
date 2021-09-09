@@ -20,6 +20,7 @@ OneBranch Specific
 /src/**/gen/**/*
 /src/**/*.nuspec
 /src/**/StyleCop.Cache
+/src/*.binlog
 
 
 # QuickBuild and Build Exe
