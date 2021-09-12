@@ -128,9 +128,12 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             request.Method = Method;
 
             request.Accept = ContentType;
-            request.ContentType = ContentType;
 
-            request.ContentLength = Content == null ? 0 : Content.Length;
+            if(Content != null)
+            {
+                request.ContentType = ContentType;
+                request.ContentLength = Content.Length;
+            }
 
             if (!string.IsNullOrEmpty(SecurityToken))
             {
