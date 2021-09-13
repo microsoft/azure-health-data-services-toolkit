@@ -129,7 +129,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
 
             request.Accept = ContentType;
 
-            if(Content != null)
+            if (Content != null)
             {
                 request.ContentType = ContentType;
                 request.ContentLength = Content.Length;
