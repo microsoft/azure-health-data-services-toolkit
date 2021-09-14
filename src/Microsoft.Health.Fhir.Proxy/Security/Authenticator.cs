@@ -63,7 +63,7 @@ namespace Microsoft.Health.Fhir.Proxy.Security
 
         private string[] GetDefaultScopes()
         {
-            return new string[] { $"{Resource}/.default" };
+            return new string[] { $"{Resource.TrimEnd('/')}/.default" };
         }
 
         private IConfidentialClientApplication GetApp()

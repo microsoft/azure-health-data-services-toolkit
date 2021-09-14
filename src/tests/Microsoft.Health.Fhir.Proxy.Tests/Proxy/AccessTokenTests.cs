@@ -2,11 +2,7 @@
 using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
