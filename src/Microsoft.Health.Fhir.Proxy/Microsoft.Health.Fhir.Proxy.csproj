@@ -24,7 +24,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\images\ApiForFhir.png">
+    <None Include="..\..\images\ApiForFhir.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
