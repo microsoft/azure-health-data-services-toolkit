@@ -146,3 +146,9 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
     allowPackageConflicts: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
