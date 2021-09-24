@@ -148,6 +148,90 @@ steps:
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
     VerboseLogin: true
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Extensions.Channels\bin\Release\net5.0'
+    Pattern: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "signtool.exe",
+          "toolVersion": "6.2.9304.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Storage\bin\Release\net5.0'
+    Pattern: '**/Microsoft.Health.Fhir.Proxy.Storage.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "signtool.exe",
+          "toolVersion": "6.2.9304.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
@@ -157,36 +241,6 @@ steps:
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
-
-- task: EsrpCodeSigning@1
-  inputs:
-    ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy\bin\Release\net5.0'
-    Pattern: '**/*.nupkg'
-    UseMinimatch: true
-    signConfigType: 'inlineSignParams'
-    inlineOperation: |
-      [ 
-        {
-            "keyCode": "CP-401405",
-            "operationSetCode": "NuGetSign",
-            "parameters": [ ],
-            "toolName": "sign",
-            "toolVersion": "1.0"
-        },
-        {
-            "keyCode": "CP-401405",
-            "operationSetCode": "NuGetVerify",
-            "parameters": [ ],
-            "toolName": "sign",
-            "toolVersion": "1.0"
-        }
-      ]
-    SessionTimeout: '60'
-    MaxConcurrency: '50'
-    MaxRetryAttempts: '5'
-    VerboseLogin: true
-
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
@@ -216,6 +270,35 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
     allowPackageConflicts: true
+
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    Pattern: '**/*.nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [ 
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
