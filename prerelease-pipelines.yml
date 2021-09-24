@@ -259,17 +259,6 @@ steps:
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
-- task: NuGetAuthenticate@0
-  displayName: 'NuGet Authenticate'
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: packageversion
-    allowPackageConflicts: true
 
 - task: EsrpCodeSigning@1
   inputs:
@@ -299,6 +288,18 @@ steps:
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
     VerboseLogin: true
+
+- task: NuGetAuthenticate@0
+  displayName: 'NuGet Authenticate'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+    allowPackageConflicts: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
