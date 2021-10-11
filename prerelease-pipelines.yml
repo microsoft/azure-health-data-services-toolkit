@@ -280,6 +280,7 @@ steps:
     ArtifactName: 'drop-prerelease'
     publishLocation: 'Container'
 - task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
@@ -308,6 +309,7 @@ steps:
     MaxRetryAttempts: '5'
     VerboseLogin: true
 - task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy.Storage"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
@@ -336,6 +338,7 @@ steps:
     MaxRetryAttempts: '5'
     VerboseLogin: true
 - task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy.Extensions.Channels"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
