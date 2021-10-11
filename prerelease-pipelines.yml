@@ -282,8 +282,8 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    Pattern: '**/*.nupkg'
+    FolderPath: '$(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
+    Pattern: '*.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
