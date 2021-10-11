@@ -307,3 +307,59 @@ steps:
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
     VerboseLogin: true
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '/Microsoft.Health.Fhir.Proxy.Storage.$(packageversion).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '/Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
