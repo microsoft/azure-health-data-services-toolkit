@@ -23,7 +23,7 @@ steps:
     azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
-    inlineScript: |        
+    inlineScript: |
         Write-Host "##vso[task.setvariable variable=PROXY_TenantId]$(proxy-tenant-id)"
         Write-Host "##vso[task.setvariable variable=PROXY_ClientId]$(kv-client-id)"
         Write-Host "##vso[task.setvariable variable=PROXY_ClientSecret]$(kv-client-secret)"
@@ -31,8 +31,8 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_KeyVaultUri]$(proxy-key-vault-uri)"
         Write-Host "##vso[task.setvariable variable=PROXY_KeyVaultCertificateName]$(proxy-key-vault-certificate-name)"
         Write-Host "##vso[task.setvariable variable=PROXY_InstrumentationKey]$(proxy-instrumentation-key)"
-        Write-Host "##vso[task.setvariable variable=PROXY_LoggingLevel]$(proxy-log-level)"        
-        Write-Host "##vso[task.setvariable variable=STORAGE_CONNECTIONSTRING]$(storage-connectionstring-test)"        
+        Write-Host "##vso[task.setvariable variable=PROXY_LoggingLevel]$(proxy-log-level)"
+        Write-Host "##vso[task.setvariable variable=STORAGE_CONNECTIONSTRING]$(storage-connectionstring-test)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventHubBlobConnectionString]$(proxy-storage-connectionstring)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventHubProcessorContainer]$(proxy-eventhub-processorcontainer-name)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventHubBlobContainer]$(proxy-eventhub-blobcontainer-name)"
@@ -107,6 +107,7 @@ steps:
   displayName: 'Run unit tests - $(buildConfiguration)'
 
 - task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.dll"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy\bin\Release\net5.0'
@@ -149,6 +150,7 @@ steps:
     MaxRetryAttempts: '5'
     VerboseLogin: true
 - task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Extensions.Channels\bin\Release\net5.0'
@@ -191,6 +193,7 @@ steps:
     MaxRetryAttempts: '5'
     VerboseLogin: true
 - task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.Storage.dll"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Storage\bin\Release\net5.0'
@@ -233,7 +236,7 @@ steps:
     MaxRetryAttempts: '5'
     VerboseLogin: true
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -242,7 +245,7 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy.Extensions.Channels"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -251,7 +254,7 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy.Storage"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -260,10 +263,40 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
 
+# - task: EsrpCodeSigning@1
+#   inputs:
+#     ConnectedServiceName: 'ESRP Code Signing'
+#     FolderPath: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+#     Pattern: '**/*.nupkg'
+#     UseMinimatch: true
+#     signConfigType: 'inlineSignParams'
+#     inlineOperation: |
+#       [
+#         {
+#             "keyCode": "CP-401405",
+#             "operationSetCode": "NuGetSign",
+#             "parameters": [ ],
+#             "toolName": "sign",
+#             "toolVersion": "1.0"
+#         },
+#         {
+#             "keyCode": "CP-401405",
+#             "operationSetCode": "NuGetVerify",
+#             "parameters": [ ],
+#             "toolName": "sign",
+#             "toolVersion": "1.0"
+#         }
+#       ]
+#     SessionTimeout: '60'
+#     MaxConcurrency: '50'
+#     MaxRetryAttempts: '5'
+#     VerboseLogin: true
+
 - task: EsrpCodeSigning@1
+  displayName: "Sign Nuget Package"
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Storage\bin\Release\net5.0'
     Pattern: '**/*.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
