@@ -36,7 +36,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             random = new Random();
 
             Console.WriteLine(context.TestName);
-            string connectionString = root["BlobStorageChannelConnectionString"];
+            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
 
             queue = new ConcurrentQueue<string>();
 
