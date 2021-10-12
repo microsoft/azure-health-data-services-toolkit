@@ -143,9 +143,30 @@ steps:
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
 - task: NuGetCommand@2
+  displayName: 'Push Nuget Fhir.Proxy to Artifacts feed'
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+    allowPackageConflicts: true
+- task: NuGetCommand@2
+  displayName: 'Push Nuget Fhir.Proxy.Extensions.Channels to Artifacts feed'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+    allowPackageConflicts: true
+- task: NuGetCommand@2
+  displayName: 'Push Nuget Fhir.Proxy.Storage to Artifacts feed'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.Storage.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
     versioningScheme: 'byEnvVar'
