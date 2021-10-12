@@ -34,7 +34,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<DataLakeStorageTests>();
             var root = builder.Build();
-            string connectionString = root["BlobStorageChannelConnectionString"];
+            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
             containers = new();
             filesystems = new();
             var slog = new LoggerConfiguration()

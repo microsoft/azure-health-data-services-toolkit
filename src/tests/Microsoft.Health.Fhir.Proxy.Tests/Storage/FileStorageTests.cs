@@ -1,5 +1,4 @@
-﻿using Azure.Storage.Files.Shares.Models;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,7 +6,6 @@ using Serilog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +30,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<FileStorageTests>();
             var root = builder.Build();
-            string connectionString = root["BlobStorageChannelConnectionString"];
+            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
 
             containers = new();
 

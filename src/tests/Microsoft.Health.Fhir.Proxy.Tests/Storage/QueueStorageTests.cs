@@ -30,7 +30,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<QueueStorageTests>();
             var root = builder.Build();
-            string connectionString = root["BlobStorageChannelConnectionString"];
+            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
             random = new();
             containers = new();
             var slog = new LoggerConfiguration()
