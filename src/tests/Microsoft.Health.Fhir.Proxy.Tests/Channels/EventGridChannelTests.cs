@@ -65,7 +65,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             IChannel channel = new EventGridChannel(config, null);
             channel.OnError += (i, args) =>
             {
-                Assert.Fail();
+                Assert.Fail($"Channel error {args.Error.StackTrace}");
             };
             await channel.OpenAsync();
             string message = "hi";
@@ -86,7 +86,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             IChannel channel = new EventGridChannel(config, null);
             channel.OnError += (i, args) =>
             {
-                Assert.Fail();
+                Assert.Fail($"Channel error {args.Error.StackTrace}");
             };
             await channel.OpenAsync();
             Random ran = new Random();
