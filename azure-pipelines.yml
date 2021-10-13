@@ -62,6 +62,8 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_EventGridTopicAccessKey]$(proxy-eventgrid-topicaccesskey)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGridBlobConnectionString]$(proxy-eventgrid-blobconnectionstring)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGridEventGridBlobContainer]$(proxy-eventgrid-blobcontainer)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Message_Queue]$(eventgrid-message-queue)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Reference_Queue]$(eventgrid-reference-queue)"
 
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
