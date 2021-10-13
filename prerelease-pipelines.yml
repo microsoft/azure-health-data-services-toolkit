@@ -48,6 +48,15 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobContainer]$(proxy-servicebus-blobcontainer-name)"
         Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelConnectionString]$(proxy-storage-connectionstring)"
         Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelContainer]$(proxy-blobchannel-container-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridSubject]$(proxy-eventgrid-subject)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridEventType]$(proxy-eventgrid-eventtype)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridDataVersion]$(proxy-eventgrid-dataversion)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridTopicUriString]$(proxy-eventgrid-topicuristring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridTopicAccessKey]$(proxy-eventgrid-topicaccesskey)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridBlobConnectionString]$(proxy-eventgrid-blobconnectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGridBlobContainer]$(proxy-eventgrid-blobcontainer)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Message_Queue]$(eventgrid-message-queue)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Reference_Queue]$(eventgrid-reference-queue)"
 - task: UseDotNet@2
   displayName: 'Install dotnet 5.0.x agent tools dir'
   inputs:
