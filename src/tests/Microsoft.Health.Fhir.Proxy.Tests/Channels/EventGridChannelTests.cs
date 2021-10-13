@@ -34,6 +34,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             root.Bind(config);
             messageQueue = root["PROXY_EventGrid_Message_Queue"];
             referenceQueue = root["PROXY_EventGrid_Reference_Queue"];
+            if(string.IsNullOrEmpty(messageQueue))
+            {
+                messageQueue = Environment.GetEnvironmentVariable("PROXY_EventGrid_Message_Queue");
+                referenceQueue = Environment.GetEnvironmentVariable("PROXY_EventGrid_Reference_Queue");
+            }
             blobStorage = new StorageBlob(config.EventGridBlobConnectionString);
             queueStorage = new StorageQueue(config.EventGridBlobConnectionString, null);
             Console.WriteLine(context.TestName);
