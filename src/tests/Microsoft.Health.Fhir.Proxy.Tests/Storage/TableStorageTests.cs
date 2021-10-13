@@ -1,15 +1,12 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;

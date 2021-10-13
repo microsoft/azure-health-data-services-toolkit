@@ -65,11 +65,12 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             {
                 if (containers.TryDequeue(out string container))
                 {
-                    List<string> list = await storage.ListQueuesAync();
-                    foreach (var item in list)
-                    {
-                        await storage.DeleteQueueIfExistsAsync(item);
-                    }
+                    await storage.DeleteQueueIfExistsAsync(container);
+                    //List<string> list = await storage.ListQueuesAync();
+                    //foreach (var item in list)
+                    //{
+                    //    await storage.DeleteQueueIfExistsAsync(item);
+                    //}
                 }
             }
         }
