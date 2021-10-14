@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="images\ApiForFhir.png">
+    <None Include="..\images\ApiForFhir.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
@@ -35,12 +35,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.12.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="images\ApiForFhir.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
