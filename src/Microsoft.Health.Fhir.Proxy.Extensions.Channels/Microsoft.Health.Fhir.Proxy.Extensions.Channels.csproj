@@ -3,8 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <Version>0.1.0</Version>
+    <Version>0.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Libray that extends channels for custom operations using Microsoft.Health.Fhir.Proxy.</Description>
+    <Authors>Microsoft</Authors>
+    <PackageProjectUrl>https://azure.microsoft.com/en-us/services/healthcare-apis/</PackageProjectUrl>
+    <PackageIcon>ApiForFhir.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/microsoft/fhir-proxy</RepositoryUrl>
+    <PackageTags>FHIR</PackageTags>
+    <PackageReleaseNotes>Prelease candidate for channel extensions for custom operations framework using Microsoft.Health.Fhir.Proxy.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +27,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Health.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj" />
     <ProjectReference Include="..\Microsoft.Health.Fhir.Proxy\Microsoft.Health.Fhir.Proxy.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="images\ApiForFhir.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
