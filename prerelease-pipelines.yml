@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> f4c8c4000c1e47c6ea815268f8321c5a6df05957
 trigger:
   branches:
     include:
@@ -385,20 +381,3 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
-<<<<<<< HEAD
-- task: AzureCLI@2
-  displayName: "Push prerelease Microsoft.Health.Fhir.Proxy.Extensions.Channels"
-  inputs:
-    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
-- task: AzureCLI@2
-  displayName: "Push prerelease Microsoft.Health.Fhir.Proxy.Storage"
-  inputs:
-    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.Storage.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
-=======
->>>>>>> f4c8c4000c1e47c6ea815268f8321c5a6df05957
