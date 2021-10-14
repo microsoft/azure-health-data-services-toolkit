@@ -1,3 +1,11 @@
+trigger:
+  branches:
+    include:
+    - prereleases/*
+  paths:
+    exclude:
+    - azure-pipelines.yml
+    - prerelease-pipelines.yml
 pool:
   vmImage: windows-2019
 
@@ -372,15 +380,3 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.Storage.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'
