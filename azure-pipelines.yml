@@ -122,11 +122,6 @@ steps:
     publishTestResults: true
     projects: '**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
@@ -190,5 +185,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop-nuget'
+    ArtifactName: 'drop'
     publishLocation: 'Container'
