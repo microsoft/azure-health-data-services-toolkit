@@ -116,6 +116,13 @@ steps:
     publishTestResults: true
     projects: '**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack"
   inputs:
