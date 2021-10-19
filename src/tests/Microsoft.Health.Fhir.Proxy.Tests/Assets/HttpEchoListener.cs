@@ -10,13 +10,19 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
     {
 
         private HttpListener listener;
+        private static int? numRetry;
+        private static int max;
+        private static int attempt;
 
-        public async Task StartAsync(int port)
+        public async Task StartAsync(int port, int? num409 = null, int? maxAttempts = null)
         {
             listener = new HttpListener
             {
                 Realm = "localhost"
             };
+
+            numRetry = num409;
+            max = maxAttempts.HasValue ? maxAttempts.Value : 0;
 
             listener.Prefixes.Add($"http://localhost:{port}/");
 
@@ -62,6 +68,17 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
         private static async Task ProcessPost(HttpListenerContext context)
         {
+            if (numRetry.HasValue)
+            {
+                if (attempt < numRetry.Value && numRetry.Value < max)
+                {
+                    attempt++;
+                    context.Response.StatusCode = 409;
+                    context.Response.Close();
+                    return;
+                }
+            }
+
             //echo the body
             byte[] buffer = new byte[100];
             int bytesRead = await context.Request.InputStream.ReadAsync(buffer.AsMemory(0, 100));
@@ -122,6 +139,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
         public async Task StopAsync()
         {
+            numRetry = null;
+            max = 0;
             listener.Stop();
             await Task.CompletedTask;
         }
