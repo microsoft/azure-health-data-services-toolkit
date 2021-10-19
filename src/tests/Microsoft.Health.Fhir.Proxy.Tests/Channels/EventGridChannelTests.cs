@@ -44,6 +44,12 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             Console.WriteLine(context.TestName);
             await queueStorage.CreateQueueIfNotExistsAsync(messageQueue);
             await queueStorage.CreateQueueIfNotExistsAsync(referenceQueue);
+
+            List<string> blobs = await blobStorage.ListBlobsAsync(config.EventGridBlobContainer);
+            foreach (var item in blobs)
+            {
+                await blobStorage.DeleteBlobAsync(config.EventGridBlobContainer, item);
+            }
         }
 
         [ClassCleanup]
