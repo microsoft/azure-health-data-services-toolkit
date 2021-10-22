@@ -19,12 +19,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             string json = await File.ReadAllTextAsync("../../../Assets/capstmt.json");
             string jpath = "$.contact[0].telecom";
             string appendNode = "{ \"system\": \"url\", \"value\": \"https://www.microsoft2.com\" }";
-            JObject j = JObject.Parse(appendNode);
-            AddTransform trans = new AddTransform() { JsonPath = jpath, AppendNode = appendNode };
+            AddTransform trans = new() { JsonPath = jpath, AppendNode = appendNode };
             JObject obj = trans.Execute(json);
             JToken jtoken = obj.SelectToken("$.contact[0].telecom");
             JArray jArray = jtoken as JArray;
-            JToken child = jArray.Children<JToken>().ToArray()[1];
             JToken outToken = JToken.Parse(jArray.Children<JToken>().ToArray()[1].ToString()).Children().ToArray()[1];
             string actual = outToken.Value<JProperty>().Value.Value<string>();
             Assert.AreEqual(expected, actual, "Mismatch");
@@ -37,7 +35,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             string json = await File.ReadAllTextAsync("../../../Assets/capstmt.json");
             string jpath = "$.contact[0].telecom";
             string replaceNode = "{ \"system\": \"url\", \"value\": \"https://www.microsoft2.com\" }";
-            ReplaceTransform trans = new ReplaceTransform() { JsonPath = jpath, ReplaceNode = replaceNode };
+            ReplaceTransform trans = new() { JsonPath = jpath, ReplaceNode = replaceNode };
             JObject obj = trans.Execute(json);
             JToken jtoken = obj.SelectToken("$.contact[0].telecom");
             string actual = jtoken.Children().ToArray()[1].Value<JProperty>().Value.Value<string>();
@@ -49,7 +47,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         {
             string json = await File.ReadAllTextAsync("../../../Assets/capstmt.json");
             string jpath = "$.contact[0].telecom";
-            RemoveTransform trans = new RemoveTransform() { JsonPath = jpath };
+            RemoveTransform trans = new() { JsonPath = jpath };
             JObject obj = trans.Execute(json);
             Assert.IsTrue(obj.SelectToken(jpath).IsNullOrEmpty(), "Object should not exist.");
         }
@@ -59,10 +57,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         {
             string json = await File.ReadAllTextAsync("../../../Assets/capstmt.json");
             string jpath = "$.contact[0].telecom";
-            RemoveTransform trans = new RemoveTransform() { JsonPath = jpath };
+            RemoveTransform trans = new() { JsonPath = jpath };
             TransformCollection coll = new();
             coll.Add(trans);
-            TransformPolicy policy = new TransformPolicy(coll);
+            TransformPolicy policy = new(coll);
             string actualJson = policy.Transform(json);
             JObject obj = JObject.Parse(actualJson);
             Assert.IsTrue(obj.SelectToken(jpath).IsNullOrEmpty(), "Object should not exist.");
@@ -76,16 +74,16 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             string jpath = "$.contact[0].telecom";
             string replaceNode = "{ \"system\": \"url\", \"value\": \"https://www.microsoft2.com\" }";
             string appendNode = "{\r\n            \"telecom\": [\r\n                {\r\n                    \"system\": \"url\",\r\n                    \"value\": \"https://www.microsoft3.com\"\r\n                }\r\n            ]\r\n        }";
-            ReplaceTransform trans1 = new ReplaceTransform() { JsonPath = jpath, ReplaceNode = replaceNode };
+            ReplaceTransform trans1 = new() { JsonPath = jpath, ReplaceNode = replaceNode };
 
-            RemoveTransform trans2 = new RemoveTransform() { JsonPath = jpath };
+            RemoveTransform trans2 = new() { JsonPath = jpath };
 
-            AddTransform trans3 = new AddTransform() { JsonPath = "$.contact", AppendNode = appendNode };
+            AddTransform trans3 = new() { JsonPath = "$.contact", AppendNode = appendNode };
             TransformCollection coll = new();
             coll.Add(trans1);
             coll.Add(trans2);
             coll.Add(trans3);
-            TransformPolicy policy = new TransformPolicy(coll);
+            TransformPolicy policy = new(coll);
             string actualJson = policy.Transform(json);
             JObject obj = JObject.Parse(actualJson);
             JToken jtoken = obj.SelectToken("$.contact[0].telecom");
@@ -97,11 +95,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         public void Serialize_SimplePolicy_Test()
         {
             string jpath = "$.contact[0].telecom";
-            RemoveTransform trans = new RemoveTransform() { JsonPath = jpath };
+            RemoveTransform trans = new() { JsonPath = jpath };
             TransformCollection transforms = new();
             transforms.Add(trans);
             string policyId = "ABC";
-            TransformPolicy policy = new TransformPolicy(policyId, transforms);
+            TransformPolicy policy = new(policyId, transforms);
             string json = JsonConvert.SerializeObject(policy);
             TransformPolicy actual = JsonConvert.DeserializeObject<TransformPolicy>(json);
             Assert.AreEqual(policyId, actual.PolicyId, "Policy ID mismatch.");
@@ -116,15 +114,15 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             string jpath2 = "$.contact";
             string replaceNode = "{ \"system\": \"url\", \"value\": \"https://www.microsoft2.com\" }";
             string appendNode = "{\r\n            \"telecom\": [\r\n                {\r\n                    \"system\": \"url\",\r\n                    \"value\": \"https://www.microsoft3.com\"\r\n                }\r\n            ]\r\n        }";
-            ReplaceTransform replaceTransform = new ReplaceTransform() { JsonPath = jpath, ReplaceNode = replaceNode };
-            RemoveTransform removeTransform = new RemoveTransform() { JsonPath = jpath };
-            AddTransform addTransform = new AddTransform() { JsonPath = jpath2, AppendNode = appendNode };
+            ReplaceTransform replaceTransform = new() { JsonPath = jpath, ReplaceNode = replaceNode };
+            RemoveTransform removeTransform = new() { JsonPath = jpath };
+            AddTransform addTransform = new() { JsonPath = jpath2, AppendNode = appendNode };
             TransformCollection transforms = new();
             transforms.Add(replaceTransform);
             transforms.Add(removeTransform);
             transforms.Add(addTransform);
             string policyId = "ABC";
-            TransformPolicy policy = new TransformPolicy(policyId, transforms);
+            TransformPolicy policy = new(policyId, transforms);
             string json = JsonConvert.SerializeObject(policy);
             TransformPolicy actual = JsonConvert.DeserializeObject<TransformPolicy>(json);
             Assert.AreEqual(policyId, actual.PolicyId, "Policy ID mismatch.");

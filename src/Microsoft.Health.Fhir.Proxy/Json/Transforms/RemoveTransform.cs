@@ -16,24 +16,24 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             JObject jobj = JObject.Parse(json);
             JToken? token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
 
-            if(token.IsNullOrEmpty())
+            if (token.IsNullOrEmpty())
             {
                 return jobj;
             }
             else
             {
                 JToken? temp = jobj.SelectToken(JsonPath);
-                if(temp.Type == JTokenType.Property)
+                if (temp.Type == JTokenType.Property)
                 {
                     jobj.SelectToken(JsonPath).Remove();
                 }
 
-                if(temp.Type == JTokenType.Array)
+                if (temp.Type == JTokenType.Array)
                 {
                     JArray array = (JArray)temp;
                     JToken? t = array.Parent.SelectToken(array.Path);
                     array.RemoveAll();
-                    if(array.Parent.Type == JTokenType.Property)
+                    if (array.Parent.Type == JTokenType.Property)
                     {
                         array.Parent.Remove();
                     }

@@ -32,7 +32,7 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
 
         public string Transform(string json)
         {
-            foreach(var trans in Transforms)
+            foreach (var trans in Transforms)
             {
                 JObject jobject = trans.Execute(json);
                 json = jobject.ToString();
