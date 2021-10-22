@@ -21,22 +21,21 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             JObject jobj = JObject.Parse(json);
             JToken? token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
 
-            if(token.IsNullOrEmpty())
+            if (token.IsNullOrEmpty())
             {
                 return jobj;
             }
 
             if (token.IsArray())
             {
-               jobj.SelectToken(JsonPath).Last().AddAfterSelf(AppendNode);
+                jobj.SelectToken(JsonPath).Last().AddAfterSelf(AppendNode);
             }
             else
             {
-                foreach(var childProp in appendNode.Children())
+                foreach (var childProp in appendNode.Children())
                 {
-                    if(childProp is JProperty)
+                    if (childProp is JProperty prop)
                     {
-                        var prop = (JProperty)childProp;
                         jobj.SelectToken(JsonPath)[prop.Name] = prop.Value;
                     }
                 }
