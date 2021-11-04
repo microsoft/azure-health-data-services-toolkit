@@ -1,10 +1,10 @@
-﻿using Microsoft.Identity.Client;
+﻿using Azure.Core;
 using Azure.Identity;
+using Microsoft.Health.Fhir.Proxy.Configuration;
+using Microsoft.Identity.Client;
+using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Configuration;
-using Azure.Core;
-using System.Security;
 
 namespace Microsoft.Health.Fhir.Proxy.Security
 {

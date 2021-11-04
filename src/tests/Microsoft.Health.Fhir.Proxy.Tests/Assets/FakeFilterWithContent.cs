@@ -1,9 +1,6 @@
 ﻿using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
