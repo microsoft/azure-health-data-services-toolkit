@@ -1,6 +1,5 @@
 ﻿using Microsoft.Health.Fhir.Proxy.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Commands
 {
