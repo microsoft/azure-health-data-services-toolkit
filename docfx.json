@@ -8,14 +8,14 @@
           }
           ],
           "dest": "reference",
-          "disableGitFeatures": true
+          "disableGitFeatures": false
        }
     ],
     "build": {
         "content": [
             { "files": [ "reference/**" ] },
             {
-                "files": [ "**.md", "**/toc.yml" ],
+                "files": [ "**.md", "toc.yml" ],
                 "exclude": [ "_site/**", "**/bin/**", "**/obj/**", "**/[Tt]ests/**" ]
             }
         ],
@@ -23,7 +23,7 @@
             { "files": ["docs/.attachments/**"] },
             { "files": ["web.config"] }
         ],
-        "template": [ "templates/statictoc" ],
+        "template": [ "default" ],
         "globalMetadata": {
             "_appTitle": "Title",
             "_enableSearch": true
