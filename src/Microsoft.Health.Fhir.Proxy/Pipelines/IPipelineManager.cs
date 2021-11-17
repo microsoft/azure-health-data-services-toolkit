@@ -9,6 +9,11 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
     /// <typeparam name="TResponse">Type of response from output the pipeline.</typeparam>
     public interface IPipelineManager<TRequest, TResponse>
     {
+        /// <summary>
+        /// Executes request and returns a response.
+        /// </summary>
+        /// <param name="input">Input request.</param>
+        /// <returns>Output response.</returns>
         Task<TResponse> ExecuteAsync(TRequest input);
     }
 }

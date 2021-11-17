@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Security
 {
+
+    /// <summary>
+    /// Authenticator class for Azure Active Directory.
+    /// </summary>
     public class Authenticator
     {
+        /// <summary>
+        /// Creates an instance of authenticator.
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="config"></param>
         public Authenticator(string resource, ServiceConfig config)
         {
             this.resource = resource;
@@ -19,16 +28,36 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         private readonly ServiceConfig config;
         private readonly string resource;
 
+        /// <summary>
+        /// Gets the client_id.
+        /// </summary>
         public string ClientId => config.ClientId;
 
+        /// <summary>
+        /// Gets the client_secret.
+        /// </summary>
         public string ClientSecret => config.ClientSecret;
 
+        /// <summary>
+        /// Gets the tenant_id
+        /// </summary>
         public string TenantId => config.TenantId;
 
+        /// <summary>
+        /// Gets the resource.
+        /// </summary>
         public string Resource => resource;
 
+        /// <summary>
+        /// Gets X509 certificate.
+        /// </summary>
         public X509Certificate2 Certificate => config.Certficate;
 
+        /// <summary>
+        /// Acquires access token for client.
+        /// </summary>
+        /// <param name="scopes">Optional scopes.  The default is resource/.default</param>
+        /// <returns></returns>
         public async Task<string> AcquireTokenForClientAsync(string[] scopes = null)
         {
             scopes ??= GetDefaultScopes();

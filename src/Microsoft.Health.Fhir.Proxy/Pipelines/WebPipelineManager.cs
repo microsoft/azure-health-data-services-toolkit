@@ -10,8 +10,19 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
+    /// <summary>
+    /// Manages input and output pipelines for a Web app.
+    /// </summary>
     public sealed class WebPipelineManager : IPipelineManager<HttpRequestMessage, HttpResponseMessage>
     {
+        /// <summary>
+        /// Creates an instance of WebPipelineManager.
+        /// </summary>
+        /// <param name="input">Input pipeline settings.</param>
+        /// <param name="binding">Binding between input and output pipelines.</param>
+        /// <param name="output">Output pipeline settings.</param>
+        /// <param name="client">Telemetry cleint.</param>
+        /// <param name="logger">ILogger</param>
         public WebPipelineManager(PipelineSettings input, PipelineBinding binding, PipelineSettings output, TelemetryClient client = null, ILogger logger = null)
         {
             this.input = input;
@@ -27,14 +38,31 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         private readonly TelemetryClient client;
         private readonly ILogger logger;
 
+        /// <summary>
+        /// Optional function that executes prior to the input pipeline.
+        /// </summary>
         public Func<OperationContext, OperationContext> BeforeInput { get; set; }
 
+        /// <summary>
+        /// Optional function that executes after the input pipeline.
+        /// </summary>
         public Func<OperationContext, OperationContext> AfterInput { get; set; }
 
+        /// <summary>
+        /// Optional function that executes prior to the output pipeline.
+        /// </summary>
         public Func<OperationContext, OperationContext> BeforeOutput { get; set; }
 
+        /// <summary>
+        /// Optional function that executes after the output pipeline.
+        /// </summary>
         public Func<OperationContext, OperationContext> AfterOutput { get; set; }
 
+        /// <summary>
+        /// Executes the all the configured components.
+        /// </summary>
+        /// <param name="request">HttpRequestMessage from Web app.</param>
+        /// <returns>HttpResponseMessage for Web app.</returns>
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request)
         {
             long startTicks = DateTime.Now.Ticks;
