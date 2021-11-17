@@ -1,0 +1,500 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  commentId: T:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  id: ChannelCloseEventArgs
+  parent: Microsoft.Health.Fhir.Proxy.Channels
+  children:
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor(System.String,System.String)
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name
+  langs:
+  - csharp
+  - vb
+  name: ChannelCloseEventArgs
+  nameWithType: ChannelCloseEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ChannelCloseEventArgs
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+    startLine: 7
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nEvent args for Channel close event.\n"
+  example: []
+  syntax:
+    content: 'public class ChannelCloseEventArgs : EventArgs'
+    content.vb: >-
+      Public Class ChannelCloseEventArgs
+          Inherits EventArgs
+  inheritance:
+  - System.Object
+  - System.EventArgs
+  inheritedMembers:
+  - System.EventArgs.Empty
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor(System.String,System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor(System.String,System.String)
+  id: '#ctor(System.String,System.String)'
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  langs:
+  - csharp
+  - vb
+  name: ChannelCloseEventArgs(String, String)
+  nameWithType: ChannelCloseEventArgs.ChannelCloseEventArgs(String, String)
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.ChannelCloseEventArgs(System.String, System.String)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+    startLine: 14
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nCreates an instance of ChannelCloseEventArgs.\n"
+  example: []
+  syntax:
+    content: public ChannelCloseEventArgs(string id, string name)
+    parameters:
+    - id: id
+      type: System.String
+      description: Channel instance ID.
+    - id: name
+      type: System.String
+      description: Name of the channel.
+    content.vb: Public Sub New(id As String, name As String)
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: ChannelCloseEventArgs.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+    startLine: 23
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nGets the channel instance ID.\n"
+  example: []
+  syntax:
+    content: public string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name
+  commentId: P:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name
+  id: Name
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: ChannelCloseEventArgs.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Name
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelCloseEventArgs.cs
+    startLine: 28
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nGets the name of the channel.\n"
+  example: []
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Name As String
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Channels
+  commentId: N:Microsoft.Health.Fhir.Proxy.Channels
+  name: Microsoft.Health.Fhir.Proxy.Channels
+  nameWithType: Microsoft.Health.Fhir.Proxy.Channels
+  fullName: Microsoft.Health.Fhir.Proxy.Channels
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.EventArgs
+  commentId: T:System.EventArgs
+  parent: System
+  isExternal: true
+  name: EventArgs
+  nameWithType: EventArgs
+  fullName: System.EventArgs
+- uid: System.EventArgs.Empty
+  commentId: F:System.EventArgs.Empty
+  parent: System.EventArgs
+  isExternal: true
+  name: Empty
+  nameWithType: EventArgs.Empty
+  fullName: System.EventArgs.Empty
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.#ctor
+  name: ChannelCloseEventArgs
+  nameWithType: ChannelCloseEventArgs.ChannelCloseEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.ChannelCloseEventArgs
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+  name: Id
+  nameWithType: ChannelCloseEventArgs.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Id
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name
+  name: Name
+  nameWithType: ChannelCloseEventArgs.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.Name

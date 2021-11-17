@@ -1,0 +1,587 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  commentId: T:Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  id: RestRequest
+  parent: Microsoft.Health.Fhir.Proxy.Clients
+  children:
+  - Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,System.Int32,Microsoft.Extensions.Logging.ILogger)
+  - Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)
+  - Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync
+  langs:
+  - csharp
+  - vb
+  name: RestRequest
+  nameWithType: RestRequest
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: RestRequest
+    path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+    startLine: 12
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Clients
+  summary: "\nMakes an HTTP request to a web server.\n"
+  example: []
+  syntax:
+    content: public class RestRequest
+    content.vb: Public Class RestRequest
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,System.Int32,Microsoft.Extensions.Logging.ILogger)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,System.Int32,Microsoft.Extensions.Logging.ILogger)
+  id: '#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,System.Int32,Microsoft.Extensions.Logging.ILogger)'
+  parent: Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  langs:
+  - csharp
+  - vb
+  name: RestRequest(RestRequestBuilder, Int32, ILogger)
+  nameWithType: RestRequest.RestRequest(RestRequestBuilder, Int32, ILogger)
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.RestRequest(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder, System.Int32, Microsoft.Extensions.Logging.ILogger)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+    startLine: 20
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Clients
+  summary: "\nCreates an instance of the RestRequest.\n"
+  example: []
+  syntax:
+    content: public RestRequest(RestRequestBuilder builder, int blockSize = 16384, ILogger logger = null)
+    parameters:
+    - id: builder
+      type: Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder
+      description: REST request builder that creates the HttpWebRequest object.
+    - id: blockSize
+      type: System.Int32
+      description: The number of bytes to be read in block; default is 16384.
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger
+      description: Optional logger.
+    content.vb: Public Sub New(builder As RestRequestBuilder, blockSize As Integer = 16384, logger As ILogger = Nothing)
+  overload: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)
+  id: '#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)'
+  parent: Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  langs:
+  - csharp
+  - vb
+  name: RestRequest(Int32, ILogger)
+  nameWithType: RestRequest.RestRequest(Int32, ILogger)
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.RestRequest(System.Int32, Microsoft.Extensions.Logging.ILogger)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+    startLine: 28
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Clients
+  syntax:
+    content: protected RestRequest(int blockSize = 16384, ILogger logger = null)
+    parameters:
+    - id: blockSize
+      type: System.Int32
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger
+    content.vb: Protected Sub New(blockSize As Integer = 16384, logger As ILogger = Nothing)
+  overload: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync
+  commentId: M:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync
+  id: SendAsync
+  parent: Microsoft.Health.Fhir.Proxy.Clients.RestRequest
+  langs:
+  - csharp
+  - vb
+  name: SendAsync()
+  nameWithType: RestRequest.SendAsync()
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: SendAsync
+    path: src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs
+    startLine: 42
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Clients
+  summary: "\nSends and http request and returns a response.\n"
+  example: []
+  syntax:
+    content: public virtual async Task<HttpResponseMessage> SendAsync()
+    return:
+      type: System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}
+      description: HttpResponseMessage
+    content.vb: Public Overridable Function SendAsync As Task(Of HttpResponseMessage)
+  overload: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync*
+  modifiers.csharp:
+  - public
+  - virtual
+  - async
+  modifiers.vb:
+  - Public
+  - Overridable
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Clients
+  commentId: N:Microsoft.Health.Fhir.Proxy.Clients
+  name: Microsoft.Health.Fhir.Proxy.Clients
+  nameWithType: Microsoft.Health.Fhir.Proxy.Clients
+  fullName: Microsoft.Health.Fhir.Proxy.Clients
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor
+  name: RestRequest
+  nameWithType: RestRequest.RestRequest
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.RestRequest
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder
+  commentId: T:Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder
+  parent: Microsoft.Health.Fhir.Proxy.Clients
+  name: RestRequestBuilder
+  nameWithType: RestRequestBuilder
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: Microsoft.Extensions.Logging.ILogger
+  commentId: T:Microsoft.Extensions.Logging.ILogger
+  parent: Microsoft.Extensions.Logging
+  isExternal: true
+  name: ILogger
+  nameWithType: ILogger
+  fullName: Microsoft.Extensions.Logging.ILogger
+- uid: Microsoft.Extensions.Logging
+  commentId: N:Microsoft.Extensions.Logging
+  isExternal: true
+  name: Microsoft.Extensions.Logging
+  nameWithType: Microsoft.Extensions.Logging
+  fullName: Microsoft.Extensions.Logging
+- uid: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync
+  name: SendAsync
+  nameWithType: RestRequest.SendAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync
+- uid: System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}
+  commentId: T:System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<HttpResponseMessage>
+  nameWithType: Task<HttpResponseMessage>
+  fullName: System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage>
+  nameWithType.vb: Task(Of HttpResponseMessage)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Net.Http.HttpResponseMessage)
+  name.vb: Task(Of HttpResponseMessage)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Net.Http.HttpResponseMessage
+    name: HttpResponseMessage
+    nameWithType: HttpResponseMessage
+    fullName: System.Net.Http.HttpResponseMessage
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Net.Http.HttpResponseMessage
+    name: HttpResponseMessage
+    nameWithType: HttpResponseMessage
+    fullName: System.Net.Http.HttpResponseMessage
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

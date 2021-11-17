@@ -1,0 +1,76 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand
+  commentId: T:Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand
+  id: IExceptionCommand
+  parent: Microsoft.Health.Fhir.Proxy.Commands
+  children:
+  - Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute
+  langs:
+  - csharp
+  - vb
+  name: IExceptionCommand
+  nameWithType: IExceptionCommand
+  fullName: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand
+  type: Interface
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Commands/IExceptionCommand.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IExceptionCommand
+    path: src/Microsoft.Health.Fhir.Proxy/Commands/IExceptionCommand.cs
+    startLine: 5
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Commands
+  summary: "\nInterface for commands.\n"
+  example: []
+  syntax:
+    content: public interface IExceptionCommand
+    content.vb: Public Interface IExceptionCommand
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute
+  commentId: M:Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute
+  id: Execute
+  parent: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand
+  langs:
+  - csharp
+  - vb
+  name: Execute()
+  nameWithType: IExceptionCommand.Execute()
+  fullName: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Commands/IExceptionCommand.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Execute
+    path: src/Microsoft.Health.Fhir.Proxy/Commands/IExceptionCommand.cs
+    startLine: 10
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Commands
+  summary: "\nExecutes the command.\n"
+  example: []
+  syntax:
+    content: void Execute()
+    content.vb: Sub Execute
+  overload: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute*
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Commands
+  commentId: N:Microsoft.Health.Fhir.Proxy.Commands
+  name: Microsoft.Health.Fhir.Proxy.Commands
+  nameWithType: Microsoft.Health.Fhir.Proxy.Commands
+  fullName: Microsoft.Health.Fhir.Proxy.Commands
+- uid: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute
+  name: Execute
+  nameWithType: IExceptionCommand.Execute
+  fullName: Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.Execute

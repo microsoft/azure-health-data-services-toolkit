@@ -1,0 +1,40 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Bindings
+  commentId: N:Microsoft.Health.Fhir.Proxy.Bindings
+  id: Microsoft.Health.Fhir.Proxy.Bindings
+  children:
+  - Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding
+  - Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: Microsoft.Health.Fhir.Proxy.Bindings
+  nameWithType: Microsoft.Health.Fhir.Proxy.Bindings
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings
+  type: Namespace
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding
+  commentId: T:Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding
+  name: CoupledPipelineBinding
+  nameWithType: CoupledPipelineBinding
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding
+  commentId: T:Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding
+  name: FhirPipelineBinding
+  nameWithType: FhirPipelineBinding
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  commentId: T:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  parent: Microsoft.Health.Fhir.Proxy.Bindings
+  name: PipelineBinding
+  nameWithType: PipelineBinding
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+- uid: Microsoft.Health.Fhir.Proxy.Bindings
+  commentId: N:Microsoft.Health.Fhir.Proxy.Bindings
+  name: Microsoft.Health.Fhir.Proxy.Bindings
+  nameWithType: Microsoft.Health.Fhir.Proxy.Bindings
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings

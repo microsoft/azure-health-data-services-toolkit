@@ -1,0 +1,601 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  commentId: T:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  id: ChannelFactory
+  parent: Microsoft.Health.Fhir.Proxy.Channels
+  children:
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create(System.String)
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames
+  - Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register(System.String,System.Type,System.Object[])
+  langs:
+  - csharp
+  - vb
+  name: ChannelFactory
+  nameWithType: ChannelFactory
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ChannelFactory
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nA factory of channels.\n"
+  example: []
+  syntax:
+    content: public abstract class ChannelFactory
+    content.vb: Public MustInherit Class ChannelFactory
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register(System.String,System.Type,System.Object[])
+  commentId: M:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register(System.String,System.Type,System.Object[])
+  id: Register(System.String,System.Type,System.Object[])
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  langs:
+  - csharp
+  - vb
+  name: Register(String, Type, Object[])
+  nameWithType: ChannelFactory.Register(String, Type, Object[])
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register(System.String, System.Type, System.Object[])
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Register
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+    startLine: 24
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nRegisters a channel in the factory.\n"
+  example: []
+  syntax:
+    content: public static void Register(string name, Type type, object[] args)
+    parameters:
+    - id: name
+      type: System.String
+      description: Channel name that matches the name property of the channel.
+    - id: type
+      type: System.Type
+      description: Type of channel.
+    - id: args
+      type: System.Object[]
+      description: Arguments used in the constructor of the channel type.
+    content.vb: Public Shared Sub Register(name As String, type As Type, args As Object())
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register*
+  nameWithType.vb: ChannelFactory.Register(String, Type, Object())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register(System.String, System.Type, System.Object())
+  name.vb: Register(String, Type, Object())
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames
+  commentId: M:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames
+  id: GetNames
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  langs:
+  - csharp
+  - vb
+  name: GetNames()
+  nameWithType: ChannelFactory.GetNames()
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: GetNames
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+    startLine: 38
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nGets an array of channel names.\n"
+  example: []
+  syntax:
+    content: public static string[] GetNames()
+    return:
+      type: System.String[]
+      description: Array string names.
+    content.vb: Public Shared Function GetNames As String()
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear
+  commentId: M:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear
+  id: Clear
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: ChannelFactory.Clear()
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Clear
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+    startLine: 51
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nClears the channel factory.\n"
+  example: []
+  syntax:
+    content: public static void Clear()
+    content.vb: Public Shared Sub Clear
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create(System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create(System.String)
+  id: Create(System.String)
+  parent: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory
+  langs:
+  - csharp
+  - vb
+  name: Create(String)
+  nameWithType: ChannelFactory.Create(String)
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Create
+    path: src/Microsoft.Health.Fhir.Proxy/Channels/ChannelFactory.cs
+    startLine: 64
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Channels
+  summary: "\nCreate a channel from the factory by its name.\n"
+  example: []
+  syntax:
+    content: public static IChannel Create(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: Name of the channel in the factory to create.
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Channels.IChannel
+      description: IChannel
+    content.vb: Public Shared Function Create(name As String) As IChannel
+  overload: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Channels
+  commentId: N:Microsoft.Health.Fhir.Proxy.Channels
+  name: Microsoft.Health.Fhir.Proxy.Channels
+  nameWithType: Microsoft.Health.Fhir.Proxy.Channels
+  fullName: Microsoft.Health.Fhir.Proxy.Channels
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register
+  name: Register
+  nameWithType: ChannelFactory.Register
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Register
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Object[]
+  isExternal: true
+  name: Object[]
+  nameWithType: Object[]
+  fullName: System.Object[]
+  nameWithType.vb: Object()
+  fullName.vb: System.Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames
+  name: GetNames
+  nameWithType: ChannelFactory.GetNames
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.GetNames
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear
+  name: Clear
+  nameWithType: ChannelFactory.Clear
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Clear
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create
+  name: Create
+  nameWithType: ChannelFactory.Create
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.Create
+- uid: Microsoft.Health.Fhir.Proxy.Channels.IChannel
+  commentId: T:Microsoft.Health.Fhir.Proxy.Channels.IChannel
+  parent: Microsoft.Health.Fhir.Proxy.Channels
+  name: IChannel
+  nameWithType: IChannel
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.IChannel

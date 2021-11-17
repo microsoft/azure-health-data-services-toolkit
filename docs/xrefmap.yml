@@ -3140,6 +3140,51 @@ references:
   commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
   fullName: Microsoft.Health.Fhir.Proxy.Pipelines
   nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions
+  name: AzureFunctionExtensions
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions
+  nameWithType: AzureFunctionExtensions
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  name: ConvertToHttpRequestMesssage(HttpRequestData)
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpRequestMesssage_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  nameWithType: AzureFunctionExtensions.ConvertToHttpRequestMesssage(HttpRequestData)
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage*
+  name: ConvertToHttpRequestMesssage
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpRequestMesssage_
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage
+  isSpec: "True"
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage
+  nameWithType: AzureFunctionExtensions.ConvertToHttpRequestMesssage
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  name: ConvertToHttpResponseData(OperationContext, HttpRequestData)
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpResponseData_Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext, Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  nameWithType: AzureFunctionExtensions.ConvertToHttpResponseData(OperationContext, HttpRequestData)
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData*
+  name: ConvertToHttpResponseData
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpResponseData_
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData
+  isSpec: "True"
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData
+  nameWithType: AzureFunctionExtensions.ConvertToHttpResponseData
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  name: GetClaimsPrincipal(HttpRequestData)
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_GetClaimsPrincipal_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  nameWithType: AzureFunctionExtensions.GetClaimsPrincipal(HttpRequestData)
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal*
+  name: GetClaimsPrincipal
+  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_GetClaimsPrincipal_
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal
+  isSpec: "True"
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal
+  nameWithType: AzureFunctionExtensions.GetClaimsPrincipal
 - uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
   name: AzureFunctionPipelineManager
   href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.html
@@ -3306,51 +3351,6 @@ references:
   commentId: E:Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline.OnError
   fullName: Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline.OnError
   nameWithType: BasicPipeline.OnError
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
-  name: Extensions
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html
-  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
-  nameWithType: Extensions
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  name: ConvertToHttpRequestMesssage(HttpRequestData)
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_ConvertToHttpRequestMesssage_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
-  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  nameWithType: Extensions.ConvertToHttpRequestMesssage(HttpRequestData)
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage*
-  name: ConvertToHttpRequestMesssage
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_ConvertToHttpRequestMesssage_
-  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage
-  isSpec: "True"
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpRequestMesssage
-  nameWithType: Extensions.ConvertToHttpRequestMesssage
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  name: ConvertToHttpResponseData(OperationContext, HttpRequestData)
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_ConvertToHttpResponseData_Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
-  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext, Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  nameWithType: Extensions.ConvertToHttpResponseData(OperationContext, HttpRequestData)
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData*
-  name: ConvertToHttpResponseData
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_ConvertToHttpResponseData_
-  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData
-  isSpec: "True"
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.ConvertToHttpResponseData
-  nameWithType: Extensions.ConvertToHttpResponseData
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  name: GetClaimsPrincipal(HttpRequestData)
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_GetClaimsPrincipal_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_
-  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
-  nameWithType: Extensions.GetClaimsPrincipal(HttpRequestData)
-- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal*
-  name: GetClaimsPrincipal
-  href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html#Microsoft_Health_Fhir_Proxy_Pipelines_Extensions_GetClaimsPrincipal_
-  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal
-  isSpec: "True"
-  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.GetClaimsPrincipal
-  nameWithType: Extensions.GetClaimsPrincipal
 - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
   name: IPipelineBuilder
   href: reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.html

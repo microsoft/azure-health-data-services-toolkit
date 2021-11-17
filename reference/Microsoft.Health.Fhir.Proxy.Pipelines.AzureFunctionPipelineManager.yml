@@ -1,0 +1,1063 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  id: AzureFunctionPipelineManager
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  children:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding,Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger)
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  langs:
+  - csharp
+  - vb
+  name: AzureFunctionPipelineManager
+  nameWithType: AzureFunctionPipelineManager
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: AzureFunctionPipelineManager
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 16
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nManages input and output pipelines for Azure Functions.\n"
+  example: []
+  syntax:
+    content: 'public sealed class AzureFunctionPipelineManager : IPipelineManager<HttpRequestData, HttpResponseData>'
+    content.vb: >-
+      Public NotInheritable Class AzureFunctionPipelineManager
+          Implements IPipelineManager(Of HttpRequestData, HttpResponseData)
+  inheritance:
+  - System.Object
+  implements:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - sealed
+  - class
+  modifiers.vb:
+  - Public
+  - NotInheritable
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding,Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding,Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger)
+  id: '#ctor(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding,Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger)'
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: AzureFunctionPipelineManager(PipelineSettings, PipelineBinding, PipelineSettings, TelemetryClient, ILogger)
+  nameWithType: AzureFunctionPipelineManager.AzureFunctionPipelineManager(PipelineSettings, PipelineBinding, PipelineSettings, TelemetryClient, ILogger)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AzureFunctionPipelineManager(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings, Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding, Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings, Microsoft.ApplicationInsights.TelemetryClient, Microsoft.Extensions.Logging.ILogger)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 26
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nCreates an instance of AzureFunctionPipelineManager\n"
+  example: []
+  syntax:
+    content: public AzureFunctionPipelineManager(PipelineSettings input, PipelineBinding binding, PipelineSettings output, TelemetryClient client = null, ILogger logger = null)
+    parameters:
+    - id: input
+      type: Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings
+      description: Input pipeline settings.
+    - id: binding
+      type: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+      description: Binding between input and output pipelines.
+    - id: output
+      type: Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings
+      description: Output pipeline settings.
+    - id: client
+      type: Microsoft.ApplicationInsights.TelemetryClient
+      description: Telemetry cleint.
+    - id: logger
+      type: Microsoft.Extensions.Logging.ILogger
+      description: ILogger
+    content.vb: Public Sub New(input As PipelineSettings, binding As PipelineBinding, output As PipelineSettings, client As TelemetryClient = Nothing, logger As ILogger = Nothing)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+  id: BeforeInput
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: BeforeInput
+  nameWithType: AzureFunctionPipelineManager.BeforeInput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: BeforeInput
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 44
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nOptional function that executes prior to the input pipeline.\n"
+  example: []
+  syntax:
+    content: public Func<OperationContext, OperationContext> BeforeInput { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+    content.vb: Public Property BeforeInput As Func(Of OperationContext, OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+  id: AfterInput
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: AfterInput
+  nameWithType: AzureFunctionPipelineManager.AfterInput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: AfterInput
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 49
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nOptional function that executes after the input pipeline.\n"
+  example: []
+  syntax:
+    content: public Func<OperationContext, OperationContext> AfterInput { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+    content.vb: Public Property AfterInput As Func(Of OperationContext, OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+  id: BeforeOutput
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: BeforeOutput
+  nameWithType: AzureFunctionPipelineManager.BeforeOutput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: BeforeOutput
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 54
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nOptional function that executes prior to the output pipeline.\n"
+  example: []
+  syntax:
+    content: public Func<OperationContext, OperationContext> BeforeOutput { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+    content.vb: Public Property BeforeOutput As Func(Of OperationContext, OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+  id: AfterOutput
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: AfterOutput
+  nameWithType: AzureFunctionPipelineManager.AfterOutput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: AfterOutput
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 59
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nOptional function that executes after the output pipeline.\n"
+  example: []
+  syntax:
+    content: public Func<OperationContext, OperationContext> AfterOutput { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+    content.vb: Public Property AfterOutput As Func(Of OperationContext, OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  id: ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(HttpRequestData)
+  nameWithType: AzureFunctionPipelineManager.ExecuteAsync(HttpRequestData)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ExecuteAsync
+    path: src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipelineManager.cs
+    startLine: 66
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nExecutes the all the configured components.\n"
+  example: []
+  syntax:
+    content: public async Task<HttpResponseData> ExecuteAsync(HttpRequestData request)
+    parameters:
+    - id: request
+      type: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+      description: HttpRequestData from Azure Function.
+    return:
+      type: System.Threading.Tasks.Task{Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+      description: HttpResponseData to Azure Function.
+    content.vb: Public Function ExecuteAsync(request As HttpRequestData) As Task(Of HttpResponseData)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync*
+  implements:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  modifiers.csharp:
+  - public
+  - async
+  modifiers.vb:
+  - Public
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  definition: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  name: IPipelineManager<HttpRequestData, HttpResponseData>
+  nameWithType: IPipelineManager<HttpRequestData, HttpResponseData>
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData>
+  nameWithType.vb: IPipelineManager(Of HttpRequestData, HttpResponseData)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData)
+  name.vb: IPipelineManager(Of HttpRequestData, HttpResponseData)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    name: HttpRequestData
+    nameWithType: HttpRequestData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    name: HttpResponseData
+    nameWithType: HttpResponseData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    name: HttpRequestData
+    nameWithType: HttpRequestData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    name: HttpResponseData
+    nameWithType: HttpResponseData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  name: IPipelineManager<TRequest, TResponse>
+  nameWithType: IPipelineManager<TRequest, TResponse>
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse)
+  name.vb: IPipelineManager(Of TRequest, TResponse)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.#ctor
+  name: AzureFunctionPipelineManager
+  nameWithType: AzureFunctionPipelineManager.AzureFunctionPipelineManager
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AzureFunctionPipelineManager
+- uid: Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings
+  commentId: T:Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings
+  parent: Microsoft.Health.Fhir.Proxy.Configuration
+  name: PipelineSettings
+  nameWithType: PipelineSettings
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  commentId: T:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  parent: Microsoft.Health.Fhir.Proxy.Bindings
+  name: PipelineBinding
+  nameWithType: PipelineBinding
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+- uid: Microsoft.ApplicationInsights.TelemetryClient
+  commentId: T:Microsoft.ApplicationInsights.TelemetryClient
+  parent: Microsoft.ApplicationInsights
+  isExternal: true
+  name: TelemetryClient
+  nameWithType: TelemetryClient
+  fullName: Microsoft.ApplicationInsights.TelemetryClient
+- uid: Microsoft.Extensions.Logging.ILogger
+  commentId: T:Microsoft.Extensions.Logging.ILogger
+  parent: Microsoft.Extensions.Logging
+  isExternal: true
+  name: ILogger
+  nameWithType: ILogger
+  fullName: Microsoft.Extensions.Logging.ILogger
+- uid: Microsoft.Health.Fhir.Proxy.Configuration
+  commentId: N:Microsoft.Health.Fhir.Proxy.Configuration
+  name: Microsoft.Health.Fhir.Proxy.Configuration
+  nameWithType: Microsoft.Health.Fhir.Proxy.Configuration
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration
+- uid: Microsoft.Health.Fhir.Proxy.Bindings
+  commentId: N:Microsoft.Health.Fhir.Proxy.Bindings
+  name: Microsoft.Health.Fhir.Proxy.Bindings
+  nameWithType: Microsoft.Health.Fhir.Proxy.Bindings
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings
+- uid: Microsoft.ApplicationInsights
+  commentId: N:Microsoft.ApplicationInsights
+  isExternal: true
+  name: Microsoft.ApplicationInsights
+  nameWithType: Microsoft.ApplicationInsights
+  fullName: Microsoft.ApplicationInsights
+- uid: Microsoft.Extensions.Logging
+  commentId: N:Microsoft.Extensions.Logging
+  isExternal: true
+  name: Microsoft.Extensions.Logging
+  nameWithType: Microsoft.Extensions.Logging
+  fullName: Microsoft.Extensions.Logging
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+  name: BeforeInput
+  nameWithType: AzureFunctionPipelineManager.BeforeInput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeInput
+- uid: System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  commentId: T:System.Func{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  parent: System
+  definition: System.Func`2
+  name: Func<OperationContext, OperationContext>
+  nameWithType: Func<OperationContext, OperationContext>
+  fullName: System.Func<Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext, Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext>
+  nameWithType.vb: Func(Of OperationContext, OperationContext)
+  fullName.vb: System.Func(Of Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext, Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  name.vb: Func(Of OperationContext, OperationContext)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+  name: AfterInput
+  nameWithType: AzureFunctionPipelineManager.AfterInput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterInput
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+  name: BeforeOutput
+  nameWithType: AzureFunctionPipelineManager.BeforeOutput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.BeforeOutput
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+  name: AfterOutput
+  nameWithType: AzureFunctionPipelineManager.AfterOutput
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.AfterOutput
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: AzureFunctionPipelineManager.ExecuteAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.ExecuteAsync
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager{Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  definition: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  name: ExecuteAsync(HttpRequestData)
+  nameWithType: IPipelineManager<HttpRequestData, HttpResponseData>.ExecuteAsync(HttpRequestData)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData>.ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  nameWithType.vb: IPipelineManager(Of HttpRequestData, HttpResponseData).ExecuteAsync(HttpRequestData)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData).ExecuteAsync(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+    name: ExecuteAsync
+    nameWithType: IPipelineManager<HttpRequestData, HttpResponseData>.ExecuteAsync
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData>.ExecuteAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    name: HttpRequestData
+    nameWithType: HttpRequestData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+    name: ExecuteAsync
+    nameWithType: IPipelineManager(Of HttpRequestData, HttpResponseData).ExecuteAsync
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of Microsoft.Azure.Functions.Worker.Http.HttpRequestData, Microsoft.Azure.Functions.Worker.Http.HttpResponseData).ExecuteAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    name: HttpRequestData
+    nameWithType: HttpRequestData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+  commentId: T:Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+  parent: Microsoft.Azure.Functions.Worker.Http
+  isExternal: true
+  name: HttpRequestData
+  nameWithType: HttpRequestData
+  fullName: Microsoft.Azure.Functions.Worker.Http.HttpRequestData
+- uid: System.Threading.Tasks.Task{Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  commentId: T:System.Threading.Tasks.Task{Microsoft.Azure.Functions.Worker.Http.HttpResponseData}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<HttpResponseData>
+  nameWithType: Task<HttpResponseData>
+  fullName: System.Threading.Tasks.Task<Microsoft.Azure.Functions.Worker.Http.HttpResponseData>
+  nameWithType.vb: Task(Of HttpResponseData)
+  fullName.vb: System.Threading.Tasks.Task(Of Microsoft.Azure.Functions.Worker.Http.HttpResponseData)
+  name.vb: Task(Of HttpResponseData)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    name: HttpResponseData
+    nameWithType: HttpResponseData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    name: HttpResponseData
+    nameWithType: HttpResponseData
+    fullName: Microsoft.Azure.Functions.Worker.Http.HttpResponseData
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  name: ExecuteAsync(TRequest)
+  nameWithType: IPipelineManager<TRequest, TResponse>.ExecuteAsync(TRequest)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>.ExecuteAsync(TRequest)
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse).ExecuteAsync(TRequest)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse).ExecuteAsync(TRequest)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+    name: ExecuteAsync
+    nameWithType: IPipelineManager<TRequest, TResponse>.ExecuteAsync
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>.ExecuteAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+    name: ExecuteAsync
+    nameWithType: IPipelineManager(Of TRequest, TResponse).ExecuteAsync
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse).ExecuteAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Azure.Functions.Worker.Http
+  commentId: N:Microsoft.Azure.Functions.Worker.Http
+  isExternal: true
+  name: Microsoft.Azure.Functions.Worker.Http
+  nameWithType: Microsoft.Azure.Functions.Worker.Http
+  fullName: Microsoft.Azure.Functions.Worker.Http
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

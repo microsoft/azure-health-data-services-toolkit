@@ -83,7 +83,8 @@
   
   <h1 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager" class="text-break">Class WebPipelineManager
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Manages input and output pipelines for a Web app.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -128,11 +129,12 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=15">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=26">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.#ctor*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager__ctor_Microsoft_Health_Fhir_Proxy_Configuration_PipelineSettings_Microsoft_Health_Fhir_Proxy_Bindings_PipelineBinding_Microsoft_Health_Fhir_Proxy_Configuration_PipelineSettings_Microsoft_ApplicationInsights_TelemetryClient_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.#ctor(Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding,Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger)">WebPipelineManager(PipelineSettings, PipelineBinding, PipelineSettings, TelemetryClient, ILogger)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Creates an instance of WebPipelineManager.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -151,27 +153,32 @@
       <tr>
         <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings.html">PipelineSettings</a></td>
         <td><span class="parametername">input</span></td>
-        <td></td>
+        <td><p>Input pipeline settings.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.html">PipelineBinding</a></td>
         <td><span class="parametername">binding</span></td>
-        <td></td>
+        <td><p>Binding between input and output pipelines.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings.html">PipelineSettings</a></td>
         <td><span class="parametername">output</span></td>
-        <td></td>
+        <td><p>Output pipeline settings.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.applicationinsights.telemetryclient">TelemetryClient</a></td>
         <td><span class="parametername">client</span></td>
-        <td></td>
+        <td><p>Telemetry cleint.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
         <td><span class="parametername">logger</span></td>
-        <td></td>
+        <td><p>ILogger</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -179,11 +186,12 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=32">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=49">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_AfterInput_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.AfterInput*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_AfterInput" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.AfterInput">AfterInput</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Optional function that executes after the input pipeline.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -206,11 +214,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=36">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=59">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_AfterOutput_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.AfterOutput*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_AfterOutput" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.AfterOutput">AfterOutput</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Optional function that executes after the output pipeline.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -233,11 +242,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=30">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=44">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_BeforeInput_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.BeforeInput*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_BeforeInput" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.BeforeInput">BeforeInput</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Optional function that executes prior to the input pipeline.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -260,11 +270,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=34">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=54">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_BeforeOutput_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.BeforeOutput*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_BeforeOutput" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.BeforeOutput">BeforeOutput</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Optional function that executes prior to the output pipeline.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -289,11 +300,12 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=38">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=66">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_ExecuteAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.ExecuteAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_WebPipelineManager_ExecuteAsync_System_Net_Http_HttpRequestMessage_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.ExecuteAsync(System.Net.Http.HttpRequestMessage)">ExecuteAsync(HttpRequestMessage)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Executes the all the configured components.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -312,7 +324,8 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
         <td><span class="parametername">request</span></td>
-        <td></td>
+        <td><p>HttpRequestMessage from Web app.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -327,7 +340,8 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a>&gt;</td>
-        <td></td>
+        <td><p>HttpResponseMessage for Web app.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -343,7 +357,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=13" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/WebPipelineManager.cs&amp;version=GBmalong/1042&amp;line=16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

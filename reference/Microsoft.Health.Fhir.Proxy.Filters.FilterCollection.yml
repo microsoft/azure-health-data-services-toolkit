@@ -1,0 +1,2294 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  commentId: T:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  id: FilterCollection
+  parent: Microsoft.Health.Fhir.Proxy.Filters
+  children:
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item(System.Int32)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt(System.Int32)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator
+  langs:
+  - csharp
+  - vb
+  name: FilterCollection
+  nameWithType: FilterCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: FilterCollection
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 8
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nA collection of filters.\n"
+  example: []
+  syntax:
+    content: 'public class FilterCollection : IList<IFilter>, ICollection<IFilter>, IEnumerable<IFilter>, IEnumerable'
+    content.vb: >-
+      Public Class FilterCollection
+          Implements IList(Of IFilter), ICollection(Of IFilter), IEnumerable(Of IFilter), IEnumerable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  - System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  - System.Collections.IEnumerable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor
+  id: '#ctor'
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: FilterCollection()
+  nameWithType: FilterCollection.FilterCollection()
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.FilterCollection()
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 13
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nCreates an instance of the FilterCollection.\n"
+  example: []
+  syntax:
+    content: public FilterCollection()
+    content.vb: Public Sub New
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+  id: Count
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: FilterCollection.Count
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Count
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 23
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets the number of filters in the collection.\n"
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Count
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+  id: IsReadOnly
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: IsReadOnly
+  nameWithType: FilterCollection.IsReadOnly
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IsReadOnly
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 28
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets an indicator of whether the filter is read-only.\n"
+  example: []
+  syntax:
+    content: public bool IsReadOnly { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsReadOnly As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IsReadOnly
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item(System.Int32)
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item(System.Int32)
+  id: Item(System.Int32)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Item[Int32]
+  nameWithType: FilterCollection.Item[Int32]
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item[System.Int32]
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: this[]
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 35
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets a filter in the collection by its index.\n"
+  example: []
+  syntax:
+    content: public IFilter this[int index] { get; set; }
+    parameters:
+    - id: index
+      type: System.Int32
+      description: Index of filter to return.
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: IFilter
+    content.vb: Public Property Item(index As Integer) As IFilter
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item*
+  implements:
+  - System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Item(System.Int32)
+  nameWithType.vb: FilterCollection.Item(Int32)
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item(System.Int32)
+  name.vb: Item(Int32)
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  id: IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: IndexOf(IFilter)
+  nameWithType: FilterCollection.IndexOf(IFilter)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IndexOf
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 42
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nFinds the index of a filter.\n"
+  example: []
+  syntax:
+    content: public int IndexOf(IFilter item)
+    parameters:
+    - id: item
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: The filter to return the index.
+    return:
+      type: System.Int32
+      description: Index of the input filter in the collection.
+    content.vb: Public Function IndexOf(item As IFilter) As Integer
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf*
+  implements:
+  - System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  id: Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Insert(Int32, IFilter)
+  nameWithType: FilterCollection.Insert(Int32, IFilter)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert(System.Int32, Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Insert
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 52
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nInserts a filter into the collection.\n"
+  example: []
+  syntax:
+    content: public void Insert(int index, IFilter item)
+    parameters:
+    - id: index
+      type: System.Int32
+      description: Index of the filter insertion.
+    - id: item
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: Fitler to insert.
+    content.vb: Public Sub Insert(index As Integer, item As IFilter)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert*
+  implements:
+  - System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt(System.Int32)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt(System.Int32)
+  id: RemoveAt(System.Int32)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: RemoveAt(Int32)
+  nameWithType: FilterCollection.RemoveAt(Int32)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt(System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: RemoveAt
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 61
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nRemove a filter from the collection by its index.\n"
+  example: []
+  syntax:
+    content: public void RemoveAt(int index)
+    parameters:
+    - id: index
+      type: System.Int32
+      description: Index of filter to remove.
+    content.vb: Public Sub RemoveAt(index As Integer)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt*
+  implements:
+  - System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.RemoveAt(System.Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  id: Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Add(IFilter)
+  nameWithType: FilterCollection.Add(IFilter)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Add
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 70
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nAdds a filter to the collection.\n"
+  example: []
+  syntax:
+    content: public void Add(IFilter item)
+    parameters:
+    - id: item
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: Filter to add to the collection.
+    content.vb: Public Sub Add(item As IFilter)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear
+  id: Clear
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: FilterCollection.Clear()
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Clear
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 78
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nClears the filter collections.\n"
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Clear
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  id: Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Contains(IFilter)
+  nameWithType: FilterCollection.Contains(IFilter)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Contains
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 88
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nIndicates whether a filter is contained in the collection.\n"
+  example: []
+  syntax:
+    content: public bool Contains(IFilter item)
+    parameters:
+    - id: item
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: Fitler used to determined if it is in the collection.
+    return:
+      type: System.Boolean
+      description: True is filter in is the collection; otherwise false.
+    content.vb: Public Function Contains(item As IFilter) As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  id: CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: CopyTo(IFilter[], Int32)
+  nameWithType: FilterCollection.CopyTo(IFilter[], Int32)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[], System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: CopyTo
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 98
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nCopies the filter collection into an array starting at the index.\n"
+  example: []
+  syntax:
+    content: public void CopyTo(IFilter[] array, int arrayIndex)
+    parameters:
+    - id: array
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter[]
+      description: Array to fill with filter collection.
+    - id: arrayIndex
+      type: System.Int32
+      description: Starting index to fill the array.
+    content.vb: Public Sub CopyTo(array As IFilter(), arrayIndex As Integer)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  nameWithType.vb: FilterCollection.CopyTo(IFilter(), Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter(), System.Int32)
+  name.vb: CopyTo(IFilter(), Int32)
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  id: Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: Remove(IFilter)
+  nameWithType: FilterCollection.Remove(IFilter)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Remove
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 108
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nRemoves a filter from the collection.\n"
+  example: []
+  syntax:
+    content: public bool Remove(IFilter item)
+    parameters:
+    - id: item
+      type: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+      description: Filter to remove.
+    return:
+      type: System.Boolean
+      description: True is the filter is removed; otherwise false.
+    content.vb: Public Function Remove(item As IFilter) As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove*
+  implements:
+  - System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator
+  id: GetEnumerator
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: FilterCollection.GetEnumerator()
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: GetEnumerator
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 117
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets an enumerator for the filters in the collection.\n"
+  example: []
+  syntax:
+    content: public IEnumerator<IFilter> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+      description: Enumerator of filters.
+    content.vb: Public Function GetEnumerator As IEnumerator(Of IFilter)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.GetEnumerator
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator
+  id: System#Collections#IEnumerable#GetEnumerator
+  isEii: true
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  langs:
+  - csharp
+  - vb
+  name: IEnumerable.GetEnumerator()
+  nameWithType: FilterCollection.IEnumerable.GetEnumerator()
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System.Collections.IEnumerable.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: System.Collections.IEnumerable.GetEnumerator
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterCollection.cs
+    startLine: 122
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  syntax:
+    content: IEnumerator IEnumerable.GetEnumerator()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Function System.Collections.IEnumerable.GetEnumerator As IEnumerator Implements IEnumerable.GetEnumerator
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator*
+  implements:
+  - System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: FilterCollection.System.Collections.IEnumerable.GetEnumerator()
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Filters
+  commentId: N:Microsoft.Health.Fhir.Proxy.Filters
+  name: Microsoft.Health.Fhir.Proxy.Filters
+  nameWithType: Microsoft.Health.Fhir.Proxy.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Filters
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  commentId: T:System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  name: IList<IFilter>
+  nameWithType: IList<IFilter>
+  fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>
+  nameWithType.vb: IList(Of IFilter)
+  fullName.vb: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  name.vb: IList(Of IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  commentId: T:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.ICollection`1
+  name: ICollection<IFilter>
+  nameWithType: ICollection<IFilter>
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>
+  nameWithType.vb: ICollection(Of IFilter)
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  name.vb: ICollection(Of IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  commentId: T:System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<IFilter>
+  nameWithType: IEnumerable<IFilter>
+  fullName: System.Collections.Generic.IEnumerable<Microsoft.Health.Fhir.Proxy.Filters.IFilter>
+  nameWithType.vb: IEnumerable(Of IFilter)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  name.vb: IEnumerable(Of IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    nameWithType: IList
+    fullName: System.Collections.Generic.IList
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: System.Collections.Generic.ICollection`1
+  commentId: T:System.Collections.Generic.ICollection`1
+  isExternal: true
+  name: ICollection<T>
+  nameWithType: ICollection<T>
+  fullName: System.Collections.Generic.ICollection<T>
+  nameWithType.vb: ICollection(Of T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T)
+  name.vb: ICollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    nameWithType: ICollection
+    fullName: System.Collections.Generic.ICollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.#ctor
+  name: FilterCollection
+  nameWithType: FilterCollection.FilterCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.FilterCollection
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+  name: Count
+  nameWithType: FilterCollection.Count
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Count
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Count
+  commentId: P:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Count
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.Count
+  name: Count
+  nameWithType: ICollection<IFilter>.Count
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Count
+  nameWithType.vb: ICollection(Of IFilter).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Count
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Collections.Generic.ICollection`1.Count
+  commentId: P:System.Collections.Generic.ICollection`1.Count
+  isExternal: true
+  name: Count
+  nameWithType: ICollection<T>.Count
+  fullName: System.Collections.Generic.ICollection<T>.Count
+  nameWithType.vb: ICollection(Of T).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Count
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+  name: IsReadOnly
+  nameWithType: FilterCollection.IsReadOnly
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IsReadOnly
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IsReadOnly
+  commentId: P:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IsReadOnly
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.IsReadOnly
+  name: IsReadOnly
+  nameWithType: ICollection<IFilter>.IsReadOnly
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.IsReadOnly
+  nameWithType.vb: ICollection(Of IFilter).IsReadOnly
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).IsReadOnly
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Collections.Generic.ICollection`1.IsReadOnly
+  commentId: P:System.Collections.Generic.ICollection`1.IsReadOnly
+  isExternal: true
+  name: IsReadOnly
+  nameWithType: ICollection<T>.IsReadOnly
+  fullName: System.Collections.Generic.ICollection<T>.IsReadOnly
+  nameWithType.vb: ICollection(Of T).IsReadOnly
+  fullName.vb: System.Collections.Generic.ICollection(Of T).IsReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item
+  name: Item
+  nameWithType: FilterCollection.Item
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Item
+- uid: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Item(System.Int32)
+  parent: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.IList`1.Item(System.Int32)
+  name: Item[Int32]
+  nameWithType: IList<IFilter>.Item[Int32]
+  fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Item[System.Int32]
+  nameWithType.vb: IList(Of IFilter).Item(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Item(System.Int32)
+  name.vb: Item(Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList<IFilter>.Item
+    fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Item
+    isExternal: true
+  - name: '['
+    nameWithType: '['
+    fullName: '['
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ']'
+    nameWithType: ']'
+    fullName: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList(Of IFilter).Item
+    fullName: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Item
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  commentId: T:Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  parent: Microsoft.Health.Fhir.Proxy.Filters
+  name: IFilter
+  nameWithType: IFilter
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+- uid: System.Collections.Generic.IList`1.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IList`1.Item(System.Int32)
+  isExternal: true
+  name: Item[Int32]
+  nameWithType: IList<T>.Item[Int32]
+  fullName: System.Collections.Generic.IList<T>.Item[System.Int32]
+  nameWithType.vb: IList(Of T).Item(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of T).Item(System.Int32)
+  name.vb: Item(Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList<T>.Item
+    fullName: System.Collections.Generic.IList<T>.Item
+    isExternal: true
+  - name: '['
+    nameWithType: '['
+    fullName: '['
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ']'
+    nameWithType: ']'
+    fullName: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Item(System.Int32)
+    name: Item
+    nameWithType: IList(Of T).Item
+    fullName: System.Collections.Generic.IList(Of T).Item
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf
+  name: IndexOf
+  nameWithType: FilterCollection.IndexOf
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.IndexOf
+- uid: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.IList`1.IndexOf(`0)
+  name: IndexOf(IFilter)
+  nameWithType: IList<IFilter>.IndexOf(IFilter)
+  fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  nameWithType.vb: IList(Of IFilter).IndexOf(IFilter)
+  fullName.vb: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).IndexOf(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList<IFilter>.IndexOf
+    fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList(Of IFilter).IndexOf
+    fullName: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.IndexOf(`0)
+  commentId: M:System.Collections.Generic.IList`1.IndexOf(`0)
+  isExternal: true
+  name: IndexOf(T)
+  nameWithType: IList<T>.IndexOf(T)
+  fullName: System.Collections.Generic.IList<T>.IndexOf(T)
+  nameWithType.vb: IList(Of T).IndexOf(T)
+  fullName.vb: System.Collections.Generic.IList(Of T).IndexOf(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList<T>.IndexOf
+    fullName: System.Collections.Generic.IList<T>.IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.IndexOf(`0)
+    name: IndexOf
+    nameWithType: IList(Of T).IndexOf
+    fullName: System.Collections.Generic.IList(Of T).IndexOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert
+  name: Insert
+  nameWithType: FilterCollection.Insert
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Insert
+- uid: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Insert(System.Int32,Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  name: Insert(Int32, IFilter)
+  nameWithType: IList<IFilter>.Insert(Int32, IFilter)
+  fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Insert(System.Int32, Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  nameWithType.vb: IList(Of IFilter).Insert(Int32, IFilter)
+  fullName.vb: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Insert(System.Int32, Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList<IFilter>.Insert
+    fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList(Of IFilter).Insert
+    fullName: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  commentId: M:System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+  isExternal: true
+  name: Insert(Int32, T)
+  nameWithType: IList<T>.Insert(Int32, T)
+  fullName: System.Collections.Generic.IList<T>.Insert(System.Int32, T)
+  nameWithType.vb: IList(Of T).Insert(Int32, T)
+  fullName.vb: System.Collections.Generic.IList(Of T).Insert(System.Int32, T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList<T>.Insert
+    fullName: System.Collections.Generic.IList<T>.Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.Insert(System.Int32,`0)
+    name: Insert
+    nameWithType: IList(Of T).Insert
+    fullName: System.Collections.Generic.IList(Of T).Insert
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt
+  name: RemoveAt
+  nameWithType: FilterCollection.RemoveAt
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.RemoveAt
+- uid: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.RemoveAt(System.Int32)
+  commentId: M:System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.RemoveAt(System.Int32)
+  parent: System.Collections.Generic.IList{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  name: RemoveAt(Int32)
+  nameWithType: IList<IFilter>.RemoveAt(Int32)
+  fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.RemoveAt(System.Int32)
+  nameWithType.vb: IList(Of IFilter).RemoveAt(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).RemoveAt(System.Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList<IFilter>.RemoveAt
+    fullName: System.Collections.Generic.IList<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList(Of IFilter).RemoveAt
+    fullName: System.Collections.Generic.IList(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  commentId: M:System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+  isExternal: true
+  name: RemoveAt(Int32)
+  nameWithType: IList<T>.RemoveAt(Int32)
+  fullName: System.Collections.Generic.IList<T>.RemoveAt(System.Int32)
+  nameWithType.vb: IList(Of T).RemoveAt(Int32)
+  fullName.vb: System.Collections.Generic.IList(Of T).RemoveAt(System.Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList<T>.RemoveAt
+    fullName: System.Collections.Generic.IList<T>.RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1.RemoveAt(System.Int32)
+    name: RemoveAt
+    nameWithType: IList(Of T).RemoveAt
+    fullName: System.Collections.Generic.IList(Of T).RemoveAt
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add
+  name: Add
+  nameWithType: FilterCollection.Add
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Add
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.Add(`0)
+  name: Add(IFilter)
+  nameWithType: ICollection<IFilter>.Add(IFilter)
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  nameWithType.vb: ICollection(Of IFilter).Add(IFilter)
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Add(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection<IFilter>.Add
+    fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection(Of IFilter).Add
+    fullName: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Add(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Add(`0)
+  isExternal: true
+  name: Add(T)
+  nameWithType: ICollection<T>.Add(T)
+  fullName: System.Collections.Generic.ICollection<T>.Add(T)
+  nameWithType.vb: ICollection(Of T).Add(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Add(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection<T>.Add
+    fullName: System.Collections.Generic.ICollection<T>.Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    nameWithType: ICollection(Of T).Add
+    fullName: System.Collections.Generic.ICollection(Of T).Add
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear
+  name: Clear
+  nameWithType: FilterCollection.Clear
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Clear
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Clear
+  commentId: M:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Clear
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.Clear
+  name: Clear()
+  nameWithType: ICollection<IFilter>.Clear()
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Clear()
+  nameWithType.vb: ICollection(Of IFilter).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection<IFilter>.Clear
+    fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection(Of IFilter).Clear
+    fullName: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Clear
+  commentId: M:System.Collections.Generic.ICollection`1.Clear
+  isExternal: true
+  name: Clear()
+  nameWithType: ICollection<T>.Clear()
+  fullName: System.Collections.Generic.ICollection<T>.Clear()
+  nameWithType.vb: ICollection(Of T).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection<T>.Clear
+    fullName: System.Collections.Generic.ICollection<T>.Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    nameWithType: ICollection(Of T).Clear
+    fullName: System.Collections.Generic.ICollection(Of T).Clear
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains
+  name: Contains
+  nameWithType: FilterCollection.Contains
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Contains
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.Contains(`0)
+  name: Contains(IFilter)
+  nameWithType: ICollection<IFilter>.Contains(IFilter)
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  nameWithType.vb: ICollection(Of IFilter).Contains(IFilter)
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Contains(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection<IFilter>.Contains
+    fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection(Of IFilter).Contains
+    fullName: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Contains(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Contains(`0)
+  isExternal: true
+  name: Contains(T)
+  nameWithType: ICollection<T>.Contains(T)
+  fullName: System.Collections.Generic.ICollection<T>.Contains(T)
+  nameWithType.vb: ICollection(Of T).Contains(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Contains(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection<T>.Contains
+    fullName: System.Collections.Generic.ICollection<T>.Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    nameWithType: ICollection(Of T).Contains
+    fullName: System.Collections.Generic.ICollection(Of T).Contains
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo
+  name: CopyTo
+  nameWithType: FilterCollection.CopyTo
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.CopyTo
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[],System.Int32)
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  name: CopyTo(IFilter[], Int32)
+  nameWithType: ICollection<IFilter>.CopyTo(IFilter[], Int32)
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter[], System.Int32)
+  nameWithType.vb: ICollection(Of IFilter).CopyTo(IFilter(), Int32)
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).CopyTo(Microsoft.Health.Fhir.Proxy.Filters.IFilter(), System.Int32)
+  name.vb: CopyTo(IFilter(), Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection<IFilter>.CopyTo
+    fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection(Of IFilter).CopyTo
+    fullName: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter[]
+  isExternal: true
+  name: IFilter[]
+  nameWithType: IFilter[]
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter[]
+  nameWithType.vb: IFilter()
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Filters.IFilter()
+  name.vb: IFilter()
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  isExternal: true
+  name: CopyTo(T[], Int32)
+  nameWithType: ICollection<T>.CopyTo(T[], Int32)
+  fullName: System.Collections.Generic.ICollection<T>.CopyTo(T[], System.Int32)
+  nameWithType.vb: ICollection(Of T).CopyTo(T(), Int32)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).CopyTo(T(), System.Int32)
+  name.vb: CopyTo(T(), Int32)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection<T>.CopyTo
+    fullName: System.Collections.Generic.ICollection<T>.CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    nameWithType: ICollection(Of T).CopyTo
+    fullName: System.Collections.Generic.ICollection(Of T).CopyTo
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove
+  name: Remove
+  nameWithType: FilterCollection.Remove
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.Remove
+- uid: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  commentId: M:System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  parent: System.Collections.Generic.ICollection{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.ICollection`1.Remove(`0)
+  name: Remove(IFilter)
+  nameWithType: ICollection<IFilter>.Remove(IFilter)
+  fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  nameWithType.vb: ICollection(Of IFilter).Remove(IFilter)
+  fullName.vb: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Remove(Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection<IFilter>.Remove
+    fullName: System.Collections.Generic.ICollection<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection(Of IFilter).Remove
+    fullName: System.Collections.Generic.ICollection(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.ICollection`1.Remove(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Remove(`0)
+  isExternal: true
+  name: Remove(T)
+  nameWithType: ICollection<T>.Remove(T)
+  fullName: System.Collections.Generic.ICollection<T>.Remove(T)
+  nameWithType.vb: ICollection(Of T).Remove(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Remove(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection<T>.Remove
+    fullName: System.Collections.Generic.ICollection<T>.Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    nameWithType: ICollection(Of T).Remove
+    fullName: System.Collections.Generic.ICollection(Of T).Remove
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator
+  name: GetEnumerator
+  nameWithType: FilterCollection.GetEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<IFilter>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of IFilter).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<IFilter>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<Microsoft.Health.Fhir.Proxy.Filters.IFilter>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of IFilter).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  commentId: T:System.Collections.Generic.IEnumerator{Microsoft.Health.Fhir.Proxy.Filters.IFilter}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<IFilter>
+  nameWithType: IEnumerator<IFilter>
+  fullName: System.Collections.Generic.IEnumerator<Microsoft.Health.Fhir.Proxy.Filters.IFilter>
+  nameWithType.vb: IEnumerator(Of IFilter)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of Microsoft.Health.Fhir.Proxy.Filters.IFilter)
+  name.vb: IEnumerator(Of IFilter)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+    name: IFilter
+    nameWithType: IFilter
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<T>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of T).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator
+  nameWithType: FilterCollection.IEnumerable.GetEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: FilterCollection.System.Collections.IEnumerable.GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+- uid: System.Collections.IEnumerable.GetEnumerator
+  commentId: M:System.Collections.IEnumerable.GetEnumerator
+  parent: System.Collections.IEnumerable
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable.GetEnumerator()
+  fullName: System.Collections.IEnumerable.GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator

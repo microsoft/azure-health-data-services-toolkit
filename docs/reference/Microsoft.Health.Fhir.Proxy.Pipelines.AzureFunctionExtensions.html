@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class PipelineErrorEventArgs
+    <title>Class AzureFunctionExtensions
    | Title </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class PipelineErrorEventArgs
+    <meta name="title" content="Class AzureFunctionExtensions
    | Title ">
     <meta name="generator" content="docfx 2.58.9.0">
     
@@ -78,18 +78,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs">
+            <article class="content wrap" id="_content" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions">
   
   
-  <h1 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs" class="text-break">Class PipelineErrorEventArgs
+  <h1 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions" class="text-break">Class AzureFunctionExtensions
   </h1>
-  <div class="markdown level0 summary"><p>Event args for pipeline error events.</p>
+  <div class="markdown level0 summary"><p>Helper extensions for Azure Functions</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">PipelineErrorEventArgs</span></div>
+    <div class="level1"><span class="xref">AzureFunctionExtensions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -117,24 +117,24 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Pipelines.html">Microsoft.Health.Fhir.Proxy.Pipelines</a></h6>
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.dll</h6>
-  <h5 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_syntax">Syntax</h5>
+  <h5 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PipelineErrorEventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public static class AzureFunctionExtensions</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/PipelineErrorEventArgs.cs&amp;version=GBmalong/1042&amp;line=16">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionExtensions.cs&amp;version=GBmalong/1042&amp;line=23">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs__ctor_System_String_System_String_System_Exception_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.#ctor(System.String,System.String,System.Exception)">PipelineErrorEventArgs(String, String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Creates an instance of PipelineErrorEventArgs.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpRequestMesssage_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpRequestMesssage_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpRequestMesssage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)">ConvertToHttpRequestMesssage(HttpRequestData)</h4>
+  <div class="markdown level1 summary"><p>Converts HttpRequestData to HttpRequestMessage.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PipelineErrorEventArgs(string id, string name, Exception error)</code></pre>
+    <pre><code class="lang-csharp hljs">public static HttpRequestMessage ConvertToHttpRequestMesssage(this HttpRequestData req)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -147,41 +147,14 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">id</span></td>
-        <td><p>Instance ID of the pipeline.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>Name of the pipeline.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
-        <td><span class="parametername">error</span></td>
-        <td><p>Exception thrown in the pipeline.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.azure.functions.worker.http.httprequestdata">HttpRequestData</a></td>
+        <td><span class="parametername">req</span></td>
+        <td><p>HttpRequestData</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/PipelineErrorEventArgs.cs&amp;version=GBmalong/1042&amp;line=36">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Error_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Error*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Error" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Error">Error</h4>
-  <div class="markdown level1 summary"><p>Exception throw in the pipeline.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Exception Error { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -191,25 +164,50 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.exception">Exception</a></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><p>HttpRequestMessage</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/PipelineErrorEventArgs.cs&amp;version=GBmalong/1042&amp;line=31">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionExtensions.cs&amp;version=GBmalong/1042&amp;line=62">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Id_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Id*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Id" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Id">Id</h4>
-  <div class="markdown level1 summary"><p>Gets the instance ID of the pipeline.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpResponseData_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_ConvertToHttpResponseData_Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.ConvertToHttpResponseData(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext,Microsoft.Azure.Functions.Worker.Http.HttpRequestData)">ConvertToHttpResponseData(OperationContext, HttpRequestData)</h4>
+  <div class="markdown level1 summary"><p>Converts HttpResponseData to HttpResponseData.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static async Task&lt;HttpResponseData&gt; ConvertToHttpResponseData(this OperationContext context, HttpRequestData request)</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.html">OperationContext</a></td>
+        <td><span class="parametername">context</span></td>
+        <td><p>OperationContext</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.azure.functions.worker.http.httprequestdata">HttpRequestData</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>HttpRequestData</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -219,25 +217,44 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.azure.functions.worker.http.httpresponsedata">HttpResponseData</a>&gt;</td>
+        <td><p>HttpResponseData</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/PipelineErrorEventArgs.cs&amp;version=GBmalong/1042&amp;line=26">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionExtensions.cs&amp;version=GBmalong/1042&amp;line=97">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Name_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Name*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_PipelineErrorEventArgs_Name" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.Name">Name</h4>
-  <div class="markdown level1 summary"><p>Gets the name of the pipeline.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_GetClaimsPrincipal_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionExtensions_GetClaimsPrincipal_Microsoft_Azure_Functions_Worker_Http_HttpRequestData_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.GetClaimsPrincipal(Microsoft.Azure.Functions.Worker.Http.HttpRequestData)">GetClaimsPrincipal(HttpRequestData)</h4>
+  <div class="markdown level1 summary"><p>Gets a ClaimsPrincipal from HttpRequestData.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestData request)</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.azure.functions.worker.http.httprequestdata">HttpRequestData</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>HttpRequestData</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -247,8 +264,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.claims.claimsprincipal">ClaimsPrincipal</a></td>
+        <td><p>ClaimsPrincipal</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -260,7 +278,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/PipelineErrorEventArgs.cs&amp;version=GBmalong/1042&amp;line=8" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionExtensions.cs&amp;version=GBmalong/1042&amp;line=16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

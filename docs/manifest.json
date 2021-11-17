@@ -674,6 +674,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html",
+          "hash": "2xnMTvN4kptC7XIO7w1/PZGJI291Arl0kOcbYCLyxTg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.yml",
       "output": {
         ".html": {
@@ -698,18 +710,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.Extensions.html",
-          "hash": "VrUBuJHEfickirjSXrvJhYqwzt0zOYBh642ZYYiMM3Q="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.yml",
       "output": {
         ".html": {
@@ -726,7 +726,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager-2.html",
-          "hash": "OuxVpCDMx050IGT/w5EaCEj0zQGlJhfjLl6EEJ7maUk="
+          "hash": "qhFLcI5WK0+SduICpa2RE9KfvDrdEOALiEgTPUlbSNk="
         }
       },
       "is_incremental": false,
@@ -738,7 +738,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.html",
-          "hash": "oXNPKnLRWEM4xNvNmaeEBEX8fjpNy0YIXsDVEbZz8FE="
+          "hash": "AXP8hbZiZ8xWzym71MZEtHyVXIlSJbxSYdLVBTXZqMM="
         }
       },
       "is_incremental": false,
@@ -774,7 +774,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs.html",
-          "hash": "kYHysYNg2r7rO3jUAMDXBlj2tpMiLxzLUjLGCZUuXn8="
+          "hash": "VG51F+1uWtXAXYbbdf05pKlo57rSyQAn1C3F21+46O4="
         }
       },
       "is_incremental": false,
@@ -786,7 +786,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.html",
-          "hash": "EQJVoSOuCO6/GTC8Hrr1FF98EFrjkR3ZSuap6CprJyA="
+          "hash": "a+hZELARJX9sbszXqXO2apJTgjhEGAuqnWapdlv7+wI="
         }
       },
       "is_incremental": false,
@@ -798,7 +798,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory.html",
-          "hash": "ZdRtkSJy5yJ6QPz/CDONfheNj4KziTUCte4dH3Xu0qw="
+          "hash": "rXF+R1B5OBlq0sRQBc+yRfH7ouRDKTcOmkBrh5i9wPs="
         }
       },
       "is_incremental": false,
@@ -810,7 +810,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.html",
-          "hash": "uPzGKDXB1xS35v8E/Wk/EefE5ow711+wtenIQA1mx8M="
+          "hash": "Y+po+bQHr+Jz1v4LCYhurjbPOxVeguSdP03LStpY/2g="
         }
       },
       "is_incremental": false,
@@ -822,7 +822,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.html",
-          "hash": "uBL7aLEvxMT+egkgNc5StnByP0MJtBEHfKGAe7wkwII="
+          "hash": "V74zCDTmKAUP5x9Qp02D8kqJ0vfacNgYoG5n1UIFn6k="
         }
       },
       "is_incremental": false,
@@ -858,7 +858,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.Authenticator.html",
-          "hash": "YqrYHuNd4pU2bFUvClUnBvtW97T5EmmVqUUikWe2NiQ="
+          "hash": "Gv3lNWjlWmqIvHUbsXkzFZU23c+8dSIQQUoINDilfnI="
         }
       },
       "is_incremental": false,
@@ -870,7 +870,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.html",
-          "hash": "u4aw2wmxhEYSRtqEUMWjgytGZVtNLWDAq1lbFg7+0D8="
+          "hash": "cWeB8RDLtIJV3TEhanzO/zPDhAMbTe5mkNO7+txJZu4="
         }
       },
       "is_incremental": false,
@@ -882,7 +882,7 @@
       "output": {
         ".html": {
           "relative_path": "reference/toc.html",
-          "hash": "oVmkTPtGRlC+DIUlB6BFc5pJNQKWp/u3G28Et0jzzRo="
+          "hash": "XJDSWkJJRAVh7MmnZ02TuUpm9qa1LfMFaSfJIYMTuQ0="
         }
       },
       "is_incremental": false,
@@ -892,23 +892,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 1,
-          "skipped_file_count": 1
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 71,
-          "skipped_file_count": 71
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

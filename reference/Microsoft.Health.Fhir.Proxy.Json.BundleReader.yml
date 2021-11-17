@@ -1,0 +1,586 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  id: BundleReader
+  parent: Microsoft.Health.Fhir.Proxy.Json
+  children:
+  - Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor(Newtonsoft.Json.Linq.JObject,System.Boolean)
+  - Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator
+  langs:
+  - csharp
+  - vb
+  name: BundleReader
+  nameWithType: BundleReader
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: BundleReader
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+    startLine: 8
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nFHIR bundle reader.\n"
+  example: []
+  syntax:
+    content: 'public class BundleReader : JObjectReader'
+    content.vb: >-
+      Public Class BundleReader
+          Inherits JObjectReader
+  inheritance:
+  - System.Object
+  - Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  inheritedMembers:
+  - Microsoft.Health.Fhir.Proxy.Json.JObjectReader.root
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor(Newtonsoft.Json.Linq.JObject,System.Boolean)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor(Newtonsoft.Json.Linq.JObject,System.Boolean)
+  id: '#ctor(Newtonsoft.Json.Linq.JObject,System.Boolean)'
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  langs:
+  - csharp
+  - vb
+  name: BundleReader(JObject, Boolean)
+  nameWithType: BundleReader.BundleReader(JObject, Boolean)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader.BundleReader(Newtonsoft.Json.Linq.JObject, System.Boolean)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+    startLine: 15
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nCreates a new instance of BundleReader.\n"
+  example: []
+  syntax:
+    content: public BundleReader(JObject root, bool ifNoneExist)
+    parameters:
+    - id: root
+      type: Newtonsoft.Json.Linq.JObject
+      description: The root object to read.
+    - id: ifNoneExist
+      type: System.Boolean
+      description: FHIR ifNoneExists flag omits if false.
+    content.vb: Public Sub New(root As JObject, ifNoneExist As Boolean)
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator
+  id: GetEnumerator
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: BundleReader.GetEnumerator()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: GetEnumerator
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleReader.cs
+    startLine: 27
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nGets the bundle enumerator.\n"
+  example: []
+  syntax:
+    content: public override IEnumerator<JToken> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+      description: Enumerator of JToken if exists, otherwise null.
+    content.vb: Public Overrides Function GetEnumerator As IEnumerator(Of JToken)
+  overridden: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Json
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json
+  name: Microsoft.Health.Fhir.Proxy.Json
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json
+  fullName: Microsoft.Health.Fhir.Proxy.Json
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  parent: Microsoft.Health.Fhir.Proxy.Json
+  name: JObjectReader
+  nameWithType: JObjectReader
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+- uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.root
+  commentId: F:Microsoft.Health.Fhir.Proxy.Json.JObjectReader.root
+  parent: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  name: root
+  nameWithType: JObjectReader.root
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.root
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleReader.#ctor
+  name: BundleReader
+  nameWithType: BundleReader.BundleReader
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader.BundleReader
+- uid: Newtonsoft.Json.Linq.JObject
+  commentId: T:Newtonsoft.Json.Linq.JObject
+  parent: Newtonsoft.Json.Linq
+  isExternal: true
+  name: JObject
+  nameWithType: JObject
+  fullName: Newtonsoft.Json.Linq.JObject
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Newtonsoft.Json.Linq
+  commentId: N:Newtonsoft.Json.Linq
+  isExternal: true
+  name: Newtonsoft.Json.Linq
+  nameWithType: Newtonsoft.Json.Linq
+  fullName: Newtonsoft.Json.Linq
+- uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+  parent: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  name: GetEnumerator()
+  nameWithType: JObjectReader.GetEnumerator()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator()
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+    name: GetEnumerator
+    nameWithType: JObjectReader.GetEnumerator
+    fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+    name: GetEnumerator
+    nameWithType: JObjectReader.GetEnumerator
+    fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader.GetEnumerator
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator
+  name: GetEnumerator
+  nameWithType: BundleReader.GetEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader.GetEnumerator
+- uid: System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  commentId: T:System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<JToken>
+  nameWithType: IEnumerator<JToken>
+  fullName: System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>
+  nameWithType.vb: IEnumerator(Of JToken)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of Newtonsoft.Json.Linq.JToken)
+  name.vb: IEnumerator(Of JToken)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Newtonsoft.Json.Linq.JToken
+    name: JToken
+    nameWithType: JToken
+    fullName: Newtonsoft.Json.Linq.JToken
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Newtonsoft.Json.Linq.JToken
+    name: JToken
+    nameWithType: JToken
+    fullName: Newtonsoft.Json.Linq.JToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic

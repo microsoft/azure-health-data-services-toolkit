@@ -1,0 +1,387 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  commentId: T:Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  id: IFilter
+  parent: Microsoft.Health.Fhir.Proxy.Filters
+  children:
+  - Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  - Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+  - Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+  - Microsoft.Health.Fhir.Proxy.Filters.IFilter.OnFilterError
+  langs:
+  - csharp
+  - vb
+  name: IFilter
+  nameWithType: IFilter
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  type: Interface
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IFilter
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nIFilter interface to be implemented by filters.\n"
+  example: []
+  syntax:
+    content: public interface IFilter
+    content.vb: Public Interface IFilter
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.OnFilterError
+  commentId: E:Microsoft.Health.Fhir.Proxy.Filters.IFilter.OnFilterError
+  id: OnFilterError
+  parent: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  langs:
+  - csharp
+  - vb
+  name: OnFilterError
+  nameWithType: IFilter.OnFilterError
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.OnFilterError
+  type: Event
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: OnFilterError
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+    startLine: 14
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nEvent signals the filter caught an error.\n"
+  example: []
+  syntax:
+    content: event EventHandler<FilterErrorEventArgs> OnFilterError
+    return:
+      type: System.EventHandler{Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs}
+    content.vb: Event OnFilterError As EventHandler(Of FilterErrorEventArgs)
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: IFilter.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+    startLine: 19
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets the unique id on the filter instance.\n"
+  example: []
+  syntax:
+    content: string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+  id: Name
+  parent: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: IFilter.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Name
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+    startLine: 24
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGet the name of the filter.\n"
+  example: []
+  syntax:
+    content: string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property Name As String
+  overload: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name*
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  id: ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  parent: Microsoft.Health.Fhir.Proxy.Filters.IFilter
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(OperationContext)
+  nameWithType: IFilter.ExecuteAsync(OperationContext)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ExecuteAsync
+    path: src/Microsoft.Health.Fhir.Proxy/Filters/IFilter.cs
+    startLine: 31
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nExecutes the filter operation.\n"
+  example: []
+  syntax:
+    content: Task<OperationContext> ExecuteAsync(OperationContext context)
+    parameters:
+    - id: context
+      type: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+      description: Context of the input for filter execution.
+    return:
+      type: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+      description: Context for input to next filter or output for http response.
+    content.vb: Function ExecuteAsync(context As OperationContext) As Task(Of OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync*
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Filters
+  commentId: N:Microsoft.Health.Fhir.Proxy.Filters
+  name: Microsoft.Health.Fhir.Proxy.Filters
+  nameWithType: Microsoft.Health.Fhir.Proxy.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Filters
+- uid: System.EventHandler{Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs}
+  commentId: T:System.EventHandler{Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<FilterErrorEventArgs>
+  nameWithType: EventHandler<FilterErrorEventArgs>
+  fullName: System.EventHandler<Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs>
+  nameWithType.vb: EventHandler(Of FilterErrorEventArgs)
+  fullName.vb: System.EventHandler(Of Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs)
+  name.vb: EventHandler(Of FilterErrorEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+    name: FilterErrorEventArgs
+    nameWithType: FilterErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+    name: FilterErrorEventArgs
+    nameWithType: FilterErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+  name: Id
+  nameWithType: IFilter.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Id
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+  name: Name
+  nameWithType: IFilter.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.Name
+- uid: Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: IFilter.ExecuteAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.IFilter.ExecuteAsync
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: OperationContext
+  nameWithType: OperationContext
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+- uid: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  commentId: T:System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<OperationContext>
+  nameWithType: Task<OperationContext>
+  fullName: System.Threading.Tasks.Task<Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext>
+  nameWithType.vb: Task(Of OperationContext)
+  fullName.vb: System.Threading.Tasks.Task(Of Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  name.vb: Task(Of OperationContext)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

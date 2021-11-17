@@ -1,0 +1,896 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  id: BundleEnumerator
+  parent: Microsoft.Health.Fhir.Proxy.Json
+  children:
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor(Newtonsoft.Json.Linq.JArray,System.Boolean)
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose(System.Boolean)
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current
+  langs:
+  - csharp
+  - vb
+  name: BundleEnumerator
+  nameWithType: BundleEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: BundleEnumerator
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 10
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nEnumerator for FHIR bundle.\n"
+  example: []
+  syntax:
+    content: 'public class BundleEnumerator : IEnumerator<JToken>, IEnumerator, IDisposable'
+    content.vb: >-
+      Public Class BundleEnumerator
+          Implements IEnumerator(Of JToken), IEnumerator, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  - System.Collections.IEnumerator
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor(Newtonsoft.Json.Linq.JArray,System.Boolean)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor(Newtonsoft.Json.Linq.JArray,System.Boolean)
+  id: '#ctor(Newtonsoft.Json.Linq.JArray,System.Boolean)'
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: BundleEnumerator(JArray, Boolean)
+  nameWithType: BundleEnumerator.BundleEnumerator(JArray, Boolean)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.BundleEnumerator(Newtonsoft.Json.Linq.JArray, System.Boolean)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 17
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nCreates an instance of BundleEnumerator.\n"
+  example: []
+  syntax:
+    content: public BundleEnumerator(JArray array, bool ifNoneExist)
+    parameters:
+    - id: array
+      type: Newtonsoft.Json.Linq.JArray
+      description: JArray containing items in the bundle.
+    - id: ifNoneExist
+      type: System.Boolean
+      description: FHIR ifNoneExists flag omits if false.
+    content.vb: Public Sub New(array As JArray, ifNoneExist As Boolean)
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+  commentId: P:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+  id: Current
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: Current
+  nameWithType: BundleEnumerator.Current
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Current
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 31
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nGets the current JToken for the enumerator.\n"
+  example: []
+  syntax:
+    content: public JToken Current { get; }
+    parameters: []
+    return:
+      type: Newtonsoft.Json.Linq.JToken
+    content.vb: Public ReadOnly Property Current As JToken
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current*
+  implements:
+  - System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}.Current
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current
+  commentId: P:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current
+  id: System#Collections#IEnumerator#Current
+  isEii: true
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: IEnumerator.Current
+  nameWithType: BundleEnumerator.IEnumerator.Current
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System.Collections.IEnumerator.Current
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: System.Collections.IEnumerator.Current
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 46
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  syntax:
+    content: object IEnumerator.Current { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: ReadOnly WriteOnly Property System.Collections.IEnumerator.Current As Object Implements IEnumerator.Current
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current*
+  implements:
+  - System.Collections.IEnumerator.Current
+  nameWithType.vb: BundleEnumerator.System.Collections.IEnumerator.Current
+  modifiers.csharp:
+  - get
+  modifiers.vb:
+  - ReadOnly
+  name.vb: System.Collections.IEnumerator.Current
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext
+  id: MoveNext
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: MoveNext()
+  nameWithType: BundleEnumerator.MoveNext()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: MoveNext
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 52
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nMoves the enumerator forward by one.\n"
+  example: []
+  syntax:
+    content: public bool MoveNext()
+    return:
+      type: System.Boolean
+      description: True if item is available; otherwise false.
+    content.vb: Public Function MoveNext As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext*
+  implements:
+  - System.Collections.IEnumerator.MoveNext
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset
+  id: Reset
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: Reset()
+  nameWithType: BundleEnumerator.Reset()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Reset
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 92
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nResets the enumerator to the beginning.\n"
+  example: []
+  syntax:
+    content: public void Reset()
+    content.vb: Public Sub Reset
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset*
+  implements:
+  - System.Collections.IEnumerator.Reset
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose
+  id: Dispose
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: BundleEnumerator.Dispose()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Dispose
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 100
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  summary: "\nDisposes the enumerator.\n"
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose(System.Boolean)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  langs:
+  - csharp
+  - vb
+  name: Dispose(Boolean)
+  nameWithType: BundleEnumerator.Dispose(Boolean)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose(System.Boolean)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Dispose
+    path: src/Microsoft.Health.Fhir.Proxy/Json/BundleEnumerator.cs
+    startLine: 107
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json
+  syntax:
+    content: protected void Dispose(bool dispose)
+    parameters:
+    - id: dispose
+      type: System.Boolean
+    content.vb: Protected Sub Dispose(dispose As Boolean)
+  overload: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Json
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json
+  name: Microsoft.Health.Fhir.Proxy.Json
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json
+  fullName: Microsoft.Health.Fhir.Proxy.Json
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  commentId: T:System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<JToken>
+  nameWithType: IEnumerator<JToken>
+  fullName: System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>
+  nameWithType.vb: IEnumerator(Of JToken)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of Newtonsoft.Json.Linq.JToken)
+  name.vb: IEnumerator(Of JToken)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Newtonsoft.Json.Linq.JToken
+    name: JToken
+    nameWithType: JToken
+    fullName: Newtonsoft.Json.Linq.JToken
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Newtonsoft.Json.Linq.JToken
+    name: JToken
+    nameWithType: JToken
+    fullName: Newtonsoft.Json.Linq.JToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.#ctor
+  name: BundleEnumerator
+  nameWithType: BundleEnumerator.BundleEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.BundleEnumerator
+- uid: Newtonsoft.Json.Linq.JArray
+  commentId: T:Newtonsoft.Json.Linq.JArray
+  parent: Newtonsoft.Json.Linq
+  isExternal: true
+  name: JArray
+  nameWithType: JArray
+  fullName: Newtonsoft.Json.Linq.JArray
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Newtonsoft.Json.Linq
+  commentId: N:Newtonsoft.Json.Linq
+  isExternal: true
+  name: Newtonsoft.Json.Linq
+  nameWithType: Newtonsoft.Json.Linq
+  fullName: Newtonsoft.Json.Linq
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+  name: Current
+  nameWithType: BundleEnumerator.Current
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Current
+- uid: System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}.Current
+  commentId: P:System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}.Current
+  parent: System.Collections.Generic.IEnumerator{Newtonsoft.Json.Linq.JToken}
+  definition: System.Collections.Generic.IEnumerator`1.Current
+  name: Current
+  nameWithType: IEnumerator<JToken>.Current
+  fullName: System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken>.Current
+  nameWithType.vb: IEnumerator(Of JToken).Current
+  fullName.vb: System.Collections.Generic.IEnumerator(Of Newtonsoft.Json.Linq.JToken).Current
+- uid: Newtonsoft.Json.Linq.JToken
+  commentId: T:Newtonsoft.Json.Linq.JToken
+  parent: Newtonsoft.Json.Linq
+  isExternal: true
+  name: JToken
+  nameWithType: JToken
+  fullName: Newtonsoft.Json.Linq.JToken
+- uid: System.Collections.Generic.IEnumerator`1.Current
+  commentId: P:System.Collections.Generic.IEnumerator`1.Current
+  isExternal: true
+  name: Current
+  nameWithType: IEnumerator<T>.Current
+  fullName: System.Collections.Generic.IEnumerator<T>.Current
+  nameWithType.vb: IEnumerator(Of T).Current
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T).Current
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System#Collections#IEnumerator#Current
+  name: IEnumerator.Current
+  nameWithType: BundleEnumerator.IEnumerator.Current
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.System.Collections.IEnumerator.Current
+  nameWithType.vb: BundleEnumerator.System.Collections.IEnumerator.Current
+  name.vb: System.Collections.IEnumerator.Current
+- uid: System.Collections.IEnumerator.Current
+  commentId: P:System.Collections.IEnumerator.Current
+  parent: System.Collections.IEnumerator
+  isExternal: true
+  name: Current
+  nameWithType: IEnumerator.Current
+  fullName: System.Collections.IEnumerator.Current
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext
+  name: MoveNext
+  nameWithType: BundleEnumerator.MoveNext
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.MoveNext
+- uid: System.Collections.IEnumerator.MoveNext
+  commentId: M:System.Collections.IEnumerator.MoveNext
+  parent: System.Collections.IEnumerator
+  isExternal: true
+  name: MoveNext()
+  nameWithType: IEnumerator.MoveNext()
+  fullName: System.Collections.IEnumerator.MoveNext()
+  spec.csharp:
+  - uid: System.Collections.IEnumerator.MoveNext
+    name: MoveNext
+    nameWithType: IEnumerator.MoveNext
+    fullName: System.Collections.IEnumerator.MoveNext
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.IEnumerator.MoveNext
+    name: MoveNext
+    nameWithType: IEnumerator.MoveNext
+    fullName: System.Collections.IEnumerator.MoveNext
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset
+  name: Reset
+  nameWithType: BundleEnumerator.Reset
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Reset
+- uid: System.Collections.IEnumerator.Reset
+  commentId: M:System.Collections.IEnumerator.Reset
+  parent: System.Collections.IEnumerator
+  isExternal: true
+  name: Reset()
+  nameWithType: IEnumerator.Reset()
+  fullName: System.Collections.IEnumerator.Reset()
+  spec.csharp:
+  - uid: System.Collections.IEnumerator.Reset
+    name: Reset
+    nameWithType: IEnumerator.Reset
+    fullName: System.Collections.IEnumerator.Reset
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.IEnumerator.Reset
+    name: Reset
+    nameWithType: IEnumerator.Reset
+    fullName: System.Collections.IEnumerator.Reset
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose
+  name: Dispose
+  nameWithType: BundleEnumerator.Dispose
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
