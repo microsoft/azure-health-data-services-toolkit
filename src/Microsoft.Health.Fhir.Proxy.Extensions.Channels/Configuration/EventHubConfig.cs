@@ -3,15 +3,22 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration
 {
+    /// <summary>
+    /// Configuration for Event Hub channel.
+    /// </summary>
     [Serializable]
+    [JsonObject]
     public class EventHubConfig
     {
+        /// <summary>
+        /// Creates an instance of EventHubConfig.
+        /// </summary>
         public EventHubConfig()
         {
         }
 
         /// <summary>
-        /// Creates in instance of EventHubSettings.
+        /// Creates in instance of EventHubConfig.
         /// </summary>
         /// <param name="eventhubSku">Event Hub SKU used.</param>
         /// <param name="eventhubConnectionString">Connection string for Event Hub.</param>
@@ -34,21 +41,40 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration
             this.EventHubProcessorContainer = eventhubProcessorContainer;
         }
 
+        /// <summary>
+        /// Gets or sets Event Hub SKU.
+        /// </summary>
         [JsonProperty("eventhubSku")]
         public EventHubSkuType EventHubSku { get; set; }
 
+        /// <summary>
+        /// Gets or sets Event Hub connection string.
+        /// </summary>
         [JsonProperty("eventhubConnectionString")]
         public string EventHubConnectionString { get; set; }
 
+        /// <summary>
+        /// Gets or sets Event Hub name.
+        /// </summary>
         [JsonProperty("eventhubName")]
         public string EventHubName { get; set; }
 
+        /// <summary>
+        /// Gets or sets Azure storage connection string for managing large files.
+        /// </summary>
         [JsonProperty("eventHubBlobConnectionString")]
         public string EventHubBlobConnectionString { get; set; }
 
+        /// <summary>
+        /// Gets or sets blob storage container name for managing large files.
+        /// </summary>
         [JsonProperty("eventHubBlobContainer")]
         public string EventHubBlobContainer { get; set; }
 
+        /// <summary>
+        /// Gets or sets Event Hub processor container name in blob storage.
+        /// </summary>
+        /// <remarks>Used only when reading an event hub.</remarks>
         [JsonProperty("eventhubProcessorContainer")]
         public string EventHubProcessorContainer { get; set; }
 
