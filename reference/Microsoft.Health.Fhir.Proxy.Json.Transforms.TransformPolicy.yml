@@ -1,0 +1,644 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  id: TransformPolicy
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  children:
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(System.String,Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform(System.String)
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+  langs:
+  - csharp
+  - vb
+  name: TransformPolicy
+  nameWithType: TransformPolicy
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: TransformPolicy
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nJson transform policy.\n"
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      [JsonObject]
+
+      public class TransformPolicy
+    content.vb: >-
+      <Serializable>
+
+      <JsonObject>
+
+      Public Class TransformPolicy
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  - type: Newtonsoft.Json.JsonObjectAttribute
+    ctor: Newtonsoft.Json.JsonObjectAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor
+  id: '#ctor'
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: TransformPolicy()
+  nameWithType: TransformPolicy.TransformPolicy()
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.TransformPolicy()
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 16
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nCreates an instance of TransformPolicy.\n"
+  example: []
+  syntax:
+    content: public TransformPolicy()
+    content.vb: Public Sub New
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(System.String,Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(System.String,Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  id: '#ctor(System.String,Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)'
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: TransformPolicy(String, TransformCollection)
+  nameWithType: TransformPolicy.TransformPolicy(String, TransformCollection)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.TransformPolicy(System.String, Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 26
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nCreates an instance of TransformPolicy.\n"
+  example: []
+  syntax:
+    content: public TransformPolicy(string policyId, TransformCollection transforms = null)
+    parameters:
+    - id: policyId
+      type: System.String
+      description: Unique ID of the policy.
+    - id: transforms
+      type: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+      description: Collection of transforms implemented by the policy.
+    content.vb: Public Sub New(policyId As String, transforms As TransformCollection = Nothing)
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor(Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  id: '#ctor(Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)'
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: TransformPolicy(TransformCollection)
+  nameWithType: TransformPolicy.TransformPolicy(TransformCollection)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.TransformPolicy(Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 36
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nCreates an instance of TransformPolicy.\n"
+  example: []
+  syntax:
+    content: public TransformPolicy(TransformCollection transforms)
+    parameters:
+    - id: transforms
+      type: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+      description: Collection of transforms implemented by the policy.
+    content.vb: Public Sub New(transforms As TransformCollection)
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+  commentId: P:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+  id: PolicyId
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: PolicyId
+  nameWithType: TransformPolicy.PolicyId
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: PolicyId
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 44
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nGets or sets the ID of the policy.\n"
+  example: []
+  syntax:
+    content: >-
+      [JsonProperty("policyId")]
+
+      public string PolicyId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonProperty("policyId")>
+
+      Public Property PolicyId As String
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId*
+  attributes:
+  - type: Newtonsoft.Json.JsonPropertyAttribute
+    ctor: Newtonsoft.Json.JsonPropertyAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: policyId
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+  commentId: P:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+  id: Transforms
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: Transforms
+  nameWithType: TransformPolicy.Transforms
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Transforms
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 50
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nGets or sets a collection of transforms.\n"
+  example: []
+  syntax:
+    content: >-
+      [JsonProperty("transforms")]
+
+      public TransformCollection Transforms { get; set; }
+    parameters: []
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+    content.vb: >-
+      <JsonProperty("transforms")>
+
+      Public Property Transforms As TransformCollection
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms*
+  attributes:
+  - type: Newtonsoft.Json.JsonPropertyAttribute
+    ctor: Newtonsoft.Json.JsonPropertyAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: transforms
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform(System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform(System.String)
+  id: Transform(System.String)
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: Transform(String)
+  nameWithType: TransformPolicy.Transform(String)
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Json/Transforms/TransformPolicy.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Transform
+    path: Json/Transforms/TransformPolicy.cs
+    startLine: 58
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  summary: "\nTransforms a json document and returns the transformed document.\n"
+  example: []
+  syntax:
+    content: public string Transform(string json)
+    parameters:
+    - id: json
+      type: System.String
+      description: Json document to transform.
+    return:
+      type: System.String
+      description: Json string as transformed document.
+    content.vb: Public Function Transform(json As String) As String
+  overload: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.#ctor
+  name: TransformPolicy
+  nameWithType: TransformPolicy.TransformPolicy
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.TransformPolicy
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: TransformCollection
+  nameWithType: TransformCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+  name: PolicyId
+  nameWithType: TransformPolicy.PolicyId
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.PolicyId
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+  name: Transforms
+  nameWithType: TransformPolicy.Transforms
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transforms
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform
+  name: Transform
+  nameWithType: TransformPolicy.Transform
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.Transform

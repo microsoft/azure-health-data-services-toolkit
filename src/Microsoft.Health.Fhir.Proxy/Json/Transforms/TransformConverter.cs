@@ -3,8 +3,17 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
 {
+    /// <summary>
+    /// JSON.NET transform converter
+    /// </summary>
     public class TransformConverter : JsonTransformConverter<Transform>
     {
+        /// <summary>
+        /// Creates a concrete transform and returns as abstract transform type.
+        /// </summary>
+        /// <param name="objectType">Transform object type.</param>
+        /// <param name="jObject">Transform object.</param>
+        /// <returns></returns>
         protected override Transform Create(Type objectType, JObject jObject)
         {
             if (FieldExists(jObject, "name", JTokenType.String))

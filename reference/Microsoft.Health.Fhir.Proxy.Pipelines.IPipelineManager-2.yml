@@ -1,0 +1,187 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  id: IPipelineManager`2
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  children:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  langs:
+  - csharp
+  - vb
+  name: IPipelineManager<TRequest, TResponse>
+  nameWithType: IPipelineManager<TRequest, TResponse>
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>
+  type: Interface
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/IPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IPipelineManager
+    path: Pipelines/IPipelineManager.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nInterface for pipeline manager.\n"
+  example: []
+  syntax:
+    content: public interface IPipelineManager<TRequest, TResponse>
+    typeParameters:
+    - id: TRequest
+      description: Type of request for input into the pipeline.
+    - id: TResponse
+      description: Type of response from output the pipeline.
+    content.vb: Public Interface IPipelineManager(Of TRequest, TResponse)
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse)
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse)
+  name.vb: IPipelineManager(Of TRequest, TResponse)
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync(`0)
+  id: ExecuteAsync(`0)
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(TRequest)
+  nameWithType: IPipelineManager<TRequest, TResponse>.ExecuteAsync(TRequest)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>.ExecuteAsync(TRequest)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/IPipelineManager.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ExecuteAsync
+    path: Pipelines/IPipelineManager.cs
+    startLine: 11
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  syntax:
+    content: Task<TResponse> ExecuteAsync(TRequest input)
+    parameters:
+    - id: input
+      type: '{TRequest}'
+    return:
+      type: System.Threading.Tasks.Task{{TResponse}}
+    content.vb: Function ExecuteAsync(input As TRequest) As Task(Of TResponse)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync*
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse).ExecuteAsync(TRequest)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse).ExecuteAsync(TRequest)
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: IPipelineManager<TRequest, TResponse>.ExecuteAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>.ExecuteAsync
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse).ExecuteAsync
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse).ExecuteAsync
+- uid: '{TRequest}'
+  commentId: '!:TRequest'
+  definition: TRequest
+  name: TRequest
+  nameWithType: TRequest
+  fullName: TRequest
+- uid: System.Threading.Tasks.Task{{TResponse}}
+  commentId: T:System.Threading.Tasks.Task{`1}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<TResponse>
+  nameWithType: Task<TResponse>
+  fullName: System.Threading.Tasks.Task<TResponse>
+  nameWithType.vb: Task(Of TResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of TResponse)
+  name.vb: Task(Of TResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: TRequest
+  commentId: '!:TRequest'
+  name: TRequest
+  nameWithType: TRequest
+  fullName: TRequest
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

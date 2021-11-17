@@ -1,0 +1,141 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  id: Microsoft.Health.Fhir.Proxy.Pipelines
+  children:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  - Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  - Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  - Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder
+  - Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  - Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  - Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory
+  - Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager
+  langs:
+  - csharp
+  - vb
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+  type: Namespace
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+  name: AzureFunctionPipelineManager
+  nameWithType: AzureFunctionPipelineManager
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline
+  name: BasicPipeline
+  nameWithType: BasicPipeline
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Extensions
+  nameWithType: Extensions
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Extensions
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: IPipelineBuilder
+  nameWithType: IPipelineBuilder
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+  name: IPipelineManager<TRequest, TResponse>
+  nameWithType: IPipelineManager<TRequest, TResponse>
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager<TRequest, TResponse>
+  nameWithType.vb: IPipelineManager(Of TRequest, TResponse)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager(Of TRequest, TResponse)
+  name.vb: IPipelineManager(Of TRequest, TResponse)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager`2
+    name: IPipelineManager
+    nameWithType: IPipelineManager
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TRequest
+    nameWithType: TRequest
+    fullName: TRequest
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResponse
+    nameWithType: TResponse
+    fullName: TResponse
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: OperationContext
+  nameWithType: OperationContext
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Pipeline
+  nameWithType: Pipeline
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: PipelineBuilder
+  nameWithType: PipelineBuilder
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  name: PipelineCompleteEventArgs
+  nameWithType: PipelineCompleteEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  name: PipelineErrorEventArgs
+  nameWithType: PipelineErrorEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory
+  name: PipelineFactory
+  nameWithType: PipelineFactory
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager
+  name: WebPipelineManager
+  nameWithType: WebPipelineManager
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines

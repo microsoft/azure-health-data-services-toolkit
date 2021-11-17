@@ -4,13 +4,24 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
 {
+    /// <summary>
+    /// Json transform to remove a node.
+    /// </summary>
     [Serializable]
     [JsonObject]
     public class RemoveTransform : Transform
     {
+        /// <summary>
+        /// Gets the name of the transform, i.e., "remove".
+        /// </summary>
         [JsonProperty("name")]
         public override string Name => "remove";
 
+        /// <summary>
+        /// Executes the remove transform.
+        /// </summary>
+        /// <param name="json">Json document which to add the node is removed based on the Json path.</param>
+        /// <returns>Transformed JObject.</returns>
         public override JObject Execute(string json)
         {
             JObject jobj = JObject.Parse(json);
@@ -31,7 +42,7 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
                 if (temp.Type == JTokenType.Array)
                 {
                     JArray array = (JArray)temp;
-                    JToken? t = array.Parent.SelectToken(array.Path);
+                    _ = array.Parent.SelectToken(array.Path);
                     array.RemoveAll();
                     if (array.Parent.Type == JTokenType.Property)
                     {

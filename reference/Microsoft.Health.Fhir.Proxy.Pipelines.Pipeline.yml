@@ -1,0 +1,977 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  id: Pipeline
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  children:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnComplete
+  - Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnError
+  langs:
+  - csharp
+  - vb
+  name: Pipeline
+  nameWithType: Pipeline
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Pipeline
+    path: Pipelines/Pipeline.cs
+    startLine: 10
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nAbstact pipeline.\n"
+  example: []
+  syntax:
+    content: 'public abstract class Pipeline : IDisposable'
+    content.vb: >-
+      Public MustInherit Class Pipeline
+
+          Implements IDisposable
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline
+  implements:
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnError
+  commentId: E:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnError
+  id: OnError
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: OnError
+  nameWithType: Pipeline.OnError
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnError
+  type: Event
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: OnError
+    path: Pipelines/Pipeline.cs
+    startLine: 15
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nAn event that signals an exception in the pipeline.\n"
+  example: []
+  syntax:
+    content: public abstract event EventHandler<PipelineErrorEventArgs> OnError
+    return:
+      type: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+    content.vb: Public MustOverride Event OnError As EventHandler(Of PipelineErrorEventArgs)
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnComplete
+  commentId: E:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnComplete
+  id: OnComplete
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: OnComplete
+  nameWithType: Pipeline.OnComplete
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.OnComplete
+  type: Event
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: OnComplete
+    path: Pipelines/Pipeline.cs
+    startLine: 20
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nAn event that signals the pipeline has completed.\n"
+  example: []
+  syntax:
+    content: public abstract event EventHandler<PipelineCompleteEventArgs> OnComplete
+    return:
+      type: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+    content.vb: Public MustOverride Event OnComplete As EventHandler(Of PipelineCompleteEventArgs)
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: Pipeline.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: Pipelines/Pipeline.cs
+    startLine: 25
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nGets the instance ID of the pipeline.\n"
+  example: []
+  syntax:
+    content: public virtual string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overridable ReadOnly Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id*
+  modifiers.csharp:
+  - public
+  - virtual
+  - get
+  modifiers.vb:
+  - Public
+  - Overridable
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+  id: Name
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: Pipeline.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Name
+    path: Pipelines/Pipeline.cs
+    startLine: 30
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nGets the name of the pipeline.\n"
+  example: []
+  syntax:
+    content: public abstract string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public MustOverride ReadOnly Property Name As String
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name*
+  modifiers.csharp:
+  - public
+  - abstract
+  - get
+  modifiers.vb:
+  - Public
+  - MustOverride
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+  id: Channels
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: Channels
+  nameWithType: Pipeline.Channels
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Channels
+    path: Pipelines/Pipeline.cs
+    startLine: 35
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nGets a collection of channels used by the pipeline.\n"
+  example: []
+  syntax:
+    content: public virtual ChannelCollection Channels { get; }
+    parameters: []
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection
+    content.vb: Public Overridable ReadOnly Property Channels As ChannelCollection
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels*
+  modifiers.csharp:
+  - public
+  - virtual
+  - get
+  modifiers.vb:
+  - Public
+  - Overridable
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+  commentId: P:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+  id: Filters
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: Filters
+  nameWithType: Pipeline.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Filters
+    path: Pipelines/Pipeline.cs
+    startLine: 40
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nGets a collection of filters used by the pipeline.\n"
+  example: []
+  syntax:
+    content: public virtual FilterCollection Filters { get; }
+    parameters: []
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+    content.vb: Public Overridable ReadOnly Property Filters As FilterCollection
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters*
+  modifiers.csharp:
+  - public
+  - virtual
+  - get
+  modifiers.vb:
+  - Public
+  - Overridable
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  id: ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(OperationContext)
+  nameWithType: Pipeline.ExecuteAsync(OperationContext)
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ExecuteAsync
+    path: Pipelines/Pipeline.cs
+    startLine: 47
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nExecutes the pipeline.\n"
+  example: []
+  syntax:
+    content: public abstract Task<OperationContext> ExecuteAsync(OperationContext context)
+    parameters:
+    - id: context
+      type: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+      description: The operation context to execute.
+    return:
+      type: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+      description: OperationContext
+    content.vb: Public MustOverride Function ExecuteAsync(context As OperationContext) As Task(Of OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync*
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose
+  id: Dispose
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: Pipeline.Dispose()
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/Pipeline.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Dispose
+    path: Pipelines/Pipeline.cs
+    startLine: 52
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nDisposes the pipeline.\n"
+  example: []
+  syntax:
+    content: public abstract void Dispose()
+    content.vb: Public MustOverride Sub Dispose
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+  commentId: T:System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<PipelineErrorEventArgs>
+  nameWithType: EventHandler<PipelineErrorEventArgs>
+  fullName: System.EventHandler<Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs>
+  nameWithType.vb: EventHandler(Of PipelineErrorEventArgs)
+  fullName.vb: System.EventHandler(Of Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs)
+  name.vb: EventHandler(Of PipelineErrorEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+    name: PipelineErrorEventArgs
+    nameWithType: PipelineErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+    name: PipelineErrorEventArgs
+    nameWithType: PipelineErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+  commentId: T:System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<PipelineCompleteEventArgs>
+  nameWithType: EventHandler<PipelineCompleteEventArgs>
+  fullName: System.EventHandler<Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs>
+  nameWithType.vb: EventHandler(Of PipelineCompleteEventArgs)
+  fullName.vb: System.EventHandler(Of Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs)
+  name.vb: EventHandler(Of PipelineCompleteEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+    name: PipelineCompleteEventArgs
+    nameWithType: PipelineCompleteEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+    name: PipelineCompleteEventArgs
+    nameWithType: PipelineCompleteEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+  name: Id
+  nameWithType: Pipeline.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Id
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+  name: Name
+  nameWithType: Pipeline.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Name
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+  name: Channels
+  nameWithType: Pipeline.Channels
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Channels
+- uid: Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection
+  commentId: T:Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection
+  parent: Microsoft.Health.Fhir.Proxy.Channels
+  name: ChannelCollection
+  nameWithType: ChannelCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection
+- uid: Microsoft.Health.Fhir.Proxy.Channels
+  commentId: N:Microsoft.Health.Fhir.Proxy.Channels
+  name: Microsoft.Health.Fhir.Proxy.Channels
+  nameWithType: Microsoft.Health.Fhir.Proxy.Channels
+  fullName: Microsoft.Health.Fhir.Proxy.Channels
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+  name: Filters
+  nameWithType: Pipeline.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Filters
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  commentId: T:Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+  parent: Microsoft.Health.Fhir.Proxy.Filters
+  name: FilterCollection
+  nameWithType: FilterCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterCollection
+- uid: Microsoft.Health.Fhir.Proxy.Filters
+  commentId: N:Microsoft.Health.Fhir.Proxy.Filters
+  name: Microsoft.Health.Fhir.Proxy.Filters
+  nameWithType: Microsoft.Health.Fhir.Proxy.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Filters
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: Pipeline.ExecuteAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.ExecuteAsync
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: OperationContext
+  nameWithType: OperationContext
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+- uid: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  commentId: T:System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<OperationContext>
+  nameWithType: Task<OperationContext>
+  fullName: System.Threading.Tasks.Task<Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext>
+  nameWithType.vb: Task(Of OperationContext)
+  fullName.vb: System.Threading.Tasks.Task(Of Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  name.vb: Task(Of OperationContext)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose
+  name: Dispose
+  nameWithType: Pipeline.Dispose
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    nameWithType: IDisposable.Dispose
+    fullName: System.IDisposable.Dispose
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )

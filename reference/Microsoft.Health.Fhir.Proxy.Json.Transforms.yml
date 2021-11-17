@@ -1,0 +1,103 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json.Transforms
+  id: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  children:
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter`1
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter
+  - Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  langs:
+  - csharp
+  - vb
+  name: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  type: Namespace
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform
+  name: AddTransform
+  nameWithType: AddTransform
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter`1
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter`1
+  name: JsonTransformConverter<T>
+  nameWithType: JsonTransformConverter<T>
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter<T>
+  nameWithType.vb: JsonTransformConverter(Of T)
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter(Of T)
+  name.vb: JsonTransformConverter(Of T)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter`1
+    name: JsonTransformConverter
+    nameWithType: JsonTransformConverter
+    fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter`1
+    name: JsonTransformConverter
+    nameWithType: JsonTransformConverter
+    fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform
+  name: RemoveTransform
+  nameWithType: RemoveTransform
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform
+  name: ReplaceTransform
+  nameWithType: ReplaceTransform
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: Transform
+  nameWithType: Transform
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: TransformCollection
+  nameWithType: TransformCollection
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter
+  parent: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: TransformConverter
+  nameWithType: TransformConverter
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+  name: TransformPolicy
+  nameWithType: TransformPolicy
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy
+- uid: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json.Transforms
+  name: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json.Transforms
+  fullName: Microsoft.Health.Fhir.Proxy.Json.Transforms

@@ -3,6 +3,9 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Json
 {
+    /// <summary>
+    /// Extensions for JToken.
+    /// </summary>
     public static class JTokenExtensions
     {
         /// <summary>

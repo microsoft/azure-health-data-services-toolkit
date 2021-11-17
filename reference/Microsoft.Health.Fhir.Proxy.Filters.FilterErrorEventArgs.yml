@@ -1,0 +1,785 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  commentId: T:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  id: FilterErrorEventArgs
+  parent: Microsoft.Health.Fhir.Proxy.Filters
+  children:
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor(System.String,System.String,System.Boolean,System.Exception,System.Nullable{System.Net.HttpStatusCode},System.String)
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+  - Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody
+  langs:
+  - csharp
+  - vb
+  name: FilterErrorEventArgs
+  nameWithType: FilterErrorEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: FilterErrorEventArgs
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 8
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nFilter error event arguments used when filters signal an error.\n"
+  example: []
+  syntax:
+    content: 'public class FilterErrorEventArgs : EventArgs'
+    content.vb: >-
+      Public Class FilterErrorEventArgs
+
+          Inherits EventArgs
+  inheritance:
+  - System.Object
+  - System.EventArgs
+  inheritedMembers:
+  - System.EventArgs.Empty
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor(System.String,System.String,System.Boolean,System.Exception,System.Nullable{System.Net.HttpStatusCode},System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor(System.String,System.String,System.Boolean,System.Exception,System.Nullable{System.Net.HttpStatusCode},System.String)
+  id: '#ctor(System.String,System.String,System.Boolean,System.Exception,System.Nullable{System.Net.HttpStatusCode},System.String)'
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: FilterErrorEventArgs(String, String, Boolean, Exception, Nullable<HttpStatusCode>, String)
+  nameWithType: FilterErrorEventArgs.FilterErrorEventArgs(String, String, Boolean, Exception, Nullable<HttpStatusCode>, String)
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.FilterErrorEventArgs(System.String, System.String, System.Boolean, System.Exception, System.Nullable<System.Net.HttpStatusCode>, System.String)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 19
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nCreates an instance of FilterErrorEventArgs\n"
+  example: []
+  syntax:
+    content: public FilterErrorEventArgs(string name, string id, bool fatal = false, Exception error = null, HttpStatusCode? code = null, string responseBody = null)
+    parameters:
+    - id: name
+      type: System.String
+      description: Name of the filter.
+    - id: id
+      type: System.String
+      description: Instance id of the filter.
+    - id: fatal
+      type: System.Boolean
+      description: Indicator as to whether the filter has caught a fatal error.
+    - id: error
+      type: System.Exception
+      description: An error caught by a filter.
+    - id: code
+      type: System.Nullable{System.Net.HttpStatusCode}
+      description: Http response code, if applicable.
+    - id: responseBody
+      type: System.String
+      description: Http response body, if applicable.
+    content.vb: Public Sub New(name As String, id As String, fatal As Boolean = False, error As Exception = Nothing, code As HttpStatusCode? = Nothing, responseBody As String = Nothing)
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor*
+  nameWithType.vb: FilterErrorEventArgs.FilterErrorEventArgs(String, String, Boolean, Exception, Nullable(Of HttpStatusCode), String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.FilterErrorEventArgs(System.String, System.String, System.Boolean, System.Exception, System.Nullable(Of System.Net.HttpStatusCode), System.String)
+  name.vb: FilterErrorEventArgs(String, String, Boolean, Exception, Nullable(Of HttpStatusCode), String)
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+  id: Name
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: FilterErrorEventArgs.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Name
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 32
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets the name of the filter.\n"
+  example: []
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Name As String
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: FilterErrorEventArgs.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 37
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets the instance id of the filter.\n"
+  example: []
+  syntax:
+    content: public string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+  id: IsFatal
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: IsFatal
+  nameWithType: FilterErrorEventArgs.IsFatal
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IsFatal
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 42
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets an indicator that determines if the filter has a fatal error.\n"
+  example: []
+  syntax:
+    content: public bool IsFatal { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsFatal As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+  id: Code
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Code
+  nameWithType: FilterErrorEventArgs.Code
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Code
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 47
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGet the http status code for a response; otherwise null.\n"
+  example: []
+  syntax:
+    content: public HttpStatusCode? Code { get; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Net.HttpStatusCode}
+    content.vb: Public ReadOnly Property Code As HttpStatusCode?
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+  id: Error
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: FilterErrorEventArgs.Error
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Error
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 52
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets an exception thrown by the filter; otherwise null.\n"
+  example: []
+  syntax:
+    content: public Exception Error { get; }
+    parameters: []
+    return:
+      type: System.Exception
+    content.vb: Public ReadOnly Property Error As Exception
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody
+  commentId: P:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody
+  id: ResponseBody
+  parent: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: ResponseBody
+  nameWithType: FilterErrorEventArgs.ResponseBody
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Filters/FilterErrorEventArgs.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ResponseBody
+    path: Filters/FilterErrorEventArgs.cs
+    startLine: 57
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Filters
+  summary: "\nGets a response body from a request; otherwise null.\n"
+  example: []
+  syntax:
+    content: public string ResponseBody { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ResponseBody As String
+  overload: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Filters
+  commentId: N:Microsoft.Health.Fhir.Proxy.Filters
+  name: Microsoft.Health.Fhir.Proxy.Filters
+  nameWithType: Microsoft.Health.Fhir.Proxy.Filters
+  fullName: Microsoft.Health.Fhir.Proxy.Filters
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.EventArgs
+  commentId: T:System.EventArgs
+  parent: System
+  isExternal: true
+  name: EventArgs
+  nameWithType: EventArgs
+  fullName: System.EventArgs
+- uid: System.EventArgs.Empty
+  commentId: F:System.EventArgs.Empty
+  parent: System.EventArgs
+  isExternal: true
+  name: Empty
+  nameWithType: EventArgs.Empty
+  fullName: System.EventArgs.Empty
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.#ctor
+  name: FilterErrorEventArgs
+  nameWithType: FilterErrorEventArgs.FilterErrorEventArgs
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.FilterErrorEventArgs
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: System.Nullable{System.Net.HttpStatusCode}
+  commentId: T:System.Nullable{System.Net.HttpStatusCode}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<HttpStatusCode>
+  nameWithType: Nullable<HttpStatusCode>
+  fullName: System.Nullable<System.Net.HttpStatusCode>
+  nameWithType.vb: Nullable(Of HttpStatusCode)
+  fullName.vb: System.Nullable(Of System.Net.HttpStatusCode)
+  name.vb: Nullable(Of HttpStatusCode)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Net.HttpStatusCode
+    name: HttpStatusCode
+    nameWithType: HttpStatusCode
+    fullName: System.Net.HttpStatusCode
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Net.HttpStatusCode
+    name: HttpStatusCode
+    nameWithType: HttpStatusCode
+    fullName: System.Net.HttpStatusCode
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+  name: Name
+  nameWithType: FilterErrorEventArgs.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Name
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+  name: Id
+  nameWithType: FilterErrorEventArgs.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Id
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+  name: IsFatal
+  nameWithType: FilterErrorEventArgs.IsFatal
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.IsFatal
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+  name: Code
+  nameWithType: FilterErrorEventArgs.Code
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Code
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+  name: Error
+  nameWithType: FilterErrorEventArgs.Error
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.Error
+- uid: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody
+  name: ResponseBody
+  nameWithType: FilterErrorEventArgs.ResponseBody
+  fullName: Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.ResponseBody

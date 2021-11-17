@@ -1,0 +1,786 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  commentId: T:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  id: PipelineBinding
+  parent: Microsoft.Health.Fhir.Proxy.Bindings
+  children:
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnComplete
+  - Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnError
+  langs:
+  - csharp
+  - vb
+  name: PipelineBinding
+  nameWithType: PipelineBinding
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: PipelineBinding
+    path: Bindings/PipelineBinding.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nAbstract binding used to couple pipelines or act as pipeline termination.\n"
+  example: []
+  syntax:
+    content: public abstract class PipelineBinding
+    content.vb: Public MustInherit Class PipelineBinding
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding
+  - Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+  commentId: P:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+  id: Name
+  parent: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: PipelineBinding.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Name
+    path: Bindings/PipelineBinding.cs
+    startLine: 14
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nGets the name of the binding.\n"
+  example: []
+  syntax:
+    content: public abstract string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public MustOverride ReadOnly Property Name As String
+  overload: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name*
+  modifiers.csharp:
+  - public
+  - abstract
+  - get
+  modifiers.vb:
+  - Public
+  - MustOverride
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: PipelineBinding.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: Bindings/PipelineBinding.cs
+    startLine: 19
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nGets the unique id on the binding instance.\n"
+  example: []
+  syntax:
+    content: public abstract string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public MustOverride ReadOnly Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id*
+  modifiers.csharp:
+  - public
+  - abstract
+  - get
+  modifiers.vb:
+  - Public
+  - MustOverride
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnError
+  commentId: E:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnError
+  id: OnError
+  parent: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: OnError
+  nameWithType: PipelineBinding.OnError
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnError
+  type: Event
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: OnError
+    path: Bindings/PipelineBinding.cs
+    startLine: 24
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nAn event that signals an error in the binding.\n"
+  example: []
+  syntax:
+    content: public abstract event EventHandler<PipelineErrorEventArgs> OnError
+    return:
+      type: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+    content.vb: Public MustOverride Event OnError As EventHandler(Of PipelineErrorEventArgs)
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnComplete
+  commentId: E:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnComplete
+  id: OnComplete
+  parent: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: OnComplete
+  nameWithType: PipelineBinding.OnComplete
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.OnComplete
+  type: Event
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: OnComplete
+    path: Bindings/PipelineBinding.cs
+    startLine: 29
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nAn event that signals an error in the binding.\n"
+  example: []
+  syntax:
+    content: public abstract event EventHandler<PipelineCompleteEventArgs> OnComplete
+    return:
+      type: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+    content.vb: Public MustOverride Event OnComplete As EventHandler(Of PipelineCompleteEventArgs)
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  id: ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  parent: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(OperationContext)
+  nameWithType: PipelineBinding.ExecuteAsync(OperationContext)
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Bindings/PipelineBinding.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: ExecuteAsync
+    path: Bindings/PipelineBinding.cs
+    startLine: 36
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Bindings
+  summary: "\nExecutes binding.\n"
+  example: []
+  syntax:
+    content: public abstract Task<OperationContext> ExecuteAsync(OperationContext context)
+    parameters:
+    - id: context
+      type: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+      description: Operation context.
+    return:
+      type: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+      description: Operation context.
+    content.vb: Public MustOverride Function ExecuteAsync(context As OperationContext) As Task(Of OperationContext)
+  overload: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync*
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Bindings
+  commentId: N:Microsoft.Health.Fhir.Proxy.Bindings
+  name: Microsoft.Health.Fhir.Proxy.Bindings
+  nameWithType: Microsoft.Health.Fhir.Proxy.Bindings
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+  name: Name
+  nameWithType: PipelineBinding.Name
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+  name: Id
+  nameWithType: PipelineBinding.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.Id
+- uid: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+  commentId: T:System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<PipelineErrorEventArgs>
+  nameWithType: EventHandler<PipelineErrorEventArgs>
+  fullName: System.EventHandler<Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs>
+  nameWithType.vb: EventHandler(Of PipelineErrorEventArgs)
+  fullName.vb: System.EventHandler(Of Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs)
+  name.vb: EventHandler(Of PipelineErrorEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+    name: PipelineErrorEventArgs
+    nameWithType: PipelineErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+    name: PipelineErrorEventArgs
+    nameWithType: PipelineErrorEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+  commentId: T:System.EventHandler{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<PipelineCompleteEventArgs>
+  nameWithType: EventHandler<PipelineCompleteEventArgs>
+  fullName: System.EventHandler<Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs>
+  nameWithType.vb: EventHandler(Of PipelineCompleteEventArgs)
+  fullName.vb: System.EventHandler(Of Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs)
+  name.vb: EventHandler(Of PipelineCompleteEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+    name: PipelineCompleteEventArgs
+    nameWithType: PipelineCompleteEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+    name: PipelineCompleteEventArgs
+    nameWithType: PipelineCompleteEventArgs
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: PipelineBinding.ExecuteAsync
+  fullName: Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.ExecuteAsync
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: OperationContext
+  nameWithType: OperationContext
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+- uid: System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  commentId: T:System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<OperationContext>
+  nameWithType: Task<OperationContext>
+  fullName: System.Threading.Tasks.Task<Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext>
+  nameWithType.vb: Task(Of OperationContext)
+  fullName.vb: System.Threading.Tasks.Task(Of Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)
+  name.vb: Task(Of OperationContext)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+    name: OperationContext
+    nameWithType: OperationContext
+    fullName: Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

@@ -1,0 +1,2743 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  commentId: T:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  id: FhirPath
+  parent: Microsoft.Health.Fhir.Proxy.Protocol
+  children:
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor(System.String,System.String,System.String)
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter(System.String)
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+  - Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+  langs:
+  - csharp
+  - vb
+  name: FhirPath
+  nameWithType: FhirPath
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  type: Class
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: FhirPath
+    path: Protocol/FhirPath.cs
+    startLine: 9
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  syntax:
+    content: 'public class FhirPath : Uri, ISerializable'
+    content.vb: >-
+      Public Class FhirPath
+
+          Inherits Uri
+
+          Implements ISerializable
+  inheritance:
+  - System.Object
+  - System.Uri
+  implements:
+  - System.Runtime.Serialization.ISerializable
+  inheritedMembers:
+  - System.Uri.SchemeDelimiter
+  - System.Uri.UriSchemeFile
+  - System.Uri.UriSchemeFtp
+  - System.Uri.UriSchemeGopher
+  - System.Uri.UriSchemeHttp
+  - System.Uri.UriSchemeHttps
+  - System.Uri.UriSchemeMailto
+  - System.Uri.UriSchemeNetPipe
+  - System.Uri.UriSchemeNetTcp
+  - System.Uri.UriSchemeNews
+  - System.Uri.UriSchemeNntp
+  - System.Uri.Canonicalize
+  - System.Uri.CheckHostName(System.String)
+  - System.Uri.CheckSchemeName(System.String)
+  - System.Uri.CheckSecurity
+  - System.Uri.Compare(System.Uri,System.Uri,System.UriComponents,System.UriFormat,System.StringComparison)
+  - System.Uri.Equals(System.Object)
+  - System.Uri.Escape
+  - System.Uri.EscapeDataString(System.String)
+  - System.Uri.EscapeString(System.String)
+  - System.Uri.EscapeUriString(System.String)
+  - System.Uri.FromHex(System.Char)
+  - System.Uri.GetComponents(System.UriComponents,System.UriFormat)
+  - System.Uri.GetHashCode
+  - System.Uri.GetLeftPart(System.UriPartial)
+  - System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  - System.Uri.HexEscape(System.Char)
+  - System.Uri.HexUnescape(System.String,System.Int32@)
+  - System.Uri.IsBadFileSystemCharacter(System.Char)
+  - System.Uri.IsBaseOf(System.Uri)
+  - System.Uri.IsExcludedCharacter(System.Char)
+  - System.Uri.IsHexDigit(System.Char)
+  - System.Uri.IsHexEncoding(System.String,System.Int32)
+  - System.Uri.IsReservedCharacter(System.Char)
+  - System.Uri.IsWellFormedOriginalString
+  - System.Uri.IsWellFormedUriString(System.String,System.UriKind)
+  - System.Uri.MakeRelative(System.Uri)
+  - System.Uri.MakeRelativeUri(System.Uri)
+  - System.Uri.Parse
+  - System.Uri.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  - System.Uri.ToString
+  - System.Uri.TryCreate(System.String,System.UriKind,System.Uri@)
+  - System.Uri.TryCreate(System.Uri,System.String,System.Uri@)
+  - System.Uri.TryCreate(System.Uri,System.Uri,System.Uri@)
+  - System.Uri.Unescape(System.String)
+  - System.Uri.UnescapeDataString(System.String)
+  - System.Uri.AbsolutePath
+  - System.Uri.AbsoluteUri
+  - System.Uri.Authority
+  - System.Uri.DnsSafeHost
+  - System.Uri.Fragment
+  - System.Uri.Host
+  - System.Uri.HostNameType
+  - System.Uri.IdnHost
+  - System.Uri.IsAbsoluteUri
+  - System.Uri.IsDefaultPort
+  - System.Uri.IsFile
+  - System.Uri.IsLoopback
+  - System.Uri.IsUnc
+  - System.Uri.LocalPath
+  - System.Uri.OriginalString
+  - System.Uri.PathAndQuery
+  - System.Uri.Port
+  - System.Uri.Query
+  - System.Uri.Scheme
+  - System.Uri.Segments
+  - System.Uri.UserEscaped
+  - System.Uri.UserInfo
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Uri.Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.String)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor(System.String,System.String,System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor(System.String,System.String,System.String)
+  id: '#ctor(System.String,System.String,System.String)'
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: FhirPath(String, String, String)
+  nameWithType: FhirPath.FhirPath(String, String, String)
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.FhirPath(System.String, System.String, System.String)
+  type: Constructor
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: .ctor
+    path: Protocol/FhirPath.cs
+    startLine: 17
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nCreates an instance of FhirPath.\n"
+  example: []
+  syntax:
+    content: public FhirPath(string method, string requestUriString, string routePrefix = "fhir")
+    parameters:
+    - id: method
+      type: System.String
+      description: HTTP method used in request.
+    - id: requestUriString
+      type: System.String
+      description: The request URI.
+    - id: routePrefix
+      type: System.String
+      description: Optional route prefix; default is &apos;fhir&apos;.
+    content.vb: Public Sub New(method As String, requestUriString As String, routePrefix As String = "fhir")
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+  id: RoutePrefix
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: RoutePrefix
+  nameWithType: FhirPath.RoutePrefix
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: RoutePrefix
+    path: Protocol/FhirPath.cs
+    startLine: 28
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the route prefix.\n"
+  example: []
+  syntax:
+    content: public string RoutePrefix { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property RoutePrefix As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+  id: Method
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Method
+  nameWithType: FhirPath.Method
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Method
+    path: Protocol/FhirPath.cs
+    startLine: 33
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the HTTP method used with the request URI.\n"
+  example: []
+  syntax:
+    content: public string Method { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Method As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+  id: Resource
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Resource
+  nameWithType: FhirPath.Resource
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Resource
+    path: Protocol/FhirPath.cs
+    startLine: 38
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the FHIR resource in the request URI.\n"
+  example: []
+  syntax:
+    content: public string Resource { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Resource As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+  id: Id
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: FhirPath.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Id
+    path: Protocol/FhirPath.cs
+    startLine: 43
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the FHIR id in the request URI.\n"
+  example: []
+  syntax:
+    content: public string Id { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Id As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+  id: Operation
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Operation
+  nameWithType: FhirPath.Operation
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Operation
+    path: Protocol/FhirPath.cs
+    startLine: 48
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the FHIR operation in the request URI.\n"
+  example: []
+  syntax:
+    content: public string Operation { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Operation As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+  id: Version
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Version
+  nameWithType: FhirPath.Version
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Version
+    path: Protocol/FhirPath.cs
+    startLine: 53
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets or sets the FHIR version in the request URI.\n"
+  example: []
+  syntax:
+    content: public string Version { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Version As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+  id: Path
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: Path
+  nameWithType: FhirPath.Path
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Path
+    path: Protocol/FhirPath.cs
+    startLine: 58
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets the path of the request Uri.\n"
+  example: []
+  syntax:
+    content: public string Path { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Path As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+  commentId: P:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+  id: NormalizedPath
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: NormalizedPath
+  nameWithType: FhirPath.NormalizedPath
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+  type: Property
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: NormalizedPath
+    path: Protocol/FhirPath.cs
+    startLine: 80
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nGets the path of the request URI exclusive on route prefix.\n"
+  example: []
+  syntax:
+    content: public string NormalizedPath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property NormalizedPath As String
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter(System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter(System.String)
+  id: HasQueryParameter(System.String)
+  parent: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath
+  langs:
+  - csharp
+  - vb
+  name: HasQueryParameter(String)
+  nameWithType: FhirPath.HasQueryParameter(String)
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Protocol/FhirPath.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: HasQueryParameter
+    path: Protocol/FhirPath.cs
+    startLine: 114
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Protocol
+  summary: "\nIndicates whether a query string parameter is present in the request URI.\n"
+  example: []
+  syntax:
+    content: public bool HasQueryParameter(string key)
+    parameters:
+    - id: key
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: Public Function HasQueryParameter(key As String) As Boolean
+  overload: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Protocol
+  commentId: N:Microsoft.Health.Fhir.Proxy.Protocol
+  name: Microsoft.Health.Fhir.Proxy.Protocol
+  nameWithType: Microsoft.Health.Fhir.Proxy.Protocol
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Uri
+  commentId: T:System.Uri
+  parent: System
+  isExternal: true
+  name: Uri
+  nameWithType: Uri
+  fullName: System.Uri
+- uid: System.Runtime.Serialization.ISerializable
+  commentId: T:System.Runtime.Serialization.ISerializable
+  parent: System.Runtime.Serialization
+  isExternal: true
+  name: ISerializable
+  nameWithType: ISerializable
+  fullName: System.Runtime.Serialization.ISerializable
+- uid: System.Uri.SchemeDelimiter
+  commentId: F:System.Uri.SchemeDelimiter
+  parent: System.Uri
+  isExternal: true
+  name: SchemeDelimiter
+  nameWithType: Uri.SchemeDelimiter
+  fullName: System.Uri.SchemeDelimiter
+- uid: System.Uri.UriSchemeFile
+  commentId: F:System.Uri.UriSchemeFile
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeFile
+  nameWithType: Uri.UriSchemeFile
+  fullName: System.Uri.UriSchemeFile
+- uid: System.Uri.UriSchemeFtp
+  commentId: F:System.Uri.UriSchemeFtp
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeFtp
+  nameWithType: Uri.UriSchemeFtp
+  fullName: System.Uri.UriSchemeFtp
+- uid: System.Uri.UriSchemeGopher
+  commentId: F:System.Uri.UriSchemeGopher
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeGopher
+  nameWithType: Uri.UriSchemeGopher
+  fullName: System.Uri.UriSchemeGopher
+- uid: System.Uri.UriSchemeHttp
+  commentId: F:System.Uri.UriSchemeHttp
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeHttp
+  nameWithType: Uri.UriSchemeHttp
+  fullName: System.Uri.UriSchemeHttp
+- uid: System.Uri.UriSchemeHttps
+  commentId: F:System.Uri.UriSchemeHttps
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeHttps
+  nameWithType: Uri.UriSchemeHttps
+  fullName: System.Uri.UriSchemeHttps
+- uid: System.Uri.UriSchemeMailto
+  commentId: F:System.Uri.UriSchemeMailto
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeMailto
+  nameWithType: Uri.UriSchemeMailto
+  fullName: System.Uri.UriSchemeMailto
+- uid: System.Uri.UriSchemeNetPipe
+  commentId: F:System.Uri.UriSchemeNetPipe
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeNetPipe
+  nameWithType: Uri.UriSchemeNetPipe
+  fullName: System.Uri.UriSchemeNetPipe
+- uid: System.Uri.UriSchemeNetTcp
+  commentId: F:System.Uri.UriSchemeNetTcp
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeNetTcp
+  nameWithType: Uri.UriSchemeNetTcp
+  fullName: System.Uri.UriSchemeNetTcp
+- uid: System.Uri.UriSchemeNews
+  commentId: F:System.Uri.UriSchemeNews
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeNews
+  nameWithType: Uri.UriSchemeNews
+  fullName: System.Uri.UriSchemeNews
+- uid: System.Uri.UriSchemeNntp
+  commentId: F:System.Uri.UriSchemeNntp
+  parent: System.Uri
+  isExternal: true
+  name: UriSchemeNntp
+  nameWithType: Uri.UriSchemeNntp
+  fullName: System.Uri.UriSchemeNntp
+- uid: System.Uri.Canonicalize
+  commentId: M:System.Uri.Canonicalize
+  parent: System.Uri
+  isExternal: true
+  name: Canonicalize()
+  nameWithType: Uri.Canonicalize()
+  fullName: System.Uri.Canonicalize()
+  spec.csharp:
+  - uid: System.Uri.Canonicalize
+    name: Canonicalize
+    nameWithType: Uri.Canonicalize
+    fullName: System.Uri.Canonicalize
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Canonicalize
+    name: Canonicalize
+    nameWithType: Uri.Canonicalize
+    fullName: System.Uri.Canonicalize
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.CheckHostName(System.String)
+  commentId: M:System.Uri.CheckHostName(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: CheckHostName(String)
+  nameWithType: Uri.CheckHostName(String)
+  fullName: System.Uri.CheckHostName(System.String)
+  spec.csharp:
+  - uid: System.Uri.CheckHostName(System.String)
+    name: CheckHostName
+    nameWithType: Uri.CheckHostName
+    fullName: System.Uri.CheckHostName
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.CheckHostName(System.String)
+    name: CheckHostName
+    nameWithType: Uri.CheckHostName
+    fullName: System.Uri.CheckHostName
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.CheckSchemeName(System.String)
+  commentId: M:System.Uri.CheckSchemeName(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: CheckSchemeName(String)
+  nameWithType: Uri.CheckSchemeName(String)
+  fullName: System.Uri.CheckSchemeName(System.String)
+  spec.csharp:
+  - uid: System.Uri.CheckSchemeName(System.String)
+    name: CheckSchemeName
+    nameWithType: Uri.CheckSchemeName
+    fullName: System.Uri.CheckSchemeName
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.CheckSchemeName(System.String)
+    name: CheckSchemeName
+    nameWithType: Uri.CheckSchemeName
+    fullName: System.Uri.CheckSchemeName
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.CheckSecurity
+  commentId: M:System.Uri.CheckSecurity
+  parent: System.Uri
+  isExternal: true
+  name: CheckSecurity()
+  nameWithType: Uri.CheckSecurity()
+  fullName: System.Uri.CheckSecurity()
+  spec.csharp:
+  - uid: System.Uri.CheckSecurity
+    name: CheckSecurity
+    nameWithType: Uri.CheckSecurity
+    fullName: System.Uri.CheckSecurity
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.CheckSecurity
+    name: CheckSecurity
+    nameWithType: Uri.CheckSecurity
+    fullName: System.Uri.CheckSecurity
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Compare(System.Uri,System.Uri,System.UriComponents,System.UriFormat,System.StringComparison)
+  commentId: M:System.Uri.Compare(System.Uri,System.Uri,System.UriComponents,System.UriFormat,System.StringComparison)
+  parent: System.Uri
+  isExternal: true
+  name: Compare(Uri, Uri, UriComponents, UriFormat, StringComparison)
+  nameWithType: Uri.Compare(Uri, Uri, UriComponents, UriFormat, StringComparison)
+  fullName: System.Uri.Compare(System.Uri, System.Uri, System.UriComponents, System.UriFormat, System.StringComparison)
+  spec.csharp:
+  - uid: System.Uri.Compare(System.Uri,System.Uri,System.UriComponents,System.UriFormat,System.StringComparison)
+    name: Compare
+    nameWithType: Uri.Compare
+    fullName: System.Uri.Compare
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriComponents
+    name: UriComponents
+    nameWithType: UriComponents
+    fullName: System.UriComponents
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriFormat
+    name: UriFormat
+    nameWithType: UriFormat
+    fullName: System.UriFormat
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.StringComparison
+    name: StringComparison
+    nameWithType: StringComparison
+    fullName: System.StringComparison
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Compare(System.Uri,System.Uri,System.UriComponents,System.UriFormat,System.StringComparison)
+    name: Compare
+    nameWithType: Uri.Compare
+    fullName: System.Uri.Compare
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriComponents
+    name: UriComponents
+    nameWithType: UriComponents
+    fullName: System.UriComponents
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriFormat
+    name: UriFormat
+    nameWithType: UriFormat
+    fullName: System.UriFormat
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.StringComparison
+    name: StringComparison
+    nameWithType: StringComparison
+    fullName: System.StringComparison
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Equals(System.Object)
+  commentId: M:System.Uri.Equals(System.Object)
+  parent: System.Uri
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Uri.Equals(Object)
+  fullName: System.Uri.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Uri.Equals(System.Object)
+    name: Equals
+    nameWithType: Uri.Equals
+    fullName: System.Uri.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Equals(System.Object)
+    name: Equals
+    nameWithType: Uri.Equals
+    fullName: System.Uri.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Escape
+  commentId: M:System.Uri.Escape
+  parent: System.Uri
+  isExternal: true
+  name: Escape()
+  nameWithType: Uri.Escape()
+  fullName: System.Uri.Escape()
+  spec.csharp:
+  - uid: System.Uri.Escape
+    name: Escape
+    nameWithType: Uri.Escape
+    fullName: System.Uri.Escape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Escape
+    name: Escape
+    nameWithType: Uri.Escape
+    fullName: System.Uri.Escape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.EscapeDataString(System.String)
+  commentId: M:System.Uri.EscapeDataString(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: EscapeDataString(String)
+  nameWithType: Uri.EscapeDataString(String)
+  fullName: System.Uri.EscapeDataString(System.String)
+  spec.csharp:
+  - uid: System.Uri.EscapeDataString(System.String)
+    name: EscapeDataString
+    nameWithType: Uri.EscapeDataString
+    fullName: System.Uri.EscapeDataString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.EscapeDataString(System.String)
+    name: EscapeDataString
+    nameWithType: Uri.EscapeDataString
+    fullName: System.Uri.EscapeDataString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.EscapeString(System.String)
+  commentId: M:System.Uri.EscapeString(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: EscapeString(String)
+  nameWithType: Uri.EscapeString(String)
+  fullName: System.Uri.EscapeString(System.String)
+  spec.csharp:
+  - uid: System.Uri.EscapeString(System.String)
+    name: EscapeString
+    nameWithType: Uri.EscapeString
+    fullName: System.Uri.EscapeString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.EscapeString(System.String)
+    name: EscapeString
+    nameWithType: Uri.EscapeString
+    fullName: System.Uri.EscapeString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.EscapeUriString(System.String)
+  commentId: M:System.Uri.EscapeUriString(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: EscapeUriString(String)
+  nameWithType: Uri.EscapeUriString(String)
+  fullName: System.Uri.EscapeUriString(System.String)
+  spec.csharp:
+  - uid: System.Uri.EscapeUriString(System.String)
+    name: EscapeUriString
+    nameWithType: Uri.EscapeUriString
+    fullName: System.Uri.EscapeUriString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.EscapeUriString(System.String)
+    name: EscapeUriString
+    nameWithType: Uri.EscapeUriString
+    fullName: System.Uri.EscapeUriString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.FromHex(System.Char)
+  commentId: M:System.Uri.FromHex(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: FromHex(Char)
+  nameWithType: Uri.FromHex(Char)
+  fullName: System.Uri.FromHex(System.Char)
+  spec.csharp:
+  - uid: System.Uri.FromHex(System.Char)
+    name: FromHex
+    nameWithType: Uri.FromHex
+    fullName: System.Uri.FromHex
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.FromHex(System.Char)
+    name: FromHex
+    nameWithType: Uri.FromHex
+    fullName: System.Uri.FromHex
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.GetComponents(System.UriComponents,System.UriFormat)
+  commentId: M:System.Uri.GetComponents(System.UriComponents,System.UriFormat)
+  parent: System.Uri
+  isExternal: true
+  name: GetComponents(UriComponents, UriFormat)
+  nameWithType: Uri.GetComponents(UriComponents, UriFormat)
+  fullName: System.Uri.GetComponents(System.UriComponents, System.UriFormat)
+  spec.csharp:
+  - uid: System.Uri.GetComponents(System.UriComponents,System.UriFormat)
+    name: GetComponents
+    nameWithType: Uri.GetComponents
+    fullName: System.Uri.GetComponents
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.UriComponents
+    name: UriComponents
+    nameWithType: UriComponents
+    fullName: System.UriComponents
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriFormat
+    name: UriFormat
+    nameWithType: UriFormat
+    fullName: System.UriFormat
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.GetComponents(System.UriComponents,System.UriFormat)
+    name: GetComponents
+    nameWithType: Uri.GetComponents
+    fullName: System.Uri.GetComponents
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.UriComponents
+    name: UriComponents
+    nameWithType: UriComponents
+    fullName: System.UriComponents
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriFormat
+    name: UriFormat
+    nameWithType: UriFormat
+    fullName: System.UriFormat
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.GetHashCode
+  commentId: M:System.Uri.GetHashCode
+  parent: System.Uri
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Uri.GetHashCode()
+  fullName: System.Uri.GetHashCode()
+  spec.csharp:
+  - uid: System.Uri.GetHashCode
+    name: GetHashCode
+    nameWithType: Uri.GetHashCode
+    fullName: System.Uri.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.GetHashCode
+    name: GetHashCode
+    nameWithType: Uri.GetHashCode
+    fullName: System.Uri.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.GetLeftPart(System.UriPartial)
+  commentId: M:System.Uri.GetLeftPart(System.UriPartial)
+  parent: System.Uri
+  isExternal: true
+  name: GetLeftPart(UriPartial)
+  nameWithType: Uri.GetLeftPart(UriPartial)
+  fullName: System.Uri.GetLeftPart(System.UriPartial)
+  spec.csharp:
+  - uid: System.Uri.GetLeftPart(System.UriPartial)
+    name: GetLeftPart
+    nameWithType: Uri.GetLeftPart
+    fullName: System.Uri.GetLeftPart
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.UriPartial
+    name: UriPartial
+    nameWithType: UriPartial
+    fullName: System.UriPartial
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.GetLeftPart(System.UriPartial)
+    name: GetLeftPart
+    nameWithType: Uri.GetLeftPart
+    fullName: System.Uri.GetLeftPart
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.UriPartial
+    name: UriPartial
+    nameWithType: UriPartial
+    fullName: System.UriPartial
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  commentId: M:System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  parent: System.Uri
+  isExternal: true
+  name: GetObjectData(SerializationInfo, StreamingContext)
+  nameWithType: Uri.GetObjectData(SerializationInfo, StreamingContext)
+  fullName: System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  spec.csharp:
+  - uid: System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+    name: GetObjectData
+    nameWithType: Uri.GetObjectData
+    fullName: System.Uri.GetObjectData
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Runtime.Serialization.SerializationInfo
+    name: SerializationInfo
+    nameWithType: SerializationInfo
+    fullName: System.Runtime.Serialization.SerializationInfo
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Runtime.Serialization.StreamingContext
+    name: StreamingContext
+    nameWithType: StreamingContext
+    fullName: System.Runtime.Serialization.StreamingContext
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+    name: GetObjectData
+    nameWithType: Uri.GetObjectData
+    fullName: System.Uri.GetObjectData
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Runtime.Serialization.SerializationInfo
+    name: SerializationInfo
+    nameWithType: SerializationInfo
+    fullName: System.Runtime.Serialization.SerializationInfo
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Runtime.Serialization.StreamingContext
+    name: StreamingContext
+    nameWithType: StreamingContext
+    fullName: System.Runtime.Serialization.StreamingContext
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.HexEscape(System.Char)
+  commentId: M:System.Uri.HexEscape(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: HexEscape(Char)
+  nameWithType: Uri.HexEscape(Char)
+  fullName: System.Uri.HexEscape(System.Char)
+  spec.csharp:
+  - uid: System.Uri.HexEscape(System.Char)
+    name: HexEscape
+    nameWithType: Uri.HexEscape
+    fullName: System.Uri.HexEscape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.HexEscape(System.Char)
+    name: HexEscape
+    nameWithType: Uri.HexEscape
+    fullName: System.Uri.HexEscape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.HexUnescape(System.String,System.Int32@)
+  commentId: M:System.Uri.HexUnescape(System.String,System.Int32@)
+  parent: System.Uri
+  isExternal: true
+  name: HexUnescape(String, Int32)
+  nameWithType: Uri.HexUnescape(String, Int32)
+  fullName: System.Uri.HexUnescape(System.String, System.Int32)
+  spec.csharp:
+  - uid: System.Uri.HexUnescape(System.String,System.Int32@)
+    name: HexUnescape
+    nameWithType: Uri.HexUnescape
+    fullName: System.Uri.HexUnescape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.HexUnescape(System.String,System.Int32@)
+    name: HexUnescape
+    nameWithType: Uri.HexUnescape
+    fullName: System.Uri.HexUnescape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsBadFileSystemCharacter(System.Char)
+  commentId: M:System.Uri.IsBadFileSystemCharacter(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: IsBadFileSystemCharacter(Char)
+  nameWithType: Uri.IsBadFileSystemCharacter(Char)
+  fullName: System.Uri.IsBadFileSystemCharacter(System.Char)
+  spec.csharp:
+  - uid: System.Uri.IsBadFileSystemCharacter(System.Char)
+    name: IsBadFileSystemCharacter
+    nameWithType: Uri.IsBadFileSystemCharacter
+    fullName: System.Uri.IsBadFileSystemCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsBadFileSystemCharacter(System.Char)
+    name: IsBadFileSystemCharacter
+    nameWithType: Uri.IsBadFileSystemCharacter
+    fullName: System.Uri.IsBadFileSystemCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsBaseOf(System.Uri)
+  commentId: M:System.Uri.IsBaseOf(System.Uri)
+  parent: System.Uri
+  isExternal: true
+  name: IsBaseOf(Uri)
+  nameWithType: Uri.IsBaseOf(Uri)
+  fullName: System.Uri.IsBaseOf(System.Uri)
+  spec.csharp:
+  - uid: System.Uri.IsBaseOf(System.Uri)
+    name: IsBaseOf
+    nameWithType: Uri.IsBaseOf
+    fullName: System.Uri.IsBaseOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsBaseOf(System.Uri)
+    name: IsBaseOf
+    nameWithType: Uri.IsBaseOf
+    fullName: System.Uri.IsBaseOf
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsExcludedCharacter(System.Char)
+  commentId: M:System.Uri.IsExcludedCharacter(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: IsExcludedCharacter(Char)
+  nameWithType: Uri.IsExcludedCharacter(Char)
+  fullName: System.Uri.IsExcludedCharacter(System.Char)
+  spec.csharp:
+  - uid: System.Uri.IsExcludedCharacter(System.Char)
+    name: IsExcludedCharacter
+    nameWithType: Uri.IsExcludedCharacter
+    fullName: System.Uri.IsExcludedCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsExcludedCharacter(System.Char)
+    name: IsExcludedCharacter
+    nameWithType: Uri.IsExcludedCharacter
+    fullName: System.Uri.IsExcludedCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsHexDigit(System.Char)
+  commentId: M:System.Uri.IsHexDigit(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: IsHexDigit(Char)
+  nameWithType: Uri.IsHexDigit(Char)
+  fullName: System.Uri.IsHexDigit(System.Char)
+  spec.csharp:
+  - uid: System.Uri.IsHexDigit(System.Char)
+    name: IsHexDigit
+    nameWithType: Uri.IsHexDigit
+    fullName: System.Uri.IsHexDigit
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsHexDigit(System.Char)
+    name: IsHexDigit
+    nameWithType: Uri.IsHexDigit
+    fullName: System.Uri.IsHexDigit
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsHexEncoding(System.String,System.Int32)
+  commentId: M:System.Uri.IsHexEncoding(System.String,System.Int32)
+  parent: System.Uri
+  isExternal: true
+  name: IsHexEncoding(String, Int32)
+  nameWithType: Uri.IsHexEncoding(String, Int32)
+  fullName: System.Uri.IsHexEncoding(System.String, System.Int32)
+  spec.csharp:
+  - uid: System.Uri.IsHexEncoding(System.String,System.Int32)
+    name: IsHexEncoding
+    nameWithType: Uri.IsHexEncoding
+    fullName: System.Uri.IsHexEncoding
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsHexEncoding(System.String,System.Int32)
+    name: IsHexEncoding
+    nameWithType: Uri.IsHexEncoding
+    fullName: System.Uri.IsHexEncoding
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsReservedCharacter(System.Char)
+  commentId: M:System.Uri.IsReservedCharacter(System.Char)
+  parent: System.Uri
+  isExternal: true
+  name: IsReservedCharacter(Char)
+  nameWithType: Uri.IsReservedCharacter(Char)
+  fullName: System.Uri.IsReservedCharacter(System.Char)
+  spec.csharp:
+  - uid: System.Uri.IsReservedCharacter(System.Char)
+    name: IsReservedCharacter
+    nameWithType: Uri.IsReservedCharacter
+    fullName: System.Uri.IsReservedCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsReservedCharacter(System.Char)
+    name: IsReservedCharacter
+    nameWithType: Uri.IsReservedCharacter
+    fullName: System.Uri.IsReservedCharacter
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Char
+    name: Char
+    nameWithType: Char
+    fullName: System.Char
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsWellFormedOriginalString
+  commentId: M:System.Uri.IsWellFormedOriginalString
+  parent: System.Uri
+  isExternal: true
+  name: IsWellFormedOriginalString()
+  nameWithType: Uri.IsWellFormedOriginalString()
+  fullName: System.Uri.IsWellFormedOriginalString()
+  spec.csharp:
+  - uid: System.Uri.IsWellFormedOriginalString
+    name: IsWellFormedOriginalString
+    nameWithType: Uri.IsWellFormedOriginalString
+    fullName: System.Uri.IsWellFormedOriginalString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsWellFormedOriginalString
+    name: IsWellFormedOriginalString
+    nameWithType: Uri.IsWellFormedOriginalString
+    fullName: System.Uri.IsWellFormedOriginalString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.IsWellFormedUriString(System.String,System.UriKind)
+  commentId: M:System.Uri.IsWellFormedUriString(System.String,System.UriKind)
+  parent: System.Uri
+  isExternal: true
+  name: IsWellFormedUriString(String, UriKind)
+  nameWithType: Uri.IsWellFormedUriString(String, UriKind)
+  fullName: System.Uri.IsWellFormedUriString(System.String, System.UriKind)
+  spec.csharp:
+  - uid: System.Uri.IsWellFormedUriString(System.String,System.UriKind)
+    name: IsWellFormedUriString
+    nameWithType: Uri.IsWellFormedUriString
+    fullName: System.Uri.IsWellFormedUriString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriKind
+    name: UriKind
+    nameWithType: UriKind
+    fullName: System.UriKind
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.IsWellFormedUriString(System.String,System.UriKind)
+    name: IsWellFormedUriString
+    nameWithType: Uri.IsWellFormedUriString
+    fullName: System.Uri.IsWellFormedUriString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriKind
+    name: UriKind
+    nameWithType: UriKind
+    fullName: System.UriKind
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.MakeRelative(System.Uri)
+  commentId: M:System.Uri.MakeRelative(System.Uri)
+  parent: System.Uri
+  isExternal: true
+  name: MakeRelative(Uri)
+  nameWithType: Uri.MakeRelative(Uri)
+  fullName: System.Uri.MakeRelative(System.Uri)
+  spec.csharp:
+  - uid: System.Uri.MakeRelative(System.Uri)
+    name: MakeRelative
+    nameWithType: Uri.MakeRelative
+    fullName: System.Uri.MakeRelative
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.MakeRelative(System.Uri)
+    name: MakeRelative
+    nameWithType: Uri.MakeRelative
+    fullName: System.Uri.MakeRelative
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.MakeRelativeUri(System.Uri)
+  commentId: M:System.Uri.MakeRelativeUri(System.Uri)
+  parent: System.Uri
+  isExternal: true
+  name: MakeRelativeUri(Uri)
+  nameWithType: Uri.MakeRelativeUri(Uri)
+  fullName: System.Uri.MakeRelativeUri(System.Uri)
+  spec.csharp:
+  - uid: System.Uri.MakeRelativeUri(System.Uri)
+    name: MakeRelativeUri
+    nameWithType: Uri.MakeRelativeUri
+    fullName: System.Uri.MakeRelativeUri
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.MakeRelativeUri(System.Uri)
+    name: MakeRelativeUri
+    nameWithType: Uri.MakeRelativeUri
+    fullName: System.Uri.MakeRelativeUri
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Parse
+  commentId: M:System.Uri.Parse
+  parent: System.Uri
+  isExternal: true
+  name: Parse()
+  nameWithType: Uri.Parse()
+  fullName: System.Uri.Parse()
+  spec.csharp:
+  - uid: System.Uri.Parse
+    name: Parse
+    nameWithType: Uri.Parse
+    fullName: System.Uri.Parse
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Parse
+    name: Parse
+    nameWithType: Uri.Parse
+    fullName: System.Uri.Parse
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  commentId: M:System.Uri.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  parent: System.Uri
+  isExternal: true
+  name: ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  nameWithType: Uri.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  fullName: System.Uri.System.Runtime.Serialization.ISerializable.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType.vb: Uri.System.Runtime.Serialization.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  name.vb: System.Runtime.Serialization.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  spec.csharp:
+  - uid: System.Uri.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+    name: ISerializable.GetObjectData
+    nameWithType: Uri.ISerializable.GetObjectData
+    fullName: System.Uri.System.Runtime.Serialization.ISerializable.GetObjectData
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Runtime.Serialization.SerializationInfo
+    name: SerializationInfo
+    nameWithType: SerializationInfo
+    fullName: System.Runtime.Serialization.SerializationInfo
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Runtime.Serialization.StreamingContext
+    name: StreamingContext
+    nameWithType: StreamingContext
+    fullName: System.Runtime.Serialization.StreamingContext
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+    name: System.Runtime.Serialization.ISerializable.GetObjectData
+    nameWithType: Uri.System.Runtime.Serialization.ISerializable.GetObjectData
+    fullName: System.Uri.System.Runtime.Serialization.ISerializable.GetObjectData
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Runtime.Serialization.SerializationInfo
+    name: SerializationInfo
+    nameWithType: SerializationInfo
+    fullName: System.Runtime.Serialization.SerializationInfo
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Runtime.Serialization.StreamingContext
+    name: StreamingContext
+    nameWithType: StreamingContext
+    fullName: System.Runtime.Serialization.StreamingContext
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.ToString
+  commentId: M:System.Uri.ToString
+  parent: System.Uri
+  isExternal: true
+  name: ToString()
+  nameWithType: Uri.ToString()
+  fullName: System.Uri.ToString()
+  spec.csharp:
+  - uid: System.Uri.ToString
+    name: ToString
+    nameWithType: Uri.ToString
+    fullName: System.Uri.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.ToString
+    name: ToString
+    nameWithType: Uri.ToString
+    fullName: System.Uri.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.TryCreate(System.String,System.UriKind,System.Uri@)
+  commentId: M:System.Uri.TryCreate(System.String,System.UriKind,System.Uri@)
+  parent: System.Uri
+  isExternal: true
+  name: TryCreate(String, UriKind, Uri)
+  nameWithType: Uri.TryCreate(String, UriKind, Uri)
+  fullName: System.Uri.TryCreate(System.String, System.UriKind, System.Uri)
+  spec.csharp:
+  - uid: System.Uri.TryCreate(System.String,System.UriKind,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriKind
+    name: UriKind
+    nameWithType: UriKind
+    fullName: System.UriKind
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.TryCreate(System.String,System.UriKind,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.UriKind
+    name: UriKind
+    nameWithType: UriKind
+    fullName: System.UriKind
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.TryCreate(System.Uri,System.String,System.Uri@)
+  commentId: M:System.Uri.TryCreate(System.Uri,System.String,System.Uri@)
+  parent: System.Uri
+  isExternal: true
+  name: TryCreate(Uri, String, Uri)
+  nameWithType: Uri.TryCreate(Uri, String, Uri)
+  fullName: System.Uri.TryCreate(System.Uri, System.String, System.Uri)
+  spec.csharp:
+  - uid: System.Uri.TryCreate(System.Uri,System.String,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.TryCreate(System.Uri,System.String,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.TryCreate(System.Uri,System.Uri,System.Uri@)
+  commentId: M:System.Uri.TryCreate(System.Uri,System.Uri,System.Uri@)
+  parent: System.Uri
+  isExternal: true
+  name: TryCreate(Uri, Uri, Uri)
+  nameWithType: Uri.TryCreate(Uri, Uri, Uri)
+  fullName: System.Uri.TryCreate(System.Uri, System.Uri, System.Uri)
+  spec.csharp:
+  - uid: System.Uri.TryCreate(System.Uri,System.Uri,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.TryCreate(System.Uri,System.Uri,System.Uri@)
+    name: TryCreate
+    nameWithType: Uri.TryCreate
+    fullName: System.Uri.TryCreate
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Unescape(System.String)
+  commentId: M:System.Uri.Unescape(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: Unescape(String)
+  nameWithType: Uri.Unescape(String)
+  fullName: System.Uri.Unescape(System.String)
+  spec.csharp:
+  - uid: System.Uri.Unescape(System.String)
+    name: Unescape
+    nameWithType: Uri.Unescape
+    fullName: System.Uri.Unescape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.Unescape(System.String)
+    name: Unescape
+    nameWithType: Uri.Unescape
+    fullName: System.Uri.Unescape
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.UnescapeDataString(System.String)
+  commentId: M:System.Uri.UnescapeDataString(System.String)
+  parent: System.Uri
+  isExternal: true
+  name: UnescapeDataString(String)
+  nameWithType: Uri.UnescapeDataString(String)
+  fullName: System.Uri.UnescapeDataString(System.String)
+  spec.csharp:
+  - uid: System.Uri.UnescapeDataString(System.String)
+    name: UnescapeDataString
+    nameWithType: Uri.UnescapeDataString
+    fullName: System.Uri.UnescapeDataString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Uri.UnescapeDataString(System.String)
+    name: UnescapeDataString
+    nameWithType: Uri.UnescapeDataString
+    fullName: System.Uri.UnescapeDataString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.AbsolutePath
+  commentId: P:System.Uri.AbsolutePath
+  parent: System.Uri
+  isExternal: true
+  name: AbsolutePath
+  nameWithType: Uri.AbsolutePath
+  fullName: System.Uri.AbsolutePath
+- uid: System.Uri.AbsoluteUri
+  commentId: P:System.Uri.AbsoluteUri
+  parent: System.Uri
+  isExternal: true
+  name: AbsoluteUri
+  nameWithType: Uri.AbsoluteUri
+  fullName: System.Uri.AbsoluteUri
+- uid: System.Uri.Authority
+  commentId: P:System.Uri.Authority
+  parent: System.Uri
+  isExternal: true
+  name: Authority
+  nameWithType: Uri.Authority
+  fullName: System.Uri.Authority
+- uid: System.Uri.DnsSafeHost
+  commentId: P:System.Uri.DnsSafeHost
+  parent: System.Uri
+  isExternal: true
+  name: DnsSafeHost
+  nameWithType: Uri.DnsSafeHost
+  fullName: System.Uri.DnsSafeHost
+- uid: System.Uri.Fragment
+  commentId: P:System.Uri.Fragment
+  parent: System.Uri
+  isExternal: true
+  name: Fragment
+  nameWithType: Uri.Fragment
+  fullName: System.Uri.Fragment
+- uid: System.Uri.Host
+  commentId: P:System.Uri.Host
+  parent: System.Uri
+  isExternal: true
+  name: Host
+  nameWithType: Uri.Host
+  fullName: System.Uri.Host
+- uid: System.Uri.HostNameType
+  commentId: P:System.Uri.HostNameType
+  parent: System.Uri
+  isExternal: true
+  name: HostNameType
+  nameWithType: Uri.HostNameType
+  fullName: System.Uri.HostNameType
+- uid: System.Uri.IdnHost
+  commentId: P:System.Uri.IdnHost
+  parent: System.Uri
+  isExternal: true
+  name: IdnHost
+  nameWithType: Uri.IdnHost
+  fullName: System.Uri.IdnHost
+- uid: System.Uri.IsAbsoluteUri
+  commentId: P:System.Uri.IsAbsoluteUri
+  parent: System.Uri
+  isExternal: true
+  name: IsAbsoluteUri
+  nameWithType: Uri.IsAbsoluteUri
+  fullName: System.Uri.IsAbsoluteUri
+- uid: System.Uri.IsDefaultPort
+  commentId: P:System.Uri.IsDefaultPort
+  parent: System.Uri
+  isExternal: true
+  name: IsDefaultPort
+  nameWithType: Uri.IsDefaultPort
+  fullName: System.Uri.IsDefaultPort
+- uid: System.Uri.IsFile
+  commentId: P:System.Uri.IsFile
+  parent: System.Uri
+  isExternal: true
+  name: IsFile
+  nameWithType: Uri.IsFile
+  fullName: System.Uri.IsFile
+- uid: System.Uri.IsLoopback
+  commentId: P:System.Uri.IsLoopback
+  parent: System.Uri
+  isExternal: true
+  name: IsLoopback
+  nameWithType: Uri.IsLoopback
+  fullName: System.Uri.IsLoopback
+- uid: System.Uri.IsUnc
+  commentId: P:System.Uri.IsUnc
+  parent: System.Uri
+  isExternal: true
+  name: IsUnc
+  nameWithType: Uri.IsUnc
+  fullName: System.Uri.IsUnc
+- uid: System.Uri.LocalPath
+  commentId: P:System.Uri.LocalPath
+  parent: System.Uri
+  isExternal: true
+  name: LocalPath
+  nameWithType: Uri.LocalPath
+  fullName: System.Uri.LocalPath
+- uid: System.Uri.OriginalString
+  commentId: P:System.Uri.OriginalString
+  parent: System.Uri
+  isExternal: true
+  name: OriginalString
+  nameWithType: Uri.OriginalString
+  fullName: System.Uri.OriginalString
+- uid: System.Uri.PathAndQuery
+  commentId: P:System.Uri.PathAndQuery
+  parent: System.Uri
+  isExternal: true
+  name: PathAndQuery
+  nameWithType: Uri.PathAndQuery
+  fullName: System.Uri.PathAndQuery
+- uid: System.Uri.Port
+  commentId: P:System.Uri.Port
+  parent: System.Uri
+  isExternal: true
+  name: Port
+  nameWithType: Uri.Port
+  fullName: System.Uri.Port
+- uid: System.Uri.Query
+  commentId: P:System.Uri.Query
+  parent: System.Uri
+  isExternal: true
+  name: Query
+  nameWithType: Uri.Query
+  fullName: System.Uri.Query
+- uid: System.Uri.Scheme
+  commentId: P:System.Uri.Scheme
+  parent: System.Uri
+  isExternal: true
+  name: Scheme
+  nameWithType: Uri.Scheme
+  fullName: System.Uri.Scheme
+- uid: System.Uri.Segments
+  commentId: P:System.Uri.Segments
+  parent: System.Uri
+  isExternal: true
+  name: Segments
+  nameWithType: Uri.Segments
+  fullName: System.Uri.Segments
+- uid: System.Uri.UserEscaped
+  commentId: P:System.Uri.UserEscaped
+  parent: System.Uri
+  isExternal: true
+  name: UserEscaped
+  nameWithType: Uri.UserEscaped
+  fullName: System.Uri.UserEscaped
+- uid: System.Uri.UserInfo
+  commentId: P:System.Uri.UserInfo
+  parent: System.Uri
+  isExternal: true
+  name: UserInfo
+  nameWithType: Uri.UserInfo
+  fullName: System.Uri.UserInfo
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Uri.Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+  parent: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions
+  definition: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+  name: RemoveRoutePrefix(String)
+  nameWithType: UriExtensions.RemoveRoutePrefix(String)
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.String)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.String)
+    name: RemoveRoutePrefix
+    nameWithType: UriExtensions.RemoveRoutePrefix
+    fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.String)
+    name: RemoveRoutePrefix
+    nameWithType: UriExtensions.RemoveRoutePrefix
+    fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Runtime.Serialization
+  commentId: N:System.Runtime.Serialization
+  isExternal: true
+  name: System.Runtime.Serialization
+  nameWithType: System.Runtime.Serialization
+  fullName: System.Runtime.Serialization
+- uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+  commentId: M:Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+  isExternal: true
+  name: RemoveRoutePrefix(Uri, String)
+  nameWithType: UriExtensions.RemoveRoutePrefix(Uri, String)
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri, System.String)
+  spec.csharp:
+  - uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+    name: RemoveRoutePrefix
+    nameWithType: UriExtensions.RemoveRoutePrefix
+    fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix(System.Uri,System.String)
+    name: RemoveRoutePrefix
+    nameWithType: UriExtensions.RemoveRoutePrefix
+    fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.RemoveRoutePrefix
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Uri
+    name: Uri
+    nameWithType: Uri
+    fullName: System.Uri
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions
+  commentId: T:Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions
+  parent: Microsoft.Health.Fhir.Proxy.Configuration
+  name: UriExtensions
+  nameWithType: UriExtensions
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions
+- uid: Microsoft.Health.Fhir.Proxy.Configuration
+  commentId: N:Microsoft.Health.Fhir.Proxy.Configuration
+  name: Microsoft.Health.Fhir.Proxy.Configuration
+  nameWithType: Microsoft.Health.Fhir.Proxy.Configuration
+  fullName: Microsoft.Health.Fhir.Proxy.Configuration
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.#ctor
+  name: FhirPath
+  nameWithType: FhirPath.FhirPath
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.FhirPath
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+  name: RoutePrefix
+  nameWithType: FhirPath.RoutePrefix
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.RoutePrefix
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+  name: Method
+  nameWithType: FhirPath.Method
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Method
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+  name: Resource
+  nameWithType: FhirPath.Resource
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Resource
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+  name: Id
+  nameWithType: FhirPath.Id
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Id
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+  name: Operation
+  nameWithType: FhirPath.Operation
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Operation
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+  name: Version
+  nameWithType: FhirPath.Version
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Version
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+  name: Path
+  nameWithType: FhirPath.Path
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.Path
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+  name: NormalizedPath
+  nameWithType: FhirPath.NormalizedPath
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.NormalizedPath
+- uid: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter
+  name: HasQueryParameter
+  nameWithType: FhirPath.HasQueryParameter
+  fullName: Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.HasQueryParameter
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean

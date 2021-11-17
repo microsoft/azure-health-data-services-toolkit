@@ -5,8 +5,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.Health.Fhir.Proxy.Json
 {
+    /// <summary>
+    /// Enumerator for FHIR bundle.
+    /// </summary>
     public class BundleEnumerator : IEnumerator<JToken>
     {
+        /// <summary>
+        /// Creates an instance of BundleEnumerator.
+        /// </summary>
+        /// <param name="array">JArray containing items in the bundle.</param>
+        /// <param name="ifNoneExist">FHIR ifNoneExists flag omits if false.</param>
         public BundleEnumerator(JArray array, bool ifNoneExist)
         {
             this.array = array;
@@ -18,6 +26,9 @@ namespace Microsoft.Health.Fhir.Proxy.Json
         private bool disposed;
         private readonly bool ifNoneExist;
 
+        /// <summary>
+        /// Gets the current JToken for the enumerator.
+        /// </summary>
         public JToken Current
         {
             get
@@ -35,6 +46,10 @@ namespace Microsoft.Health.Fhir.Proxy.Json
 
         object IEnumerator.Current => Current;
 
+        /// <summary>
+        /// Moves the enumerator forward by one.
+        /// </summary>
+        /// <returns>True if item is available; otherwise false.</returns>
         public bool MoveNext()
         {
             index++;
@@ -72,11 +87,17 @@ namespace Microsoft.Health.Fhir.Proxy.Json
             return (index < array.Count);
         }
 
+        /// <summary>
+        /// Resets the enumerator to the beginning.
+        /// </summary>
         public void Reset()
         {
             index = -1;
         }
 
+        /// <summary>
+        /// Disposes the enumerator.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

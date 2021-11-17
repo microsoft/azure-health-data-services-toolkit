@@ -1,0 +1,52 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Json
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json
+  id: Microsoft.Health.Fhir.Proxy.Json
+  children:
+  - Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  - Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  - Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  - Microsoft.Health.Fhir.Proxy.Json.JPathException
+  - Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions
+  langs:
+  - csharp
+  - vb
+  name: Microsoft.Health.Fhir.Proxy.Json
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json
+  fullName: Microsoft.Health.Fhir.Proxy.Json
+  type: Namespace
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+  name: BundleEnumerator
+  nameWithType: BundleEnumerator
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator
+- uid: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.BundleReader
+  name: BundleReader
+  nameWithType: BundleReader
+  fullName: Microsoft.Health.Fhir.Proxy.Json.BundleReader
+- uid: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+  parent: Microsoft.Health.Fhir.Proxy.Json
+  name: JObjectReader
+  nameWithType: JObjectReader
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JObjectReader
+- uid: Microsoft.Health.Fhir.Proxy.Json.JPathException
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.JPathException
+  name: JPathException
+  nameWithType: JPathException
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JPathException
+- uid: Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions
+  commentId: T:Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions
+  name: JTokenExtensions
+  nameWithType: JTokenExtensions
+  fullName: Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions
+- uid: Microsoft.Health.Fhir.Proxy.Json
+  commentId: N:Microsoft.Health.Fhir.Proxy.Json
+  name: Microsoft.Health.Fhir.Proxy.Json
+  nameWithType: Microsoft.Health.Fhir.Proxy.Json
+  fullName: Microsoft.Health.Fhir.Proxy.Json

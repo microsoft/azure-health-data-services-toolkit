@@ -2,8 +2,17 @@
 
 namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
+    /// <summary>
+    /// Extensions for URIs.
+    /// </summary>
     public static class UriExtensions
     {
+        /// <summary>
+        /// Removes a route prefix in a URI.
+        /// </summary>
+        /// <param name="uri">URI to remove route prefix.</param>
+        /// <param name="routePrefix">Route prefix to remove.</param>
+        /// <returns></returns>
         public static Uri RemoveRoutePrefix(this Uri uri, string routePrefix)
         {
             if (string.IsNullOrEmpty(routePrefix))

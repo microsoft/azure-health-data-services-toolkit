@@ -1,0 +1,82 @@
+### YamlMime:ManagedReference
+items:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  id: IPipelineBuilder
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  children:
+  - Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build
+  langs:
+  - csharp
+  - vb
+  name: IPipelineBuilder
+  nameWithType: IPipelineBuilder
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  type: Interface
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/IPipelineBuilder.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: IPipelineBuilder
+    path: Pipelines/IPipelineBuilder.cs
+    startLine: 5
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  summary: "\nInterface for pipeline builder.\n"
+  example: []
+  syntax:
+    content: public interface IPipelineBuilder
+    content.vb: Public Interface IPipelineBuilder
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build
+  commentId: M:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build
+  id: Build
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder
+  langs:
+  - csharp
+  - vb
+  name: Build()
+  nameWithType: IPipelineBuilder.Build()
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build()
+  type: Method
+  source:
+    remote:
+      path: src/Microsoft.Health.Fhir.Proxy/Pipelines/IPipelineBuilder.cs
+      branch: malong/1042
+      repo: https://smokejumpers@dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy
+    id: Build
+    path: Pipelines/IPipelineBuilder.cs
+    startLine: 7
+  assemblies:
+  - Microsoft.Health.Fhir.Proxy
+  namespace: Microsoft.Health.Fhir.Proxy.Pipelines
+  syntax:
+    content: Pipeline Build()
+    return:
+      type: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+    content.vb: Function Build As Pipeline
+  overload: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build*
+references:
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines
+  commentId: N:Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Microsoft.Health.Fhir.Proxy.Pipelines
+  nameWithType: Microsoft.Health.Fhir.Proxy.Pipelines
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build*
+  commentId: Overload:Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build
+  name: Build
+  nameWithType: IPipelineBuilder.Build
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.Build
+- uid: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  commentId: T:Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline
+  parent: Microsoft.Health.Fhir.Proxy.Pipelines
+  name: Pipeline
+  nameWithType: Pipeline
+  fullName: Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline

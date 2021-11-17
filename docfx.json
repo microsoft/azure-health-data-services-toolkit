@@ -1,0 +1,35 @@
+{
+    "metadata": [
+    {
+          "src": [
+          {
+              "files": [ "src/Microsoft.Health.Fhir.Proxy/**.csproj" ],
+              "exclude": [ "_site/**", "**/bin/**", "**/obj/**", "**/[Tt]ests/**" ]
+          }
+          ],
+          "dest": "reference",
+          "disableGitFeatures": true
+       }
+    ],
+    "build": {
+        "content": [
+            { "files": [ "reference/**" ] },
+            {
+                "files": [ "**.md", "**/toc.yml" ],
+                "exclude": [ "_site/**", "**/bin/**", "**/obj/**", "**/[Tt]ests/**" ]
+            }
+        ],
+        "resource": [
+            { "files": ["docs/.attachments/**"] },
+            { "files": ["web.config"] }
+        ],
+        "template": [ "templates/statictoc" ],
+        "globalMetadata": {
+            "_appTitle": "Title",
+            "_enableSearch": true
+        },
+        "markdownEngineName": "markdig",
+        "dest": "_site",
+        "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"]
+    }
+}

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Microsoft.Health.Fhir.Proxy.Channels
 {
+    /// <summary>
+    /// A factory of channels.
+    /// </summary>
     public abstract class ChannelFactory
     {
         static ChannelFactory()
@@ -13,7 +16,12 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
 
         private static readonly Dictionary<string, Tuple<Type, object?[]?>> container;
 
-
+        /// <summary>
+        /// Registers a channel in the factory.
+        /// </summary>
+        /// <param name="name">Channel name that matches the name property of the channel.</param>
+        /// <param name="type">Type of channel.</param>
+        /// <param name="args">Arguments used in the constructor of the channel type.</param>
         public static void Register(string name, Type type, object?[]? args)
         {
             if (container.ContainsKey(name))
@@ -24,6 +32,10 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
             container.Add(name, new Tuple<Type, object?[]?>(type, args));
         }
 
+        /// <summary>
+        /// Gets an array of channel names.
+        /// </summary>
+        /// <returns>Array string names.</returns>
         public static string[] GetNames()
         {
             if (container == null)
@@ -34,6 +46,9 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
             return container.Keys.Count > 0 ? container.Keys.ToArray() : null;
         }
 
+        /// <summary>
+        /// Clears the channel factory.
+        /// </summary>
         public static void Clear()
         {
             if (container != null)
@@ -42,6 +57,11 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
             }
         }
 
+        /// <summary>
+        /// Create a channel from the factory by its name.
+        /// </summary>
+        /// <param name="name">Name of the channel in the factory to create.</param>
+        /// <returns>IChannel</returns>
         public static IChannel Create(string name)
         {
             if (container.ContainsKey(name))
