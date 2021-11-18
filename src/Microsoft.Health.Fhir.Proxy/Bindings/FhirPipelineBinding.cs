@@ -36,14 +36,31 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         private readonly ILogger logger;
         private readonly X509Certificate2 certificate;
 
+        /// <summary>
+        /// Gets the name of the binding "FhirPipelineBinding".
+        /// </summary>
         public override string Name => "FhirPipelineBinding";
 
+        /// <summary>
+        /// Gets a unique ID of the binding instance.
+        /// </summary>
         public override string Id { get; internal set; }
 
+        /// <summary>
+        /// An event that signals an error in the binding.
+        /// </summary>
         public override event EventHandler<PipelineErrorEventArgs> OnError;
 
+        /// <summary>
+        /// An event that signals the binding has completed.
+        /// </summary>
         public override event EventHandler<PipelineCompleteEventArgs> OnComplete;
 
+        /// <summary>
+        /// Executes the binding.
+        /// </summary>
+        /// <param name="context">Operation context.</param>
+        /// <returns>Operation context.</returns>
         public override async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             logger?.LogInformation($"{Name}-{Id} received.");

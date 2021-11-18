@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Channels
 {
+    /// <summary>
+    /// Interface for channels.
+    /// </summary>
     public interface IChannel : IDisposable
     {
         /// <summary>
@@ -63,34 +66,34 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
         /// <summary>
         /// Opens the channel.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         Task OpenAsync();
 
         /// <summary>
         /// Sends a message on the channel.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="items"></param>
-        /// <returns></returns>
+        /// <param name="message">Message to send.</param>
+        /// <param name="items">Optional parameters to use when sending.</param>
+        /// <returns>Task</returns>
         Task SendAsync(byte[] message, params object[] items);
 
         /// <summary>
         /// Starts the receive process for the channel.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         Task ReceiveAsync();
 
         /// <summary>
         /// Injects a message into the channel.  Useful with connectionless layer-2 protocols.
         /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="message">Messages to add when needing auxiliary access to channel.</param>
+        /// <returns>Task</returns>
         Task AddMessageAsync(byte[] message);
 
         /// <summary>
-        /// Closes the channel
+        /// Closes the channel.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         Task CloseAsync();
     }
 }

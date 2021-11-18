@@ -10,8 +10,16 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
+    /// <summary>
+    /// Channel that sends events to Azure blob storage.
+    /// </summary>
     public class BlobStorageChannel : IChannel
     {
+        /// <summary>
+        /// Creates an instance of BlobStorageChannel.
+        /// </summary>
+        /// <param name="config">Channel configuration.</param>
+        /// <param name="logger">Optional ILogger</param>
         public BlobStorageChannel(BlobStorageConfig config, ILogger logger = null)
         {
             this.logger = logger;
@@ -26,16 +34,34 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         private ChannelState state;
         private readonly ILogger logger;
 
+        /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
         public string Id { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the channel, i.e., "BlobStorageChannel".
+        /// </summary>
         public string Name => "BlobStorageChannel";
 
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
         public bool IsAuthenticated => false;
 
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
         public bool IsEncrypted => true;
 
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
         public int Port => 0;
 
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
         public ChannelState State
         {
             get => state;
@@ -49,18 +75,47 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Event that signals the channel has closed.
+        /// </summary>
         public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        /// <summary>
+        /// Event that signals the channel has errored.
+        /// </summary>
         public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        /// <summary>
+        /// Event that signals the channel has opened.
+        /// </summary>
         public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        /// <summary>
+        /// Event that signals the channel as received a message.
+        /// </summary>
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        /// <summary>
+        /// Event that signals the channel state has changed.
+        /// </summary>
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
+
+        /// <summary>
+        /// Add a message to the channel which is surface by the OnReceive event.
+        /// </summary>
+        /// <param name="message">Message to add.</param>
+        /// <returns>Task</returns>
         public async Task AddMessageAsync(byte[] message)
         {
             OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, null));
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Closes the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task CloseAsync()
         {
             if (State != ChannelState.Closed)
@@ -73,6 +128,10 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Opens the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task OpenAsync()
         {
             State = ChannelState.Open;
@@ -81,6 +140,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Starts the recieve operation for the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        /// <remarks>Receive operation is omitted without error for BlobStorageChannel.</remarks>
         public async Task ReceiveAsync()
         {
             //blob channel does not receive.
@@ -88,20 +152,20 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         }
 
         /// <summary>
-        /// Upload a blob to storage.
+        /// Send a message to the channel, i.e., uploads a blob.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="items"></param>
-        /// <returns></returns>
+        /// <param name="message">Message to send.</param>
+        /// <param name="items">Additional optional parameters.</param>
+        /// <returns>Task</returns>
         /// <remarks>The params object must be in the following order:
-        /// 1. string blob name; if omitted a random name is used with .json extension.
-        /// 2. string container name; if omitted default is container from BlobConfig
-        /// 3. string content type; if omitted the default is "application/json"
-        /// 4. Blob Type; if omitted the default is Block
-        /// 5. IDictionary<string,string> metadata, which can be null to omit.
-        /// 6. AccessTier tier, which can be null to use default.
-        /// 7. BlobRequestConditions conditions, which can be null to omit.
-        /// 8. CancellationToken cancellationToken</string></remarks>
+        /// (i) string blob name; if omitted a random name is used with .json extension.
+        /// (ii) string container name; if omitted default is container from BlobConfig
+        /// (iii) string content type; if omitted the default is "application/json"
+        /// (iv) Blob Type; if omitted the default is Block
+        /// (v) IDictionary<string,string> metadata, which can be null to omit.
+        /// (vi) AccessTier tier, which can be null to use default.
+        /// (vii) BlobRequestConditions conditions, which can be null to omit.
+        /// (viii) CancellationToken</remarks>
         public async Task SendAsync(byte[] message, params object[] items)
         {
             try
@@ -143,6 +207,9 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Disposes the channel.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

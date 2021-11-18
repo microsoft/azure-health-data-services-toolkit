@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Microsoft.Health.Fhir.Proxy.Filters
 {
+    /// <summary>
+    /// A factory of filters.
+    /// </summary>
     public abstract class FilterFactory
     {
         static FilterFactory()
@@ -13,6 +16,12 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
 
         public static Dictionary<string, Tuple<Type, object[]>> Container { get; private set; }
 
+        /// <summary>
+        /// Registers a filter in the factory.
+        /// </summary>
+        /// <param name="name">Filter name that matches the name property of the filter.</param>
+        /// <param name="type">Type of filter.</param>
+        /// <param name="args">Arguments used in the constructor of the filter type.</param>
         public static void Register(string name, Type type, object?[]? args = null)
         {
             if (Container.ContainsKey(name))
@@ -33,6 +42,10 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
             Container.Add(name, new Tuple<Type, object?[]?>(type, args));
         }
 
+        /// <summary>
+        /// Gets an array of filter names.
+        /// </summary>
+        /// <returns>Array string names.</returns>
         public static string[] GetNames()
         {
             if (Container == null)
@@ -43,6 +56,9 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
             return Container.Keys.Count > 0 ? Container.Keys.ToArray() : null;
         }
 
+        /// <summary>
+        /// Clears the filter factory.
+        /// </summary>
         public static void Clear()
         {
             if (Container != null)
@@ -51,6 +67,11 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
             }
         }
 
+        /// <summary>
+        /// Create a filter from the factory by its name.
+        /// </summary>
+        /// <param name="name">Name of the filter in the factory to create.</param>
+        /// <returns>IFilter</returns>
         public static IFilter Create(string name)
         {
             if (Container.ContainsKey(name))

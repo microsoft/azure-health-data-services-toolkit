@@ -4,15 +4,32 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
 {
+    /// <summary>
+    /// JSON.NET transform converter
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class JsonTransformConverter<T> : JsonConverter
     {
         protected abstract T Create(Type objectType, JObject jObject);
 
+        /// <summary>
+        /// Indicates whether the object can be converter.
+        /// </summary>
+        /// <param name="objectType">Type of object to convert.</param>
+        /// <returns>True if can be converted; otherwise false.</returns>
         public override bool CanConvert(Type objectType)
         {
             return typeof(T).IsAssignableFrom(objectType);
         }
 
+        /// <summary>
+        /// Read the json object.
+        /// </summary>
+        /// <param name="reader">JsonReader</param>
+        /// <param name="objectType">Type of object to read.</param>
+        /// <param name="existingValue">Object to read.</param>
+        /// <param name="serializer">JsonSerializer.</param>
+        /// <returns></returns>
         public override object ReadJson(
             JsonReader reader,
             Type objectType,
@@ -27,6 +44,12 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             return target;
         }
 
+        /// <summary>
+        /// Write json transform.
+        /// </summary>
+        /// <param name="writer">JsonWriter</param>
+        /// <param name="value">Object to write.</param>
+        /// <param name="serializer">JsonSerializer</param>
         public override void WriteJson(
         JsonWriter writer,
         object value,
@@ -46,10 +69,17 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
                     SerializeReplaceTransform(writer, transform);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(transform.Name), $"Not expected type value: {transform.Name}");
+                    throw new ArgumentOutOfRangeException(nameof(value), $"Not expected type value: {transform.Name}");
             }
         }
 
+        /// <summary>
+        /// Indicates whether a field exists.
+        /// </summary>
+        /// <param name="jObject">JObject to evaluate.</param>
+        /// <param name="name">Name of field.</param>
+        /// <param name="type">Type of JToken.</param>
+        /// <returns></returns>
         protected static bool FieldExists(
             JObject jObject,
             string name,
@@ -58,7 +88,7 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             return jObject.TryGetValue(name, out JToken token) && token.Type == type;
         }
 
-        private void SerializeAddTransform(JsonWriter writer, Transform transform)
+        private static void SerializeAddTransform(JsonWriter writer, Transform transform)
         {
             AddTransform addTrans = (AddTransform)transform;
 
@@ -76,7 +106,7 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             writer.WriteEndObject();
         }
 
-        private void SerializeRemoveTransform(JsonWriter writer, Transform transform)
+        private static void SerializeRemoveTransform(JsonWriter writer, Transform transform)
         {
             writer.WriteStartObject();
 
@@ -89,7 +119,7 @@ namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
             writer.WriteEndObject();
         }
 
-        private void SerializeReplaceTransform(JsonWriter writer, Transform transform)
+        private static void SerializeReplaceTransform(JsonWriter writer, Transform transform)
         {
             ReplaceTransform replaceTrans = (ReplaceTransform)transform;
 

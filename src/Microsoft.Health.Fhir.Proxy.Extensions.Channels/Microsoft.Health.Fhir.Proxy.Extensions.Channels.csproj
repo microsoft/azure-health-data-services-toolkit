@@ -19,9 +19,9 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Messaging.EventGrid" Version="4.7.0" />
-    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.6.1" />
-    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.6.1" />
-    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.3.0" />
+    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.6.2" />
+    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.6.2" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.5.0" />
   </ItemGroup>
 
   <ItemGroup>

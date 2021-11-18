@@ -1,0 +1,751 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BlobStorageChannel
+   | Title </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BlobStorageChannel
+   | Title ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel">
+  
+  
+  <h1 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel" class="text-break">Class BlobStorageChannel
+  </h1>
+  <div class="markdown level0 summary"><p>Channel that sends events to Azure blob storage.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">BlobStorageChannel</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IChannel.html">IChannel</a></div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.html">Microsoft.Health.Fhir.Proxy.Extensions.Channels</a></h6>
+  <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll</h6>
+  <h5 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BlobStorageChannel : IChannel, IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=23">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.#ctor*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel__ctor_Microsoft_Health_Fhir_Proxy_Extensions_Channels_Configuration_BlobStorageConfig_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.#ctor(Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.BlobStorageConfig,Microsoft.Extensions.Logging.ILogger)">BlobStorageChannel(BlobStorageConfig, ILogger)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of BlobStorageChannel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BlobStorageChannel(BlobStorageConfig config, ILogger logger = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.BlobStorageConfig.html">BlobStorageConfig</a></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>Channel configuration.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>Optional ILogger</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=40">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Id_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Id*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Id" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the instance ID of the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=50">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_IsAuthenticated_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.IsAuthenticated*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_IsAuthenticated" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.IsAuthenticated">IsAuthenticated</h4>
+  <div class="markdown level1 summary"><p>Gets and indicator to whether the channel has authenticated the user, which by default always false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsAuthenticated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=55">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_IsEncrypted_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.IsEncrypted*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_IsEncrypted" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.IsEncrypted">IsEncrypted</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the channel is encrypted, which is always true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEncrypted { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=45">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Name_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Name*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Name" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the channel, i.e., &quot;BlobStorageChannel&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=60">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Port_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Port*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Port" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Port">Port</h4>
+  <div class="markdown level1 summary"><p>Gets the port used, which by default always 0.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Port { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=65">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_State_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.State*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_State" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.State">State</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the channel state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ChannelState State { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelState.html">ChannelState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=109">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_AddMessageAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.AddMessageAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_AddMessageAsync_System_Byte___" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.AddMessageAsync(System.Byte[])">AddMessageAsync(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Add a message to the channel which is surface by the OnReceive event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task AddMessageAsync(byte[] message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">message</span></td>
+        <td><p>Message to add.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=119">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_CloseAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.CloseAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_CloseAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.CloseAsync">CloseAsync()</h4>
+  <div class="markdown level1 summary"><p>Closes the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task CloseAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=213">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Dispose_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Dispose*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Dispose" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=219">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Dispose_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Dispose*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_Dispose_System_Boolean_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=135">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OpenAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OpenAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OpenAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OpenAsync">OpenAsync()</h4>
+  <div class="markdown level1 summary"><p>Opens the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task OpenAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=148">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_ReceiveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.ReceiveAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_ReceiveAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.ReceiveAsync">ReceiveAsync()</h4>
+  <div class="markdown level1 summary"><p>Starts the recieve operation for the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task ReceiveAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_ReceiveAsync_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Receive operation is omitted without error for BlobStorageChannel.</p>
+</div>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=169">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_SendAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.SendAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_SendAsync_System_Byte___System_Object___" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.SendAsync(System.Byte[],System.Object[])">SendAsync(Byte[], Object[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task SendAsync(byte[] message, params object[] items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]</td>
+        <td><span class="parametername">items</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=81">View Source</a>
+  </span>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OnClose" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OnClose">OnClose</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has closed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelCloseEventArgs&gt; OnClose</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.html">ChannelCloseEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=86">View Source</a>
+  </span>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OnError" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OnError">OnError</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has errored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelErrorEventArgs&gt; OnError</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelErrorEventArgs.html">ChannelErrorEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=91">View Source</a>
+  </span>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OnOpen" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OnOpen">OnOpen</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has opened.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelOpenEventArgs&gt; OnOpen</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelOpenEventArgs.html">ChannelOpenEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=96">View Source</a>
+  </span>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OnReceive" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OnReceive">OnReceive</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel as received a message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelReceivedEventArgs&gt; OnReceive</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelReceivedEventArgs.html">ChannelReceivedEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=101">View Source</a>
+  </span>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_BlobStorageChannel_OnStateChange" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.OnStateChange">OnStateChange</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel state has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelStateEventArgs&gt; OnStateChange</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.ChannelStateEventArgs.html">ChannelStateEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IChannel.html">IChannel</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/BlobStorageChannel.cs&amp;version=GBmalong/1042&amp;line=16" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

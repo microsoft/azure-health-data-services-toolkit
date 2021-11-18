@@ -10,8 +10,16 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
-    public static class Extensions
+    /// <summary>
+    /// Helper extensions for Azure Functions
+    /// </summary>
+    public static class AzureFunctionExtensions
     {
+        /// <summary>
+        /// Converts HttpRequestData to HttpRequestMessage.
+        /// </summary>
+        /// <param name="req">HttpRequestData</param>
+        /// <returns>HttpRequestMessage</returns>
         public static HttpRequestMessage ConvertToHttpRequestMesssage(this HttpRequestData req)
         {
             HttpRequestMessage message = new()
@@ -45,6 +53,12 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             return message;
         }
 
+        /// <summary>
+        /// Converts HttpResponseData to HttpResponseData.
+        /// </summary>
+        /// <param name="context">OperationContext</param>
+        /// <param name="request">HttpRequestData</param>
+        /// <returns>HttpResponseData</returns>
         public static async Task<HttpResponseData> ConvertToHttpResponseData(this OperationContext context, HttpRequestData request)
         {
             HttpResponseData data = request.CreateResponse(context.StatusCode);
@@ -75,6 +89,11 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             return data;
         }
 
+        /// <summary>
+        /// Gets a ClaimsPrincipal from HttpRequestData.
+        /// </summary>
+        /// <param name="request">HttpRequestData</param>
+        /// <returns>ClaimsPrincipal</returns>
         public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestData request)
         {
             if (!request.Headers.TryGetValues("Authorization", out IEnumerable<string> tokens))

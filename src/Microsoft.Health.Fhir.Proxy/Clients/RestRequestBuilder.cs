@@ -5,8 +5,22 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.Health.Fhir.Proxy.Clients
 {
+    /// <summary>
+    /// Builder pattern for REST requests.
+    /// </summary>
     public class RestRequestBuilder
     {
+        /// <summary>
+        /// Creates an instance of RestRequestBuilder.
+        /// </summary>
+        /// <param name="method">Http Method.</param>
+        /// <param name="baseUrl">Base URL for http request, i.e., scheme and authority.</param>
+        /// <param name="securityToken">Security token for http request.</param>
+        /// <param name="path">Path of the http request, i.e., scheme://authority/path</param>
+        /// <param name="query">Query string for http request.</param>
+        /// <param name="headers">Http headers to add to request.</param>
+        /// <param name="content">Body content of the http request.</param>
+        /// <param name="contentType">Content type of the http request.</param>
         public RestRequestBuilder(string method,
                                   string baseUrl,
                                   string securityToken,
@@ -31,6 +45,17 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             SecurityToken = securityToken;
         }
 
+        /// <summary>
+        /// Creates an instance of RestRequestBuilder.
+        /// </summary>
+        /// <param name="method">Http Method.</param>
+        /// <param name="baseUrl">Base URL for http request, i.e., scheme and authority.</param>
+        /// <param name="certificate">X509 certificate to use as a security token.</param>
+        /// <param name="path">Path of the http request, i.e., scheme://authority/path</param>
+        /// <param name="query">Query string for http request.</param>
+        /// <param name="headers">Http headers to add to request.</param>
+        /// <param name="content">Body content of the http request.</param>
+        /// <param name="contentType">Content type of the http request.</param>
         public RestRequestBuilder(string method,
                                   string baseUrl,
                                   X509Certificate2 certificate,
@@ -103,7 +128,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
         /// <summary>
         /// Builds an Http Web Request.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>HttpWebRequest</returns>
         public HttpWebRequest Build()
         {
             UriBuilder builder = new(BaseUrl)

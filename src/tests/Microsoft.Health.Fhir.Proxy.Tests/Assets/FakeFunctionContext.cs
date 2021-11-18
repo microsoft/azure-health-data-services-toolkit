@@ -14,6 +14,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
         {
         }
 
+        public override RetryContext RetryContext => throw new NotImplementedException();
         public FakeFunctionContext(FunctionDefinition functionDefinition, FunctionInvocation invocation)
         {
             FunctionDefinition = functionDefinition;

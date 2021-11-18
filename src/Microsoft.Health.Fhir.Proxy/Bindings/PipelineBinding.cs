@@ -15,17 +15,17 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         public abstract string Name { get; }
 
         /// <summary>
-        /// Get the unique id on the binding instance.
+        /// Gets the unique id on the binding instance.
         /// </summary>
         public abstract string Id { get; internal set; }
 
         /// <summary>
-        /// Signal an error event.
+        /// An event that signals an error in the binding.
         /// </summary>
         public abstract event EventHandler<PipelineErrorEventArgs> OnError;
 
         /// <summary>
-        /// Signals completion of the binding.
+        /// An event that signals an error in the binding.
         /// </summary>
         public abstract event EventHandler<PipelineCompleteEventArgs> OnComplete;
 

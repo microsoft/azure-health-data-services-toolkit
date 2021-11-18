@@ -10,33 +10,59 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
+    /// <summary>
+    /// Channel that sends or receives events to/from Service Bus.
+    /// </summary>
     public class ServiceBusChannel : IChannel
     {
-        public ServiceBusChannel(ServiceBusConfig settings, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of Service Bus channel.
+        /// </summary>
+        /// <param name="config">Channel configuration.</param>
+        /// <param name="logger">Optional ILogger.</param>
+        public ServiceBusChannel(ServiceBusConfig config, ILogger logger = null)
         {
-            this.settings = settings;
+            this.config = config;
             this.logger = logger;
         }
 
         private ChannelState state;
         private readonly ILogger logger;
-        private readonly ServiceBusConfig settings;
+        private readonly ServiceBusConfig config;
         private StorageBlob storage;
         private bool disposed;
         private ServiceBusClient client;
         private ServiceBusSender sender;
         private ServiceBusProcessor processor;
 
+        /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
         public string Id { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the channel, i.e., "ServiceBusChannel".
+        /// </summary>
         public string Name => "ServiceBusChannel";
 
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
         public bool IsAuthenticated => false;
 
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
         public bool IsEncrypted => true;
 
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
         public int Port => 0;
 
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
         public ChannelState State
         {
             get => state;
@@ -50,23 +76,51 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Event that signals the channel has closed.
+        /// </summary>
         public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        /// <summary>
+        /// Event that signals the channel has errored.
+        /// </summary>
         public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        /// <summary>
+        /// Event that signals the channel has opened.
+        /// </summary>
         public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        /// <summary>
+        /// Event that signals the channel as received a message.
+        /// </summary>
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        /// <summary>
+        /// Event that signals the channel state has changed.
+        /// </summary>
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
+        /// <summary>
+        /// Add a message to the channel which is surface by the OnReceive event.
+        /// </summary>
+        /// <param name="message">Message to add.</param>
+        /// <returns>Task</returns>
         public async Task AddMessageAsync(byte[] message)
         {
             OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, message));
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Opens the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            storage = new StorageBlob(settings.ServiceBusBlobConnectionString);
-            client = new(settings.ServiceBusConnectionString);
-            sender = client.CreateSender(settings.ServiceBusTopic);
+            storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            client = new(config.ServiceBusConnectionString);
+            sender = client.CreateSender(config.ServiceBusTopic);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
@@ -74,13 +128,19 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Sends a message to a Service Bus topic if size &lt; SKU constraint; otherwise uses blob storage.
+        /// </summary>
+        /// <param name="message">Message to send.</param>
+        /// <param name="items">Additional optional parameters, where required is the content type.</param>
+        /// <returns></returns>
         public async Task SendAsync(byte[] message, params object[] items)
         {
             try
             {
                 string typeName = "Value";
 
-                if ((settings.ServiceBusSku != ServiceBusSkuType.Premium && message.Length > 0x3E800) || (settings.ServiceBusSku == ServiceBusSkuType.Premium && message.Length > 0xF4240))
+                if ((config.ServiceBusSku != ServiceBusSkuType.Premium && message.Length > 0x3E800) || (config.ServiceBusSku == ServiceBusSkuType.Premium && message.Length > 0xF4240))
                 {
                     typeName = "Reference";
                 }
@@ -107,6 +167,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Starts the recieve operation for the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        /// <remarks>Receive operation and subscription in Service Bus.</remarks>
         public async Task ReceiveAsync()
         {
             try
@@ -117,7 +182,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete
                 };
 
-                processor = client.CreateProcessor(settings.ServiceBusTopic, settings.ServiceBusSubscription, options);
+                processor = client.CreateProcessor(config.ServiceBusTopic, config.ServiceBusSubscription, options);
                 processor.ProcessErrorAsync += async (args) =>
                 {
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
@@ -140,7 +205,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     }
                     else
                     {
-                        logger?.LogWarning($"{Name}-{Id} with topic {settings.ServiceBusTopic} and subscription {settings.ServiceBusSubscription} does not understand message.");
+                        logger?.LogWarning($"{Name}-{Id} with topic {config.ServiceBusTopic} and subscription {config.ServiceBusSubscription} does not understand message.");
                     }
                 };
 
@@ -153,6 +218,10 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Closes the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task CloseAsync()
         {
             if (State != ChannelState.Closed)
@@ -165,6 +234,9 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Disposes the channel.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
@@ -211,13 +283,13 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         {
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(settings.ServiceBusBlobContainer, blob, contentType, message);
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, blob, contentType, message);
             return blob;
         }
 
         private async Task<ServiceBusMessage> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
         {
-            EventDataByReference byref = new(settings.ServiceBusBlobContainer, blobName, contentType);
+            EventDataByReference byref = new(config.ServiceBusBlobContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             ServiceBusMessage data = new(Encoding.UTF8.GetBytes(json));
             data.ApplicationProperties.Add("PassedBy", typeName);

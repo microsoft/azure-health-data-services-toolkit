@@ -1,0 +1,1179 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/_git/microsoft-fhir-proxy",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html",
+          "hash": "JlnsVBj0XuzzhApFOOwLgq73cq9Sx4vXcNnyZTG9ZBo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.CoupledPipelineBinding.html",
+          "hash": "OCFgAny4xWrx8Mm/WNcA/Ij4WOYR6cEEWyOwT8yTe2M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding.html",
+          "hash": "a6lgqh6ILA0lIVAfQqzOrnDcp9yfirvKLqPibEI/zaM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.PipelineBinding.html",
+          "hash": "WySG2rNtdOb5gK+SCuCWIvXg4yhzOuFvQzUrHm7YaHs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Bindings.html",
+          "hash": "JjWdB8L6EDHK7zF4Uc4+g+d7NM/kIt52wR1ftacCet8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelCloseEventArgs.html",
+          "hash": "Frc51trs7YrH0YZSzu/subeRWJisZZjo2TF3YinuG3E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelCollection.html",
+          "hash": "yXqSsK+nluAna6GGLeVDgCGF6ThSDZrBDYNw7oByI+o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelErrorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelErrorEventArgs.html",
+          "hash": "esl0m/BNngJ/3PHjkhD/AIUv+Q2fXq/W/zVT3dNerGA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelFactory.html",
+          "hash": "Ot0G8b4dAj+k7eHZSGff4ilCoxPURSA0hmws8t8xdnc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelOpenEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelOpenEventArgs.html",
+          "hash": "mjjVsvh4iY355ZDMPlDO9FHNslWbZvQ1JPztxEtPvBQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelReceivedEventArgs.html",
+          "hash": "m9bEeNphaSxqOTzYljmLItqCi2SpvX6xnViJkd2WTtQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelState.html",
+          "hash": "KdVzRdEOnKdnfQlZnoijS69SbDbik7J34cmtk7escsw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelStateEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.ChannelStateEventArgs.html",
+          "hash": "TBGwwabC7dElcmUiaDvaMgVl4uNxLUzxOwR7hm0et2o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.IChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.IChannel.html",
+          "hash": "kxmLAXdf2OtQzWcJEW6TVVTWsiqRxDWtasproL6jLrM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Channels.html",
+          "hash": "1kAIZW1GVRCRP2L2IOWdcE+/xq+oYO7Xq+FEFXiw15k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Constants.ContentTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Constants.ContentTypes.html",
+          "hash": "u++xYIc2KuUbQ8xvQrfEcWqU7d6isA84Hl8of7oM04s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Constants.html",
+          "hash": "fzRHkTA/r2/FOtodPFeweWkSdgCYfDV/p4N9NaF0Lmg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.HttpRequestMessageExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.HttpRequestMessageExtensions.html",
+          "hash": "xzYrjAk3VFFtAkE99M9TayuNskjpXOsiQQ0CjLX9imw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RestRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RestRequest.html",
+          "hash": "jJlXh2gVpk1pLJ7UeVzMW+Y4E8LI+Z9Tvs3LYCuBPLI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder.html",
+          "hash": "kTqv9KpwDOXa+PAIKosHvWxmV5A0fTORBgzWuC2eOE8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Retry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.Retry.html",
+          "hash": "tAru8fsTpEU1/RLrvCQG/sbgErOS4J+L/lNR0GMSgVo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RetryException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.RetryException.html",
+          "hash": "/Ue7/5+P1iiLPHnu1HP+iULUWwR76I2xIFjGsCXQDic="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Clients.html",
+          "hash": "Ei/PXOBt+uhHiVwaKK9yN7mwKNZYTDXiUoXjhle6CC0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.CommandException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.CommandException.html",
+          "hash": "IXcVfT73aJApW5ov3QX+xx4lj8hdVPFWRqPhdg49iAE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IExceptionCommand.html",
+          "hash": "Se+9gMb78Xjt2/c3C4f5HfNQAEg4xWdFTnaUo/f3SvM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsArrayCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsArrayCommand.html",
+          "hash": "c5iAQzRAFFkUxQId+ll76KxZTekOP0chzmbSyP4XK5k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsMatchCommand-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsMatchCommand-1.html",
+          "hash": "AzIpBZ0x3AGW1ZTTFQ/msC9PTiWO7J660LJoRViZC0s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsNotNullOrEmptyCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsNotNullOrEmptyCommand.html",
+          "hash": "UyBQP7fS/CWdTcUPuCQyaO+GQDRRbypEPLqazyjE8jI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsNullOrEmptyCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.IsNullOrEmptyCommand.html",
+          "hash": "/4lpLGhBxOny7H9qnNVSb5QaRwPoaO7/j+ae0iH7iV8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.TokenExistsCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.TokenExistsCommand.html",
+          "hash": "OBEqnFk35Z6iMU1l28X2LLytp0BgrkO1+IPlVVXsPiQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Commands.html",
+          "hash": "M4CVb5e8IkZqH5YANLnfwf4AB0P6IUwpQNt0ROY1lig="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.PipelineSettings.html",
+          "hash": "WQGdMmYruZnbMx1c+7TdbVPswTh+SmJza3KKb3mo388="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.ServiceConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.ServiceConfig.html",
+          "hash": "yMyyvRaUyXsMMr5f4NcbzdCK64Vf0JzI3o80od0wUVQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.UriExtensions.html",
+          "hash": "1YgVdVd9tIwrlcLpbFe15Eixe4r591sRhEZ8QobThKE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Configuration.html",
+          "hash": "//7ktBBYMi3l7RQTHn1Bn2YNvwobEYYIMYMmot/MT5U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobStorageChannel.html",
+          "hash": "s+jivTPuccR9iomXRIZ3HvIW1bP6O9yoZxaSJ26KSGo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.BlobType.html",
+          "hash": "AD/6SplKjXjfhMufHxr6qcRYz1eII6I9bFWmDTKXry4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.BlobStorageConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.BlobStorageConfig.html",
+          "hash": "S1b1xQhNaKJ4NMi2SA4AfJ/IIQZdYqxbHgFZZdXLnBo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventGridConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventGridConfig.html",
+          "hash": "Zbl0IH2fR7jF3xxi1QbljVeHjY998xnLv1HKZdlVI60="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventHubConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventHubConfig.html",
+          "hash": "EHwYoi+IGxvo9I4IhzJG13pUbL52cghdk7xBtDbxVMQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.ServiceBusConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.ServiceBusConfig.html",
+          "hash": "HtXxbMd4e1jj8XJEjl9mGRU4cvWXzt4xlAohJPMWEP4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.html",
+          "hash": "6k6cuEgU+dt3UsVLmty96XxwWAVBTn9izuvTa1Gw3Mg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventDataByReference.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventDataByReference.html",
+          "hash": "uzGX8qxtUApaerA/7aOwEwUMSkDM2EmigvT3eFv60II="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventGridChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventGridChannel.html",
+          "hash": "vFjNuhyK2ICRwLx25YOU76UnxbWtcd70UylAD8ObJpk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.html",
+          "hash": "vEis10/40mBfht2iKXnxaNVeoWSAKpt+lWLk3g+mWPY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubSkuType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubSkuType.html",
+          "hash": "Iet/2syPeMp4K00PLSNs+uvfG8rVRDCxcqaqWZbzjvg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.ServiceBusChannel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.ServiceBusChannel.html",
+          "hash": "A+5l2xjzMDFrdljaGOPMZpA38ZQRbEbx1G38J902WW8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.ServiceBusSkuType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.ServiceBusSkuType.html",
+          "hash": "EBbLIsgZO9y/AwvDEjgRabJaULCGdl0+pXfTnKx5yXM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Extensions.Channels.html",
+          "hash": "IHVdyrl/sKvWJouzr8cW+7aRTWxGMx9L3ONLCttFKzQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterCollection.html",
+          "hash": "3/fm/7pehehEiPbX5K4h2Fr+KYMw9JHtoorpliMi2GA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterErrorEventArgs.html",
+          "hash": "e2GSbbRTn1W6TwYOF3+cFG8Rd17Wm+/nOm46rbYDlik="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.FilterFactory.html",
+          "hash": "sebpAJRMQV6IrDqjrsL1BlOr4mNCfO75SFF7DEBsKBo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.IFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.IFilter.html",
+          "hash": "/mJTe3XLinEr8jXgYt+QwipRErepsHF0u1OqoUN6HA8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Filters.html",
+          "hash": "l71nbPxkPXWUKX8BF4P81IxoVpK6MpO2rcMIds2+X+U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.BundleEnumerator.html",
+          "hash": "xmeVTXO9yrML7CcxcHK0YerN3fNYexs1q21BYtec1pw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.BundleReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.BundleReader.html",
+          "hash": "BMdEhskI2JZynZ95E6ooAxzoEgW92APDXJK8Zrk3cyk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JObjectReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JObjectReader.html",
+          "hash": "GdxdyFzmMyf6xdYymZh5h94wIQDqw+K+bJ3i6WU97Mg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JPathException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JPathException.html",
+          "hash": "XkC2x55DBYceWUgplfp4jxwFpBES1pNrS02EqU2zp4s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.JTokenExtensions.html",
+          "hash": "xg0mnDQ5Y8jd7OAdJxB2+gG+Cp2SjCDsmJWOaXEFPnI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.AddTransform.html",
+          "hash": "7iUArJwCuMrqe58BDMdruyup3OHp5Qg18vPZYqAbYuM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.JsonTransformConverter-1.html",
+          "hash": "DhrFpCOjFZSgunvMH2G9Jy39s5W7r+yhi4Fe6OcFono="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.RemoveTransform.html",
+          "hash": "RTcj2XVNqHYrafl6Em2ndjXIhaRrTPXTRFYzx1zC/fE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.ReplaceTransform.html",
+          "hash": "toI8hcDASiNQBa4+p8CiYU0/7xmlk8YJzOVzbpGn3DA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.Transform.html",
+          "hash": "fhdat/LBjTMnZEwvyyioVmOsPKnm7cU59tsLZ57GQDU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformCollection.html",
+          "hash": "x6qQH2NMJA69BYeIP/FX0oSe3bOWs65Q2MhEmht8o0M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformConverter.html",
+          "hash": "Al8U8CAkcUtq2nA+vdCQIgJFVBobhHnTP4C64WAFTfQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.TransformPolicy.html",
+          "hash": "ToUfH5iNrdiyqar2Rjfu3OHntp8w6rtzXXWgEg1BLpM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.Transforms.html",
+          "hash": "Wi/kuunDiGSdRLwFIbCrwazPwbnAWF2GpWRdfefrR8U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Json.html",
+          "hash": "O9HhtoNE7AymUBHwgY7oxISDnLFg7AdklJdd3EIQRhY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionExtensions.html",
+          "hash": "2xnMTvN4kptC7XIO7w1/PZGJI291Arl0kOcbYCLyxTg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipelineManager.html",
+          "hash": "Yu0qq5pga8SYRtqSyiXbNdvkp0OIOsoK7b4ika9Q3Sc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.BasicPipeline.html",
+          "hash": "lPXzGPXWQfNbsTsQlRjJAJ4KyadggddLqYwTy41kr/0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineBuilder.html",
+          "hash": "bXGKmZjhYssb2WGBXpCykzcFYrTJ6UPGnRGVrw9qEKo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.IPipelineManager-2.html",
+          "hash": "qhFLcI5WK0+SduICpa2RE9KfvDrdEOALiEgTPUlbSNk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.html",
+          "hash": "AXP8hbZiZ8xWzym71MZEtHyVXIlSJbxSYdLVBTXZqMM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.Pipeline.html",
+          "hash": "RK/DTp9p3GOm6WVeyyTOlRwW+bI8b7DV2T4nM+v7Zms="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineBuilder.html",
+          "hash": "67n6veWp1Mic7P3d91l2OR/HjKEh7URnbQawJiAK9H4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineCompleteEventArgs.html",
+          "hash": "VG51F+1uWtXAXYbbdf05pKlo57rSyQAn1C3F21+46O4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineErrorEventArgs.html",
+          "hash": "a+hZELARJX9sbszXqXO2apJTgjhEGAuqnWapdlv7+wI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.PipelineFactory.html",
+          "hash": "rXF+R1B5OBlq0sRQBc+yRfH7ouRDKTcOmkBrh5i9wPs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.WebPipelineManager.html",
+          "hash": "Y+po+bQHr+Jz1v4LCYhurjbPOxVeguSdP03LStpY/2g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Pipelines.html",
+          "hash": "V74zCDTmKAUP5x9Qp02D8kqJ0vfacNgYoG5n1UIFn6k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Protocol.FhirPath.html",
+          "hash": "V1S0bvkGvV/wCDiCtCKc+xfcDEXWxRdIdO0X+VAcOXI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Protocol.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Protocol.html",
+          "hash": "3ZHABwBLAVIeqA65CoiCOT46TuHbKc3Yp8CDEFEO67w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.Authenticator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.Authenticator.html",
+          "hash": "Gv3lNWjlWmqIvHUbsXkzFZU23c+8dSIQQUoINDilfnI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Security.html",
+          "hash": "cWeB8RDLtIJV3TEhanzO/zPDhAMbTe5mkNO7+txJZu4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageBlob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageBlob.html",
+          "hash": "v2Xe8x6DHEMZObSIMFBarhdqnzc2mp/VzAhJr5Ml3wE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageFiles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageFiles.html",
+          "hash": "aZVjI0C23AGeO7CzmQQ+DlCuggDIAgkVMPsVD93cXIE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageLake.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageLake.html",
+          "hash": "J92rWNZFqgRSdXY8Hlh0nzqnuYuuR716uUK1rWAc9q4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageQueue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageQueue.html",
+          "hash": "L19VBb0wSdJHpYgsu9h2PoTZSWuo1gUBvBmTAUEPipw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageTable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.StorageTable.html",
+          "hash": "GGbHIuFPvYaIN2DtEfOY7mBrnJyPgmuVssOwzMg7Z7c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/Microsoft.Health.Fhir.Proxy.Storage.html",
+          "hash": "Hvb711Ikcl4yNEvy+0np2+R67H5Voeoxm5XDDFqyeTc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "reference/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "reference/toc.html",
+          "hash": "hodUYT7XbgbIbjngqQ9V65ftFkwRE31sXzIn2KxxIPs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 1,
+          "skipped_file_count": 1
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 91,
+          "skipped_file_count": 37
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

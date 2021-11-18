@@ -3,6 +3,9 @@ using System.Net.Http;
 
 namespace Microsoft.Health.Fhir.Proxy.Clients
 {
+    /// <summary>
+    /// Extensions for HttpRequestMessage.
+    /// </summary>
     public static class HttpRequestMessageExtensions
     {
         /// <summary>

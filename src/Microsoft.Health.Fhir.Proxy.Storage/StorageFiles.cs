@@ -11,36 +11,70 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {
+    /// <summary>
+    /// Allows simple access to Azure File Storage.
+    /// </summary>
     public class StorageFiles
     {
         private readonly ShareServiceClient serviceClient;
         private readonly ILogger logger;
 
         #region ctor
+        /// <summary>
+        /// Creates an instance of StorageFiles.
+        /// </summary>
+        /// <param name="connectionString">Azure storage connection string.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageFiles(string connectionString, ILogger logger = null)
             : this(logger)
         {
             serviceClient = new ShareServiceClient(connectionString);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageFiles.
+        /// </summary>
+        /// <param name="connectionString">Azure storage connection string.</param>
+        /// <param name="options">Client options that define the transport pipeline policies for authentication, retries, etc., that are applied to every request.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageFiles(string connectionString, ShareClientOptions options, ILogger logger = null)
             : this(logger)
         {
             serviceClient = new ShareServiceClient(connectionString, options);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceUri">Uri referencing the file service.</param>
+        /// <param name="credentials">The shared key credential used to sign requests.</param>
+        /// <param name="options">Client options that define the transport pipeline policies for authentication, retries, etc., that are applied to every request.</param>
+        /// <param name="logger">Optionak ILogger.</param>
         public StorageFiles(Uri serviceUri, StorageSharedKeyCredential credentials, ShareClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
             serviceClient = new ShareServiceClient(serviceUri, credentials, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageFiles.
+        /// </summary>
+        /// <param name="serviceUri">Uri referencing the file service.</param>
+        /// <param name="options">Optional client options that define the transport pipeline policies for authentication, retries, etc., that are applied to every request.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageFiles(Uri serviceUri, ShareClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
             serviceClient = new ShareServiceClient(serviceUri, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageFiles.
+        /// </summary>
+        /// <param name="serviceUri">Uri referencing the file service.</param>
+        /// <param name="credentials">The shared access signature credential used to sign requests.</param>
+        /// <param name="options">Optional client options that define the transport pipeline policies for authentication, retries, etc., that are applied to every request.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageFiles(Uri serviceUri, AzureSasCredential credentials, ShareClientOptions options, ILogger logger = null)
             : this(logger)
         {
@@ -54,6 +88,13 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
 
         #endregion
 
+        /// <summary>
+        /// Creates a file share is one does not already exist.
+        /// </summary>
+        /// <param name="shareName">Name of share to create.</param>
+        /// <param name="options">Optional share create options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>ShareInfo</returns>
         public async Task<ShareInfo> CreateShareIfNotExistsAsync(string shareName, ShareCreateOptions options = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -62,6 +103,13 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return info?.Value;
         }
 
+        /// <summary>
+        /// Deletes an Azure file share if exists.
+        /// </summary>
+        /// <param name="shareName">Name of share to delete.</param>
+        /// <param name="options">Optional share delete options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>True if share is deleted; otherwise false.</returns>
         public async Task<bool> DeleteShareIfExistsAsync(string shareName, ShareDeleteOptions options = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -70,6 +118,16 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return result;
         }
 
+        /// <summary>
+        /// Creates a directory in a share if the directory does not already exist.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory should be created.</param>
+        /// <param name="directoryName">Name of directory to create.</param>
+        /// <param name="metadata">Optional metadata.</param>
+        /// <param name="smbProperties">Optional SMB properties.</param>
+        /// <param name="filePermission">Optional file permissions.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>ShareDirectoryInfo</returns>
         public async Task<ShareDirectoryInfo> CreateDirectoryIfNotExistsAsync(string shareName, string directoryName, IDictionary<string, string> metadata = null, FileSmbProperties smbProperties = null, string filePermission = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -79,6 +137,13 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return result.Value;
         }
 
+        /// <summary>
+        /// Deletes a directory in a share if the directory already exists.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory exists.</param>
+        /// <param name="directoryName">Name of directory to delete.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>True if the directory is deleted or does not exist; otherwise false.</returns>
         public async Task<bool> DeleteDirectoryIfExistsAsync(string shareName, string directoryName, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -88,6 +153,16 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response.Value;
         }
 
+        /// <summary>
+        /// Writes a file to a directory in a share.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory exists.</param>
+        /// <param name="directoryName">Name of directory to write the file.</param>
+        /// <param name="fileName">Name of file to write.</param>
+        /// <param name="content">Content of the file to write.</param>
+        /// <param name="options">Optional share file open write options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task WriteFileAsync(string shareName, string directoryName, string fileName, byte[] content, ShareFileOpenWriteOptions options = null, CancellationToken cancellationToken = default)
         {
             options ??= new ShareFileOpenWriteOptions() { MaxSize = content.Length };
@@ -101,6 +176,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             logger?.LogTrace(new EventId(93040, "StorageFile.WriteFileAsync"), $"Directory {directoryName} on file share {shareName} wrote file {fileName} with {content?.Length} bytes.");
         }
 
+        /// <summary>
+        /// Reads a file from directory in a share and returns the result.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory exists.</param>
+        /// <param name="directoryName">Name of directory where file exists.</param>
+        /// <param name="fileName">Name of file to read.</param>
+        /// <param name="options">Optional share file open read options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Array of bytes of the file content.</returns>
         public async Task<byte[]> ReadFileAsync(string shareName, string directoryName, string fileName, ShareFileOpenReadOptions options = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -114,6 +198,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return buffer;
         }
 
+        /// <summary>
+        /// Deletes a file in directory of a share if it already exists.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory exists.</param>
+        /// <param name="directoryName">Name of directory that contains the file.</param>
+        /// <param name="fileName">File name to delete.</param>
+        /// <param name="conditions">Optional share file request options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>True if the file is deleted or does not exist; otherwise false.</returns>
         public async Task<bool> DeleteFileIfExistsAsync(string shareName, string directoryName, string fileName, ShareFileRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -124,6 +217,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response.Value;
         }
 
+        /// <summary>
+        /// Gets a list of file names from a directory in a share.
+        /// </summary>
+        /// <param name="shareName">Name of share where directory exists.</param>
+        /// <param name="directoryName">Name of directory to read list of files.</param>
+        /// <param name="prefix">Optional prefix.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>File names in directory as list of strings.</returns>
         public async Task<List<string>> ListFilesAsync(string shareName, string directoryName, string prefix = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);
@@ -147,6 +248,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return fileNames;
         }
 
+        /// <summary>
+        /// Gets a list of sub-directories in directory of a share.
+        /// </summary>
+        /// <param name="shareName">Name of share to read directory names.</param>
+        /// <param name="directoryName">Name of parent directory to read names of sub-directories.</param>
+        /// <param name="prefix">Optional prefix.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Sub-directory names as a list of strings.</returns>
         public async Task<List<string>> ListDirectoriesAsync(string shareName, string directoryName, string prefix = null, CancellationToken cancellationToken = default)
         {
             var shareClient = serviceClient.GetShareClient(shareName);

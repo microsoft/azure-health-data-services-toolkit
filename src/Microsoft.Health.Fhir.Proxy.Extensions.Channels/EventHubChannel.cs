@@ -13,32 +13,58 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
+    /// <summary>
+    /// Channel that sends events to an Azure Event Hub.
+    /// </summary>
     public class EventHubChannel : IChannel
     {
-        public EventHubChannel(EventHubConfig settings, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of EventHubChannel.
+        /// </summary>
+        /// <param name="config">Channel configuration.</param>
+        /// <param name="logger">Optional ILogger.</param>
+        public EventHubChannel(EventHubConfig config, ILogger logger = null)
         {
-            this.settings = settings;
+            this.config = config;
             this.logger = logger;
         }
 
         private ChannelState state;
         private EventHubProducerClient sender;
         private EventProcessorClient processor;
-        private readonly EventHubConfig settings;
+        private readonly EventHubConfig config;
         private readonly ILogger logger;
         private StorageBlob storage;
         private bool disposed;
 
+        /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
         public string Id { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the channel, i.e., "EventHubChannel".
+        /// </summary>
         public string Name => "EventHubChannel";
 
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
         public bool IsAuthenticated => false;
 
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
         public bool IsEncrypted => true;
 
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
         public int Port => 0;
 
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
         public ChannelState State
         {
             get => state;
@@ -52,22 +78,50 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Event that signals the channel has closed.
+        /// </summary>
         public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        /// <summary>
+        /// Event that signals the channel has errored.
+        /// </summary>
         public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        /// <summary>
+        /// Event that signals the channel has opened.
+        /// </summary>
         public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        /// <summary>
+        /// Event that signals the channel as received a message.
+        /// </summary>
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        /// <summary>
+        /// Event that signals the channel state has changed.
+        /// </summary>
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
+        /// <summary>
+        /// Add a message to the channel which is surface by the OnReceive event.
+        /// </summary>
+        /// <param name="message">Message to add.</param>
+        /// <returns>Task</returns>
         public async Task AddMessageAsync(byte[] message)
         {
             OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, message));
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Opens the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            sender = new EventHubProducerClient(settings.EventHubConnectionString, settings.EventHubName);
-            storage = new StorageBlob(settings.EventHubBlobConnectionString);
+            sender = new EventHubProducerClient(config.EventHubConnectionString, config.EventHubName);
+            storage = new StorageBlob(config.EventHubBlobConnectionString);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
@@ -75,6 +129,10 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Closes the channel.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task CloseAsync()
         {
             if (State != ChannelState.Closed)
@@ -87,14 +145,18 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             await Task.CompletedTask;
         }
 
-
+        /// <summary>
+        /// Starts the recieve operation for the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        /// <remarks>Receive operation uses the EventHubProcessor.</remarks>
         public async Task ReceiveAsync()
         {
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-                var storageClient = new BlobContainerClient(settings.EventHubBlobConnectionString, settings.EventHubProcessorContainer);
-                processor = new EventProcessorClient(storageClient, consumerGroup, settings.EventHubConnectionString, settings.EventHubName);
+                var storageClient = new BlobContainerClient(config.EventHubBlobConnectionString, config.EventHubProcessorContainer);
+                processor = new EventProcessorClient(storageClient, consumerGroup, config.EventHubConnectionString, config.EventHubName);
 
                 processor.ProcessEventAsync += async (args) =>
                 {
@@ -129,13 +191,19 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             }
         }
 
+        /// <summary>
+        /// Sends a message to an Event Hub if size &lt; SKU constraint; otherwise uses blob storage.
+        /// </summary>
+        /// <param name="message">Message to send.</param>
+        /// <param name="items">Additional optional parameters, where required is the content type.</param>
+        /// <returns>Task</returns>
         public async Task SendAsync(byte[] message, params object[] items)
         {
             try
             {
                 string typeName = "Value";
 
-                if ((settings.EventHubSku == EventHubSkuType.Basic && message.Length > 0x3E800) || (settings.EventHubSku != EventHubSkuType.Basic && message.Length > 0xF4240))
+                if ((config.EventHubSku == EventHubSkuType.Basic && message.Length > 0x3E800) || (config.EventHubSku != EventHubSkuType.Basic && message.Length > 0xF4240))
                 {
                     typeName = "Reference";
                 }
@@ -177,13 +245,13 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         {
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(settings.EventHubBlobContainer, blob, contentType, message);
+            await storage.WriteBlockBlobAsync(config.EventHubBlobContainer, blob, contentType, message);
             return blob;
         }
 
         private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
         {
-            EventDataByReference byref = new(settings.EventHubBlobContainer, blobName, contentType);
+            EventDataByReference byref = new(config.EventHubBlobContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             EventData data = new(Encoding.UTF8.GetBytes(json));
             data.Properties.Add("PassedBy", typeName);
@@ -199,6 +267,9 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             return await Task.FromResult<EventData>(data);
         }
 
+        /// <summary>
+        /// Disposes the channel.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

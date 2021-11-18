@@ -22,7 +22,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
             };
 
             numRetry = num409;
-            max = maxAttempts.HasValue ? maxAttempts.Value : 0;
+            max = maxAttempts ?? 0;
 
             listener.Prefixes.Add($"http://localhost:{port}/");
 
