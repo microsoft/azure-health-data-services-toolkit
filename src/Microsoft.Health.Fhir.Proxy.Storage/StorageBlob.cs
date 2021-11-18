@@ -14,45 +14,111 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {
+    /// <summary>
+    /// Allows simple access to Azure Blob Storage.
+    /// </summary>
     public class StorageBlob
     {
         #region ctor
+        /// <summary>
+        /// Creates an instance of StorageBlob
+        /// </summary>
+        /// <param name="connectionString">Azure storage connection string.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(string connectionString, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
             : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(connectionString);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="connectionString">Azure storage connection string.</param>
+        /// <param name="options">Blob client options.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(string connectionString, BlobClientOptions options, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
             : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(connectionString, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="serviceUri">Service URI.</param>
+        /// <param name="options">Optional blob client options.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(Uri serviceUri, BlobClientOptions options = null, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
             : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(serviceUri, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="serviceUri">Service URI.</param>
+        /// <param name="credentials">Token credentials for authentication.</param>
+        /// <param name="options">Optional Blob client options.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(Uri serviceUri, TokenCredential credentials, BlobClientOptions options = null, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
             : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(serviceUri, credentials, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="serviceUri">Service URI</param>
+        /// <param name="credential">SAS credentials for authentication.</param>
+        /// <param name="options">Optional blob client options.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(Uri serviceUri, AzureSasCredential credential, BlobClientOptions options = null, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
              : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(serviceUri, credential, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="serviceUri">Service URI.</param>
+        /// <param name="credential">Shared key credential for authentication.</param>
+        /// <param name="options">Optional blob client options.</param>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(Uri serviceUri, StorageSharedKeyCredential credential, BlobClientOptions options = null, long? initialTransferSize = null, int? maxConcurrency = null, int? maxTransferSize = null, ILogger logger = null)
              : this(initialTransferSize, maxConcurrency, maxTransferSize, logger)
         {
             blobService = new BlobServiceClient(serviceUri, credential, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageBlob.
+        /// </summary>
+        /// <param name="initialTransferSize">Optional size of the first range request in bytes. Blobs smaller than this limit will be downloaded in a single request. Blobs larger than this limit will continue being downloaded in chunks of size maxTransfersize.</param>
+        /// <param name="maxConcurrency">Optional maximum number of workers that may be used in a parallel transfer.</param>
+        /// <param name="maxTransferSize">Optional The maximum length of an transfer in bytes.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(long? initialTransferSize, int? maxConcurrency, int? maxTransferSize, ILogger logger = null)
         {
             cacheOptions = new MemoryCacheEntryOptions();
@@ -85,7 +151,13 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         private readonly ILogger logger;
 
         #region Container Methods
-
+        /// <summary>
+        /// Deletes a blob storage container if it exists.
+        /// </summary>
+        /// <param name="containerName">Name of container to delete.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>True if container deleted or did not exist; otherwise false.</returns>
         public async Task<bool> DeleteContainerIfExistsAsync(string containerName, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
@@ -94,6 +166,12 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response.Value;
         }
 
+        /// <summary>
+        /// Creates a blob storage container if it does not already exist.
+        /// </summary>
+        /// <param name="containerName">Name of container to create.</param>
+        /// <param name="publicAccess">Specifies whether data in the container may be accessed publicly and the level of access.; default is "None".</param>
+        /// <returns>BlobContainerInfo</returns>
         public async Task<Response<BlobContainerInfo>> CreateContainerIfNotExistsAsync(string containerName, PublicAccessType publicAccess = PublicAccessType.None)
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
@@ -102,6 +180,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response;
         }
 
+        /// <summary>
+        /// Gets a list of pageable container names.
+        /// </summary>
+        /// <param name="traits">Optional specifies trait options for shaping the blob containers.; default is "None".</param>
+        /// <param name="states">Optional specifies states options for shaping the blob containers; default is "None".</param>
+        /// <param name="prefix">Optional specifies a string that filters the results to return only containers whose name begins with the specified prefix.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>AsyncPageable&lt;BlobContainerItem&gt;</returns>
         public AsyncPageable<BlobContainerItem> ListContainers(BlobContainerTraits traits = BlobContainerTraits.None, BlobContainerStates states = BlobContainerStates.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             AsyncPageable<BlobContainerItem> pages = blobService.GetBlobContainersAsync(traits, states, prefix, cancellationToken);
@@ -109,6 +195,12 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return pages;
         }
 
+        /// <summary>
+        /// Indicates whether a blob container exists.
+        /// </summary>
+        /// <param name="containerName">Name of container.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>True if container exists; otherwise false.</returns>
         public async Task<bool> ContainerExistsAsync(string containerName, CancellationToken cancellationToken = default)
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
@@ -117,6 +209,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response.Value;
         }
 
+        /// <summary>
+        /// Gets a list of blob metadata in a container.
+        /// </summary>
+        /// <param name="containerName">Name of container to get metadata.</param>
+        /// <param name="traits">Optional specifies trait options for shaping the blob containers.; default is "None".</param>
+        /// <param name="states">Optional specifies states options for shaping the blob containers; default is "None".</param>
+        /// <param name="prefix">Optional specifies a string that filters the results to return only containers whose name begins with the specified prefix.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Array of Dictionary&lt;string,string&gt;[] containing metadata. </returns>
         public async Task<IDictionary<string, string>[]> ListBlobMetadataInContainerAsync(string containerName, BlobTraits traits = BlobTraits.None, BlobStates states = BlobStates.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             List<IDictionary<string, string>> list = new();
@@ -135,6 +236,16 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
 
         #region Read Methods
 
+        /// <summary>
+        /// Gets a list of blob names in a storage container.
+        /// </summary>
+        /// <param name="containerName">Name of container to return blob names.</param>
+        /// <param name="segmentSize">Optional maximum number of blob names to be returned.</param>
+        /// <param name="traits">Optional specifies trait options for shaping the blob containers.; default is "None".</param>
+        /// <param name="states">Optional specifies states options for shaping the blob containers; default is "None".</param>
+        /// <param name="prefix">Optional specifies a string that filters the results to return only containers whose name begins with the specified prefix.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>List of blob names in container.</returns>
         public async Task<List<string>> ListBlobsAsync(string containerName, int? segmentSize = null, BlobTraits traits = BlobTraits.None, BlobStates states = BlobStates.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -154,6 +265,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return blobNames;
         }
 
+        /// <summary>
+        /// Gets the contents of a blob and returns as an array of bytes.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob resides.</param>
+        /// <param name="blobName">Name of the blob to read.</param>
+        /// <param name="options">Optional blob open read options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Array of bytes of the blob content.</returns>
         public async Task<byte[]> ReadBlockBlobAsync(string containerName, string blobName, BlobOpenReadOptions options = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -167,6 +286,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return buffer;
         }
 
+        /// <summary>
+        /// Gets the contents of an append blob and returns as an array of bytes.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob resides.</param>
+        /// <param name="blobName">Name of the blob to read.</param>
+        /// <param name="options">Optional blob open read options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Array of bytes of the blob content.</returns>
         public async Task<byte[]> ReadAppendBlobAsync(string containerName, string blobName, BlobOpenReadOptions options = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -180,6 +307,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return buffer;
         }
 
+        /// <summary>
+        /// Gets the contents of a page blob and returns as an array of bytes.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob resides.</param>
+        /// <param name="blobName">Name of the blob to read.</param>
+        /// <param name="options">Optional blob open read options.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Array of bytes of the blob content.</returns>
         public async Task<byte[]> ReadPageBlobAsync(string containerName, string blobName, BlobOpenReadOptions options = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -196,6 +331,18 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         #endregion
 
         #region Write Methods
+        /// <summary>
+        /// Writes a block blob to a container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to write.</param>
+        /// <param name="contentType">Content type of blob.</param>
+        /// <param name="content">Content of the blob to write.</param>
+        /// <param name="options">Optional block blob open write options.</param>
+        /// <param name="metadata">Optional metadata for the blob.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task WriteBlockBlobAsync(string containerName, string blobName, string contentType, byte[] content, BlockBlobOpenWriteOptions options = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -218,6 +365,18 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             logger?.LogTrace(new EventId(91100, "StorageBlob.WriteBlockBlobAsync"), $"Container {containerName} blob {blobName} written.");
         }
 
+        /// <summary>
+        /// Writes a block blob to a container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to write.</param>
+        /// <param name="contentType">Content type of blob.</param>
+        /// <param name="content">Content stream of the blob to write.</param>
+        /// <param name="options">Optional block blob open write options.</param>
+        /// <param name="metadata">Optional metadata for the blob.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task WriteBlockBlobAsync(string containerName, string blobName, string contentType, Stream content, BlockBlobOpenWriteOptions options = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             byte[] buffer = new byte[content.Length];
@@ -226,6 +385,19 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             logger?.LogTrace(new EventId(91110, "StorageBlob.WriteBlockBlobAsync"), $"Container {containerName} blob {blobName} written.");
         }
 
+        /// <summary>
+        /// Writes an append blob to a storage container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to write.</param>
+        /// <param name="contentType">Content type of blob.</param>
+        /// <param name="content">Content of the blob to write.</param>
+        /// <param name="writeOptions">Optional append blob open write options.</param>
+        /// <param name="createOptions">Optional append blob create options.</param>
+        /// <param name="metadata">Optional blob metadata.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task WriteAppendBlobAsync(string containerName, string blobName, string contentType, byte[] content, AppendBlobOpenWriteOptions writeOptions = null, AppendBlobCreateOptions createOptions = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -249,6 +421,19 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             logger?.LogTrace(new EventId(91120, "StorageBlob.WriteAppendBlobAsync"), $"Container {containerName} blob {blobName} written.");
         }
 
+        /// <summary>
+        /// Writes an append blob to a storage container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to write.</param>
+        /// <param name="contentType">Content type of blob.</param>
+        /// <param name="content">Content stream of the blob to write.</param>
+        /// <param name="writeOptions">Optional append blob open write options.</param>
+        /// <param name="createOptions">Optional append blob create options.</param>
+        /// <param name="metadata">Optional blob metadata.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task WriteAppendBlobAsync(string containerName, string blobName, string contentType, Stream content, AppendBlobOpenWriteOptions writeOptions = null, AppendBlobCreateOptions createOptions = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             byte[] buffer = new byte[content.Length];
@@ -261,6 +446,17 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
 
         #region Upload Methods
 
+        /// <summary>
+        /// Uploads a blob from the local file system to a blob storage container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to write.</param>
+        /// <param name="contentType">Content type of blob.</param>
+        /// <param name="path">Path to local file to upload.</param>
+        /// <param name="metadata">Optional blob metadata.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Task</returns>
         public async Task UploadBlobAsync(string containerName, string blobName, string contentType, string path, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -289,6 +485,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         #endregion
 
         #region Download Methods
+        /// <summary>
+        /// Downloads a block blob from a container and returns the result.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>BlobDownloadResult</returns>
         public async Task<BlobDownloadResult> DownloadBlockBlobAsync(string containerName, string blobName, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -299,6 +503,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return result;
         }
 
+        /// <summary>
+        /// Downloads a block blob and writes a file to the local file system.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="path">Path to write the downloaded blob to the local file system.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Response</returns>
         public async Task<Response> DownloadBlockBlobToAsync(string containerName, string blobName, string path, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -308,6 +521,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response;
         }
 
+        /// <summary>
+        /// Downloads a block blob from blob storage and returns the response.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="destination">Stream to write.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Response</returns>
         public async Task<Response> DownloadBlockBlobToAsync(string containerName, string blobName, Stream destination, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -317,6 +539,14 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response;
         }
 
+        /// <summary>
+        /// Downloads an append blob from a container and returns the result.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>BlobDownloadResult</returns>
         public async Task<BlobDownloadResult> DownloadAppendBlobAsync(string containerName, string blobName, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -326,6 +556,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response.Value;
         }
 
+        /// <summary>
+        /// Downloads an append blob from a container and returns the result.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="path">Path to write the downloaded blob to the local file system.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Response</returns>
         public async Task<Response> DownloadAppendBlobToAsync(string containerName, string blobName, string path, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -335,6 +574,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return response;
         }
 
+        /// <summary>
+        /// Downloads an append blob from blob storage and returns the response.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to read.</param>
+        /// <param name="destination">Stream to write.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>Response</returns>
         public async Task<Response> DownloadAppendBlobToAsync(string containerName, string blobName, Stream destination, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
@@ -348,6 +596,12 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
 
         #region Delete Methods
 
+        /// <summary>
+        /// Deletes a blob from a container in blob storage.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob is written.</param>
+        /// <param name="blobName">Name of blob to delete.</param>
+        /// <returns>True if blob is deleted; otherwise false.</returns>
         public async Task<bool> DeleteBlobAsync(string containerName, string blobName)
         {
             BlobContainerClient containerClient = blobService.GetBlobContainerClient(containerName);
@@ -359,6 +613,15 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         #endregion
 
         #region Get Properties Methods
+
+        /// <summary>
+        /// Gets properties of a blob in a container.
+        /// </summary>
+        /// <param name="containerName">Name of container where blob exists.</param>
+        /// <param name="blobName">Name of blob to get properties.</param>
+        /// <param name="conditions">Optional blob lease access conditions for a container or blob.</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
+        /// <returns>BlobProperties</returns>
         public async Task<BlobProperties> GetBlobPropertiesAsync(string containerName, string blobName, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());

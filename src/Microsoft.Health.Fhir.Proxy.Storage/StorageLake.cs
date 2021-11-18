@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {
+    /// <summary>
+    /// Allows simple access to Azure Data Lake.
+    /// </summary>
     public class StorageLake
     {
         private readonly DataLakeServiceClient serviceClient;
