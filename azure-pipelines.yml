@@ -77,6 +77,10 @@ steps:
     packageType: 'sdk'
     version: '3.1.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+    checkLatest: true
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.8.x'
