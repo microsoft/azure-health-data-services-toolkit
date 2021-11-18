@@ -3,7 +3,7 @@
     {
           "src": [
           {
-              "files": [ "src/Microsoft.Health.Fhir.Proxy/**.csproj" ],
+              "files": [ "src/**.csproj" ],
               "exclude": [ "_site/**", "**/bin/**", "**/obj/**", "**/[Tt]ests/**" ]
           }
           ],
