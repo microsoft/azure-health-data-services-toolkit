@@ -1,9 +1,7 @@
 ﻿using Azure.Core;
-using Azure.Identity;
 using Microsoft.Health.Fhir.Proxy.Configuration;
-using Microsoft.Identity.Client;
-using System.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Security
@@ -19,7 +17,7 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         /// </summary>
         /// <param name="resource"></param>
         /// <param name="config"></param>
-        public Authenticator(string resource, ServiceConfig config)
+        public Authenticator(string resource, ServiceConfig config = null)
         {
             this.resource = resource;
             this.config = config;
@@ -54,67 +52,31 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         public X509Certificate2 Certificate => config.Certficate;
 
         /// <summary>
-        /// Acquires access token for client.
+        /// Gets an access token via OAuth from Azure Active Directory.
         /// </summary>
-        /// <param name="scopes">Optional scopes.  The default is resource/.default</param>
+        /// <param name="credential">Represents a credential capable of providing an OAuth token.</param>
+        /// <param name="scopes">he scopes required for the token.</param>
+        /// <param name="parentRequestId">The ClientRequestId of the request requiring a token for authentication, if applicable.</param>
+        /// <param name="claims">Additional claims to be included in the token. See https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter for more information on format and content.</param>
+        /// <param name="tenantId">The tenantId to be included in the token request. If tenantId supplied in ServiceConfig, this will be the default if argument is null.</param>
+        /// <param name="cancellationToken">The CancellationToken to use.</param>
         /// <returns></returns>
-        public async Task<string> AcquireTokenForClientAsync(string[] scopes = null)
+        public async Task<string> AquireTokenForClientAsync(TokenCredential credential,
+                                                            string[] scopes = null,
+                                                            string? parentRequestId = null,
+                                                            string? claims = null,
+                                                            string? tenantId = null,
+                                                            CancellationToken cancellationToken = default)
         {
             scopes ??= GetDefaultScopes();
-
-            if (config.SystemManagedIdentity)
-            {
-                DefaultAzureCredential credential = string.IsNullOrEmpty(ClientId) ? new(false) : new(new DefaultAzureCredentialOptions() { ManagedIdentityClientId = ClientId });
-                TokenRequestContext context = new(scopes);
-                var tokenResult = await credential.GetTokenAsync(context);
-                return tokenResult.Token;
-            }
-            else
-            {
-                var app = GetApp();
-                var result = await app.AcquireTokenForClient(scopes)
-                           .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
-                           .ExecuteAsync();
-                return result.AccessToken;
-            }
+            tenantId ??= config?.TenantId;
+            TokenRequestContext context = new(scopes, parentRequestId, claims, tenantId);
+            var tokenResult = await credential.GetTokenAsync(context, cancellationToken);
+            return tokenResult.Token;
         }
-
-        public async Task<string> AcquireTokenOnBehalfOfAsync(string bearerToken, string[] scopes = null)
-        {
-            var app = GetApp();
-            scopes ??= GetDefaultScopes();
-            var result = await app.AcquireTokenOnBehalfOf(scopes, new UserAssertion(bearerToken))
-                .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
-                .ExecuteAsync();
-
-            return result.AccessToken;
-        }
-
         private string[] GetDefaultScopes()
         {
             return new string[] { $"{Resource.TrimEnd('/')}/.default" };
-        }
-
-        private IConfidentialClientApplication GetApp()
-        {
-            if (ClientSecret != null)
-            {
-                return ConfidentialClientApplicationBuilder.Create(ClientId)
-                        .WithClientSecret(ClientSecret)
-                        .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
-                        .Build();
-            }
-            else if (Certificate != null)
-            {
-                return ConfidentialClientApplicationBuilder.Create(ClientId)
-                   .WithCertificate(Certificate)
-                   .WithAuthority(AzureCloudInstance.AzurePublic, TenantId)
-                   .Build();
-            }
-            else
-            {
-                throw new SecurityException("No secret found to authenticate.");
-            }
         }
     }
 }
