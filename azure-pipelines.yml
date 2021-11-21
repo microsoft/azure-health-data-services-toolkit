@@ -102,8 +102,12 @@ steps:
     command: 'custom'
     custom: 'tool'
     arguments: 'update -g dotnet-format'
-- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln --check --verbosity diagnostic'
-  displayName: 'Lint dotnet'
+- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln whitespace'
+  displayName: 'Lint dotnet whitespace'
+- script:  'dotnet format ./src/Build.sln style'
+  displayName: 'Lint dotnet style'
+- script: 'dotnet format ./src/Build.sln analyzers'
+  displayName: 'Lint dotnet analyzers'
 - script: echo $(Build.BuildNumber)
   displayName: 'Show the build number'
 - task: DotNetCoreCLI@2
