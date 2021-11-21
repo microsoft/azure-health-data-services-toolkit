@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "<Pending>", Scope = "member", Target = "~M:Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync~System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}")]
+[assembly: SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "<Pending>", Scope = "member", Target = "~M:Microsoft.Health.Fhir.Proxy.Bindings.FhirPipelineBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)~System.Threading.Tasks.Task{Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext}")]
