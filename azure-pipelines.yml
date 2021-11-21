@@ -113,7 +113,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: '**/src/**/*.csproj'
   displayName: 'dotnet build $(buildConfiguration)'
 
