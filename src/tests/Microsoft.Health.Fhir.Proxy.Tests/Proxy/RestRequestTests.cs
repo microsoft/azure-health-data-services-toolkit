@@ -72,13 +72,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             headers.Add("Location", "kitchen");
 
             RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, content);
-            HttpWebRequest actual = builder.Build();
+            HttpRequestMessage actual = builder.Build();
 
-            Assert.AreEqual(method, actual.Method, "Method mismatch.");
-            Assert.AreEqual(content.Length, actual.ContentLength, "Content length mismatch.");
-            Assert.AreEqual(jsonType, actual.Accept, "Accept mismatch.");
-            Assert.AreEqual(jsonType, actual.ContentType, "Content type mismatch.");
-            Assert.AreEqual($"Bearer {token}", actual.Headers["Authorization"], "Authorization mismatch.");
+
+            Assert.AreEqual(method, actual.Method.ToString(), "Method mismatch.");
+            Assert.AreEqual(content.Length, actual.Content.Headers.ContentLength, "Content length mismatch.");
+            Assert.AreEqual(jsonType, actual.Headers.Accept.ToString(), "Accept mismatch.");
+            Assert.AreEqual(jsonType, actual.Content.Headers.ContentType.ToString(), "Content type mismatch.");
+            Assert.AreEqual($"Bearer {token}", actual.Headers.Authorization.ToString(), "Authorization mismatch.");
             Assert.AreEqual($"{baseUrl}{path}?{query}", actual.RequestUri.ToString().ToLowerInvariant(), "Url mismatch.");
         }
 
