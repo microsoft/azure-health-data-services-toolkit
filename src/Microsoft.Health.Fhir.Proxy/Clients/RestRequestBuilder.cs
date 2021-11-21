@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Net;
+using System.Net.Http;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.Health.Fhir.Proxy.Clients
@@ -125,11 +127,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
         /// </summary>
         public X509Certificate2 Certificate { get; internal set; }
 
-        /// <summary>
-        /// Builds an Http Web Request.
-        /// </summary>
-        /// <returns>HttpWebRequest</returns>
-        public HttpWebRequest Build()
+        public HttpRequestMessage Build()
         {
             UriBuilder builder = new(BaseUrl)
             {
@@ -137,7 +135,21 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 Query = QueryString
             };
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.ToString());
+            HttpMethod method = Method.ToUpperInvariant() switch
+            {
+                "GET" => HttpMethod.Get,
+                "POST" => HttpMethod.Post,
+                "PUT" => HttpMethod.Put,
+                "DELETE" => HttpMethod.Delete,
+                "PATCH" => HttpMethod.Patch,
+                _ => throw new Exception("Invald Http method."),
+
+            };
+
+            //HttpMethod method = (HttpMethod)Enum.Parse(typeof(HttpMethod), Method, true);
+            string? baseUrl = builder.ToString();
+
+            HttpRequestMessage request = new(method, baseUrl);
 
             if (Headers != null)
             {
@@ -147,30 +159,76 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 Headers.Remove("Accept");
                 Headers.Remove("Host");
                 Headers.Add("Host", new Uri(BaseUrl).Authority);
-                request.Headers.Add(Headers);
+                foreach (string item in Headers.AllKeys)
+                {
+                    request.Headers.Add(item, Headers.Get(item));
+                }
             }
 
-            request.Method = Method;
-
-            request.Accept = ContentType;
+            request.Headers.Add("Accept", ContentType);
 
             if (Content != null)
             {
-                request.ContentType = ContentType;
-                request.ContentLength = Content.Length;
+                request.Content = new ByteArrayContent(Content);
+                request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(ContentType);
+                request.Content.Headers.ContentLength = Content.Length;
             }
 
-            if (!string.IsNullOrEmpty(SecurityToken))
+            if (SecurityToken != null)
             {
                 request.Headers.Add("Authorization", $"Bearer {SecurityToken}");
             }
 
-            if (Certificate != null)
-            {
-                request.ClientCertificates.Add(Certificate);
-            }
-
             return request;
+
         }
+
+        ///// <summary>
+        ///// Builds an Http Web Request.
+        ///// </summary>
+        ///// <returns>HttpWebRequest</returns>
+        //public HttpWebRequest Build()
+        //{
+        //    UriBuilder builder = new(BaseUrl)
+        //    {
+        //        Path = Path,
+        //        Query = QueryString
+        //    };
+
+        //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.ToString());
+
+        //    if (Headers != null)
+        //    {
+        //        Headers.Remove("Content-Type");
+        //        Headers.Remove("Content-Length");
+        //        Headers.Remove("Authorization");
+        //        Headers.Remove("Accept");
+        //        Headers.Remove("Host");
+        //        Headers.Add("Host", new Uri(BaseUrl).Authority);
+        //        request.Headers.Add(Headers);
+        //    }
+
+        //    request.Method = Method;
+
+        //    request.Accept = ContentType;
+
+        //    if (Content != null)
+        //    {
+        //        request.ContentType = ContentType;
+        //        request.ContentLength = Content.Length;
+        //    }
+
+        //    if (!string.IsNullOrEmpty(SecurityToken))
+        //    {
+        //        request.Headers.Add("Authorization", $"Bearer {SecurityToken}");
+        //    }
+
+        //    if (Certificate != null)
+        //    {
+        //        request.ClientCertificates.Add(Certificate);
+        //    }
+
+        //    return request;
+        //}
     }
 }
