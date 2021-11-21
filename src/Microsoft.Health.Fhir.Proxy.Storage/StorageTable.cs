@@ -87,7 +87,9 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         public IEnumerable<CloudTable> ListTables()
         {
             IEnumerable<CloudTable> tables = tableClient.ListTables();
-            logger?.LogTrace(new EventId(95010, "StorageTable.ListTables"), $"List of {tables.Count()} tables returned.");
+            logger?.LogTrace(
+                new EventId(95010, "StorageTable.ListTables"),
+                message: $"List of {tables.Count()} tables returned.");
             return tables;
         }
 
@@ -178,7 +180,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.InsertOrReplace(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95070, "StorageTable.InsertOrReplaceEntityAsync"), $"Table entity with partition key {entity.PartitionKey} inserted or replaced into table {tableName}");
+            logger?.LogTrace(new EventId(95070, "StorageTable.InsertOrReplaceEntityAsync"), message: $"Table entity with partition key {entity.PartitionKey} inserted or replaced into table {tableName}");
             return result;
         }
 
