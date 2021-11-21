@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Net;
 using System.Net.Http;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.Health.Fhir.Proxy.Clients
