@@ -16,7 +16,7 @@
     <Description>Framework for creating custom operations to inject customization when using the Microsoft API for FHIR.</Description>
     <PackageTags>FHIR</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>none</AnalysisLevel>
 	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
