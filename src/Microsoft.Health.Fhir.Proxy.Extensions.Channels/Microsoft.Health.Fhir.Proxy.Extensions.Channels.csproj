@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://azure.microsoft.com/en-us/services/healthcare-apis/</PackageProjectUrl>
     <PackageIcon>ApiForFhir.png</PackageIcon>
     <PackageIconUrl />
-    <RepositoryUrl>https://github.com/microsoft/fhir-proxy</RepositoryUrl>
+    <RepositoryUrl>https://github.com/microsoft/fhir-proxy-sdk</RepositoryUrl>
     <PackageTags>FHIR</PackageTags>
-    <PackageReleaseNotes>Prelease candidate for channel extensions for custom operations framework using Microsoft.Health.Fhir.Proxy.</PackageReleaseNotes>
+    <PackageReleaseNotes>Dotnet 6 prelease candidate for custom operations frameworks.</PackageReleaseNotes>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
