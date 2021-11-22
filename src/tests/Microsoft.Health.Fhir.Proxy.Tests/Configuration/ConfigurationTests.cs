@@ -17,7 +17,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
         public ConfigurationTests()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             config = new ServiceConfig();

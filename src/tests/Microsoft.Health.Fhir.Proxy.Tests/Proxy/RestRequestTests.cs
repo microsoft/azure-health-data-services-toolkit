@@ -28,7 +28,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         public RestRequestTests()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             config = new ServiceConfig();
