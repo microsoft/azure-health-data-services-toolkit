@@ -32,7 +32,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             Console.WriteLine(context.TestName);
             fileSystemName = GetRandomName();
             ConfigurationBuilder builder = new();
-            builder.AddUserSecrets<DataLakeStorageTests>();
+            builder.AddUserSecrets<DataLakeStorageTests>(true);
             var root = builder.Build();
             string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
             containers = new();

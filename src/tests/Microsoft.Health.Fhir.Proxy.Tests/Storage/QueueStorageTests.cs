@@ -28,7 +28,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
         {
             Console.WriteLine(context.TestName);
             ConfigurationBuilder builder = new();
-            builder.AddUserSecrets<QueueStorageTests>();
+            builder.AddUserSecrets<QueueStorageTests>(true);
             var root = builder.Build();
             string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
             random = new();
