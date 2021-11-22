@@ -27,7 +27,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         {
             Console.WriteLine(context.TestName);
             IConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             settings = new ServiceBusConfig();
