@@ -19,6 +19,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>none</AnalysisLevel>
+	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>
