@@ -15,6 +15,7 @@
     <PackageReleaseNotes>Prelease candidate for channel extensions for custom operations framework using Microsoft.Health.Fhir.Proxy.</PackageReleaseNotes>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>

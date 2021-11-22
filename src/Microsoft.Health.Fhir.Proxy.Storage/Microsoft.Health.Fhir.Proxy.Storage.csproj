@@ -15,6 +15,7 @@
     <PackageReleaseNotes>Prelease candidate for common storage operations used with custom operations framework using Microsoft.Health.Fhir.Proxy.</PackageReleaseNotes>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>
