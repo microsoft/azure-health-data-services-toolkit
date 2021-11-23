@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <Version>0.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -19,7 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="Azure.Storage.Files.DataLake" Version="12.8.0" />
     <PackageReference Include="Azure.Storage.Files.Shares" Version="12.8.0" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.8.0" />
