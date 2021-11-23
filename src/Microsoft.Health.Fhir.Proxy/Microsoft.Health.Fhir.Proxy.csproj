@@ -6,7 +6,7 @@
     <PackageProjectUrl>https://azure.microsoft.com/en-us/services/healthcare-apis/</PackageProjectUrl>
     <PackageReleaseNotes>Dotnet 6 prelease candidate for custom operations frameworks.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Microsoft</Authors>
     <PackageIcon>ApiForFhir.png</PackageIcon>
     <PackageIconUrl />

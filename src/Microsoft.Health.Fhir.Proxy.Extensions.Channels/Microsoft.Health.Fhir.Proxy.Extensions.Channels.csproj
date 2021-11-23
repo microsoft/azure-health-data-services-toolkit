@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/microsoft/fhir-proxy-sdk</RepositoryUrl>
     <PackageTags>FHIR</PackageTags>
     <PackageReleaseNotes>Dotnet 6 prelease candidate for custom operations frameworks.</PackageReleaseNotes>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
   </PropertyGroup>
