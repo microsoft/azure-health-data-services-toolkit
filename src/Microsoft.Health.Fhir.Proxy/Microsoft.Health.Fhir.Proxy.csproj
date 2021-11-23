@@ -20,6 +20,7 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>none</AnalysisLevel>
 	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
