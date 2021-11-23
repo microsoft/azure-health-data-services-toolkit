@@ -16,6 +16,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
