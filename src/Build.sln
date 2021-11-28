@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy.Storage", "Microsoft.Health.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj", "{C78A1752-C35A-4FF9-A01F-E1A9467CF3A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Health.Fhir.Proxy.Tests", "tests\Microsoft.Health.Fhir.Proxy.Tests\Microsoft.Health.Fhir.Proxy.Tests.csproj", "{D6DB8821-0EF4-4CDE-8DE3-24BDD551A7A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy.Tests", "tests\Microsoft.Health.Fhir.Proxy.Tests\Microsoft.Health.Fhir.Proxy.Tests.csproj", "{D6DB8821-0EF4-4CDE-8DE3-24BDD551A7A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,8 +22,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E50A28FF-D13A-4AD7-A123-9EFB9D1A1D8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDB643B2-1A10-419F-8CDA-E377AC87B516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
