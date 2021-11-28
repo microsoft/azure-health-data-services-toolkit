@@ -71,18 +71,18 @@ steps:
     packageType: 'sdk'
     version: '6.0.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
-- task: UseDotNet@2
-  displayName: 'Install dotnet 5.0.x agent tools dir'
-  inputs:
-    packageType: 'sdk'
-    version: '5.0.x'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
-- task: UseDotNet@2
-  displayName: 'Install dotnet 3.1.x SDK'
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.x'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+# - task: UseDotNet@2
+#   displayName: 'Install dotnet 5.0.x agent tools dir'
+#   inputs:
+#     packageType: 'sdk'
+#     version: '5.0.x'
+#     installationPath: $(Agent.ToolsDirectory)/dotnet
+# - task: UseDotNet@2
+#   displayName: 'Install dotnet 3.1.x SDK'
+#   inputs:
+#     packageType: 'sdk'
+#     version: '3.1.x'
+#     installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
