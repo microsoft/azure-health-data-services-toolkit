@@ -6,7 +6,7 @@
     <PackageProjectUrl>https://azure.microsoft.com/en-us/services/healthcare-apis/</PackageProjectUrl>
     <PackageReleaseNotes>Dotnet 6 prelease candidate for custom operations frameworks.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Microsoft</Authors>
     <PackageIcon>ApiForFhir.png</PackageIcon>
     <PackageIconUrl />
@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/microsoft/fhir-proxy-sdk</RepositoryUrl>
     <Description>Framework for creating custom operations to inject customization when using the Microsoft API for FHIR.</Description>
     <PackageTags>FHIR</PackageTags>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <TargetFramework>net6.0</TargetFramework>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>none</AnalysisLevel>
