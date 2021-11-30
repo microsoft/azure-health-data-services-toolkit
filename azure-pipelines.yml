@@ -130,6 +130,7 @@ steps:
     projects: '**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Proxy'
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy/bin/Release/net6.0'
@@ -171,6 +172,91 @@ steps:
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
 
+- task: EsrpCodeSigning@1
+  displayName: 'Sign Storage'
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy.Storage/bin/Release/net6.0'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                        {
+                          "keyCode": "CP-230012",
+                          "operationSetCode": "SigntoolSign",
+                          "parameters": [
+                            {
+                              "parameterName": "OpusName",
+                              "parameterValue": "Microsoft"
+                            },
+                            {
+                              "parameterName": "OpusInfo",
+                              "parameterValue": "http://www.microsoft.com"
+                            },
+                            {
+                              "parameterName": "PageHash",
+                              "parameterValue": "/NPH"
+                            },
+                            {
+                              "parameterName": "FileDigest",
+                              "parameterValue": "/fd sha256"
+                            },
+                            {
+                              "parameterName": "TimeStamp",
+                              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+                            }
+                          ],
+                          "toolName": "signtool.exe",
+                          "toolVersion": "6.2.9304.0"
+                        }
+                      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
+- task: EsrpCodeSigning@1
+  displayName: 'Sign Channels'
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/bin/Release/net6.0'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                        {
+                          "keyCode": "CP-230012",
+                          "operationSetCode": "SigntoolSign",
+                          "parameters": [
+                            {
+                              "parameterName": "OpusName",
+                              "parameterValue": "Microsoft"
+                            },
+                            {
+                              "parameterName": "OpusInfo",
+                              "parameterValue": "http://www.microsoft.com"
+                            },
+                            {
+                              "parameterName": "PageHash",
+                              "parameterValue": "/NPH"
+                            },
+                            {
+                              "parameterName": "FileDigest",
+                              "parameterValue": "/fd sha256"
+                            },
+                            {
+                              "parameterName": "TimeStamp",
+                              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+                            }
+                          ],
+                          "toolName": "signtool.exe",
+                          "toolVersion": "6.2.9304.0"
+                        }
+                      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
 
 - task: CopyFiles@2
   inputs:
@@ -181,7 +267,7 @@ steps:
     OverWrite: true
   
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Proxy Local Feed"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -191,7 +277,29 @@ steps:
     versionEnvVar: packageversion
 
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Proxy Prerelease"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-prerelease
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Proxy Release"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-release
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Channels"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -200,8 +308,31 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
 
+
 - task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+  displayName: "dotnet pack Channels Prerelease"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-prerelease
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Channels Release"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-release
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+    
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Storage"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
@@ -210,6 +341,27 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
 
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Storage Prerelease"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-prerelease
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Storage Release"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion-release
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
 
