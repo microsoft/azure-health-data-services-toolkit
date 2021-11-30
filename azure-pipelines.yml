@@ -287,6 +287,35 @@ steps:
     versionEnvVar: packageversion-prerelease
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy NuGet Prerelease'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-prerelease).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
+
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack Proxy Release"
   inputs:
@@ -297,6 +326,34 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
     packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy NuGet Release'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-release).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
 
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack Channels"
@@ -320,6 +377,35 @@ steps:
     versionEnvVar: packageversion-prerelease
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy Channels Prerelease'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion-prerelease).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
+
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack Channels Release"
   inputs:
@@ -330,7 +416,35 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
     packDirectory: '$(Build.ArtifactStagingDirectory)'
-    
+
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy Channels NuGet Release'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion-release).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack Storage"
   inputs:
@@ -352,6 +466,33 @@ steps:
     versionEnvVar: packageversion-prerelease
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy Storage Prerelease'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.$(packageversion-prerelease).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
 - task: DotNetCoreCLI@2
   displayName: "dotnet pack Storage Release"
   inputs:
@@ -362,6 +503,34 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
     packDirectory: '$(Build.ArtifactStagingDirectory)'
+
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing Proxy Storage NuGet Release'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.$(packageversion-release).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetSign",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   },
+                   {
+                       "keyCode": "CP-401405",
+                       "operationSetCode": "NuGetVerify",
+                       "parameters": [ ],
+                       "toolName": "sign",
+                       "toolVersion": "1.0"
+                   }
+                 ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
 
