@@ -288,8 +288,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Proxy NuGet Prerelease'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy NuGet Prerelease'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-prerelease).nupkg'
     UseMinimatch: true
@@ -328,8 +329,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Proxy NuGet Release'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy NuGet Release'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-release).nupkg'
     UseMinimatch: true
@@ -378,8 +380,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Channels NuGet Prerelease'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy Channels Prerelease'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion-prerelease).nupkg'
     UseMinimatch: true
@@ -418,8 +421,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Channels NuGet Release'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy Channels NuGet Release'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion-release).nupkg'
     UseMinimatch: true
@@ -467,8 +471,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Storage NuGet Prerelease'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy Storage Prerelease'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.$(packageversion-prerelease).nupkg'
     UseMinimatch: true
@@ -505,8 +510,9 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: EsrpCodeSigning@1
+  displayName: 'Sign Storage NuGet Release'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing Proxy Storage NuGet Release'
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.$(packageversion-release).nupkg'
     UseMinimatch: true
