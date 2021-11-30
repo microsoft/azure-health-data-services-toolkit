@@ -130,43 +130,43 @@ steps:
     projects: '**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
 - task: EsrpCodeSigning@1
-  displayName: 'ESRP CodeSigning Proxy'
   inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '**/src/**/Microsoft.Health.Fhir.Proxy/bin/Release/net6.0'
     Pattern: 'Microsoft.Health.Fhir.Proxy.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
-                  {
-                    "keyCode": "CP-230012",
-                    "operationSetCode": "SigntoolSign",
-                    "parameters": [
-                      {
-                        "parameterName": "OpusName",
-                        "parameterValue": "Microsoft"
-                      },
-                      {
-                        "parameterName": "OpusInfo",
-                        "parameterValue": "http://www.microsoft.com"
-                      },
-                      {
-                        "parameterName": "PageHash",
-                        "parameterValue": "/NPH"
-                      },
-                      {
-                        "parameterName": "FileDigest",
-                        "parameterValue": "/fd sha256"
-                      },
-                      {
-                        "parameterName": "TimeStamp",
-                        "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
-                      }
-                    ],
-                    "toolName": "signtool.exe",
-                    "toolVersion": "6.2.9304.0"
-                  }
-                ]
+                        {
+                          "keyCode": "CP-230012",
+                          "operationSetCode": "SigntoolSign",
+                          "parameters": [
+                            {
+                              "parameterName": "OpusName",
+                              "parameterValue": "Microsoft"
+                            },
+                            {
+                              "parameterName": "OpusInfo",
+                              "parameterValue": "http://www.microsoft.com"
+                            },
+                            {
+                              "parameterName": "PageHash",
+                              "parameterValue": "/NPH"
+                            },
+                            {
+                              "parameterName": "FileDigest",
+                              "parameterValue": "/fd sha256"
+                            },
+                            {
+                              "parameterName": "TimeStamp",
+                              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+                            }
+                          ],
+                          "toolName": "signtool.exe",
+                          "toolVersion": "6.2.9304.0"
+                        }
+                      ]
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
