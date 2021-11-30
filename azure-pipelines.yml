@@ -132,7 +132,7 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '**/src/Microsoft.Health.Fhir.Proxy/bin/Release/net6.0'
+    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy/bin/Release/net6.0'
     Pattern: 'Microsoft.Health.Fhir.Proxy.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
