@@ -77,12 +77,12 @@ steps:
 #     packageType: 'sdk'
 #     version: '5.0.x'
 #     installationPath: $(Agent.ToolsDirectory)/dotnet
-# - task: UseDotNet@2
-#   displayName: 'Install dotnet 3.1.x SDK'
-#   inputs:
-#     packageType: 'sdk'
-#     version: '3.1.x'
-#     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: UseDotNet@2
+  displayName: 'Install dotnet 3.1.x SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -96,18 +96,18 @@ steps:
     outputFormat: 'csv'
     toolVersion: Latest
     verboseOutput: true
-# - task: DotNetCoreCLI@2
-#   displayName: 'Install dotnet format'
-#   inputs:
-#     command: 'custom'
-#     custom: 'tool'
-#     arguments: 'update -g dotnet-format'
-# - script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln whitespace'
-#   displayName: 'Lint dotnet whitespace'
-# - script:  'dotnet-format ./src/build.sln --check -v diagnostic'
-#   displayName: 'Lint dotnet'
-# - script: 'dotnet format ./src/Build.sln analyzers'
-#   displayName: 'Lint dotnet analyzers'
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet format'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'update -g dotnet-format'
+- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln whitespace'
+  displayName: 'Lint dotnet whitespace'
+- script:  'dotnet-format ./src/build.sln --check -v diagnostic'
+  displayName: 'Lint dotnet'
+- script: 'dotnet format ./src/Build.sln analyzers'
+  displayName: 'Lint dotnet analyzers'
 - script: echo $(Build.BuildNumber)
   displayName: 'Show the build number'
 - task: DotNetCoreCLI@2
