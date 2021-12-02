@@ -1,14 +1,25 @@
-# Project
+![enter image description here](./docs/images/readme-logo.png)
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
 
-As the maintainer of this project, please make a few updates:
+## Overview
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
+
+## Pipelines
+
+Pipelines are used to build the *custom operation* and can be used to (i) modify information, (ii) acquire additional information to make decisions, and (iii) output information to our services.  The first two are performed through a chain of 0 or more *filters* where each filter in the chain performs some operation.  The latter is performed through *channels*, which simply output information 0 or more desired services. Input and output pipelines are connected through a binding, which either (i) calls the FHIR server and returns the response to the output pipeline (FhirServerBinding), or (ii) passes the output if the input pipeline as input to the output pipeline (CoupledPipelineBinding).
+
+## Pipeline
+
+![**Pipeline**](./docs/images/pipeline.png)
+
+## Pipeline Management
+
+![**Pipeline Management**](./docs/images/pipeline-mgmt.png)
+ 
+## Infrastructure Architecture
+The infrastructure makes use of Azure Application Gatway, Azure API Management (APIM), a private Virtual Network, and private endpoints.  We use APIM to route specific request to *custom operations* and all others route directly to the FHIR server.
+![enter image description here](./docs/images/HealthcareAPIInfastructure.png)
 
 ## Contributing
 

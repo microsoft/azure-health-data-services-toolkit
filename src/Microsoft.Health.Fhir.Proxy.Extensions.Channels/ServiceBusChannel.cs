@@ -1,0 +1,308 @@
+﻿using Azure.Messaging.ServiceBus;
+using Microsoft.Extensions.Logging;
+using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Storage;
+using Newtonsoft.Json;
+using System;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
+{
+    /// <summary>
+    /// Channel that sends or receives events to/from Service Bus.
+    /// </summary>
+    public class ServiceBusChannel : IChannel
+    {
+        /// <summary>
+        /// Creates an instance of Service Bus channel.
+        /// </summary>
+        /// <param name="config">Channel configuration.</param>
+        /// <param name="logger">Optional ILogger.</param>
+        public ServiceBusChannel(ServiceBusConfig config, ILogger logger = null)
+        {
+            this.config = config;
+            this.logger = logger;
+        }
+
+        private ChannelState state;
+        private readonly ILogger logger;
+        private readonly ServiceBusConfig config;
+        private StorageBlob storage;
+        private bool disposed;
+        private ServiceBusClient client;
+        private ServiceBusSender sender;
+        private ServiceBusProcessor processor;
+
+        /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the channel, i.e., "ServiceBusChannel".
+        /// </summary>
+        public string Name => "ServiceBusChannel";
+
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
+        public bool IsAuthenticated => false;
+
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
+        public bool IsEncrypted => true;
+
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
+        public int Port => 0;
+
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
+        public ChannelState State
+        {
+            get => state;
+            set
+            {
+                if (state != value)
+                {
+                    state = value;
+                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, state));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Event that signals the channel has closed.
+        /// </summary>
+        public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        /// <summary>
+        /// Event that signals the channel has errored.
+        /// </summary>
+        public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        /// <summary>
+        /// Event that signals the channel has opened.
+        /// </summary>
+        public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        /// <summary>
+        /// Event that signals the channel as received a message.
+        /// </summary>
+        public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        /// <summary>
+        /// Event that signals the channel state has changed.
+        /// </summary>
+        public event EventHandler<ChannelStateEventArgs> OnStateChange;
+
+        /// <summary>
+        /// Add a message to the channel which is surface by the OnReceive event.
+        /// </summary>
+        /// <param name="message">Message to add.</param>
+        /// <returns>Task</returns>
+        public async Task AddMessageAsync(byte[] message)
+        {
+            OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, message));
+            await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Opens the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        public async Task OpenAsync()
+        {
+            storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            client = new(config.ServiceBusConnectionString);
+            sender = client.CreateSender(config.ServiceBusTopic);
+
+            State = ChannelState.Open;
+            OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
+            logger?.LogInformation($"{Name}-{Id} opened.");
+            await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Sends a message to a Service Bus topic if size &lt; SKU constraint; otherwise uses blob storage.
+        /// </summary>
+        /// <param name="message">Message to send.</param>
+        /// <param name="items">Additional optional parameters, where required is the content type.</param>
+        /// <returns></returns>
+        public async Task SendAsync(byte[] message, params object[] items)
+        {
+            try
+            {
+                string typeName = "Value";
+
+                if ((config.ServiceBusSku != ServiceBusSkuType.Premium && message.Length > 0x3E800) || (config.ServiceBusSku == ServiceBusSkuType.Premium && message.Length > 0xF4240))
+                {
+                    typeName = "Reference";
+                }
+
+                string contentType = (string)items[0];
+                ServiceBusMessage data = null;
+
+                if (typeName == "Reference")
+                {
+                    string blob = await WriteBlobAsync(contentType, message);
+                    data = await GetBlobEventDataAsync(contentType, blob, typeName);
+                }
+                else
+                {
+                    data = await GetServiceBusEventDataAsync(contentType, typeName, message);
+                }
+
+                await sender.SendMessageAsync(data);
+            }
+            catch (Exception ex)
+            {
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
+                logger?.LogError(ex, $"{Name}-{Id} error attempting to send message.");
+            }
+        }
+
+        /// <summary>
+        /// Starts the recieve operation for the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        /// <remarks>Receive operation and subscription in Service Bus.</remarks>
+        public async Task ReceiveAsync()
+        {
+            try
+            {
+                ServiceBusProcessorOptions options = new()
+                {
+                    AutoCompleteMessages = true,
+                    ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete
+                };
+
+                processor = client.CreateProcessor(config.ServiceBusTopic, config.ServiceBusSubscription, options);
+                processor.ProcessErrorAsync += async (args) =>
+                {
+                    OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
+                    await Task.CompletedTask;
+                };
+
+                processor.ProcessMessageAsync += async (args) =>
+                {
+                    ServiceBusReceivedMessage msg = args.Message;
+
+                    if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
+                    {
+                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
+                    }
+                    else if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
+                    {
+                        var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
+                        var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
+                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
+                    }
+                    else
+                    {
+                        logger?.LogWarning($"{Name}-{Id} with topic {config.ServiceBusTopic} and subscription {config.ServiceBusSubscription} does not understand message.");
+                    }
+                };
+
+                await processor.StartProcessingAsync();
+            }
+            catch (Exception ex)
+            {
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
+                logger?.LogError(ex, $"{Name}-{Id} error receiving messages.");
+            }
+        }
+
+        /// <summary>
+        /// Closes the channel.
+        /// </summary>
+        /// <returns>Task</returns>
+        public async Task CloseAsync()
+        {
+            if (State != ChannelState.Closed)
+            {
+                State = ChannelState.Closed;
+                OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
+                logger?.LogInformation($"{Name}-{Id} channel closed.");
+            }
+
+            await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Disposes the channel.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected async void Dispose(bool disposing)
+        {
+            if (disposing && !disposed)
+            {
+                disposed = true;
+
+                try
+                {
+                    storage = null;
+
+                    if (sender != null)
+                    {
+                        await sender.DisposeAsync();
+                    }
+
+                    if (processor != null)
+                    {
+                        await processor.StopProcessingAsync();
+                        await processor.DisposeAsync();
+                    }
+
+                    if (client != null)
+                    {
+                        await client.DisposeAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"{Name}-{Id} fault disposing.");
+                }
+
+                CloseAsync().GetAwaiter();
+                logger?.LogInformation($"{Name}-{Id} disposed.");
+            }
+        }
+
+        private async Task<string> WriteBlobAsync(string contentType, byte[] message)
+        {
+            string guid = Guid.NewGuid().ToString();
+            string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, blob, contentType, message);
+            return blob;
+        }
+
+        private async Task<ServiceBusMessage> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
+        {
+            EventDataByReference byref = new(config.ServiceBusBlobContainer, blobName, contentType);
+            string json = JsonConvert.SerializeObject(byref);
+            ServiceBusMessage data = new(Encoding.UTF8.GetBytes(json));
+            data.ApplicationProperties.Add("PassedBy", typeName);
+            data.ContentType = contentType;
+            return await Task.FromResult<ServiceBusMessage>(data);
+        }
+
+        private static async Task<ServiceBusMessage> GetServiceBusEventDataAsync(string contentType, string typeName, byte[] message)
+        {
+            ServiceBusMessage data = new(message);
+            data.ApplicationProperties.Add("PassedBy", typeName);
+            data.ContentType = contentType;
+            return await Task.FromResult<ServiceBusMessage>(data);
+        }
+    }
+}
