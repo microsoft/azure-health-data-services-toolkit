@@ -1,4 +1,4 @@
-![enter image description here](docs/images/readme-logo.png)
+![enter image description here](https://github.com/microsoft/fhir-proxy-sdk/blob/ea97ca21d8473b04a60f823f2fbb9dba8d64f9ed/docs/images/Readme-logo.png)
 
 
 ## Overview
