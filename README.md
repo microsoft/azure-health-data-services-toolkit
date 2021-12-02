@@ -5,6 +5,11 @@
 
 The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
 
+## NuGet Packages
+- [Microsoft.Health.Fhir.Proxy](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy/)
+- [Microsoft.Health.Fhir.Proxy.Extensions.Channels](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Extensions.Channels/)
+- [Microsoft.Health.Fhir.Proxy.Storage](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Storage/)
+
 ## Pipelines
 
 Pipelines are used to build the *custom operation* and can be used to (i) modify information, (ii) acquire additional information to make decisions, and (iii) output information to our services.  The first two are performed through a chain of 0 or more *filters* where each filter in the chain performs some operation.  The latter is performed through *channels*, which simply output information 0 or more desired services. Input and output pipelines are connected through a binding, which either (i) calls the FHIR server and returns the response to the output pipeline (FhirServerBinding), or (ii) passes the output if the input pipeline as input to the output pipeline (CoupledPipelineBinding).
