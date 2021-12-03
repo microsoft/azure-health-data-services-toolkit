@@ -583,5 +583,5 @@ steps:
 - task: DeleteFiles@1
   inputs:
     SourceFolder: '$(Build.ArtifactStagingDirectory)/**/src/tests'
-    Contents: '*'
-    RemoveSourceFolder: true
+    Contents: '**/tests'
+    RemoveSourceFolder: false
