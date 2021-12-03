@@ -582,6 +582,6 @@ steps:
     publishLocation: 'Container'
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(Build.ArtifactStagingDirectory)/src/tests'
-    Contents: 
+    SourceFolder: '$(Build.ArtifactStagingDirectory)/**/src/tests'
+    Contents: '*'
     RemoveSourceFolder: true
