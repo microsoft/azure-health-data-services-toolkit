@@ -1,6 +1,8 @@
-trigger:
-- main
-
+trigger: 
+  branches:
+    include: 
+    - main
+    - malong/*
 pool:
   vmImage: windows-2022
 
