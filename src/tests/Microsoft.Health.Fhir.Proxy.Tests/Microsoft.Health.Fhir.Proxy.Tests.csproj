@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy.Caching\Microsoft.Health.Fhir.Proxy.Caching.csproj" />
     <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy.Extensions.Channels\Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj" />
     <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy.Storage\Microsoft.Health.Fhir.Proxy.Storage.csproj" />
     <ProjectReference Include="..\..\Microsoft.Health.Fhir.Proxy\Microsoft.Health.Fhir.Proxy.csproj" />
