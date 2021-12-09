@@ -1,9 +1,15 @@
-![enter image description here](./docs/images/readme-logo.png)
+![enter image description here](https://github.com/microsoft/fhir-proxy-sdk/blob/ea97ca21d8473b04a60f823f2fbb9dba8d64f9ed/docs/images/Readme-logo.png)
 
 
 ## Overview
 
 The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
+
+## NuGet Packages
+- [Microsoft.Health.Fhir.Proxy](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy/)
+- [Microsoft.Health.Fhir.Proxy.Extensions.Channels](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Extensions.Channels/)
+- [Microsoft.Health.Fhir.Proxy.Storage](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Storage/)
+- [Microsoft.Health.Fhir.Proxy.Caching](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Caching/)
 
 ## Pipelines
 
@@ -42,4 +48,3 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
-
