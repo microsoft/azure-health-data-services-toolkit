@@ -1,0 +1,383 @@
+trigger:
+  branches:
+    include:
+    - prereleases/*
+  paths:
+    exclude:
+    - azure-pipelines.yml
+    - prerelease-pipelines.yml
+pool:
+  vmImage: windows-2019
+
+variables:
+- group: microsoft-fhir-proxy-ci-vars
+- name: patch
+  value: '0'
+- name: packageversiontype
+  value: '-prerelease'
+- name: packageversion
+  value: '$(major).$(minor).$(patch)$(packageversiontype)'
+
+steps:
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    KeyVaultName: 'fhir-proxy-ci-vault'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+- task: AzureCLI@2
+  displayName: 'Set Environment Variables'
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+        Write-Host "##vso[task.setvariable variable=PROXY_TenantId]$(proxy-tenant-id)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ClientId]$(kv-client-id)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ClientSecret]$(kv-client-secret)"
+        Write-Host "##vso[task.setvariable variable=PROXY_FhirServerUrl]$(fhir-api-url)"
+        Write-Host "##vso[task.setvariable variable=PROXY_KeyVaultUri]$(proxy-key-vault-uri)"
+        Write-Host "##vso[task.setvariable variable=PROXY_KeyVaultCertificateName]$(proxy-key-vault-certificate-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_InstrumentationKey]$(proxy-instrumentation-key)"
+        Write-Host "##vso[task.setvariable variable=PROXY_LoggingLevel]$(proxy-log-level)"
+        Write-Host "##vso[task.setvariable variable=STORAGE_CONNECTIONSTRING]$(storage-connectionstring-test)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubBlobConnectionString]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubProcessorContainer]$(proxy-eventhub-processorcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubBlobContainer]$(proxy-eventhub-blobcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubSku]$(proxy-eventhub-sku)"
+        Write-Host "##vso[task.setvariable variable=PROXY_STORAGE_CONNECTIONSTRING]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubName]$(proxy-eventhub-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_EventHubConnectionString]$(proxy-eventhub-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusConnectionString]$(proxy-servicebus-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusTopic]$(proxy-servicebus-topic)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusSubscription]$(proxy-servicebus-subscription)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusSku]$(proxy-servicebus-sku)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobConnectionString]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_ServiceBusBlobContainer]$(proxy-servicebus-blobcontainer-name)"
+        Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelConnectionString]$(proxy-storage-connectionstring)"
+        Write-Host "##vso[task.setvariable variable=PROXY_BlobStorageChannelContainer]$(proxy-blobchannel-container-name)"
+- task: UseDotNet@2
+  displayName: 'Install dotnet 5.0.x agent tools dir'
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: UseDotNet@2
+  displayName: 'Install dotnet 3.1.x SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: UseDotNet@2
+  displayName: 'Install dotnet 2.1.x SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '2.1.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.8.x'
+    checkLatest: true
+- task: CredScan@3
+  inputs:
+    outputFormat: 'csv'
+    toolVersion: Latest
+    verboseOutput: true
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet format'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'update -g dotnet-format'
+- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln --check --verbosity diagnostic'
+  displayName: 'Lint dotnet'
+- script: echo $(Build.BuildNumber)
+  displayName: 'Show the build number'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: '**/src/**/*.csproj'
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- task: RoslynAnalyzers@2
+  inputs:
+    userProvideBuildInfo: 'msBuildInfo'
+    msBuildVersion: '16.0'
+    msBuildArchitecture: 'DotNetCore'
+    msBuildCommandline: '"C:\Program Files\dotnet\dotnet.exe" build $(Build.SourcesDirectory)\src\Build.sln'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/tests/**/*.csproj'
+  displayName: 'Run unit tests - $(buildConfiguration)'
+
+- task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.dll"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy\bin\Release\net5.0'
+    Pattern: '**/Microsoft.Health.Fhir.Proxy.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "signtool.exe",
+          "toolVersion": "6.2.9304.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Extensions.Channels\bin\Release\net5.0'
+    Pattern: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "signtool.exe",
+          "toolVersion": "6.2.9304.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  displayName: "Sign Microsoft.Health.Fhir.Proxy.Storage.dll"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.SourcesDirectory)\src\Microsoft.Health.Fhir.Proxy.Storage\bin\Release\net5.0'
+    Pattern: '**/Microsoft.Health.Fhir.Proxy.Storage.dll'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "signtool.exe",
+          "toolVersion": "6.2.9304.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy.Extensions.Channels"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack Microsoft.Health.Fhir.Proxy.Storage"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+
+- task: NuGetAuthenticate@0
+  displayName: 'NuGet Authenticate'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: packageversion
+    allowPackageConflicts: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop-prerelease'
+    publishLocation: 'Container'
+- task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy.Storage"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '/Microsoft.Health.Fhir.Proxy.Storage.$(packageversion).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: EsrpCodeSigning@1
+  displayName: "Signed Nuget Package Microsoft.Health.Fhir.Proxy.Extensions.Channels"
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '/Microsoft.Health.Fhir.Proxy.Extensions.Channels.$(packageversion).nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
+- task: AzureCLI@2
+  displayName: "Push prerelease Microsoft.Health.Fhir.Proxy"
+  inputs:
+    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg --api-key $(NugetApiKey) --source https://api.nuget.org/v3/index.json --skip-duplicate'

@@ -9,6 +9,7 @@ The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthca
 - [Microsoft.Health.Fhir.Proxy](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy/)
 - [Microsoft.Health.Fhir.Proxy.Extensions.Channels](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Extensions.Channels/)
 - [Microsoft.Health.Fhir.Proxy.Storage](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Storage/)
+- [Microsoft.Health.Fhir.Proxy.Caching](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Caching/)
 
 ## Pipelines
 

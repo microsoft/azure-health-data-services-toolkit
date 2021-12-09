@@ -1,7 +1,8 @@
 ###
 OneBranch Specific
 ###
-
+/src/tests
+*.yml
 
 #omit folder
 
