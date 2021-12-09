@@ -71,6 +71,7 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_EventGridBlobContainer]$(proxy-eventgrid-blobcontainer)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Message_Queue]$(eventgrid-message-queue)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Reference_Queue]$(eventgrid-reference-queue)"
+        Write-Host "##vso[task.setvariable variable=PROXY_CacheConnectionString]$(cicd-redis-cache-connectionstring)"
 
 - task: UseDotNet@2
   inputs:
