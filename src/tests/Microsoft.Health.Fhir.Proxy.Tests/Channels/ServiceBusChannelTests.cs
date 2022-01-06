@@ -165,10 +165,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 completed = true;
             };
 
-            await inputChannel.OpenAsync();
             await outputChannel.OpenAsync();
             await outputChannel.ReceiveAsync();
-            await Task.Delay(1000);
+            await inputChannel.OpenAsync();
+            await Task.Delay(2000);
             await inputChannel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
