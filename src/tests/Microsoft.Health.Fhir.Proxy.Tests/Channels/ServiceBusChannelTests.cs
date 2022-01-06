@@ -1,8 +1,10 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +22,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
         }
 
-        private static ServiceBusConfig settings;
+        private static ServiceBusConfig config;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -30,8 +32,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
-            settings = new ServiceBusConfig();
-            root.Bind(settings);
+            config = new ServiceBusConfig();
+            root.Bind(config);
 
             Console.WriteLine(context.TestName);
         }
@@ -39,8 +41,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestCleanup]
         public async Task CleanupTest()
         {
-            ServiceBusClient client = new(settings.ServiceBusConnectionString);
-            var receiver = client.CreateReceiver(settings.ServiceBusTopic, settings.ServiceBusSubscription);
+            ServiceBusClient client = new(config.ServiceBusConnectionString);
+            var receiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
             while (await receiver.PeekMessageAsync() != null)
             {
                 var msg = await receiver.ReceiveMessageAsync();
@@ -51,8 +53,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestInitialize]
         public async Task InitialTest()
         {
-            ServiceBusClient client = new(settings.ServiceBusConnectionString);
-            var receiver = client.CreateReceiver(settings.ServiceBusTopic, settings.ServiceBusSubscription);
+            ServiceBusClient client = new(config.ServiceBusConnectionString);
+            var receiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
             while (await receiver.PeekMessageAsync() != null)
             {
                 var msg = await receiver.ReceiveMessageAsync();
@@ -69,24 +71,44 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
             byte[] message = Encoding.UTF8.GetBytes(contentString);
 
-            ServiceBusChannel channel = new(settings);
-            channel.OnError += (a, args) =>
+            IOptions<ServiceBusSendOptions> options = Options.Create<ServiceBusSendOptions>(new ServiceBusSendOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Sku = config.ServiceBusSku,
+                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+                FallbackStorageContainer = config.ServiceBusBlobContainer,
+                Topic = config.ServiceBusTopic,
+            });
+
+            IOptions<ServiceBusReceiveOptions> roptions = Options.Create<ServiceBusReceiveOptions>(new ServiceBusReceiveOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Topic = config.ServiceBusTopic,
+                Subscription = config.ServiceBusSubscription,
+                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+            });
+
+            IChannel inputChannel = new ServiceBusChannel(options);
+            inputChannel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
+            IChannel outputChannel = new ServiceBusChannel(roptions);
+
             bool completed = false;
-            channel.OnReceive += (a, args) =>
+            outputChannel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
                 Assert.AreEqual(contentString, actual, "Content mismatch.");
                 completed = true;
             };
 
-            await channel.OpenAsync();
-            await channel.ReceiveAsync();
+            await inputChannel.OpenAsync();
+            await outputChannel.OpenAsync();
+            await outputChannel.ReceiveAsync();
             await Task.Delay(1000);
-            await channel.SendAsync(message, new object[] { contentType });
+            await inputChannel.SendAsync(message, new object[] { contentType });
             int i = 0;
             while (!completed && i < 10)
             {
@@ -94,27 +116,47 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 i++;
             }
 
-            channel.Dispose();
+            inputChannel.Dispose();
             Assert.IsTrue(completed);
         }
 
         [TestMethod]
         public async Task ServiceBusChannel_SendLargeMessage_Test()
         {
+            IOptions<ServiceBusSendOptions> options = Options.Create<ServiceBusSendOptions>(new ServiceBusSendOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Sku = config.ServiceBusSku,
+                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+                FallbackStorageContainer = config.ServiceBusBlobContainer,
+                Topic = config.ServiceBusTopic,
+            });
+
+            IOptions<ServiceBusReceiveOptions> roptions = Options.Create<ServiceBusReceiveOptions>(new ServiceBusReceiveOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Topic = config.ServiceBusTopic,
+                Subscription = config.ServiceBusSubscription,
+                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+            });
+
+
             LargeJsonMessage msg = new();
             msg.Load(10, 300000);
             string json = JsonConvert.SerializeObject(msg);
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            ServiceBusChannel channel = new(settings);
-            channel.OnError += (a, args) =>
+            IChannel inputChannel = new ServiceBusChannel(options);
+            inputChannel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
+            IChannel outputChannel = new ServiceBusChannel(roptions);
+
             bool completed = false;
-            channel.OnReceive += (a, args) =>
+            outputChannel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
                 LargeJsonMessage actualMsg = JsonConvert.DeserializeObject<LargeJsonMessage>(actual);
@@ -123,10 +165,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 completed = true;
             };
 
-            await channel.OpenAsync();
-            await channel.ReceiveAsync();
+            await inputChannel.OpenAsync();
+            await outputChannel.OpenAsync();
+            await outputChannel.ReceiveAsync();
             await Task.Delay(1000);
-            await channel.SendAsync(message, new object[] { contentType });
+            await inputChannel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
             while (!completed && i < 10)
@@ -135,7 +178,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 i++;
             }
 
-            channel.Dispose();
+            inputChannel.Dispose();
+            outputChannel.Dispose();
             Assert.IsTrue(completed);
 
         }
