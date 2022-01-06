@@ -142,7 +142,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             Assert.IsNotNull(options.Value.FallbackStorageContainer, "Container");
 
             LargeJsonMessage msg = new();
-            msg.Load(10, 300000);
+            msg.Load(10, 3000000);
             string json = JsonConvert.SerializeObject(msg);
 
             string contentType = "application/json";
