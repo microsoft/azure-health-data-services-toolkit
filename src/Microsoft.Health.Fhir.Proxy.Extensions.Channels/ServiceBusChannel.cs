@@ -141,7 +141,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            storage = new StorageBlob(storageConnectionString);
+            storage = new StorageBlob(storageConnectionString, null, 10, null, logger);
             client = new(connectionString);
             sender = client.CreateSender(topic);
 
@@ -215,6 +215,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 processor.ProcessMessageAsync += async (args) =>
                 {
                     ServiceBusReceivedMessage msg = args.Message;
+                    OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Inside the processor")));
 
                     if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
                     {
@@ -224,9 +225,6 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
                         var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
-
-                        //var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
-                        //OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result));
                     }
                     else
