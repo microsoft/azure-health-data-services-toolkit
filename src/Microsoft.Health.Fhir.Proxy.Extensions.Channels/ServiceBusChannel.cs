@@ -147,7 +147,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{Name}-{Id} opened.", Name, Id);
+            logger?.LogInformation("{0}-{1} opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -186,7 +186,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
+                logger?.LogError(ex, "{0}-{1} error attempting to send message.", Name, Id);
             }
         }
 
@@ -229,7 +229,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     }
                     else
                     {
-                        logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {subscription} does not understand message.", Name, Id, topic, subscription);
+                        logger?.LogWarning("{0}-{1} with topic {2} and subscription {3} does not understand message.", Name, Id, topic, subscription);
                     }
                 };
 
@@ -238,7 +238,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
+                logger?.LogError(ex, "{0}-{1} error receiving messages.", Name, Id);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
+                logger?.LogInformation("{0}-{1} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -295,11 +295,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "{Name}-{Id} fault disposing.", Name, Id);
+                    logger?.LogError(ex, "{0}-{1} fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{Name}-{Id} disposed.", Name, Id);
+                logger?.LogInformation("{0}-{1} disposed.", Name, Id);
             }
         }
 

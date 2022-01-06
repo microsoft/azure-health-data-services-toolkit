@@ -46,13 +46,13 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 {
                     if (attempt == maxRetries)
                     {
-                        logger?.LogWarning($"Retry max attempts {maxRetries} exceeded.");
+                        logger?.LogWarning("Retry max attempts {0} exceeded.", maxRetries);
                         logger?.LogError(ex, "Retry max attempts exceeded.");
                         throw;
                     }
                     else
                     {
-                        logger?.LogWarning($"Retry attempt {attempt + 1} with delay {delayMilliseconds}ms.");
+                        logger?.LogWarning("Retry attempt {0} with delay {1}ms.", attempt + 1, delayMilliseconds);
                         logger?.LogError(ex, "Retrying due to exception.");
                     }
 
@@ -92,13 +92,13 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 {
                     if (attempt == maxRetries)
                     {
-                        logger?.LogWarning($"Retry max attempts {maxRetries} exceeded.");
+                        logger?.LogWarning("Retry max attempts {0} exceeded.", maxRetries);
                         logger?.LogError(ex, "Retry max attempts exceeded.");
                         throw;
                     }
                     else
                     {
-                        logger?.LogWarning($"Retry attempt {attempt + 1} with delay {delayMilliseconds}ms.");
+                        logger?.LogWarning("Retry attempt {0} with delay {1}ms.", attempt + 1, delayMilliseconds);
                         logger?.LogError(ex, "Retrying due to exception.");
                     }
 

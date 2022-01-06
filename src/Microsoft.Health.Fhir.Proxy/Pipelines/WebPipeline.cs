@@ -102,19 +102,19 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
                 context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
                 HttpResponseMessage response = new(context.StatusCode);
                 response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
-                logger?.LogInformation("Pipeline {Name}-{Id} complete {}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
+                logger?.LogInformation("Pipeline {0}-{1} complete {}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline Completed", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
                 return response;
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, "Pipeline {Name}-{Id} error with fault response.", Name, Id);
+                logger?.LogError(ex, "Pipeline {0}-{1} error with fault response.", Name, Id);
                 telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline Fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
                 OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, ex));
             }
 
-            logger?.LogWarning("Pipeline {Name}-{Id} fault return 503 response.", Name, Id);
+            logger?.LogWarning("Pipeline {0}-{1} fault return 503 response.", Name, Id);
             return new HttpResponseMessage(HttpStatusCode.InternalServerError);
         }
 
@@ -154,25 +154,25 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
                     
                     if(channel.State == ChannelState.None)
                     {
-                        logger?.LogInformation("Pipeline {Name}-{Id} opening channel {ChannelName}-{ChannelId} first time.", Name, Id, channel.Name, channel.Id);
+                        logger?.LogInformation("Pipeline {0}-{1} opening channel {ChannelName}-{ChannelId} first time.", Name, Id, channel.Name, channel.Id);
                         await channel.OpenAsync();                        
                     }
                     
                     if(channel.State != ChannelState.Open)
                     {
-                        logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is not open, will try to close and open.", Name, Id, channel.Name, channel.Id);
+                        logger?.LogInformation("Pipeline {0}-{1} channel {ChannelName}-{ChannelId} is not open, will try to close and open.", Name, Id, channel.Name, channel.Id);
                         await channel.CloseAsync();
                         await channel.OpenAsync();
                     }
 
-                    logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is in state {State}.", Name, Id, channel.Name, channel.Id, channel.State);
+                    logger?.LogInformation("Pipeline {0}-{1} channel {ChannelName}-{ChannelId} is in state {State}.", Name, Id, channel.Name, channel.Id, channel.State);
 
                     await channel.SendAsync(context.Content);
-                    logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} sent message.", Name, Id, channel.Name, channel.Id);
+                    logger?.LogInformation("Pipeline {0}-{1} channel {ChannelName}-{ChannelId} sent message.", Name, Id, channel.Name, channel.Id);
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError(ex, "Pipeline {Name}-{Id} channel {Name}-{Id} error.", Name, Id, channel.Name, channel.Id);
+                    logger?.LogError(ex, "Pipeline {0}-{1} channel {2}-{3} error.", Name, Id, channel.Name, channel.Id);
                     if(faultOnChannelError)
                     {
                         context.IsFatal = true;
@@ -187,7 +187,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
 
         private void Binding_OnComplete(object sender, BindingCompleteEventArgs e)
         {
-            logger?.LogInformation("Pipeline {Name}-{Id} binding {BindingName}-{BindingId} completed.", Name, Id, e.Name, e.Id);
+            logger?.LogInformation("Pipeline {0}-{1} binding {BindingName}-{BindingId} completed.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline binding completed", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
         }
 
@@ -196,14 +196,14 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             context.IsFatal = true;
             context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {0}-{1} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline binding fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void OutputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {0}-{1} output channel {2}- {3} error.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline output channel fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
 
             if (faultOnChannelError)
@@ -217,7 +217,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
 
         private void InputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {0}-{1} input channel {2}- {3} error.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline input channel fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
 
             if (faultOnChannelError)
@@ -234,7 +234,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? System.Net.HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {0}-{1} output filter {2}-{3} error.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline output filter fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
@@ -244,7 +244,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? System.Net.HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {0}-{1} input filter {2}-{3} error.", Name, Id, e.Name, e.Id);
             telemetryClient?.TrackMetric(new MetricTelemetry("Pipeline input filter fault", TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds));
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }

@@ -117,7 +117,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
+                logger?.LogInformation("{0}-{1} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -131,7 +131,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         {
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
+            logger?.LogInformation("{0}-{1} channel opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -193,11 +193,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                         break;
                 }
 
-                logger?.LogInformation("{Name}-{Id} channel wrote blob.", Name, Id);
+                logger?.LogInformation("{0}-{1} channel wrote blob.", Name, Id);
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, "{Name}-{Id} channel error writing blob.", Name, Id);
+                logger?.LogError(ex, "{0}-{1} channel error writing blob.", Name, Id);
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
             }
         }
@@ -218,7 +218,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 disposed = true;
                 storage = null;
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
+                logger?.LogInformation("{0}-{1} channel disposed.", Name, Id);
             }
         }
     }

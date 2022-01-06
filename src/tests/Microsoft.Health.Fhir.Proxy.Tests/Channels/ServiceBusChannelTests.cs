@@ -122,7 +122,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             inputChannel.Dispose();
-            Assert.IsTrue(completed);
+            Assert.IsTrue(completed, "Did not complete.");
         }
 
         [TestMethod]
@@ -148,9 +148,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
             IChannel channel = new ServiceBusChannel(options);
+            Exception error = null;
             channel.OnError += (a, args) =>
             {
-                Assert.Fail($"Channel error {args.Error.Message}");
+                error = args.Error;
             };
 
             bool completed = false;
@@ -176,6 +177,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             channel.Dispose();
+            Assert.IsNull(error, "Error {0}-{1}", error.Message, error.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
         }
