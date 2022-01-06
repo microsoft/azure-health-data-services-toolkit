@@ -138,6 +138,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 Subscription = config.ServiceBusSubscription,
             });
 
+            Assert.IsNotNull(options.Value.Subscription, "Subscription");
+            Assert.IsNotNull(options.Value.FallbackStorageContainer, "Container");
 
             LargeJsonMessage msg = new();
             msg.Load(10, 300000);
