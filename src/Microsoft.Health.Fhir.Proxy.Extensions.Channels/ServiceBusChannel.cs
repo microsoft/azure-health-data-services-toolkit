@@ -223,13 +223,15 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     else if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
-                        var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
-                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
+                        var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
+
+                        //var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
+                        //OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
+                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result));
                     }
                     else
                     {
                         logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {subscription} does not understand message.", Name, Id, topic, subscription);
-                        throw new ServiceBusException("Service Bus large message not processed", ServiceBusFailureReason.GeneralError);
                     }
                 };
 
