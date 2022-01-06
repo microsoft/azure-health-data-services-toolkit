@@ -72,12 +72,6 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Message_Queue]$(eventgrid-message-queue)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Reference_Queue]$(eventgrid-reference-queue)"
         Write-Host "##vso[task.setvariable variable=PROXY_CacheConnectionString]$(cicd-redis-cache-connectionstring)"
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Smokejumper_Build (c80648b9-edf0-400f-bc0f-ba937fe9527f)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az upgrade'
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
