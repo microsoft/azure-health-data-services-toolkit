@@ -229,6 +229,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
                 logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
+                throw new ServiceBusException("Message failed not processed", ServiceBusFailureReason.GeneralError);
             }
         }
 
