@@ -219,6 +219,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     else
                     {
                         logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {subscription} does not understand message.", Name, Id, topic, subscription);
+                        throw new ServiceBusException("Message not processed", ServiceBusFailureReason.GeneralError);
                     }
                 };
 

@@ -96,7 +96,12 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             IChannel outputChannel = new ServiceBusChannel(roptions);
 
-            bool completed = false;
+            bool completed = false;            
+            outputChannel.OnError += (a, args) =>
+            {
+                Assert.Fail("{Message} - {Stack}", args.Error.Message, args.Error.StackTrace);
+            };
+
             outputChannel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
@@ -174,7 +179,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             int i = 0;
             while (!completed && i < 30)
             {
-                await Task.Delay(2000);
+                await Task.Delay(1000);
                 i++;
             }
 
