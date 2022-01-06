@@ -53,6 +53,20 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             return message;
         }
 
+        public static async Task<HttpResponseData> ConvertToHttpResponseDataAsync(this HttpResponseMessage message, HttpRequestData request)
+        {
+            HttpResponseData data = request.CreateResponse(message.StatusCode);
+            string content = await message.Content?.ReadAsStringAsync();
+            if(content != null)
+            {
+                data.Headers.Add("Content-Type", "application/json");
+                data.Headers.Add("Content-Length", content.Length.ToString());
+                await data.WriteStringAsync(content);
+            }
+
+            return data;
+        }
+
         /// <summary>
         /// Converts HttpResponseData to HttpResponseData.
         /// </summary>

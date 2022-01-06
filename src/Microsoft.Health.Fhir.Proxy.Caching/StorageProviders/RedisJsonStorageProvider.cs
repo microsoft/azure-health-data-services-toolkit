@@ -1,12 +1,25 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
 {
-    public class RedisJsonStorageProvider : IStorageProvider
+    public class RedisJsonStorageProvider : ICacheProvider
     {
+        public RedisJsonStorageProvider(IOptions<RedisCacheOptions> options)
+        {
+            host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services => services.AddStackExchangeRedisCache(op =>
+              {
+                  op.Configuration = options.Value.ConnectionString;
+                  op.InstanceName = options.Value.InstanceName ?? String.Empty;
+              }))
+              .Build();
+
+            redis = host.Services.GetRequiredService<IDistributedCache>();
+        }
         public RedisJsonStorageProvider(string connectionString, string? instanceName = null)
         {
             host = Host.CreateDefaultBuilder()

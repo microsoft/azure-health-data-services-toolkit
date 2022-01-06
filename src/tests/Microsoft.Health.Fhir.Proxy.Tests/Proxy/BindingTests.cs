@@ -1,10 +1,14 @@
-﻿using Microsoft.Health.Fhir.Proxy.Bindings;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
@@ -32,8 +36,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         [TestMethod]
         public void CoupledPipelineBinding_Properties_Test()
         {
-            string name = "CoupledPipelineBinding";
-            PipelineBinding binding = new CoupledPipelineBinding();
+            string name = "CoupledBinding";
+            IBinding binding = new CoupledBinding();
 
             Assert.AreEqual(name, binding.Name, "Binding name mismatch.");
             Assert.IsNotNull(binding.Id, "Expected not null Id");
@@ -44,7 +48,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         {
             OperationContext context = null;
             Exception error = null;
-            PipelineBinding binding = new CoupledPipelineBinding();
+            IBinding binding = new CoupledBinding();
             binding.OnError += (i, args) =>
             {
                 error = args.Error;
@@ -63,7 +67,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
                 Request = new HttpRequestMessage(HttpMethod.Get, uriString)
             };
 
-            PipelineBinding binding = new CoupledPipelineBinding();
+            IBinding binding = new CoupledBinding();
             string argId = null;
             string argBindingName = null;
             OperationContext argContext = null;
@@ -85,8 +89,20 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         [TestMethod]
         public void FhirPipelineBinding_Properties_Test()
         {
-            string name = "FhirPipelineBinding";
-            PipelineBinding binding = new FhirPipelineBinding();
+            string name = "FhirBinding";
+            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            {
+                FhirServerUrl = "",
+            });
+
+            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
+            {
+                CredentialType = ClientCredentialType.ManagedIdentity,
+            });
+
+            IAuthenticator authenticator = new Authenticator(soptions);
+
+            IBinding binding = new FhirBinding(options, authenticator);
 
             Assert.AreEqual(name, binding.Name, "Binding name mismatch.");
             Assert.IsNotNull(binding.Id, "Expected not null Id");
@@ -97,7 +113,19 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         {
             OperationContext context = null;
             Exception error = null;
-            PipelineBinding binding = new FhirPipelineBinding();
+            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            {
+                FhirServerUrl = "",
+            });
+
+            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
+            {
+                CredentialType = ClientCredentialType.ManagedIdentity,
+            });
+
+            IAuthenticator authenticator = new Authenticator(soptions);
+
+            IBinding binding = new FhirBinding(options, authenticator);
             binding.OnError += (i, args) =>
             {
                 error = args.Error;
@@ -119,7 +147,27 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
                 Request = request,
             };
 
-            PipelineBinding binding = new FhirPipelineBinding();
+            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            {
+                FhirServerUrl = uriString,
+            });
+
+            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
+            {
+                 CredentialType = ClientCredentialType.ManagedIdentity,
+            });
+
+            var authenticator = new Mock<IAuthenticator>();
+            authenticator.Setup(p => p.AquireTokenForClientAsync(It.IsAny<string>(), 
+                                                                It.IsAny<string[]>(), 
+                                                                It.IsAny<string>(), 
+                                                                It.IsAny<string>(), 
+                                                                It.IsAny<string>(), 
+                                                                CancellationToken.None)).Returns(Task.FromResult<string>("token"));
+
+
+
+            IBinding binding = new FhirBinding(options, authenticator.Object);
             string argId = null;
             string argBindingName = null;
             OperationContext argContext = null;

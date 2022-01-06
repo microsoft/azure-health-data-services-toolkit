@@ -1,9 +1,10 @@
 ﻿using Azure.Storage.Queues.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
@@ -68,7 +69,18 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestMethod]
         public async Task Send_SmallMessage_Test()
         {
-            IChannel channel = new EventGridChannel(config, null);
+            IOptions<EventGridSendOptions> options = Options.Create<EventGridSendOptions>(new EventGridSendOptions()
+            {
+                FallbackStorageConnectionString = config.EventGridBlobConnectionString,
+                FallbackStorageContainer = config.EventGridBlobContainer,
+                TopicUriString = config.EventGridTopicUriString,
+                AccessKey = config.EventGridTopicAccessKey,
+                DataVersion = config.EventGridDataVersion,
+                EventType = config.EventGridEventType,
+                Subject = config.EventGridSubject,
+            });
+
+            IChannel channel = new EventGridChannel(options, null);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.StackTrace}");
@@ -89,13 +101,24 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestMethod]
         public async Task Send_LargeMessage_Test()
         {
-            IChannel channel = new EventGridChannel(config, null);
+            IOptions<EventGridSendOptions> options = Options.Create<EventGridSendOptions>(new EventGridSendOptions()
+            {
+                FallbackStorageConnectionString = config.EventGridBlobConnectionString,
+                FallbackStorageContainer = config.EventGridBlobContainer,
+                TopicUriString = config.EventGridTopicUriString,
+                AccessKey = config.EventGridTopicAccessKey,
+                DataVersion = config.EventGridDataVersion,
+                EventType = config.EventGridEventType,
+                Subject = config.EventGridSubject,
+            });
+
+            IChannel channel = new EventGridChannel(options, null);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.StackTrace}");
             };
             await channel.OpenAsync();
-            Random ran = new Random();
+            Random ran = new();
             byte[] message = new byte[1500000];
             ran.NextBytes(message);
             string expected = Convert.ToBase64String(message);

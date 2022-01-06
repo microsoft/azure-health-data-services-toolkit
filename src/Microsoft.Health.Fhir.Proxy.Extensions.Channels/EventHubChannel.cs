@@ -3,8 +3,8 @@ using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System;
@@ -16,23 +16,37 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     /// <summary>
     /// Channel that sends events to an Azure Event Hub.
     /// </summary>
-    public class EventHubChannel : IChannel
+    public class EventHubChannel : IInputChannel, IOutputChannel
     {
-        /// <summary>
-        /// Creates an instance of EventHubChannel.
-        /// </summary>
-        /// <param name="config">Channel configuration.</param>
-        /// <param name="logger">Optional ILogger.</param>
-        public EventHubChannel(EventHubConfig config, ILogger logger = null)
+        public EventHubChannel(IOptions<EventHubSendOptions> options, ILogger logger = null)
         {
-            this.config = config;
+            sku = options.Value.Sku;
+            connectionString = options.Value.ConnectionString;
+            hubName = options.Value.HubName;
+            //processorContainer = options.Value.ProcessorContainer;
+            fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
+            fallbackContainer = options.Value.FallbackStorageContainer;
             this.logger = logger;
         }
 
+        public EventHubChannel(IOptions<EventHubReceiveOptions> options, ILogger logger = null)
+        {
+            connectionString = options.Value.ConnectionString;
+            hubName = options.Value.HubName;
+            processorContainer = options.Value.ProcessorStorageContainer;
+            fallbackStorageConnectionString = options.Value.StorageConnectionString;
+            this.logger = logger;
+        }
+        
         private ChannelState state;
+        private readonly EventHubSkuType sku;
+        private readonly string connectionString;
+        private readonly string hubName;
+        private readonly string processorContainer;
+        private readonly string fallbackStorageConnectionString;
+        private readonly string fallbackContainer;
         private EventHubProducerClient sender;
         private EventProcessorClient processor;
-        private readonly EventHubConfig config;
         private readonly ILogger logger;
         private StorageBlob storage;
         private bool disposed;
@@ -120,12 +134,12 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            sender = new EventHubProducerClient(config.EventHubConnectionString, config.EventHubName);
-            storage = new StorageBlob(config.EventHubBlobConnectionString);
+            sender = new EventHubProducerClient(connectionString, hubName);
+            storage = new StorageBlob(fallbackStorageConnectionString);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation($"{Name}-{Id} channel opened.");
+            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -139,7 +153,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation($"{Name}-{Id} channel closed.");
+                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -155,8 +169,8 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-                var storageClient = new BlobContainerClient(config.EventHubBlobConnectionString, config.EventHubProcessorContainer);
-                processor = new EventProcessorClient(storageClient, consumerGroup, config.EventHubConnectionString, config.EventHubName);
+                var storageClient = new BlobContainerClient(fallbackStorageConnectionString, processorContainer);
+                processor = new EventProcessorClient(storageClient, consumerGroup, connectionString, hubName);
 
                 processor.ProcessEventAsync += async (args) =>
                 {
@@ -178,7 +192,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 {
                     //log exception
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
-                    logger?.LogError(args.Exception, $"{Name}-{Id} event hub channel processor receive error.");
+                    logger?.LogError(args.Exception, "{Name}-{Id} event hub channel processor receive error.", Name, Id);
                     await Task.CompletedTask;
                 };
 
@@ -187,7 +201,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, $"{Name}-{Id} event hub channel error receiving messages.");
+                logger?.LogError(ex, "{Name}-{Id} event hub channel error receiving messages.", Name, Id);
             }
         }
 
@@ -203,7 +217,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 string typeName = "Value";
 
-                if ((config.EventHubSku == EventHubSkuType.Basic && message.Length > 0x3E800) || (config.EventHubSku != EventHubSkuType.Basic && message.Length > 0xF4240))
+                if ((sku == EventHubSkuType.Basic && message.Length > 0x3E800) || (sku != EventHubSkuType.Basic && message.Length > 0xF4240))
                 {
                     typeName = "Reference";
                 }
@@ -225,19 +239,19 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 if (eventBatch.TryAdd(data))
                 {
                     await sender.SendAsync(eventBatch);
-                    logger?.LogInformation($"{Name}-{Id} event hub channel message sent.");
+                    logger?.LogInformation("{Name}-{Id} event hub channel message sent.", Name, Id);
                 }
                 else
                 {
                     Exception ex = new("Event hub could not send message.");
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                    logger?.LogError(ex, $"{Name}-{Id} event hub error sending message.");
+                    logger?.LogError(ex, "{Name}-{Id} event hub error sending message.", Name, Id);
                 }
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, $"{Name}-{Id} event hub error attempting to send message.");
+                logger?.LogError(ex, "{Name}-{Id} event hub error attempting to send message.", Name, Id);
             }
         }
 
@@ -245,13 +259,13 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         {
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(config.EventHubBlobContainer, blob, contentType, message);
+            await storage.WriteBlockBlobAsync(fallbackContainer, blob, contentType, message);
             return blob;
         }
 
         private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
         {
-            EventDataByReference byref = new(config.EventHubBlobContainer, blobName, contentType);
+            EventDataByReference byref = new(fallbackContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             EventData data = new(Encoding.UTF8.GetBytes(json));
             data.Properties.Add("PassedBy", typeName);
@@ -298,11 +312,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, $"{Name}-{Id} event hub fault disposing.");
+                    logger.LogError(ex, "{Name}-{Id} event hub fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation($"{Name}-{Id} channel disposed.");
+                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
             }
         }
     }

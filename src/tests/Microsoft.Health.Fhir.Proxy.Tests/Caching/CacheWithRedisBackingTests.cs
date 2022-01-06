@@ -2,6 +2,7 @@
 using Microsoft.Health.Fhir.Proxy.Caching;
 using Microsoft.Health.Fhir.Proxy.Caching.StorageProviders;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
@@ -14,7 +15,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
     {
         private static StorageProviderConfig config;
         private static string connectionString;
-        private static double expiry = 1000.0;
+        private static readonly double expiry = 1000.0;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -38,7 +39,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
             TestJsonObject jsonObject = new(value1, value2);
             string key = "redistest1";
 
-            IStorageProvider provider = new RedisJsonStorageProvider(connectionString);
+            ICacheProvider provider = new RedisJsonStorageProvider(connectionString);
             TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
             await cache.SetAsync(key, jsonObject);
             TestJsonObject actual = await cache.GetAsync(key);
@@ -55,7 +56,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
             TestJsonObject jsonObject = new(value1, value2);
             string key = "redistest2";
 
-            IStorageProvider provider = new RedisJsonStorageProvider(connectionString);
+            ICacheProvider provider = new RedisJsonStorageProvider(connectionString);
             TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
             await cache.SetAsync(key, jsonObject);
             await Task.Delay(1300);
