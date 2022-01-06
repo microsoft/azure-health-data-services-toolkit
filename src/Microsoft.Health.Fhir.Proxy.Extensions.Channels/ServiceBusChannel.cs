@@ -15,6 +15,16 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     /// </summary>
     public class ServiceBusChannel : IInputChannel, IOutputChannel
     {
+        public ServiceBusChannel(IOptions<ServiceBusOptions> options, ILogger logger = null)
+        {
+            sku = options.Value.Sku;
+            connectionString = options.Value.ConnectionString;
+            storageConnectionString = options.Value.FallbackStorageConnectionString;
+            storageContainer = options.Value.FallbackStorageContainer;
+            topic = options.Value.Topic;
+            subscription = options.Value.Subscription;
+            this.logger = logger;
+        }
         public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger logger = null)
         {
             sku = options.Value.Sku;
@@ -219,7 +229,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     else
                     {
                         logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {subscription} does not understand message.", Name, Id, topic, subscription);
-                        throw new ServiceBusException("Message not processed", ServiceBusFailureReason.GeneralError);
+                        throw new ServiceBusException("Service Bus large message not processed", ServiceBusFailureReason.GeneralError);
                     }
                 };
 
@@ -229,7 +239,6 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
                 logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
-                throw new ServiceBusException("Message failed not processed", ServiceBusFailureReason.GeneralError);
             }
         }
 

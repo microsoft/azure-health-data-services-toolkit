@@ -128,21 +128,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestMethod]
         public async Task ServiceBusChannel_SendLargeMessage_Test()
         {
-            IOptions<ServiceBusSendOptions> options = Options.Create<ServiceBusSendOptions>(new ServiceBusSendOptions()
+            IOptions<ServiceBusOptions> options = Options.Create<ServiceBusOptions>(new ServiceBusOptions()
             {
                 ConnectionString = config.ServiceBusConnectionString,
                 Sku = config.ServiceBusSku,
                 FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
                 Topic = config.ServiceBusTopic,
-            });
-
-            IOptions<ServiceBusReceiveOptions> roptions = Options.Create<ServiceBusReceiveOptions>(new ServiceBusReceiveOptions()
-            {
-                ConnectionString = config.ServiceBusConnectionString,
-                Topic = config.ServiceBusTopic,
                 Subscription = config.ServiceBusSubscription,
-                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
             });
 
 
@@ -152,16 +145,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            IChannel inputChannel = new ServiceBusChannel(options);
-            inputChannel.OnError += (a, args) =>
+            IChannel channel = new ServiceBusChannel(options);
+            channel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
-            IChannel outputChannel = new ServiceBusChannel(roptions);
-
             bool completed = false;
-            outputChannel.OnReceive += (a, args) =>
+            channel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
                 LargeJsonMessage actualMsg = JsonConvert.DeserializeObject<LargeJsonMessage>(actual);
@@ -170,11 +161,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 completed = true;
             };
 
-            await outputChannel.OpenAsync();
-            await outputChannel.ReceiveAsync();
-            await inputChannel.OpenAsync();
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
             await Task.Delay(2000);
-            await inputChannel.SendAsync(message, new object[] { contentType });
+            await channel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
             while (!completed && i < 30)
@@ -183,8 +173,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 i++;
             }
 
-            inputChannel.Dispose();
-            outputChannel.Dispose();
+            channel.Dispose();
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
         }
