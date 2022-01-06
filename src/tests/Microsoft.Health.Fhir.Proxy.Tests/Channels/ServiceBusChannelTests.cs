@@ -172,15 +172,15 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             await inputChannel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
-            while (!completed && i < 10)
+            while (!completed && i < 30)
             {
-                await Task.Delay(1000);
+                await Task.Delay(2000);
                 i++;
             }
 
             inputChannel.Dispose();
             outputChannel.Dispose();
-            Assert.IsTrue(completed);
+            Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
         }
 
