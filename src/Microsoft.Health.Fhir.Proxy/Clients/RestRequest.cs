@@ -60,8 +60,8 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 }
 
                 HttpResponseMessage response = await client.SendAsync(message);
-                logger?.LogInformation($"Rest response returned status {response.StatusCode}.");
-                logger?.LogTrace($"Rest response returned with content-type {response.Content?.Headers.ContentType}.");
+                logger?.LogInformation("Rest response returned status {0}.", response.StatusCode);
+                logger?.LogTrace("Rest response returned with content-type {0}.", response.Content?.Headers.ContentType);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -69,113 +69,21 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
                 }
                 else
                 {
-                    logger?.LogWarning($"Rest response returned fault reason phrase {response.ReasonPhrase}.");
+                    logger?.LogWarning("Rest response returned fault reason phrase {0}.", response.ReasonPhrase);
                 }
 
                 return response;
             }
             catch (WebException wex)
             {
-                logger?.LogError(wex, $"Rest web request faulted '{wex.Status}'.");
+                logger?.LogError(wex, "Rest web request faulted '{0}'.", wex.Status);
                 throw;
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, $"Rest request faulted '{ex.Message}'.");
+                logger?.LogError(ex, "Rest request faulted '{0}'.", ex.Message);
                 throw;
             }
-
-
         }
-
-        ///// <summary>
-        ///// Sends and http request and returns a response.
-        ///// </summary>
-        ///// <returns>HttpResponseMessage</returns>
-        //public virtual async Task<HttpResponseMessage> SendAsync()
-        //{
-        //    _ = builder ?? throw new Exception("Builder not set");
-
-        //    try
-        //    {
-        //        logger?.LogTrace("Starting REST Send operation.");
-        //        HttpWebRequest request = builder.Build();
-        //        request.AuthenticationLevel = System.Net.Security.AuthenticationLevel.None;
-        //        logger?.LogTrace("REST request built.");
-
-        //        if (builder.Content != null)
-        //        {
-        //            using Stream stream = request.GetRequestStream();
-        //            await stream.WriteAsync(builder.Content.AsMemory(0, builder.Content.Length));
-        //            stream.Close();
-        //        }
-
-        //        using HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        //        logger?.LogTrace($"Rest response returned status {response.StatusCode}.");
-        //        logger?.LogTrace($"Rest response returned with content-type {response.ContentLength}.");
-
-        //        if (response.ContentLength == 0)
-        //        {
-        //            HttpResponseMessage resp = new(response.StatusCode);
-        //            if (!resp.IsSuccessStatusCode)
-        //            {
-        //                logger?.LogWarning($"Rest response returned fault reason phrase {response.StatusDescription}.");
-        //                resp.ReasonPhrase = response.StatusDescription;
-        //            }
-
-        //            logger?.LogInformation("Rest returning HTTP response.");
-        //            return resp;
-        //        }
-
-        //        byte[] buffer = new byte[blockSize];
-        //        byte[] msg = null;
-
-        //        logger?.LogTrace("REST response starting read.");
-        //        using (Stream stream = response.GetResponseStream())
-        //        {
-        //            using MemoryStream bufferStream = new();
-        //            int bytesRead;
-        //            do
-        //            {
-        //                bytesRead = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length));
-        //                if (bytesRead > 0)
-        //                {
-        //                    await bufferStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-        //                }
-        //            } while (bytesRead > 0);
-
-        //            logger?.LogTrace("REST response content read completed.");
-
-        //            if (bufferStream != null && bufferStream.Length > 0)
-        //            {
-        //                msg = bufferStream.ToArray();
-        //            }
-        //        }
-
-        //        HttpResponseMessage httpResponse = new(response.StatusCode);
-        //        if (!httpResponse.IsSuccessStatusCode)
-        //        {
-        //            logger?.LogWarning($"Rest response returned fault reason phrase {response.StatusDescription}.");
-        //            httpResponse.ReasonPhrase = response.StatusDescription;
-        //        }
-        //        else
-        //        {
-        //            httpResponse.Content = msg != null ? new ByteArrayContent(msg) : null;
-        //        }
-
-        //        logger?.LogInformation("Rest returning HTTP response.");
-        //        return httpResponse;
-        //    }
-        //    catch (WebException wex)
-        //    {
-        //        logger?.LogError(wex, $"Rest web request faulted '{wex.Status}'.");
-        //        throw;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger?.LogError(ex, $"Rest request faulted '{ex.Message}'.");
-        //        throw;
-        //    }
-        //}
     }
 }

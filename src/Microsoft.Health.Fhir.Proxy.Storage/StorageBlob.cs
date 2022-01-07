@@ -162,7 +162,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
             Response<bool> response = await containerClient.DeleteIfExistsAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91010, "StorageBlob.DeleteContainerIfExistsAsync"), "Container {containerName} deleted if exists.", containerName);
+            logger?.LogTrace(new EventId(91010, "StorageBlob.DeleteContainerIfExistsAsync"), "Container {0} deleted if exists.", containerName);
             return response.Value;
         }
 
@@ -176,7 +176,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
             Response<BlobContainerInfo> response = await containerClient.CreateIfNotExistsAsync(publicAccess);
-            logger?.LogTrace(new EventId(91020, "StorageBlob.CreateContainerIfNotExistsAsync"), "Container {containerName} created if exists.", containerName);
+            logger?.LogTrace(new EventId(91020, "StorageBlob.CreateContainerIfNotExistsAsync"), "Container {0} created if exists.", containerName);
             return response;
         }
 
@@ -191,7 +191,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         public AsyncPageable<BlobContainerItem> ListContainers(BlobContainerTraits traits = BlobContainerTraits.None, BlobContainerStates states = BlobContainerStates.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             AsyncPageable<BlobContainerItem> pages = blobService.GetBlobContainersAsync(traits, states, prefix, cancellationToken);
-            logger?.LogTrace(new EventId(91030, "StorageBlob.ListContainers"), $"List containers succeeded.");
+            logger?.LogTrace(new EventId(91030, "StorageBlob.ListContainers"), "List containers succeeded.");
             return pages;
         }
 
@@ -205,7 +205,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             containerClient = blobService.GetBlobContainerClient(containerName);
             Response<bool> response = await containerClient.ExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(91040, "StorageBlob.ContainerExistsAsync"), "Container {containerName} exists = {responseValue}.", containerName, response.Value);
+            logger?.LogTrace(new EventId(91040, "StorageBlob.ContainerExistsAsync"), "Container {0} exists = {1}.", containerName, response.Value);
             return response.Value;
         }
 
@@ -228,7 +228,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 list.Add(blobItem.Metadata);
             }
 
-            logger?.LogTrace(new EventId(91050, "StorageBlob.ListBlobMetadataInContainerAsync"), "Container {containerName} has {listCount} metadata listings.", containerName, list.Count);
+            logger?.LogTrace(new EventId(91050, "StorageBlob.ListBlobMetadataInContainerAsync"), "Container {0} has {1} metadata listings.", containerName, list.Count);
             return list.ToArray();
         }
 
@@ -261,7 +261,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 }
             }
 
-            logger?.LogTrace(new EventId(91060, "StorageBlob.ListBlobsAsync"), "Container {containerName} has {blobNamesCount} blobs.", containerName, blobNames.Count);
+            logger?.LogTrace(new EventId(91060, "StorageBlob.ListBlobsAsync"), "Container {0} has {1} blobs.", containerName, blobNames.Count);
             return blobNames;
         }
 
@@ -282,7 +282,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(91070, "StorageBlob.ReadBlockBlobAsync"), "Container {containerName} blob {blobName} read.", containerName, blobName);
+            logger?.LogTrace(new EventId(91070, "StorageBlob.ReadBlockBlobAsync"), "Container {0} blob {1} read.", containerName, blobName);
             return buffer;
         }
 
@@ -303,7 +303,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(91080, "StorageBlob.ReadAppendBlobAsync"), "Container {containerName} blob {blobName} read.", containerName, blobName);
+            logger?.LogTrace(new EventId(91080, "StorageBlob.ReadAppendBlobAsync"), "Container {0} blob {1} read.", containerName, blobName);
             return buffer;
         }
 
@@ -324,7 +324,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(91090, "StorageBlob.ReadPageBlobAsync"), "Container {containerName} blob {blobName} read.", containerName, blobName);
+            logger?.LogTrace(new EventId(91090, "StorageBlob.ReadPageBlobAsync"), "Container {0} blob {1} read.", containerName, blobName);
             return buffer;
         }
 
@@ -362,7 +362,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 await blockBlobClient.SetMetadataAsync(metadata, conditions, cancellationToken);
             }
 
-            logger?.LogTrace(new EventId(91100, "StorageBlob.WriteBlockBlobAsync"), "Container {containerName} blob {blobName} written.", containerName, blobName);
+            logger?.LogTrace(new EventId(91100, "StorageBlob.WriteBlockBlobAsync"), "Container {0} blob {1} written.", containerName, blobName);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[content.Length];
             await content.ReadAsync(buffer, cancellationToken);
             await WriteBlockBlobAsync(containerName, blobName, contentType, buffer, options, metadata, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91110, "StorageBlob.WriteBlockBlobAsync"), "Container {containerName} blob {blobName} written.", containerName, blobName);
+            logger?.LogTrace(new EventId(91110, "StorageBlob.WriteBlockBlobAsync"), "Container {0} blob {1} written.", containerName, blobName);
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 await appendBlobClient.SetMetadataAsync(metadata, conditions, cancellationToken);
             }
 
-            logger?.LogTrace(new EventId(91120, "StorageBlob.WriteAppendBlobAsync"), "Container {containerName} blob {blobName} written.", containerName, blobName);
+            logger?.LogTrace(new EventId(91120, "StorageBlob.WriteAppendBlobAsync"), "Container {0} blob {1} written.", containerName, blobName);
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[content.Length];
             await content.ReadAsync(buffer, cancellationToken);
             await WriteAppendBlobAsync(containerName, blobName, contentType, buffer, writeOptions, createOptions, metadata, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91130, "StorageBlob.WriteAppendBlobAsync"), "Container {containerName} blob {blobName} written.", containerName, blobName);
+            logger?.LogTrace(new EventId(91130, "StorageBlob.WriteAppendBlobAsync"), "Container {0} blob {1} written.", containerName, blobName);
         }
 
         #endregion
@@ -479,7 +479,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 await blobClient.SetMetadataAsync(metadata, conditions, cancellationToken);
             }
 
-            logger?.LogTrace(new EventId(91140, "StorageBlob.UploadBlobAsync"), "Container {containerName} blob {blobName} uploaded.", containerName, blobName);
+            logger?.LogTrace(new EventId(91140, "StorageBlob.UploadBlobAsync"), "Container {0} blob {1} uploaded.", containerName, blobName);
         }
 
         #endregion
@@ -499,7 +499,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlockBlobClient blockBlobClient = containerClient.GetBlockBlobClient(blobName);
 
             BlobDownloadResult result = await blockBlobClient.DownloadContentAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91150, "StorageBlob.DownloadBlockBlobAsync"), "Container {containerName} blob {blobName} downloaded.", containerName, blobName);
+            logger?.LogTrace(new EventId(91150, "StorageBlob.DownloadBlockBlobAsync"), "Container {0} blob {1} downloaded.", containerName, blobName);
             return result;
         }
 
@@ -517,7 +517,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             BlockBlobClient blockBlobClient = containerClient.GetBlockBlobClient(blobName);
             Response response = await blockBlobClient.DownloadToAsync(path, conditions, storageTransferOptions, cancellationToken);
-            logger?.LogTrace(new EventId(91160, "StorageBlob.DownloadBlockBlobToAsync"), "Container {containerName} blob {blobName} downloaded to {path}.", containerName, blobName, path);
+            logger?.LogTrace(new EventId(91160, "StorageBlob.DownloadBlockBlobToAsync"), "Container {0} blob {1} downloaded to {path}.", containerName, blobName, path);
             return response;
         }
 
@@ -535,7 +535,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             BlockBlobClient blockBlobClient = containerClient.GetBlockBlobClient(blobName);
             Response response = await blockBlobClient.DownloadToAsync(destination, conditions, storageTransferOptions, cancellationToken);
-            logger?.LogTrace(new EventId(91170, "StorageBlob.DownloadBlockBlobToAsync"), "Container {containerName} blob {blobName} downloaded to stream.", containerName, blobName);
+            logger?.LogTrace(new EventId(91170, "StorageBlob.DownloadBlockBlobToAsync"), "Container {0} blob {1} downloaded to stream.", containerName, blobName);
             return response;
         }
 
@@ -552,7 +552,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             AppendBlobClient appendBlobClient = containerClient.GetAppendBlobClient(blobName);
             Response<BlobDownloadResult> response = await appendBlobClient.DownloadContentAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91180, "StorageBlob.DownloadAppendBlobAsync"), "Container {containerName} blob {blobName} downloaded.", containerName, blobName);
+            logger?.LogTrace(new EventId(91180, "StorageBlob.DownloadAppendBlobAsync"), "Container {0} blob {1} downloaded.", containerName, blobName);
             return response.Value;
         }
 
@@ -570,7 +570,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             AppendBlobClient appendBlobClient = containerClient.GetAppendBlobClient(blobName);
             Response response = await appendBlobClient.DownloadToAsync(path, conditions, storageTransferOptions, cancellationToken);
-            logger?.LogTrace(new EventId(91190, "StorageBlob.DownloadAppendBlobToAsync"), "Container {containerName} blob {blobName} downloaded to {path}.", containerName, blobName, path);
+            logger?.LogTrace(new EventId(91190, "StorageBlob.DownloadAppendBlobToAsync"), "Container {0} blob {1} downloaded to {path}.", containerName, blobName, path);
             return response;
         }
 
@@ -588,7 +588,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             AppendBlobClient appendBlobClient = containerClient.GetAppendBlobClient(blobName);
             Response response = await appendBlobClient.DownloadToAsync(destination, conditions, storageTransferOptions, cancellationToken);
-            logger?.LogTrace(new EventId(91200, "StorageBlob.DownloadAppendBlobToAsync"), "Container {containerName} blob {blobName} downloaded to stream.", containerName, blobName);
+            logger?.LogTrace(new EventId(91200, "StorageBlob.DownloadAppendBlobToAsync"), "Container {0} blob {1} downloaded to stream.", containerName, blobName);
             return response;
         }
 
@@ -606,7 +606,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             BlobContainerClient containerClient = blobService.GetBlobContainerClient(containerName);
             Response<bool> response = await containerClient.DeleteBlobIfExistsAsync(blobName);
-            logger?.LogTrace(new EventId(91210, "StorageBlob.DeleteBlobAsync"), "Container {containerName} blob {blobName} deleted.", containerName, blobName);
+            logger?.LogTrace(new EventId(91210, "StorageBlob.DeleteBlobAsync"), "Container {0} blob {1} deleted.", containerName, blobName);
             return response.Value;
         }
 
@@ -627,7 +627,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
             BlobClient blobClient = containerClient.GetBlobClient(blobName);
             Response<BlobProperties> result = await blobClient.GetPropertiesAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(91220, "StorageBlob.GetBlobPropertiesAsync"), "Got properties client for container {containerName} and blob {blobName}.", containerName, blobName);
+            logger?.LogTrace(new EventId(91220, "StorageBlob.GetBlobPropertiesAsync"), "Got properties client for container {0} and blob {1}.", containerName, blobName);
             return result.Value;
         }
 
@@ -649,7 +649,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 throw ex;
             }
 
-            logger?.LogTrace(new EventId(91026, "StorageBlob.GetContainerClient"), "Got container client for container {containerName}.", containerName);
+            logger?.LogTrace(new EventId(91026, "StorageBlob.GetContainerClient"), "Got container client for container {0}.", containerName);
             return client;
         }
 
