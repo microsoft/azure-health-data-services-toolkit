@@ -112,7 +112,6 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             await inputChannel.OpenAsync();
             await outputChannel.OpenAsync();
             await outputChannel.ReceiveAsync();
-            await Task.Delay(1000);
             await inputChannel.SendAsync(message, new object[] { contentType });
             int i = 0;
             while (!completed && i < 10)
@@ -166,7 +165,6 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             await channel.OpenAsync();
             await channel.ReceiveAsync();
-            await Task.Delay(2000);
             await channel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
@@ -177,7 +175,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             channel.Dispose();
-            Assert.IsNull(error, "Error {0}-{1}", error.Message, error.StackTrace);
+            Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
         }

@@ -215,7 +215,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 processor.ProcessMessageAsync += async (args) =>
                 {
                     ServiceBusReceivedMessage msg = args.Message;
-                    OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Inside the processor")));
+                    //OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Inside the processor")));
 
                     if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
                     {
