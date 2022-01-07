@@ -8,11 +8,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
+using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Serilog;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +31,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         }
 
         private static ServiceBusConfig config;
+        private static string logPath = "../../servicebuslog.txt";
+        private static Microsoft.Extensions.Logging.ILogger logger;
+
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -38,8 +44,25 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             config = new ServiceBusConfig();
-            loggingConfig = new LoggingConfig();
             root.Bind(config);
+
+            var slog = new LoggerConfiguration()
+            .WriteTo.File(
+            logPath,
+            shared: true,
+            flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
+            .MinimumLevel.Debug()
+            .CreateLogger();
+
+            Microsoft.Extensions.Logging.ILoggerFactory factory = LoggerFactory.Create(log =>
+            {
+                log.SetMinimumLevel(LogLevel.Trace);
+                log.AddConsole();
+                log.AddSerilog(slog);
+            });
+
+            logger = factory.CreateLogger("test");
+            factory.Dispose();
 
             Console.WriteLine(context.TestName);
         }
@@ -188,6 +211,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             channel.Dispose();
+            StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "servicebus.txt", "text/plain", File.ReadAllBytes(logPath));
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
