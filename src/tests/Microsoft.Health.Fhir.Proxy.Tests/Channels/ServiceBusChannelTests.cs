@@ -1,7 +1,12 @@
 ﻿using Azure.Messaging.ServiceBus;
+using Castle.Core.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
@@ -33,6 +38,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
             config = new ServiceBusConfig();
+            loggingConfig = new LoggingConfig();
             root.Bind(config);
 
             Console.WriteLine(context.TestName);
@@ -146,7 +152,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            IChannel channel = new ServiceBusChannel(options);
+            IChannel channel = new ServiceBusChannel(options, logger);
             Exception error = null;
             channel.OnError += (a, args) =>
             {
@@ -156,11 +162,18 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             bool completed = false;
             channel.OnReceive += (a, args) =>
             {
-                string actual = Encoding.UTF8.GetString(args.Message);
-                LargeJsonMessage actualMsg = JsonConvert.DeserializeObject<LargeJsonMessage>(actual);
+                try
+                {
+                    string actual = Encoding.UTF8.GetString(args.Message);
+                    LargeJsonMessage actualMsg = JsonConvert.DeserializeObject<LargeJsonMessage>(actual);
 
-                Assert.AreEqual(msg.Fields[0].Value, actualMsg.Fields[0].Value, "Content mismatch.");
-                completed = true;
+                    Assert.AreEqual(msg.Fields[0].Value, actualMsg.Fields[0].Value, "Content mismatch.");
+                    completed = true;
+                }
+                catch (Exception ex)
+                {
+                    error = ex;
+                }
             };
 
             await channel.OpenAsync();

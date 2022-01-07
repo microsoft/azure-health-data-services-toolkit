@@ -215,22 +215,24 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 processor.ProcessMessageAsync += async (args) =>
                 {
                     ServiceBusReceivedMessage msg = args.Message;
+                    logger?.LogInformation("{0}-{1} message received.", Name, Id);
 
                     if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
                     {
+                        logger?.LogInformation("{0}-{1} processing subscription message.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
                     }
                     else if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
                         var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
+                        logger?.LogInformation("{0}-{1} processing large message from blob.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result));
                     }
                     else
                     {
-
-                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));
                         logger?.LogWarning("{0}-{1} with topic {2} and subscription {3} does not understand message.", Name, Id, topic, subscription);
+                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));                        
                     }
                 };
 
