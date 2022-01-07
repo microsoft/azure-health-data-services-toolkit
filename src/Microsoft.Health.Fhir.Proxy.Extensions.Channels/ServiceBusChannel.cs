@@ -209,8 +209,10 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 };
 
                 processor = client.CreateProcessor(topic, subscription, options);
+                logger?.LogInformation("{0}-{1} topic {2} subscription {3}.", Name, Id, topic, subscription);
                 processor.ProcessErrorAsync += async (args) =>
                 {
+                    logger?.LogInformation("{Name}-{Id} received error in processor.", Name, Id);
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
                     await Task.CompletedTask;
                 };
