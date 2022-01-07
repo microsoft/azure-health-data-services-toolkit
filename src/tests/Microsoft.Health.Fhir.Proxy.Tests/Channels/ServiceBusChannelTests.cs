@@ -123,7 +123,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
-            IChannel outputChannel = new ServiceBusChannel(roptions);
+            IChannel outputChannel = new ServiceBusChannel(roptions, logger);
 
             bool completed = false;            
             outputChannel.OnError += (a, args) =>
@@ -150,6 +150,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             inputChannel.Dispose();
+            outputChannel.Dispose();
+            string dest = "../../sendSmall.txt";
+            File.Copy(logPath, dest);
+            StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendsmall.txt", "text/plain", File.ReadAllBytes(dest));
             Assert.IsTrue(completed, "Did not complete.");
         }
 
@@ -212,10 +217,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             channel.Dispose();
             StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
-            logger = null;
-            string dest = logPath.Replace("servicebus", "bus");
+            string dest = "../../sendlarge.txt";
             File.Copy(logPath, dest);
-            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "servicebus.txt", "text/plain", File.ReadAllBytes(dest));
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendlarge.txt", "text/plain", File.ReadAllBytes(dest));
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
