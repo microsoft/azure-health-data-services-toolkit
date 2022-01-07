@@ -212,7 +212,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             channel.Dispose();
             StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
-            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "servicebus.txt", "text/plain", File.ReadAllBytes(logPath));
+            logger = null;
+            string dest = logPath.Replace("servicebus", "bus");
+            File.Copy(logPath, dest);
+            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "servicebus.txt", "text/plain", File.ReadAllBytes(dest));
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 

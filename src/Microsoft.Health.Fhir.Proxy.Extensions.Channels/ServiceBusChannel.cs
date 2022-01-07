@@ -17,6 +17,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     {
         public ServiceBusChannel(IOptions<ServiceBusOptions> options, ILogger logger = null)
         {
+            Id = Guid.NewGuid().ToString();
             sku = options.Value.Sku;
             connectionString = options.Value.ConnectionString;
             storageConnectionString = options.Value.FallbackStorageConnectionString;
@@ -27,6 +28,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         }
         public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger logger = null)
         {
+            Id = Guid.NewGuid().ToString();
             sku = options.Value.Sku;
             connectionString = options.Value.ConnectionString;
             storageConnectionString = options.Value.FallbackStorageConnectionString;
@@ -37,6 +39,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
         public ServiceBusChannel(IOptions<ServiceBusReceiveOptions> options, ILogger logger = null)
         {
+            Id = Guid.NewGuid().ToString();
             connectionString = options.Value.ConnectionString;
             storageConnectionString = options.Value.FallbackStorageConnectionString;
             topic = options.Value.Topic;
