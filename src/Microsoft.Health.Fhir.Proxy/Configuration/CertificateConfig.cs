@@ -1,50 +1,38 @@
 ﻿using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
-    public class ServiceOptions
+    [Serializable]
+    [JsonObject]
+    public class CertificateConfig
     {
         private X509Certificate2 certificate;
 
-        public string ClientId { get; set; }
-
-
-        public string ClientSecret { get; set; }
-
-
-        public string KeyVaultUri { get; set; }
-
-        public string KeyVaultCertificateName { get; set; }
-
-        public bool SystemManagedIdentity
-        {
-            get { return string.IsNullOrEmpty(ClientId) && string.IsNullOrEmpty(KeyVaultCertificateName); }
-        }
-
+        [JsonProperty("tenantId")]
         public string TenantId { get; set; }
 
+        [JsonProperty("clientId")]
+        public string ClientId { get; set; }
 
-        public string FhirServerUrl { get; set; }
+        [JsonProperty("clientSecret")]
+        public string ClientSecret { get; set; }
 
-        public string InstrumentationKey { get; set; }
+        [JsonProperty("keyVaultUri")]
+        public string KeyVaultUri { get; set; }
 
-        public LogLevel LoggingLevel { get; set; }
+        [JsonProperty("keyVaultCertificateName")]
+        public string KeyVaultCertificateName { get; set; }
 
         public X509Certificate2 Certficate
         {
             get
             {
-                if (!string.IsNullOrEmpty(KeyVaultCertificateName)
-                        && !string.IsNullOrEmpty(KeyVaultUri)
-                        && certificate == null
-                        && !string.IsNullOrEmpty(TenantId)
-                        && !string.IsNullOrEmpty(ClientId)
-                        && !string.IsNullOrEmpty(ClientSecret))
+                if(certificate == null)
                 {
                     ClientSecretCredential cred = new(TenantId, ClientId, ClientSecret);
                     CertificateClient client = new(new Uri(KeyVaultUri), cred);
