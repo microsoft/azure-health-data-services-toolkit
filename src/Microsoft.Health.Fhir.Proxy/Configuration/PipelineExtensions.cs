@@ -1,7 +1,9 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Filters;
@@ -17,29 +19,30 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         {
             services.AddLogging(builder =>
             {
-                builder.AddApplicationInsights(instrumentationKey, options =>
-                {
-                    options.FlushOnDispose = true;
-                    options.IncludeScopes = true;
-                });
-                builder.AddFilter("", logLevel);
+                builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
+                builder.AddApplicationInsights(instrumentationKey);
             });
 
             return services;
         }
 
-        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)
+        public static IServiceCollection UseTelemetry(this IServiceCollection services, string appInsightsConnectionString)
         {
-            TelemetryConfiguration config = new(instrumentationKey);
-            services.AddSingleton<TelemetryClient>(new TelemetryClient(config));
+
+            services.Configure<TelemetryConfiguration>(options =>
+            {
+                options.ConnectionString = appInsightsConnectionString;
+            });
+            services.AddScoped<TelemetryClient>();
 
             return services;
+            
         }
 
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
-            services.AddSingleton<IAuthenticator, Authenticator>();
-            services.ConfigureOptions(options);
+            services.AddScoped<IAuthenticator, Authenticator>();
+            services.Configure(options);
 
             return services;
         }
@@ -50,8 +53,8 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<IOutputFilterCollection, OutputFilterCollection>();
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
-            services.AddScoped(typeof(AzureFunctionPipeline));
-            services.ConfigureOptions(options);
+            services.AddScoped<IPipeline<HttpRequestData, HttpResponseData>, AzureFunctionPipeline>();
+            services.Configure(options);
             return services;
         }
 
@@ -62,7 +65,8 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
             services.AddScoped(typeof(WebPipeline));
-            services.ConfigureOptions(options);
+            //services.ConfigureOptions(options);
+            services.Configure(options);
             return services;
         }
 
@@ -94,14 +98,14 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
 
         public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
-            services.Add(new ServiceDescriptor(typeof(IInputChannel), type, ServiceLifetime.Singleton));
+            services.Add(new ServiceDescriptor(typeof(IInputChannel), type, ServiceLifetime.Scoped));
             services.Configure(options);
             return services;
         }
 
         public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
-            services.Add(new ServiceDescriptor(typeof(IOutputChannel), type, ServiceLifetime.Singleton));
+            services.Add(new ServiceDescriptor(typeof(IOutputChannel), type, ServiceLifetime.Scoped));
             services.Configure(options);
             return services;
         }

@@ -11,12 +11,26 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
+    /// <summary>
+    /// A custom operation pipeline for an azure function.
+    /// </summary>
     public class AzureFunctionPipeline : IPipeline<HttpRequestData, HttpResponseData>
     {
-        public AzureFunctionPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient client = null, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of AzureFunctionPipeline
+        /// </summary>
+        /// <param name="options">Pipeline options.</param>
+        /// <param name="inputFilters">Optional collection of input filters.</param>
+        /// <param name="inputChannels">Optional cCollection of input channels.</param>
+        /// <param name="binding">Optional binding. </param>
+        /// <param name="outputFilters">Optional collection of output filters.</param>
+        /// <param name="outputChannels">Optional collection of output channels.</param>
+        /// <param name="telemetryClient">Optional application insights telemetry client.</param>
+        /// <param name="logger">Optional ILogger.</param>
+        public AzureFunctionPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
         {
             id = Guid.NewGuid().ToString();
-            pipeline = new WebPipeline(Name, id, options, inputFilters, inputChannels, binding, outputFilters,  outputChannels, client, logger);
+            pipeline = new WebPipeline(Name, id, options, inputFilters, inputChannels, binding, outputFilters,  outputChannels, telemetryClient, logger);
             pipeline.OnComplete += Pipeline_OnComplete;
             pipeline.OnError += Pipeline_OnError;
         }
@@ -24,13 +38,31 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         private readonly WebPipeline pipeline;
         private readonly string id;
 
+        /// <summary>
+        /// Signals an event that an error occurred in the pipeline.
+        /// </summary>
         public event EventHandler<PipelineErrorEventArgs> OnError;
+
+        /// <summary>
+        /// Signals an event when the pipeline completes.
+        /// </summary>
         public event EventHandler<PipelineCompleteEventArgs> OnComplete;
 
+        /// <summary>
+        /// Gets the name of the pipeline.
+        /// </summary>
         public string Name { get => "AzureFunctionPipeline"; }
 
+        /// <summary>
+        /// Gets the unique ID of the pipeline instance.
+        /// </summary>
         public string Id { get => id; }
 
+        /// <summary>
+        /// Executes the pipeline and returns a response for the caller.
+        /// </summary>
+        /// <param name="request">Iniitial request from the Azure Function.</param>
+        /// <returns>Response for an Azure Function.</returns>
         public async Task<HttpResponseData> ExecuteAsync(HttpRequestData request)
         {
             HttpRequestMessage message = request.ConvertToHttpRequestMesssage();

@@ -12,15 +12,29 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
+    /// <summary>
+    /// A custom operation pipeline for a ASPNET Web API.
+    /// </summary>
     public class WebPipeline : IPipeline<HttpRequestMessage, HttpResponseMessage>
     {
-        public WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of WebPipeline.
+        /// </summary>
+        /// <param name="options">Pipeline options.</param>
+        /// <param name="inputFilters">Optional collection of input filters.</param>
+        /// <param name="inputChannels">Optional cCollection of input channels.</param>
+        /// <param name="binding">Optional binding. </param>
+        /// <param name="outputFilters">Optional collection of output filters.</param>
+        /// <param name="outputChannels">Optional collection of output channels.</param>
+        /// <param name="telemetryClient">Optional application insights telemetry client.</param>
+        /// <param name="logger">Optional ILogger.</param>
+        public WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
             : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)    
         {
             
         }
 
-        internal WebPipeline(string name, string id, IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null,  IOutputChannelCollection outputChannels = null,  TelemetryClient telemetryClient = null, ILogger logger = null)
+        internal WebPipeline(string name, string id, IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null,  IOutputChannelCollection outputChannels = null,  TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
         {
             this.name = name;
             this.id = id;
@@ -74,14 +88,32 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         private readonly TelemetryClient telemetryClient;
         private readonly ILogger logger;
         private long startTicks;
+
+        /// <summary>
+        /// Gets the name of the pipeline.
+        /// </summary>
         public string Name => name;
 
+        /// <summary>
+        /// Gets the unique ID of the pipeline instance.
+        /// </summary>
         public string Id => id;
 
+        /// <summary>
+        /// Signals an event that an error occurred in the pipeline.
+        /// </summary>
         public event EventHandler<PipelineErrorEventArgs> OnError;
 
+        /// <summary>
+        /// Signals an event when the pipeline completes.
+        /// </summary>
         public event EventHandler<PipelineCompleteEventArgs> OnComplete;
 
+        /// <summary>
+        /// Executes the pipeline and returns a response for the caller.
+        /// </summary>
+        /// <param name="request">Iniitial request from the Web service.</param>
+        /// <returns>Response for Web service.</returns>
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request)
         {
             startTicks = DateTime.Now.Ticks;

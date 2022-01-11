@@ -53,6 +53,12 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             return message;
         }
 
+        /// <summary>
+        /// Uses a combination of an HttpResponeMessage and HttpRequestData to conver to HttpResponseData.
+        /// </summary>
+        /// <param name="message">HttpRequestMessage that is extended.</param>
+        /// <param name="request">HttpRequestData to use in the conversion.</param>
+        /// <returns>HttpResponseData</returns>
         public static async Task<HttpResponseData> ConvertToHttpResponseDataAsync(this HttpResponseMessage message, HttpRequestData request)
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);

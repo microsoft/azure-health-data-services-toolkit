@@ -2,6 +2,9 @@
 
 namespace Microsoft.Health.Fhir.Proxy.Security
 {
+    /// <summary>
+    /// Service identity options for acquiring access tokens.
+    /// </summary>
     public class ServiceIdentityOptions
     {
         /// <summary>
@@ -22,6 +25,9 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         /// </summary>
         public X509Certificate2 Certficate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of client credential.
+        /// </summary>
         public ClientCredentialType CredentialType { get; set; }
 
         /// <summary>

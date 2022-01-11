@@ -14,7 +14,7 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         /// Creates an instance of the CoupledPipelineBinding.
         /// </summary>
         /// <param name="logger"></param>
-        public CoupledBinding(ILogger logger = null)
+        public CoupledBinding(ILogger<CoupledBinding> logger = null)
         {
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
