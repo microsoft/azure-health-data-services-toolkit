@@ -80,10 +80,11 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             this.logger = logger;
         }
 
+       
         /// <summary>
         /// Gets a list of tables from table storage.
         /// </summary>
-        /// <returns>IEnumerable<CloudTable></returns>
+        /// <returns>Enumerable CloudTable</returns>
         public IEnumerable<CloudTable> ListTables()
         {
             IEnumerable<CloudTable> tables = tableClient.ListTables();
@@ -257,7 +258,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         /// <param name="tableName">Name of table.</param>
         /// <param name="partitionKey">A string containing the partition key of the entity to retrieve.</param>
         /// <param name="rowKey">A string containing the row key of the entity to retrieve.</param>
-        /// <param name="resolver">The EntityResolver<T> implementation to project the entity to retrieve as a particular type in the result.</param>
+        /// <param name="resolver">The EntityResolver implementation to project the entity to retrieve as a particular type in the result.</param>
         /// <param name="columns">Optional list of column names for projection.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>TableResult</returns>
@@ -271,17 +272,17 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             return result;
         }
 
+
         /// <summary>
         /// Queries entities from a table based on an equal operation where either/or partition key or row key is matched.
         /// </summary>
-        /// <typeparam name="T">The class of type for the entity to retrieve.</typeparam>
+        /// <typeparam name="T">The type of entity to retrieve.</typeparam>
         /// <param name="tableName">Name of table.</param>
-        /// <param name="partitionKey">Optional string containing the partition key of the entity(s) to query.</param>
-        /// <param name="rowKey">Optional string containing the row key of the entity(s) to query.</param>
-        /// <param name="token">Optional TableContinuationToken object representing a continuation token from the server when the operation returns a partial result.</param>
-        /// <param name="cancellationToken">Optional cancellation token.</param>
-        /// <returns>TableQuerySegment&lt;T&&gt;</returns>
-        /// <remarks>One or both partitionKey and rowKey used by used.</remarks>
+        /// <param name="partitionKey">Optional string containing the partition key.</param>
+        /// <param name="rowKey">Optional string containing the row key.</param>
+        /// <param name="token">Optional TableContinuationToken used when the operation returns a partial result.</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
+        /// <returns>TableQuerySegment</returns>
         public async Task<TableQuerySegment<T>> QueryTableAsync<T>(string tableName, string partitionKey = null, string rowKey = null, TableContinuationToken token = null, CancellationToken cancellationToken = default)
             where T : ITableEntity, new()
         {

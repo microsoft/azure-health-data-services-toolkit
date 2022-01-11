@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Bindings
 {
+    /// <summary>
+    /// Interface to be implemented by a Binding.
+    /// </summary>
     public interface IBinding
     {
         // <summary>

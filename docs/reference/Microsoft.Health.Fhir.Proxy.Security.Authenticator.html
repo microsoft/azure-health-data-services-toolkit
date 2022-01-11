@@ -83,7 +83,7 @@
   
   <h1 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator" class="text-break">Class Authenticator
   </h1>
-  <div class="markdown level0 summary"><p>Authenticator class for Azure Active Directory.</p>
+  <div class="markdown level0 summary"><p>Authenticator class for acquiring access tokens from Azure Active Directory.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -91,50 +91,117 @@
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">Authenticator</span></div>
   </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Security.IAuthenticator.html">IAuthenticator</a></div>
+  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Security.html">Microsoft.Health.Fhir.Proxy.Security</a></h6>
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.dll</h6>
   <h5 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Authenticator</code></pre>
+    <pre><code class="lang-csharp hljs">public class Authenticator : IAuthenticator</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=22">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/refactor&amp;line=21">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator__ctor_System_String_Microsoft_Health_Fhir_Proxy_Configuration_ServiceConfig_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.#ctor(System.String,Microsoft.Health.Fhir.Proxy.Configuration.ServiceConfig)">Authenticator(String, ServiceConfig)</h4>
-  <div class="markdown level1 summary"><p>Creates an instance of authenticator.</p>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Security_ServiceIdentityOptions__" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Security.ServiceIdentityOptions})">Authenticator(IOptions&lt;ServiceIdentityOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of Authenticator.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Authenticator(string resource, ServiceConfig config)</code></pre>
+    <pre><code class="lang-csharp hljs">public Authenticator(IOptions&lt;ServiceIdentityOptions&gt; options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Security.ServiceIdentityOptions.html">ServiceIdentityOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>ServiceIdentity options used by the authenticator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/refactor&amp;line=31">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_RequiresOnBehalfOf_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.RequiresOnBehalfOf*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_RequiresOnBehalfOf" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.RequiresOnBehalfOf">RequiresOnBehalfOf</h4>
+  <div class="markdown level1 summary"><p>Gets a indication whether OBO is required for access token acquisition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RequiresOnBehalfOf { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/refactor&amp;line=47">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AquireTokenForClientAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AquireTokenForClientAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AquireTokenForClientAsync_System_String_Azure_Core_TokenCredential_System_String___System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AquireTokenForClientAsync(System.String,Azure.Core.TokenCredential,System.String[],System.String,System.String,System.String,System.Threading.CancellationToken)">AquireTokenForClientAsync(String, TokenCredential, String[], String, String, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an access token via OAuth from Azure Active Directory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; AquireTokenForClientAsync(string resource, TokenCredential credential, string[] scopes = null, string parentRequestId = null, string claims = null, string tenantId = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -149,186 +216,43 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">resource</span></td>
-        <td></td>
+        <td><p>The resource to access.</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Configuration.ServiceConfig.html">ServiceConfig</a></td>
-        <td><span class="parametername">config</span></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/azure.core.tokencredential">TokenCredential</a></td>
+        <td><span class="parametername">credential</span></td>
+        <td><p>Represents a credential capable of providing an OAuth token.</p>
+</td>
       </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=54">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_Certificate_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.Certificate*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_Certificate" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.Certificate">Certificate</h4>
-  <div class="markdown level1 summary"><p>Gets X509 certificate.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public X509Certificate2 Certificate { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.x509certificate2">X509Certificate2</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=34">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_ClientId_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.ClientId*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_ClientId" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.ClientId">ClientId</h4>
-  <div class="markdown level1 summary"><p>Gets the client_id.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string ClientId { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=39">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_ClientSecret_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.ClientSecret*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_ClientSecret" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.ClientSecret">ClientSecret</h4>
-  <div class="markdown level1 summary"><p>Gets the client_secret.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string ClientSecret { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=49">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_Resource_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.Resource*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_Resource" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.Resource">Resource</h4>
-  <div class="markdown level1 summary"><p>Gets the resource.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Resource { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=44">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_TenantId_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.TenantId*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_TenantId" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.TenantId">TenantId</h4>
-  <div class="markdown level1 summary"><p>Gets the tenant_id</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string TenantId { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=61">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AcquireTokenForClientAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AcquireTokenForClientAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AcquireTokenForClientAsync_System_String___" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AcquireTokenForClientAsync(System.String[])">AcquireTokenForClientAsync(String[])</h4>
-  <div class="markdown level1 summary"><p>Acquires access token for client.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; AcquireTokenForClientAsync(string[] scopes = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
         <td><span class="parametername">scopes</span></td>
-        <td><p>Optional scopes.  The default is resource/.default</p>
+        <td><p>Scopes required for the token.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">parentRequestId</span></td>
+        <td><p>The ClientRequestId of the request requiring a token for authentication, if applicable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">claims</span></td>
+        <td><p>Additional claims to be included in the token. See <a href="https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter">https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter</a> for more information on format and content.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tenantId</span></td>
+        <td><p>The tenantId to be included in the token request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>CancellationToken</p>
 </td>
       </tr>
     </tbody>
@@ -344,21 +268,23 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td></td>
+        <td><p>Access token.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=82">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/refactor&amp;line=73">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AcquireTokenOnBehalfOfAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AcquireTokenOnBehalfOfAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AcquireTokenOnBehalfOfAsync_System_String_System_String___" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AcquireTokenOnBehalfOfAsync(System.String,System.String[])">AcquireTokenOnBehalfOfAsync(String, String[])</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AquireTokenForClientAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AquireTokenForClientAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Security_Authenticator_AquireTokenForClientAsync_System_String_System_String___System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="Microsoft.Health.Fhir.Proxy.Security.Authenticator.AquireTokenForClientAsync(System.String,System.String[],System.String,System.String,System.String,System.Threading.CancellationToken)">AquireTokenForClientAsync(String, String[], String, String, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an access token via OAuth from Azure Active Directory.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; AcquireTokenOnBehalfOfAsync(string bearerToken, string[] scopes = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; AquireTokenForClientAsync(string resource, string[] scopes = null, string parentRequestId = null, string claims = null, string userAssertion = null, CancellationToken cancellationToken = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -372,13 +298,39 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">bearerToken</span></td>
-        <td></td>
+        <td><span class="parametername">resource</span></td>
+        <td><p>Resource requesting access.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
         <td><span class="parametername">scopes</span></td>
-        <td></td>
+        <td><p>Scopes required for the token</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">parentRequestId</span></td>
+        <td><p>The ClientRequestId of the request requiring a token for authentication, if applicable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">claims</span></td>
+        <td><p>Additional claims to be included in the token. See <a href="https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter">https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter</a> for more information on format and content.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">userAssertion</span></td>
+        <td><p>Access token required when using OnBehalfOf.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>Cancellation token.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -393,10 +345,30 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>Access token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Security.IAuthenticator.html">IAuthenticator</a>
+  </div>
 </article>
           </div>
           
@@ -405,7 +377,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/1042&amp;line=15" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Security/Authenticator.cs&amp;version=GBmalong/refactor&amp;line=15" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

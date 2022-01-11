@@ -21,7 +21,7 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         /// <param name="options"></param>
         /// <param name="authenticator"></param>
         /// <param name="logger"></param>
-        public FhirBinding(IOptions<FhirBindingOptions> options, IAuthenticator authenticator, ILogger logger = null)
+        public FhirBinding(IOptions<FhirBindingOptions> options, IAuthenticator authenticator, ILogger<FhirBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;

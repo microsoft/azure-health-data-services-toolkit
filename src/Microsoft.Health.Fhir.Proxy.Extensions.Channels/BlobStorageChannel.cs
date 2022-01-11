@@ -147,20 +147,21 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         }
 
         /// <summary>
-        /// Send a message to the channel, i.e., uploads a blob.
+        /// Send a message to the channel and uploads a blob.
         /// </summary>
         /// <param name="message">Message to send.</param>
         /// <param name="items">Additional optional parameters.</param>
+        /// <remarks>The params object must be in the following order 
+        /// 1) string blob name if omitted a random name is used with json extension.
+        /// 2) string container name if omitted default is container from BlobConfig
+        /// 3) string content type if omitted the default is json.
+        /// 4) Blob Type; if omitted the default is Block.
+        /// 5) IDictionary&lt;string,string&gt; metadata, which can be null to omit.
+        /// 6) AccessTier tier, which can be null to use default.
+        /// 7) BlobRequestConditions conditions, which can be null to omit.
+        /// 8) CancellationToken</remarks>
         /// <returns>Task</returns>
-        /// <remarks>The params object must be in the following order:
-        /// (i) string blob name; if omitted a random name is used with .json extension.
-        /// (ii) string container name; if omitted default is container from BlobConfig
-        /// (iii) string content type; if omitted the default is "application/json"
-        /// (iv) Blob Type; if omitted the default is Block
-        /// (v) IDictionary<string,string> metadata, which can be null to omit.
-        /// (vi) AccessTier tier, which can be null to use default.
-        /// (vii) BlobRequestConditions conditions, which can be null to omit.
-        /// (viii) CancellationToken</remarks>
+
         public async Task SendAsync(byte[] message, params object[] items)
         {
             try

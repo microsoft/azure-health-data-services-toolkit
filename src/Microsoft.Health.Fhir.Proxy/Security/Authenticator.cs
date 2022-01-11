@@ -10,10 +10,14 @@ namespace Microsoft.Health.Fhir.Proxy.Security
 {
 
     /// <summary>
-    /// Authenticator class for Azure Active Directory.
+    /// Authenticator class for acquiring access tokens from Azure Active Directory.
     /// </summary>
     public class Authenticator : IAuthenticator
     {
+        /// <summary>
+        /// Creates an instance of Authenticator.
+        /// </summary>
+        /// <param name="options">ServiceIdentity options used by the authenticator.</param>
         public Authenticator(IOptions<ServiceIdentityOptions> options)
         {
             this.options = options;
@@ -21,6 +25,9 @@ namespace Microsoft.Health.Fhir.Proxy.Security
 
         private readonly IOptions<ServiceIdentityOptions> options;
 
+        /// <summary>
+        /// Gets a indication whether OBO is required for access token acquisition.
+        /// </summary>
         public bool RequiresOnBehalfOf
         {
             get { return (options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingCertificate || options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingClientSecert); }
@@ -31,12 +38,12 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         /// </summary>
         /// <param name="resource">The resource to access.</param>
         /// <param name="credential">Represents a credential capable of providing an OAuth token.</param>
-        /// <param name="scopes">he scopes required for the token.</param>
+        /// <param name="scopes">Scopes required for the token.</param>
         /// <param name="parentRequestId">The ClientRequestId of the request requiring a token for authentication, if applicable.</param>
         /// <param name="claims">Additional claims to be included in the token. See https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter for more information on format and content.</param>
-        /// <param name="tenantId">The tenantId to be included in the token request. If tenantId supplied in ServiceConfig, this will be the default if argument is null.</param>
-        /// <param name="cancellationToken">The CancellationToken to use.</param>
-        /// <returns></returns>
+        /// <param name="tenantId">The tenantId to be included in the token request.</param>
+        /// <param name="cancellationToken">CancellationToken </param>
+        /// <returns>Access token.</returns>
         public async Task<string> AquireTokenForClientAsync(string resource,
                                                             TokenCredential credential,
                                                             string[] scopes = null,
@@ -51,6 +58,18 @@ namespace Microsoft.Health.Fhir.Proxy.Security
             var tokenResult = await credential.GetTokenAsync(context, cancellationToken);
             return tokenResult.Token;
         }
+
+        /// <summary>
+        /// Gets an access token via OAuth from Azure Active Directory.
+        /// </summary>
+        /// <param name="resource">Resource requesting access.</param>
+        /// <param name="scopes">Scopes required for the token</param>
+        /// <param name="parentRequestId">The ClientRequestId of the request requiring a token for authentication, if applicable.</param>
+        /// <param name="claims">Additional claims to be included in the token. See https://openid.net/specs/openid-connect-core-1_0-final.html#ClaimsParameter for more information on format and content.</param>
+        /// <param name="userAssertion">Access token required when using OnBehalfOf.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>Access token.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task<string> AquireTokenForClientAsync(string resource,
                                                             string[] scopes = null,
                                                             string? parentRequestId = null,

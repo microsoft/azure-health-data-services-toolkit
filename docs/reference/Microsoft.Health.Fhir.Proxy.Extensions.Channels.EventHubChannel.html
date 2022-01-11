@@ -93,53 +93,54 @@
   </div>
   <div classs="implements">
     <h5>Implements</h5>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IInputChannel.html">IInputChannel</a></div>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IOutputChannel.html">IOutputChannel</a></div>
     <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IChannel.html">IChannel</a></div>
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.html">Microsoft.Health.Fhir.Proxy.Extensions.Channels</a></h6>
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll</h6>
   <h5 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EventHubChannel : IChannel, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class EventHubChannel : IInputChannel, IOutputChannel, IChannel, IDisposable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=26">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=32">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel__ctor_Microsoft_Health_Fhir_Proxy_Extensions_Channels_Configuration_EventHubConfig_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.#ctor(Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventHubConfig,Microsoft.Extensions.Logging.ILogger)">EventHubChannel(EventHubConfig, ILogger)</h4>
-  <div class="markdown level1 summary"><p>Creates an instance of EventHubChannel.</p>
-</div>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubReceiveOptions__Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubReceiveOptions},Microsoft.Extensions.Logging.ILogger)">EventHubChannel(IOptions&lt;EventHubReceiveOptions&gt;, ILogger)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EventHubChannel(EventHubConfig config, ILogger logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public EventHubChannel(IOptions&lt;EventHubReceiveOptions&gt; options, ILogger logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -152,16 +153,48 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration.EventHubConfig.html">EventHubConfig</a></td>
-        <td><span class="parametername">config</span></td>
-        <td><p>Channel configuration.</p>
-</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubReceiveOptions.html">EventHubReceiveOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
         <td><span class="parametername">logger</span></td>
-        <td><p>Optional ILogger.</p>
-</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=21">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.#ctor*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubSendOptions__Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubSendOptions},Microsoft.Extensions.Logging.ILogger)">EventHubChannel(IOptions&lt;EventHubSendOptions&gt;, ILogger)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHubChannel(IOptions&lt;EventHubSendOptions&gt; options, ILogger logger = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubSendOptions.html">EventHubSendOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -169,7 +202,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=43">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=57">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Id_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Id*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Id" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Id">Id</h4>
@@ -197,7 +230,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=53">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=67">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_IsAuthenticated_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.IsAuthenticated*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_IsAuthenticated" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.IsAuthenticated">IsAuthenticated</h4>
@@ -225,7 +258,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=58">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=72">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_IsEncrypted_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.IsEncrypted*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_IsEncrypted" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.IsEncrypted">IsEncrypted</h4>
@@ -253,7 +286,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=48">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=62">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Name_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Name*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Name" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Name">Name</h4>
@@ -281,7 +314,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=63">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=77">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Port_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Port*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Port" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Port">Port</h4>
@@ -309,7 +342,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=68">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=82">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_State_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.State*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_State" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.State">State</h4>
@@ -339,7 +372,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=111">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=125">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_AddMessageAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.AddMessageAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_AddMessageAsync_System_Byte___" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.AddMessageAsync(System.Byte[])">AddMessageAsync(Byte[])</h4>
@@ -386,7 +419,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=136">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=150">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_CloseAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.CloseAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_CloseAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.CloseAsync">CloseAsync()</h4>
@@ -415,7 +448,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=273">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=287">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Dispose_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Dispose*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Dispose" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Dispose">Dispose()</h4>
@@ -428,7 +461,7 @@
   </div>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=279">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=293">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Dispose_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Dispose*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_Dispose_System_Boolean_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.Dispose(System.Boolean)">Dispose(Boolean)</h4>
@@ -457,7 +490,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=121">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=135">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OpenAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OpenAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OpenAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OpenAsync">OpenAsync()</h4>
@@ -486,7 +519,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=153">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=167">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_ReceiveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.ReceiveAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_ReceiveAsync" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.ReceiveAsync">ReceiveAsync()</h4>
@@ -518,7 +551,7 @@
 </div>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=200">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=214">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_SendAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.SendAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_SendAsync_System_Byte___System_Object___" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.SendAsync(System.Byte[],System.Object[])">SendAsync(Byte[], Object[])</h4>
@@ -573,7 +606,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=84">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=98">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OnClose" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OnClose">OnClose</h4>
   <div class="markdown level1 summary"><p>Event that signals the channel has closed.</p>
@@ -600,7 +633,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=89">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=103">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OnError" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OnError">OnError</h4>
   <div class="markdown level1 summary"><p>Event that signals the channel has errored.</p>
@@ -627,7 +660,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=94">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=108">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OnOpen" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OnOpen">OnOpen</h4>
   <div class="markdown level1 summary"><p>Event that signals the channel has opened.</p>
@@ -654,7 +687,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=99">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=113">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OnReceive" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OnReceive">OnReceive</h4>
   <div class="markdown level1 summary"><p>Event that signals the channel as received a message.</p>
@@ -681,7 +714,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=104">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=118">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Extensions_Channels_EventHubChannel_OnStateChange" data-uid="Microsoft.Health.Fhir.Proxy.Extensions.Channels.EventHubChannel.OnStateChange">OnStateChange</h4>
   <div class="markdown level1 summary"><p>Event that signals the channel state has changed.</p>
@@ -708,6 +741,12 @@
   </table>
   <h3 id="implements">Implements</h3>
   <div>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IInputChannel.html">IInputChannel</a>
+  </div>
+  <div>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IOutputChannel.html">IOutputChannel</a>
+  </div>
+  <div>
       <a class="xref" href="Microsoft.Health.Fhir.Proxy.Channels.IChannel.html">IChannel</a>
   </div>
   <div>
@@ -721,7 +760,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/1042&amp;line=19" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/EventHubChannel.cs&amp;version=GBmalong/refactor&amp;line=19" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
