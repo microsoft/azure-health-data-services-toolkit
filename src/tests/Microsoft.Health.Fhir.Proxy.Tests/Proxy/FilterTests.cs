@@ -12,54 +12,57 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
     public class FilterTests
     {
 
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            FilterFactory.Clear();
-        }
-
+        #region input filter collection
 
         [TestMethod]
-        public void FilterCollection_Add_Test()
+        public void InputFilterCollection_Add_Test()
         {
             FakeFilter filter = new();
             filter.OnFilterError += (a, args) =>
             {
                 Assert.Fail("Should not trigger on error event.");
             };
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             IFilter actual = filters[0];
             Assert.AreEqual(filter.Name, actual.Name, "Name mismatch.");
         }
 
         [TestMethod]
-        public void FilterCollection_Remove_Test()
+        public void InputFilterCollection_Remove_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             IFilter actual = filters[0];
             filters.Remove(actual);
             Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
         }
 
         [TestMethod]
-        public void FilterCollection_RemoveAt_Test()
+        public void InputFilterCollection_RemoveAt_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             filters.RemoveAt(0);
             Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
         }
 
         [TestMethod]
-        public void FilterCollection_GetEnumerator_Test()
+        public void InputFilterCollection_GetEnumerator_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
 
             IEnumerator<IFilter> en = filters.GetEnumerator();
             while (en.MoveNext())
@@ -69,124 +72,198 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         }
 
         [TestMethod]
-        public void FilterCollection_ToArray_Test()
+        public void InputFilterCollection_ToArray_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             IFilter[] filterArray = filters.ToArray();
             Assert.IsTrue(filterArray.Length == 1, "Filter collection should be count = 1.");
         }
 
         [TestMethod]
-        public void FilterCollection_Contains_True_Test()
+        public void InputFilterCollection_Contains_True_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             Assert.IsTrue(filters.Contains(filter), "Filter not found.");
         }
 
         [TestMethod]
-        public void FilterCollection_Contains_False_Test()
+        public void InputFilterCollection_Contains_False_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
+            IInputFilterCollection filters = new InputFilterCollection();
             Assert.IsFalse(filters.Contains(filter), "Filter should not be present.");
         }
 
         [TestMethod]
-        public void FilterCollection_IndexOf_Test()
+        public void InputFilterCollection_IndexOf_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
 
         [TestMethod]
-        public void FilterCollection_Insert_Test()
+        public void InputFilterCollection_Insert_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
+            IInputFilterCollection filters = new InputFilterCollection();
             filters.Insert(0, filter);
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
 
 
         [TestMethod]
-        public void FilterCollection_Clear_Test()
+        public void InputFilterCollection_Clear_Test()
         {
             FakeFilter filter = new();
-            FilterCollection filters = new();
-            filters.Add(filter);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
             Assert.IsTrue(filters.Count == 1, "Filter count should be 1.");
             filters.Clear();
             Assert.IsTrue(filters.Count == 0, "Filter count should be 0.");
         }
 
+        #endregion
+
+        #region output filter collection
+
         [TestMethod]
-        public void FilterFactory_Register_Test()
+        public void OutputFilterCollection_Add_Test()
         {
             FakeFilter filter = new();
-            FilterFactory.Register(filter.Name, typeof(FakeFilter), null);
-            string[] names = FilterFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, "Filter not present.");
-            Assert.AreEqual(filter.Name, names[0], "Filter name mismatch.");
-        }
-
-        [TestMethod]
-        public void FilterFactory_Register_WithCtorParameters_Test()
-        {
-            string name = "foo";
-            FilterFactory.Register(name, typeof(FakeFilterWithCtorParam), new object[] { name });
-            string[] names = FilterFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, $"Filter count invalid.");
-            Assert.AreEqual(name, names[0], "Filter name mismatch.");
-            IFilter filter = FilterFactory.Create(name);
-            filter.OnFilterError += (object sender, FilterErrorEventArgs args) =>
-             {
-                 Assert.IsFalse(args.IsFatal, "Should not be a fatal error.");
-             };
-
-            Assert.IsNotNull(filter, "Filter is null.");
-        }
-
-        [TestMethod]
-        public void FilterFactory_Clear_Test()
-        {
-            FakeFilter filter = new();
-            FilterFactory.Register(filter.Name, typeof(FakeFilter), null);
-            string[] names = FilterFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, "Filter not present.");
-            FilterFactory.Clear();
-            Assert.IsNull(FilterFactory.GetNames(), "FilterFactory should be empty.");
-        }
-
-        [TestMethod]
-        public void FilterFactory_Create_Test()
-        {
-            FakeFilter filter = new();
-            FilterFactory.Register(filter.Name, typeof(FakeFilter), null);
-            IFilter actualFilter = FilterFactory.Create(filter.Name);
-            Assert.AreEqual(filter.Name, actualFilter.Name, "Filter name mismatch.");
-            Assert.IsNotNull(actualFilter, "Filter should not be null.");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException))]
-        public void FilterFactory_NameNotFoundException_Test()
-        {
-            string invalidName = "foo";
-            FakeFilter filter = new();
-            filter.OnFilterError += (object sender, FilterErrorEventArgs args) =>
+            filter.OnFilterError += (a, args) =>
             {
-                Assert.IsFalse(args.IsFatal, "Should not be a fatal error.");
+                Assert.Fail("Should not trigger on error event.");
+            };
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            IFilter actual = filters[0];
+            Assert.AreEqual(filter.Name, actual.Name, "Name mismatch.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_Remove_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            IFilter actual = filters[0];
+            filters.Remove(actual);
+            Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_RemoveAt_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            filters.RemoveAt(0);
+            Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_GetEnumerator_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
             };
 
-            FilterFactory.Register(filter.Name, typeof(FakeFilter), null);
-            FilterFactory.Create(invalidName);
+            IEnumerator<IFilter> en = filters.GetEnumerator();
+            while (en.MoveNext())
+            {
+                Assert.AreEqual(filter.Name, en.Current.Name, "Name mismatch.");
+            }
         }
+
+        [TestMethod]
+        public void OutputFilterCollection_ToArray_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            IFilter[] filterArray = filters.ToArray();
+            Assert.IsTrue(filterArray.Length == 1, "Filter collection should be count = 1.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_Contains_True_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            Assert.IsTrue(filters.Contains(filter), "Filter not found.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_Contains_False_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection();
+            Assert.IsFalse(filters.Contains(filter), "Filter should not be present.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_IndexOf_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
+        }
+
+        [TestMethod]
+        public void OutputFilterCollection_Insert_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection();
+            filters.Insert(0, filter);
+            Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
+        }
+
+
+        [TestMethod]
+        public void OutputFilterCollection_Clear_Test()
+        {
+            FakeFilter filter = new();
+            IOutputFilterCollection filters = new OutputFilterCollection
+            {
+                filter
+            };
+            Assert.IsTrue(filters.Count == 1, "Filter count should be 1.");
+            filters.Clear();
+            Assert.IsTrue(filters.Count == 0, "Filter count should be 0.");
+        }
+
+        #endregion
+
 
         [TestMethod]
         public void Filter_SignalErrorEvent_Test()
@@ -197,8 +274,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             Exception error = new(errorMessage);
             HttpStatusCode code = HttpStatusCode.InternalServerError;
             string body = "stuff";
-            FilterFactory.Register(name, typeof(FakeFilterWithError), new object[] { name, fatal, error, code, body });
-            IFilter filter = FilterFactory.Create(name);
+            FakeFilterWithError filter = new(name, fatal, error, code, body);
+            
             bool trigger = false;
             filter.OnFilterError += (object sender, FilterErrorEventArgs args) =>
             {

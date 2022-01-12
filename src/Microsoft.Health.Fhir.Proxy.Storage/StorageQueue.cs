@@ -154,7 +154,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 }
             }
 
-            logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAync"), message: $"Returned list of {queueNames.Count} queue names.");
+            logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAync"), message: "Returned list of {0} queue names.", queueNames.Count);
             return queueNames;
         }
 
@@ -172,7 +172,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             BinaryData data = new(message);
             QueueClient client = serviceClient.GetQueueClient(queueName);
             var response = await client.SendMessageAsync(data, visibilityTimeout, ttl, cancellationToken);
-            logger?.LogTrace(new EventId(96040, "StorageQueue.EnqueueAsync"), message: $"Enqueued message in {queueName} queue.");
+            logger?.LogTrace(new EventId(96040, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {0} queue.", queueName);
             return response.Value;
         }
 
@@ -189,7 +189,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             var response = await client.SendMessageAsync(message, visibilityTimeout, ttl, cancellationToken);
-            logger?.LogTrace(new EventId(96050, "StorageQueue.EnqueueAsync"), message: $"Enqueued message in {queueName} queue.");
+            logger?.LogTrace(new EventId(96050, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {0} queue.", queueName);
             return response.Value;
         }
 
@@ -204,7 +204,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             var response = await client.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
-            logger?.LogTrace(new EventId(96060, "StorageQueue.DequeueAsync"), message: $"Dequeued message in {queueName} queue.");
+            logger?.LogTrace(new EventId(96060, "StorageQueue.DequeueAsync"), message: "Dequeued message in {0} queue.", queueName);
             return response.Value;
         }
 
@@ -220,7 +220,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             var response = await client.ReceiveMessagesAsync(maxMessages, visibilityTimeout, cancellationToken);
-            logger?.LogTrace(new EventId(96070, "StorageQueue.DequeueBatchAsync"), message: $"Dequeued batch messages in {queueName} queue.");
+            logger?.LogTrace(new EventId(96070, "StorageQueue.DequeueBatchAsync"), message: "Dequeued batch messages in {0} queue.", queueName);
             return response.Value;
         }
 
@@ -234,7 +234,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             var response = await client.PeekMessageAsync(cancellationToken);
-            logger?.LogTrace(new EventId(96080, "StorageQueue.PeekMessageAsync"), message: $"Peeked message in {queueName} queue.");
+            logger?.LogTrace(new EventId(96080, "StorageQueue.PeekMessageAsync"), message: "Peeked message in {0} queue.", queueName);
             return response.Value;
         }
 
@@ -264,7 +264,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             _ = await client.ClearMessagesAsync(cancellationToken);
-            logger?.LogTrace(new EventId(96100, "StorageQueue.ClearMessagesAsync"), message: $"Cleared messages in {queueName} queue.");
+            logger?.LogTrace(new EventId(96100, "StorageQueue.ClearMessagesAsync"), message: "Cleared messages in {0} queue.", queueName);
         }
     }
 }

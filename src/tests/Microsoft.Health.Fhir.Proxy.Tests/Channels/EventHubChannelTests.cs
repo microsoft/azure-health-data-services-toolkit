@@ -2,9 +2,11 @@
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -74,24 +76,45 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
             byte[] message = Encoding.UTF8.GetBytes(contentString);
 
-            EventHubChannel channel = new(config);
-            channel.OnError += (a, args) =>
+            IOptions<EventHubSendOptions> options = Options.Create<EventHubSendOptions>(new EventHubSendOptions()
+            {
+                ConnectionString = config.EventHubConnectionString,
+                FallbackStorageConnectionString = config.EventHubBlobConnectionString,
+                FallbackStorageContainer = config.EventHubBlobContainer,
+                HubName = config.EventHubName,
+                Sku = config.EventHubSku,
+            });
+
+            IOptions<EventHubReceiveOptions> roptions = Options.Create<EventHubReceiveOptions>(new EventHubReceiveOptions()
+            {
+                ConnectionString = config.EventHubConnectionString,
+                HubName = config.EventHubName,
+                StorageConnectionString = config.EventHubBlobConnectionString,
+                ProcessorStorageContainer = config.EventHubProcessorContainer,
+            }); 
+
+
+            IChannel inputChannel = new EventHubChannel(options);
+            inputChannel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
+            IChannel outputChannel = new EventHubChannel(roptions);
+
             bool completed = false;
-            channel.OnReceive += (a, args) =>
+            outputChannel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
                 Assert.AreEqual(contentString, actual, "Content mismatch.");
                 completed = true;
             };
 
-            await channel.OpenAsync();
-            await channel.ReceiveAsync();
+            await inputChannel.OpenAsync();
+            await outputChannel.OpenAsync();
+            await outputChannel.ReceiveAsync();
             await Task.Delay(2000);
-            await channel.SendAsync(message, new object[] { contentType });
+            await inputChannel.SendAsync(message, new object[] { contentType });
             int i = 0;
             while (!completed && i < 10)
             {
@@ -99,7 +122,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 i++;
             }
 
-            channel.Dispose();
+            inputChannel.Dispose();
+            outputChannel.Dispose();
             Assert.IsTrue(completed);
         }
 
@@ -107,20 +131,39 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         [TestMethod]
         public async Task EventHubChannel_SendLargeMessage_Test()
         {
+            IOptions<EventHubSendOptions> options = Options.Create<EventHubSendOptions>(new EventHubSendOptions()
+            {
+                ConnectionString = config.EventHubConnectionString,
+                FallbackStorageConnectionString = config.EventHubBlobConnectionString,
+                FallbackStorageContainer = config.EventHubBlobContainer,
+                HubName = config.EventHubName,
+                Sku = config.EventHubSku,
+            });
+
+            IOptions<EventHubReceiveOptions> roptions = Options.Create<EventHubReceiveOptions>(new EventHubReceiveOptions()
+            {
+                ConnectionString = config.EventHubConnectionString,
+                HubName = config.EventHubName,
+                StorageConnectionString = config.EventHubBlobConnectionString,
+                ProcessorStorageContainer = config.EventHubProcessorContainer,
+            });
+
             LargeJsonMessage msg = new();
             msg.Load(10, 300000);
             string json = JsonConvert.SerializeObject(msg);
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            EventHubChannel channel = new(config);
-            channel.OnError += (a, args) =>
+            IChannel inputChannel = new EventHubChannel(options);
+            inputChannel.OnError += (a, args) =>
             {
                 Assert.Fail($"Channel error {args.Error.Message}");
             };
 
+            IChannel outputChannel = new EventHubChannel(roptions);
+
             bool completed = false;
-            channel.OnReceive += (a, args) =>
+            outputChannel.OnReceive += (a, args) =>
             {
                 string actual = Encoding.UTF8.GetString(args.Message);
                 LargeJsonMessage actualMsg = JsonConvert.DeserializeObject<LargeJsonMessage>(actual);
@@ -129,10 +172,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 completed = true;
             };
 
-            await channel.OpenAsync();
-            await channel.ReceiveAsync();
+            await inputChannel.OpenAsync();
+            await outputChannel.OpenAsync();
+            await outputChannel.ReceiveAsync();
             await Task.Delay(2000);
-            await channel.SendAsync(message, new object[] { contentType });
+            await inputChannel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
             while (!completed && i < 10)
@@ -141,9 +185,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 i++;
             }
 
-            channel.Dispose();
+            inputChannel.Dispose();
+            outputChannel.Dispose();
             Assert.IsTrue(completed);
-
         }
 
     }

@@ -1,9 +1,10 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.Health.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;
@@ -80,7 +81,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                 Container = config.BlobStorageChannelContainer
+            }); 
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -109,7 +116,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -134,7 +147,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -169,7 +188,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -201,7 +226,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -234,7 +265,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -268,7 +305,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -305,7 +348,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
@@ -348,7 +397,13 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             BlobRequestConditions conditions = null;
             CancellationToken token = CancellationToken.None;
 
-            IChannel channel = new BlobStorageChannel(config);
+            IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
+            {
+                ConnectionString = config.BlobStorageChannelConnectionString,
+                Container = config.BlobStorageChannelContainer
+            });
+
+            IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>
             {
                 Assert.Fail();
