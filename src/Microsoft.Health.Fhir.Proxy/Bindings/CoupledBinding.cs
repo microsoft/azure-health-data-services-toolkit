@@ -55,9 +55,9 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
                 return null;
             }
 
-            logger?.LogInformation("{0}-{1} received.", Name, Id);
+            logger?.LogInformation("{Name}-{Id} received.", Name, Id);
             OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
-            logger?.LogInformation("{0}-{1} completed.");
+            logger?.LogInformation("{Name}-{Id} completed.",Name, Id);
             return await Task.FromResult<OperationContext>(context);
         }
     }
