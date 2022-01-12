@@ -13,8 +13,18 @@ using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
+    /// <summary>
+    /// Helper extensions for pipelines
+    /// </summary>
     public static class PipelineExtensions
     {
+        /// <summary>
+        /// Uses application insights for logging.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="instrumentationKey"></param>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
         public static IServiceCollection UseAppInsightsLogging(this IServiceCollection services, string instrumentationKey, LogLevel logLevel)
         {
             services.AddLogging(builder =>
@@ -26,12 +36,18 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
-        public static IServiceCollection UseTelemetry(this IServiceCollection services, string appInsightsConnectionString)
+        /// <summary>
+        /// Use application insights for telemetry.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="instrumentationKey"></param>
+        /// <returns></returns>
+        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)
         {
 
             services.Configure<TelemetryConfiguration>(options =>
             {
-                options.ConnectionString = appInsightsConnectionString;
+                options.InstrumentationKey = instrumentationKey;
             });
             services.AddScoped<TelemetryClient>();
 
@@ -39,6 +55,12 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             
         }
 
+        /// <summary>
+        /// Use the authenticator for acquisition of access tokens from Azure AD.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
             services.AddScoped<IAuthenticator, Authenticator>();
@@ -47,6 +69,12 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Uses a Azure Function pipeline.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IServiceCollection UseAzureFunctionPipeline(this IServiceCollection services, Action<PipelineOptions> options)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
@@ -58,6 +86,12 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Use a Web pipeline for Web services.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IServiceCollection UseWebPipeline(this IServiceCollection services, Action<PipelineOptions> options)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
@@ -65,21 +99,9 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
             services.AddScoped(typeof(WebPipeline));
-            //services.ConfigureOptions(options);
             services.Configure(options);
             return services;
         }
-
-        //public static IServiceCollection AddInputFilter<TFilter, TOptions>(
-        //    this IServiceCollection services,
-        //    Action<TOptions> options) where TFilter : class, IFilter, new()
-        //                              where TOptions : class
-        //{
-        //    services.AddScoped<IFilter, TFilter>();
-        //    services.Configure(options);
-        //    return services;
-        //}
-
 
         public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {

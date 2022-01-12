@@ -125,16 +125,45 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=20">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=27">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_Microsoft_Health_Fhir_Proxy_Clients_RestRequestBuilder_System_Int32_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,System.Int32,Microsoft.Extensions.Logging.ILogger)">RestRequest(RestRequestBuilder, Int32, ILogger)</h4>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Extensions.Logging.ILogger)">RestRequest(ILogger)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected RestRequest(ILogger logger = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=19">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_Microsoft_Health_Fhir_Proxy_Clients_RestRequestBuilder_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(Microsoft.Health.Fhir.Proxy.Clients.RestRequestBuilder,Microsoft.Extensions.Logging.ILogger)">RestRequest(RestRequestBuilder, ILogger)</h4>
   <div class="markdown level1 summary"><p>Creates an instance of the RestRequest.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RestRequest(RestRequestBuilder builder, int blockSize = 16384, ILogger logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public RestRequest(RestRequestBuilder builder, ILogger logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -153,12 +182,6 @@
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">blockSize</span></td>
-        <td><p>The number of bytes to be read in block; default is 16384.</p>
-</td>
-      </tr>
-      <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
         <td><span class="parametername">logger</span></td>
         <td><p>Optional logger.</p>
@@ -166,45 +189,11 @@
       </tr>
     </tbody>
   </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=28">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)">RestRequest(Int32, ILogger)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected RestRequest(int blockSize = 16384, ILogger logger = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">blockSize</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
-        <td><span class="parametername">logger</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=42">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Clients/RestRequest.cs&amp;version=GBmalong/refactor&amp;line=39">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest_SendAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Clients_RestRequest_SendAsync" data-uid="Microsoft.Health.Fhir.Proxy.Clients.RestRequest.SendAsync">SendAsync()</h4>

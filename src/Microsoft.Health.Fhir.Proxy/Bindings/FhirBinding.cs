@@ -60,7 +60,7 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         /// <returns>Operation context.</returns>
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            logger?.LogInformation("{0}-{1} fhir binding received.", Name, Id);
+            logger?.LogInformation("{Name}-{Id} fhir binding received.", Name, Id);
 
             if (context == null)
             {
@@ -88,17 +88,17 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
-                logger?.LogInformation("{0}-{1} completed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} completed.", Name, Id);
                 return context;
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, "{0}-{1} fault with FHIR server request.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} fault with FHIR server request.", Name, Id);
                 context.IsFatal = true;
                 context.Error = ex;
                 context.Content = null;
                 OnError?.Invoke(this, new BindingErrorEventArgs(Id, Name, ex));
-                logger?.LogInformation("{0}-{1} signaled error.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} signaled error.", Name, Id);
                 return null;
             }
         }

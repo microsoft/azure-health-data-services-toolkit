@@ -9,7 +9,7 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
     /// </summary>
     public interface IBinding
     {
-        // <summary>
+        /// <summary>
         /// Gets the name of the binding.
         /// </summary>
         public abstract string Name { get; }

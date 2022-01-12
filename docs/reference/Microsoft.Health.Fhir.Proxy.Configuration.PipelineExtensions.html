@@ -83,7 +83,8 @@
   
   <h1 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions" class="text-break">Class PipelineExtensions
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Helper extensions for pipelines</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -124,7 +125,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=113">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=135">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddBinding_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddBinding*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddBinding_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddBinding(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">AddBinding(IServiceCollection, Type)</h4>
@@ -173,7 +174,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=99">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=121">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputChannel_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputChannel*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputChannel__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputChannel``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddInputChannel&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
@@ -182,78 +183,6 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IServiceCollection AddInputChannel&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
-
-    where TOptions : class</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><span class="parametername">services</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;TOptions&gt;</td>
-        <td><span class="parametername">options</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TOptions</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=84">View Source</a>
-  </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputFilter_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputFilter*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputFilter__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputFilter``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddInputFilter&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddInputFilter&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
-
     where TOptions : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -317,14 +246,13 @@
   <span class="small pull-right mobile-hide">
     <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=106">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputChannel_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputChannel*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputChannel__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputChannel``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddOutputChannel&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
+  <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputFilter_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputFilter*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddInputFilter__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddInputFilter``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddInputFilter&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddOutputChannel&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
-
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddInputFilter&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
     where TOptions : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -386,7 +314,77 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=92">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=128">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputChannel_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputChannel*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputChannel__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputChannel``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddOutputChannel&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddOutputChannel&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
+    where TOptions : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><span class="parametername">services</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;TOptions&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOptions</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=114">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputFilter_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputFilter*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_AddOutputFilter__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Action___0__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.AddOutputFilter``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Action{``0})">AddOutputFilter&lt;TOptions&gt;(IServiceCollection, Type, Action&lt;TOptions&gt;)</h4>
@@ -395,7 +393,6 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IServiceCollection AddOutputFilter&lt;TOptions&gt;(this IServiceCollection services, Type type, Action&lt;TOptions&gt; options)
-
     where TOptions : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -457,11 +454,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=18">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=28">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAppInsightsLogging_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAppInsightsLogging*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAppInsightsLogging_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_Logging_LogLevel_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAppInsightsLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Microsoft.Extensions.Logging.LogLevel)">UseAppInsightsLogging(IServiceCollection, String, LogLevel)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Uses application insights for logging.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -511,11 +509,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=42">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=64">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAuthenticator_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAuthenticator*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAuthenticator_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_Health_Fhir_Proxy_Security_ServiceIdentityOptions__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAuthenticator(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Health.Fhir.Proxy.Security.ServiceIdentityOptions})">UseAuthenticator(IServiceCollection, Action&lt;ServiceIdentityOptions&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Use the authenticator for acquisition of access tokens from Azure AD.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -560,11 +559,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=50">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=78">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAzureFunctionPipeline_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAzureFunctionPipeline*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseAzureFunctionPipeline_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_Health_Fhir_Proxy_Pipelines_PipelineOptions__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseAzureFunctionPipeline(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineOptions})">UseAzureFunctionPipeline(IServiceCollection, Action&lt;PipelineOptions&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Uses a Azure Function pipeline.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -609,15 +609,16 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=29">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=45">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseTelemetry_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseTelemetry*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseTelemetry_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">UseTelemetry(IServiceCollection, String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Use application insights for telemetry.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection UseTelemetry(this IServiceCollection services, string appInsightsConnectionString)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -636,7 +637,7 @@
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">appInsightsConnectionString</span></td>
+        <td><span class="parametername">instrumentationKey</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -658,11 +659,12 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=61">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=95">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseWebPipeline_" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseWebPipeline*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Configuration_PipelineExtensions_UseWebPipeline_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_Health_Fhir_Proxy_Pipelines_PipelineOptions__" data-uid="Microsoft.Health.Fhir.Proxy.Configuration.PipelineExtensions.UseWebPipeline(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineOptions})">UseWebPipeline(IServiceCollection, Action&lt;PipelineOptions&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Use a Web pipeline for Web services.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -713,7 +715,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=16" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Configuration/PipelineExtensions.cs&amp;version=GBmalong/refactor&amp;line=19" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
