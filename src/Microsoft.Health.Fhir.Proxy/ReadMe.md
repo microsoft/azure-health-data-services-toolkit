@@ -2,7 +2,7 @@
 
 ### Overview
 .NET 6 SDK for creating custom operations to when using the Microsoft API for FHIR.
-- [API Definitions](http://github.com/microsoft/fhir-proxy-sdk/docs/reference/toc.html)
+- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
 
 ### Features
 - *Pipelines* to modify FHIR requests or responses.

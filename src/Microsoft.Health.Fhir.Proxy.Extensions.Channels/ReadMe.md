@@ -2,7 +2,7 @@
 
 ### Overview
 .NET 6 SDK for extending channels using Microsoft.Health.Fhir.Proxy.
-- [API Definitions](http://github.com/microsoft/fhir-proxy-sdk/docs/reference/toc.html)
+- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
 
 ### Channels
 - *Blob Storage Channel* writes messages to Azure Blob storage.

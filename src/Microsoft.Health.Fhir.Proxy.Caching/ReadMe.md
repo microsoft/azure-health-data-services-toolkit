@@ -2,5 +2,5 @@
 
 ### Overview
 .NET 6 SDK for adding caching using Microsoft.Health.Fhir.Proxy.
-- [API Definitions](http://github.com/microsoft/fhir-proxy-sdk/docs/reference/toc.html)
+- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
 Using in-memory caching with persistent storage providers as backing stores using either Azure Blob storage or Redis cache.
