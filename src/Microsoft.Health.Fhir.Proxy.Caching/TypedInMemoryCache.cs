@@ -8,13 +8,13 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
 {
     public class TypedInMemoryCache<T>
     {
-        public TypedInMemoryCache(double cacheExpiryMilliseconds, IStorageProvider provider, ILogger logger = null)
+        public TypedInMemoryCache(double cacheExpiryMilliseconds, ICacheProvider provider, ILogger logger = null)
         {
             expiry = cacheExpiryMilliseconds;
             this.provider = provider;
             this.logger = logger;
 
-            logger?.LogTrace($"Cache expiry set to {expiry} milliseconds.");
+            logger?.LogTrace("Cache expiry set to {0} milliseconds.", expiry);
 
             host = Host.CreateDefaultBuilder()
               .ConfigureServices(services => services.AddMemoryCache())
@@ -23,7 +23,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
             cache = host.Services.GetRequiredService<IMemoryCache>();
         }
 
-        private readonly IStorageProvider provider;
+        private readonly ICacheProvider provider;
         private readonly IHost host;
         private readonly IMemoryCache cache;
         private readonly double expiry;
@@ -33,7 +33,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         {
             cache.Set(key, value, GetOptions());
             await provider.AddAsync(key, value);
-            logger?.LogTrace($"Key {key} set to local memory cache.");
+            logger?.LogTrace("Key {0} set to local memory cache.", key);
 
         }
 
@@ -42,12 +42,12 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
             T value = cache.Get<T>(key);
             if(value == null)
             {
-                logger?.LogTrace($"Key {key} not found in local memory cache.");
+                logger?.LogTrace("Key {0} not found in local memory cache.", key);
                 T remote = await provider.GetAsync<T>(key);
                 _ = remote ?? throw new Exception("Key not found in cache or persistent store.");
                 cache.Set<T>(key, remote);
                 value = remote;
-                logger?.LogInformation($"Key {key} reset from store to local memory cache.");
+                logger?.LogInformation("Key {0} reset from store to local memory cache.", key);
             }
 
             return value;
@@ -67,10 +67,10 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
 
         private async void OnPostEviction(object key, object letter, EvictionReason reason, object state)
         {
-            logger?.LogTrace($"Key {key} evicted from cache.");
+            logger?.LogTrace("Key {0} evicted from cache.", key);
             T value = await provider.GetAsync<T>((string)key);
             cache.Set<T>(key, value, GetOptions());
-            logger?.LogInformation($"Key {key} reset to local memory cache.");
+            logger?.LogInformation("Key {0} reset to local memory cache.", key);
         }
     }
 }

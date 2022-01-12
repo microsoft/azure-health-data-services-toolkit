@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Health.Fhir.Proxy.Configuration;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using System;
 using System.Reflection;
 

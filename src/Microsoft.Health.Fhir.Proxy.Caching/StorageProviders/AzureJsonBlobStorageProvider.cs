@@ -1,19 +1,26 @@
-﻿using Microsoft.Health.Fhir.Proxy.Storage;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
 {
-    public class AzureJsonBlobStorageProvider : IStorageProvider
+    public class AzureJsonBlobStorageProvider : ICacheProvider
     {
-        private readonly StorageBlob storage;
-        private readonly string container;
+        public AzureJsonBlobStorageProvider(IOptions<AzureBlobStorageCacheOptions> options)
+        {
+            storage = new(options.Value.ConnectionString);
+            container = options.Value.Container;
+        }
 
         public AzureJsonBlobStorageProvider(string connectionString, string container)
         {
             storage = new(connectionString);
             this.container = container;
         }
+
+        private readonly StorageBlob storage;
+        private readonly string container;
 
         public async Task AddAsync<T>(string key, T value)
         {

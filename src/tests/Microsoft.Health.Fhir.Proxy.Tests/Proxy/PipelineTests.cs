@@ -1,8 +1,8 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Channels;
-using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
@@ -18,74 +18,23 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
     [TestClass]
     public class PipelineTests
     {
-        [TestCleanup]
-        public async Task CleanupTest()
-        {
-            FilterFactory.Clear();
-            ChannelFactory.Clear();
-            PipelineFactory.Clear();
-            await Task.CompletedTask;
-        }
+        
 
         [TestMethod]
-        public void PipelineFactory_Register_Test()
-        {
-            BasicPipeline pipeline = new();
-            PipelineFactory.Register(pipeline);
-            string[] names = PipelineFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, "Unexpected # of pipeline names.");
-            Assert.AreEqual(pipeline.Name, names[0], "Pipeline name mismatch.");
-        }
-
-        [TestMethod]
-        public void PipelineFactory_GetNames_Test()
-        {
-            BasicPipeline pipeline = new();
-            PipelineFactory.Register(pipeline);
-            string[] names = PipelineFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, "Unexpected # of pipeline names.");
-        }
-
-        [TestMethod]
-        public void PipelineFactory_Clear_Test()
-        {
-            BasicPipeline pipeline = new();
-            PipelineFactory.Register(pipeline);
-            string[] names = PipelineFactory.GetNames();
-            Assert.IsTrue(names.Length == 1, "Unexpected # of pipeline names.");
-            PipelineFactory.Clear();
-            Assert.IsTrue(PipelineFactory.GetNames().Length == 0, "Expected no names in pipeline factory.");
-        }
-
-        [TestMethod]
-        public void PipelineFactory_Create_Test()
-        {
-            BasicPipeline pipeline = new();
-            PipelineFactory.Register(pipeline);
-            Pipeline actual = PipelineFactory.Create(pipeline.Name);
-            Assert.AreEqual(pipeline, actual, "Not expected type.");
-        }
-
-        [TestMethod]
-        public void PipelineFactory_CreateWithSettings_Test()
-        {
-            PipelineSettings settings = PipelineSettings.Default;
-            BasicPipeline pipeline = new();
-            settings.Name = pipeline.Name;
-            PipelineFactory.Register(pipeline);
-            Pipeline actual = PipelineFactory.Create(settings);
-            Assert.AreEqual(pipeline, actual, "Not expected type.");
-        }
-
-        [TestMethod]
-        public async Task BasicPipeline_Test()
+        public async Task WebPipeline_Simple_Test()
         {
             string requestUriString = "http://example.org/path";
-            FilterCollection filters = new();
-            ChannelCollection channels = new();
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
-            BasicPipeline pipeline = new(filters, channels);
+
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels);
+           
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
@@ -93,15 +42,12 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             };
 
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
-            OperationContext context = new(request);
-            OperationContext output = await pipeline.ExecuteAsync(context);
+            HttpResponseMessage output = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
-            Assert.AreEqual(context.Request.Method, output.Request.Method, "method mismatch.");
-            Assert.AreEqual(context.Request.RequestUri.ToString(), output.Request.RequestUri.ToString(), "Uri mismatch.");
         }
 
         [TestMethod]
-        public async Task Pipeline_WithFilterError_Test()
+        public async Task WebPipeline_WithFilterError_Test()
         {
             string name = "ErrorFilter";
             bool fatal = true;
@@ -112,10 +58,15 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             var filter = new FakeFilterWithError(name, fatal, error, code, body);
 
             string requestUriString = "http://example.org/path";
-            FilterCollection filters = new();
-            ChannelCollection channels = new();
-            filters.Add(filter);
-            BasicPipeline pipeline = new(filters, channels);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, null, null, null, null, null, null);
             bool complete = false;
             pipeline.OnError += (a, args) =>
             {
@@ -124,130 +75,213 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             };
 
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
-            OperationContext context = new(request);
-            _ = await pipeline.ExecuteAsync(context);
-            Assert.IsTrue(complete, "Not complete");
+            _ = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(complete, "Error was expected");
         }
 
         [TestMethod]
-        public async Task Pipeline_WithChannelError_Test()
+        public async Task WebPipeline_WithChannelErrorIgnored_Test()
         {
             string errorMessage = "Boom!";
             Exception error = new(errorMessage);
             var channel = new FakeChannelWithError(error);
 
             string requestUriString = "http://example.org/path";
-            FilterCollection filters = new();
-            ChannelCollection channels = new();
-            channels.Add(channel);
-            BasicPipeline pipeline = new(filters, channels);
-            bool complete = false;
+            IInputChannelCollection channels = new InputChannelCollection
+            {
+                channel
+            };
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, null, channels);
+            bool trigger = false;
             pipeline.OnError += (a, args) =>
             {
                 Assert.AreEqual(errorMessage, args.Error.Message, "Error mismatch.");
-                complete = true;
+                trigger = true;
             };
 
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
-            OperationContext context = new(request);
-            _ = await pipeline.ExecuteAsync(context);
-            Assert.IsTrue(complete, "Not complete");
+            _ = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(trigger, "Error was not expected");
+        }
+
+        [TestMethod]
+        public async Task WebPipeline_WithChannelErrorOmitted_Test()
+        {
+            string errorMessage = "Boom!";
+            Exception error = new(errorMessage);
+            var channel = new FakeChannelWithError(error);
+
+            string requestUriString = "http://example.org/path";
+            IInputChannelCollection channels = new InputChannelCollection
+            {
+                channel
+            };
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = false,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, null, channels);
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+            pipeline.OnError += (a, args) =>
+            {
+                Assert.Fail("Unexpected error.");
+            };
+
+            HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
+            _ = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(complete, "Fail to complete.");
         }
 
 
-        [TestMethod]
-        public void PipelineBuilder_Test()
-        {
-            PipelineSettings settings = PipelineSettings.Default;
-            BasicPipeline pipeline = new();
-            settings.Name = pipeline.Name;
-            PipelineFactory.Register(pipeline);
-            PipelineBuilder builder = new(settings);
-            Pipeline builtPipeline = builder.Build();
-            Assert.AreEqual(pipeline.Name, builtPipeline.Name, "Name mismatch.");
-        }
+       
 
 
         [TestMethod]
-        public async Task WebPipelineManager_NoContent_Test()
+        public async Task WebPipeline_NoContent_Test()
         {
-            FilterFactory.Register("Fake", typeof(FakeFilter));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
-
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            WebPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
-
             HttpMethod method = HttpMethod.Get;
             string requestUriString = "http://example.org/test";
             HttpRequestMessage request = new(method, requestUriString);
-            var response = await manager.ExecuteAsync(request);
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            IBinding binding = new CoupledBinding();
+            filters.Add(new FakeFilter());
+            channels.Add(new FakeChannel());
+
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels, binding);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+;
+            HttpResponseMessage response = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
         }
 
         [TestMethod]
-        public async Task WebPipelineManager_WithContent_Test()
+        public async Task WebPipeline_WithContent_Test()
         {
             string content = "{ \"property\": \"value\" }";
-            FilterFactory.Register("Fake", typeof(FakeFilter));
-            FilterFactory.Register("FakeFilterWithContent", typeof(FakeFilterWithContent));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
-
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake", "FakeFilterWithContent" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            WebPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
-
             HttpMethod method = HttpMethod.Get;
             string requestUriString = "http://example.org/test";
             HttpRequestMessage request = new(method, requestUriString);
-            var response = await manager.ExecuteAsync(request);
-            string actualContent = await response.Content.ReadAsStringAsync();
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            filters.Add(new FakeFilter());
+            filters.Add(new FakeFilterWithContent());
+            channels.Add(new FakeChannel());
+
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+            
+            HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsNotNull(response, "Response is null.");
+            Assert.IsTrue(complete, "Pipeline not complete.");
+            string actualContent = await response.Content.ReadAsStringAsync();
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
             Assert.AreEqual(content, actualContent, "Content mismatch.");
         }
 
         [TestMethod]
-        public async Task WebPipelineManager_ForcedError_Test()
+        public async Task WebPipeline_ForcedError_Test()
         {
-            FilterFactory.Register("FakeBoom", typeof(FakeFilter));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
+            FaultFilter filter = new();
+            bool faulted = false;
+            filter.OnFilterError += (a, args) =>
+            {
+                faulted = true;
+            };
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                filter
+            };
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters);
 
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            WebPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
+            
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+            bool fault = false;
+            pipeline.OnError += (a, args) =>
+            {
+                fault = true;
+            };
 
             HttpMethod method = HttpMethod.Get;
             string requestUriString = "http://example.org/test";
             HttpRequestMessage request = new(method, requestUriString);
-            var response = await manager.ExecuteAsync(request);
+            var response = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(faulted, "Not faulted.");
+            Assert.IsFalse(complete, "Should not be complete.");
+            Assert.IsTrue(fault, "Should have fault.");
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Http status code mismatch.");
+
+
 
         }
 
         [TestMethod]
-        public async Task FunctionPipelineManager_NoContent_Test()
+        public async Task FunctionPipeline_NoContent_Test()
         {
-            FilterFactory.Register("Fake", typeof(FakeFilter));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
-
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            AzureFunctionPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
-
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
             List<KeyValuePair<string, string>> headerList = new();
             headerList.Add(new KeyValuePair<string, string>("Accept", "application/json"));
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
-            var response = await manager.ExecuteAsync(request);
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            IBinding binding = new CoupledBinding();
+            filters.Add(new FakeFilter());
+            channels.Add(new FakeChannel());
+
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters, channels, binding);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+            
+            HttpResponseData response = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
         }
@@ -256,14 +290,23 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         public async Task FunctionPipelineManager_WithContent_Test()
         {
             string content = "{ \"property\": \"value\" }";
-            FilterFactory.Register("Fake", typeof(FakeFilter));
-            FilterFactory.Register("FakeFilterWithContent", typeof(FakeFilterWithContent));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            filters.Add(new FakeFilter());
+            filters.Add(new FakeFilterWithContent());
+            channels.Add(new FakeChannel());
 
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake", "FakeFilterWithContent" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            AzureFunctionPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters, channels);
+
+            //bool complete = false;
+            //pipeline.OnComplete += (a, args) =>
+            //{
+            //    complete = true;
+            //};
 
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
@@ -271,22 +314,17 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             headerList.Add(new KeyValuePair<string, string>("Accept", "application/json"));
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
-            var response = await manager.ExecuteAsync(request);
+            var response = await pipeline.ExecuteAsync(request);
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
             Assert.AreEqual(content.Length, response.Body.Length, "Content length mismatch.");
+
+
         }
 
         [TestMethod]
         public async Task FunctionPipelineManager_ForcedError_Test()
         {
-            FilterFactory.Register("FakeBoom", typeof(FakeFilter));
-            ChannelFactory.Register("FakeChannel", typeof(FakeChannel), null);
-
-            PipelineSettings input = new("BasicPipeline", new string[] { "Fake" }, new string[] { "FakeChannel" });
-            PipelineSettings output = input;
-            PipelineFactory.Register(new BasicPipeline());
-            AzureFunctionPipelineManager manager = new(input, new CoupledPipelineBinding(), output);
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
             List<KeyValuePair<string, string>> headerList = new();
@@ -294,7 +332,30 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
 
-            var response = await manager.ExecuteAsync(request);
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                new FaultFilter()
+            };
+            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
+            {
+                FaultOnChannelError = true,
+            });
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+            bool fault = false;
+            pipeline.OnError += (a, args) =>
+            {
+                fault = true;
+            };
+            
+            var response = await pipeline.ExecuteAsync(request);
+            Assert.IsFalse(complete, "Should not be complete.");
+            Assert.IsTrue(fault, "Should have fault.");
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Http status code mismatch.");
         }

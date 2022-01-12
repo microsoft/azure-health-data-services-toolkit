@@ -31,7 +31,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, fatal, error, code, body));
-            return await Task.FromResult<OperationContext>(null);
+            return await Task.FromResult<OperationContext>(context);
         }
     }
 }

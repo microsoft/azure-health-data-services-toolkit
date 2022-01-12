@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Health.Fhir.Proxy.Clients;
 using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Specialized;

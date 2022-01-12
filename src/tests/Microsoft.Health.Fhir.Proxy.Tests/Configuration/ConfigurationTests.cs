@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Health.Fhir.Proxy.Configuration;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 

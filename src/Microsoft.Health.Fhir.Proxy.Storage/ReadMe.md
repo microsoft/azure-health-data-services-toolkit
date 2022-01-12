@@ -2,7 +2,7 @@
 
 ### Overview
 .NET 6 SDK to simplify Azure storage operations when using Microsoft.Health.Fhir.Proxy.
-- [API Definitions](http://github.com/microsoft/fhir-proxy-sdk/docs/reference/toc.html)
+- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
 
 ### Features
 - Azure Blob Storage

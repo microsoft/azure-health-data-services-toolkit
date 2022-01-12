@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
-    public class FakeChannel : IChannel
+    public class FakeChannel : IInputChannel, IOutputChannel
     {
         public FakeChannel()
         {
