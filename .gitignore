@@ -3,7 +3,7 @@ OneBranch Specific
 ###
 
 #omit folder
-/src/tests
+#/src/tests
 
 #yaml files
 *.yml
