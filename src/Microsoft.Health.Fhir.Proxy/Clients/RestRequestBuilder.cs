@@ -23,7 +23,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
         /// <param name="contentType">Content type of the http request.</param>
         public RestRequestBuilder(string method,
                                   string baseUrl,
-                                  string securityToken,
+                                  string? securityToken,
                                   string? path,
                                   string? query,
                                   NameValueCollection? headers,
@@ -33,7 +33,6 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             _ = method ?? throw new ArgumentNullException(nameof(method));
             _ = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
             _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
-            _ = securityToken ?? throw new ArgumentNullException(nameof(securityToken));
 
             Method = method;
             BaseUrl = baseUrl;
@@ -144,7 +143,6 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
 
             };
 
-            //HttpMethod method = (HttpMethod)Enum.Parse(typeof(HttpMethod), Method, true);
             string? baseUrl = builder.ToString();
 
             HttpRequestMessage request = new(method, baseUrl);
@@ -178,55 +176,6 @@ namespace Microsoft.Health.Fhir.Proxy.Clients
             }
 
             return request;
-
         }
-
-        ///// <summary>
-        ///// Builds an Http Web Request.
-        ///// </summary>
-        ///// <returns>HttpWebRequest</returns>
-        //public HttpWebRequest Build()
-        //{
-        //    UriBuilder builder = new(BaseUrl)
-        //    {
-        //        Path = Path,
-        //        Query = QueryString
-        //    };
-
-        //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.ToString());
-
-        //    if (Headers != null)
-        //    {
-        //        Headers.Remove("Content-Type");
-        //        Headers.Remove("Content-Length");
-        //        Headers.Remove("Authorization");
-        //        Headers.Remove("Accept");
-        //        Headers.Remove("Host");
-        //        Headers.Add("Host", new Uri(BaseUrl).Authority);
-        //        request.Headers.Add(Headers);
-        //    }
-
-        //    request.Method = Method;
-
-        //    request.Accept = ContentType;
-
-        //    if (Content != null)
-        //    {
-        //        request.ContentType = ContentType;
-        //        request.ContentLength = Content.Length;
-        //    }
-
-        //    if (!string.IsNullOrEmpty(SecurityToken))
-        //    {
-        //        request.Headers.Add("Authorization", $"Bearer {SecurityToken}");
-        //    }
-
-        //    if (Certificate != null)
-        //    {
-        //        request.ClientCertificates.Add(Certificate);
-        //    }
-
-        //    return request;
-        //}
     }
 }
