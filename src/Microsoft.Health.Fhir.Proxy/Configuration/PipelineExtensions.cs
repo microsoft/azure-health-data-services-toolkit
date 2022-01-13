@@ -10,6 +10,7 @@ using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Security;
 using System;
+using System.Net.Http;
 
 namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
@@ -98,7 +99,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<IOutputFilterCollection, OutputFilterCollection>();
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
-            services.AddScoped(typeof(WebPipeline));
+            services.AddScoped<IPipeline<HttpRequestMessage, HttpResponseMessage>, WebPipeline>();
             services.Configure(options);
             return services;
         }
