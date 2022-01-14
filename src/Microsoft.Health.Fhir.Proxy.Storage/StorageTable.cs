@@ -90,7 +90,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             IEnumerable<CloudTable> tables = tableClient.ListTables();
             logger?.LogTrace(
                 new EventId(95010, "StorageTable.ListTables"),
-                message: $"List of {tables.Count()} tables returned.");
+                message: "List of {count} tables returned.", tables.Count());
             return tables;
         }
 
@@ -105,7 +105,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         public async Task<TableResultSegment> ListTablesAsync(string prefix = null, int? maxResults = null, TableContinuationToken token = null, CancellationToken cancellationToken = default)
         {
             TableResultSegment segment = await tableClient.ListTablesSegmentedAsync(prefix, maxResults, token, cancellationToken);
-            logger?.LogTrace(new EventId(95020, "StorageTable.ListTablesAsync"), "Table segment of {0} tables returned.", segment.Count());
+            logger?.LogTrace(new EventId(95020, "StorageTable.ListTablesAsync"), "Table segment of {count} tables returned.", segment.Count());
             return segment;
         }
 
@@ -119,7 +119,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             CloudTable table = tableClient.GetTableReference(tableName);
             bool result = await table.CreateIfNotExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(95030, "StorageTable.CreateTableAsync"), "Table {0} created if not exists.", tableName);
+            logger?.LogTrace(new EventId(95030, "StorageTable.CreateTableAsync"), "Table {name} created if not exists.", tableName);
             return result;
         }
 
@@ -133,7 +133,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             CloudTable table = tableClient.GetTableReference(tableName);
             bool result = await table.DeleteIfExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(95040, "StorageTable.DeleteTableAsync"), "Table {0} deleted if not exists.", tableName);
+            logger?.LogTrace(new EventId(95040, "StorageTable.DeleteTableAsync"), "Table {name} deleted if not exists.", tableName);
             return result;
         }
 
@@ -149,7 +149,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Insert(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95050, "StorageTable.InsertEntityAsync"), "Table entity with partition key {0} inserted into table {1}.", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95050, "StorageTable.InsertEntityAsync"), "Table entity with partition key {key} inserted into table {name}.", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -165,7 +165,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.InsertOrMerge(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95060, "StorageTable.InsertOrMergeEntityAsync"), "Table entity with partition key {0} inserted or merged into table {1}", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95060, "StorageTable.InsertOrMergeEntityAsync"), "Table entity with partition key {key} inserted or merged into table {name}", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -181,7 +181,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.InsertOrReplace(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95070, "StorageTable.InsertOrReplaceEntityAsync"), message: "Table entity with partition key {0} inserted or replaced into table {1}.", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95070, "StorageTable.InsertOrReplaceEntityAsync"), message: "Table entity with partition key {key} inserted or replaced into table {name}.", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -197,7 +197,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Merge(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95080, "StorageTable.MergeEntityAsync"), "Table entity with partition key {0} merged into table {1}.", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95080, "StorageTable.MergeEntityAsync"), "Table entity with partition key {key} merged into table {name}.", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -213,7 +213,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Delete(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95090, "StorageTable.DeleteEntityAsync"), "Table entity with partition key {0} deleted from table {1}.", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95090, "StorageTable.DeleteEntityAsync"), "Table entity with partition key {key} deleted from table {name}.", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -229,7 +229,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Replace(entity);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95100, "StorageTable.ReplaceEntityAsync"), "Table entity with partition key {0} replaced from table {1}", entity.PartitionKey, tableName);
+            logger?.LogTrace(new EventId(95100, "StorageTable.ReplaceEntityAsync"), "Table entity with partition key {key} replaced from table {name}", entity.PartitionKey, tableName);
             return result;
         }
 
@@ -247,7 +247,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Retrieve(partitionKey, rowKey, columns);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95110, "StorageTable.RetrieveEntityAsync"), "Table entity with partition key {0} retrieved from table {0}.", partitionKey, tableName);
+            logger?.LogTrace(new EventId(95110, "StorageTable.RetrieveEntityAsync"), "Table entity with partition key {key} retrieved from table {name}.", partitionKey, tableName);
             return result;
         }
 
@@ -268,7 +268,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             CloudTable table = tableClient.GetTableReference(tableName);
             TableOperation operation = TableOperation.Retrieve(partitionKey, rowKey, resolver, columns);
             TableResult result = await table.ExecuteAsync(operation, cancellationToken);
-            logger?.LogTrace(new EventId(95120, "StorageTable.RetrieveEntity<T>"), "Table entity with partition key {0} replaced from table {1}.", partitionKey, tableName);
+            logger?.LogTrace(new EventId(95120, "StorageTable.RetrieveEntity<T>"), "Table entity with partition key {key} replaced from table {name}.", partitionKey, tableName);
             return result;
         }
 
@@ -310,7 +310,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             }
 
             TableQuerySegment<T> segment = await table.ExecuteQuerySegmentedAsync(query, token, cancellationToken);
-            logger?.LogTrace(new EventId(95130, "StorageTable.QueryTable<T>"), "Table entity with partition key {0} replaced from table {1}.", partitionKey, tableName);
+            logger?.LogTrace(new EventId(95130, "StorageTable.QueryTable<T>"), "Table entity with partition key {key} replaced from table {name}.", partitionKey, tableName);
             return segment;
         }
 
@@ -328,7 +328,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             CloudTable table = tableClient.GetTableReference(tableName);
             TableQuerySegment<T> segment = await table.ExecuteQuerySegmentedAsync<T>(query, token, cancellationToken);
-            logger?.LogTrace(new EventId(95140, "StorageTable.QueryTable<T>"), "Table entity queried from {0}", tableName);
+            logger?.LogTrace(new EventId(95140, "StorageTable.QueryTable<T>"), "Table entity queried from {name}", tableName);
             return segment;
         }
     }

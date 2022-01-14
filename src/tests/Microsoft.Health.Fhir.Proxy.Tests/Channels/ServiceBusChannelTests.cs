@@ -28,7 +28,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
         }
 
         private static ServiceBusConfig config;
-        private static string logPath = "../../servicebuslog.txt";
+        private static readonly string logPath = "../../servicebuslog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
 
@@ -150,7 +150,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             outputChannel.Dispose();
             string dest = "../../sendSmall.txt";
             File.Copy(logPath, dest);
-            StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            StorageBlob storage = new(config.ServiceBusBlobConnectionString);
             await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendsmall.txt", "text/plain", File.ReadAllBytes(dest));
             Assert.IsTrue(completed, "Did not complete.");
         }
@@ -213,7 +213,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             }
 
             channel.Dispose();
-            StorageBlob storage = new StorageBlob(config.ServiceBusBlobConnectionString);
+            StorageBlob storage = new(config.ServiceBusBlobConnectionString);
             string dest = "../../sendlarge.txt";
             File.Copy(logPath, dest);
             await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendlarge.txt", "text/plain", File.ReadAllBytes(dest));

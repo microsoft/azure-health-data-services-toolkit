@@ -30,7 +30,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         {
             services.AddLogging(builder =>
             {
-                builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
+                builder.AddFilter<ApplicationInsightsLoggerProvider>("", logLevel);
                 builder.AddApplicationInsights(instrumentationKey);
             });
 
