@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
-    public class FakeFilter :  IFilter
+    public class FakeFilter : IFilter
     {
         public FakeFilter()
         {

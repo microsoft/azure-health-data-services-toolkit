@@ -91,7 +91,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 HubName = config.EventHubName,
                 StorageConnectionString = config.EventHubBlobConnectionString,
                 ProcessorStorageContainer = config.EventHubProcessorContainer,
-            }); 
+            });
 
 
             IChannel inputChannel = new EventHubChannel(options);

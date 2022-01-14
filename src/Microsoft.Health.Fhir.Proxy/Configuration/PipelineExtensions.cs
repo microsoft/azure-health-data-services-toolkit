@@ -25,7 +25,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// <param name="services"></param>
         /// <param name="instrumentationKey"></param>
         /// <param name="logLevel"></param>
-        /// <returns></returns>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection UseAppInsightsLogging(this IServiceCollection services, string instrumentationKey, LogLevel logLevel)
         {
             services.AddLogging(builder =>
@@ -42,10 +42,9 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// </summary>
         /// <param name="services"></param>
         /// <param name="instrumentationKey"></param>
-        /// <returns></returns>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)
         {
-
             services.Configure<TelemetryConfiguration>(options =>
             {
                 options.InstrumentationKey = instrumentationKey;
@@ -53,7 +52,6 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<TelemetryClient>();
 
             return services;
-            
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
-        /// <returns></returns>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
             services.AddScoped<IAuthenticator, Authenticator>();
@@ -75,7 +73,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
-        /// <returns></returns>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection UseAzureFunctionPipeline(this IServiceCollection services, Action<PipelineOptions> options)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
@@ -87,12 +85,14 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+
+
         /// <summary>
         /// Use a Web pipeline for Web services.
         /// </summary>
         /// <param name="services"></param>
         /// <param name="options"></param>
-        /// <returns></returns>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection UseWebPipeline(this IServiceCollection services, Action<PipelineOptions> options)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
@@ -104,6 +104,14 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Adds an input filter.
+        /// </summary>
+        /// <typeparam name="TOptions">Type of options for input filter.</typeparam>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of input filter.</param>
+        /// <param name="options">Options for input filter.</param>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
@@ -111,7 +119,27 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Adds an input filter.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of input filter.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddInputFilter(this IServiceCollection services, Type type)
+        {
+            services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
+            return services;
+        }
 
+
+        /// <summary>
+        /// Add an output filter.
+        /// </summary>
+        /// <typeparam name="TOptions">Type of options for output filter.</typeparam>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of output filter.</param>
+        /// <param name="options">Options for output filter.</param>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection AddOutputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
@@ -119,6 +147,26 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Adds an output filter.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of output filter.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddOutputFilter(this IServiceCollection services, Type type)
+        {
+            services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
+            return services;
+        }
+
+        /// <summary>
+        /// Adds an input channel.
+        /// </summary>
+        /// <typeparam name="TOptions">Type of options for input channel.</typeparam>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of input channel.</param>
+        /// <param name="options">Options for input channel.</param>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputChannel), type, ServiceLifetime.Scoped));
@@ -126,6 +174,14 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Add an output channel.
+        /// </summary>
+        /// <typeparam name="TOptions">Type of options for output channel.</typeparam>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of output channel.</param>
+        /// <param name="options">Options for output channel.</param>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputChannel), type, ServiceLifetime.Scoped));
@@ -133,9 +189,54 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             return services;
         }
 
+        /// <summary>
+        /// Add a binding
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of binding.</param>
+        /// <returns>Services collection.</returns>
         public static IServiceCollection AddBinding(this IServiceCollection services, Type type)
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
+            return services;
+        }
+
+        /// <summary>
+        /// Adds a binding.
+        /// </summary>
+        /// <typeparam name="TOptions">Type of options for binding.</typeparam>
+        /// <param name="services">Services collection.</param>
+        /// <param name="type">Type of binding.</param>
+        /// <param name="options">Options for binding.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        {
+            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
+            services.Configure(options);
+            return services;
+        }
+
+        /// <summary>
+        /// Adds a coupled binding.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddCoupledBinding(this IServiceCollection services)
+        {
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(CoupledBinding), ServiceLifetime.Scoped));
+            return services;
+        }
+
+        /// <summary>
+        /// Adds a FHIR binding.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="options">Options for FHIR binding.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddFhirBinding(this IServiceCollection services, Action<FhirBindingOptions> options)
+        {
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(FhirBinding), ServiceLifetime.Scoped));
+            services.Configure(options);
             return services;
         }
 

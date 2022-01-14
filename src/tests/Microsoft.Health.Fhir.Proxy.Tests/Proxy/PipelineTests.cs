@@ -18,7 +18,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
     [TestClass]
     public class PipelineTests
     {
-        
+
 
         [TestMethod]
         public async Task WebPipeline_Simple_Test()
@@ -34,7 +34,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
                 FaultOnChannelError = true,
             });
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels);
-           
+
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
@@ -141,7 +141,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         }
 
 
-       
+
 
 
         [TestMethod]
@@ -167,7 +167,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 complete = true;
             };
-;
+            ;
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
@@ -198,7 +198,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 complete = true;
             };
-            
+
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsNotNull(response, "Response is null.");
             Assert.IsTrue(complete, "Pipeline not complete.");
@@ -226,7 +226,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             });
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters);
 
-            
+
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -279,7 +279,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 complete = true;
             };
-            
+
             HttpResponseData response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
@@ -352,7 +352,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 fault = true;
             };
-            
+
             var response = await pipeline.ExecuteAsync(request);
             Assert.IsFalse(complete, "Should not be complete.");
             Assert.IsTrue(fault, "Should have fault.");

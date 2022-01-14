@@ -10,7 +10,7 @@
         /// Gets or sets the URL of the FHIR server.
         /// </summary>
         public string FhirServerUrl { get; set; }
-       
+
 
     }
 }

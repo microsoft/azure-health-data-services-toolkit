@@ -2,7 +2,6 @@
 using Azure.Identity;
 using Microsoft.Extensions.Options;
 using System;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -90,7 +89,7 @@ namespace Microsoft.Health.Fhir.Proxy.Security
                                                                                      new ClientSecretCredential(options.Value.TenantId,
                                                                                                                 options.Value.ClientId,
                                                                                                                 options.Value.ClientSecret),
-                                                                                     scopes, parentRequestId, claims, 
+                                                                                     scopes, parentRequestId, claims,
                                                                                      options.Value.TenantId,
                                                                                      cancellationToken),
                 ClientCredentialType.Certificate => await AquireTokenForClientAsync(resource,

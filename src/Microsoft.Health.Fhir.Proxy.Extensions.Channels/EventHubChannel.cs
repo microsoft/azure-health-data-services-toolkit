@@ -37,7 +37,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             fallbackStorageConnectionString = options.Value.StorageConnectionString;
             this.logger = logger;
         }
-        
+
         private ChannelState state;
         private readonly EventHubSkuType sku;
         private readonly string connectionString;
@@ -139,7 +139,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{0}-{1} channel opened.", Name, Id);
+            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -153,7 +153,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{0}-{1} channel closed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -192,7 +192,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 {
                     //log exception
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
-                    logger?.LogError(args.Exception, "{0}-{1} event hub channel processor receive error.", Name, Id);
+                    logger?.LogError(args.Exception, "{Name}-{Id} event hub channel processor receive error.", Name, Id);
                     await Task.CompletedTask;
                 };
 
@@ -201,7 +201,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{0}-{1} event hub channel error receiving messages.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} event hub channel error receiving messages.", Name, Id);
             }
         }
 
@@ -239,19 +239,19 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 if (eventBatch.TryAdd(data))
                 {
                     await sender.SendAsync(eventBatch);
-                    logger?.LogInformation("{0}-{1} event hub channel message sent.", Name, Id);
+                    logger?.LogInformation("{Name}-{Id} event hub channel message sent.", Name, Id);
                 }
                 else
                 {
                     Exception ex = new("Event hub could not send message.");
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                    logger?.LogError(ex, "{0}-{1} event hub error sending message.", Name, Id);
+                    logger?.LogError(ex, "{Name}-{Id} event hub error sending message.", Name, Id);
                 }
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{0}-{1} event hub error attempting to send message.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} event hub error attempting to send message.", Name, Id);
             }
         }
 
@@ -312,11 +312,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError(ex, "{0}-{1} event hub fault disposing.", Name, Id);
+                    logger?.LogError(ex, "{Name}-{Id} event hub fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{0}-{1} channel disposed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
             }
         }
     }
