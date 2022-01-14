@@ -53,7 +53,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         {
             get
             {
-                if(certificate == null)
+                if (certificate == null)
                 {
                     ClientSecretCredential cred = new(TenantId, ClientId, ClientSecret);
                     CertificateClient client = new(new Uri(KeyVaultUri), cred);

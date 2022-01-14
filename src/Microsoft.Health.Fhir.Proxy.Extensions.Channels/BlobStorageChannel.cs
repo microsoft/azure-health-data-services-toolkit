@@ -22,7 +22,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             storage = new StorageBlob(options.Value.ConnectionString, options.Value.InitialTransferSize, options.Value.MaxConcurrency, options.Value.MaxTransferSize, logger);
             blobContainer = options.Value.Container;
         }
-       
+
         private StorageBlob storage;
         private readonly string blobContainer;
         private bool disposed;

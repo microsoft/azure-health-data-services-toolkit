@@ -49,5 +49,5 @@ namespace Microsoft.Health.Fhir.Proxy.Security
                                                       string? claims = null,
                                                       string? tenantId = null,
                                                       CancellationToken cancellationToken = default);
-}
+    }
 }

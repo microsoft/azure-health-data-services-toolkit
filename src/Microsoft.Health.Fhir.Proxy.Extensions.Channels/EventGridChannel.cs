@@ -25,7 +25,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             eventType = options.Value.EventType;
             dataVersion = options.Value.DataVersion;
             this.logger = logger;
-        }       
+        }
 
         private readonly string connectionString;
         private readonly string container;
@@ -127,7 +127,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{0}-{1} channel closed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -147,7 +147,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{0}-{1} channel opened.", Name, Id);
+            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
 
             await Task.CompletedTask;
         }
@@ -184,7 +184,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{0}-{1} error attempting to send message.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
             }
         }
 
@@ -205,7 +205,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 storage = null;
                 client = null;
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{0}-{1} channel disposed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
             }
         }
 

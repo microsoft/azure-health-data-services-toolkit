@@ -46,7 +46,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             subscription = options.Value.Subscription;
             this.logger = logger;
         }
-       
+
         private ChannelState state;
         private readonly ILogger logger;
         private readonly string connectionString;
@@ -237,7 +237,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                     else
                     {
                         logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {sub} does not understand message.", Name, Id, topic, subscription);
-                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));                        
+                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));
                     }
                 };
 

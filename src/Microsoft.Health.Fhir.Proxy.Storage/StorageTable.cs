@@ -80,7 +80,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             this.logger = logger;
         }
 
-       
+
         /// <summary>
         /// Gets a list of tables from table storage.
         /// </summary>

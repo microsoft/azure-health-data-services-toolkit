@@ -122,7 +122,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             IChannel outputChannel = new ServiceBusChannel(roptions, logger);
 
-            bool completed = false;            
+            bool completed = false;
             outputChannel.OnError += (a, args) =>
             {
                 Assert.Fail("{Message} - {Stack}", args.Error.Message, args.Error.StackTrace);

@@ -1,5 +1,4 @@
 ﻿using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Bindings;
@@ -29,12 +28,18 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         /// <param name="telemetryClient">Optional application insights telemetry client.</param>
         /// <param name="logger">Optional ILogger.</param>
         public WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
-            : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)    
+            : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
         {
-            
+
         }
 
-        internal WebPipeline(string name, string id, IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null,  IOutputChannelCollection outputChannels = null,  TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
+        internal WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
+            : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
+        {
+
+        }
+
+        internal WebPipeline(string name, string id, IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger logger = null)
         {
             this.name = name;
             this.id = id;
@@ -182,14 +187,14 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             {
                 try
                 {
-                    
-                    if(channel.State == ChannelState.None)
+
+                    if (channel.State == ChannelState.None)
                     {
                         logger?.LogInformation("Pipeline {Name}-{Id} opening channel {ChannelName}-{ChannelId} first time.", Name, Id, channel.Name, channel.Id);
-                        await channel.OpenAsync();                        
+                        await channel.OpenAsync();
                     }
-                    
-                    if(channel.State != ChannelState.Open)
+
+                    if (channel.State != ChannelState.Open)
                     {
                         logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is not open, will try to close and open.", Name, Id, channel.Name, channel.Id);
                         await channel.CloseAsync();
@@ -205,7 +210,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
                 {
                     telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} error.", Name, Id, channel.Name, channel.Id);
-                    if(faultOnChannelError)
+                    if (faultOnChannelError)
                     {
                         context.IsFatal = true;
                         context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
@@ -227,7 +232,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             context.IsFatal = true;
             context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);            
+            logger?.LogError(e.Error, "Pipeline {Name}-{Id} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 

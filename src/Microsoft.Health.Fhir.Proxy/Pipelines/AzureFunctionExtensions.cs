@@ -63,7 +63,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);
             string content = await message.Content?.ReadAsStringAsync();
-            if(content != null)
+            if (content != null)
             {
                 data.Headers.Add("Content-Type", "application/json");
                 data.Headers.Add("Content-Length", content.Length.ToString());

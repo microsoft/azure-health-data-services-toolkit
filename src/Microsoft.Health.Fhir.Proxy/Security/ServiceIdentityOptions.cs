@@ -19,7 +19,7 @@ namespace Microsoft.Health.Fhir.Proxy.Security
         /// /// <remarks>Property can be omitted with using either (i) MSI or (ii) X509 certificate for authentication</remarks>    
         public string ClientSecret { get; set; }
 
-       
+
         /// <summary>
         /// Gets or sets an X509v3 certificate used for client identity.
         /// </summary>
