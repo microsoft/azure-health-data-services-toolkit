@@ -17,6 +17,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
         public string Name => "FaultFilter";
 
+        public StatusType ExecutionStatusType => StatusType.Any;
+
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)

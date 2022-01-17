@@ -1,4 +1,5 @@
 ﻿using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using System;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
         public string Id { get; private set; }
 
         public string Name { get; private set; }
+
+        public StatusType ExecutionStatusType => StatusType.Any;
 
         public bool IsAuthenticated => false;
 

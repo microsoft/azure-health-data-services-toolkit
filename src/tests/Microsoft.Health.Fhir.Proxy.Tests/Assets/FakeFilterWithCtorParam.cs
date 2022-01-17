@@ -18,6 +18,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
         public string Name { get; private set; }
 
+        public StatusType ExecutionStatusType => StatusType.Any;
+
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, false));

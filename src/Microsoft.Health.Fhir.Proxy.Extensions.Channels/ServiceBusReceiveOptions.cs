@@ -1,5 +1,8 @@
 ﻿namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
+    /// <summary>
+    /// Azure Service Bus channel options used to recieve data.
+    /// </summary>
     public class ServiceBusReceiveOptions
     {
         public string ConnectionString { get; set; }

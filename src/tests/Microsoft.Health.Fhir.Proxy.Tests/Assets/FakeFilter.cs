@@ -7,12 +7,20 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {
     public class FakeFilter : IFilter
     {
+        public FakeFilter(StatusType execStatus)
+        {
+            status = execStatus;
+            Id = Guid.NewGuid().ToString();
+        }
+
         public FakeFilter()
         {
+            status = StatusType.Any;
             Id = Guid.NewGuid().ToString();
         }
 
         private string id;
+        private readonly StatusType status;
 
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
         public string Id
@@ -33,6 +41,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
 
         public string Name => "Fake";
+
+        public StatusType ExecutionStatusType => status;
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {

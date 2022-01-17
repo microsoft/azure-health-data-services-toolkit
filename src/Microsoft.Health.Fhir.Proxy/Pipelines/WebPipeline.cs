@@ -27,24 +27,23 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         /// <param name="outputChannels">Optional collection of output channels.</param>
         /// <param name="telemetryClient">Optional application insights telemetry client.</param>
         /// <param name="logger">Optional ILogger.</param>
-        public WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
-            : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
+        public WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
+            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
         {
 
         }
 
-        internal WebPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
-            : this("WebPipeline", Guid.NewGuid().ToString(), options, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
+        internal WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
+            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
         {
 
         }
 
-        internal WebPipeline(string name, string id, IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger logger = null)
+        internal WebPipeline(string name, string id, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger logger = null)
         {
             this.name = name;
             this.id = id;
 
-            faultOnChannelError = options.Value.FaultOnChannelError;
             this.inputFilters = inputFilters ?? new InputFilterCollection();
             this.outputFilters = outputFilters ?? new OutputFilterCollection();
             this.inputChannels = inputChannels ?? new InputChannelCollection();
@@ -84,7 +83,6 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         private OperationContext context;
         private readonly string name;
         private readonly string id;
-        private readonly bool faultOnChannelError;
         private readonly IInputFilterCollection inputFilters;
         private readonly IOutputFilterCollection outputFilters;
         private readonly IBinding binding;
@@ -139,7 +137,7 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
                 context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
                 HttpResponseMessage response = new(context.StatusCode);
                 response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
-                logger?.LogInformation("Pipeline {Name}-{Id} complete {}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
+                logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
                 return response;
             }
@@ -164,14 +162,29 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
 
         private async Task<OperationContext> ExecuteFiltersAsync(IFilterCollection filters, OperationContext context)
         {
-            if (context.IsFatal)
-                return context;
-
             foreach (var filter in filters)
             {
-                if (!context.IsFatal)
+                try
                 {
-                    context = await filter.ExecuteAsync(context);
+                    if ((filter.ExecutionStatusType == StatusType.Fault && context.IsFatal) ||
+                        (filter.ExecutionStatusType == StatusType.Normal && !context.IsFatal) ||
+                        (filter.ExecutionStatusType == StatusType.Any))
+                    {
+                        logger?.LogInformation("Pipeline {Name}-{Id} filter {FilterName}-{FilterId} executed with status {Status}.", Name, Id, filter.Name, filter.Id, filter.ExecutionStatusType);
+                        context = await filter.ExecuteAsync(context);
+                    }
+                    else
+                    {
+                        logger?.LogInformation("Pipeline {Name}-{Id} filter {FilterName}-{FilterId} not executed due to status {Status}.", Name, Id, filter.Name, filter.Id, filter.ExecutionStatusType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    telemetryClient?.TrackException(ex);
+                    logger?.LogError(ex, "Pipeline {Name}-{Id} channel {FilterName}-{FilterName} error.", Name, Id, filter.Name, filter.Id);
+                    context.IsFatal = true;
+                    context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    context.Error = ex;
                 }
             }
 
@@ -180,42 +193,44 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
 
         private async Task ExecuteChannelsAsync(IChannelCollection channels, OperationContext context)
         {
-            if (context.IsFatal)
-                return;
-
             foreach (var channel in channels)
             {
                 try
                 {
-
-                    if (channel.State == ChannelState.None)
+                    if ((channel.ExecutionStatusType == StatusType.Fault && context.IsFatal) ||
+                    (channel.ExecutionStatusType == StatusType.Normal && !context.IsFatal) ||
+                    (channel.ExecutionStatusType == StatusType.Any))
                     {
-                        logger?.LogInformation("Pipeline {Name}-{Id} opening channel {ChannelName}-{ChannelId} first time.", Name, Id, channel.Name, channel.Id);
-                        await channel.OpenAsync();
-                    }
+                        if (channel.State == ChannelState.None)
+                        {
+                            logger?.LogInformation("Pipeline {Name}-{Id} opening channel {ChannelName}-{ChannelId} first time.", Name, Id, channel.Name, channel.Id);
+                            await channel.OpenAsync();
+                        }
 
-                    if (channel.State != ChannelState.Open)
+                        if (channel.State != ChannelState.Open)
+                        {
+                            logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is not open, will try to close and open.", Name, Id, channel.Name, channel.Id);
+                            await channel.CloseAsync();
+                            await channel.OpenAsync();
+                        }
+
+                        logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is in state {State}.", Name, Id, channel.Name, channel.Id, channel.State);
+
+                        await channel.SendAsync(context.Content);
+                        logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} sent message.", Name, Id, channel.Name, channel.Id);
+                    }
+                    else
                     {
-                        logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is not open, will try to close and open.", Name, Id, channel.Name, channel.Id);
-                        await channel.CloseAsync();
-                        await channel.OpenAsync();
+                        logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} not executed due to status {Status}.",Name, Id, channel.Name, channel.Id, channel.ExecutionStatusType);
                     }
-
-                    logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is in state {State}.", Name, Id, channel.Name, channel.Id, channel.State);
-
-                    await channel.SendAsync(context.Content);
-                    logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} sent message.", Name, Id, channel.Name, channel.Id);
                 }
                 catch (Exception ex)
                 {
                     telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} error.", Name, Id, channel.Name, channel.Id);
-                    if (faultOnChannelError)
-                    {
-                        context.IsFatal = true;
-                        context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
-                        context.Error = ex;
-                    }
+                    context.IsFatal = true;
+                    context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    context.Error = ex;
                 }
             }
         }
@@ -239,27 +254,19 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         private void OutputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} output channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
-
-            if (faultOnChannelError)
-            {
-                context.IsFatal = true;
-                context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
-                context.Error = e.Error;
-                OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
-            }
+            context.IsFatal = true;
+            context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            context.Error = e.Error;
+            OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void InputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} input channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
-
-            if (faultOnChannelError)
-            {
-                context.IsFatal = true;
-                context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
-                context.Error = e.Error;
-                OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
-            }
+            context.IsFatal = true;
+            context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            context.Error = e.Error;
+            OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void OutputFilter_OnFilterError(object sender, FilterErrorEventArgs e)

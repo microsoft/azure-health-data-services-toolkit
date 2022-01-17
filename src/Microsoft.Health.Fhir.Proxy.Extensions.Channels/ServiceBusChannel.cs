@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System;
@@ -11,11 +12,16 @@ using System.Threading.Tasks;
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     /// <summary>
-    /// Channel that sends or receives events to/from Service Bus.
+    /// Channel that can send or receive data from Azure Service Bus.
     /// </summary>
     public class ServiceBusChannel : IInputChannel, IOutputChannel
     {
-        public ServiceBusChannel(IOptions<ServiceBusOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of ServiceBusChannel for sending messages.
+        /// </summary>
+        /// <param name="options">Send options.</param>
+        /// <param name="logger">ILogger</param>
+        public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger<ServiceBusChannel> logger = null)
         {
             Id = Guid.NewGuid().ToString();
             sku = options.Value.Sku;
@@ -23,21 +29,16 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             storageConnectionString = options.Value.FallbackStorageConnectionString;
             storageContainer = options.Value.FallbackStorageContainer;
             topic = options.Value.Topic;
-            subscription = options.Value.Subscription;
-            this.logger = logger;
-        }
-        public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger logger = null)
-        {
-            Id = Guid.NewGuid().ToString();
-            sku = options.Value.Sku;
-            connectionString = options.Value.ConnectionString;
-            storageConnectionString = options.Value.FallbackStorageConnectionString;
-            storageContainer = options.Value.FallbackStorageContainer;
-            topic = options.Value.Topic;
+            statusType = options.Value.ExecutionStatusType;
             this.logger = logger;
         }
 
-        public ServiceBusChannel(IOptions<ServiceBusReceiveOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of ServiceBusChannel for receiving messages.
+        /// </summary>
+        /// <param name="options">Receive options.</param>
+        /// <param name="logger">ILogger</param>
+        public ServiceBusChannel(IOptions<ServiceBusReceiveOptions> options, ILogger<ServiceBusChannel> logger = null)
         {
             Id = Guid.NewGuid().ToString();
             connectionString = options.Value.ConnectionString;
@@ -49,6 +50,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
         private ChannelState state;
         private readonly ILogger logger;
+        private readonly StatusType statusType;
         private readonly string connectionString;
         private readonly string storageConnectionString;
         private readonly string storageContainer;
@@ -70,6 +72,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// Gets the name of the channel, i.e., "ServiceBusChannel".
         /// </summary>
         public string Name => "ServiceBusChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => statusType;
 
         /// <summary>
         /// Gets and indicator to whether the channel has authenticated the user, which by default always false.

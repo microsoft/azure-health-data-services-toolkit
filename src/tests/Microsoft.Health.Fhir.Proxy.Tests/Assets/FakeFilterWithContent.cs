@@ -34,6 +34,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
         public string Name => "FakeFilterWithContent";
 
+        public StatusType ExecutionStatusType => StatusType.Any;
+
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             string content = "{ \"property\": \"value\" }";

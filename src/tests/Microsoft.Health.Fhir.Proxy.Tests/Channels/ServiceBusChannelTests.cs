@@ -5,14 +5,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Serilog;
 using System;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +27,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
         private static ServiceBusConfig config;
         private static readonly string logPath = "../../servicebuslog.txt";
-        private static Microsoft.Extensions.Logging.ILogger logger;
+        private static Microsoft.Extensions.Logging.ILogger<ServiceBusChannel> logger;
 
 
         [ClassInitialize]
@@ -58,7 +56,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 log.AddSerilog(slog);
             });
 
-            logger = factory.CreateLogger("test");
+            logger = factory.CreateLogger<ServiceBusChannel>();
             factory.Dispose();
 
             Console.WriteLine(context.TestName);
@@ -148,28 +146,30 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             inputChannel.Dispose();
             outputChannel.Dispose();
-            string dest = "../../sendSmall.txt";
-            File.Copy(logPath, dest);
-            StorageBlob storage = new(config.ServiceBusBlobConnectionString);
-            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendsmall.txt", "text/plain", File.ReadAllBytes(dest));
             Assert.IsTrue(completed, "Did not complete.");
         }
 
         [TestMethod]
         public async Task ServiceBusChannel_SendLargeMessage_Test()
         {
-            IOptions<ServiceBusOptions> options = Options.Create<ServiceBusOptions>(new ServiceBusOptions()
+            IOptions<ServiceBusSendOptions> options = Options.Create<ServiceBusSendOptions>(new ServiceBusSendOptions()
             {
+
                 ConnectionString = config.ServiceBusConnectionString,
                 Sku = config.ServiceBusSku,
                 FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
                 Topic = config.ServiceBusTopic,
-                Subscription = config.ServiceBusSubscription,
             });
 
-            Assert.IsNotNull(options.Value.Subscription, "Subscription");
-            Assert.IsNotNull(options.Value.FallbackStorageContainer, "Container");
+
+            IOptions<ServiceBusReceiveOptions> roptions = Options.Create<ServiceBusReceiveOptions>(new ServiceBusReceiveOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Topic = config.ServiceBusTopic,
+                Subscription = config.ServiceBusSubscription,
+                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+            });
 
             LargeJsonMessage msg = new();
             msg.Load(10, 300000);
@@ -177,15 +177,21 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 
             string contentType = "application/json";
             byte[] message = Encoding.UTF8.GetBytes(json);
-            IChannel channel = new ServiceBusChannel(options, logger);
+            IChannel sendChannel = new ServiceBusChannel(options, logger);
             Exception error = null;
-            channel.OnError += (a, args) =>
+            sendChannel.OnError += (a, args) =>
+            {
+                error = args.Error;
+            };
+
+            IChannel receiveChannel = new ServiceBusChannel(roptions, logger);
+            receiveChannel.OnError += (a, args) =>
             {
                 error = args.Error;
             };
 
             bool completed = false;
-            channel.OnReceive += (a, args) =>
+            receiveChannel.OnReceive += (a, args) =>
             {
                 try
                 {
@@ -201,22 +207,20 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
                 }
             };
 
-            await channel.OpenAsync();
-            await channel.ReceiveAsync();
-            await channel.SendAsync(message, new object[] { contentType });
+            await receiveChannel.OpenAsync();
+            await sendChannel.OpenAsync();
+            await receiveChannel.ReceiveAsync();
+            await sendChannel.SendAsync(message, new object[] { contentType });
 
             int i = 0;
-            while (!completed && i < 30)
+            while (!completed && i < 10)
             {
                 await Task.Delay(1000);
                 i++;
             }
 
-            channel.Dispose();
-            StorageBlob storage = new(config.ServiceBusBlobConnectionString);
-            string dest = "../../sendlarge.txt";
-            File.Copy(logPath, dest);
-            await storage.WriteBlockBlobAsync(config.ServiceBusBlobContainer, "sendlarge.txt", "text/plain", File.ReadAllBytes(dest));
+            sendChannel.Dispose();
+            receiveChannel.Dispose();
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
 
