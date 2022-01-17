@@ -341,16 +341,16 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/OperationContext.cs&amp;version=GBmalong/refactor&amp;line=74">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/OperationContext.cs&amp;version=GBmalong/refactor&amp;line=75">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_UpdateRequestUri_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.UpdateRequestUri*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_UpdateRequestUri_System_Net_Http_HttpMethod_System_String_System_String_System_String_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.UpdateRequestUri(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)">UpdateRequestUri(HttpMethod, String, String, String, String)</h4>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_UpdateRequestUri_System_Net_Http_HttpMethod_System_String_System_String_System_String_System_String_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext.UpdateRequestUri(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String,System.String)">UpdateRequestUri(HttpMethod, String, String, String, String, String)</h4>
   <div class="markdown level1 summary"><p>Updates the request URI and method.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void UpdateRequestUri(HttpMethod method, string resource, string id = null, string operation = null, string version = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public void UpdateRequestUri(HttpMethod method, string routePrefix = &quot;fhir&quot;, string resource = null, string id = null, string operation = null, string version = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -365,13 +365,19 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></td>
         <td><span class="parametername">method</span></td>
-        <td><p>HTTP method, e.g., GET, POST, PUT, DELETE.</p>
+        <td><p>HTTP method, e.g., GET, POST, PUT, DELETE</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">routePrefix</span></td>
+        <td><p>Route prefix of path, e.g., fhir.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">resource</span></td>
-        <td><p>FHIR resource type.</p>
+        <td><p>Optional FHIR resource type.</p>
 </td>
       </tr>
       <tr>

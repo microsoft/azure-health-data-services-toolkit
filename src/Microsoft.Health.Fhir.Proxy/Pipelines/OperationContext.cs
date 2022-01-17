@@ -66,14 +66,15 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         /// <summary>
         /// Updates the request URI and method.
         /// </summary>
-        /// <param name="method">HTTP method, e.g., GET, POST, PUT, DELETE.</param>
-        /// <param name="resource">FHIR resource type.</param>
+        /// <param name="method">HTTP method, e.g., GET, POST, PUT, DELETE</param>
+        /// <param name="routePrefix">Route prefix of path, e.g., fhir.</param>
+        /// <param name="resource">Optional FHIR resource type.</param>
         /// <param name="id">Optional FHIR Id</param>
         /// <param name="operation">Optional FHIR operation</param>
         /// <param name="version">Optional FHIR version</param>
-        public void UpdateRequestUri(HttpMethod method, string resource, string id = null, string operation = null, string version = null)
+        public void UpdateRequestUri(HttpMethod method, string routePrefix = "fhir", string resource = null, string id = null, string operation = null, string version = null)
         {
-            FhirPath requestPath = new(method.ToString(), Request.RequestUri.ToString());
+            FhirPath requestPath = new(method.ToString(), Request.RequestUri.ToString(), routePrefix);
             requestPath.Resource = resource ?? requestPath.Resource;
             requestPath.Id = id ?? requestPath.Id;
             requestPath.Operation = operation ?? requestPath.Operation;

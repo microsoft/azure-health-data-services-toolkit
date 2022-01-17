@@ -22,7 +22,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
         private static StorageLake storage;
         private static string fileSystemName;
         private static ConcurrentQueue<string> filesystems;
-        private static string logPath = "../../storagelakelog.txt";
+        private static readonly string logPath = "../../storagelakelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]

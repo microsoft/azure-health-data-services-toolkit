@@ -83,7 +83,8 @@
   
   <h1 id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1" class="text-break">Class TypedInMemoryCache&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>An in memory cache that uses an ICacheProvider as a backing store.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -139,15 +140,16 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=11">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=21">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1__ctor_System_Double_Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_Microsoft_Extensions_Logging_ILogger_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.#ctor(System.Double,Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider,Microsoft.Extensions.Logging.ILogger)">TypedInMemoryCache(Double, ICacheProvider, ILogger)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1__ctor_System_Double_Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache__0___" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.#ctor(System.Double,Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache{`0}})">TypedInMemoryCache(Double, ICacheProvider, ILogger&lt;TypedInMemoryCache&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of TypedInMemoryCache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TypedInMemoryCache(double cacheExpiryMilliseconds, ICacheProvider provider, ILogger logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public TypedInMemoryCache(double cacheExpiryMilliseconds, ICacheProvider provider, ILogger&lt;TypedInMemoryCache&lt;T&gt;&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -162,17 +164,20 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a></td>
         <td><span class="parametername">cacheExpiryMilliseconds</span></td>
-        <td></td>
+        <td><p>Cache item expiry in milliseconds</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.html">ICacheProvider</a></td>
         <td><span class="parametername">provider</span></td>
-        <td></td>
+        <td><p>ICacheProvider</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache-1.html">TypedInMemoryCache</a>&lt;T&gt;&gt;</td>
         <td><span class="parametername">logger</span></td>
-        <td></td>
+        <td><p>ILogger</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -180,11 +185,12 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=40">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=62">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.GetAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1_GetAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.GetAsync(System.String)">GetAsync(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets an object from the cache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -203,7 +209,8 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">key</span></td>
-        <td></td>
+        <td><p>Cache key.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -218,17 +225,19 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;T&gt;</td>
-        <td></td>
+        <td><p>Object from cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=32">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=48">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1_SetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.SetAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_TypedInMemoryCache_1_SetAsync_System_String__0_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.TypedInMemoryCache`1.SetAsync(System.String,`0)">SetAsync(String, T)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds an object to the cache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -247,12 +256,14 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">key</span></td>
-        <td></td>
+        <td><p>Cache key.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
-        <td></td>
+        <td><p>Object to cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -267,7 +278,8 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span></td>
-        <td></td>
+        <td><p>Task</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -279,7 +291,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=9" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/TypedInMemoryCache.cs&amp;version=GBmalong/refactor&amp;line=13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

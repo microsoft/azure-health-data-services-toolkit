@@ -19,7 +19,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 
             HttpRequestMessage request = new(HttpMethod.Get, new Uri(uriString));
             OperationContext context = new(request);
-            context.UpdateRequestUri(expectedMethod, "Patient", "2");
+            context.UpdateRequestUri(expectedMethod, "fhir", "Patient", "2");
             context.ContentString = content;
 
             Assert.AreEqual(expectedUriString, request.RequestUri.ToString(), "Uri mismatch.");

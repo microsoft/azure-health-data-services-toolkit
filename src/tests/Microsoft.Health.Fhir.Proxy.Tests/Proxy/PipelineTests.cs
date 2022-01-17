@@ -1,14 +1,16 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,7 +20,36 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
     [TestClass]
     public class PipelineTests
     {
-        
+        private static readonly string logPath = "../../pipelinelog.txt";
+        private static Microsoft.Extensions.Logging.ILogger<WebPipeline> logger;
+
+        [ClassInitialize]
+        public static void Initialize(TestContext context)
+        {
+            if(File.Exists(logPath))
+            {
+                File.Delete(logPath);
+            }
+
+            var slog = new LoggerConfiguration()
+            .WriteTo.File(
+            logPath,
+            shared: true,
+            flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
+            .MinimumLevel.Debug()
+            .CreateLogger();
+
+            Microsoft.Extensions.Logging.ILoggerFactory factory = LoggerFactory.Create(log =>
+            {
+                log.SetMinimumLevel(LogLevel.Information);
+                log.AddConsole();
+                log.AddSerilog(slog);
+            });
+
+            logger = factory.CreateLogger<WebPipeline>();
+            factory.Dispose();
+            Console.WriteLine(context.TestName);
+        }
 
         [TestMethod]
         public async Task WebPipeline_Simple_Test()
@@ -29,12 +60,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
 
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels);
-           
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
+
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
@@ -44,6 +71,106 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
             HttpResponseMessage output = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
+        }
+
+        [TestMethod]
+        public async Task WebPipeline_SimpleWithMultipleFilters_Test()
+        {
+            string requestUriString = "http://example.org/path";
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            filters.Add(new FakeFilter());
+            filters.Add(new FakeFilter());
+            
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+
+            HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
+            HttpResponseMessage output = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(complete, "Pipeline not signal complete.");
+        }
+
+        [TestMethod]
+        public async Task WebPipeline_SimpleWithMultipleAndFaultCaseNotExecuted_Filters_Test()
+        {
+            string requestUriString = "http://example.org/path";
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            IFilter filter1 = new FakeFilter();
+            IFilter filter2 = new FakeFilter(StatusType.Fault);
+
+            filters.Add(filter1);
+            filters.Add(filter2);
+
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, null, null, null, null, logger);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+
+            HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
+            HttpResponseMessage output = await pipeline.ExecuteAsync(request);
+            string copyPath = $"../../copypipelinelog.txt";
+            File.Copy(logPath, copyPath, true);
+            using StreamReader reader = new(copyPath);
+
+            bool anyStatus = false;
+            bool faultStatus = false;
+            while(!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                anyStatus = anyStatus || line.Contains("executed with status Any");
+                faultStatus = faultStatus || line.Contains("not executed due to status Fault");
+            }
+            Assert.IsTrue(complete, "Pipeline not signal complete.");
+            Assert.IsTrue(anyStatus, "Any status not found.");
+            Assert.IsTrue(faultStatus, "Fault status not found.");
+        }
+
+        [TestMethod]
+        public async Task WebPipeline_SimpleWitNormalAndFaultCaseNotExecuted_Filters_Test()
+        {
+            string requestUriString = "http://example.org/path";
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            IFilter filter1 = new FakeFilter(StatusType.Fault);
+            IFilter filter2 = new FakeFilter(StatusType.Normal);
+
+            filters.Add(filter1);
+            filters.Add(filter2);
+
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, null, null, null, null, logger);
+
+            bool complete = false;
+            pipeline.OnComplete += (a, args) =>
+            {
+                complete = true;
+            };
+
+            HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
+            HttpResponseMessage output = await pipeline.ExecuteAsync(request);
+            string copyPath = $"../../copypipelinelog.txt";
+            File.Copy(logPath, copyPath, true);
+            using StreamReader reader = new(copyPath);
+
+            bool anyStatus = false;
+            bool faultStatus = false;
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                anyStatus = anyStatus || line.Contains("executed with status Normal");
+                faultStatus = faultStatus || line.Contains("not executed due to status Fault");
+            }
+            Assert.IsTrue(complete, "Pipeline not signal complete.");
+            Assert.IsTrue(anyStatus, "Any status not found.");
+            Assert.IsTrue(faultStatus, "Fault status not found.");
         }
 
         [TestMethod]
@@ -62,11 +189,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 filter
             };
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, null, null, null, null, null, null);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, null, null, null, null, null, null);
             bool complete = false;
             pipeline.OnError += (a, args) =>
             {
@@ -91,11 +214,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 channel
             };
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, null, channels);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(null, channels);
             bool trigger = false;
             pipeline.OnError += (a, args) =>
             {
@@ -120,11 +239,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 channel
             };
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = false,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, null, channels);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(null, channels);
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
@@ -141,7 +256,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         }
 
 
-       
+
 
 
         [TestMethod]
@@ -156,18 +271,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
 
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels, binding);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, binding);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
                 complete = true;
             };
-;
+            ;
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
@@ -187,18 +298,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             filters.Add(new FakeFilterWithContent());
             channels.Add(new FakeChannel());
 
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters, channels);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
                 complete = true;
             };
-            
+
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsNotNull(response, "Response is null.");
             Assert.IsTrue(complete, "Pipeline not complete.");
@@ -220,13 +327,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 filter
             };
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(options, filters);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters);
 
-            
+
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -268,18 +371,14 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
 
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters, channels, binding);
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters, channels, binding);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
             {
                 complete = true;
             };
-            
+
             HttpResponseData response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
@@ -296,17 +395,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             filters.Add(new FakeFilterWithContent());
             channels.Add(new FakeChannel());
 
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters, channels);
-
-            //bool complete = false;
-            //pipeline.OnComplete += (a, args) =>
-            //{
-            //    complete = true;
-            //};
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters, channels);
 
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
@@ -336,11 +425,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 new FaultFilter()
             };
-            IOptions<PipelineOptions> options = Options.Create<PipelineOptions>(new PipelineOptions()
-            {
-                FaultOnChannelError = true,
-            });
-            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(options, filters);
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -352,7 +437,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             {
                 fault = true;
             };
-            
+
             var response = await pipeline.ExecuteAsync(request);
             Assert.IsFalse(complete, "Should not be complete.");
             Assert.IsTrue(fault, "Should have fault.");

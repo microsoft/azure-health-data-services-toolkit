@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
+﻿namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
+    /// <summary>
+    /// Azure Service Bus channel options used to recieve data.
+    /// </summary>
     public class ServiceBusReceiveOptions
     {
         public string ConnectionString { get; set; }

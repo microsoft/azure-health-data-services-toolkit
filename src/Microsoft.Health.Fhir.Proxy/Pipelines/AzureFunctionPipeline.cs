@@ -27,10 +27,10 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
         /// <param name="outputChannels">Optional collection of output channels.</param>
         /// <param name="telemetryClient">Optional application insights telemetry client.</param>
         /// <param name="logger">Optional ILogger.</param>
-        public AzureFunctionPipeline(IOptions<PipelineOptions> options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
+        public AzureFunctionPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
         {
             id = Guid.NewGuid().ToString();
-            pipeline = new WebPipeline(Name, id, options, inputFilters, inputChannels, binding, outputFilters,  outputChannels, telemetryClient, logger);
+            pipeline = new WebPipeline(Name, id, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger);
             pipeline.OnComplete += Pipeline_OnComplete;
             pipeline.OnError += Pipeline_OnError;
         }

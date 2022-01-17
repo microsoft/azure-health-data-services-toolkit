@@ -154,15 +154,15 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
             {
-                 CredentialType = ClientCredentialType.ManagedIdentity,
+                CredentialType = ClientCredentialType.ManagedIdentity,
             });
 
             var authenticator = new Mock<IAuthenticator>();
-            authenticator.Setup(p => p.AquireTokenForClientAsync(It.IsAny<string>(), 
-                                                                It.IsAny<string[]>(), 
-                                                                It.IsAny<string>(), 
-                                                                It.IsAny<string>(), 
-                                                                It.IsAny<string>(), 
+            authenticator.Setup(p => p.AquireTokenForClientAsync(It.IsAny<string>(),
+                                                                It.IsAny<string[]>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<string>(),
                                                                 CancellationToken.None)).Returns(Task.FromResult<string>("token"));
 
 

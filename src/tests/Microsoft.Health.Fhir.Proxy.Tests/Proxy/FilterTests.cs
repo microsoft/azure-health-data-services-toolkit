@@ -275,7 +275,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             HttpStatusCode code = HttpStatusCode.InternalServerError;
             string body = "stuff";
             FakeFilterWithError filter = new(name, fatal, error, code, body);
-            
+
             bool trigger = false;
             filter.OnFilterError += (object sender, FilterErrorEventArgs args) =>
             {

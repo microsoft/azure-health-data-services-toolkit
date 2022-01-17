@@ -9,7 +9,7 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
         /// <summary>
         /// Creates an instance of the FilterCollection.
         /// </summary>
-        public OutputFilterCollection(IEnumerable<IInputFilter> outputFilters = null)
+        public OutputFilterCollection(IEnumerable<IOutputFilter> outputFilters = null)
         {
             filters = outputFilters != null ? new List<IFilter>(outputFilters) : new List<IFilter>();
         }
