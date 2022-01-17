@@ -5,6 +5,7 @@ using Azure.Storage.Blobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System;
@@ -18,18 +19,28 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     /// </summary>
     public class EventHubChannel : IInputChannel, IOutputChannel
     {
-        public EventHubChannel(IOptions<EventHubSendOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of EventHubChannel for sending to an event hub.
+        /// </summary>
+        /// <param name="options">Send options.</param>
+        /// <param name="logger">ILogger</param>
+        public EventHubChannel(IOptions<EventHubSendOptions> options, ILogger<EventHubChannel> logger = null)
         {
             sku = options.Value.Sku;
             connectionString = options.Value.ConnectionString;
             hubName = options.Value.HubName;
-            //processorContainer = options.Value.ProcessorContainer;
+            statusType = options.Value.ExecutionStatusType;
             fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
             fallbackContainer = options.Value.FallbackStorageContainer;
             this.logger = logger;
         }
 
-        public EventHubChannel(IOptions<EventHubReceiveOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of EventHubChannel for receiving from an event hub.
+        /// </summary>
+        /// <param name="options">Receive options.</param>
+        /// <param name="logger">ILogger</param>
+        public EventHubChannel(IOptions<EventHubReceiveOptions> options, ILogger<EventHubChannel> logger = null)
         {
             connectionString = options.Value.ConnectionString;
             hubName = options.Value.HubName;
@@ -48,6 +59,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         private EventHubProducerClient sender;
         private EventProcessorClient processor;
         private readonly ILogger logger;
+        private readonly StatusType statusType;
         private StorageBlob storage;
         private bool disposed;
 
@@ -60,6 +72,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// Gets the name of the channel, i.e., "EventHubChannel".
         /// </summary>
         public string Name => "EventHubChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => statusType;
 
         /// <summary>
         /// Gets and indicator to whether the channel has authenticated the user, which by default always false.

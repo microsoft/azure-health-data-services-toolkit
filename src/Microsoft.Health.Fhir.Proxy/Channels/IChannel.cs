@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Health.Fhir.Proxy.Pipelines;
+using System;
 using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Channels
@@ -42,6 +43,11 @@ namespace Microsoft.Health.Fhir.Proxy.Channels
         /// Gets a name for the type of channel.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        StatusType ExecutionStatusType { get; }
 
         /// <summary>
         /// Gets an indicator of whether the identity that received the channel connection is authenticated.

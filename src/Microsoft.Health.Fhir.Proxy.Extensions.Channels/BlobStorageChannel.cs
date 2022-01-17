@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,18 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     /// </summary>
     public class BlobStorageChannel : IInputChannel, IOutputChannel
     {
-        public BlobStorageChannel(IOptions<BlobStorageSendOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates and instance of BlobStorageChannel.
+        /// </summary>
+        /// <param name="options">Options for sending to blob storage.</param>
+        /// <param name="logger">ILogger</param>
+        public BlobStorageChannel(IOptions<BlobStorageSendOptions> options, ILogger<BlobStorageChannel> logger = null)
         {
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
             storage = new StorageBlob(options.Value.ConnectionString, options.Value.InitialTransferSize, options.Value.MaxConcurrency, options.Value.MaxTransferSize, logger);
             blobContainer = options.Value.Container;
+            statusType = options.Value.ExecutionStatusType;
         }
 
         private StorageBlob storage;
@@ -28,6 +35,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         private bool disposed;
         private ChannelState state;
         private readonly ILogger logger;
+        private readonly StatusType statusType;
 
         /// <summary>
         /// Gets the instance ID of the channel.
@@ -38,6 +46,12 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// Gets the name of the channel, i.e., "BlobStorageChannel".
         /// </summary>
         public string Name => "BlobStorageChannel";
+
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => statusType;
 
         /// <summary>
         /// Gets and indicator to whether the channel has authenticated the user, which by default always false.

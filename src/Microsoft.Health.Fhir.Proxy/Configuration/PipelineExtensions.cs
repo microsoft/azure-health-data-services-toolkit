@@ -74,14 +74,13 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// <param name="services"></param>
         /// <param name="options"></param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAzureFunctionPipeline(this IServiceCollection services, Action<PipelineOptions> options)
+        public static IServiceCollection UseAzureFunctionPipeline(this IServiceCollection services)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
             services.AddScoped<IOutputFilterCollection, OutputFilterCollection>();
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
             services.AddScoped<IPipeline<HttpRequestData, HttpResponseData>, AzureFunctionPipeline>();
-            services.Configure(options);
             return services;
         }
 
@@ -93,14 +92,13 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// <param name="services"></param>
         /// <param name="options"></param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection UseWebPipeline(this IServiceCollection services, Action<PipelineOptions> options)
+        public static IServiceCollection UseWebPipeline(this IServiceCollection services)
         {
             services.AddScoped<IInputFilterCollection, InputFilterCollection>();
             services.AddScoped<IOutputFilterCollection, OutputFilterCollection>();
             services.AddScoped<IInputChannelCollection, InputChannelCollection>();
             services.AddScoped<IOutputChannelCollection, OutputChannelCollection>();
             services.AddScoped<IPipeline<HttpRequestMessage, HttpResponseMessage>, WebPipeline>();
-            services.Configure(options);
             return services;
         }
 

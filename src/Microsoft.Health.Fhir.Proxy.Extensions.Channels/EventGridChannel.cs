@@ -3,6 +3,7 @@ using Azure.Messaging.EventGrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using System;
 using System.Text;
@@ -15,7 +16,12 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
     /// </summary>
     public class EventGridChannel : IInputChannel, IOutputChannel
     {
-        public EventGridChannel(IOptions<EventGridSendOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of EventGridChannel.
+        /// </summary>
+        /// <param name="options">Options for sending to the event grid.</param>
+        /// <param name="logger">ILogger</param>
+        public EventGridChannel(IOptions<EventGridSendOptions> options, ILogger<EventGridChannel> logger = null)
         {
             connectionString = options.Value.FallbackStorageConnectionString;
             container = options.Value.FallbackStorageContainer;
@@ -24,6 +30,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             subject = options.Value.Subject;
             eventType = options.Value.EventType;
             dataVersion = options.Value.DataVersion;
+            statusType = options.Value.ExecutionStatusType;
             this.logger = logger;
         }
 
@@ -39,6 +46,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         private bool disposed;
         private ChannelState state;
         private readonly ILogger logger;
+        private readonly StatusType statusType;
 
         /// <summary>
         /// Gets the instance ID of the channel.
@@ -49,6 +57,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// Gets the name of the channel, i.e., "EventGridChannel".
         /// </summary>
         public string Name => "EventGridChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => statusType;
 
         /// <summary>
         /// Gets and indicator to whether the channel has authenticated the user, which is by default always false.
