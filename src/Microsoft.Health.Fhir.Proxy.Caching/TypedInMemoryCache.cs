@@ -6,9 +6,19 @@ using Microsoft.Health.Fhir.Proxy.Caching.StorageProviders;
 
 namespace Microsoft.Health.Fhir.Proxy.Caching
 {
+    /// <summary>
+    /// An in memory cache that uses an ICacheProvider as a backing store.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class TypedInMemoryCache<T>
     {
-        public TypedInMemoryCache(double cacheExpiryMilliseconds, ICacheProvider provider, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of TypedInMemoryCache.
+        /// </summary>
+        /// <param name="cacheExpiryMilliseconds">Cache item expiry in milliseconds</param>
+        /// <param name="provider">ICacheProvider</param>
+        /// <param name="logger">ILogger</param>
+        public TypedInMemoryCache(double cacheExpiryMilliseconds, ICacheProvider provider, ILogger<TypedInMemoryCache<T>> logger = null)
         {
             expiry = cacheExpiryMilliseconds;
             this.provider = provider;
@@ -29,6 +39,12 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         private readonly double expiry;
         private readonly ILogger logger;
 
+        /// <summary>
+        /// Adds an object to the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Object to cache.</param>
+        /// <returns>Task</returns>
         public async Task SetAsync(string key, T value)
         {
             cache.Set(key, value, GetOptions());
@@ -37,6 +53,12 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
 
         }
 
+        /// <summary>
+        /// Gets an object from the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Object from cache.</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<T> GetAsync(string key)
         {
             T value = cache.Get<T>(key);
@@ -44,9 +66,12 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
             {
                 logger?.LogTrace("Key {key} not found in local memory cache.", key);
                 T remote = await provider.GetAsync<T>(key);
-                _ = remote ?? throw new Exception("Key not found in cache or persistent store.");
-                cache.Set<T>(key, remote);
-                value = remote;
+                
+                if (remote != null)
+                {
+                    cache.Set<T>(key, remote);
+                }
+                value ??= remote;
                 logger?.LogInformation("Key {key} reset from store to local memory cache.", key);
             }
 
