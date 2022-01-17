@@ -1,7 +1,6 @@
 ﻿using Azure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Fhir.Proxy.Configuration;
 using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,9 +34,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
                 ClientId = config.ClientId,
                 ClientSecret = config.ClientSecret,
                 TenantId = config.TenantId,
-            }); 
+            });
             Authenticator auth = new(options);
-            ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);           
+            ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);
             string token = await auth.AquireTokenForClientAsync(resource, credential);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
@@ -73,7 +72,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
                 TenantId = config.TenantId,
             });
             Authenticator auth = new(options);
-            ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);           
+            ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);
             string token = await auth.AquireTokenForClientAsync(resource, credential, scopes);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
@@ -86,7 +85,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new()
             {
                 Certficate = config.Certficate,
-                CredentialType = ClientCredentialType.ClientSecret, 
+                CredentialType = ClientCredentialType.ClientSecret,
                 ClientId = config.ClientId,
                 ClientSecret = config.ClientSecret,
                 TenantId = config.TenantId,

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
 using System;
@@ -11,11 +12,16 @@ using System.Threading.Tasks;
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {
     /// <summary>
-    /// Channel that sends or receives events to/from Service Bus.
+    /// Channel that can send or receive data from Azure Service Bus.
     /// </summary>
     public class ServiceBusChannel : IInputChannel, IOutputChannel
     {
-        public ServiceBusChannel(IOptions<ServiceBusOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of ServiceBusChannel for sending messages.
+        /// </summary>
+        /// <param name="options">Send options.</param>
+        /// <param name="logger">ILogger</param>
+        public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger<ServiceBusChannel> logger = null)
         {
             Id = Guid.NewGuid().ToString();
             sku = options.Value.Sku;
@@ -23,21 +29,16 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             storageConnectionString = options.Value.FallbackStorageConnectionString;
             storageContainer = options.Value.FallbackStorageContainer;
             topic = options.Value.Topic;
-            subscription = options.Value.Subscription;
-            this.logger = logger;
-        }
-        public ServiceBusChannel(IOptions<ServiceBusSendOptions> options, ILogger logger = null)
-        {
-            Id = Guid.NewGuid().ToString();
-            sku = options.Value.Sku;
-            connectionString = options.Value.ConnectionString;
-            storageConnectionString = options.Value.FallbackStorageConnectionString;
-            storageContainer = options.Value.FallbackStorageContainer;
-            topic = options.Value.Topic;
+            statusType = options.Value.ExecutionStatusType;
             this.logger = logger;
         }
 
-        public ServiceBusChannel(IOptions<ServiceBusReceiveOptions> options, ILogger logger = null)
+        /// <summary>
+        /// Creates an instance of ServiceBusChannel for receiving messages.
+        /// </summary>
+        /// <param name="options">Receive options.</param>
+        /// <param name="logger">ILogger</param>
+        public ServiceBusChannel(IOptions<ServiceBusReceiveOptions> options, ILogger<ServiceBusChannel> logger = null)
         {
             Id = Guid.NewGuid().ToString();
             connectionString = options.Value.ConnectionString;
@@ -46,9 +47,10 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             subscription = options.Value.Subscription;
             this.logger = logger;
         }
-       
+
         private ChannelState state;
         private readonly ILogger logger;
+        private readonly StatusType statusType;
         private readonly string connectionString;
         private readonly string storageConnectionString;
         private readonly string storageContainer;
@@ -70,6 +72,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
         /// Gets the name of the channel, i.e., "ServiceBusChannel".
         /// </summary>
         public string Name => "ServiceBusChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => statusType;
 
         /// <summary>
         /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
@@ -150,7 +157,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{0}-{1} opened.", Name, Id);
+            logger?.LogInformation("{Name}-{Id} opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -189,7 +196,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{0}-{1} error attempting to send message.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
             }
         }
 
@@ -209,7 +216,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 };
 
                 processor = client.CreateProcessor(topic, subscription, options);
-                logger?.LogInformation("{0}-{1} topic {2} subscription {3}.", Name, Id, topic, subscription);
+                logger?.LogInformation("{Name}-{Id} topic {topic} subscription {sub}.", Name, Id, topic, subscription);
                 processor.ProcessErrorAsync += async (args) =>
                 {
                     logger?.LogInformation("{Name}-{Id} received error in processor.", Name, Id);
@@ -220,24 +227,24 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 processor.ProcessMessageAsync += async (args) =>
                 {
                     ServiceBusReceivedMessage msg = args.Message;
-                    logger?.LogInformation("{0}-{1} message received.", Name, Id);
+                    logger?.LogInformation("{Name}-{Id} message received.", Name, Id);
 
                     if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
                     {
-                        logger?.LogInformation("{0}-{1} processing subscription message.", Name, Id);
+                        logger?.LogInformation("{Name}-{Id} processing subscription message.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
                     }
                     else if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
                         var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
-                        logger?.LogInformation("{0}-{1} processing large message from blob.", Name, Id);
+                        logger?.LogInformation("{Name}-{Id} processing large message from blob.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result));
                     }
                     else
                     {
-                        logger?.LogWarning("{0}-{1} with topic {2} and subscription {3} does not understand message.", Name, Id, topic, subscription);
-                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));                        
+                        logger?.LogWarning("{Name}-{Id} with topic {topic} and subscription {sub} does not understand message.", Name, Id, topic, subscription);
+                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));
                     }
                 };
 
@@ -246,7 +253,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{0}-{1} error receiving messages.", Name, Id);
+                logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
             }
         }
 
@@ -260,7 +267,7 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{0}-{1} channel closed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -303,11 +310,11 @@ namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError(ex, "{0}-{1} fault disposing.", Name, Id);
+                    logger?.LogError(ex, "{Name}-{Id} fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{0}-{1} disposed.", Name, Id);
+                logger?.LogInformation("{Name}-{Id} disposed.", Name, Id);
             }
         }
 

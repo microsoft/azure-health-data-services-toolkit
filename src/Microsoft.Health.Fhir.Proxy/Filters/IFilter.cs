@@ -20,9 +20,14 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
         string Id { get; }
 
         /// <summary>
-        /// Get the name of the filter.
+        /// Gets the name of the filter.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the requirement for executing the filter.
+        /// </summary>
+        StatusType ExecutionStatusType { get; }
 
         /// <summary>
         /// Executes the filter operation.

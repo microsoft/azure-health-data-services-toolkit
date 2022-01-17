@@ -132,13 +132,13 @@
     <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Pipelines/AzureFunctionPipeline.cs&amp;version=GBmalong/refactor&amp;line=30">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionPipeline__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipeline.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionPipeline__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Pipelines_PipelineOptions__Microsoft_Health_Fhir_Proxy_Filters_IInputFilterCollection_Microsoft_Health_Fhir_Proxy_Channels_IInputChannelCollection_Microsoft_Health_Fhir_Proxy_Bindings_IBinding_Microsoft_Health_Fhir_Proxy_Filters_IOutputFilterCollection_Microsoft_Health_Fhir_Proxy_Channels_IOutputChannelCollection_Microsoft_ApplicationInsights_TelemetryClient_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Pipelines_WebPipeline__" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipeline.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Pipelines.PipelineOptions},Microsoft.Health.Fhir.Proxy.Filters.IInputFilterCollection,Microsoft.Health.Fhir.Proxy.Channels.IInputChannelCollection,Microsoft.Health.Fhir.Proxy.Bindings.IBinding,Microsoft.Health.Fhir.Proxy.Filters.IOutputFilterCollection,Microsoft.Health.Fhir.Proxy.Channels.IOutputChannelCollection,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Pipelines.WebPipeline})">AzureFunctionPipeline(IOptions&lt;PipelineOptions&gt;, IInputFilterCollection, IInputChannelCollection, IBinding, IOutputFilterCollection, IOutputChannelCollection, TelemetryClient, ILogger&lt;WebPipeline&gt;)</h4>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionPipeline__ctor_Microsoft_Health_Fhir_Proxy_Filters_IInputFilterCollection_Microsoft_Health_Fhir_Proxy_Channels_IInputChannelCollection_Microsoft_Health_Fhir_Proxy_Bindings_IBinding_Microsoft_Health_Fhir_Proxy_Filters_IOutputFilterCollection_Microsoft_Health_Fhir_Proxy_Channels_IOutputChannelCollection_Microsoft_ApplicationInsights_TelemetryClient_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Pipelines_AzureFunctionPipeline__" data-uid="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipeline.#ctor(Microsoft.Health.Fhir.Proxy.Filters.IInputFilterCollection,Microsoft.Health.Fhir.Proxy.Channels.IInputChannelCollection,Microsoft.Health.Fhir.Proxy.Bindings.IBinding,Microsoft.Health.Fhir.Proxy.Filters.IOutputFilterCollection,Microsoft.Health.Fhir.Proxy.Channels.IOutputChannelCollection,Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipeline})">AzureFunctionPipeline(IInputFilterCollection, IInputChannelCollection, IBinding, IOutputFilterCollection, IOutputChannelCollection, TelemetryClient, ILogger&lt;AzureFunctionPipeline&gt;)</h4>
   <div class="markdown level1 summary"><p>Creates an instance of AzureFunctionPipeline</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AzureFunctionPipeline(IOptions&lt;PipelineOptions&gt; options, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger&lt;WebPipeline&gt; logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public AzureFunctionPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger&lt;AzureFunctionPipeline&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -150,12 +150,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Pipelines.PipelineOptions.html">PipelineOptions</a>&gt;</td>
-        <td><span class="parametername">options</span></td>
-        <td><p>Pipeline options.</p>
-</td>
-      </tr>
       <tr>
         <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Filters.IInputFilterCollection.html">IInputFilterCollection</a></td>
         <td><span class="parametername">inputFilters</span></td>
@@ -193,7 +187,7 @@
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Pipelines.WebPipeline.html">WebPipeline</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Pipelines.AzureFunctionPipeline.html">AzureFunctionPipeline</a>&gt;</td>
         <td><span class="parametername">logger</span></td>
         <td><p>Optional ILogger.</p>
 </td>

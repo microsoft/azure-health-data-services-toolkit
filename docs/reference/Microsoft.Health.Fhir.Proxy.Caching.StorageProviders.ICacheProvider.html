@@ -83,7 +83,8 @@
   
   <h1 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider" class="text-break">Interface ICacheProvider
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Interface implemented by cache provider.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.html">Microsoft.Health.Fhir.Proxy.Caching.StorageProviders</a></h6>
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.Caching.dll</h6>
@@ -95,11 +96,12 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=5">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=15">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.AddAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_AddAsync__1_System_String___0_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.AddAsync``1(System.String,``0)">AddAsync&lt;T&gt;(String, T)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds an object to the cache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -118,12 +120,14 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">key</span></td>
-        <td></td>
+        <td><p>Cache key.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
-        <td></td>
+        <td><p>Object to cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -138,7 +142,8 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span></td>
-        <td></td>
+        <td><p>Task</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -153,17 +158,19 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>Type of object to cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=7">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=23">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.GetAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_GetAsync__1_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.GetAsync``1(System.String)">GetAsync&lt;T&gt;(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets an object from the cache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -182,7 +189,8 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">key</span></td>
-        <td></td>
+        <td><p>Cache key.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -197,7 +205,8 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;T&gt;</td>
-        <td></td>
+        <td><p>Cached object.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -212,17 +221,19 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>Type of object to cache.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=9">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=30">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_RemoveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.RemoveAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheProvider_RemoveAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.RemoveAsync(System.String)">RemoveAsync(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Removes and object from the cache.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -241,7 +252,8 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">key</span></td>
-        <td></td>
+        <td><p>Cache key.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -256,7 +268,8 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
-        <td></td>
+        <td><p>True is removed otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -268,7 +281,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=3" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/ICacheProvider.cs&amp;version=GBmalong/refactor&amp;line=6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -84,8 +84,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
             IOptions<BlobStorageSendOptions> options = Options.Create<BlobStorageSendOptions>(new BlobStorageSendOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                 Container = config.BlobStorageChannelContainer
-            }); 
+                Container = config.BlobStorageChannelContainer
+            });
 
             IChannel channel = new BlobStorageChannel(options);
             channel.OnError += (i, args) =>

@@ -51,6 +51,22 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
         }
 
         [TestMethod]
+        public async Task InMemory_WithNoCacheObject_Test()
+        {
+            string value1 = "foo";
+            string value2 = "bar";
+            TestJsonObject jsonObject = new(value1, value2);
+            string key = "blobtest1";
+
+            ICacheProvider provider = new AzureJsonBlobStorageProvider(connectionString, container);
+            TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
+            await cache.SetAsync(key, jsonObject);
+            string fakeKey = "boom";
+            TestJsonObject actual = await cache.GetAsync(fakeKey);
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
         public async Task InMemoryTestWithExpiry()
         {
             string value1 = "foo";
