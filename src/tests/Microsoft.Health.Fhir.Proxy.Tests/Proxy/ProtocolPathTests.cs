@@ -1,6 +1,6 @@
+using System;
 using Microsoft.Health.Fhir.Proxy.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {

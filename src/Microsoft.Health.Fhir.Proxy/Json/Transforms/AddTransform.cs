@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.Health.Fhir.Proxy.Json.Transforms
 {

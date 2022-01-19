@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Reflection;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Health.Fhir.Proxy.Caching;
 using Microsoft.Health.Fhir.Proxy.Caching.StorageProviders;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Reflection;
-using System.Threading.Tasks;
 namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
 {
     [TestClass]

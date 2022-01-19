@@ -1,4 +1,10 @@
-﻿using Microsoft.Azure.Functions.Worker;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Bindings;
@@ -8,12 +14,6 @@ using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {

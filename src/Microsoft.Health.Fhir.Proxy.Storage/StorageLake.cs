@@ -1,14 +1,14 @@
-﻿using Azure;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Storage;
 using Azure.Storage.Files.DataLake;
 using Azure.Storage.Files.DataLake.Models;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {

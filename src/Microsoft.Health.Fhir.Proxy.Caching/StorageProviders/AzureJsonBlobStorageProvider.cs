@@ -1,8 +1,8 @@
-﻿using Azure;
+﻿using System.Text;
+using Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
 {

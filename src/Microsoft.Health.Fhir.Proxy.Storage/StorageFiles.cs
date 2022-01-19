@@ -1,13 +1,13 @@
-﻿using Azure;
-using Azure.Storage;
-using Azure.Storage.Files.Shares;
-using Azure.Storage.Files.Shares.Models;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
+using Azure.Storage;
+using Azure.Storage.Files.Shares;
+using Azure.Storage.Files.Shares.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {

@@ -1,11 +1,11 @@
-﻿using Azure.Identity;
+﻿using System.Reflection;
+using System.Threading.Tasks;
+using Azure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Security;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {

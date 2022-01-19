@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
 {

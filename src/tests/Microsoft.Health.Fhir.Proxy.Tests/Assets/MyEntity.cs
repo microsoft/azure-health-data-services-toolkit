@@ -1,6 +1,6 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using System;
+using Microsoft.Azure.Cosmos.Table;
 using Newtonsoft.Json;
-using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {

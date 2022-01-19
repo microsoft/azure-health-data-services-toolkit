@@ -1,9 +1,9 @@
-﻿using Microsoft.Health.Fhir.Proxy.Configuration;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Microsoft.Health.Fhir.Proxy.Configuration;
 
 namespace Microsoft.Health.Fhir.Proxy.Protocol
 {

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.Health.Fhir.Proxy.Json
 {

@@ -1,6 +1,6 @@
-﻿using Azure.Core;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Azure.Core;
 
 namespace Microsoft.Health.Fhir.Proxy.Security
 {

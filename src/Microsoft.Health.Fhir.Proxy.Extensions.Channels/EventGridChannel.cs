@@ -1,13 +1,13 @@
-﻿using Azure;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
+using Azure;
 using Azure.Messaging.EventGrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.WebApiCompatShim;
-using System.Net.Http;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {

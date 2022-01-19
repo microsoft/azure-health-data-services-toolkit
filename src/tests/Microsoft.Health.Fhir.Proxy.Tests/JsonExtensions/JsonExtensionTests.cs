@@ -1,7 +1,7 @@
-﻿using Microsoft.Health.Fhir.Proxy.Json;
+﻿using System.IO;
+using Microsoft.Health.Fhir.Proxy.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.JsonExtensions
 {

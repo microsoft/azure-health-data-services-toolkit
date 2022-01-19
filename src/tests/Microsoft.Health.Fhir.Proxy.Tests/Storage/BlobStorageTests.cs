@@ -1,15 +1,15 @@
-﻿using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Health.Fhir.Proxy.Storage;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Health.Fhir.Proxy.Storage;
+using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
 {

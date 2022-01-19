@@ -1,4 +1,9 @@
-﻿using Azure.Storage.Queues.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using Azure.Storage.Queues.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Channels;
@@ -7,11 +12,6 @@ using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 {
