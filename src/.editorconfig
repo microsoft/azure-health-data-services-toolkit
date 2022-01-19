@@ -1,4 +1,9 @@
-﻿[*.cs]
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
 
-# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-dotnet_diagnostic.CS8632.severity = none
+# All files
+[*]
+indent_style = space
+
+# Xml files
+[*.xml]
+indent_size = 2

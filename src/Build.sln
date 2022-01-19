@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy.Tests", "tests\Microsoft.Health.Fhir.Proxy.Tests\Microsoft.Health.Fhir.Proxy.Tests.csproj", "{D6DB8821-0EF4-4CDE-8DE3-24BDD551A7A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Health.Fhir.Proxy.Caching", "Microsoft.Health.Fhir.Proxy.Caching\Microsoft.Health.Fhir.Proxy.Caching.csproj", "{8F8CE95C-DFE4-4E2C-AB7F-01A0F5BC1790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Health.Fhir.Proxy.Caching", "Microsoft.Health.Fhir.Proxy.Caching\Microsoft.Health.Fhir.Proxy.Caching.csproj", "{8F8CE95C-DFE4-4E2C-AB7F-01A0F5BC1790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
