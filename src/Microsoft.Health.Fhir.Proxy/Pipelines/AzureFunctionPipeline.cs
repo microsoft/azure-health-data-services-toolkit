@@ -1,7 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Filters;

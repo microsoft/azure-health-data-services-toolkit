@@ -160,7 +160,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         public async Task CreateFileSystemAsync(string fileSystemName, PublicAccessType publicAccess = PublicAccessType.None, IDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             _ = await serviceClient.CreateFileSystemAsync(fileSystemName, publicAccess, metadata, cancellationToken);
-            logger?.LogTrace(new EventId(92010, "StorageLake.CreateFileSystemAsync"), "File system {0} created.", fileSystemName);
+            logger?.LogTrace(new EventId(92010, "StorageLake.CreateFileSystemAsync"), "File system {FileSystemName} created.", fileSystemName);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             var fsClient = serviceClient.GetFileSystemClient(fileSystemName);
             var response = await fsClient.ExistsAsync();
-            logger?.LogTrace(new EventId(92020, "StorageLake.FileSystemExistsAsync"), "File system {0} exists {1}.", fileSystemName, response.Value);
+            logger?.LogTrace(new EventId(92020, "StorageLake.FileSystemExistsAsync"), "File system {FileSystemName} exists {Value}.", fileSystemName, response.Value);
             return response.Value;
         }
 
@@ -186,7 +186,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         public async Task DeleteFileSystemAsnyc(string fileSystemName, DataLakeRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             _ = await serviceClient.DeleteFileSystemAsync(fileSystemName, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(92030, "StorageLake.DeleteFileSystemAsnyc"), "File system {0} deleted.", fileSystemName);
+            logger?.LogTrace(new EventId(92030, "StorageLake.DeleteFileSystemAsnyc"), "File system {FileSystemName} deleted.", fileSystemName);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             DataLakeFileSystemClient fsClient = serviceClient.GetFileSystemClient(fileSystemName);
             await fsClient.CreateDirectoryAsync(path, httpHeaders, metadata, permissions, unmask, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(92040, "StorageLake.CreateDirectoryAsync"), "File system {0} created directory {1}.", fileSystemName, path);
+            logger?.LogTrace(new EventId(92040, "StorageLake.CreateDirectoryAsync"), "File system {FileSystemName} created directory {Path}.", fileSystemName, path);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             DataLakeFileSystemClient fsClient = serviceClient.GetFileSystemClient(fileSystemName);
             var dirClient = fsClient.GetDirectoryClient(path);
             Response<bool> response = await dirClient.ExistsAsync();
-            logger?.LogTrace(new EventId(92050, "StorageLake.DirectoryExistsAsync"), "File system {0} with directory {1} exists {2}.", fileSystemName, path, response.Value);
+            logger?.LogTrace(new EventId(92050, "StorageLake.DirectoryExistsAsync"), "File system {FileSystemName} with directory {Path} exists {Value}.", fileSystemName, path, response.Value);
             return response.Value;
         }
 
@@ -235,7 +235,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             DataLakeFileSystemClient fsClient = serviceClient.GetFileSystemClient(fileSystemName);
             _ = await fsClient.DeleteDirectoryAsync(path, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(92060, "StorageLake.DeleteDirectoryAsync"), "File system {0} with directory {1} deleted.", fileSystemName, path);
+            logger?.LogTrace(new EventId(92060, "StorageLake.DeleteDirectoryAsync"), "File system {FileSystemName} with directory {Path} deleted.", fileSystemName, path);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
 
             DataLakeFileClient fileClient = await directoryClient.CreateFileAsync(filename, cancellationToken: cancellationToken);
             _ = await fileClient.UploadAsync(content, options, cancellationToken);
-            logger?.LogTrace(new EventId(92070, "StorageLake.UploadFileAsync"), "File system {0} with directory {1} uploaded file {2}.", fileSystemName, directoryName, filename);
+            logger?.LogTrace(new EventId(92070, "StorageLake.UploadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} uploaded file {FileName}.", fileSystemName, directoryName, filename);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             await stream.WriteAsync(content.AsMemory(0, content.Length), cancellationToken);
             await stream.FlushAsync(cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(92080, "StorageLake.WriteFileAsync"), "File system {0} with directory {1} wrote file {2}.", fileSystemName, directoryName, filename);
+            logger?.LogTrace(new EventId(92080, "StorageLake.WriteFileAsync"), "File system {FileSystemName} with directory {DirectoryName} wrote file {FileName}.", fileSystemName, directoryName, filename);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(92090, "StorageLake.ReadFileAsync"), "File system {0} with directory {1} read file {2} with {3} bytes.", fileSystemName, directoryName, filename, buffer?.Length);
+            logger?.LogTrace(new EventId(92090, "StorageLake.ReadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} read file {FileName} with {Count} bytes.", fileSystemName, directoryName, filename, buffer?.Length);
             return buffer;
         }
 
@@ -319,7 +319,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             DataLakeDirectoryClient directoryClient = fsClient.GetDirectoryClient(directoryName);
             DataLakeFileClient fileClient = await directoryClient.CreateFileAsync(filename, cancellationToken: cancellationToken);
             _ = await fileClient.UploadAsync(content, overwrite, cancellationToken);
-            logger?.LogTrace(new EventId(92100, "StorageLake.UploadFileAsync"), "File system {0} with directory {1} uploaded file {2}.", fileSystemName, directoryName, filename);
+            logger?.LogTrace(new EventId(92100, "StorageLake.UploadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} uploaded file {FileName}.", fileSystemName, directoryName, filename);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             DataLakeDirectoryClient directoryClient = fsClient.GetDirectoryClient(directoryName);
             DataLakeFileClient fileClient = directoryClient.GetFileClient(filename);
             Response<bool> response = await fileClient.DeleteIfExistsAsync(null, cancellationToken);
-            logger?.LogTrace(new EventId(92110, "StorageLake.UploadFileAsync"), "File system {0} with directory {1} deleted file {2} {3}.", fileSystemName, directoryName, filename, response.Value);
+            logger?.LogTrace(new EventId(92110, "StorageLake.UploadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} deleted file {FileName} {Value}.", fileSystemName, directoryName, filename, response.Value);
             return response.Value;
         }
     }

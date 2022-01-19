@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
-using System.Net.Mail;
 using System.Text;
 
 namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders

@@ -66,7 +66,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
             {
                 logger?.LogTrace("Key {key} not found in local memory cache.", key);
                 T remote = await provider.GetAsync<T>(key);
-                
+
                 if (remote != null)
                 {
                     cache.Set<T>(key, remote);

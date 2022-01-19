@@ -26,7 +26,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
-            if(File.Exists(logPath))
+            if (File.Exists(logPath))
             {
                 File.Delete(logPath);
             }
@@ -81,7 +81,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             IInputChannelCollection channels = new InputChannelCollection();
             filters.Add(new FakeFilter());
             filters.Add(new FakeFilter());
-            
+
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
 
             bool complete = false;
@@ -123,7 +123,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 
             bool anyStatus = false;
             bool faultStatus = false;
-            while(!reader.EndOfStream)
+            while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
                 anyStatus = anyStatus || line.Contains("executed with status Any");

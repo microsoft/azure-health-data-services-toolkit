@@ -20,7 +20,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
         private static StorageQueue storage;
         private static ConcurrentQueue<string> containers;
         private static string preExistingQueue;
-        private static string logPath = "../../storagetablelog.txt";
+        private static readonly string logPath = "../../storagetablelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]
