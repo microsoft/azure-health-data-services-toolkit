@@ -72,7 +72,6 @@ steps:
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Message_Queue]$(eventgrid-message-queue)"
         Write-Host "##vso[task.setvariable variable=PROXY_EventGrid_Reference_Queue]$(eventgrid-reference-queue)"
         Write-Host "##vso[task.setvariable variable=PROXY_CacheConnectionString]$(cicd-redis-cache-connectionstring)"
-
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -109,14 +108,17 @@ steps:
     custom: 'tool'
     arguments: 'update -g dotnet-format'
 
-- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln whitespace'
-  displayName: 'Lint dotnet whitespace'
+- script: 'dotnet format ./src/build.sln --verify-no-changes -v d'
+  displayName: 'dotnet format lint'
 
-- script:  'dotnet-format ./src/build.sln --check -v diagnostic'
-  displayName: 'Lint dotnet'
+#- script: 'dotnet tool update -g dotnet-format && dotnet format ./src/Build.sln whitespace'
+#  displayName: 'Lint dotnet whitespace'
 
-- script: 'dotnet format ./src/Build.sln analyzers'
-  displayName: 'Lint dotnet analyzers'
+#- script:  'dotnet-format ./src/build.sln --check -v diagnostic'
+#  displayName: 'Lint dotnet'
+
+#- script: 'dotnet format ./src/Build.sln analyzers'
+#  displayName: 'Lint dotnet analyzers'
 
 - task: DotNetCoreCLI@2
   inputs:
