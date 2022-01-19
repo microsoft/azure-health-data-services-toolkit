@@ -9,7 +9,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
     [JsonObject]
     public class LargeJsonMessage
     {
-        private const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        private const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
         public LargeJsonMessage()
         {
@@ -33,7 +33,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 
             for (int i = 0; i < fields; i++)
             {
-                var randomString = new string(Enumerable.Repeat(chars, length)
+                var randomString = new string(Enumerable.Repeat(Chars, length)
                                                         .Select(s => s[random.Next(s.Length)]).ToArray());
                 values.Add(randomString);
             }
