@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Storage

@@ -1,15 +1,15 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System;
-using System.Collections.Concurrent;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
 {
@@ -17,7 +17,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
     public class TableStorageTests
     {
         private static StorageTable storage;
-        private static string logPath = "../../storagetablelog.txt";
+        private static readonly string logPath = "../../storagetablelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
         private static ConcurrentQueue<string> queue;
         private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
@@ -152,7 +152,6 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
             string rowKey = "1";
             MyEntity entity = new(partitionKey, rowKey, "FirstName", "LastName");
             _ = await storage.InsertEntityAsync(tableName, entity);
-            TableQuery<MyEntity> query = new TableQuery<MyEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partitionKey));
 
             var result = await storage.QueryTableAsync<MyEntity>(tableName, partitionKey, null);
             Assert.IsTrue(result.Results.Count == 1, "Unexpected number of entities.");

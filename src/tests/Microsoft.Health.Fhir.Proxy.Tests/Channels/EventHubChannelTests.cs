@@ -1,4 +1,8 @@
-﻿using Azure.Messaging.EventHubs;
+﻿using System;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
@@ -9,10 +13,6 @@ using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
 {

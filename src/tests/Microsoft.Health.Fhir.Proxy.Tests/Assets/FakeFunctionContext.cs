@@ -1,6 +1,6 @@
-﻿using Microsoft.Azure.Functions.Worker;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Azure.Functions.Worker;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {

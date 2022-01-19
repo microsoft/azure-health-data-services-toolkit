@@ -1,11 +1,11 @@
-﻿using Microsoft.Health.Fhir.Proxy.Clients;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Health.Fhir.Proxy.Clients;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {

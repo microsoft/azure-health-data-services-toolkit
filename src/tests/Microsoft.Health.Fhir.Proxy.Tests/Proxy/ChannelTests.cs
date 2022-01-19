@@ -1,8 +1,8 @@
-﻿using Microsoft.Health.Fhir.Proxy.Channels;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {

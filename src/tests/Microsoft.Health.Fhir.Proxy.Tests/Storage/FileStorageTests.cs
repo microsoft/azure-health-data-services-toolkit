@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Storage;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Health.Fhir.Proxy.Storage;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serilog;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
 {
@@ -18,8 +18,8 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
         private static Random random;
         private static ConcurrentQueue<string> containers;
         private static StorageFiles storage;
-        private static string shareName = "myshare";
-        private static string logPath = "../../storagefilelog.txt";
+        private static readonly string shareName = "myshare";
+        private static readonly string logPath = "../../storagefilelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]

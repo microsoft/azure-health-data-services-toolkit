@@ -1,5 +1,5 @@
-﻿using Microsoft.Health.Fhir.Proxy.Pipelines;
-using System;
+﻿using System;
+using Microsoft.Health.Fhir.Proxy.Pipelines;
 
 namespace Microsoft.Health.Fhir.Proxy.Bindings
 {

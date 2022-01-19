@@ -1,4 +1,7 @@
-﻿using Azure.Messaging.EventHubs;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
+using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
 using Azure.Storage.Blobs;
@@ -8,9 +11,6 @@ using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Storage;
 using Newtonsoft.Json;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Extensions.Channels
 {

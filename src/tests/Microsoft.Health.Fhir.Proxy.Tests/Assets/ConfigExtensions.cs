@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
-using System;
-using System.Reflection;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {

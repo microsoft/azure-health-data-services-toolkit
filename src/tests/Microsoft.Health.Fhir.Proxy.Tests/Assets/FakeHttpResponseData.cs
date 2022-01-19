@@ -1,8 +1,8 @@
-﻿using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
 {

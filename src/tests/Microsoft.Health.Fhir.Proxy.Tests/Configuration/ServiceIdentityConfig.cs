@@ -1,9 +1,9 @@
-﻿using Azure;
+﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Newtonsoft.Json;
-using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
 {

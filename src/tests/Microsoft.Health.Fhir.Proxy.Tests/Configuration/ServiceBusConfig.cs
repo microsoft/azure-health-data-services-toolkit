@@ -1,6 +1,6 @@
-﻿using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
+﻿using System;
+using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
 using Newtonsoft.Json;
-using System;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
 {

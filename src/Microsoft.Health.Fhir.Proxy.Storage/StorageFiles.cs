@@ -1,13 +1,13 @@
-﻿using Azure;
-using Azure.Storage;
-using Azure.Storage.Files.Shares;
-using Azure.Storage.Files.Shares.Models;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
+using Azure.Storage;
+using Azure.Storage.Files.Shares;
+using Azure.Storage.Files.Shares.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Health.Fhir.Proxy.Storage
 {
@@ -99,7 +99,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             var shareClient = serviceClient.GetShareClient(shareName);
             Response<ShareInfo> info = await shareClient.CreateIfNotExistsAsync(options, cancellationToken);
-            logger?.LogTrace(new EventId(93000, "StorageFile.CreateShareIfNotExistsAsync"), "File share {0} created.", shareName);
+            logger?.LogTrace(new EventId(93000, "StorageFile.CreateShareIfNotExistsAsync"), "File share {ShareName} created.", shareName);
             return info?.Value;
         }
 
@@ -114,7 +114,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         {
             var shareClient = serviceClient.GetShareClient(shareName);
             bool result = await shareClient.DeleteIfExistsAsync(options, cancellationToken);
-            logger?.LogTrace(new EventId(93010, "StorageFile.DeleteShareIfExistsAsync"), "File share {0} deleted {1}.", shareName, result);
+            logger?.LogTrace(new EventId(93010, "StorageFile.DeleteShareIfExistsAsync"), "File share {ShareName} deleted {Result}.", shareName, result);
             return result;
         }
 
@@ -133,7 +133,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             var shareClient = serviceClient.GetShareClient(shareName);
             var dirClient = shareClient.GetDirectoryClient(directoryName);
             Response<ShareDirectoryInfo> result = await dirClient.CreateIfNotExistsAsync(metadata, smbProperties, filePermission, cancellationToken);
-            logger?.LogTrace(new EventId(93020, "StorageFile.CreateDirectoryIfNotExistsAsync"), "Directory {0} created on file share {1}.", directoryName, shareName);
+            logger?.LogTrace(new EventId(93020, "StorageFile.CreateDirectoryIfNotExistsAsync"), "Directory {DirectoryName} created on file share {ShareName}.", directoryName, shareName);
             return result.Value;
         }
 
@@ -149,7 +149,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             var shareClient = serviceClient.GetShareClient(shareName);
             var dirClient = shareClient.GetDirectoryClient(directoryName);
             Response<bool> response = await dirClient.DeleteIfExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(93030, "StorageFile.DeleteDirectoryIfExistsAsync"), "Directory {0} on file share {1} deleted {2}.", directoryName, shareName, response.Value);
+            logger?.LogTrace(new EventId(93030, "StorageFile.DeleteDirectoryIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted {Response}.", directoryName, shareName, response.Value);
             return response.Value;
         }
 
@@ -173,7 +173,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             await stream.WriteAsync(content.AsMemory(0, content.Length), cancellationToken);
             await stream.FlushAsync(cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(93040, "StorageFile.WriteFileAsync"), "Directory {0} on file share {1} wrote file {2} with {3} bytes.", directoryName, shareName, fileName, content?.Length);
+            logger?.LogTrace(new EventId(93040, "StorageFile.WriteFileAsync"), "Directory {DirectoryName} on file share {ShareName} wrote file {FileName} with {ContentLength} bytes.", directoryName, shareName, fileName, content?.Length);
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(93050, "StorageFile.ReadFileAsync"), "Directory {0} on file share {1} read file {2} with {3} bytes.", directoryName, shareName, fileName, buffer?.Length);
+            logger?.LogTrace(new EventId(93050, "StorageFile.ReadFileAsync"), "Directory {DirectoryName} on file share {ShareName} read file {FileName} with {Length} bytes.", directoryName, shareName, fileName, buffer?.Length);
             return buffer;
         }
 
@@ -213,7 +213,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
             var dirClient = shareClient.GetDirectoryClient(directoryName);
             var fileClient = dirClient.GetFileClient(fileName);
             Response<bool> response = await fileClient.DeleteIfExistsAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(93060, "StorageFile.DeleteFileIfExistsAsync"), "Directory {0} on file share {1} deleted file {2} {3}.", directoryName, shareName, fileName, response.Value);
+            logger?.LogTrace(new EventId(93060, "StorageFile.DeleteFileIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted file {FileName} {Response}.", directoryName, shareName, fileName, response.Value);
             return response.Value;
         }
 
@@ -244,7 +244,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                 }
             }
 
-            logger?.LogTrace(new EventId(93070, "StorageFile.ListFilesAsync"), "Directory {0} on file share {1} listed {2} files.", directoryName, shareName, fileNames.Count);
+            logger?.LogTrace(new EventId(93070, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} files.", directoryName, shareName, fileNames.Count);
             return fileNames;
         }
 
@@ -274,7 +274,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
                     }
                 }
             }
-            logger?.LogTrace(new EventId(93080, "StorageFile.ListFilesAsync"), "Directory {0} on file share {1} listed {2} directories.", directoryName, shareName, dirNames.Count);
+            logger?.LogTrace(new EventId(93080, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} directories.", directoryName, shareName, dirNames.Count);
             return dirNames;
         }
 

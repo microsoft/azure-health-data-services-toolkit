@@ -1,4 +1,6 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using System;
+using System.Net.Http;
+using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +11,6 @@ using Microsoft.Health.Fhir.Proxy.Channels;
 using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Security;
-using System;
-using System.Net.Http;
 
 namespace Microsoft.Health.Fhir.Proxy.Configuration
 {

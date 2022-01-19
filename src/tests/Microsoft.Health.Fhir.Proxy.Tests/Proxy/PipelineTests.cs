@@ -1,4 +1,10 @@
-﻿using Microsoft.Azure.Functions.Worker;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Proxy.Bindings;
@@ -8,12 +14,6 @@ using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 {
@@ -26,7 +26,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
-            if(File.Exists(logPath))
+            if (File.Exists(logPath))
             {
                 File.Delete(logPath);
             }
@@ -81,7 +81,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             IInputChannelCollection channels = new InputChannelCollection();
             filters.Add(new FakeFilter());
             filters.Add(new FakeFilter());
-            
+
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
 
             bool complete = false;
@@ -123,7 +123,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
 
             bool anyStatus = false;
             bool faultStatus = false;
-            while(!reader.EndOfStream)
+            while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
                 anyStatus = anyStatus || line.Contains("executed with status Any");

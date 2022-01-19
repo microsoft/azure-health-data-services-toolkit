@@ -1,7 +1,7 @@
-﻿using Microsoft.Health.Fhir.Proxy.Protocol;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
+using Microsoft.Health.Fhir.Proxy.Protocol;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
 {
