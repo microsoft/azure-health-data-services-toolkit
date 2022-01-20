@@ -93,7 +93,7 @@
   </div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.html">ICacheProvider</a></div>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider.html">ICacheBackingStoreProvider</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -123,7 +123,7 @@
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.Caching.dll</h6>
   <h5 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AzureJsonBlobStorageProvider : ICacheProvider</code></pre>
+    <pre><code class="lang-csharp hljs">public class AzureJsonBlobStorageProvider : ICacheBackingStoreProvider</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -158,18 +158,20 @@
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=30">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=49">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider__ctor_System_String_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.#ctor(System.String,System.String)">AzureJsonBlobStorageProvider(String, String)</h4>
-  <div class="markdown level1 summary"><p>Creates an instance of AzureJsonBlobStorageProvider.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.AddAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_AddAsync_System_String_System_Object_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.AddAsync(System.String,System.Object)">AddAsync(String, Object)</h4>
+  <div class="markdown level1 summary"><p>Adds an item to the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AzureJsonBlobStorageProvider(string connectionString, string container)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task AddAsync(string key, object value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -183,23 +185,37 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">connectionString</span></td>
-        <td><p>Azure Blob storage connection string.</p>
+        <td><span class="parametername">key</span></td>
+        <td><p>Cache key.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">container</span></td>
-        <td><p>Storage container for storing cached object.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Item to add.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=46">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=36">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.AddAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_AddAsync__1_System_String___0_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.AddAsync``1(System.String,``0)">AddAsync&lt;T&gt;(String, T)</h4>
@@ -268,7 +284,54 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=58">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=80">View Source</a>
+  </span>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.GetAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_GetAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.GetAsync(System.String)">GetAsync(String)</h4>
+  <div class="markdown level1 summary"><p>Gets an item from the cache as a JSON string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; GetAsync(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Cache key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><p>Item from cache as a JSON string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=61">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.GetAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_GetAsync__1_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.GetAsync``1(System.String)">GetAsync&lt;T&gt;(String)</h4>
@@ -331,7 +394,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=77">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/AzureJsonBlobStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=98">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_RemoveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.RemoveAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_AzureJsonBlobStorageProvider_RemoveAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.AzureJsonBlobStorageProvider.RemoveAsync(System.String)">RemoveAsync(String)</h4>
@@ -378,7 +441,7 @@
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheProvider.html">ICacheProvider</a>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider.html">ICacheBackingStoreProvider</a>
   </div>
 </article>
           </div>

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class RedisJsonStorageProvider
+    <title>Class JsonObjectCache
    | Title </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class RedisJsonStorageProvider
+    <meta name="title" content="Class JsonObjectCache
    | Title ">
     <meta name="generator" content="docfx 2.58.9.0">
     
@@ -78,22 +78,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider">
+            <article class="content wrap" id="_content" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache">
   
   
-  <h1 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider" class="text-break">Class RedisJsonStorageProvider
+  <h1 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache" class="text-break">Class JsonObjectCache
   </h1>
-  <div class="markdown level0 summary"><p>A cache provider for json objects that uses redis as a backing store.</p>
+  <div class="markdown level0 summary"><p>In-memory cache with persistent backing store for JSON objects.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">RedisJsonStorageProvider</span></div>
+    <div class="level1"><span class="xref">JsonObjectCache</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider.html">ICacheBackingStoreProvider</a></div>
+    <div><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.IJsonObjectCache.html">IJsonObjectCache</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -119,26 +119,26 @@
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.html">Microsoft.Health.Fhir.Proxy.Caching.StorageProviders</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.html">Microsoft.Health.Fhir.Proxy.Caching</a></h6>
   <h6><strong>Assembly</strong>: Microsoft.Health.Fhir.Proxy.Caching.dll</h6>
-  <h5 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_syntax">Syntax</h5>
+  <h5 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RedisJsonStorageProvider : ICacheBackingStoreProvider</code></pre>
+    <pre><code class="lang-csharp hljs">public class JsonObjectCache : IJsonObjectCache</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=18">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=22">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisCacheOptions__" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisCacheOptions})">RedisJsonStorageProvider(IOptions&lt;RedisCacheOptions&gt;)</h4>
-  <div class="markdown level1 summary"><p>Creates an instance of RedisJsonStorageProvider.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.#ctor*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Caching_JsonCacheOptions__Microsoft_Extensions_Caching_Memory_IMemoryCache_Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_ICacheBackingStoreProvider_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache__" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Caching.JsonCacheOptions},Microsoft.Extensions.Caching.Memory.IMemoryCache,Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache})">JsonObjectCache(IOptions&lt;JsonCacheOptions&gt;, IMemoryCache, ICacheBackingStoreProvider, ILogger&lt;JsonObjectCache&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of JsonObjectCache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RedisJsonStorageProvider(IOptions&lt;RedisCacheOptions&gt; options)</code></pre>
+    <pre><code class="lang-csharp hljs">public JsonObjectCache(IOptions&lt;JsonCacheOptions&gt; options, IMemoryCache cache, ICacheBackingStoreProvider provider, ILogger&lt;JsonObjectCache&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -151,9 +151,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisCacheOptions.html">RedisCacheOptions</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.JsonCacheOptions.html">JsonCacheOptions</a>&gt;</td>
         <td><span class="parametername">options</span></td>
-        <td><p>Redis cache options.</p>
+        <td><p>Options for cache.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.caching.memory.imemorycache">IMemoryCache</a></td>
+        <td><span class="parametername">cache</span></td>
+        <td><p>In-memory cache.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider.html">ICacheBackingStoreProvider</a></td>
+        <td><span class="parametername">provider</span></td>
+        <td><p>Cache persistence provider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.html">JsonObjectCache</a>&gt;</td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>ILogger</p>
 </td>
       </tr>
     </tbody>
@@ -162,11 +180,11 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=54">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=68">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.AddAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_AddAsync_System_String_System_Object_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.AddAsync(System.String,System.Object)">AddAsync(String, Object)</h4>
-  <div class="markdown level1 summary"><p>Adds a item to the cache.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.AddAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_AddAsync_System_String_System_Object_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.AddAsync(System.String,System.Object)">AddAsync(String, Object)</h4>
+  <div class="markdown level1 summary"><p>Adds an item to the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -192,7 +210,7 @@
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
         <td><span class="parametername">value</span></td>
-        <td><p>Item to add.</p>
+        <td><p>Item to add to cache.</p>
 </td>
       </tr>
     </tbody>
@@ -208,18 +226,18 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span></td>
-        <td><p>Task</p>
+        <td><p>Task.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=41">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=44">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.AddAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_AddAsync__1_System_String___0_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.AddAsync``1(System.String,``0)">AddAsync&lt;T&gt;(String, T)</h4>
-  <div class="markdown level1 summary"><p>Adds an object to the cache.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_AddAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.AddAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_AddAsync__1_System_String___0_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.AddAsync``1(System.String,``0)">AddAsync&lt;T&gt;(String, T)</h4>
+  <div class="markdown level1 summary"><p>Adds an item to the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -245,7 +263,7 @@
       <tr>
         <td><span class="xref">T</span></td>
         <td><span class="parametername">value</span></td>
-        <td><p>Object to cache.</p>
+        <td><p>Item to add to cache.</p>
 </td>
       </tr>
     </tbody>
@@ -261,7 +279,7 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span></td>
-        <td><p>Task</p>
+        <td><p>Task.</p>
 </td>
       </tr>
     </tbody>
@@ -277,18 +295,18 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>Type of object to cache.</p>
+        <td><p>Type of item to add.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=80">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=126">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.GetAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_GetAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.GetAsync(System.String)">GetAsync(String)</h4>
-  <div class="markdown level1 summary"><p>Gets an item from the cache as a JSON string.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.GetAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_GetAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.GetAsync(System.String)">GetAsync(String)</h4>
+  <div class="markdown level1 summary"><p>Gets an item from the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -324,18 +342,18 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td><p>Item from cache as a JSON string.</p>
+        <td><p>An item from cache otherwise null.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=66">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=92">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.GetAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_GetAsync__1_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.GetAsync``1(System.String)">GetAsync&lt;T&gt;(String)</h4>
-  <div class="markdown level1 summary"><p>Gets an object from the cache.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_GetAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.GetAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_GetAsync__1_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.GetAsync``1(System.String)">GetAsync&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Gets an item from the cache.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -371,7 +389,7 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;T&gt;</td>
-        <td><p>Object from cache.</p>
+        <td><p>Item from cache otherwise null.</p>
 </td>
       </tr>
     </tbody>
@@ -387,18 +405,18 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>Type of object to get from cache.</p>
+        <td><p>Type of item to get from cache.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=90">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=160">View Source</a>
   </span>
-  <a id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_RemoveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.RemoveAsync*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_StorageProviders_RedisJsonStorageProvider_RemoveAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.RedisJsonStorageProvider.RemoveAsync(System.String)">RemoveAsync(String)</h4>
-  <div class="markdown level1 summary"><p>Removes an object from the cache.</p>
+  <a id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_RemoveAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.RemoveAsync*"></a>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Caching_JsonObjectCache_RemoveAsync_System_String_" data-uid="Microsoft.Health.Fhir.Proxy.Caching.JsonObjectCache.RemoveAsync(System.String)">RemoveAsync(String)</h4>
+  <div class="markdown level1 summary"><p>Removes an item from the cache and persistence provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -434,14 +452,14 @@
     <tbody>
       <tr>
         <td><span class="xref">Task</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
-        <td><p>True if object removed otherwise false.</p>
+        <td><p>True is remove otherwise false.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.StorageProviders.ICacheBackingStoreProvider.html">ICacheBackingStoreProvider</a>
+      <a class="xref" href="Microsoft.Health.Fhir.Proxy.Caching.IJsonObjectCache.html">IJsonObjectCache</a>
   </div>
 </article>
           </div>
@@ -451,7 +469,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/StorageProviders/RedisJsonStorageProvider.cs&amp;version=GBmalong/refactor&amp;line=12" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy.Caching/JsonObjectCache.cs&amp;version=GBmalong/refactor&amp;line=13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

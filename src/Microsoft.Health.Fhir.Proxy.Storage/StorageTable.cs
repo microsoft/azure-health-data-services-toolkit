@@ -281,7 +281,7 @@ namespace Microsoft.Health.Fhir.Proxy.Storage
         /// <param name="partitionKey">Optional string containing the partition key.</param>
         /// <param name="rowKey">Optional string containing the row key.</param>
         /// <param name="token">Optional TableContinuationToken used when the operation returns a partial result.</param>
-        /// <param name="cancellationToken">Optional cancellation token</param>
+        /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>TableQuerySegment</returns>
         public async Task<TableQuerySegment<T>> QueryTableAsync<T>(string tableName, string partitionKey = null, string rowKey = null, TableContinuationToken token = null, CancellationToken cancellationToken = default)
             where T : ITableEntity, new()

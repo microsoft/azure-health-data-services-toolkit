@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface implemented by cache provider.
     /// </summary>
-    public interface ICacheProvider
+    public interface ICacheBackingStoreProvider
     {
         /// <summary>
         /// Adds an object to the cache.
@@ -14,6 +14,8 @@
         /// <returns>Task</returns>
         Task AddAsync<T>(string key, T value);
 
+        Task AddAsync(string key, object value);
+
         /// <summary>
         /// Gets an object from the cache.
         /// </summary>
@@ -21,6 +23,9 @@
         /// <param name="key">Cache key.</param>
         /// <returns>Cached object.</returns>
         Task<T> GetAsync<T>(string key);
+
+
+        Task<string> GetAsync(string key);
 
         /// <summary>
         /// Removes and object from the cache.
