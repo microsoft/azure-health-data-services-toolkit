@@ -44,7 +44,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         public async Task AddAsync<T>(string key, T value)
         {
             var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync().ConfigureAwait(false);
+            await keyLock.WaitAsync();
 
             try
             {
@@ -68,7 +68,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         public async Task AddAsync(string key, object value)
         {
             var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync().ConfigureAwait(false);
+            await keyLock.WaitAsync();
 
             try
             {
@@ -92,7 +92,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         public async Task<T> GetAsync<T>(string key)
         {
             var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync().ConfigureAwait(false);
+            await keyLock.WaitAsync();
 
             try
             {
@@ -126,7 +126,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         public async Task<string> GetAsync(string key)
         {
             var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync().ConfigureAwait(false);
+            await keyLock.WaitAsync();
 
             try
             {
@@ -160,7 +160,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching
         public async Task<bool> RemoveAsync(string key)
         {
             var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync().ConfigureAwait(false);
+            await keyLock.WaitAsync();
 
             try
             {
