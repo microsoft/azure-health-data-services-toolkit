@@ -9,7 +9,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
     /// <summary>
     /// A cache provider for json objects that uses redis as a backing store.
     /// </summary>
-    public class RedisJsonStorageProvider : ICacheProvider
+    public class RedisJsonStorageProvider : ICacheBackingStoreProvider
     {
         /// <summary>
         /// Creates an instance of RedisJsonStorageProvider.
@@ -22,24 +22,6 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
               {
                   op.Configuration = options.Value.ConnectionString;
                   op.InstanceName = options.Value.InstanceName ?? String.Empty;
-              }))
-              .Build();
-
-            redis = host.Services.GetRequiredService<IDistributedCache>();
-        }
-
-        /// <summary>
-        /// Creates an instance of RedisJsonStorageProvider.
-        /// </summary>
-        /// <param name="connectionString">Redis connection string.</param>
-        /// <param name="instanceName">Optional cache instance name.</param>
-        public RedisJsonStorageProvider(string connectionString, string? instanceName = null)
-        {
-            host = Host.CreateDefaultBuilder()
-              .ConfigureServices(services => services.AddStackExchangeRedisCache(options =>
-              {
-                  options.Configuration = connectionString;
-                  options.InstanceName = instanceName ?? String.Empty;
               }))
               .Build();
 
@@ -62,6 +44,19 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
             await redis.SetStringAsync(key, json);
         }
 
+
+        /// <summary>
+        /// Adds a item to the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Item to add.</param>
+        /// <returns>Task</returns>
+        public async Task AddAsync(string key, object value)
+        {
+            string json = JsonConvert.SerializeObject(value);
+            await redis.SetStringAsync(key, json);
+        }
+
         /// <summary>
         /// Gets an object from the cache.
         /// </summary>
@@ -75,6 +70,16 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
                 return default;
             else
                 return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        /// <summary>
+        /// Gets an item from the cache as a JSON string.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Item from cache as a JSON string.</returns>
+        public async Task<string> GetAsync(string key)
+        {
+            return await redis.GetStringAsync(key);
         }
 
         /// <summary>

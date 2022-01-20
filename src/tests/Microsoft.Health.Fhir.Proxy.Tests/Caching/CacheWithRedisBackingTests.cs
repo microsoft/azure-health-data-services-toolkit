@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Health.Fhir.Proxy.Caching;
 using Microsoft.Health.Fhir.Proxy.Caching.StorageProviders;
 using Microsoft.Health.Fhir.Proxy.Tests.Assets;
@@ -14,8 +16,6 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
     public class CacheWithRedisBackingTests
     {
         private static StorageProviderConfig config;
-        private static string connectionString;
-        private static readonly double expiry = 1000.0;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -26,60 +26,135 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
             IConfigurationRoot root = builder.Build();
             config = new StorageProviderConfig();
             root.Bind(config);
-            connectionString = config.CacheConnectionString;
 
             Console.WriteLine(context.TestName);
         }
 
-        [TestMethod]
-        public async Task InMemoryTest()
+        [ClassCleanup]
+        public static void Cleanup()
         {
-            string value1 = "foo";
-            string value2 = "bar";
-            TestJsonObject jsonObject = new(value1, value2);
-            string key = "redistest1";
-
-            ICacheProvider provider = new RedisJsonStorageProvider(connectionString);
-            TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
-            await cache.SetAsync(key, jsonObject);
-            TestJsonObject actual = await cache.GetAsync(key);
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(value1, actual.Prop1, "Prop1 mismatch.");
-            Assert.AreEqual(value2, actual.Prop2, "Prop2 mismatch.");
+            IHost host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services =>
+              {
+                  services.AddMemoryCache();
+                  services.AddRedisCacheBackingStore(options =>
+                  {
+                      options.ConnectionString = config.CacheConnectionString;
+                  });
+                  services.AddJsonObjectMemoryCache(options =>
+                  {
+                      options.CacheItemExpiry = TimeSpan.FromSeconds(10.0);
+                  });
+              })
+              .Build();
+            host.Start();
+            IJsonObjectCache cache = host.Services.GetRequiredService<IJsonObjectCache>();
+            _ = cache.RemoveAsync("rediskey1").GetAwaiter().GetResult();
+            _ = cache.RemoveAsync("rediskey2").GetAwaiter().GetResult();
+            _ = cache.RemoveAsync("rediskey3").GetAwaiter().GetResult();
+            host.StopAsync().GetAwaiter();
+            host.Dispose();
         }
 
         [TestMethod]
-        public async Task InMemory_NoObjectCached_Test()
+        public async Task RedisCacheFromMemory_Test()
         {
+            IHost host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services =>
+              {
+                  services.AddMemoryCache();
+                  services.AddRedisCacheBackingStore(options =>
+                  {
+                      options.ConnectionString = config.CacheConnectionString;
+                  });
+                  services.AddJsonObjectMemoryCache(options =>
+                  {
+                      options.CacheItemExpiry = TimeSpan.FromSeconds(10.0);
+                  });
+              })
+              .Build();
+            await host.StartAsync();
+            IJsonObjectCache cache = host.Services.GetRequiredService<IJsonObjectCache>();
             string value1 = "foo";
             string value2 = "bar";
+            string key = "rediskey1";
             TestJsonObject jsonObject = new(value1, value2);
-            string key = "redistest1";
 
-            ICacheProvider provider = new RedisJsonStorageProvider(connectionString);
-            TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
-            await cache.SetAsync(key, jsonObject);
-            string fakeKey = "boom";
-            TestJsonObject actual = await cache.GetAsync(fakeKey);
-            Assert.IsNull(actual);
+            await cache.AddAsync<TestJsonObject>(key, jsonObject);
+            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            Assert.AreEqual(value1, jo.Prop1, "Mismatch");
+            Assert.AreEqual(value2, jo.Prop2, "Mismatch");
+            await host.StopAsync();
+            host.Dispose();
         }
 
         [TestMethod]
-        public async Task InMemoryTestWithExpiry()
+        public async Task RedisCacheFromBackingStore_Test()
         {
+            IHost host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services =>
+              {
+                  services.AddMemoryCache();
+                  services.AddRedisCacheBackingStore(options =>
+                  {
+                      options.ConnectionString = config.CacheConnectionString;
+                  });
+                  services.AddJsonObjectMemoryCache(options =>
+                  {
+                      options.CacheItemExpiry = TimeSpan.FromSeconds(1.0);
+                  });
+              })
+              .Build();
+            await host.StartAsync();
+            IJsonObjectCache cache = host.Services.GetRequiredService<IJsonObjectCache>();
             string value1 = "foo";
             string value2 = "bar";
+            string key = "rediskey2";
             TestJsonObject jsonObject = new(value1, value2);
-            string key = "redistest2";
 
-            ICacheProvider provider = new RedisJsonStorageProvider(connectionString);
-            TypedInMemoryCache<TestJsonObject> cache = new(expiry, provider);
-            await cache.SetAsync(key, jsonObject);
-            await Task.Delay(1300);
-            TestJsonObject actual = await cache.GetAsync(key);
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(value1, actual.Prop1, "Prop1 mismatch.");
-            Assert.AreEqual(value2, actual.Prop2, "Prop2 mismatch.");
+            await cache.AddAsync<TestJsonObject>(key, jsonObject);
+            await Task.Delay(2000);
+            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            Assert.AreEqual(value1, jo.Prop1, "Mismatch");
+            Assert.AreEqual(value2, jo.Prop2, "Mismatch");
+            await host.StopAsync();
+            host.Dispose();
+        }
+
+        [TestMethod]
+        public async Task RedisCacheRemove_Test()
+        {
+            IHost host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services =>
+              {
+                  services.AddMemoryCache();
+                  services.AddRedisCacheBackingStore(options =>
+                  {
+                      options.ConnectionString = config.CacheConnectionString;
+                  });
+                  services.AddJsonObjectMemoryCache(options =>
+                  {
+                      options.CacheItemExpiry = TimeSpan.FromSeconds(10.0);
+                  });
+              })
+              .Build();
+            await host.StartAsync();
+            IJsonObjectCache cache = host.Services.GetRequiredService<IJsonObjectCache>();
+            string value1 = "foo";
+            string value2 = "bar";
+            string key = "rediskey3";
+            TestJsonObject jsonObject = new(value1, value2);
+
+            await cache.AddAsync<TestJsonObject>(key, jsonObject);
+            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            Assert.AreEqual(value1, jo.Prop1, "Mismatch");
+            Assert.AreEqual(value2, jo.Prop2, "Mismatch");
+            bool removed = await cache.RemoveAsync(key);
+            Assert.IsTrue(removed, "Not removed.");
+            TestJsonObject joRemoved = await cache.GetAsync<TestJsonObject>(key);
+            Assert.IsNull(joRemoved, "Not null.");
+            await host.StopAsync();
+            host.Dispose();
         }
     }
 }

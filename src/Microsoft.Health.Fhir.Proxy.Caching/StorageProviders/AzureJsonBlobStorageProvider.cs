@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Concurrent;
+using System.Text;
 using Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Storage;
@@ -9,7 +10,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
     /// <summary>
     /// A cache provider for json objects that uses Azure Blob storage as a backing store.
     /// </summary>
-    public class AzureJsonBlobStorageProvider : ICacheProvider
+    public class AzureJsonBlobStorageProvider : ICacheBackingStoreProvider
     {
         /// <summary>
         /// Creates an instance of AzureJsonBlobStorageProvider.
@@ -21,16 +22,6 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
             container = options.Value.Container;
         }
 
-        /// <summary>
-        /// Creates an instance of AzureJsonBlobStorageProvider.
-        /// </summary>
-        /// <param name="connectionString">Azure Blob storage connection string.</param>
-        /// <param name="container">Storage container for storing cached object.</param>
-        public AzureJsonBlobStorageProvider(string connectionString, string container)
-        {
-            storage = new(connectionString);
-            this.container = container;
-        }
 
         private readonly StorageBlob storage;
         private readonly string container;
@@ -43,6 +34,19 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
         /// <param name="value">Object to cache.</param>
         /// <returns>Task</returns>
         public async Task AddAsync<T>(string key, T value)
+        {
+            string json = JsonConvert.SerializeObject(value);
+            await storage.WriteBlockBlobAsync(container, $"{key}.json", "application/json", Encoding.UTF8.GetBytes(json));
+        }
+
+
+        /// <summary>
+        /// Adds an item to the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Item to add.</param>
+        /// <returns>Task</returns>
+        public async Task AddAsync(string key, object value)
         {
             string json = JsonConvert.SerializeObject(value);
             await storage.WriteBlockBlobAsync(container, $"{key}.json", "application/json", Encoding.UTF8.GetBytes(json));
@@ -65,6 +69,24 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
             catch (RequestFailedException)
             {
                 return default;
+            }
+        }
+
+        /// <summary>
+        /// Gets an item from the cache as a JSON string.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Item from cache as a JSON string.</returns>
+        public async Task<string> GetAsync(string key)
+        {
+            try
+            {
+                byte[] content = await storage.ReadBlockBlobAsync(container, $"{key}.json");
+                return Encoding.UTF8.GetString(content);
+            }
+            catch (RequestFailedException)
+            {
+                return null;
             }
         }
 
