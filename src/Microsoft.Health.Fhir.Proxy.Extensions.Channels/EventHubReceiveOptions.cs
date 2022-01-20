@@ -5,7 +5,7 @@
     /// </summary>
     public class EventHubReceiveOptions
     {
-        
+
         /// <summary>
         /// Gets or sets the event hub connection string.
         /// </summary>
