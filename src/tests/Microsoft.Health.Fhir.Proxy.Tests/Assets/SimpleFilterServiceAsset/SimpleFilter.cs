@@ -37,7 +37,9 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 
         public StatusType ExecutionStatusType => StatusType.Any;
 
+#pragma warning disable CS0067 // The event 'SimpleFilter.OnFilterError' is never used
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
+#pragma warning restore CS0067 // The event 'SimpleFilter.OnFilterError' is never used
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
