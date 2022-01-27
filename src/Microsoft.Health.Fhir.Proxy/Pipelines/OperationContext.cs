@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.Health.Fhir.Proxy.Protocol;
 
 namespace Microsoft.Health.Fhir.Proxy.Pipelines
@@ -26,7 +27,23 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             _ = message ?? throw new ArgumentNullException(nameof(message));
 
             Request = message;
-            Content = message.Content?.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+            SetContentAsync(message).GetAwaiter();
+            //long? contentLength = message.Content.Headers.ContentLength;
+            //Stream stream = message.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+            //byte[] buffer = new byte[(int)contentLength];
+            //stream.Read(buffer, 0, buffer.Length);
+            //Content = buffer;
+            //Content = message.Content.Headers.ContentLength == null ? null : message.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+            //Content = message.Content?.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+        }
+
+        private async Task SetContentAsync(HttpRequestMessage message)
+        {
+            long? contentLength = message.Content.Headers.ContentLength;
+            if (!(contentLength == null || contentLength == 0))
+            {
+                Content = await message.Content.ReadAsByteArrayAsync();
+            }
         }
 
         /// <summary>

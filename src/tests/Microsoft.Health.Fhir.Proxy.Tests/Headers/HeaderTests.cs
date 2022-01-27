@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
-using System.Security.Claims;
-using System.Xml.Linq;
-using Microsoft.AspNetCore.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Health.Fhir.Proxy.Clients;
 using Microsoft.Health.Fhir.Proxy.Clients.Headers;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset;
+using Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
 {
@@ -178,7 +177,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
             HttpCustomHeaderCollection headers = new(items);
 
             var nvc = headers.GetHeaders();
-            
+
             Assert.AreEqual(names[0], nvc.GetKey(0), "Not name.");
             Assert.AreEqual(names[1], nvc.GetKey(1), "Not name.");
         }
@@ -193,9 +192,11 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
 
             HttpCustomHeaderCollection headers = new(items);
 
-            NameValueCollection nvc = new NameValueCollection();
-            nvc.Add("header1", "v1");
-            nvc.Add("header2", "v2");
+            NameValueCollection nvc = new NameValueCollection
+            {
+                { "header1", "v1" },
+                { "header2", "v2" }
+            };
 
             var actual = headers.AppendHeaders(nvc);
 
@@ -211,7 +212,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
 
         #endregion
 
-        #region Custome Identity Headers
+        #region Custom Identity Headers
 
         [TestMethod]
         public void HttpCustomIdentityHeaderCollection_Add_Test()
@@ -385,6 +386,49 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
             Assert.AreEqual(actual.Keys[1], customHeaderName, "Identity claim type.");
             Assert.AreEqual(actual.GetValues(1)[0], name, "Identity claim value");
         }
+
+        #endregion
+
+
+        #region Web Tests
+
+        [TestMethod]
+        public async Task ConfigurationWeb_Test()
+        {
+            string expectedValue = "filter;WebApi;customvalue;William Zhang (microsoft.com)";
+            int webServicePort = 1212;
+            int filterServicePort = 1211;
+            SimpleWebService webhost = new(webServicePort);
+            webhost.Start();
+
+            SimpleService simple = new(1211);
+            simple.Start();
+
+            await Task.Delay(2000);
+
+            string baseUrl = $"http://localhost:{filterServicePort}";
+            string path = "simple";
+            string method = "Post";
+            TestMessage msg = new TestMessage() { Value = "test" };
+            string payload = JsonConvert.SerializeObject(msg);
+            byte[] content = Encoding.UTF8.GetBytes(payload);
+            string jwtString = File.ReadAllText("../../../Assets/jwttest.txt");
+            RestRequestBuilder builder = new(method, baseUrl, jwtString, path, null, null, content, "application/json");
+            RestRequest request = new(builder);
+            HttpResponseMessage response = await request.SendAsync();
+            string msgJson = await response.Content.ReadAsStringAsync();
+            TestMessage actual = JsonConvert.DeserializeObject<TestMessage>(msgJson);
+
+            Assert.AreEqual(actual.Value, expectedValue, "not expected value");
+
+
+
+
+
+            simple.Stop();
+            webhost.Stop();
+        }
+
 
         #endregion
     }

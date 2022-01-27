@@ -16,7 +16,7 @@ namespace Microsoft.Health.Fhir.Proxy.Clients.Headers
             ClaimType = claimType;
         }
 
-        public string HeaderName { get; set; }  
+        public string HeaderName { get; set; }
 
         public string ClaimType { get; set; }
     }

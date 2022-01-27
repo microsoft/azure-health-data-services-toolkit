@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.Health.Fhir.Proxy.Configuration
+﻿namespace Microsoft.Health.Fhir.Proxy.Configuration
 {
     public interface ICustomHttpIdentityHeaders
     {

@@ -89,6 +89,6 @@ namespace Microsoft.Health.Fhir.Proxy.Clients.Headers
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }        
+        }
     }
 }

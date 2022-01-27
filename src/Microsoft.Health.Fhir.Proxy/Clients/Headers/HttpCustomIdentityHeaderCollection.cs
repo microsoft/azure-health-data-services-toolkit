@@ -33,12 +33,12 @@ namespace Microsoft.Health.Fhir.Proxy.Clients.Headers
         {
             var principal = request.GetClaimsPrincipal();
             var identity = principal.Identity;
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(principal.HasClaim(claim => claim.Type == item.ClaimType))
+                if (principal.HasClaim(claim => claim.Type == item.ClaimType))
                 {
                     IEnumerable<Claim> claimset = principal.Claims.Where(claim => claim.Type == item.ClaimType);
-                    foreach(var claim in claimset)
+                    foreach (var claim in claimset)
                     {
                         headers.Add(item.HeaderName, claim.Value);
                     }

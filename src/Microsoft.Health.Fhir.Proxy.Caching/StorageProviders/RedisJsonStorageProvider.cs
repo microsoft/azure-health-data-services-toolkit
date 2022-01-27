@@ -21,7 +21,7 @@ namespace Microsoft.Health.Fhir.Proxy.Caching.StorageProviders
               .ConfigureServices(services => services.AddStackExchangeRedisCache(op =>
               {
                   op.Configuration = options.Value.ConnectionString;
-                  op.InstanceName = options.Value.InstanceName ?? String.Empty;
+                  op.InstanceName = options.Value.InstanceName ?? string.Empty;
               }))
               .Build();
 

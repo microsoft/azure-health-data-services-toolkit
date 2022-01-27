@@ -121,7 +121,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="options">Options that define the name and value of the custom http header.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddCustomHeader(this IServiceCollection services, Action<NameValuePairOptions> options) 
+        public static IServiceCollection AddCustomHeader(this IServiceCollection services, Action<NameValuePairOptions> options)
         {
             services.Add(new ServiceDescriptor(typeof(INameValuePair), typeof(NameValuePair), ServiceLifetime.Scoped));
             services.Configure(options);
