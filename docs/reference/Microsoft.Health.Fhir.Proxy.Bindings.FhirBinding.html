@@ -129,16 +129,16 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=24">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=26">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding__ctor_" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.#ctor*"></a>
-  <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Bindings_FhirBindingOptions__Microsoft_Health_Fhir_Proxy_Security_IAuthenticator_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding__" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Bindings.FhirBindingOptions},Microsoft.Health.Fhir.Proxy.Security.IAuthenticator,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding})">FhirBinding(IOptions&lt;FhirBindingOptions&gt;, IAuthenticator, ILogger&lt;FhirBinding&gt;)</h4>
+  <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Health_Fhir_Proxy_Bindings_FhirBindingOptions__Microsoft_Health_Fhir_Proxy_Security_IAuthenticator_Microsoft_Health_Fhir_Proxy_Clients_Headers_IHttpCustomHeaderCollection_Microsoft_Health_Fhir_Proxy_Clients_Headers_IHttpCustomIdentityHeaderCollection_Microsoft_Extensions_Logging_ILogger_Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding__" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Health.Fhir.Proxy.Bindings.FhirBindingOptions},Microsoft.Health.Fhir.Proxy.Security.IAuthenticator,Microsoft.Health.Fhir.Proxy.Clients.Headers.IHttpCustomHeaderCollection,Microsoft.Health.Fhir.Proxy.Clients.Headers.IHttpCustomIdentityHeaderCollection,Microsoft.Extensions.Logging.ILogger{Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding})">FhirBinding(IOptions&lt;FhirBindingOptions&gt;, IAuthenticator, IHttpCustomHeaderCollection, IHttpCustomIdentityHeaderCollection, ILogger&lt;FhirBinding&gt;)</h4>
   <div class="markdown level1 summary"><p>Creates an instanc of the FhirBinding.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FhirBinding(IOptions&lt;FhirBindingOptions&gt; options, IAuthenticator authenticator, ILogger&lt;FhirBinding&gt; logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public FhirBinding(IOptions&lt;FhirBindingOptions&gt; options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger&lt;FhirBinding&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -161,6 +161,16 @@
         <td></td>
       </tr>
       <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Clients.Headers.IHttpCustomHeaderCollection.html">IHttpCustomHeaderCollection</a></td>
+        <td><span class="parametername">customHeaders</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Microsoft.Health.Fhir.Proxy.Clients.Headers.IHttpCustomIdentityHeaderCollection.html">IHttpCustomIdentityHeaderCollection</a></td>
+        <td><span class="parametername">identityHeaders</span></td>
+        <td></td>
+      </tr>
+      <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.html">FhirBinding</a>&gt;</td>
         <td><span class="parametername">logger</span></td>
         <td></td>
@@ -171,7 +181,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=44">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=51">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_Id_" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.Id*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_Id" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.Id">Id</h4>
@@ -199,7 +209,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=39">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=46">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_Name_" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.Name*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_Name" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.Name">Name</h4>
@@ -229,7 +239,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=61">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=68">View Source</a>
   </span>
   <a id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_ExecuteAsync_" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.ExecuteAsync*"></a>
   <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_ExecuteAsync_Microsoft_Health_Fhir_Proxy_Pipelines_OperationContext_" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.ExecuteAsync(Microsoft.Health.Fhir.Proxy.Pipelines.OperationContext)">ExecuteAsync(OperationContext)</h4>
@@ -278,7 +288,7 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=54">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=61">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_OnComplete" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.OnComplete">OnComplete</h4>
   <div class="markdown level1 summary"><p>An event that signals the binding has completed.</p>
@@ -305,7 +315,7 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=49">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=56">View Source</a>
   </span>
   <h4 id="Microsoft_Health_Fhir_Proxy_Bindings_FhirBinding_OnError" data-uid="Microsoft.Health.Fhir.Proxy.Bindings.FhirBinding.OnError">OnError</h4>
   <div class="markdown level1 summary"><p>An event that signals an error in the binding.</p>
@@ -342,7 +352,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/refactor&amp;line=15" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Microsoft.Health.Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1080&amp;line=17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

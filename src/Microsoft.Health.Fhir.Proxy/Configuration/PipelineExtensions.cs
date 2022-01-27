@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.Health.Fhir.Proxy.Bindings;
 using Microsoft.Health.Fhir.Proxy.Channels;
+using Microsoft.Health.Fhir.Proxy.Clients.Headers;
 using Microsoft.Health.Fhir.Proxy.Filters;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Security;
@@ -89,8 +90,7 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
         /// <summary>
         /// Use a Web pipeline for Web services.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
+        /// <param name="services">>Services collection.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseWebPipeline(this IServiceCollection services)
         {
@@ -101,6 +101,57 @@ namespace Microsoft.Health.Fhir.Proxy.Configuration
             services.AddScoped<IPipeline<HttpRequestMessage, HttpResponseMessage>, WebPipeline>();
             return services;
         }
+
+
+        /// <summary>
+        /// Use custom http headers to when sending http requests.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection UseCustomHeaders(this IServiceCollection services)
+        {
+            services.AddScoped<IHttpCustomHeaderCollection, HttpCustomHeaderCollection>();
+            return services;
+        }
+
+
+        /// <summary>
+        /// Adds a customer header for sending http requests.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="options">Options that define the name and value of the custom http header.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddCustomHeader(this IServiceCollection services, Action<NameValuePairOptions> options)
+        {
+            services.Add(new ServiceDescriptor(typeof(INameValuePair), typeof(NameValuePair), ServiceLifetime.Scoped));
+            services.Configure(options);
+            return services;
+        }
+
+        /// <summary>
+        /// Use custom http headers that where the value of the custom header value is defined from claims in the user's security token.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection UseCustomIdentityHeaders(this IServiceCollection services)
+        {
+            services.AddScoped<IHttpCustomIdentityHeaderCollection, HttpCustomIdentityHeaderCollection>();
+            return services;
+        }
+
+        /// <summary>
+        /// Adds a custom http header where the value of the custom header value is defined from claims in the user's security token.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <param name="options">Options that define the custom header name and claim type in the user's security token as the header value.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection AddCustomIdentityHeader(this IServiceCollection services, Action<ClaimValuePairOptions> options)
+        {
+            services.Add(new ServiceDescriptor(typeof(IClaimValuePair), typeof(ClaimValuePair), ServiceLifetime.Scoped));
+            services.Configure(options);
+            return services;
+        }
+
 
         /// <summary>
         /// Adds an input filter.

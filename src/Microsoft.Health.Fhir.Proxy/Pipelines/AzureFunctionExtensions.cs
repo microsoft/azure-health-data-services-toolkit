@@ -126,5 +126,21 @@ namespace Microsoft.Health.Fhir.Proxy.Pipelines
             ClaimsIdentity identity = new(jwt.Claims);
             return new ClaimsPrincipal(identity);
         }
+
+
+        public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestMessage request)
+        {
+            string? header = request.Headers.Authorization?.Parameter;
+            if (header == null)
+            {
+                return null;
+            }
+
+            header = header.Replace("Bearer ", "");
+            JsonWebToken jwt = new(header);
+            ClaimsIdentity identity = new(jwt.Claims);
+            return new ClaimsPrincipal(identity);
+
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Clients;
+using Microsoft.Health.Fhir.Proxy.Clients.Headers;
 using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Microsoft.Health.Fhir.Proxy.Security;
 
@@ -21,17 +23,22 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
         /// <param name="options"></param>
         /// <param name="authenticator"></param>
         /// <param name="logger"></param>
-        public FhirBinding(IOptions<FhirBindingOptions> options, IAuthenticator authenticator, ILogger<FhirBinding> logger = null)
+        public FhirBinding(IOptions<FhirBindingOptions> options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger<FhirBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;
+            this.customHeaders = customHeaders;
+            this.identityHeaders = identityHeaders;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
         private readonly IOptions<FhirBindingOptions> options;
         private readonly IAuthenticator authenticator;
+        private readonly IHttpCustomHeaderCollection customHeaders;
+        private readonly IHttpCustomIdentityHeaderCollection identityHeaders;
         private readonly ILogger logger;
+
 
         /// <summary>
         /// Gets the name of the binding "FhirBinding".
@@ -70,6 +77,9 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
 
             try
             {
+                NameValueCollection headers = context.Request.GetHeaders();
+                headers = customHeaders?.AppendHeaders(headers);
+                headers = identityHeaders?.AppendCustomHeaders(context.Request, headers);
                 string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
 
                 string securityToken = await authenticator.AquireTokenForClientAsync(options.Value.FhirServerUrl, null, null, null, userAssertion, CancellationToken.None);
@@ -78,7 +88,7 @@ namespace Microsoft.Health.Fhir.Proxy.Bindings
                                                                     securityToken,
                                                                     context.Request.RequestUri.LocalPath,
                                                                     context.Request.RequestUri.Query,
-                                                                    context.Request.GetHeaders(),
+                                                                    headers,
                                                                     context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
                                                                     "application/json");
                 RestRequest req = new(builder);

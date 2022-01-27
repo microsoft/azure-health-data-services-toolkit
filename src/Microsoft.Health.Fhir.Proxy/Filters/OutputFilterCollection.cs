@@ -3,12 +3,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.Health.Fhir.Proxy.Filters
 {
+    /// <summary>
+    /// A collection of output filters.
+    /// </summary>
     public class OutputFilterCollection : IOutputFilterCollection
     {
 
         /// <summary>
-        /// Creates an instance of the FilterCollection.
+        /// Creates an instance of OutputFilterCollection.
         /// </summary>
+        /// <param name="outputFilters">Items to initialize the collection.</param>
         public OutputFilterCollection(IEnumerable<IOutputFilter> outputFilters = null)
         {
             filters = outputFilters != null ? new List<IFilter>(outputFilters) : new List<IFilter>();
@@ -22,7 +26,7 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
         public int Count => filters.Count;
 
         /// <summary>
-        /// Gets an indicator of whether the filter is read-only.
+        /// Gets an indicator of whether the filter collection is read-only.
         /// </summary>
         public bool IsReadOnly => false;
 
@@ -47,7 +51,7 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
         /// Inserts a filter into the collection.
         /// </summary>
         /// <param name="index">Index of the filter insertion.</param>
-        /// <param name="item">Fitler to insert.</param>
+        /// <param name="item">Filter to insert.</param>
         public void Insert(int index, IFilter item)
         {
             filters.Insert(index, item);

@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Text;
+﻿using System.Text;
 using Azure;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Proxy.Storage;
