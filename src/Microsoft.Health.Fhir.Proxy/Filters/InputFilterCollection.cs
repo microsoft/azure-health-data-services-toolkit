@@ -4,14 +4,15 @@ using System.Collections.Generic;
 namespace Microsoft.Health.Fhir.Proxy.Filters
 {
     /// <summary>
-    /// A collection of filters.
+    /// A collection of input filters.
     /// </summary>
     public class InputFilterCollection : IInputFilterCollection
     {
 
         /// <summary>
-        /// Creates an instance of the FilterCollection.
+        /// Creates an instance of InputFilterCollection.
         /// </summary>
+        /// <param name="inputFilters">Items to initialize the collection.</param>
         public InputFilterCollection(IEnumerable<IInputFilter> inputFilters = null)
         {
             filters = inputFilters != null ? new List<IFilter>(inputFilters) : new List<IFilter>();
@@ -25,7 +26,7 @@ namespace Microsoft.Health.Fhir.Proxy.Filters
         public int Count => filters.Count;
 
         /// <summary>
-        /// Gets an indicator of whether the filter is read-only.
+        /// Gets an indicator of whether the filter collection is read-only.
         /// </summary>
         public bool IsReadOnly => false;
 
