@@ -57,8 +57,9 @@ namespace Microsoft.Health.Fhir.Proxy.Clients.Headers
         /// <param name="request">Azure function request containing Authorization header.</param>
         /// <param name="headers">Existing header colleection.</param>
         /// <returns>Appended custom identity headers to the existing header collection.</returns>
-        public NameValueCollection AppendCustomHeaders(HttpRequestData request, NameValueCollection headers)
+        public NameValueCollection AppendCustomHeaders(HttpRequestData request, NameValueCollection? headers)
         {
+            headers ??= new();
             var principal = request.GetClaimsPrincipal();
             var identity = principal.Identity;
             foreach (var item in list)
