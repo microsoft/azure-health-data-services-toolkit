@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset.Controllers
+namespace Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset.Controllers
 {
     [ApiController]
     [Route("[controller]")]

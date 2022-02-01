@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Fhir.Proxy.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Health.Fhir.Proxy.Configuration;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleCoHttpAspListener
     {
@@ -29,7 +29,7 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
                 options.BaseUrl = $"http://localhost:1212";
                 options.HttpMethod = "Post";
                 options.Path = "echo";
-                options.ExecutionStatus = Microsoft.Health.Fhir.Proxy.Pipelines.StatusType.Any;
+                options.ExecutionStatus = Fhir.Proxy.Pipelines.StatusType.Any;
             });
             services.UseCustomHeaders();
             services.AddCustomHeader(options =>

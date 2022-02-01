@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Channels;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Channels;
+using Fhir.Proxy.Pipelines;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     public class FakeChannelWithError : IChannel
     {

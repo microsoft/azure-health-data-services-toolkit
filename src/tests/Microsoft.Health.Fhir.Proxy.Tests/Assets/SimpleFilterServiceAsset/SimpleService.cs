@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleService
     {

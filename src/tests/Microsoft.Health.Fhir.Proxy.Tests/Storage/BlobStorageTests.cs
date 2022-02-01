@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
+using Fhir.Proxy.Storage;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Health.Fhir.Proxy.Storage;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
+namespace Fhir.Proxy.Tests.Storage
 {
     [TestClass]
     public class BlobStorageTests

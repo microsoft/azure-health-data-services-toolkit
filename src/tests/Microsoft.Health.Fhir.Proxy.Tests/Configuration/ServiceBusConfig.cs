@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
+using Fhir.Proxy.Extensions.Channels;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
+namespace Fhir.Proxy.Tests.Configuration
 {
     /// <summary>
     /// Configuration for Service Bus channel.

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
+using Fhir.Proxy.Clients;
+using Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Health.Fhir.Proxy.Clients;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class RestRequestTests

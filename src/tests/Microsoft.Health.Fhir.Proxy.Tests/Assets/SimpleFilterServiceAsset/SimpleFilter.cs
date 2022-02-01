@@ -3,14 +3,14 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Fhir.Proxy.Clients;
+using Fhir.Proxy.Clients.Headers;
+using Fhir.Proxy.Filters;
+using Fhir.Proxy.Pipelines;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Fhir.Proxy.Clients;
-using Microsoft.Health.Fhir.Proxy.Clients.Headers;
-using Microsoft.Health.Fhir.Proxy.Filters;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleFilter : IInputFilter
     {

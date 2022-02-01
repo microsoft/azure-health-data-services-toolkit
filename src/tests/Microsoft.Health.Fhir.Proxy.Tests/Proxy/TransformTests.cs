@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Json;
-using Microsoft.Health.Fhir.Proxy.Json.Transforms;
+using Fhir.Proxy.Json;
+using Fhir.Proxy.Json.Transforms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class TransformTests

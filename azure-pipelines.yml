@@ -138,8 +138,8 @@ steps:
   displayName: 'Sign Proxy'
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy/bin/Release/net6.0'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.dll'
+    FolderPath: '$(Build.SourcesDirectory)/src/Fhir.Proxy/bin/Release/net6.0'
+    Pattern: 'Fhir.Proxy.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -181,8 +181,8 @@ steps:
   displayName: 'Sign Storage'
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy.Storage/bin/Release/net6.0'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.Storage.dll'
+    FolderPath: '$(Build.SourcesDirectory)/src/Fhir.Proxy.Storage/bin/Release/net6.0'
+    Pattern: 'Fhir.Proxy.Storage.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -224,8 +224,8 @@ steps:
   displayName: 'Sign Channels'
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy.Extensions.Channels/bin/Release/net6.0'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.Extensions.Channels.dll'
+    FolderPath: '$(Build.SourcesDirectory)/src/Fhir.Proxy.Extensions.Channels/bin/Release/net6.0'
+    Pattern: 'Fhir.Proxy.Extensions.Channels.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -267,8 +267,8 @@ steps:
   displayName: 'Sign Caching'
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
-    FolderPath: '$(Build.SourcesDirectory)/src/Microsoft.Health.Fhir.Proxy.Caching/bin/Release/net6.0'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.Caching.dll'
+    FolderPath: '$(Build.SourcesDirectory)/src/Fhir.Proxy.Caching/bin/Release/net6.0'
+    Pattern: 'Fhir.Proxy.Caching.dll'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -319,7 +319,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    packagesToPack: '**/Fhir.Proxy.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -329,7 +329,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    packagesToPack: '**/Fhir.Proxy.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-prerelease
@@ -340,7 +340,7 @@ steps:
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-prerelease).nupkg'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-prerelease).Core.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -370,7 +370,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.csproj'
+    packagesToPack: '**/Fhir.Proxy.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
@@ -381,7 +381,7 @@ steps:
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-release).nupkg'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-release).Core.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -410,7 +410,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    packagesToPack: '**/Fhir.Proxy.Extensions.Channels.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -421,7 +421,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    packagesToPack: '**/Fhir.Proxy.Extensions.Channels.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-prerelease
@@ -462,7 +462,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Extensions.Channels.csproj'
+    packagesToPack: '**/Fhir.Proxy.Extensions.Channels.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
@@ -502,7 +502,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    packagesToPack: '**/Fhir.Proxy.Storage.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -512,7 +512,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    packagesToPack: '**/Fhir.Proxy.Storage.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-prerelease
@@ -551,7 +551,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Storage.csproj'
+    packagesToPack: '**/Fhir.Proxy.Storage.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
@@ -595,7 +595,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Caching.csproj'
+    packagesToPack: '**/Fhir.Proxy.Caching.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion
@@ -605,7 +605,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Caching.csproj'
+    packagesToPack: '**/Fhir.Proxy.Caching.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-prerelease
@@ -644,7 +644,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: '**/Microsoft.Health.Fhir.Proxy.Caching.csproj'
+    packagesToPack: '**/Fhir.Proxy.Caching.csproj'
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: packageversion-release
@@ -685,7 +685,7 @@ steps:
   displayName: 'Push Nuget Fhir.Proxy to Artifacts feed'
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.$(packageversion).Core.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
     versioningScheme: 'byEnvVar'

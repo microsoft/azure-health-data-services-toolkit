@@ -3,13 +3,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Fhir.Proxy.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
+namespace Fhir.Proxy.Tests.Storage
 {
     [TestClass]
     public class FileStorageTests
