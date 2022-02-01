@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Bindings;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Security;
 using Fhir.Proxy.Tests.Assets;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

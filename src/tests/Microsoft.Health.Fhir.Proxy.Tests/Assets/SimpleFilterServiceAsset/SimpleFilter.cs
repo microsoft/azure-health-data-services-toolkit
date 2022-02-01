@@ -3,11 +3,11 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Clients;
 using Fhir.Proxy.Clients.Headers;
 using Fhir.Proxy.Filters;
 using Fhir.Proxy.Pipelines;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset

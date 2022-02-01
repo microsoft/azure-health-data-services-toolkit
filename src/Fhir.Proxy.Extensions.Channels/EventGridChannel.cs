@@ -3,11 +3,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Messaging.EventGrid;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Storage;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Fhir.Proxy.Extensions.Channels
 {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
+using Fhir.Proxy.Caching.StorageProviders;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Fhir.Proxy.Caching.StorageProviders;
 using Newtonsoft.Json;
 
 namespace Fhir.Proxy.Caching

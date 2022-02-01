@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Fhir.Proxy.Tests.Configuration;
 
 namespace Fhir.Proxy.Tests.Assets
 {

@@ -3,11 +3,11 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Fhir.Proxy.Storage;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Fhir.Proxy.Storage;
-using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 

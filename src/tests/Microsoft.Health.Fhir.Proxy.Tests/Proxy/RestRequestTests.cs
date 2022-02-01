@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
-using Microsoft.Extensions.Configuration;
 using Fhir.Proxy.Clients;
 using Fhir.Proxy.Tests.Assets;
 using Fhir.Proxy.Tests.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fhir.Proxy.Tests.Proxy

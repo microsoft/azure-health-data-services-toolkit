@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Extensions.Channels;
 using Fhir.Proxy.Storage;
 using Fhir.Proxy.Tests.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fhir.Proxy.Tests.Channels

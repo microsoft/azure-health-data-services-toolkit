@@ -2,11 +2,11 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Storage;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Fhir.Proxy.Extensions.Channels

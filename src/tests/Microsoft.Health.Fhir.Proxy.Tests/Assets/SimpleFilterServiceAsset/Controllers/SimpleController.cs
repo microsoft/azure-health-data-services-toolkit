@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Fhir.Proxy.Pipelines;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Fhir.Proxy.Pipelines;
 using Newtonsoft.Json;
 
 namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset.Controllers

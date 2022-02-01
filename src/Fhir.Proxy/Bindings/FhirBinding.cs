@@ -2,12 +2,12 @@
 using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Clients;
 using Fhir.Proxy.Clients.Headers;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Security;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Fhir.Proxy.Bindings
 {

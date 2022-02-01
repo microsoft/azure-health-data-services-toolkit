@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Fhir.Proxy.Caching.StorageProviders;
+﻿using Fhir.Proxy.Caching.StorageProviders;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Fhir.Proxy.Caching
 {

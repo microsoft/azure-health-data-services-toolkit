@@ -4,12 +4,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Queues.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Extensions.Channels;
 using Fhir.Proxy.Storage;
 using Fhir.Proxy.Tests.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 

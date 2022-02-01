@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
 using Fhir.Proxy.Bindings;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Filters;
+using Microsoft.ApplicationInsights;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Fhir.Proxy.Pipelines
 {

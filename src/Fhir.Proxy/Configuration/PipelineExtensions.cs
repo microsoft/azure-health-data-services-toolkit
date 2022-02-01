@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Net.Http;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.ApplicationInsights;
 using Fhir.Proxy.Bindings;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Clients.Headers;
 using Fhir.Proxy.Filters;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Security;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 
 namespace Fhir.Proxy.Configuration
 {

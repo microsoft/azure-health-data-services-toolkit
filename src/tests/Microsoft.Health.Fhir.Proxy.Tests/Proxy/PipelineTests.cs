@@ -4,14 +4,13 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
-using Fhir.Proxy.Bindings;
 using Fhir.Proxy.Channels;
 using Fhir.Proxy.Filters;
 using Fhir.Proxy.Pipelines;
 using Fhir.Proxy.Tests.Assets;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 

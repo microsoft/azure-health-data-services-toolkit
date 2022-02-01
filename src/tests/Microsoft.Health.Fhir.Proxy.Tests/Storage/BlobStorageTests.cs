@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
 using Fhir.Proxy.Storage;
 using Fhir.Proxy.Tests.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fhir.Proxy.Tests.Storage

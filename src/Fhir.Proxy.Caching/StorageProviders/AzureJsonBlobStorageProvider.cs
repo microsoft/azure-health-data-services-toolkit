@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Azure;
-using Microsoft.Extensions.Options;
 using Fhir.Proxy.Storage;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Fhir.Proxy.Caching.StorageProviders

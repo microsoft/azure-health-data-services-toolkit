@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Fhir.Proxy.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
-using Fhir.Proxy.Configuration;
 
 namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 {

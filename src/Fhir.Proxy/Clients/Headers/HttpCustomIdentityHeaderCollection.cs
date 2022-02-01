@@ -4,8 +4,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using Microsoft.Azure.Functions.Worker.Http;
 using Fhir.Proxy.Pipelines;
+using Microsoft.Azure.Functions.Worker.Http;
 
 namespace Fhir.Proxy.Clients.Headers
 {
