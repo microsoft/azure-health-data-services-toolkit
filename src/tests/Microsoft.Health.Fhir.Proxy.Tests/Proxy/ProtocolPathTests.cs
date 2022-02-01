@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.Health.Fhir.Proxy.Protocol;
+using Fhir.Proxy.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class ProtocolPathTests

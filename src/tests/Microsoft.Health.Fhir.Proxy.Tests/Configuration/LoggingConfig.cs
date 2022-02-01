@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
+namespace Fhir.Proxy.Tests.Configuration
 {
     public class LoggingConfig
     {

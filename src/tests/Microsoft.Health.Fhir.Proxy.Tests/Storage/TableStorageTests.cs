@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Storage;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Storage;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
+namespace Fhir.Proxy.Tests.Storage
 {
     [TestClass]
     public class TableStorageTests

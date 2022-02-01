@@ -2,9 +2,9 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
+using Fhir.Proxy.Tests.Configuration;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     public static class ConfigExtensions
     {

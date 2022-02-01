@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     public class HttpEchoListener
     {

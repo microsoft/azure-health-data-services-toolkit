@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset
 {
     public class SimpleWebService
     {

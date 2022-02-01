@@ -5,7 +5,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
+namespace Fhir.Proxy.Tests.Configuration
 {
     public class ServiceIdentityConfig
     {

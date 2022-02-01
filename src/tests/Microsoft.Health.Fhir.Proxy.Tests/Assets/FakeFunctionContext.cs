@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Functions.Worker;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
 
     public class FakeFunctionContext : FunctionContext, IDisposable

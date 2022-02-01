@@ -4,12 +4,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Storage;
+using Fhir.Proxy.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Storage
+namespace Fhir.Proxy.Tests.Storage
 {
     //Go to Data protection and disable soft delete and use no event triggers
 

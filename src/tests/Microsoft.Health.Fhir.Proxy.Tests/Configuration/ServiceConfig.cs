@@ -6,7 +6,7 @@ using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
+namespace Fhir.Proxy.Tests.Configuration
 {
     /// <summary>
     /// Service configuration for pipelines.

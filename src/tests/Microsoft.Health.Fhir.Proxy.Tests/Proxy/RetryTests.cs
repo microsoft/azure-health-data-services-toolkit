@@ -3,11 +3,11 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Clients;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Clients;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class RetryTests

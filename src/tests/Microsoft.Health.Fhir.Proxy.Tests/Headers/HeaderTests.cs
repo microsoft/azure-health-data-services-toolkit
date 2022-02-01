@@ -4,15 +4,15 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Clients;
-using Microsoft.Health.Fhir.Proxy.Clients.Headers;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset;
+using Fhir.Proxy.Clients;
+using Fhir.Proxy.Clients.Headers;
+using Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset;
+using Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Headers
+namespace Fhir.Proxy.Tests.Headers
 {
     [TestClass]
     public class HeaderTests

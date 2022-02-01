@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     public class FakeBindingMetadata : BindingMetadata
     {

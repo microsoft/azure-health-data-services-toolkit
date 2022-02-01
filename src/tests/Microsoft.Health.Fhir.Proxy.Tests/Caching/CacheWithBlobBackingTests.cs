@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Health.Fhir.Proxy.Caching;
-using Microsoft.Health.Fhir.Proxy.Storage;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
+using Fhir.Proxy.Caching;
+using Fhir.Proxy.Storage;
+using Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace Microsoft.Health.Fhir.Proxy.Tests.Caching
+namespace Fhir.Proxy.Tests.Caching
 {
     [TestClass]
     public class CacheWithBlobBackingTests

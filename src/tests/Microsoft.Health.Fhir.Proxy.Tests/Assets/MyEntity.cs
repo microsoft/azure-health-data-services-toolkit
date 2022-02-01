@@ -2,7 +2,7 @@
 using Microsoft.Azure.Cosmos.Table;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     [Serializable]
     [JsonObject]

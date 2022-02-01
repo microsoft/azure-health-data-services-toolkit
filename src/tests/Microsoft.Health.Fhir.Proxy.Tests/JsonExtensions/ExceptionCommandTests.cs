@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Microsoft.Health.Fhir.Proxy.Commands;
+using Fhir.Proxy.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.JsonExtensions
+namespace Fhir.Proxy.Tests.JsonExtensions
 {
     [TestClass]
     public class ExceptionCommandTests

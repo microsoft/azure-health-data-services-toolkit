@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleWebServiceAsset
 {
     public class SimpleWebServiceListener
     {

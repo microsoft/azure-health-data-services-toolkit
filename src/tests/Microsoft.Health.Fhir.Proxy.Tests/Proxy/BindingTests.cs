@@ -4,14 +4,14 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Fhir.Proxy.Bindings;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
-using Microsoft.Health.Fhir.Proxy.Security;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Bindings;
+using Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Security;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class BindingTests
@@ -31,59 +31,6 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
         public static void CleanupTestSuite()
         {
             listener.StopAsync().GetAwaiter();
-        }
-
-        [TestMethod]
-        public void CoupledPipelineBinding_Properties_Test()
-        {
-            string name = "CoupledBinding";
-            IBinding binding = new CoupledBinding();
-
-            Assert.AreEqual(name, binding.Name, "Binding name mismatch.");
-            Assert.IsNotNull(binding.Id, "Expected not null Id");
-        }
-
-        [TestMethod]
-        public async Task CouplePipelineBinding_Error_Test()
-        {
-            OperationContext context = null;
-            Exception error = null;
-            IBinding binding = new CoupledBinding();
-            binding.OnError += (i, args) =>
-            {
-                error = args.Error;
-            };
-
-            _ = await binding.ExecuteAsync(context);
-            Assert.IsNotNull(error, "Expected error.");
-        }
-
-        [TestMethod]
-        public async Task CouplePipelineBinding_Complete_Test()
-        {
-            string uriString = "https://www.example.org/path?name=value";
-            OperationContext context = new()
-            {
-                Request = new HttpRequestMessage(HttpMethod.Get, uriString)
-            };
-
-            IBinding binding = new CoupledBinding();
-            string argId = null;
-            string argBindingName = null;
-            OperationContext argContext = null;
-
-            binding.OnComplete += (i, args) =>
-            {
-                argId = args.Id;
-                argBindingName = args.Name;
-                argContext = args.Context;
-            };
-
-            OperationContext actualContext = await binding.ExecuteAsync(context);
-            Assert.AreEqual(argId, binding.Id, "Id mismatch.");
-            Assert.AreEqual(argBindingName, binding.Name, "Name mismatch.");
-            Assert.AreEqual(argContext.Request.Method, actualContext.Request.Method, "Method mismatch.");
-            Assert.AreEqual(argContext.Request.RequestUri.ToString(), actualContext.Request.RequestUri.ToString(), "Request URI mismatch.");
         }
 
         [TestMethod]

@@ -7,15 +7,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Fhir.Proxy.Channels;
-using Microsoft.Health.Fhir.Proxy.Extensions.Channels;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
+using Fhir.Proxy.Channels;
+using Fhir.Proxy.Extensions.Channels;
+using Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Channels
+namespace Fhir.Proxy.Tests.Channels
 {
     [TestClass]
     public class ServiceBusChannelTests

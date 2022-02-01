@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Bindings;
-using Microsoft.Health.Fhir.Proxy.Channels;
-using Microsoft.Health.Fhir.Proxy.Filters;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Bindings;
+using Fhir.Proxy.Channels;
+using Fhir.Proxy.Filters;
+using Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class PipelineTests
@@ -267,11 +267,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             HttpRequestMessage request = new(method, requestUriString);
             IInputFilterCollection filters = new InputFilterCollection();
             IInputChannelCollection channels = new InputChannelCollection();
-            IBinding binding = new CoupledBinding();
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
 
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, binding);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -367,11 +366,10 @@ namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
             IInputFilterCollection filters = new InputFilterCollection();
             IInputChannelCollection channels = new InputChannelCollection();
-            IBinding binding = new CoupledBinding();
             filters.Add(new FakeFilter());
             channels.Add(new FakeChannel());
 
-            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters, channels, binding);
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters, channels);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>

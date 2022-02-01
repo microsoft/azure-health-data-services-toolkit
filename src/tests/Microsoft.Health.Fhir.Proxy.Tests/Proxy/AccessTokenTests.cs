@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Azure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Fhir.Proxy.Security;
-using Microsoft.Health.Fhir.Proxy.Tests.Configuration;
+using Fhir.Proxy.Security;
+using Fhir.Proxy.Tests.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class AccessTokenTests

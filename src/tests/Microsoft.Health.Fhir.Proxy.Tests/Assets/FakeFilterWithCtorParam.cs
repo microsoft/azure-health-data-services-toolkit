@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Health.Fhir.Proxy.Filters;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Filters;
+using Fhir.Proxy.Pipelines;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets
+namespace Fhir.Proxy.Tests.Assets
 {
     public class FakeFilterWithCtorParam : IFilter
     {

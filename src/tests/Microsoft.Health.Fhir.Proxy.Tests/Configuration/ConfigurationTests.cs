@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Configuration
+namespace Fhir.Proxy.Tests.Configuration
 {
     [TestClass]
     public class ConfigurationTests

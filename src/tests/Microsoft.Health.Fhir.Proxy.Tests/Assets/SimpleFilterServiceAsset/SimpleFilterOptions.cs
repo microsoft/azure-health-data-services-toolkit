@@ -1,6 +1,6 @@
-﻿using Microsoft.Health.Fhir.Proxy.Pipelines;
+﻿using Fhir.Proxy.Pipelines;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
+namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleFilterOptions
     {

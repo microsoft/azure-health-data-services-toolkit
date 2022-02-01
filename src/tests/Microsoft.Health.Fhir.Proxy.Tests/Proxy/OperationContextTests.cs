@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Pipelines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class OperationContextTests

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Microsoft.Health.Fhir.Proxy.Filters;
-using Microsoft.Health.Fhir.Proxy.Tests.Assets;
+using Fhir.Proxy.Filters;
+using Fhir.Proxy.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Proxy
+namespace Fhir.Proxy.Tests.Proxy
 {
     [TestClass]
     public class FilterTests

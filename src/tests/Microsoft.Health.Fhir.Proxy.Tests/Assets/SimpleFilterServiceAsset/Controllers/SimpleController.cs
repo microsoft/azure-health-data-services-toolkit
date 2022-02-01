@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Proxy.Pipelines;
+using Fhir.Proxy.Pipelines;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset.Controllers
+namespace Fhir.Proxy.Tests.Assets.SimpleFilterServiceAsset.Controllers
 {
 
     [ApiController]
