@@ -340,7 +340,7 @@ steps:
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-prerelease).Core.nupkg'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Core.$(packageversion-prerelease).nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -381,7 +381,7 @@ steps:
   inputs:
     ConnectedServiceName: 'ESRP Code Signing'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: 'Microsoft.Health.Fhir.Proxy.$(packageversion-release).Core.nupkg'
+    Pattern: 'Microsoft.Health.Fhir.Proxy.Core.$(packageversion-release).nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -685,7 +685,7 @@ steps:
   displayName: 'Push Nuget Fhir.Proxy to Artifacts feed'
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.$(packageversion).Core.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/Microsoft.Health.Fhir.Proxy.Core.$(packageversion).nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '3dcf91a6-e317-4e72-bca9-fc85f99858f8/43bea277-312d-4753-a734-143e5c253af3'
     versioningScheme: 'byEnvVar'

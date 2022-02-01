@@ -280,7 +280,7 @@ namespace Fhir.Proxy.Storage
         /// <param name="tableName">Name of table.</param>
         /// <param name="partitionKey">Optional string containing the partition key.</param>
         /// <param name="rowKey">Optional string containing the row key.</param>
-        /// <param name="token">Optional TableContinuationToken used when the operation returns a partial result.</param>
+        /// <param name="token">Optional continuation token.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>TableQuerySegment</returns>
         public async Task<TableQuerySegment<T>> QueryTableAsync<T>(string tableName, string partitionKey = null, string rowKey = null, TableContinuationToken token = null, CancellationToken cancellationToken = default)
@@ -320,9 +320,9 @@ namespace Fhir.Proxy.Storage
         /// <typeparam name="T">The class of type for the entity to retrieve.</typeparam>
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query to run on the table.</param>
-        /// <param name="token">Optional TableContinuationToken object representing a continuation token from the server when the operation returns a partial result.</param>
+        /// <param name="token">Optional continuation token.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
-        /// <returns>TableQuerySegment&lt;T&&gt;</returns>
+        /// <returns>TableQuerySegment</returns>
         public async Task<TableQuerySegment<T>> QueryTableAsync<T>(string tableName, TableQuery<T> query, TableContinuationToken token = null, CancellationToken cancellationToken = default)
             where T : ITableEntity, new()
         {
