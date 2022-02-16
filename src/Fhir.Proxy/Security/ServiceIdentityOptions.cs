@@ -28,7 +28,7 @@ namespace Fhir.Proxy.Security
         /// <summary>
         /// Gets or sets the type of client credential.
         /// </summary>
-        public ClientCredentialType CredentialType { get; set; }
+        public ClientCredentialType? CredentialType { get; set; }
 
         /// <summary>
         /// Gets or sets Tenant ID used for AAD authentication.

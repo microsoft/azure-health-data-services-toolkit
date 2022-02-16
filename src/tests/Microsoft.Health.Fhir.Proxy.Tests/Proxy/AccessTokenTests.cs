@@ -15,12 +15,27 @@ namespace Fhir.Proxy.Tests.Proxy
         private static ServiceIdentityConfig config;
         public AccessTokenTests()
         {
+            
             IConfigurationBuilder builder = new ConfigurationBuilder();
             builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
-            IConfigurationRoot root = builder.Build();
+            IConfigurationRoot root = builder.Build();            
             config = new ServiceIdentityConfig();
             root.Bind(config);
+            System.Environment.SetEnvironmentVariable("AZURE_TENANT_ID", config.TenantId);
+            System.Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", config.ClientId);
+            System.Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", config.ClientSecret);
+        }
+
+
+        [TestMethod]
+        public async Task AccessToken_UsingDefaultCredential_Test()
+        {
+            string resource = "https://localhost";
+            IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());          
+            Authenticator auth = new(options);
+            string token = await auth.AquireTokenForClientAsync(resource);
+            Assert.IsNotNull(token, "Security token must not be null.");
         }
 
         [TestMethod]
