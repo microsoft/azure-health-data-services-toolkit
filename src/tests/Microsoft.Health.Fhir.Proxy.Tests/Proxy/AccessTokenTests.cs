@@ -1,9 +1,11 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
 using Azure.Identity;
+using Fhir.Proxy.Configuration;
 using Fhir.Proxy.Security;
 using Fhir.Proxy.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -108,6 +110,18 @@ namespace Fhir.Proxy.Tests.Proxy
             Authenticator auth = new(options);
             string token = await auth.AquireTokenForClientAsync(resource, scopes);
             Assert.IsNotNull(token, "Security token must not be null.");
+        }
+
+        [TestMethod]
+        public async Task AccessToken_DefaultCredentialsExtension_Test()
+        {
+            string resource = "https://localhost";
+            ServiceCollection services = new ServiceCollection();
+            services.UseAuthenticator();
+            ServiceProvider prov = services.BuildServiceProvider();
+            IAuthenticator authn = (IAuthenticator)prov.GetService(typeof(IAuthenticator));
+            string token = await authn.AquireTokenForClientAsync(resource);
+            Assert.IsNotNull(token, "access token is null.");
         }
     }
 }
