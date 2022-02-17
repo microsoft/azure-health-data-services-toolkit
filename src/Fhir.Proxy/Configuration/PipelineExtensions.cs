@@ -58,8 +58,8 @@ namespace Fhir.Proxy.Configuration
         /// <summary>
         /// Use the authenticator for acquisition of access tokens from Azure AD.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
+        /// <param name="services">Services collection.</param>
+        /// <param name="options">Options for configuration.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
@@ -67,6 +67,16 @@ namespace Fhir.Proxy.Configuration
             services.Configure(options);
 
             return services;
+        }
+
+        /// <summary>
+        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection UseAuthenticator(this IServiceCollection services)
+        {
+            return services.UseAuthenticator(options => options.CredentialType = null);
         }
 
         /// <summary>
