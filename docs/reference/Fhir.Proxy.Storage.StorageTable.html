@@ -882,6 +882,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TableQuerySegment&lt;T&gt;&gt; QueryTableAsync&lt;T&gt;(string tableName, TableQuery&lt;T&gt; query, TableContinuationToken token = null, CancellationToken cancellationToken = default(CancellationToken))
+
     where T : ITableEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -964,6 +965,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TableQuerySegment&lt;T&gt;&gt; QueryTableAsync&lt;T&gt;(string tableName, string partitionKey = null, string rowKey = null, TableContinuationToken token = null, CancellationToken cancellationToken = default(CancellationToken))
+
     where T : ITableEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1110,6 +1112,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TableResult&gt; RetrieveEntity&lt;T&gt;(string tableName, string partitionKey, string rowKey, EntityResolver&lt;T&gt; resolver, List&lt;string&gt; columns = null, CancellationToken cancellationToken = default(CancellationToken))
+
     where T : ITableEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
