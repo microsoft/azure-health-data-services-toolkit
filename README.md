@@ -13,7 +13,7 @@ The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthca
 
 ## Pipelines
 
-Pipelines are used to build the *custom operation* and can be used to (i) modify information, (ii) acquire additional information to make decisions, and (iii) output information to our services.  The first two are performed through a chain of 0 or more *filters* where each filter in the chain performs some operation.  The latter is performed through *channels*, which simply output information 0 or more desired services. Input and output pipelines are connected through a binding, which either (i) call the FHIR server and returns the response to the output pipeline (FhirServerBinding), or (ii) is omitted and directly calls the output pipeline if present or returns the result of the input pipleine.
+Pipelines are used to build the *custom operation* and can be used to (i) modify information, (ii) acquire additional information to make decisions, and (iii) output information to our services.  The first two are performed through a chain of 0 or more *filters* where each filter in the chain performs some operation.  The latter is performed through *channels*, which simply output information 0 or more desired services. Input and output pipelines are connected through a binding, which either (i) call the FHIR server and returns the response to the output pipeline (RestBinding), or (ii) is omitted and directly calls the output pipeline if present or returns the result of the input pipleine.
 
 ## Pipeline
 
