@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class FhirBinding
+    <title>Class RestBinding
    | Title </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class FhirBinding
+    <meta name="title" content="Class RestBinding
    | Title ">
     <meta name="generator" content="docfx 2.58.9.0">
     
@@ -78,10 +78,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Fhir.Proxy.Bindings.FhirBinding">
+            <article class="content wrap" id="_content" data-uid="Fhir.Proxy.Bindings.RestBinding">
   
   
-  <h1 id="Fhir_Proxy_Bindings_FhirBinding" data-uid="Fhir.Proxy.Bindings.FhirBinding" class="text-break">Class FhirBinding
+  <h1 id="Fhir_Proxy_Bindings_RestBinding" data-uid="Fhir.Proxy.Bindings.RestBinding" class="text-break">Class RestBinding
   </h1>
   <div class="markdown level0 summary"><p>A binding used to call the FHIR server and couples input/output pipelines or acts as terminator for an input pipeline.</p>
 </div>
@@ -89,7 +89,7 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">FhirBinding</span></div>
+    <div class="level1"><span class="xref">RestBinding</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -121,24 +121,24 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Fhir.Proxy.Bindings.html">Fhir.Proxy.Bindings</a></h6>
   <h6><strong>Assembly</strong>: Fhir.Proxy.dll</h6>
-  <h5 id="Fhir_Proxy_Bindings_FhirBinding_syntax">Syntax</h5>
+  <h5 id="Fhir_Proxy_Bindings_RestBinding_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class FhirBinding : IBinding</code></pre>
+    <pre><code class="lang-csharp hljs">public class RestBinding : IBinding</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=26">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=28">View Source</a>
   </span>
-  <a id="Fhir_Proxy_Bindings_FhirBinding__ctor_" data-uid="Fhir.Proxy.Bindings.FhirBinding.#ctor*"></a>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding__ctor_Microsoft_Extensions_Options_IOptions_Fhir_Proxy_Bindings_FhirBindingOptions__Fhir_Proxy_Security_IAuthenticator_Fhir_Proxy_Clients_Headers_IHttpCustomHeaderCollection_Fhir_Proxy_Clients_Headers_IHttpCustomIdentityHeaderCollection_Microsoft_Extensions_Logging_ILogger_Fhir_Proxy_Bindings_FhirBinding__" data-uid="Fhir.Proxy.Bindings.FhirBinding.#ctor(Microsoft.Extensions.Options.IOptions{Fhir.Proxy.Bindings.FhirBindingOptions},Fhir.Proxy.Security.IAuthenticator,Fhir.Proxy.Clients.Headers.IHttpCustomHeaderCollection,Fhir.Proxy.Clients.Headers.IHttpCustomIdentityHeaderCollection,Microsoft.Extensions.Logging.ILogger{Fhir.Proxy.Bindings.FhirBinding})">FhirBinding(IOptions&lt;FhirBindingOptions&gt;, IAuthenticator, IHttpCustomHeaderCollection, IHttpCustomIdentityHeaderCollection, ILogger&lt;FhirBinding&gt;)</h4>
-  <div class="markdown level1 summary"><p>Creates an instanc of the FhirBinding.</p>
+  <a id="Fhir_Proxy_Bindings_RestBinding__ctor_" data-uid="Fhir.Proxy.Bindings.RestBinding.#ctor*"></a>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding__ctor_Microsoft_Extensions_Options_IOptions_Fhir_Proxy_Bindings_RestBindingOptions__Fhir_Proxy_Security_IAuthenticator_Fhir_Proxy_Clients_Headers_IHttpCustomHeaderCollection_Fhir_Proxy_Clients_Headers_IHttpCustomIdentityHeaderCollection_Microsoft_Extensions_Logging_ILogger_Fhir_Proxy_Bindings_RestBinding__" data-uid="Fhir.Proxy.Bindings.RestBinding.#ctor(Microsoft.Extensions.Options.IOptions{Fhir.Proxy.Bindings.RestBindingOptions},Fhir.Proxy.Security.IAuthenticator,Fhir.Proxy.Clients.Headers.IHttpCustomHeaderCollection,Fhir.Proxy.Clients.Headers.IHttpCustomIdentityHeaderCollection,Microsoft.Extensions.Logging.ILogger{Fhir.Proxy.Bindings.RestBinding})">RestBinding(IOptions&lt;RestBindingOptions&gt;, IAuthenticator, IHttpCustomHeaderCollection, IHttpCustomIdentityHeaderCollection, ILogger&lt;RestBinding&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of RestBinding.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FhirBinding(IOptions&lt;FhirBindingOptions&gt; options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger&lt;FhirBinding&gt; logger = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public RestBinding(IOptions&lt;RestBindingOptions&gt; options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger&lt;RestBinding&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -151,29 +151,34 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Fhir.Proxy.Bindings.FhirBindingOptions.html">FhirBindingOptions</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="Fhir.Proxy.Bindings.RestBindingOptions.html">RestBindingOptions</a>&gt;</td>
         <td><span class="parametername">options</span></td>
-        <td></td>
+        <td><p>Rest binding options.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Fhir.Proxy.Security.IAuthenticator.html">IAuthenticator</a></td>
         <td><span class="parametername">authenticator</span></td>
-        <td></td>
+        <td><p>Authenticator to acquire security token.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Fhir.Proxy.Clients.Headers.IHttpCustomHeaderCollection.html">IHttpCustomHeaderCollection</a></td>
         <td><span class="parametername">customHeaders</span></td>
-        <td></td>
+        <td><p>Optional custom headers.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="Fhir.Proxy.Clients.Headers.IHttpCustomIdentityHeaderCollection.html">IHttpCustomIdentityHeaderCollection</a></td>
         <td><span class="parametername">identityHeaders</span></td>
-        <td></td>
+        <td><p>Optional custom identity headers.</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Fhir.Proxy.Bindings.FhirBinding.html">FhirBinding</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Fhir.Proxy.Bindings.RestBinding.html">RestBinding</a>&gt;</td>
         <td><span class="parametername">logger</span></td>
-        <td></td>
+        <td><p>Optional logger.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -181,10 +186,10 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=51">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=53">View Source</a>
   </span>
-  <a id="Fhir_Proxy_Bindings_FhirBinding_Id_" data-uid="Fhir.Proxy.Bindings.FhirBinding.Id*"></a>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding_Id" data-uid="Fhir.Proxy.Bindings.FhirBinding.Id">Id</h4>
+  <a id="Fhir_Proxy_Bindings_RestBinding_Id_" data-uid="Fhir.Proxy.Bindings.RestBinding.Id*"></a>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding_Id" data-uid="Fhir.Proxy.Bindings.RestBinding.Id">Id</h4>
   <div class="markdown level1 summary"><p>Gets a unique ID of the binding instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -209,11 +214,11 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=46">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=48">View Source</a>
   </span>
-  <a id="Fhir_Proxy_Bindings_FhirBinding_Name_" data-uid="Fhir.Proxy.Bindings.FhirBinding.Name*"></a>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding_Name" data-uid="Fhir.Proxy.Bindings.FhirBinding.Name">Name</h4>
-  <div class="markdown level1 summary"><p>Gets the name of the binding &quot;FhirBinding&quot;.</p>
+  <a id="Fhir_Proxy_Bindings_RestBinding_Name_" data-uid="Fhir.Proxy.Bindings.RestBinding.Name*"></a>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding_Name" data-uid="Fhir.Proxy.Bindings.RestBinding.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the binding &quot;RestBinding&quot;.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -239,10 +244,10 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=68">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=70">View Source</a>
   </span>
-  <a id="Fhir_Proxy_Bindings_FhirBinding_ExecuteAsync_" data-uid="Fhir.Proxy.Bindings.FhirBinding.ExecuteAsync*"></a>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding_ExecuteAsync_Fhir_Proxy_Pipelines_OperationContext_" data-uid="Fhir.Proxy.Bindings.FhirBinding.ExecuteAsync(Fhir.Proxy.Pipelines.OperationContext)">ExecuteAsync(OperationContext)</h4>
+  <a id="Fhir_Proxy_Bindings_RestBinding_ExecuteAsync_" data-uid="Fhir.Proxy.Bindings.RestBinding.ExecuteAsync*"></a>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding_ExecuteAsync_Fhir_Proxy_Pipelines_OperationContext_" data-uid="Fhir.Proxy.Bindings.RestBinding.ExecuteAsync(Fhir.Proxy.Pipelines.OperationContext)">ExecuteAsync(OperationContext)</h4>
   <div class="markdown level1 summary"><p>Executes the binding.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -288,9 +293,9 @@
   </h3>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=61">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=63">View Source</a>
   </span>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding_OnComplete" data-uid="Fhir.Proxy.Bindings.FhirBinding.OnComplete">OnComplete</h4>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding_OnComplete" data-uid="Fhir.Proxy.Bindings.RestBinding.OnComplete">OnComplete</h4>
   <div class="markdown level1 summary"><p>An event that signals the binding has completed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -315,9 +320,9 @@
   </table>
   
   <span class="small pull-right mobile-hide">
-    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=56">View Source</a>
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=58">View Source</a>
   </span>
-  <h4 id="Fhir_Proxy_Bindings_FhirBinding_OnError" data-uid="Fhir.Proxy.Bindings.FhirBinding.OnError">OnError</h4>
+  <h4 id="Fhir_Proxy_Bindings_RestBinding_OnError" data-uid="Fhir.Proxy.Bindings.RestBinding.OnError">OnError</h4>
   <div class="markdown level1 summary"><p>An event that signals an error in the binding.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -352,7 +357,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/FhirBinding.cs&amp;version=GBmalong/1087&amp;line=17" class="contribution-link">View Source</a>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/Fhir.Proxy/Bindings/RestBinding.cs&amp;version=GBmalong/1088&amp;line=17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
