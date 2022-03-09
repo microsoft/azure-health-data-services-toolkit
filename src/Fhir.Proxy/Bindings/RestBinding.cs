@@ -17,14 +17,14 @@ namespace Fhir.Proxy.Bindings
     public class RestBinding : IBinding
     {
 
-       /// <summary>
-       /// Creates an instance of RestBinding.
-       /// </summary>
-       /// <param name="options">Rest binding options.</param>
-       /// <param name="authenticator">Authenticator to acquire security token.</param>
-       /// <param name="customHeaders">Optional custom headers.</param>
-       /// <param name="identityHeaders">Optional custom identity headers.</param>
-       /// <param name="logger">Optional logger.</param>
+        /// <summary>
+        /// Creates an instance of RestBinding.
+        /// </summary>
+        /// <param name="options">Rest binding options.</param>
+        /// <param name="authenticator">Authenticator to acquire security token.</param>
+        /// <param name="customHeaders">Optional custom headers.</param>
+        /// <param name="identityHeaders">Optional custom identity headers.</param>
+        /// <param name="logger">Optional logger.</param>
         public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger<RestBinding> logger = null)
         {
             this.options = options;
