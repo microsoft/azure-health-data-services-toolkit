@@ -34,12 +34,12 @@ namespace Fhir.Proxy.Tests.Proxy
         }
 
         [TestMethod]
-        public void FhirPipelineBinding_Properties_Test()
+        public void RestPipelineBinding_Properties_Test()
         {
-            string name = "FhirBinding";
-            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            string name = "RestBinding";
+            IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                FhirServerUrl = "",
+                ServerUrl = "",
             });
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
@@ -49,20 +49,20 @@ namespace Fhir.Proxy.Tests.Proxy
 
             IAuthenticator authenticator = new Authenticator(soptions);
 
-            IBinding binding = new FhirBinding(options, authenticator);
+            IBinding binding = new RestBinding(options, authenticator);
 
             Assert.AreEqual(name, binding.Name, "Binding name mismatch.");
             Assert.IsNotNull(binding.Id, "Expected not null Id");
         }
 
         [TestMethod]
-        public async Task FhirPipelineBinding_Error_Test()
+        public async Task RestPipelineBinding_Error_Test()
         {
             OperationContext context = null;
             Exception error = null;
-            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                FhirServerUrl = "",
+                ServerUrl = "",
             });
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
@@ -72,7 +72,7 @@ namespace Fhir.Proxy.Tests.Proxy
 
             IAuthenticator authenticator = new Authenticator(soptions);
 
-            IBinding binding = new FhirBinding(options, authenticator);
+            IBinding binding = new RestBinding(options, authenticator);
             binding.OnError += (i, args) =>
             {
                 error = args.Error;
@@ -83,7 +83,7 @@ namespace Fhir.Proxy.Tests.Proxy
         }
 
         [TestMethod]
-        public async Task FhirPipelineBinding_Complete_Test()
+        public async Task RestPipelineBinding_Complete_Test()
         {
             string uriString = $"http://localhost:{port}?name=value";
             string expectedContext = "{ \"name\": \"value\" }";
@@ -94,9 +94,9 @@ namespace Fhir.Proxy.Tests.Proxy
                 Request = request,
             };
 
-            IOptions<FhirBindingOptions> options = Options.Create<FhirBindingOptions>(new FhirBindingOptions()
+            IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                FhirServerUrl = uriString,
+                ServerUrl = uriString,
             });
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
@@ -114,7 +114,7 @@ namespace Fhir.Proxy.Tests.Proxy
 
 
 
-            IBinding binding = new FhirBinding(options, authenticator.Object);
+            IBinding binding = new RestBinding(options, authenticator.Object);
             string argId = null;
             string argBindingName = null;
             OperationContext argContext = null;

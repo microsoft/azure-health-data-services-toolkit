@@ -277,14 +277,14 @@ namespace Fhir.Proxy.Configuration
 
 
         /// <summary>
-        /// Adds a FHIR binding.
+        /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for FHIR binding.</param>
+        /// <param name="options">Options for REST binding.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddFhirBinding(this IServiceCollection services, Action<FhirBindingOptions> options)
+        public static IServiceCollection AddRestBinding(this IServiceCollection services, Action<RestBindingOptions> options)
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(FhirBinding), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
             services.Configure(options);
             return services;
         }

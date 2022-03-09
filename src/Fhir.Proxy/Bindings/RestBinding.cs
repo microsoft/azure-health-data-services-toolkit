@@ -14,16 +14,18 @@ namespace Fhir.Proxy.Bindings
     /// <summary>
     /// A binding used to call the FHIR server and couples input/output pipelines or acts as terminator for an input pipeline.
     /// </summary>
-    public class FhirBinding : IBinding
+    public class RestBinding : IBinding
     {
 
-        /// <summary>
-        /// Creates an instanc of the FhirBinding.
-        /// </summary>
-        /// <param name="options"></param>
-        /// <param name="authenticator"></param>
-        /// <param name="logger"></param>
-        public FhirBinding(IOptions<FhirBindingOptions> options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger<FhirBinding> logger = null)
+       /// <summary>
+       /// Creates an instance of RestBinding.
+       /// </summary>
+       /// <param name="options">Rest binding options.</param>
+       /// <param name="authenticator">Authenticator to acquire security token.</param>
+       /// <param name="customHeaders">Optional custom headers.</param>
+       /// <param name="identityHeaders">Optional custom identity headers.</param>
+       /// <param name="logger">Optional logger.</param>
+        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator, IHttpCustomHeaderCollection customHeaders = null, IHttpCustomIdentityHeaderCollection identityHeaders = null, ILogger<RestBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;
@@ -33,7 +35,7 @@ namespace Fhir.Proxy.Bindings
             Id = Guid.NewGuid().ToString();
         }
 
-        private readonly IOptions<FhirBindingOptions> options;
+        private readonly IOptions<RestBindingOptions> options;
         private readonly IAuthenticator authenticator;
         private readonly IHttpCustomHeaderCollection customHeaders;
         private readonly IHttpCustomIdentityHeaderCollection identityHeaders;
@@ -41,9 +43,9 @@ namespace Fhir.Proxy.Bindings
 
 
         /// <summary>
-        /// Gets the name of the binding "FhirBinding".
+        /// Gets the name of the binding "RestBinding".
         /// </summary>
-        public string Name => "FhirBinding";
+        public string Name => "RestBinding";
 
         /// <summary>
         /// Gets a unique ID of the binding instance.
@@ -82,7 +84,7 @@ namespace Fhir.Proxy.Bindings
                 headers = identityHeaders?.AppendCustomHeaders(context.Request, headers);
                 string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
 
-                string securityToken = await authenticator.AquireTokenForClientAsync(options.Value.FhirServerUrl, null, null, null, userAssertion, CancellationToken.None);
+                string securityToken = await authenticator.AquireTokenForClientAsync(options.Value.ServerUrl, null, null, null, userAssertion, CancellationToken.None);
                 RestRequestBuilder builder = new(context.Request.Method.ToString(),
                                                                     context.Request.RequestUri.AbsoluteUri.Replace(context.Request.RequestUri.PathAndQuery, ""),
                                                                     securityToken,
