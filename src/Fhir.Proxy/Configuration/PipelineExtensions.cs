@@ -58,8 +58,8 @@ namespace Fhir.Proxy.Configuration
         /// <summary>
         /// Use the authenticator for acquisition of access tokens from Azure AD.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
+        /// <param name="services">Services collection.</param>
+        /// <param name="options">Options for configuration.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
@@ -67,6 +67,16 @@ namespace Fhir.Proxy.Configuration
             services.Configure(options);
 
             return services;
+        }
+
+        /// <summary>
+        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
+        /// <returns>Services collection.</returns>
+        public static IServiceCollection UseAuthenticator(this IServiceCollection services)
+        {
+            return services.UseAuthenticator(options => options.CredentialType = null);
         }
 
         /// <summary>
@@ -267,14 +277,14 @@ namespace Fhir.Proxy.Configuration
 
 
         /// <summary>
-        /// Adds a FHIR binding.
+        /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for FHIR binding.</param>
+        /// <param name="options">Options for REST binding.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddFhirBinding(this IServiceCollection services, Action<FhirBindingOptions> options)
+        public static IServiceCollection AddRestBinding(this IServiceCollection services, Action<RestBindingOptions> options)
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(FhirBinding), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
             services.Configure(options);
             return services;
         }
