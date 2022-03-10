@@ -115,7 +115,11 @@ namespace Fhir.Proxy.Security
                                                                                    scopes, parentRequestId, claims,
                                                                                    options.Value.TenantId,
                                                                                    cancellationToken),
-                _ => throw new ArgumentOutOfRangeException(nameof(options.Value.CredentialType), "Invalid parameters to acquire token from Azure AD."),
+                _ => await AquireTokenForClientAsync(resource,
+                                                    new DefaultAzureCredential(),
+                                                    scopes, parentRequestId, claims,
+                                                    options.Value.TenantId, cancellationToken),
+
             };
 
             return token;
