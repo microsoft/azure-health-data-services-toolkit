@@ -1,0 +1,26 @@
+parameters:
+  packageArtifacts: true
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install dotnet 6.0.x agent tools dir'
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet format'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'update -g dotnet-format'
+
+- script: 'dotnet format ./src/build.sln --verify-no-changes -v d'
+  displayName: 'dotnet format lint'
+
+- task: CredScan@3
+  inputs:
+    outputFormat: 'csv'
+    toolVersion: Latest
+    verboseOutput: true

@@ -1,0 +1,40 @@
+# DESCRIPTION: 	
+# Builds, tests, and packages the solution for the main branch.	
+
+name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
+trigger: none
+
+variables:
+- template: build-variables.yml
+
+jobs:
+
+- job: CodeChecks
+  pool:
+    vmImage: $(WindowsVmImage)
+  steps:
+  - template: ./jobs/checkCode.yml
+
+- job: BuildAndTest
+  pool:
+    vmImage: $(WindowsVmImage)
+  steps:
+  - template: ./jobs/build.yml
+
+- job: PublishArtifact
+  dependsOn: [ CodeChecks, BuildAndTest ]
+  pool:
+    vmImage: $(WindowsVmImage)
+  steps:
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/drop/'
+      CleanTargetFolder: true
+      OverWrite: true
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/drop/'
+      artifactName: 'drop'
+      artifactType: 'pipeline'

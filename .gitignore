@@ -1,15 +1,3 @@
-###
-OneBranch Specific
-###
-
-#omit folder
-/src/tests
-
-#yaml files
-*.yml
-./*.yml
-./**/*.yml
-
 # Build generated files in src
 /.vs
 /src/.vs
@@ -343,3 +331,4 @@ backup.json
 *.swp
 *.swo
 *.vi
+*.env
