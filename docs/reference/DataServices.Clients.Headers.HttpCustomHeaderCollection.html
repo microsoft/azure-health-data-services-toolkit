@@ -1,0 +1,797 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HttpCustomHeaderCollection
+   | Title </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HttpCustomHeaderCollection
+   | Title ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection">
+  
+  
+  <h1 id="DataServices_Clients_Headers_HttpCustomHeaderCollection" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection" class="text-break">Class HttpCustomHeaderCollection
+  </h1>
+  <div class="markdown level0 summary"><p>A collection of custom http headers.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">HttpCustomHeaderCollection</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="DataServices.Clients.Headers.IHttpCustomHeaderCollection.html">IHttpCustomHeaderCollection</a></div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>&gt;</div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>&gt;</div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>&gt;</div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="DataServices.Clients.Headers.html">DataServices.Clients.Headers</a></h6>
+  <h6><strong>Assembly</strong>: DataServices.dll</h6>
+  <h5 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HttpCustomHeaderCollection : IHttpCustomHeaderCollection, IList&lt;IHeaderNameValuePair&gt;, ICollection&lt;IHeaderNameValuePair&gt;, IEnumerable&lt;IHeaderNameValuePair&gt;, IEnumerable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=20">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection__ctor_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.#ctor*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection__ctor_System_Collections_Generic_IEnumerable_DataServices_Clients_Headers_IHeaderNameValuePair__" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.#ctor(System.Collections.Generic.IEnumerable{DataServices.Clients.Headers.IHeaderNameValuePair})">HttpCustomHeaderCollection(IEnumerable&lt;IHeaderNameValuePair&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of HttpCustomHeaderCollection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpCustomHeaderCollection(IEnumerable&lt;IHeaderNameValuePair&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>Items to initialize the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=38">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Count_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Count*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Count" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets the number of items in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=43">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_IsReadOnly_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.IsReadOnly*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_IsReadOnly" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.IsReadOnly">IsReadOnly</h4>
+  <div class="markdown level1 summary"><p>Gets an indicator of whether the collection is read-only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=33">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Item_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Item*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Item_System_Int32_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"><p>Gets an item in the collection by its index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHeaderNameValuePair this[int index] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>Index of item to return.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><p>INameValuePair</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=49">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Add_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Add*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Add_DataServices_Clients_Headers_IHeaderNameValuePair_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Add(DataServices.Clients.Headers.IHeaderNameValuePair)">Add(IHeaderNameValuePair)</h4>
+  <div class="markdown level1 summary"><p>Add an item to the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(IHeaderNameValuePair item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=127">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_AppendAndReplace_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.AppendAndReplace*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_AppendAndReplace_System_Net_Http_HttpRequestMessage_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.AppendAndReplace(System.Net.Http.HttpRequestMessage)">AppendAndReplace(HttpRequestMessage)</h4>
+  <div class="markdown level1 summary"><p>Appends and replaces existing headers with custom headers and returns the modified collection headers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NameValueCollection AppendAndReplace(HttpRequestMessage request)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>Http request message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></td>
+        <td><p>Modified collection headers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=59">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_AppendHeaders_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.AppendHeaders*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_AppendHeaders_System_Collections_Specialized_NameValueCollection_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.AppendHeaders(System.Collections.Specialized.NameValueCollection)">AppendHeaders(NameValueCollection)</h4>
+  <div class="markdown level1 summary"><p>Appends headers to an existing collection of headers and returns results.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NameValueCollection AppendHeaders(NameValueCollection items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></td>
+        <td><span class="parametername">items</span></td>
+        <td><p>Existing header collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></td>
+        <td><p>The existing headers with the headers in the collection appended.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=72">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Clear_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Clear*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Clear" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Clears the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=82">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Contains_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Contains*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Contains_DataServices_Clients_Headers_IHeaderNameValuePair_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Contains(DataServices.Clients.Headers.IHeaderNameValuePair)">Contains(IHeaderNameValuePair)</h4>
+  <div class="markdown level1 summary"><p>Indicates whether an item is contained in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(IHeaderNameValuePair item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>Item used to determined if it is in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>True is item in is the collection; otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=92">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_CopyTo_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.CopyTo*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_CopyTo_DataServices_Clients_Headers_IHeaderNameValuePair___System_Int32_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.CopyTo(DataServices.Clients.Headers.IHeaderNameValuePair[],System.Int32)">CopyTo(IHeaderNameValuePair[], Int32)</h4>
+  <div class="markdown level1 summary"><p>Copies the collection into an array starting at the index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CopyTo(IHeaderNameValuePair[] array, int arrayIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>Array to fill with the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">arrayIndex</span></td>
+        <td><p>Starting index to fill the array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=101">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_GetEnumerator_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.GetEnumerator*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_GetEnumerator" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Gets an enumerator for the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;IHeaderNameValuePair&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a>&gt;</td>
+        <td><p>Enumerator of name value pairs.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=110">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_GetHeaders_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.GetHeaders*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_GetHeaders" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.GetHeaders">GetHeaders()</h4>
+  <div class="markdown level1 summary"><p>Gets a collection of headers stored in the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NameValueCollection GetHeaders()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></td>
+        <td><p>Headers in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=177">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_IndexOf_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.IndexOf*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_IndexOf_DataServices_Clients_Headers_IHeaderNameValuePair_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.IndexOf(DataServices.Clients.Headers.IHeaderNameValuePair)">IndexOf(IHeaderNameValuePair)</h4>
+  <div class="markdown level1 summary"><p>Finds the index of an item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(IHeaderNameValuePair item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item to return the index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>Index of the item in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=187">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Insert_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Insert*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Insert_System_Int32_DataServices_Clients_Headers_IHeaderNameValuePair_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Insert(System.Int32,DataServices.Clients.Headers.IHeaderNameValuePair)">Insert(Int32, IHeaderNameValuePair)</h4>
+  <div class="markdown level1 summary"><p>Inserts an item into the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Insert(int index, IHeaderNameValuePair item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>Index of the item insertion.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>Item to insert.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=197">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Remove_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Remove*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_Remove_DataServices_Clients_Headers_IHeaderNameValuePair_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.Remove(DataServices.Clients.Headers.IHeaderNameValuePair)">Remove(IHeaderNameValuePair)</h4>
+  <div class="markdown level1 summary"><p>Removes an item from the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(IHeaderNameValuePair item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Clients.Headers.IHeaderNameValuePair.html">IHeaderNameValuePair</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>Item to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>True is the item is removed; otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=206">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_RemoveAt_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.RemoveAt*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_RemoveAt_System_Int32_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.RemoveAt(System.Int32)">RemoveAt(Int32)</h4>
+  <div class="markdown level1 summary"><p>Removes an item from the collection by its index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveAt(int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>Index of item to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=211">View Source</a>
+  </span>
+  <a id="DataServices_Clients_Headers_HttpCustomHeaderCollection_System_Collections_IEnumerable_GetEnumerator_" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.System#Collections#IEnumerable#GetEnumerator*"></a>
+  <h4 id="DataServices_Clients_Headers_HttpCustomHeaderCollection_System_Collections_IEnumerable_GetEnumerator" data-uid="DataServices.Clients.Headers.HttpCustomHeaderCollection.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="DataServices.Clients.Headers.IHttpCustomHeaderCollection.html">IHttpCustomHeaderCollection</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">System.Collections.Generic.IList&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">System.Collections.Generic.ICollection&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">System.Collections.Generic.IEnumerable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerable">System.Collections.IEnumerable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices/Clients/Headers/HttpCustomHeaderCollection.cs&amp;version=GBmalong/1121&amp;line=14" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

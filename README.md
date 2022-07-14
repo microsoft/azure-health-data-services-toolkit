@@ -1,15 +1,15 @@
-![enter image description here](https://github.com/microsoft/fhir-proxy-sdk/blob/ea97ca21d8473b04a60f823f2fbb9dba8d64f9ed/docs/images/Readme-logo.png)
+![enter image description here](./docs/images/readme-logo.png)
 
 
 ## Overview
 
-The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
+The Health Data Services SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
 
 ## NuGet Packages
-- [Microsoft.Health.Fhir.Proxy](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Core/)
-- [Microsoft.Health.Fhir.Proxy.Extensions.Channels](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Extensions.Channels/)
-- [Microsoft.Health.Fhir.Proxy.Storage](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Storage/)
-- [Microsoft.Health.Fhir.Proxy.Caching](https://www.nuget.org/packages/Microsoft.Health.Fhir.Proxy.Caching/)
+- [Microsoft.Health.DataServices.Core](https://www.nuget.org/packages/Microsoft.Health.DataServices.Core/)
+- [Microsoft.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.Health.DataServices.Channels.Extensions/)
+- [Microsoft.Health.DataServices.Storage](https://www.nuget.org/packages/Microsoft.Health.DataServices.Storage/)
+- [Microsoft.Health.DataServices.Caching](https://www.nuget.org/packages/Microsoft.Health.DataServices.Caching/)
 
 ## Pipelines
 
@@ -24,6 +24,7 @@ Pipelines are used to build the *custom operation* and can be used to (i) modify
 ![**Pipeline Management**](./docs/images/pipeline-mgmt.png)
  
 ## Infrastructure Architecture
+
 The infrastructure makes use of Azure Application Gatway, Azure API Management (APIM), a private Virtual Network, and private endpoints.  We use APIM to route specific request to *custom operations* and all others route directly to the FHIR server.
 ![enter image description here](./docs/images/HealthcareAPIInfastructure.png)
 

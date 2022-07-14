@@ -1,0 +1,797 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class EventGridChannel
+   | Title </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class EventGridChannel
+   | Title ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="DataServices.Channels.EventGridChannel">
+  
+  
+  <h1 id="DataServices_Channels_EventGridChannel" data-uid="DataServices.Channels.EventGridChannel" class="text-break">Class EventGridChannel
+  </h1>
+  <div class="markdown level0 summary"><p>Channel that sends events to an Azure Event Grid.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">EventGridChannel</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="DataServices.Channels.IInputChannel.html">IInputChannel</a></div>
+    <div><a class="xref" href="DataServices.Channels.IOutputChannel.html">IOutputChannel</a></div>
+    <div><a class="xref" href="DataServices.Channels.IChannel.html">IChannel</a></div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="DataServices.Channels.html">DataServices.Channels</a></h6>
+  <h6><strong>Assembly</strong>: DataServices.Channels.dll</h6>
+  <h5 id="DataServices_Channels_EventGridChannel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class EventGridChannel : IInputChannel, IOutputChannel, IChannel, IDisposable</code></pre>
+  </div>
+  <h5 id="DataServices_Channels_EventGridChannel_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>The EventGridChannel and only send events, not receive.</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=25">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel__ctor_" data-uid="DataServices.Channels.EventGridChannel.#ctor*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel__ctor_Microsoft_Extensions_Options_IOptions_DataServices_Channels_EventGridChannelOptions__Microsoft_Extensions_Logging_ILogger_DataServices_Channels_EventGridChannel__" data-uid="DataServices.Channels.EventGridChannel.#ctor(Microsoft.Extensions.Options.IOptions{DataServices.Channels.EventGridChannelOptions},Microsoft.Extensions.Logging.ILogger{DataServices.Channels.EventGridChannel})">EventGridChannel(IOptions&lt;EventGridChannelOptions&gt;, ILogger&lt;EventGridChannel&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of EventGridChannel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventGridChannel(IOptions&lt;EventGridChannelOptions&gt; options, ILogger&lt;EventGridChannel&gt; logger = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="DataServices.Channels.EventGridChannelOptions.html">EventGridChannelOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Options for sending to the event grid.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="DataServices.Channels.EventGridChannel.html">EventGridChannel</a>&gt;</td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>ILogger</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=65">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_ExecutionStatusType_" data-uid="DataServices.Channels.EventGridChannel.ExecutionStatusType*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_ExecutionStatusType" data-uid="DataServices.Channels.EventGridChannel.ExecutionStatusType">ExecutionStatusType</h4>
+  <div class="markdown level1 summary"><p>Gets the requirement for executing the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StatusType ExecutionStatusType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Pipelines.StatusType.html">StatusType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=55">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_Id_" data-uid="DataServices.Channels.EventGridChannel.Id*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_Id" data-uid="DataServices.Channels.EventGridChannel.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the instance ID of the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=70">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_IsAuthenticated_" data-uid="DataServices.Channels.EventGridChannel.IsAuthenticated*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_IsAuthenticated" data-uid="DataServices.Channels.EventGridChannel.IsAuthenticated">IsAuthenticated</h4>
+  <div class="markdown level1 summary"><p>Gets and indicator to whether the channel has authenticated the user, which is by default always false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsAuthenticated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=75">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_IsEncrypted_" data-uid="DataServices.Channels.EventGridChannel.IsEncrypted*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_IsEncrypted" data-uid="DataServices.Channels.EventGridChannel.IsEncrypted">IsEncrypted</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the channel is encrypted, which is always true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEncrypted { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=60">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_Name_" data-uid="DataServices.Channels.EventGridChannel.Name*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_Name" data-uid="DataServices.Channels.EventGridChannel.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the channel, i.e., &quot;EventGridChannel&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=80">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_Port_" data-uid="DataServices.Channels.EventGridChannel.Port*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_Port" data-uid="DataServices.Channels.EventGridChannel.Port">Port</h4>
+  <div class="markdown level1 summary"><p>Gets the port used, which by default always 0.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Port { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=85">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_State_" data-uid="DataServices.Channels.EventGridChannel.State*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_State" data-uid="DataServices.Channels.EventGridChannel.State">State</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the channel state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ChannelState State { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DataServices.Channels.ChannelState.html">ChannelState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=128">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_AddMessageAsync_" data-uid="DataServices.Channels.EventGridChannel.AddMessageAsync*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_AddMessageAsync_System_Byte___" data-uid="DataServices.Channels.EventGridChannel.AddMessageAsync(System.Byte[])">AddMessageAsync(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Add a message to the channel which is surface by the OnReceive event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task AddMessageAsync(byte[] message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">message</span></td>
+        <td><p>Message to add.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=138">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_CloseAsync_" data-uid="DataServices.Channels.EventGridChannel.CloseAsync*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_CloseAsync" data-uid="DataServices.Channels.EventGridChannel.CloseAsync">CloseAsync()</h4>
+  <div class="markdown level1 summary"><p>Closes the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task CloseAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=208">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_Dispose_" data-uid="DataServices.Channels.EventGridChannel.Dispose*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_Dispose" data-uid="DataServices.Channels.EventGridChannel.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=214">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_Dispose_" data-uid="DataServices.Channels.EventGridChannel.Dispose*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_Dispose_System_Boolean_" data-uid="DataServices.Channels.EventGridChannel.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=154">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_OpenAsync_" data-uid="DataServices.Channels.EventGridChannel.OpenAsync*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_OpenAsync" data-uid="DataServices.Channels.EventGridChannel.OpenAsync">OpenAsync()</h4>
+  <div class="markdown level1 summary"><p>Opens the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task OpenAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=175">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_ReceiveAsync_" data-uid="DataServices.Channels.EventGridChannel.ReceiveAsync*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_ReceiveAsync" data-uid="DataServices.Channels.EventGridChannel.ReceiveAsync">ReceiveAsync()</h4>
+  <div class="markdown level1 summary"><p>Starts the recieve operation for the channel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task ReceiveAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="DataServices_Channels_EventGridChannel_ReceiveAsync_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Receive operation is omitted without error for an EventGridChannel.</p>
+</div>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=189">View Source</a>
+  </span>
+  <a id="DataServices_Channels_EventGridChannel_SendAsync_" data-uid="DataServices.Channels.EventGridChannel.SendAsync*"></a>
+  <h4 id="DataServices_Channels_EventGridChannel_SendAsync_System_Byte___System_Object___" data-uid="DataServices.Channels.EventGridChannel.SendAsync(System.Byte[],System.Object[])">SendAsync(Byte[], Object[])</h4>
+  <div class="markdown level1 summary"><p>Sends a message to an Event Grid if size &lt; SKU constraint; otherwise uses blob storage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task SendAsync(byte[] message, params object[] items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">message</span></td>
+        <td><p>Message to send.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>Additional optional parameters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Task</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="DataServices_Channels_EventGridChannel_SendAsync_System_Byte___System_Object____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Items argument is not used in EventGridChannel.</p>
+</div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=101">View Source</a>
+  </span>
+  <h4 id="DataServices_Channels_EventGridChannel_OnClose" data-uid="DataServices.Channels.EventGridChannel.OnClose">OnClose</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has closed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelCloseEventArgs&gt; OnClose</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="DataServices.Channels.ChannelCloseEventArgs.html">ChannelCloseEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=106">View Source</a>
+  </span>
+  <h4 id="DataServices_Channels_EventGridChannel_OnError" data-uid="DataServices.Channels.EventGridChannel.OnError">OnError</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has errored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelErrorEventArgs&gt; OnError</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="DataServices.Channels.ChannelErrorEventArgs.html">ChannelErrorEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=111">View Source</a>
+  </span>
+  <h4 id="DataServices_Channels_EventGridChannel_OnOpen" data-uid="DataServices.Channels.EventGridChannel.OnOpen">OnOpen</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel has opened.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelOpenEventArgs&gt; OnOpen</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="DataServices.Channels.ChannelOpenEventArgs.html">ChannelOpenEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=116">View Source</a>
+  </span>
+  <h4 id="DataServices_Channels_EventGridChannel_OnReceive" data-uid="DataServices.Channels.EventGridChannel.OnReceive">OnReceive</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel as received a message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelReceivedEventArgs&gt; OnReceive</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="DataServices.Channels.ChannelReceivedEventArgs.html">ChannelReceivedEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <span class="small pull-right mobile-hide">
+    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=121">View Source</a>
+  </span>
+  <h4 id="DataServices_Channels_EventGridChannel_OnStateChange" data-uid="DataServices.Channels.EventGridChannel.OnStateChange">OnStateChange</h4>
+  <div class="markdown level1 summary"><p>Event that signals the channel state has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ChannelStateEventArgs&gt; OnStateChange</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="DataServices.Channels.ChannelStateEventArgs.html">ChannelStateEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="DataServices.Channels.IInputChannel.html">IInputChannel</a>
+  </div>
+  <div>
+      <a class="xref" href="DataServices.Channels.IOutputChannel.html">IOutputChannel</a>
+  </div>
+  <div>
+      <a class="xref" href="DataServices.Channels.IChannel.html">IChannel</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">System.IDisposable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://dev.azure.com/smokejumpers/HealthArchitectures/_git/microsoft-fhir-proxy?path=src/DataServices.Channels/EventGridChannel.cs&amp;version=GBmalong/1121&amp;line=18" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
