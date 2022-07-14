@@ -1,4 +1,4 @@
-![enter image description here](./docs/images/readme-logo.png)
+![Microsoft Health Data Services SDK Logo](/docs/images/Readme-logo.png)
 
 
 ## Overview
