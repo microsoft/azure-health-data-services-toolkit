@@ -37,5 +37,5 @@ steps:
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/prerelease/'
-        artifactName: 'prerelease-packages'
+        artifactName: 'release-packages'
         artifactType: 'pipeline'
