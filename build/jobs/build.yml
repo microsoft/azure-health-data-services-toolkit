@@ -1,6 +1,3 @@
-parameters:
-  packageArtifacts: true
-
 steps:
 
 - task: UseDotNet@2
@@ -14,7 +11,7 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/src/**/*.csproj'
+    projects: '$(Build.SourcesDirectory)/src/**/*.csproj'
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
@@ -22,7 +19,7 @@ steps:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '**/tests/**/*.csproj'
+    projects: '$(Build.SourcesDirectory)/**/tests/**/*.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
   env:
     PROXY_TenantId: $(proxy-tenant-id)

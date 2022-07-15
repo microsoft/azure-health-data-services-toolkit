@@ -1,6 +1,3 @@
-parameters:
-  packageArtifacts: true
-
 steps:
 - task: UseDotNet@2
   displayName: 'Install dotnet 6.0.x agent tools dir'

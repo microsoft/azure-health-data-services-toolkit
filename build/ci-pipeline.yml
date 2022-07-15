@@ -20,21 +20,7 @@ jobs:
     vmImage: $(WindowsVmImage)
   steps:
   - template: ./jobs/build.yml
-
-- job: PublishArtifact
-  dependsOn: [ CodeChecks, BuildAndTest ]
-  pool:
-    vmImage: $(WindowsVmImage)
-  steps:
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(Build.SourcesDirectory)'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/drop/'
-      CleanTargetFolder: true
-      OverWrite: true
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)/drop/'
-      artifactName: 'drop'
-      artifactType: 'pipeline'
+  - template: ./jobs/pack.yml
+    parameters:
+      createPreRelease: true
+      createRelease: true
