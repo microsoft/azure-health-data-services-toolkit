@@ -100,15 +100,15 @@ namespace DataServices.Tests.Storage
             Assert.IsTrue(list.Contains(dir), $"Directory {dir} not found.");
         }
 
-        [TestMethod]
-        public async Task Files_DeleteDirectory_Test()
-        {
-            string dir = GetRandomName();
-            containers.Enqueue(dir);
-            await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
-            List<string> list = await storage.ListDirectoriesAsync(shareName, null);
-            Assert.AreEqual(dir, list[0], "Directory name mismatch.");
-        }
+        // [TestMethod]
+        // public async Task Files_DeleteDirectory_Test()
+        // {
+        //     string dir = GetRandomName();
+        //     containers.Enqueue(dir);
+        //     await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
+        //     List<string> list = await storage.ListDirectoriesAsync(shareName, null);
+        //     Assert.AreEqual(dir, list[0], "Directory name mismatch.");
+        // }
 
         [TestMethod]
         public async Task Files_WriteFile_Test()
