@@ -1,10 +1,10 @@
 parameters:
 - name: createPreRelease
-- displayName: 'Create Pre-Release Packages?'
+  displayName: 'Create Pre-Release Packages?'
   type: boolean
   default: false
 - name: createRelease
-- displayName: 'Create Release Packages?'
+  displayName: 'Create Release Packages?'
   type: boolean
   default: false
 
