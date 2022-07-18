@@ -1,0 +1,14 @@
+{
+  "id": "ABC",
+  "expression": {
+    "type": "#Rule",
+    "operation": {
+      "type": "#EqualCaseSensitive",
+      "value": "reader"
+    },
+    "match": {
+      "type": "#Literal",
+      "claimType": "roles"
+    }
+  }
+}
