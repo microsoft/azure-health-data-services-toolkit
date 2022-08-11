@@ -4,18 +4,27 @@ The Azure Health Data Services SDK helps you extend the functionality of Azure H
 
 ## FHIR Use Cases
 
-Some example scenarios:
+Some common use cases where you might want to use this for:  
 
-- FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
-- Transforming request and/or response data.
-- #TODO - add more
+- Implementing FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
+  - Trial implementation guides
+  - Organization-specific operations
+  - Less widely-adopted operations
+- Implementation  guide development
+- Transforming request and/or response payloads.
+- Custom authorization logic, like consent 
 
 ### What about FHIR Proxy? 
 
-- This is an SDK vs a ready to deploy solution 
-- FHIR Proxy mediated all requests, this SDK is meant to be for specific endpoints 
-- This is more flexible  
-- Higher code quality and testing 
+FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
+
+- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns. 
+- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls. 
+- This SDK is computed agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc. 
+- This SDK is released and versioned via NuGet packages 
+- We have incorporated some coding best practices, like object-oriented pipelines and extended testing. 
+
+*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
 
 ## NuGet Packages
 
