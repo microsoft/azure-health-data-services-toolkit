@@ -25,7 +25,7 @@
     <PackageReference Include="Azure.Data.Tables" Version="12.6.0" />
     <PackageReference Include="Azure.Storage.Files.DataLake" Version="12.10.0" />
     <PackageReference Include="Azure.Storage.Files.Shares" Version="12.10.0" />
-    <PackageReference Include="Azure.Storage.Queues" Version="12.10.0" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.11.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
   </ItemGroup>
