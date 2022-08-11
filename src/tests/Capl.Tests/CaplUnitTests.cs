@@ -1,11 +1,11 @@
-﻿using Capl;
+﻿using System;
+using System.IO;
+using System.Security.Claims;
+using Capl;
 using Capl.Matching;
 using Capl.Operations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Security.Claims;
 
 namespace CaplTests
 {

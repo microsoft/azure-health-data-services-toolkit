@@ -1,8 +1,8 @@
-﻿using Capl.Matching;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
+using Capl.Matching;
 using Capl.Operations;
 using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
 
 namespace Capl
 {
