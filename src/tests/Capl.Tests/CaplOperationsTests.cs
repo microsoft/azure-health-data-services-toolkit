@@ -1,7 +1,7 @@
-﻿using Capl.Operations;
+﻿using System;
+using Capl.Operations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
 
 namespace CaplTests
 {

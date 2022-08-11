@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace Capl.Matching
 {

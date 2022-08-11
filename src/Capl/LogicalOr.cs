@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
+using Newtonsoft.Json;
 
 namespace Capl
 {
