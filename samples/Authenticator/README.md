@@ -1,69 +1,90 @@
----
-page_type: sample
-description: "Azure Health Data Services SDK sample showing how to get a token from Azure Active Directory."
-languages:
-- csharp
-products:
-- azure-health-data-services
----
-# Sample Solution for Authenticator
+# Using Authenticator to Access Azure Resources
 
-A sample solution that describes how to generate the token using Azure Active Directory.
+This sample will show you how you can get an access token for Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
-## Features
+Here, we'll cover different authentication methods and how to get tokens from Azure Active Directory which can be used to access any Azure service that supports Azure Active Directory authentication.
 
-- The Purpose of this sample is to explain and demonstrate how to create token based on given Client Id, Tenant Id.
-- This is helpful if you are planning to implement token-based authentication.
+## Concepts
+
+This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow the best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
 
 ## Prerequisites
 
-- Azure Subscription key.
-- To understand what Azure Active Directory is and how you can configure and get the client id, tenant id, follow the below URLs:
-  a. [How to create Tenant?](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-access-create-new-tenant)
-  b. [Create an Azure AD application and service principal that can access resources](https://docs.microsoft.com/azure/active-directory/develop/howto-create-service-principal-portal)
-  c. [How to find Tenant Id?](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-how-to-find-tenant)
-  d. [FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/get-started-with-fhir)
-- Software Specification
-  1. Microsoft Visual Studio 2017, Community Edition or higher.
-  2. The .NET Core cross-platform development workload in Visual Studio. You can enable it in Tools > Get Tools and Features.
-  3. .NET Core 6.0
+- This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
+- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
+- An authenticated Azure environment.
+  - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
+  - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.
+- A [FHIR Service deployed](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-portal-quickstart) in your Azure environment to get a token for.
+  - You will need the FHIR Contributor role assigned to your account.
+- For the advanced scenario, you will need a [client application created in Azure Active Directory](https://docs.microsoft.com/azure/healthcare-apis/register-application).
 
-## Set up the local Environment
+## Setup your environment
 
-- Download the sample the code.
-- Run this below command to set up Environment variable locally,
-  - Open a command prompt and navigate to the following folder,
-    samples\ AuthenticatorSample.
+This sample needs can be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
-    Run the following commands to setup the variables 
-    1. dotnet user-secrets init
-    2. dotnet user-secrets set “TenantId” “Your TenantId”
-    3. dotnet user-secrets set “ClientId” “Your ClientId”
-    4. dotnet user-secrets set “ClientSecret” “Your ClientSecret”
-    5. dotnet user-secrets set “FhirServerUrl” “Your FhirServerUrl”
+### Command Line
 
-## Build the Sample
+Run this below command to set up the sample configuration in the dotnet secret store.
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution
+1. Open a command prompt and navigate to `samples\ AuthenticatorSample` inside of this repository.
+2. Run `dotnet user-secrets init` to setup the secret store.
+3. Run `dotnet user-secrets set "FhirServerUrl" "<Your-Fhir-Server-Url>"`.
 
-- If you are using the .NET Core CLI, run the following command from the directory that contains this sample:
-  dotnet build AuthenticatorSample/ AuthenticatorSample.csproj
+### Visual Studio
 
-## Run the Sample
+If you are using Visual Studio, you can setup configuration via secrets without using the command line.
 
-- To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging.
+ 1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
+ 2. An editor for `secrets.json` will open. Paste the below inside of this file.
 
-- Using the .NET Core CLI
-  Run the following command from the directory that contains this sample:
-  dotnet AuthenticatorSample\bin\Debug\net6.0 \ AuthenticatorSample.dll
+```json
+  {
+    "FhirServerUrl": "<Your-Fhir-Server-Url>"
+  }
+```
+
+3. Save and close `secrets.json`.
+
+## Build and Run the Sample
+
+The easiest way to run the sample in Visual Studio is to use the debugger by pressing F5 or select "Debug > Start Debugging".
+
+If you are using Visual Studio Code or something else, you can run the sample from the command line by executing `dotnet run` in this directory (`samples/Authenticator`).
+
+## Advanced Scenario - Specifying a Client Application
+
+With the Authenticator, you can specify a client application (or service principal) to use to access Azure resources. You can actually achieve this in two ways:
+
+- Using DefaultAzureCredential by [setting environment variables](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables).
+- By using the built in configuration helpers inside this SDK. We'll be doing this here.
+
+To setup for service principal access, you'll need to add more configuration.
+
+For the command line, you can run these commands:
+
+```bash
+dotnet user-secrets set "TenantId" "<Your-Tenant-Id>"
+dotnet user-secrets set "ClientId" "<Your-Client-Id>"
+dotnet user-secrets set "ClientSecret" "<Your-Client-Secret>"
+```
+
+In Visual Studio, you can set your secrets file like below.
+
+```json
+{
+  "FhirServerUrl": "<Your-Fhir-Server-Url>",
+  "TenantId": "<Your-Tenant-Id>",
+  "ClientId": "<Your-Client-Id>",
+  "ClientSecret": "<Your-Client-Secret>"
+}
+```
+
+Re-build and re-run the sample to ensure the new configuration is loaded.
 
 ## Usage Details
 
-- Please check the Program.cs file that outlines how you can implement the authenticator logic and retrieve the token.
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer below URL for more understanding.
-
-  [https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0)
-
+- Checkout the `Program.cs` file in this sample that outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
+- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - UseAuthenticator: Using this extension method you can set the necessary parameter to authenticate the request.
-
 - GetTokenAsync: Gets an access token via OAuth from Azure Active Directory.
