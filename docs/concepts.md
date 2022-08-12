@@ -14,7 +14,7 @@ On this page, we'll cover the components that are needed to build custom operati
 - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
 - **Binding:** The target service for a custom operation. Usually a FHIR service.
 
-Pipeline Management |  Pipelines
+Pipeline Overview |  Input/Output Section of Pipeline
 :-------------------------:|:-------------------------:
 ![Pipeline overview](./images/pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
 
