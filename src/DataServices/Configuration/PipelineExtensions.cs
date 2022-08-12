@@ -27,12 +27,12 @@ namespace DataServices.Configuration
         /// <param name="instrumentationKey"></param>
         /// <param name="logLevel"></param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAppInsightsLogging(this IServiceCollection services, string instrumentationKey, LogLevel logLevel)
+        public static IServiceCollection UseAppInsightsLogging(this IServiceCollection services, string instrumentationConnectionString, LogLevel logLevel)
         {
             services.AddLogging(builder =>
             {
                 builder.AddFilter<ApplicationInsightsLoggerProvider>("", logLevel);
-                builder.AddApplicationInsights(instrumentationKey);
+                builder.AddApplicationInsights(op => op.ConnectionString = instrumentationConnectionString, op => op.FlushOnDispose = true);
             });
 
             return services;
@@ -44,11 +44,11 @@ namespace DataServices.Configuration
         /// <param name="services"></param>
         /// <param name="instrumentationKey"></param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)
+        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationConnectionString)
         {
             services.Configure<TelemetryConfiguration>(options =>
             {
-                options.InstrumentationKey = instrumentationKey;
+                options.ConnectionString = instrumentationConnectionString;
             });
             services.AddScoped<TelemetryClient>();
 
