@@ -1,30 +1,8 @@
 # Azure Health Data Services SDK
 
-The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to help you easily customize or modify the core service behavior. With the growth of healthcare data on the cloud, we’ve found that developers need to have custom behavior on top of our managed services. We’ve abstracted common patterns for integrating Azure Health Data Services so you can focus on your application to deliver more.
+The Azure Health Data Services SDK helps you extend the functionality of Azure health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
 
-## FHIR Use Cases
-
-Some common use cases where you might want to use this for:  
-
-- Implementing FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
-  - Trial implementation guides
-  - Organization-specific operations
-  - Less widely-adopted operations
-- Implementation  guide development
-- Transforming request and/or response payloads.
-- Custom authorization logic, like consent 
-
-### What about FHIR Proxy? 
-
-FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
-
-- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns. 
-- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls. 
-- This SDK is computed agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc. 
-- This SDK is released and versioned via NuGet packages 
-- We have incorporated some coding best practices, like object-oriented pipelines and extended testing. 
-
-*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
+With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on meeting your requirements.
 
 ## NuGet Packages
 
@@ -37,22 +15,63 @@ FHIR Proxy was created in response to customer requests for customizing the Azur
 
 ## Getting Started
 
-<Link to quickstart or some basic guide for those who aren’t patient>. 
+The fastest way to test out the SDK and see it in action is [through our Quickstart Samples](./samples/Quickstart.README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services
 
-This SDK can be integrated into new and existing .NET 6.0 applications. It is compute-agnostic, for example, on Azure Functions, Azure App Service, AKS, or virtual machines. You can interact with this SDK by installing the packages from NuGet and integrating them into your solution.  
+Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
-## Samples
+Also check out our full list of samples on [how to use the SDK here](./samples/README.md) for even more inspiration to create your own custom operations.
 
-Check out our samples of [how to use the SDK here](./samples/README.md).
+## Common FHIR Use Cases
 
-## Features
+Some FHIR Service use cases this SDK can help you implement are:
 
-*Add some high-level feature list or definitions here*.
+- FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
+  - Trial implementation guides.
+  - Organization-specific operations.
+  - Less widely adopted operations.
+- Implementation  guide development.
+- Transforming request and/or response payloads.
+- Custom authorization logic, like consent.
+
+### What about FHIR Proxy? 
+
+FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
+
+- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
+- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
+- This SDK is computed agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This SDK is released and versioned via NuGet packages.
+- We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
+
+*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
+
+## Key Concepts
+
+When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
+
+When building custom operations, you’ll come across these concepts of the SDK.
+
+- Pipeline Manager: #TODO
+- Pipelines: #TODO
+  - Filters: #TODO
+  - Channels: #TODO
+- Bindings: #TODO
+- Transforms: #TODO
+
+For more information, read [the feature guide here](./docs/features.md).
 
 ## Resources
 
+### Links
+
 - [FHIR Service Documentation](https://docs.microsoft.com/azure/healthcare-apis/fhir/overview)
 - [FHIR Server OSS Repository](https://github.com/microsoft/fhir-server)
+ 
+### Sample Production Architecture
+
+This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
+
+![](./docs/images/HealthcareAPIInfastructure.png)
 
 ## Contributing
 
