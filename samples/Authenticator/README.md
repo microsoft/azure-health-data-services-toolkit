@@ -43,7 +43,8 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
 2. An editor for `secrets.json` will open. Paste the below inside of this file.
-  a. ```json
+
+    ```json
       {
         "FhirServerUrl": "<Your-Fhir-Server-Url>"
       }
