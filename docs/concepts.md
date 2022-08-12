@@ -16,7 +16,7 @@ On this page, we'll cover the components that are needed to build custom operati
 
 Pipeline Management |  Pipelines
 :-------------------------:|:-------------------------:
-![Pipeline overview](./images/Pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
+![Pipeline overview](./images/pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
 
 ## Pipelines
 
