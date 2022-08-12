@@ -241,7 +241,7 @@ namespace DataServices.Channels
                     data = await GetEventHubEventDataAsync(contentType, typeName, message);
                 }
 
-                using EventDataBatch eventBatch = await sender.CreateBatchAsync();
+                using var eventBatch = await sender.CreateBatchAsync();
                 if (eventBatch.TryAdd(data))
                 {
                     await sender.SendAsync(eventBatch);

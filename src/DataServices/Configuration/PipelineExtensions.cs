@@ -44,11 +44,11 @@ namespace DataServices.Configuration
         /// <param name="services"></param>
         /// <param name="instrumentationKey"></param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationKey)
+        public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationConnectionString)
         {
             services.Configure<TelemetryConfiguration>(options =>
             {
-                options.InstrumentationKey = instrumentationKey;
+                options.ConnectionString = instrumentationConnectionString;
             });
             services.AddScoped<TelemetryClient>();
 
