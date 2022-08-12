@@ -71,7 +71,7 @@ This SDK has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Az
 | OnStateChange | Event | Chanel state has changed. |
 | OnReceive | Event | Channel received a message. |
 
-## Bindings
+### Bindings
 
 Bindings couple inputs and outputs in pipelines. The most common use of a binding is to send the current operation context to the FHIR service. This is done after zero or more input filters/channels and before zero or more output filter/channels.
 
