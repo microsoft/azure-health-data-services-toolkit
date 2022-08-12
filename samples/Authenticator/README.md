@@ -13,7 +13,8 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
-  - You will be opening this directory (`samples/Authenticator`) in your editor.
+  - For Visual Studio, open the `Authenticator.csproj` project inside this directory (`samples/Authenticator`).
+  - For other editors (like Visual Studio Code), open this directory (`samples/Authenticator`) in your editor.
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
