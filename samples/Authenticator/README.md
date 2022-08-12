@@ -25,7 +25,7 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 
 ## Setup your environment
 
-First, make sure you have this sample folder (`samples/Authenticator`) open in your editor.
+First, make sure you have this sample open in your editor.
 
 This sample needs can be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
@@ -41,14 +41,13 @@ Run this below command to set up the sample configuration in the dotnet secret s
 
 If you are using Visual Studio, you can setup configuration via secrets without using the command line.
 
- 1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
- 2. An editor for `secrets.json` will open. Paste the below inside of this file.
-
-```json
-  {
-    "FhirServerUrl": "<Your-Fhir-Server-Url>"
-  }
-```
+1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
+2. An editor for `secrets.json` will open. Paste the below inside of this file.
+  a. ```json
+      {
+        "FhirServerUrl": "<Your-Fhir-Server-Url>"
+      }
+    ```
 
 3. Save and close `secrets.json`.
 
@@ -60,7 +59,7 @@ If you are using Visual Studio Code or something else, you can run the sample fr
 
 ## Advanced Scenario - Specifying a Client Application
 
-The Authenticator in the SDK allows you can specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal)  to access Azure resources. You can actually achieve this in two ways:
+The Authenticator in the SDK allows you to specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal) to access Azure resources. You can actually achieve this in two ways:
 
 - By [setting environment variables](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables).
 - By using the built in configuration helpers inside this SDK. We'll be doing this here.
