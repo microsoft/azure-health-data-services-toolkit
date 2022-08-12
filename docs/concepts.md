@@ -8,10 +8,11 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 
 On this page, we'll cover the components that are needed to build custom operations. 
 
-**Operation Context**: Used as a common input and output for a filter in a pipeline.
-**Pipeline**: Used to build custom operations with filters, channels, and bindings.
-**Filter:** A common interface for classes that modify the request and/or result. Filters can be chained together in a single pipeline.
-**Channel:** Used to output data in a pipeline to another Azure service (like Storage, Service Bus, etc).
+- **Operation Context**: Used as a common input and output for a filter in a pipeline.
+- **Pipeline**: Used to build custom operations with filters, channels, and bindings.
+- **Filter:** A common interface for classes that modify the request and/or result. Filters can be chained together in a single pipeline.
+- **Channel:** Used to output data in a pipeline to another Azure service (like Storage, Service Bus, etc).
+- **Binding:** #TODO
 
 Pipeline Management |  Pipelines
 :-------------------------:|:-------------------------:
