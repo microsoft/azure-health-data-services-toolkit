@@ -52,16 +52,16 @@ namespace DataServices.Tests.Assets
             var parameters = new List<FunctionParameter>();
 
             // Always provide a trigger
-            inputs.Add($"triggerName", new FakeBindingMetadata("TestTrigger", BindingDirection.In));
+            inputs.Add($"triggerName", new FakeBindingMetadata("TestTrigger", "TestTrigger", BindingDirection.In));
 
             for (int i = 0; i < inputBindingCount; i++)
             {
-                inputs.Add($"inputName{i}", new FakeBindingMetadata($"TestInput{i}", BindingDirection.In));
+                inputs.Add($"inputName{i}", new FakeBindingMetadata("TestInput", $"TestInput{i}", BindingDirection.In));
             }
 
             for (int i = 0; i < outputBindingCount; i++)
             {
-                outputs.Add($"outputName{i}", new FakeBindingMetadata($"TestOutput{i}", BindingDirection.Out));
+                outputs.Add($"outputName{i}", new FakeBindingMetadata("TestOutput", $"TestOutput{i}", BindingDirection.Out));
             }
 
             for (int i = 0; i < paramTypes.Length; i++)
