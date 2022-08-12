@@ -6,17 +6,17 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
-On this page, we'll cover the components that are needed to build custom operations. 
+On this page, we'll cover the components that are needed to build custom operations.
 
-- **Operation Context**: Used as a common input and output for a filter in a pipeline.
-- **Pipeline**: Used to build custom operations with filters, channels, and bindings.
-- **Filter:** A common interface for classes that modify the request and/or result. Filters can be chained together in a single pipeline.
-- **Channel:** Used to output data in a pipeline to another Azure service (like Storage, Service Bus, etc).
-- **Binding:** #TODO
+- **Operation Context**: Common object passed between components of a pipeline.
+- **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings.
+- **Filter:** A unit of action that modifies the request and/or result via the Operation Context. Filters can be chained together in a single pipeline.
+- **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
+- **Binding:** The target service for a custom operation. Usually a FHIR service.
 
 Pipeline Management |  Pipelines
 :-------------------------:|:-------------------------:
-![](./images//pipeline-mgmt.png)  | ![](./images/pipeline.png)
+![Pipeline overview](./images/Pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
 
 ## Pipelines
 
@@ -85,8 +85,38 @@ Bindings couple inputs and outputs in pipelines. The most common use of a bindin
 
 ## Transforms
 
-This SDK has 
+This SDK has the ability to transform requests without using pipelines with prebuilt actions. We have two available which allow for simple modification of the headers and request body. These should be used for simple transforms that do not require logic (like always adding a header).
+
+### Header Manipulation
+
+- Modifies the operation context to add a header onto the request.
+- Useful for adding headers, especially information about the requestor when not using on-behalf flow with the authenticator. 
+
+*Add structure here*
+
+### JSON Transform
+
+- Can be done inside a pipeline or outside of a pipeline.
+- Generally used to modify the body of a request to add missing data.
+
+*Add structure here*
 
 ## Clients
 
+- We have one client, Rest Request Client.
+- This is a resilient client with retry built in.
+- This is useful for getting additional information you need for your custom operation.
+  - Can be part of the FHIR service or another arbitrary endpoint.
+- You can use the `RestRequestBuilder` for easy creation.
+
+*Add structure here*
+
 ## Authenticator
+
+- Can allow for dynamic configuration or preset configuration.
+- Supports
+  -- Client credentials for local development or Azure deployments
+  -  Managed Identity for Azure deployments
+  - ...
+
+*Add structure here*
