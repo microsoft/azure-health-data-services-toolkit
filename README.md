@@ -1,31 +1,77 @@
-![enter image description here](./docs/images/Readme-logo.png)
+# Azure Health Data Services SDK
 
+The Azure Health Data Services SDK helps you extend the functionality of Azure health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
 
-## Overview
-
-The FHIR Proxy SDK is intended to be used to build solutions with Azure Healthcare APIs where FHIR requests and/or responses need to be intercepted in transit.  The SDK provides the building blocks for these *custom operations* as well as integration with other services.  We have also provided a prescriptive architecture for deployment Azure Healthcare APIs and integration with other services, such that you can reliably create secure and scalable solutions.  You can find documentation of the API [here](./doc/reference/toc.html), and sample code [here](https://github.com/microsoft/fhir-proxy-samples).
+With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on meeting your requirements.
 
 ## NuGet Packages
-- [Microsoft.Health.DataServices.Core](https://www.nuget.org/packages/Microsoft.Health.DataServices.Core/)
-- [Microsoft.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.Health.DataServices.Channels.Extensions/)
-- [Microsoft.Health.DataServices.Storage](https://www.nuget.org/packages/Microsoft.Health.DataServices.Storage/)
-- [Microsoft.Health.DataServices.Caching](https://www.nuget.org/packages/Microsoft.Health.DataServices.Caching/)
 
-## Pipelines
+| Package Name | Description | |
+| --- | --- | --- |
+| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Microsoft.Health.DataServices.Core/) | .NET 6 SDK for creating custom operations to when using Azure Health Data Services. |
+| [Azure.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.Health.DataServices.Channels.Extensions/) | .NET 6 SDK for extending channels using Azure Health Data Services. |
+| [Azure.Health.DataServices.Caching](https://www.nuget.org/packages/Microsoft.Health.DataServices.Caching/) | .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. |
+| [Azure.Health.DataServices.Storage](https://www.nuget.org/packages/Microsoft.Health.DataServices.Storage/) | .NET 6 SDK for adding caching using Azure Health Data Services. |
 
-Pipelines are used to build the *custom operation* and can be used to (i) modify information, (ii) acquire additional information to make decisions, and (iii) output information to our services.  The first two are performed through a chain of 0 or more *filters* where each filter in the chain performs some operation.  The latter is performed through *channels*, which simply output information 0 or more desired services. Input and output pipelines are connected through a binding, which either (i) call the FHIR server and returns the response to the output pipeline (RestBinding), or (ii) is omitted and directly calls the output pipeline if present or returns the result of the input pipleine.
+## Getting Started
 
-## Pipeline
+The fastest way to test out the SDK and see it in action is [through our Quickstart Samples](./samples/Quickstart.README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services
 
-![**Pipeline**](./docs/images/pipeline.png)
+Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
-## Pipeline Management
+Also check out our full list of samples on [how to use the SDK here](./samples/README.md) for even more inspiration to create your own custom operations.
 
-![**Pipeline Management**](./docs/images/pipeline-mgmt.png)
+## Common FHIR Use Cases
+
+Some FHIR Service use cases this SDK can help you implement are:
+
+- FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
+  - Trial implementation guides.
+  - Organization-specific operations.
+  - Less widely adopted operations.
+- Implementation  guide development.
+- Transforming request and/or response payloads.
+- Custom authorization logic, like consent.
+
+### What about FHIR Proxy? 
+
+FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
+
+- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
+- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
+- This SDK is computed agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This SDK is released and versioned via NuGet packages.
+- We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
+
+*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
+
+## Key Concepts
+
+When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
+
+When building custom operations, you’ll come across these concepts of the SDK.
+
+- Pipeline Manager: #TODO
+- Pipelines: #TODO
+  - Filters: #TODO
+  - Channels: #TODO
+- Bindings: #TODO
+- Transforms: #TODO
+
+For more information, read [the feature guide here](./docs/features.md).
+
+## Resources
+
+### Links
+
+- [FHIR Service Documentation](https://docs.microsoft.com/azure/healthcare-apis/fhir/overview)
+- [FHIR Server OSS Repository](https://github.com/microsoft/fhir-server)
  
-## Infrastructure Architecture
-The infrastructure makes use of Azure Application Gatway, Azure API Management (APIM), a private Virtual Network, and private endpoints.  We use APIM to route specific request to *custom operations* and all others route directly to the FHIR server.
-![enter image description here](./docs/images/HealthcareAPIInfastructure.png)
+### Sample Production Architecture
+
+This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
+
+![](./docs/images/HealthcareAPIInfastructure.png)
 
 ## Contributing
 
@@ -48,4 +94,3 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
-
