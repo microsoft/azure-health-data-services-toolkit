@@ -15,7 +15,7 @@
 
 ## Quickstart
 
-Use [this quickstart sample](./Quickstart/README.md) to see some common ways the SDK can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
+Use [this quickstart sample](./Quickstart/) to see some common ways the SDK can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
 
 - Getting an access token for the FHIR service.
 - Adding a header to audit the original requestor.
@@ -24,11 +24,11 @@ Use [this quickstart sample](./Quickstart/README.md) to see some common ways the
 
 ## Feature Samples
 
-These samples go deep into individual features areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs.
+These samples go deep into individual features areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs.These samples are not meant to be deployed to Azure, but executed on your local machine.
 
 | Sample | Description |
 | --- | --- |
-| [Authenticator](./Authenticator/README.md) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
+| [Authenticator](./Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
 
 ## Use Case Samples
 
