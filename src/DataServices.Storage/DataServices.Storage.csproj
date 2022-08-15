@@ -1,25 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <Company>Microsoft Corporation</Company>
+    <Product>Microsoft(R) Azure Health Data Services</Product>
+    <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <Version>0.0.0</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
+    <Version>$(VersionEnvVar)</Version>
+    <FileVersion>$(VersionEnvVar)</FileVersion>
     <Authors>Microsoft</Authors>
-    <Description>Libray that simplifies common Azure storage operations.</Description>
-    <PackageProjectUrl>https://azure.microsoft.com/en-us/services/healthcare-apis/</PackageProjectUrl>
+
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Azure.Health.DataServices.Sdk.Storage</AssemblyName>
+
+    <Title>Azure Health Data Services Sdk Storage library</Title>
+    <PackageId>Azure.Health.DataServices.Storage</PackageId>
+    <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
+    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/microsoft/fhir-proxy-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
+    <PublishRepositoryUrl Condition=" '$(ProjectRef)' != 'True' ">true</PublishRepositoryUrl>
+    <PackageIconUrl>https://github.com/Azure/health-data-services-sdk/raw/main/src/images/AzureHealthDataServices.png</PackageIconUrl>
     <PackageIcon>AzureHealthDataServices.png</PackageIcon>
-    <PackageIconUrl />
-    <RepositoryUrl>https://github.com/microsoft/fhir-proxy</RepositoryUrl>
-    <PackageTags>FHIR</PackageTags>
-    <PackageReleaseNotes>Dotnet 6 prelease candidate for custom operations frameworks.</PackageReleaseNotes>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <IsPackable>true</IsPackable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-	<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-	<IsPackable>true</IsPackable>
-	<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
-	<PackageId>Microsoft.Health.$(AssemblyName)</PackageId>
+    <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
+    <DebugType>portable</DebugType>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+    <RootNamespace>Azure.Health.DataServices</RootNamespace>
+    <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\images\AzureHealthDataServices.png" Pack="true" PackagePath="" />
+    <None Include="ReadMe.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Data.Tables" Version="12.6.1" />
@@ -28,20 +55,6 @@
     <PackageReference Include="Azure.Storage.Queues" Version="12.11.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="../images/AzureHealthDataServices.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="ReadMe.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>
