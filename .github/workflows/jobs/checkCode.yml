@@ -5,7 +5,6 @@ steps:
     packageType: 'sdk'
     version: '6.0.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
-
 - task: DotNetCoreCLI@2
   displayName: 'Install dotnet format'
   inputs:
@@ -13,8 +12,12 @@ steps:
     custom: 'tool'
     arguments: 'update -g dotnet-format'
 
-- script: 'dotnet format ./src/build.sln --verify-no-changes -v d'
-  displayName: 'dotnet format lint'
+- task: DotNetCoreCLI@2
+  displayName: 'Lint dotnet'
+  inputs:
+    command: 'custom'
+    custom: 'format'
+    arguments: './src/build.sln --verify-no-changes --verbosity diagnostic'
 
 - task: CredScan@3
   inputs:

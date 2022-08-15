@@ -1,0 +1,123 @@
+parameters:
+  - name: ArtifactName
+  - name: Packages
+    type: object
+  - name: DevOpsFeedID
+  - name: VersionEnvVar
+  - name: IsPrerelease
+    type: boolean
+    default: true
+
+stages:
+
+  - stage: Signing
+    displayName: 'Sign Code & Packages'
+    dependsOn: Build
+    jobs:
+      - deployment: SignPackage
+        environment: esrp
+        pool:
+          vmImage: $(WindowsVmImage)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - download: current
+                artifact: ${{parameters.ArtifactName}}
+                timeoutInMinutes: 5
+
+              - template: pipelines/steps/package-signing.yml@azure-health-data-services-sdk-build-tools
+                parameters:
+                  PackagesPath: '$(Pipeline.Workspace)/${{parameters.ArtifactName}}'
+
+              - publish: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                artifact: '${{ parameters.ArtifactName }}-signed'
+                displayName: 'Store signed packages in ${{parameters.ArtifactName}}-signed artifact'
+
+  - stage: ReleaseInternal 
+    ${{ if eq( parameters['IsPrerelease'], true) }}:
+      displayName: 'Prerelease Internal Package Publish'
+    ${{ else }}:
+      displayName: 'Release Internal Package Publish'
+    dependsOn: Signing
+    jobs:
+    - deployment: PublishPackageDevOps
+      displayName: 'Publish packages to DevOps Feed'
+      environment: nuget-internal
+      pool:
+        vmImage: $(WindowsVmImage)
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: '${{ parameters.ArtifactName }}-signed'
+
+            - ${{ each package in parameters.Packages }}:
+              - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-sdk-build-tools
+                parameters:
+                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                  PackageName: ${{ package.name }}
+                  DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
+
+  # Add integration tests here
+
+  - stage: ReleaseGithubNuget
+    ${{ if eq( parameters['IsPrerelease'], true) }}:
+      displayName: 'GitHub/Nuget Pre-Release Publish'
+    ${{ else }}:
+      displayName: 'GitHub/Nuget Release Publish'
+    dependsOn: 'ReleaseInternal'
+    jobs:
+    - deployment: GithubRelease
+      ${{ if eq( parameters['IsPrerelease'], true) }}:
+        displayName: 'Create GitHub Release (Prerelease)'
+      ${{ else }}:
+        displayName: 'Create GitHub Release (Release)'
+      environment: github
+      pool:
+        vmImage: $(WindowsVmImage)
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: '${{ parameters.ArtifactName }}-signed'
+
+            - pwsh: |
+                Write-Host "##vso[task.setvariable variable=packageVersion;]$((Get-ChildItem -Path 'Env:\${{ parameters.VersionEnvVar }}').Value)"
+            - task: GithubRelease@1 
+              displayName: 'Create GitHub Release'
+              inputs:
+                gitHubConnection: 'Github (fhir-proxy-sdx)'
+                repositoryName: microsoft/fhir-proxy-sdk
+                action: 'create'
+                tagSource: userSpecifiedTag
+                tag: 'release/$(packageVersion)'
+                title: '$(packageVersion)'
+                isPreRelease: ${{ parameters.IsPrerelease }}
+                assets: |
+                  $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
+    - deployment: PublishPackageNuGet
+      ${{ if eq( parameters['IsPrerelease'], true) }}:
+        displayName: 'Publish Nuget Prerelease'
+      ${{ else }}:
+        displayName: 'Publish NuGet Release'
+      dependsOn: 'GithubRelease'
+      environment: nuget
+      pool:
+        vmImage: $(WindowsVmImage)
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: '${{ parameters.ArtifactName }}-signed'
+
+            - ${{ each package in parameters.Packages }}:
+              - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
+                parameters:
+                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                  PackageName: ${{ package.name }}

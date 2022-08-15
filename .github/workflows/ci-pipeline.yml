@@ -1,26 +1,62 @@
 # DESCRIPTION: 	
 # Builds, tests, and packages the solution for the main branch.	
-
 name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
 trigger: none
 
+resources:
+  repositories:
+  - repository: azure-health-data-services-sdk-build-tools
+    type: git
+    name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
+
+parameters:
+  - name: IsPrerelease
+    type: boolean
+    default: true
+
 variables:
 - template: build-variables.yml
+- name: ArtifactName
+  ${{ if eq( parameters['IsPrerelease'], true) }}:
+    value: 'PackagesPreRelease'
+  ${{ else }}:
+    value: 'PackagesRelease'
+- name: VersionEnvVar
+  ${{ if eq( parameters['IsPrerelease'], true) }}:
+    value: 'packageversion-prerelease'
+  ${{ else }}:
+    value: 'packageversion-release'
 
-jobs:
+stages:
+  - stage: Build
 
-- job: CodeChecks
-  pool:
-    vmImage: $(WindowsVmImage)
-  steps:
-  - template: ./jobs/checkCode.yml
+    jobs:
+    - job: CodeChecks
+      pool:
+        vmImage: $(WindowsVmImage)
+      steps:
+      - template: ./jobs/checkCode.yml
 
-- job: BuildAndTest
-  pool:
-    vmImage: $(WindowsVmImage)
-  steps:
-  - template: ./jobs/build.yml
-  - template: ./jobs/pack.yml
-    parameters:
-      createPreRelease: true
-      createRelease: true
+    - job: BuildTestPack
+      pool:
+        vmImage: $(WindowsVmImage)
+      steps:
+      - template: ./jobs/build.yml
+      - template: ./jobs/pack.yml
+        parameters:
+          ArtifactName: $(ArtifactName)
+          VersionEnvVar: $(VersionEnvVar)
+
+    # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'FhirProxySdk'))}}:
+    - template: ./stages/release.yml
+      parameters:
+        ArtifactName: $(ArtifactName)
+        Packages:
+          - name: Microsoft.Health.DataServices.Core
+          - name: Microsoft.Health.DataServices.Caching
+          - name: Microsoft.Health.DataServices.Channels.Extensions
+          - name: Microsoft.Health.DataServices.Storage
+        VersionEnvVar: '$(VersionEnvVar)'
+        DevOpsFeedID: 'FhirProxySdk/FhirProxySdkInternal'
+        IsPrerelease: ${{ parameters.IsPrerelease }}
