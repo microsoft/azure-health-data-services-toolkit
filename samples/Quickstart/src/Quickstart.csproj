@@ -6,6 +6,7 @@
     <UserSecretsId>fec82817-d38f-4215-9a39-a88f5ec417e1</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetEnv " Version="2.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />

@@ -96,3 +96,6 @@ module specifiedIdentity './fhirIdentity.bicep' =  [for principalId in  fhirCont
     principalType: 'User'
   }
 }]
+
+output FhirServiceId string = fhir.outputs.fhirId
+output FhirServiceUrl string = 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com/metadata'

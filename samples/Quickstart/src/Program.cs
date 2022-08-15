@@ -17,9 +17,12 @@ namespace Quickstart
         private static MyServiceConfig config;
         public static async Task Main()
         {
+            DotNetEnv.Env.Load("../.azure/*/.env");
+
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("AHDS_");
+                .AddEnvironmentVariables("AZURE_");
+
             IConfigurationRoot root = builder.Build();
             config = new MyServiceConfig();
             root.Bind(config);
