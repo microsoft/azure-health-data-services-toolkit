@@ -9,8 +9,8 @@ steps:
     inputs:
       command: pack
       packagesToPack: '$(Build.SourcesDirectory)/src/**/*.csproj'
-      versioningScheme: byEnvVar
-      versionEnvVar: ${{ parameters.VersionEnvVar }}
+      # Versioning is done during the build
+      versioningScheme: off
       outputDir: '$(Build.ArtifactStagingDirectory)/PackOut/'
 
   - task: PublishPipelineArtifact@1

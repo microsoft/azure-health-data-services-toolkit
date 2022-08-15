@@ -7,8 +7,10 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <Version>$(VersionEnvVar)</Version>
-    <FileVersion>$(VersionEnvVar)</FileVersion>
+    <Version Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</Version>
+    <Version Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</Version>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</FileVersion>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</FileVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
@@ -22,7 +24,7 @@
     <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
-    <PublishRepositoryUrl Condition=" '$(ProjectRef)' != 'True' ">true</PublishRepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

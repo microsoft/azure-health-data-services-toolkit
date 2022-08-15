@@ -6,8 +6,10 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <Version>$(VersionEnvVar)</Version>
-    <FileVersion>$(VersionEnvVar)</FileVersion>
+    <Version Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</Version>
+    <Version Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</Version>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</FileVersion>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</FileVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>

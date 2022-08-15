@@ -2,21 +2,19 @@
 # Variables used during builds.
 
 variables:
-# Used for versioning
-- group: microsoft-fhir-proxy-ci-vars
 # Testing environment
 - group: microsoft-fhir-proxy-ci
 
-- name: major
-  value: 0
-- name: minor
-  value: 0
-- name: patch
-  value: $[counter(format('{0}.{1}', variables['major'], variables['minor']) ,0)]
+#- name: major
+#  value: 0
+#- name: minor
+#  value: 0
+#- name: patch
+#  value: $[counter(format('{0}.{1}', variables['major'], variables['minor']) ,0)]
 - name: packageversiontype
   value: '-prerelease'
-- name: packageversion
-  value: $[format('{0}.{1}.{2}{3}', variables['major'], variables['minor'], variables['patch'], variables['packageversiontype'])]
+#- name: packageversion
+#  value: $[format('{0}.{1}.{2}{3}', variables['major'], variables['minor'], variables['patch'], variables['packageversiontype'])]
 - name: packageversion-prerelease
   value: $[format('{0}.{1}.{2}{3}', variables['prerelease-major'], variables['prerelease-minor'], variables['prerelease-patch'], variables['packageversiontype'])]
 - name: packageversion-release
@@ -24,5 +22,6 @@ variables:
 
 - name: buildConfiguration
   value: 'Release' 
+
 - name: WindowsVmImage
   value: 'windows-2022'
