@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Assets.SimpleFilterServiceAsset.Controllers
+namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset.Controllers
 {
 
     [ApiController]

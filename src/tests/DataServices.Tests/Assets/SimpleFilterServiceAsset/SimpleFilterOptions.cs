@@ -1,6 +1,6 @@
-﻿using DataServices.Pipelines;
+﻿using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Tests.Assets.SimpleFilterServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleFilterOptions
     {

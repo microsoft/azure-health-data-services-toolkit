@@ -9,7 +9,7 @@ using Azure.Data.Tables;
 using Azure.Data.Tables.Models;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Storage
+namespace Azure.Health.DataServices.Storage
 {
     /// <summary>
     /// Allows simple access to Azure storage tables.

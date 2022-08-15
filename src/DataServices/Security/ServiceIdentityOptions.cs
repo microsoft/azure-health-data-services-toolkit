@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace DataServices.Security
+namespace Azure.Health.DataServices.Security
 {
     /// <summary>
     /// Service identity options for acquiring access tokens.

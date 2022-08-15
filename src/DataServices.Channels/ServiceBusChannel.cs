@@ -2,14 +2,14 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
-using DataServices.Channels;
-using DataServices.Pipelines;
-using DataServices.Storage;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Channel that can send or receive data from Azure Service Bus.

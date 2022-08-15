@@ -5,7 +5,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Newtonsoft.Json;
 
-namespace DataServices.Core.Configuration
+namespace Azure.Health.DataServices.Core.Configuration
 {
     /// <summary>
     /// Configuration of certificates to be obtained from a Key Vault.

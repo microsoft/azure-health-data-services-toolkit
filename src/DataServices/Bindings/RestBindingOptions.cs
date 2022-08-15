@@ -1,4 +1,4 @@
-﻿namespace DataServices.Bindings
+﻿namespace Azure.Health.DataServices.Bindings
 {
     /// <summary>
     /// Options for REST binding.

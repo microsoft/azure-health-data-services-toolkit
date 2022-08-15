@@ -12,7 +12,7 @@ using Azure.Storage.Blobs.Specialized;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Storage
+namespace Azure.Health.DataServices.Storage
 {
     /// <summary>
     /// Allows simple access to Azure Blob Storage.

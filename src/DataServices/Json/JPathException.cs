@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DataServices.Json
+namespace Azure.Health.DataServices.Json
 {
     /// <summary>
     /// JPath exception.

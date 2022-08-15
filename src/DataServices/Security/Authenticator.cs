@@ -5,7 +5,7 @@ using Azure.Core;
 using Azure.Identity;
 using Microsoft.Extensions.Options;
 
-namespace DataServices.Security
+namespace Azure.Health.DataServices.Security
 {
 
     /// <summary>

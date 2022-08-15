@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
-using DataServices.Clients;
-using DataServices.Tests.Assets;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Tests.Assets;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class RestRequestTests

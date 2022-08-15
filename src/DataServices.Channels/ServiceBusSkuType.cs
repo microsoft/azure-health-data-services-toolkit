@@ -1,4 +1,4 @@
-﻿namespace DataServices.Channels
+﻿namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Type of Service Bus SKU.

@@ -1,4 +1,4 @@
-﻿namespace DataServices.Clients.Headers
+﻿namespace Azure.Health.DataServices.Clients.Headers
 {
     /// <summary>
     /// A name value pair and type of header for the operation.

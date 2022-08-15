@@ -1,4 +1,4 @@
-﻿namespace DataServices.Commands
+﻿namespace Azure.Health.DataServices.Commands
 {
     /// <summary>
     /// Interface for commands.

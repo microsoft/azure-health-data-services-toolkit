@@ -10,7 +10,7 @@ using Azure.Storage.Files.DataLake;
 using Azure.Storage.Files.DataLake.Models;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Storage
+namespace Azure.Health.DataServices.Storage
 {
     /// <summary>
     /// Allows simple access to Azure Data Lake.

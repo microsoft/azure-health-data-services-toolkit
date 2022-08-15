@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using DataServices.Clients;
-using DataServices.Clients.Headers;
-using DataServices.Pipelines;
-using DataServices.Security;
+using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace DataServices.Bindings
+namespace Azure.Health.DataServices.Bindings
 {
     /// <summary>
     /// A binding used to call the server and couples input/output pipelines or acts as terminator for an input pipeline.

@@ -5,7 +5,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     public class ServiceIdentityConfig
     {

@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Net.Http;
 
-namespace DataServices.Clients.Headers
+namespace Azure.Health.DataServices.Clients.Headers
 {
     /// <summary>
     /// Interface that defines how headers from a request can be obtained from the collection of custom headers.

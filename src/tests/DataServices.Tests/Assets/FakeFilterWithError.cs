@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using DataServices.Filters;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Tests.Assets
+namespace Azure.Health.DataServices.Tests.Assets
 {
     public class FakeFilterWithError : IFilter
     {

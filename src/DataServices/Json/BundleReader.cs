@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Json
+namespace Azure.Health.DataServices.Json
 {
     /// <summary>
     /// FHIR bundle reader.

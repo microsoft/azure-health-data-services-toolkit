@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     public class OutputChannelCollection : IOutputChannelCollection
     {

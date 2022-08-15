@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     public interface IPipeline<TRequest, TResponse>
     {

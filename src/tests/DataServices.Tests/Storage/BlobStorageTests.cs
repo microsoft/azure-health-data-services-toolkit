@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
-using DataServices.Storage;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Storage;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Storage
+namespace Azure.Health.DataServices.Tests.Storage
 {
     [TestClass]
     public class BlobStorageTests

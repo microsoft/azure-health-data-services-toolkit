@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Assets
+namespace Azure.Health.DataServices.Tests.Assets
 {
     [Serializable]
     [JsonObject]

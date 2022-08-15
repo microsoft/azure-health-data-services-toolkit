@@ -35,10 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DataServices.Caching\DataServices.Caching.csproj" />
-    <ProjectReference Include="..\..\DataServices.Channels\DataServices.Channels.csproj" />
-    <ProjectReference Include="..\..\DataServices.Storage\DataServices.Storage.csproj" />
-    <ProjectReference Include="..\..\DataServices\DataServices.csproj" />
+    <ProjectReference Include="..\..\DataServices.Caching\Azure.Health.DataServices.Caching.csproj" />
+    <ProjectReference Include="..\..\DataServices.Channels\Azure.Health.DataServices.Channels.csproj" />
+    <ProjectReference Include="..\..\DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
+    <ProjectReference Include="..\..\DataServices\Azure.Health.DataServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

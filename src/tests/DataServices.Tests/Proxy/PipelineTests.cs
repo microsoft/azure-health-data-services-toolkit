@@ -4,17 +4,17 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DataServices.Channels;
-using DataServices.Filters;
-using DataServices.Pipelines;
-using DataServices.Tests.Assets;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Tests.Assets;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class PipelineTests

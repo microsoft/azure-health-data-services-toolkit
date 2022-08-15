@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Events args for channel state change events.

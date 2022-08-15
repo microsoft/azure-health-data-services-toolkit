@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataServices.Tests.Assets.SimpleWebServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleWebServiceAsset
 {
     public class SimpleWebServiceListener
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     public interface IChannelCollection : IList<IChannel>
     {

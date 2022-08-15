@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     public class LoggingConfig
     {

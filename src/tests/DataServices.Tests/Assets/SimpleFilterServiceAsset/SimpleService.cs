@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace DataServices.Tests.Assets.SimpleFilterServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleService
     {

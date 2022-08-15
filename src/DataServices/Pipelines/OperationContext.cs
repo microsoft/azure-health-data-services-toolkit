@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DataServices.Protocol;
+using Azure.Health.DataServices.Protocol;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// Operation context used for input and output for a filter in a pipeline.

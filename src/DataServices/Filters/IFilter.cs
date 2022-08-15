@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Filters
+namespace Azure.Health.DataServices.Filters
 {
     /// <summary>
     /// IFilter interface to be implemented by filters.

@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using DataServices.Channels;
+using Azure.Health.DataServices.Channels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     [TestClass]
     public class ConfigurationTests

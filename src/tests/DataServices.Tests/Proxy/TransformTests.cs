@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DataServices.Json;
-using DataServices.Json.Transforms;
+using Azure.Health.DataServices.Json;
+using Azure.Health.DataServices.Json.Transforms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class TransformTests

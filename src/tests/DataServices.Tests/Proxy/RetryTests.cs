@@ -3,11 +3,11 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using DataServices.Clients;
-using DataServices.Tests.Assets;
+using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class RetryTests

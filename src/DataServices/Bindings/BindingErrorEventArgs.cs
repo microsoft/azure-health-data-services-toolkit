@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataServices.Bindings
+namespace Azure.Health.DataServices.Bindings
 {
     /// <summary>
     /// Event args for binding error events.

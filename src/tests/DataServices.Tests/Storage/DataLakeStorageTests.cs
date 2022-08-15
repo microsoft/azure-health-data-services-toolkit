@@ -2,14 +2,14 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
-using DataServices.Storage;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
 
-namespace DataServices.Tests.Storage
+namespace Azure.Health.DataServices.Tests.Storage
 {
     //Go to Data protection and disable soft delete and use no event triggers
 

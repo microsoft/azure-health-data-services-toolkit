@@ -3,13 +3,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Messaging.EventGrid;
-using DataServices.Channels;
-using DataServices.Pipelines;
-using DataServices.Storage;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Channel that sends events to an Azure Event Grid.

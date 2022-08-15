@@ -1,4 +1,4 @@
-﻿namespace DataServices.Caching.StorageProviders
+﻿namespace Azure.Health.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// Interface implemented by cache provider.

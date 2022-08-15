@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using DataServices.Commands;
+using Azure.Health.DataServices.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Tests.JsonExtensions
+namespace Azure.Health.DataServices.Tests.JsonExtensions
 {
     [TestClass]
     public class ExceptionCommandTests

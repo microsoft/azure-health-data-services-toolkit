@@ -1,4 +1,4 @@
-﻿namespace DataServices.Clients.Headers
+﻿namespace Azure.Health.DataServices.Clients.Headers
 {
     /// <summary>namespace Fhir.Proxy.Clients
     /// Type of custom header to inject.

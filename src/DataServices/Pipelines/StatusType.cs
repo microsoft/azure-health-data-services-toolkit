@@ -1,4 +1,4 @@
-﻿namespace DataServices.Pipelines
+﻿namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// Requirement status for execution of a filter or channel.

@@ -1,7 +1,7 @@
-﻿using DataServices.Caching.StorageProviders;
+﻿using Azure.Health.DataServices.Caching.StorageProviders;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataServices.Caching
+namespace Azure.Health.DataServices.Caching
 {
     public static class Extensions
     {

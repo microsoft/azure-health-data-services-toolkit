@@ -3,14 +3,14 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using DataServices.Clients;
-using DataServices.Clients.Headers;
-using DataServices.Filters;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Assets.SimpleFilterServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleFilter : IInputFilter
     {

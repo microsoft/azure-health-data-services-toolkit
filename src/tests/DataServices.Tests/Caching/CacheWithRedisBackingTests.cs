@@ -4,15 +4,15 @@ using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using DataServices.Caching;
-using DataServices.Tests.Assets;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Caching;
+using Azure.Health.DataServices.Tests.Assets;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Caching
+namespace Azure.Health.DataServices.Tests.Caching
 {
     [TestClass]
     public class CacheWithRedisBackingTests

@@ -1,4 +1,4 @@
-﻿namespace DataServices.Caching.StorageProviders
+﻿namespace Azure.Health.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// Options for Azure Blob Storage cache backing store.

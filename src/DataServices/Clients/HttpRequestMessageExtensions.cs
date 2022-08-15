@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Net.Http;
 
-namespace DataServices.Clients
+namespace Azure.Health.DataServices.Clients
 {
     /// <summary>
     /// Extensions for HttpRequestMessage.

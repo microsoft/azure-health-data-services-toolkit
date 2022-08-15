@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Azure.Core;
 
-namespace DataServices.Security
+namespace Azure.Health.DataServices.Security
 {
     /// <summary>
     /// Interface to be implemented by class that acquires access tokens from Azure Active Directory.

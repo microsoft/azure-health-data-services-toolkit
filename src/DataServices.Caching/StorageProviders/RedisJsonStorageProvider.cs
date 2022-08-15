@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace DataServices.Caching.StorageProviders
+namespace Azure.Health.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// A cache provider for json objects that uses redis as a backing store.

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.WebApiCompatShim;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     public static class AspnetCoreExtensions
     {

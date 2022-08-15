@@ -1,4 +1,4 @@
-﻿namespace DataServices.Clients
+﻿namespace Azure.Health.DataServices.Clients
 {
     public class Constants
     {

@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
-using DataServices.Channels;
-using DataServices.Tests.Assets;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Tests.Assets;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace DataServices.Tests.Channels
+namespace Azure.Health.DataServices.Tests.Channels
 {
     [TestClass]
     public class ServiceBusChannelTests

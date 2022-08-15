@@ -1,10 +1,10 @@
-﻿using DataServices.Clients.Headers;
-using DataServices.Configuration;
+﻿using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataServices.Tests.Assets.SimpleFilterServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleCoHttpAspListener
     {

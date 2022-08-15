@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Event Hub SKU type.

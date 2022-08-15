@@ -4,9 +4,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Clients.Headers
+namespace Azure.Health.DataServices.Clients.Headers
 {
     /// <summary>
     /// A collection of custom http headers.

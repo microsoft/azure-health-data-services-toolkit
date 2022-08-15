@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// Helper extensions for Azure Functions

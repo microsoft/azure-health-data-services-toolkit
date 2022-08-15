@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace DataServices.Tests.Assets.SimpleWebServiceAsset
+namespace Azure.Health.DataServices.Tests.Assets.SimpleWebServiceAsset
 {
     public class SimpleWebService
     {

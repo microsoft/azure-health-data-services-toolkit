@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class OperationContextTests

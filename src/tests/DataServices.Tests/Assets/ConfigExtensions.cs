@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataServices.Tests.Assets
+namespace Azure.Health.DataServices.Tests.Assets
 {
     public static class ConfigExtensions
     {

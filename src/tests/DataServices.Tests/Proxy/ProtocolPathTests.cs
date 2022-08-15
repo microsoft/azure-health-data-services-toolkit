@@ -1,8 +1,8 @@
 ﻿using System;
-using DataServices.Protocol;
+using Azure.Health.DataServices.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class ProtocolPathTests

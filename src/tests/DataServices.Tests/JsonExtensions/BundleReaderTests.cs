@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using DataServices.Json;
+using Azure.Health.DataServices.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Tests.JsonExtensions
+namespace Azure.Health.DataServices.Tests.JsonExtensions
 {
     [TestClass]
     public class BundleReaderTests

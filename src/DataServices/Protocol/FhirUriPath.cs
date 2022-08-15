@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace DataServices.Protocol
+namespace Azure.Health.DataServices.Protocol
 {
     public class FhirUriPath : Uri
     {

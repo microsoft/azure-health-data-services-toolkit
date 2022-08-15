@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using Azure;
 using Azure.Identity;
-using DataServices.Storage;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace DataServices.Caching.StorageProviders
+namespace Azure.Health.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// A cache provider for json objects that uses Azure Blob storage as a backing store.

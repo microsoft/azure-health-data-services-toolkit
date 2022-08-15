@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataServices.Filters
+namespace Azure.Health.DataServices.Filters
 {
     public interface IFilterCollection : IList<IFilter>
     {

@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 
-namespace DataServices.Clients
+namespace Azure.Health.DataServices.Clients
 {
     /// <summary>
     /// Builder pattern for REST requests.

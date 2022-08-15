@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataServices.Protocol
+namespace Azure.Health.DataServices.Protocol
 {
     /// <summary>
     /// Extensions for URIs.

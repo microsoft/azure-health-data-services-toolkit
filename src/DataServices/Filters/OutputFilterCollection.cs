@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace DataServices.Filters
+namespace Azure.Health.DataServices.Filters
 {
     /// <summary>
     /// A collection of output filters.

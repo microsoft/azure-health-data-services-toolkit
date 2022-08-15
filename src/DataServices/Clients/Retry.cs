@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Clients
+namespace Azure.Health.DataServices.Clients
 {
     /// <summary>
     /// Async http request retry logic.

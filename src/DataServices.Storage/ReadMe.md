@@ -1,8 +1,9 @@
-## Microsoft.Health.DataServices.Storage
+## Azure.Health.DataServices.Storage
 
 ### Overview
-.NET 6 SDK to simplify Azure storage operations when using DataServices.
-- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
+.NET 6 SDK for creating custom operations for FHIR in Azure Health Data Services.
+- [Getting Started](https://github.com/Azure/health-data-services-sdk#getting-started)
+- [Conceptual Docs](https://github.com/Azure/health-data-services-sdk/blob/main/docs/concepts.md)
 
 ### Features
 - Azure Blob Storage

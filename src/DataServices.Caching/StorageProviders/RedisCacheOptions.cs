@@ -1,4 +1,4 @@
-﻿namespace DataServices.Caching.StorageProviders
+﻿namespace Azure.Health.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// Options for redis cache backing store.

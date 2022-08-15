@@ -6,7 +6,7 @@ using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     /// <summary>
     /// Service configuration for pipelines.

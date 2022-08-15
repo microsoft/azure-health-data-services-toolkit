@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DataServices.Tests.Assets.SimpleWebServiceAsset.Controllers
+namespace Azure.Health.DataServices.Tests.Assets.SimpleWebServiceAsset.Controllers
 {
     [ApiController]
     [Route("[controller]")]

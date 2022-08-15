@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Json
+namespace Azure.Health.DataServices.Json
 {
     /// <summary>
     /// Extensions for JToken.

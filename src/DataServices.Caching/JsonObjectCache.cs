@@ -1,11 +1,11 @@
 ﻿using System.Collections.Concurrent;
-using DataServices.Caching.StorageProviders;
+using Azure.Health.DataServices.Caching.StorageProviders;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace DataServices.Caching
+namespace Azure.Health.DataServices.Caching
 {
     /// <summary>
     /// In-memory cache with persistent backing store for JSON objects.

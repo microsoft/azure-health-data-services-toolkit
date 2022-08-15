@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Channels
+namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// Interface for channels.

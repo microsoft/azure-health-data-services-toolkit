@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DataServices.Bindings;
-using DataServices.Channels;
-using DataServices.Filters;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Bindings;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Filters;
 using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// A custom operation pipeline for an azure isolated process function app.

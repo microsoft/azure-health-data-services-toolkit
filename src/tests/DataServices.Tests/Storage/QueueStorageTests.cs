@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Queues.Models;
-using DataServices.Storage;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace DataServices.Tests.Storage
+namespace Azure.Health.DataServices.Tests.Storage
 {
     [TestClass]
     public class QueueStorageTests

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     /// <summary>
     /// Configuration for Event Grid channel.

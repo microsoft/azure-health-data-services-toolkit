@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure.Data.Tables;
 using Azure.Data.Tables.Models;
-using DataServices.Storage;
-using DataServices.Tests.Assets;
+using Azure.Health.DataServices.Storage;
+using Azure.Health.DataServices.Tests.Assets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-namespace DataServices.Tests.Storage
+namespace Azure.Health.DataServices.Tests.Storage
 {
     [TestClass]
     public class TableStorageTests

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Json.Transforms
+namespace Azure.Health.DataServices.Json.Transforms
 {
     /// <summary>
     /// Json transform policy.

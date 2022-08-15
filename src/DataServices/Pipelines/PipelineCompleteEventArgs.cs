@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// Event args for pipeline complete.

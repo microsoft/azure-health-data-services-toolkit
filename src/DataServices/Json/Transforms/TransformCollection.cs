@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace DataServices.Json.Transforms
+namespace Azure.Health.DataServices.Json.Transforms
 {
     /// <summary>
     /// A collection of transforms.

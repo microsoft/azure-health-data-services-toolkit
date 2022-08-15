@@ -1,7 +1,7 @@
-﻿using DataServices.Json;
+﻿using Azure.Health.DataServices.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DataServices.Commands
+namespace Azure.Health.DataServices.Commands
 {
     /// <summary>
     /// Command the verifies a JToken with Json path terminates at a JArray.

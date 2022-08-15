@@ -1,4 +1,4 @@
-﻿namespace DataServices.Core.Filters
+﻿namespace Azure.Health.DataServices.Core.Filters
 {
     public class FilterOptions
     {

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Company>Microsoft Corporation</Company>
     <Product>Microsoft(R) Azure Health Data Services</Product>
-    <Description>Channels extension library to assist with creating custom operations for Azure Health Data Services.</Description>
+    <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
@@ -12,10 +12,10 @@
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>Azure.Health.DataServices.Sdk.Channels</AssemblyName>
+    <AssemblyName>Azure.Health.DataServices.Sdk.Caching</AssemblyName>
 
-    <Title>Azure Health Data Services Sdk Channels Extension library</Title>
-    <PackageId>Azure.Health.DataServices.Channels.Extensions</PackageId>
+    <Title>Azure Health Data Services Sdk Caching library</Title>
+    <PackageId>Azure.Health.DataServices.Caching</PackageId>
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
     <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/microsoft/fhir-proxy-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
@@ -26,8 +26,7 @@
     <PackageIcon>AzureHealthDataServices.png</PackageIcon>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-
-
+    
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>latest</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -44,20 +43,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Threading" />
+    <Using Include="System.Threading.Tasks" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\images\AzureHealthDataServices.png" Pack="true" PackagePath="" />
     <None Include="ReadMe.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.11.0" />
-    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.7.2" />
-    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.7.2" />
-    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.9.0" />
+    <PackageReference Include="Azure.Identity" Version="1.6.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataServices.Storage\DataServices.Storage.csproj" />
-    <ProjectReference Include="..\DataServices\DataServices.csproj" />
+    <ProjectReference Include="..\DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
   </ItemGroup>
+
 </Project>

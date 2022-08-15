@@ -1,4 +1,4 @@
-﻿namespace DataServices.Security
+﻿namespace Azure.Health.DataServices.Security
 {
     /// <summary>
     /// Client credential type use when acquiring access tokens.

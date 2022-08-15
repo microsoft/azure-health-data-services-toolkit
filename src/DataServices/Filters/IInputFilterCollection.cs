@@ -1,4 +1,4 @@
-﻿namespace DataServices.Filters
+﻿namespace Azure.Health.DataServices.Filters
 {
     public interface IInputFilterCollection : IFilterCollection
     {

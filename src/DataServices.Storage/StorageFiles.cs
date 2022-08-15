@@ -9,7 +9,7 @@ using Azure.Storage.Files.Shares;
 using Azure.Storage.Files.Shares.Models;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Storage
+namespace Azure.Health.DataServices.Storage
 {
     /// <summary>
     /// Allows simple access to Azure File Storage.

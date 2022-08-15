@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Functions.Worker;
 
-namespace DataServices.Tests.Assets
+namespace Azure.Health.DataServices.Tests.Assets
 {
 
     public class FakeFunctionContext : FunctionContext, IDisposable

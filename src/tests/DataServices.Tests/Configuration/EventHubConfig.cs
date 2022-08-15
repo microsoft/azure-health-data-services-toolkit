@@ -1,8 +1,8 @@
 ﻿using System;
-using DataServices.Channels;
+using Azure.Health.DataServices.Channels;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Configuration
+namespace Azure.Health.DataServices.Tests.Configuration
 {
     /// <summary>
     /// Configuration for Event Hub channel.

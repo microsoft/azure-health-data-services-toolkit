@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DataServices.Clients
+namespace Azure.Health.DataServices.Clients
 {
     /// <summary>
     /// Retry exception.

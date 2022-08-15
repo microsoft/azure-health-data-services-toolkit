@@ -1,6 +1,6 @@
-﻿namespace DataServices.Caching
+﻿namespace Azure.Health.DataServices.Caching
 {
-    /// <summary>namespace DataServices.Caching
+    /// <summary>namespace Azure.Health.DataServices.Caching
     /// Interface for JSON enabled cache.
     /// </summary>
     public interface IJsonObjectCache

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DataServices.Commands
+namespace Azure.Health.DataServices.Commands
 {
     /// <summary>
     /// Command exception.

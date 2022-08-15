@@ -1,8 +1,9 @@
-## Microsoft.Health.DataServices.Channels.Extensions
+## Azure.Health.DataServices.Channels.Extensions
 
 ### Overview
-.NET 6 SDK for extending channels using DataServices.
-- [API Definitions](https://github.com/microsoft/fhir-proxy-sdk/blob/main/docs/reference/toc.html)
+.NET 6 SDK for creating custom operations for FHIR in Azure Health Data Services.
+- [Getting Started](https://github.com/Azure/health-data-services-sdk#getting-started)
+- [Conceptual Docs](https://github.com/Azure/health-data-services-sdk/blob/main/docs/concepts.md)
 
 ### Channels
 - *Blob Storage Channel* writes messages to Azure Blob storage.

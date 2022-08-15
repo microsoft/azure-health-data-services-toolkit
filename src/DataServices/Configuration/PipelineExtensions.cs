@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net.Http;
-using DataServices.Bindings;
-using DataServices.Channels;
-using DataServices.Clients.Headers;
-using DataServices.Filters;
-using DataServices.Pipelines;
-using DataServices.Security;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Bindings;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Security;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 
-namespace DataServices.Configuration
+namespace Azure.Health.DataServices.Configuration
 {
     /// <summary>
     /// Helper extensions for pipelines

@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
-using DataServices.Channels;
-using DataServices.Storage;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Storage;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Channels
+namespace Azure.Health.DataServices.Tests.Channels
 {
     [TestClass]
     public class BlobChannelTests

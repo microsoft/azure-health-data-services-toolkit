@@ -1,4 +1,4 @@
-﻿namespace DataServices.Channels
+﻿namespace Azure.Health.DataServices.Channels
 {
     /// <summary>
     /// An enumeration of channel states.

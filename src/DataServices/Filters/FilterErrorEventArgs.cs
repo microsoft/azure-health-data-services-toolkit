@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace DataServices.Filters
+namespace Azure.Health.DataServices.Filters
 {
     /// <summary>
     /// Filter error event arguments used when filters signal an error.

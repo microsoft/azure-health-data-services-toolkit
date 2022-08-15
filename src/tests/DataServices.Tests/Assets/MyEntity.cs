@@ -3,7 +3,7 @@ using Azure;
 using Azure.Data.Tables;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Assets
+namespace Azure.Health.DataServices.Tests.Assets
 {
     [Serializable]
     [JsonObject]

@@ -3,15 +3,15 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using DataServices.Clients;
-using DataServices.Clients.Headers;
-using DataServices.Tests.Assets;
-using DataServices.Tests.Assets.SimpleFilterServiceAsset;
-using DataServices.Tests.Assets.SimpleWebServiceAsset;
+using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Tests.Assets;
+using Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset;
+using Azure.Health.DataServices.Tests.Assets.SimpleWebServiceAsset;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace DataServices.Tests.Headers
+namespace Azure.Health.DataServices.Tests.Headers
 {
     [TestClass]
     public class HeaderTests

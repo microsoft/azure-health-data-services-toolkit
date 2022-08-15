@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
 using Azure.Identity;
-using DataServices.Configuration;
-using DataServices.Security;
-using DataServices.Tests.Configuration;
+using Azure.Health.DataServices.Configuration;
+using Azure.Health.DataServices.Security;
+using Azure.Health.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class AccessTokenTests

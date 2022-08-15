@@ -3,15 +3,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using DataServices.Bindings;
-using DataServices.Pipelines;
-using DataServices.Security;
-using DataServices.Tests.Assets;
+using Azure.Health.DataServices.Bindings;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Security;
+using Azure.Health.DataServices.Tests.Assets;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace DataServices.Tests.Proxy
+namespace Azure.Health.DataServices.Tests.Proxy
 {
     [TestClass]
     public class BindingTests

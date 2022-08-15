@@ -1,7 +1,7 @@
 ﻿using System;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Bindings
+namespace Azure.Health.DataServices.Bindings
 {
     /// <summary>
     /// Event args for binding complete.

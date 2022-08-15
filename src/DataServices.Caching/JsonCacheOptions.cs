@@ -1,4 +1,4 @@
-﻿namespace DataServices.Caching
+﻿namespace Azure.Health.DataServices.Caching
 {
     /// <summary>
     /// Json cache options for IMemoryCache.

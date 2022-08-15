@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
-namespace DataServices.Bindings
+namespace Azure.Health.DataServices.Bindings
 {
     /// <summary>
     /// Interface to be implemented by a Binding.

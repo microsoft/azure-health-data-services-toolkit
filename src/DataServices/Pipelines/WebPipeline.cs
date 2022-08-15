@@ -2,13 +2,14 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DataServices.Bindings;
-using DataServices.Channels;
-using DataServices.Filters;
+using Azure.Health.DataServices.Bindings;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Logging;
 
-namespace DataServices.Pipelines
+namespace Azure.Health.DataServices.Pipelines
 {
     /// <summary>
     /// A custom operation pipeline for a ASPNET Web API.
@@ -180,7 +181,7 @@ namespace DataServices.Pipelines
                     telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {FilterName}-{FilterName} error.", Name, Id, filter.Name, filter.Id);
                     context.IsFatal = true;
-                    context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    context.StatusCode = HttpStatusCode.InternalServerError;
                     context.Error = ex;
                 }
             }
@@ -211,7 +212,7 @@ namespace DataServices.Pipelines
 
                         logger?.LogInformation("Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} is in state {State}.", Name, Id, channel.Name, channel.Id, channel.State);
 
-                        string? contentType = context.Request.Content?.Headers.ContentType.ToString();
+                        var contentType = context.Request.Content?.Headers.ContentType.ToString();
                         contentType ??= context.Request.Headers.Accept.ToString();
 
                         await channel.SendAsync(context.Content, new object[] { contentType });
@@ -227,7 +228,7 @@ namespace DataServices.Pipelines
                     telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} error.", Name, Id, channel.Name, channel.Id);
                     context.IsFatal = true;
-                    context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    context.StatusCode = HttpStatusCode.InternalServerError;
                     context.Error = ex;
                 }
             }
@@ -236,9 +237,9 @@ namespace DataServices.Pipelines
 
         private bool ExecutionStatusCheck(StatusType status, OperationContext context)
         {
-            return ((status == StatusType.Fault && context.IsFatal) ||
-                    (status == StatusType.Normal && !context.IsFatal) ||
-                    (status == StatusType.Any));
+            return status == StatusType.Fault && context.IsFatal ||
+                    status == StatusType.Normal && !context.IsFatal ||
+                    status == StatusType.Any;
         }
 
         #region error events
@@ -251,7 +252,7 @@ namespace DataServices.Pipelines
         private void Binding_OnError(object sender, BindingErrorEventArgs e)
         {
             context.IsFatal = true;
-            context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            context.StatusCode = HttpStatusCode.InternalServerError;
             context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
@@ -261,7 +262,7 @@ namespace DataServices.Pipelines
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} output channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
             context.IsFatal = true;
-            context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            context.StatusCode = HttpStatusCode.InternalServerError;
             context.Error = e.Error;
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
@@ -270,7 +271,7 @@ namespace DataServices.Pipelines
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} input channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
             context.IsFatal = true;
-            context.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            context.StatusCode = HttpStatusCode.InternalServerError;
             context.Error = e.Error;
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
@@ -278,7 +279,7 @@ namespace DataServices.Pipelines
         private void OutputFilter_OnFilterError(object sender, FilterErrorEventArgs e)
         {
             context.IsFatal = true;
-            context.StatusCode = e.Code ?? System.Net.HttpStatusCode.InternalServerError;
+            context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
@@ -287,7 +288,7 @@ namespace DataServices.Pipelines
         private void InputFilter_OnFilterError(object sender, FilterErrorEventArgs e)
         {
             context.IsFatal = true;
-            context.StatusCode = e.Code ?? System.Net.HttpStatusCode.InternalServerError;
+            context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
