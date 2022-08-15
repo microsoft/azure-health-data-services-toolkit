@@ -48,7 +48,7 @@ stages:
           VersionEnvVar: $(VersionEnvVar)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project
-  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'FhirProxySdk'))}}:
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
     - template: ./stages/release.yml
       parameters:
         ArtifactName: $(ArtifactName)
@@ -58,5 +58,5 @@ stages:
           - name: Microsoft.Health.DataServices.Channels.Extensions
           - name: Microsoft.Health.DataServices.Storage
         VersionEnvVar: '$(VersionEnvVar)'
-        DevOpsFeedID: 'FhirProxySdk/FhirProxySdkInternal'
+        DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
         IsPrerelease: ${{ parameters.IsPrerelease }}
