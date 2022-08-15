@@ -4,6 +4,8 @@ This sample will show you how you can get an access token for Azure resources wi
 
 Here, we'll cover different authentication methods and how to get tokens from Azure Active Directory which can be used to access any Azure service that supports Azure Active Directory authentication.
 
+This sample is meant to be run locally on your computer, not deployed to Azure.
+
 ## Concepts
 
 This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow the best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
@@ -11,6 +13,8 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
+  - For Visual Studio, open the `Authenticator.csproj` project inside this directory (`samples/Authenticator`).
+  - For other editors (like Visual Studio Code), open this directory (`samples/Authenticator`) in your editor.
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
@@ -21,13 +25,15 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 
 ## Setup your environment
 
+First, make sure you have this sample open in your editor.
+
 This sample needs can be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
 Run this below command to set up the sample configuration in the dotnet secret store.
 
-1. Open a command prompt and navigate to `samples\ AuthenticatorSample` inside of this repository.
+1. Open a command prompt and navigate to `samples\AuthenticatorSample` inside of this repository.
 2. Run `dotnet user-secrets init` to setup the secret store.
 3. Run `dotnet user-secrets set "FhirServerUrl" "<Your-Fhir-Server-Url>"`.
 
@@ -35,14 +41,14 @@ Run this below command to set up the sample configuration in the dotnet secret s
 
 If you are using Visual Studio, you can setup configuration via secrets without using the command line.
 
- 1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
- 2. An editor for `secrets.json` will open. Paste the below inside of this file.
+1. Right-click on the AuthenticatorSample solution in the Solution Explorer and choose "Manage User Secrets".
+2. An editor for `secrets.json` will open. Paste the below inside of this file.
 
-```json
-  {
-    "FhirServerUrl": "<Your-Fhir-Server-Url>"
-  }
-```
+    ```json
+      {
+        "FhirServerUrl": "<Your-Fhir-Server-Url>"
+      }
+    ```
 
 3. Save and close `secrets.json`.
 
@@ -54,12 +60,12 @@ If you are using Visual Studio Code or something else, you can run the sample fr
 
 ## Advanced Scenario - Specifying a Client Application
 
-With the Authenticator, you can specify a client application (or service principal) to use to access Azure resources. You can actually achieve this in two ways:
+The Authenticator in the SDK allows you to specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal) to access Azure resources. You can actually achieve this in two ways:
 
-- Using DefaultAzureCredential by [setting environment variables](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables).
+- By [setting environment variables](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables).
 - By using the built in configuration helpers inside this SDK. We'll be doing this here.
 
-To setup for service principal access, you'll need to add more configuration.
+To setup for service principal access using the build in configuration helpers, you'll need to add the below configuration.
 
 For the command line, you can run these commands:
 
