@@ -13,18 +13,18 @@
 
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>Azure.Health.DataServices.Sdk.Caching</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
 
     <Title>Azure Health Data Services Sdk Caching library</Title>
     <PackageId>Azure.Health.DataServices.Caching</PackageId>
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
-    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/microsoft/fhir-proxy-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
+    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
     <PublishRepositoryUrl Condition=" '$(ProjectRef)' != 'True' ">true</PublishRepositoryUrl>
-    <PackageIconUrl>https://github.com/Azure/health-data-services-sdk/raw/main/src/images/AzureHealthDataServices.png</PackageIconUrl>
-    <PackageIcon>AzureHealthDataServices.png</PackageIcon>
-    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
@@ -38,17 +38,14 @@
     <DebugType>portable</DebugType>
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeSource>false</IncludeSource>
-    <RootNamespace>Azure.Health.DataServices</RootNamespace>
+    <RootNamespace>Azure.Health.DataServices.Caching</RootNamespace>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
-    <Using Include="System" />
-    <Using Include="System.Threading" />
-    <Using Include="System.Threading.Tasks" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="..\images\AzureHealthDataServices.png" Pack="true" PackagePath="" />
-    <None Include="ReadMe.md" Pack="true" PackagePath="" />
+    <None Include="Icon.png" Pack="true" />
+    <None Include="README.md" Pack="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
+    <ProjectReference Include="..\Azure.Health.DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
   </ItemGroup>
 
 </Project>

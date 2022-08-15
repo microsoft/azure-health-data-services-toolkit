@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -18,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Capl\Capl.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.Capl.Core\Microsoft.Capl.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
