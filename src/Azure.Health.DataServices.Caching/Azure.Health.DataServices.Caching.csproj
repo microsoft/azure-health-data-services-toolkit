@@ -9,8 +9,8 @@
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
     <Version Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</Version>
     <Version Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</Version>
-    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(packageversion-prerelease)</FileVersion>
-    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(packageversion-release)</FileVersion>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-prerelease' ">$(prerelease-major).$(prerelease-minor.$(prerelease-patch)</FileVersion>
+    <FileVersion Condition=" '$(VersionEnvVar)' == 'packageversion-release' ">$(release-major).$(release-minor.$(release-patch)</FileVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>

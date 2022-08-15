@@ -11,12 +11,26 @@ variables:
 #  value: 0
 #- name: patch
 #  value: $[counter(format('{0}.{1}', variables['major'], variables['minor']) ,0)]
-- name: packageversiontype
-  value: '-prerelease'
 #- name: packageversion
 #  value: $[format('{0}.{1}.{2}{3}', variables['major'], variables['minor'], variables['patch'], variables['packageversiontype'])]
+
+- name: prerelease-major
+  value: 0
+- name: prerelease-minor
+  value: 9
+- name: prerelease-patch
+  value: 25
+- name: packageversiontype
+  value: '-prerelease'
 - name: packageversion-prerelease
   value: $[format('{0}.{1}.{2}{3}', variables['prerelease-major'], variables['prerelease-minor'], variables['prerelease-patch'], variables['packageversiontype'])]
+
+- name: release-major
+  value: 1
+- name: release-minor
+  value: 0
+- name: release-patch
+  value: 0
 - name: packageversion-release
   value: $[format('{0}.{1}.{2}', variables['release-major'], variables['release-minor'], variables['release-patch'])]
 
