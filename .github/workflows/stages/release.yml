@@ -90,8 +90,8 @@ stages:
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
-                gitHubConnection: 'Github (fhir-proxy-sdx)'
-                repositoryName: microsoft/fhir-proxy-sdk
+                gitHubConnection: 'Github (azure/health-data-services-sdk)'
+                repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
                 tag: 'release/$(packageVersion)'
@@ -99,6 +99,7 @@ stages:
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
+
     - deployment: PublishPackageNuGet
       ${{ if eq( parameters['IsPrerelease'], true) }}:
         displayName: 'Publish Nuget Prerelease'
