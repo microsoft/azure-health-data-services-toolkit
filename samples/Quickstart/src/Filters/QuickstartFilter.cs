@@ -17,11 +17,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace PatientEverything.Filters
+namespace Quickstart.Filters
 {
-    public class PatientEverythingFilter : IInputFilter
+    public class QuickstartFilter : IInputFilter
     {
-        public PatientEverythingFilter(IOptions<PatientEverythingOptions> options, IAuthenticator authenticator, TelemetryClient telemetryClient = null, ILogger<PatientEverythingFilter> logger = null)
+        public QuickstartFilter(IOptions<QuickstartOptions> options, IAuthenticator authenticator, TelemetryClient telemetryClient = null, ILogger<QuickstartFilter> logger = null)
         {
             id = Guid.NewGuid().ToString();
             tokenBag = new();
@@ -49,7 +49,7 @@ namespace PatientEverything.Filters
         private readonly string id;
         public string Id => id;
 
-        public string Name => "PatientEverythingFilter";
+        public string Name => "QuickstartFilter";
 
         public StatusType ExecutionStatusType => status;
 

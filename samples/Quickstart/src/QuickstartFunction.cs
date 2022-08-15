@@ -4,20 +4,20 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace PatientEverything
+namespace Quickstart
 {
-    public class PatientEverythingFunction
+    public class QuickstartFunction
     {
         private readonly ILogger _logger;
         private readonly IPipeline<HttpRequestData, HttpResponseData> pipeline;
 
-        public PatientEverythingFunction(IPipeline<HttpRequestData, HttpResponseData> pipeline, ILoggerFactory loggerFactory)
+        public QuickstartFunction(IPipeline<HttpRequestData, HttpResponseData> pipeline, ILoggerFactory loggerFactory)
         {
             this.pipeline = pipeline;
-            _logger = loggerFactory.CreateLogger<PatientEverythingFunction>();
+            _logger = loggerFactory.CreateLogger<QuickstartFunction>();
         }
 
-        [Function("PatientEverythingFunction")]
+        [Function("QuickstartFunction")]
         public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Patient/{id}/$everything")] HttpRequestData req)
         {
             _logger.LogInformation("Patient everything pipeline started...");

@@ -5,12 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PatientEverything.Configuration;
-using PatientEverything.Filters;
+using Quickstart.Configuration;
+using Quickstart.Filters;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace PatientEverything
+namespace Quickstart
 {
     public class Program
     {
@@ -19,7 +19,7 @@ namespace PatientEverything
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("PROXY_");
+                .AddEnvironmentVariables("AHDS_");
             IConfigurationRoot root = builder.Build();
             config = new MyServiceConfig();
             root.Bind(config);
@@ -35,15 +35,9 @@ namespace PatientEverything
                 {
                     services.UseAppInsightsLogging(config.InstrumentationKey, LogLevel.Information);
                     services.UseTelemetry(config.InstrumentationKey);
-                    services.UseAuthenticator(options =>
-                    {
-                        options.CredentialType = ClientCredentialType.ClientSecret;
-                        options.ClientId = config.ClientId;
-                        options.ClientSecret = config.ClientSecret;
-                        options.TenantId = config.TenantId;
-                    });
+                    services.UseAuthenticator();
                     services.UseAzureFunctionPipeline();
-                    services.AddInputFilter<PatientEverythingOptions>(typeof(PatientEverythingFilter), options =>
+                    services.AddInputFilter<QuickstartOptions>(typeof(QuickstartFilter), options =>
                     {
                         options.FhirServerUrl = config.FhirServerUrl;
                         options.PageSize = 100;

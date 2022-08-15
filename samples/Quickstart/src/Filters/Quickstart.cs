@@ -1,9 +1,9 @@
 ﻿
 using DataServices.Pipelines;
 
-namespace PatientEverything.Filters
+namespace Quickstart.Filters
 {
-    public class PatientEverythingOptions
+    public class QuickstartOptions
     {
         public string FhirServerUrl { get; set; }
 
