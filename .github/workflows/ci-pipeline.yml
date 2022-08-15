@@ -53,10 +53,10 @@ stages:
       parameters:
         ArtifactName: $(ArtifactName)
         Packages:
-          - name: Microsoft.Health.DataServices.Core
-          - name: Microsoft.Health.DataServices.Caching
-          - name: Microsoft.Health.DataServices.Channels.Extensions
-          - name: Microsoft.Health.DataServices.Storage
+          - name: Azure.Health.DataServices.Core
+          - name: Azure.Health.DataServices.Caching
+          - name: Azure.Health.DataServices.Channels.Extensions
+          - name: Azure.Health.DataServices.Storage
         VersionEnvVar: '$(VersionEnvVar)'
         DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
         IsPrerelease: ${{ parameters.IsPrerelease }}
