@@ -2,17 +2,17 @@
 
 The core goal of this SDK is to build **custom operations** to extend the behavior of Azure Health Data Services. Abstractly, custom operations can:
 
-- Modify the incoming requests.
+- Modify incoming requests.
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
 ## Definitions
 
-- **Operation Context**: Common object passed between components of a pipeline.
-- **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings.
-- **Filter:** A unit of action that modifies the request and/or result via the Operation Context. Filters can be chained together in a single pipeline.
+- **Operation Context**: Common object passed between components of a pipeline containing the request and response.
+- **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings executed in the order shown below.
+- **Filter:** A unit of action that modifies the request and/or result via the Operation Context. Filters can be chained together in a single input/output section of a pipeline.
 - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
-- **Binding:** The target service for a custom operation. Usually a FHIR service.
+- **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
 Pipeline Overview |  Input/Output Section of Pipeline
 :-------------------------:|:-------------------------:
@@ -83,40 +83,49 @@ Bindings couple inputs and outputs in pipelines. The most common use of a bindin
 | BindingErrorEventArgs | Event | Signals an error on the binding. |
 | BindingCompleteEventArgs | Event | Signals completion of a binding. |
 
-## Transforms
+## Authenticator
 
-This SDK has the ability to transform requests without using pipelines with prebuilt actions. We have two available which allow for simple modification of the headers and request body. These should be used for simple transforms that do not require logic (like always adding a header).
+Authenticator is a flexible class to help acquire an access token for calling the FHIR Service and other Azure Services. You have two options for configuring the authenticator for use in your custom operations:
 
-### Header Manipulation
+1. Without any explicit configuration or reference in your code to the authentication method or settings. This leverages [DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
+2. With explicit selection of the authorization method and configuration via the settings on the authenticator class.
 
-- Modifies the operation context to add a header onto the request.
-- Useful for adding headers, especially information about the requestor when not using on-behalf flow with the authenticator. 
+You get to choose which method is best for your custom operation. We recommend starting with the non-explicit method that uses `DefaultAzureCredential` as it is intended to simplify getting started with custom operations. The injection of authentication method via the environment works great for secret-less connection both in local development and cloud deployment. If you want more control over your authentication, you can explicitly define this when you call the authenticator class.
 
-*Add structure here*
+| Authentication Method | Configuration Method | Description
+|------| ---- | ----------- |
+| Managed Identity | Explicit or implicit  | Attempts authentication using a managed identity that has been assigned to the deployment environment |
+| Client Credentials | Explicit or implicit | Uses a service principal to connect. Either via a secret or certificate. |
+| On-Behalf-Of | Explicit only | Calls the endpoint on-behalf-of the caller, propagating the original caller'r identify and permissions. |
+| Visual Studio | Implicit only | Uses the Azure session from Visual Studio. |
+| Visual Studio Code | Implicit only | Uses the Azure session from Visual Studio Code. |
+| Azure CLI | Implicit only | Uses the Azure session from the Azure CLI. |
+| Azure PowerShell | Implicit only | Uses the Azure session from the Azure PowerShell. |
 
-### JSON Transform
+## Implicit Configuration
 
-- Can be done inside a pipeline or outside of a pipeline.
-- Generally used to modify the body of a request to add missing data.
+To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the authenticator to your custom operation *without* any parameters. The authenticator now will either automatically pull the needed information from your system (mainly for development or managed identity) or you can configure via configuring the environment [like DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
 
-*Add structure here*
+```csharp
+services.UseAuthenticator();
+```
+
+### Explicit Configuration
+
+When explicitly defining authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
+
+```csharp
+services.UseAuthenticator(options =>
+  {
+      options.CredentialType = ClientCredentialType.ClientSecret;
+      options.ClientId = config.ClientId;
+      options.ClientSecret = config.ClientSecret;
+      options.TenantId = config.TenantId;
+  });
+```
 
 ## Clients
 
-- We have one client, Rest Request Client.
-- This is a resilient client with retry built in.
-- This is useful for getting additional information you need for your custom operation.
-  - Can be part of the FHIR service or another arbitrary endpoint.
-- You can use the `RestRequestBuilder` for easy creation.
+This SDK has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR Service (or external REST services) inside of filters to gather additional information needed for a custom operation.
 
-*Add structure here*
-
-## Authenticator
-
-- Can allow for dynamic configuration or preset configuration.
-- Supports
-  -- Client credentials for local development or Azure deployments
-  -  Managed Identity for Azure deployments
-  - ...
-
-*Add structure here*
+The `RestRequestBuilder` class is also available for an easy, builder style creation of a `RestRequest` client. See [RestBinding.cs](/src/DataServices/Bindings/RestBinding.cs) for an example of how this is used.
