@@ -90,7 +90,7 @@ stages:
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
-                gitHubConnection: 'Github (azure/health-data-services)'
+                gitHubConnection: 'Github (azure/health-data-services-sdk)'
                 repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
