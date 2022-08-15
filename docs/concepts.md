@@ -48,7 +48,7 @@ To create a filter for custom logic, they must have:
 
 Channels are an abstract way to communicate information in a pipeline to outside services. In practice, you can use channels to send information to other Azure services like Blob Storage or Service Bus. Channels are extensible - so custom channels can be built for any needed destination.
 
-Channels can be send only, receive only, send and receive. Examples: (1) A channel for an event hub that only sends to the event hub (2) A service bus channel that on only receives from a specific topic (3) A TCP channel that can send and receive.
+Channels can be send only, receive only, send and receive. Examples: (1) A channel for an event hub that only sends to the event hub (2) A service bus channel that only receives from a specific topic (3) A TCP channel that can send and receive.
 
 This SDK has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. All channels have:
 
