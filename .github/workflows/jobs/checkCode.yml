@@ -17,7 +17,14 @@ steps:
   inputs:
     command: 'custom'
     custom: 'format'
-    arguments: './src/build.sln --verify-no-changes --verbosity diagnostic'
+    arguments: 'Azure.Health.DataServices.sln --verify-no-changes --verbosity diagnostic'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Lint dotnet'
+  inputs:
+    command: 'custom'
+    custom: 'format'
+    arguments: 'Microsoft.Capl.sln --verify-no-changes --verbosity diagnostic'
 
 - task: CredScan@3
   inputs:
