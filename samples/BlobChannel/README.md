@@ -21,7 +21,7 @@ This sample needs can be configured with varibles mentioned below to start. You 
 Run this below command to set up the sample configuration in the dotnet secret store.
 
 Open a command prompt and navigate to `samples\BlobChannelSample` inside of this repository.
-```json
+```bash
 dotnet user-secrets init
 dotnet user-secrets set “TenantId” “<Your Tenant ID>”
 dotnet user-secrets set “ConnectionString” “<Your Storage Account Connection String>”
@@ -51,7 +51,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
-```json
+```bash
 dotnet build BlobChannelSample/BlobChannelSample.csproj 
 ```
 
@@ -63,7 +63,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
     Run the following command from the directory that contains this sample: 
 
-    ```json
+    ```bash
     dotnet BlobChannelSample\bin\Debug\net6.0 \BlobChannelSample.dll
     ```
 
