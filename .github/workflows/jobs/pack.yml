@@ -4,15 +4,20 @@ parameters:
 
 steps:
   - task: DotNetCoreCLI@2
-    displayName: 'Pack Pre-Release Version Packages'
+    displayName: ${{ format('Pack_{0}', parameters.ArtifactName) }}
     inputs:
       command: pack
       packagesToPack: '**/src/*/*.csproj'
       versioningScheme: byEnvVar
       versionEnvVar: package_version
-      outputDir: '$(Build.ArtifactStagingDirectory)/$(ArtifactName)/'
+      outputDir: '$(Build.ArtifactStagingDirectory)/PackOut/'
     env:
       package_version: ${{ parameters.Version }}
+
+  - task: CopyFiles@2
+    inputs:
+      contents: '$(Build.ArtifactStagingDirectory)/PackOut/*$(Version)*'
+      targetFolder: '$(Build.ArtifactStagingDirectory)/$(ArtifactName)/'
 
   - task: PublishPipelineArtifact@1
     inputs:
