@@ -10,8 +10,8 @@ resources:
     name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
 
 variables:
-- group: sdk-test-pack
-- group: sdk-build-version-configuration
+  - group: sdk-test-pack
+  - group: sdk-build-version-configuration
 
 stages:
   - stage: Build
