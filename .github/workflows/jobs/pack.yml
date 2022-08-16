@@ -10,17 +10,12 @@ steps:
       packagesToPack: '**/src/*/*.csproj'
       versioningScheme: byEnvVar
       versionEnvVar: package_version
-      outputDir: '$(Build.ArtifactStagingDirectory)/PackOut/'
+      outputDir: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
     env:
       package_version: ${{ parameters.Version }}
 
-  - task: CopyFiles@2
-    inputs:
-      contents: ${{ format('$(Build.ArtifactStagingDirectory)/PackOut/*{0}*', parameters.Version) }}
-      targetFolder: ${{ format('$(Build.ArtifactStagingDirectory)/{0}', parameters.ArtifactName) }}
-
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}', parameters.ArtifactName) }}
+      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
       artifactName: ${{ parameters.ArtifactName }}
       artifactType: 'pipeline'
