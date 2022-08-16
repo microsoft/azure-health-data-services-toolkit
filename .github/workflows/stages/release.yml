@@ -39,7 +39,7 @@ stages:
       displayName: 'Prerelease Internal Package Publish'
     ${{ else }}:
       displayName: 'Release Internal Package Publish'
-    dependsOn: Signing
+    dependsOn: ${{ format('Signing_{0}', parameters.ArtifactName) }}
     jobs:
     - deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
@@ -68,14 +68,13 @@ stages:
       displayName: 'GitHub/Nuget Pre-Release Publish'
     ${{ else }}:
       displayName: 'GitHub/Nuget Release Publish'
-    dependsOn: 'ReleaseInternal'
+    dependsOn: ${{ format('ReleaseInternal_{0}', parameters.ArtifactName) }}
     jobs:
     - deployment: PublishPackageNuGet
       ${{ if eq( parameters['IsPrerelease'], true) }}:
         displayName: 'Publish Nuget Prerelease'
       ${{ else }}:
         displayName: 'Publish NuGet Release'
-      dependsOn: 'GithubRelease'
       environment: nuget
       pool:
         vmImage: $(WindowsVmImage)
@@ -98,6 +97,7 @@ stages:
         displayName: 'Create GitHub Release (Prerelease)'
       ${{ else }}:
         displayName: 'Create GitHub Release (Release)'
+      dependsOn: 'PublishPackageNuGet'
       environment: github
       pool:
         vmImage: $(WindowsVmImage)
