@@ -9,23 +9,13 @@ resources:
     type: git
     name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
 
-parameters:
-  - name: IsPrerelease
-    type: boolean
-    default: true
-
 variables:
 - template: build-variables.yml
 - name: ArtifactName
-  ${{ if eq( parameters['IsPrerelease'], true) }}:
+  ${{ if eq( variables['IsPrerelease'], true) }}:
     value: 'PackagesPreRelease'
   ${{ else }}:
     value: 'PackagesRelease'
-- name: VersionEnvVar
-  ${{ if eq( parameters['IsPrerelease'], true) }}:
-    value: 'packageversion-prerelease'
-  ${{ else }}:
-    value: 'packageversion-release'
 
 stages:
   - stage: Build
@@ -45,7 +35,6 @@ stages:
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: $(ArtifactName)
-          VersionEnvVar: $(VersionEnvVar)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
@@ -57,6 +46,6 @@ stages:
           - name: Azure.Health.DataServices.Caching
           - name: Azure.Health.DataServices.Channels.Extensions
           - name: Azure.Health.DataServices.Storage
-        VersionEnvVar: '$(VersionEnvVar)'
+        PackageVersion: '$(PackageVersion)'
         DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
         IsPrerelease: ${{ parameters.IsPrerelease }}

@@ -3,7 +3,7 @@ parameters:
   - name: Packages
     type: object
   - name: DevOpsFeedID
-  - name: VersionEnvVar
+  - name: PackageVersion
   - name: IsPrerelease
     type: boolean
     default: true
@@ -85,8 +85,6 @@ stages:
             - download: current
               artifact: '${{ parameters.ArtifactName }}-signed'
 
-            - pwsh: |
-                Write-Host "##vso[task.setvariable variable=packageVersion;]$((Get-ChildItem -Path 'Env:\${{ parameters.VersionEnvVar }}').Value)"
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
@@ -94,8 +92,8 @@ stages:
                 repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: 'release/$(packageVersion)'
-                title: '$(packageVersion)'
+                tag: 'release/$(PackageVersion)'
+                title: '$(PackageVersion)'
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
