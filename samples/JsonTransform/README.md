@@ -18,7 +18,7 @@ This sample will help you to understand how to use Json features for Json data t
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build JsonTransform/JsonTransformSample.csproj
+dotnet build JsonTransform\JsonTransformSample.csproj
 ```
 
 ## Run the Sample 
@@ -30,7 +30,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet JsonTransformSample\bin\Debug\net6.0 \JsonTransformSample.dll 
+    dotnet JsonTransformSample\bin\Debug\net6.0\JsonTransformSample.dll 
     ```
 
 ## Usage Details 
