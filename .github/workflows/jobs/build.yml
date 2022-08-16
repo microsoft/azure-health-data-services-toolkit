@@ -19,9 +19,9 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: --no-build --configuration $(buildConfiguration)'
+    arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '**/*Tests/*.csproj'
+    projects: '**/tests/**/*.csproj'
   displayName: 'Run all tests'
   env:
     PROXY_TenantId: $(proxy-tenant-id)
