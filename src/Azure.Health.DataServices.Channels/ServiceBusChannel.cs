@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Azure.Messaging.ServiceBus;
 using Azure.Health.DataServices.Channels;
 using Azure.Health.DataServices.Pipelines;
 using Azure.Health.DataServices.Storage;
+using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;

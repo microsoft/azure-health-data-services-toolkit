@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Azure;
-using Azure.Identity;
 using Azure.Health.DataServices.Storage;
+using Azure.Identity;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
