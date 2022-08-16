@@ -23,9 +23,9 @@ Run this below command to set up the sample configuration in the dotnet secret s
 Open a command prompt and navigate to `samples\BlobChannelSample` inside of this repository.
 ```bash
 dotnet user-secrets init
-dotnet user-secrets set “TenantId” “<<Your Tenant ID>>”
-dotnet user-secrets set “ConnectionString” “<<Your Storage Account Connection String>>”
-dotnet user-secrets set “Container” “<<Your Storage Account Container Name>>”
+dotnet user-secrets set "TenantId" "<<Your Tenant ID>>"
+dotnet user-secrets set "ConnectionString" "<<Your Storage Account Connection String>>"
+dotnet user-secrets set "Container" "<<Your Storage Account Container Name>>"
 ```
 
 ### Visual Studio
