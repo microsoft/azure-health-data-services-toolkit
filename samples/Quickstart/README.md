@@ -1,1 +1,0 @@
-# Azure Health Data Services SDK Quickstart
