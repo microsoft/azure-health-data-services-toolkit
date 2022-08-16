@@ -21,7 +21,7 @@ variables:
   value: true
 
 - name: PackageVersion
-  ${{ if eq( parameters['IsPrerelease'], true) }}:
+  ${{ if eq( variables['IsPrerelease'], true) }}:
     value: $[format('{0}.{1}.{2}-prerelease', variables['major'], variables['minor'], variables['patch'])]
   ${{ else }}:
     value: $[format('{0}.{1}.{2}', variables['major'], variables['minor'], variables['patch'])]

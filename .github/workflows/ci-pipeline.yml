@@ -48,4 +48,4 @@ stages:
           - name: Azure.Health.DataServices.Storage
         PackageVersion: '$(PackageVersion)'
         DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
-        IsPrerelease: $(IsPrerelease)
+        IsPrerelease: ${{ variables.IsPrerelease }}
