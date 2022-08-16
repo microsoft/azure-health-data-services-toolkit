@@ -1,9 +1,10 @@
 parameters:
-- name: ArtifactName
-- name: Version
+  - name: ArtifactName
+  - name: Version
 
 variables:
-  package_version: ${{ parameters.Version }}
+  - name: package_version
+    value: ${{ parameters.Version }}
 
 steps:
 
