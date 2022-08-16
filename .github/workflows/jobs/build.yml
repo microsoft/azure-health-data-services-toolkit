@@ -11,15 +11,15 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/src/*/*.csproj'
-  displayName: 'Build all projects in src'
+    projects: '**/*.csproj'
+  displayName: 'Build all projects'
 
 # Wildcard for tests isn't supported
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: --configuration $(buildConfiguration)'
+    arguments: --no-build --configuration $(buildConfiguration)'
     publishTestResults: true
     projects: '**/*Tests/*.csproj'
   displayName: 'Run all tests'
