@@ -1,14 +1,6 @@
 parameters:
 - name: ArtifactName
-  type: string
-  default: ""
 - name: Version
-  type: string
-  default: ""
-
-variables:
-- name: package_version
-  value: ${{ parameters.Version }}
 
 steps:
   - task: DotNetCoreCLI@2
@@ -19,6 +11,8 @@ steps:
       versioningScheme: byEnvVar
       versionEnvVar: package_version
       outputDir: '$(Build.ArtifactStagingDirectory)/PackOut/'
+    env:
+      package_version: ${{ parameters.Version }}
 
   - task: PublishPipelineArtifact@1
     inputs:
