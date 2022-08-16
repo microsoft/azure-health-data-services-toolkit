@@ -76,7 +76,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet EventHubChannelSample\bin\Debug\net6.0 \EventHubChannelSample.dll 
+    dotnet EventHubChannelSample\bin\Debug\net6.0\EventHubChannelSample.dll 
     ```
 ## Usage Details 
 
