@@ -16,11 +16,11 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      contents: '$(Build.ArtifactStagingDirectory)/PackOut/*$(Version)*'
-      targetFolder: '$(Build.ArtifactStagingDirectory)/$(ArtifactName)/'
+      contents: ${{ format('{0}/PackOut/*{1}*', variables['Build.ArtifactStagingDirectory'], parameters.Version) }}
+      targetFolder: ${{ format('{0}/{1}', variables['Build.ArtifactStagingDirectory'], parameters.ArtifactName) }}
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)/$(ArtifactName)/'
+      targetPath: ${{ format('{0}/{1}', variables['Build.ArtifactStagingDirectory'], parameters.ArtifactName) }}
       artifactName: ${{ parameters.ArtifactName }}
       artifactType: 'pipeline'
