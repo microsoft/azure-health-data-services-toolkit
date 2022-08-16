@@ -71,7 +71,7 @@ For more information, read [the feature guide here](./docs/features.md).
 
 This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
 
-![](./docs/images/HealthcareAPIInfastructure 20220815.png)
+![](./docs/images/HealthcareAPIInfastructure20220815.png)
 
 ## Contributing
 
