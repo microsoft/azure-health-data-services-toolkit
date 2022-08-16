@@ -12,8 +12,6 @@ resources:
 variables:
 - group: sdk-test-pack
 - group: sdk-build-version-configuration
-- name: manually_triggered
-  value: and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))
 
 stages:
   - stage: Build
@@ -36,14 +34,14 @@ stages:
           Version: $(packageversion-prerelease)
 
         # Prepare release packages if manually triggered
-      - ${{ if eq(variables['manually_triggered'], 'true') }}:
+      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: ReleasePackages
             Version: $(packageversion-release)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
-  - ${{ if eq(variables['manually_triggered'], 'true') }}:
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
     - template: ./stages/release.yml
       parameters:
         ArtifactName: PrereleasePackages
