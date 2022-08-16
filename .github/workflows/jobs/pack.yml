@@ -1,8 +1,10 @@
 parameters:
 - name: ArtifactName
   type: string
+  default: ""
 - name: Version
   type: string
+  default: ""
 
 variables:
 - name: package_version
