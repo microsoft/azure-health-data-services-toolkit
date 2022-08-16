@@ -12,6 +12,10 @@ resources:
 variables:
   - group: sdk-test-pack
   - group: sdk-build-version-configuration
+  - name: packageversion-prerelease
+    value: $(prerelease-major).$(prerelease-minor).$(prerelease-patch)-prerelease
+  - name: packageversion-release
+    value: $(release-major).$(release-minor).$(release-patch)
 
 stages:
   - stage: Build
@@ -28,6 +32,9 @@ stages:
         vmImage: $(WindowsVmImage)
       steps:
       - template: ./jobs/build.yml
+        parameters:
+          BuildPackageVersion: $(packageversion-release)
+          BuildFileVersion: $(packageversion-release).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: PrereleasePackages

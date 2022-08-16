@@ -1,3 +1,7 @@
+parameters:
+- name: BuildPackageVersion
+- name: BuildFileVersion
+
 steps:
 
 - task: UseDotNet@2
@@ -13,6 +17,9 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: '**/*.csproj'
   displayName: 'Build all projects'
+  env:
+    PackageVersion: ${{ parameters.BuildPackageVersion }}
+    FileVersion: ${{ parameters.BuildFileVersion }}
 
 # Wildcard for tests isn't supported
 
