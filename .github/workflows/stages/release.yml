@@ -8,16 +8,9 @@ parameters:
     type: boolean
     default: true
 
-variables:
-  - name: StageSuffix
-    ${{if parameters['IsPrerelease'] }}:
-      value: 'release'
-    ${{ else }}:
-      value: 'prerelease'
-
 stages:
 
-  - stage: Signing-$(StageSuffix)
+  - stage: ${{ format('Signing {0}', parameters.ArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
     jobs:
@@ -41,7 +34,7 @@ stages:
                 artifact: '${{ parameters.ArtifactName }}-signed'
                 displayName: 'Store signed packages in ${{parameters.ArtifactName}}-signed artifact'
 
-  - stage: ReleaseInternal-$(StageSuffix)
+  - stage: ${{ format('ReleaseInternal {0}', parameters.ArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Prerelease Internal Package Publish'
     ${{ else }}:
@@ -70,7 +63,7 @@ stages:
 
   # Add integration tests here
 
-  - stage: ReleaseGithubNuget-$(StageSuffix)
+  - stage: ${{ format('ReleaseGithubNuget {0}', parameters.ArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'GitHub/Nuget Pre-Release Publish'
     ${{ else }}:
