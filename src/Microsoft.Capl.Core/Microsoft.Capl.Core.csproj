@@ -8,7 +8,6 @@
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
     <SdkVersion Condition=" '$(IsPrerelease)' == 'false' ">$(packageversion-release)</SdkVersion>
     <SdkVersion Condition=" '$(IsPrerelease)' == 'true' ">$(packageversion-prerelease)</SdkVersion>
-    <SdkVersion Condition=" '$(SdkVersion)' == '' ">0.0.0</SdkVersion>
     <VersionSuffix Condition=" '$(IsPrerelease)' == 'true' ">$(packageversiontype)</VersionSuffix>
     <Version Condition=" '$(VersionSuffix)' == '' And '$(SdkVersion)' != '' ">$(SdkVersion)</Version>
     <Version Condition=" '$(VersionSuffix)' != '' And '$(SdkVersion)' != '' ">$(SdkVersion)-$(VersionSuffix)</Version>
