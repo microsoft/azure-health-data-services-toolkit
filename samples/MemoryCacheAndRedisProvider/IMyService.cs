@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MemoryCacheAndBlobProvider
+namespace MemoryCacheAndRedisProvider
 {
     public interface IMyService
     {

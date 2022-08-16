@@ -1,5 +1,4 @@
-﻿
-using DataServices.Caching;
+﻿using DataServices.Caching;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -7,7 +6,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MemoryCacheAndBlobProvider
+namespace MemoryCacheAndRedisProvider
 {
     public class Program
     {
@@ -25,10 +24,9 @@ namespace MemoryCacheAndBlobProvider
                 .ConfigureServices(services =>
                 {
                     services.AddMemoryCache();
-                    services.AddAzureBlobCacheBackingStore(options =>
+                    services.AddRedisCacheBackingStore(options =>
                     {
                         options.ConnectionString = config.ConnectionString;
-                        options.Container = config.Container;
                     });
                     services.AddJsonObjectMemoryCache(options =>
                     {
@@ -42,7 +40,6 @@ namespace MemoryCacheAndBlobProvider
 
             string cacheKey = "key1";
             TestCacheItem item = new() { Name = "testitem", Value = "testvalue" };
-
             IMyService myservice = app.Services.GetRequiredService<IMyService>();
             await myservice.SetAsync<TestCacheItem>(cacheKey, item);
 

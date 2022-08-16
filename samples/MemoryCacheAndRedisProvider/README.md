@@ -1,12 +1,12 @@
-# Using In-Memory and Azure cache for Blob Storage
+# Using In-Memory and Azure cache for Redis
 
-This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Blob store and cache the data.
+This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Redis and cache the data.
 
-Here, we'll cover how we can use in memory caching technique  methods and to cache the pipline output data to Blob on Azure.
+Here, we'll cover how we can use in memory caching technique  methods and to cache the pipline output data to Redis on Azure.
 
 ## Concepts
 
-This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Blob. We follow the best practices and allow you to use `Azure Cache for Blob`, which combines with In-memory caching techinque.
+This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Redis. We follow the best practices and allow you to use `Azure Cache for Redis`, which combines with In-memory caching techinque.
 
 ## Prerequisites
 
@@ -14,36 +14,34 @@ This sample provides easy configuration to cache the pipeline data to in-memory 
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
-  - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
-- You will need the Azure Cache for Blob Contributor role assigned to your account.
+  - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.
+- You will need the Azure Cache for Redis Contributor role assigned to your account.
 
 ## Setup your environment
 
-This sample needs can be configured with the `Azure Cache for Blob` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs can be configured with the `Azure Cache for Redis` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
 Run this below command to set up the sample configuration in the dotnet secret store.
 
-- Open a command prompt and navigate to `samples\MemoryCacheAndBlobProvider` inside of this repository.
+- Open a command prompt and navigate to `samples\MemoryCacheAndRedisProvider` inside of this repository.
 
     ```bash
     dotnet user-secrets init
-    dotnet user-secrets set "ConnectionString" "<<Your Blob Connection string>>"
-    dotnet user-secrets set "Container" "<<Your Container Name>>"
+    dotnet user-secrets set "ConnectionString" "<<Your Redis Connection string>>"
     ```
 
 ### Visual Studio
 
 If you are using Visual Studio, you can setup configuration via secrets without using the command line.
 
- 1. Right-click on the MemoryCacheAndBlobProvider solution in the Solution Explorer and choose "Manage User Secrets".
+ 1. Right-click on the MemoryCacheAndRedisProvider solution in the Solution Explorer and choose "Manage User Secrets".
  2. An editor for `secrets.json` will open. Paste the below inside of this file.
 
 ```json
   {
-    "ConnectionString": "<Your Redis Connection string>",
-    "Container":"<Your Container Name>" 
+    "ConnectionString": "<Your Redis Connection string>"
   }
 ```
 
@@ -57,12 +55,12 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
     Run the following command from the directory that contains this sample: 
     ```bash
-    dotnet MemoryCacheAndBlobProvider\bin\Debug\net6.0 \ MemoryCacheAndBlobProvider.dll 
+    dotnet MemoryCacheAndRedisProvider\bin\Debug\net6.0\MemoryCacheAndRedisProvider.dll 
     ```
 
 ## Usage Details
 
-- Checkout the Program.cs file that outlines how you can implement the caching and create and store the file in Azure storage. 
+- Checkout the Program.cs file that outlines how you can implement the caching and store the data in Azure Redis. 
 
 - AddMemoryCache: Look at [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
 

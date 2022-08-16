@@ -1,7 +1,7 @@
 ﻿using DataServices.Caching;
 using System.Threading.Tasks;
 
-namespace MemoryCacheAndBlobProvider
+namespace MemoryCacheAndRedisProvider
 {
     public class MyService : IMyService
     {
@@ -21,6 +21,5 @@ namespace MemoryCacheAndBlobProvider
         {
             await cache.AddAsync(key, item);
         }
-
     }
 }

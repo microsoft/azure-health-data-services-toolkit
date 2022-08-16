@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace MemoryCacheAndBlobProvider
+namespace MemoryCacheAndRedisProvider
 {
     [Serializable]
     [JsonObject]
