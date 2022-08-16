@@ -18,7 +18,7 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
-  - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.
+  - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
 - A [FHIR Service deployed](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-portal-quickstart) in your Azure environment to get a token for.
   - You will need the FHIR Contributor role assigned to your account.
 - For the advanced scenario, you will need a [client application created in Azure Active Directory](https://docs.microsoft.com/azure/healthcare-apis/register-application).
