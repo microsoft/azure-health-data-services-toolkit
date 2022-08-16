@@ -8,9 +8,16 @@ parameters:
     type: boolean
     default: true
 
+variables:
+  - name: StageSuffix
+    ${{if parameters['IsPrerelease'] }}:
+      value: 'release'
+    ${{ else }}:
+      value: 'prerelease'
+
 stages:
 
-  - stage: Signing
+  - stage: Signing-$(StageSuffix)
     displayName: 'Sign Code & Packages'
     dependsOn: Build
     jobs:
@@ -34,7 +41,7 @@ stages:
                 artifact: '${{ parameters.ArtifactName }}-signed'
                 displayName: 'Store signed packages in ${{parameters.ArtifactName}}-signed artifact'
 
-  - stage: ReleaseInternal 
+  - stage: ReleaseInternal-$(StageSuffix)
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Prerelease Internal Package Publish'
     ${{ else }}:
@@ -63,13 +70,36 @@ stages:
 
   # Add integration tests here
 
-  - stage: ReleaseGithubNuget
+  - stage: ReleaseGithubNuget-$(StageSuffix)
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'GitHub/Nuget Pre-Release Publish'
     ${{ else }}:
       displayName: 'GitHub/Nuget Release Publish'
     dependsOn: 'ReleaseInternal'
     jobs:
+    - deployment: PublishPackageNuGet
+      ${{ if eq( parameters['IsPrerelease'], true) }}:
+        displayName: 'Publish Nuget Prerelease'
+      ${{ else }}:
+        displayName: 'Publish NuGet Release'
+      dependsOn: 'GithubRelease'
+      environment: nuget
+      pool:
+        vmImage: $(WindowsVmImage)
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: '${{ parameters.ArtifactName }}-signed'
+
+            - ${{ each package in parameters.Packages }}:
+              - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
+                parameters:
+                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                  PackageName: ${{ package.name }}
+
     - deployment: GithubRelease
       ${{ if eq( parameters['IsPrerelease'], true) }}:
         displayName: 'Create GitHub Release (Prerelease)'
@@ -97,26 +127,3 @@ stages:
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
-
-    - deployment: PublishPackageNuGet
-      ${{ if eq( parameters['IsPrerelease'], true) }}:
-        displayName: 'Publish Nuget Prerelease'
-      ${{ else }}:
-        displayName: 'Publish NuGet Release'
-      dependsOn: 'GithubRelease'
-      environment: nuget
-      pool:
-        vmImage: $(WindowsVmImage)
-
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: '${{ parameters.ArtifactName }}-signed'
-
-            - ${{ each package in parameters.Packages }}:
-              - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
-                parameters:
-                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
-                  PackageName: ${{ package.name }}
