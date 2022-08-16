@@ -1,5 +1,9 @@
 parameters:
 - name: ArtifactName
+- name: Version
+
+variables:
+  package_version: ${{ parameters.Version }}
 
 steps:
 
@@ -7,9 +11,9 @@ steps:
     displayName: 'Pack Pre-Release Version Packages'
     inputs:
       command: pack
-      packagesToPack: '$(Build.SourcesDirectory)/src/**/*.csproj'
-      # Versioning is done during the build
-      versioningScheme: off
+      packagesToPack: '**/src/*/*.csproj'
+      versioningScheme: byEnvVar
+      versionEnvVar: package_version
       outputDir: '$(Build.ArtifactStagingDirectory)/PackOut/'
 
   - task: PublishPipelineArtifact@1
