@@ -27,4 +27,4 @@ variables:
     value: $[format('{0}.{1}.{2}', variables['major'], variables['minor'], variables['patch'])]
 
 - name: FileVersion
-  value: $[format('{0}.{1}.{2}.{3}', variables['major'], variables['minor'], variables['patch'], variables['Build.BuildNumber']])]
+  value: $[format('{0}.{1}.{2}.{3}', variables['major'], variables['minor'], variables['patch'], variables['Build.BuildNumber'])]
