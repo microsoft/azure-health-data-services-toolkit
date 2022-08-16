@@ -19,7 +19,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: --no-build --configuration $(buildConfiguration)'
+    arguments: --configuration $(buildConfiguration)'
     publishTestResults: true
     projects: '**/*Tests/*.csproj'
   displayName: 'Run all tests'
