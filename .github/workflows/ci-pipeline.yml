@@ -33,14 +33,14 @@ stages:
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: PrereleasePackages
-          Version: ${{ variables.packageversion-prerelease }}
+          Version: $(packageversion-prerelease)
 
         # Prepare release packages if manually triggered
       - ${{ if eq(variables['manually_triggered'], 'true') }}:
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: ReleasePackages
-            Version: ${{ variables.packageversion-release }}
+            Version: $(packageversion-release)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
   - ${{ if eq(variables['manually_triggered'], 'true') }}:
@@ -52,7 +52,7 @@ stages:
           - name: Azure.Health.DataServices.Caching
           - name: Azure.Health.DataServices.Channels.Extensions
           - name: Azure.Health.DataServices.Storage
-        PackageVersion: ${{ variables.packageversion-prerelease }}
+        PackageVersion: $(packageversion-prerelease)
         DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
         IsPrerelease: true
 
@@ -64,6 +64,6 @@ stages:
           - name: Azure.Health.DataServices.Caching
           - name: Azure.Health.DataServices.Channels.Extensions
           - name: Azure.Health.DataServices.Storage
-        PackageVersion: ${{ variables.packageversion-release }}
+        PackageVersion: $(packageversion-release)
         DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
         IsPrerelease: false
