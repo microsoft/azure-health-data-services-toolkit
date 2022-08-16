@@ -5,11 +5,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <UserSecretsId>23e2aa44-3f34-40c6-8164-71353631a110</UserSecretsId>
+    <UserSecretsId>a04fe0f3-3e08-4734-9607-33b1b4776ea0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Health.DataServices.Channels.Extensions" Version="0.9.25-prerelease" />
     <PackageReference Include="Microsoft.Health.DataServices.Core" Version="0.9.25-prerelease" />
   </ItemGroup>
 
