@@ -9,6 +9,7 @@
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
     <SdkVersion Condition=" '$(IsPrerelease)' == 'false' ">$(packageversion-release)</SdkVersion>
     <SdkVersion Condition=" '$(IsPrerelease)' == 'true' ">$(packageversion-prerelease)</SdkVersion>
+    <SdkVersion Condition=" '$(SdkVersion)' == '' ">0.0.0</SdkVersion>
     <VersionSuffix Condition=" '$(IsPrerelease)' == 'true' ">$(packageversiontype)</VersionSuffix>
     <Version Condition=" '$(VersionSuffix)' == '' And '$(SdkVersion)' != '' ">$(SdkVersion)</Version>
     <Version Condition=" '$(VersionSuffix)' != '' And '$(SdkVersion)' != '' ">$(SdkVersion)-$(VersionSuffix)</Version>
@@ -23,7 +24,7 @@
     <PackageId>Azure.Health.DataServices.Caching</PackageId>
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
     <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
-    <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
@@ -47,8 +48,8 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="Icon.png" Pack="true" />
-    <None Include="README.md" Pack="true" />
+    <None Include="Icon.png" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
