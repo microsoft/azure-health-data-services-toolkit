@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
 
-namespace MemoryCacheAndRedisProvider
+namespace ServiceBusChannelSample
 {
     [Serializable]
     [JsonObject]
-    public class TestCacheItem
+    public class Payload
     {
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public string Value { get; set; }   
     }
 }
