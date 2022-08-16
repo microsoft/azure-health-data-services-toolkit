@@ -19,10 +19,10 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: '--no-build --configuration $(buildConfiguration)'
+    arguments: --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '$(Build.SourcesDirectory)/tests/Azure.Health.DataServices.Tests/Azure.Health.DataServices.Tests.csproj'
-  displayName: 'Test Azure.Health.Data.Services'
+    projects: '**/*Tests/*.csproj'
+  displayName: 'Run all tests'
   env:
     PROXY_TenantId: $(proxy-tenant-id)
     PROXY_ClientId: $(kv-client-id)
@@ -59,11 +59,3 @@ steps:
     PROXY_EventGrid_Message_Queue: $(eventgrid-message-queue)
     PROXY_EventGrid_Reference_Queue: $(eventgrid-reference-queue)
     PROXY_CacheConnectionString: $(cicd-redis-cache-connectionstring)
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    arguments: '--no-build --configuration $(buildConfiguration)'
-    publishTestResults: true
-    projects: '$(Build.SourcesDirectory)/tests/Microsoft.Capl.Tests/Microsoft.Capl.Tests.csproj'
-  displayName: 'Test Microsoft.Capl'
