@@ -6,12 +6,12 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <SdkVersion Condition=" '$(IsPrerelease)' != 'true' ">$(packageversion-release)</ClientVersion>
-    <SdkVersion Condition=" '$(IsPrerelease)' == 'true' ">$(packageversion-prerelease)</ClientVersion>
+    <SdkVersion Condition=" '$(IsPrerelease)' == 'false' ">$(packageversion-release)</SdkVersion>
+    <SdkVersion Condition=" '$(IsPrerelease)' == 'true' ">$(packageversion-prerelease)</SdkVersion>
     <VersionSuffix Condition=" '$(IsPrerelease)' == 'true' ">$(packageversiontype)</VersionSuffix>
-    <Version Condition=" '$(VersionSuffix)' == '' ">$(SdkVersion)</Version>
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(SdkVersion)-$(VersionSuffix)</Version>
-    <FileVersion>$(SdkVersion)</FileVersion>
+    <Version Condition=" '$(VersionSuffix)' == '' And '$(SdkVersion)' != '' ">$(SdkVersion)</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' And '$(SdkVersion)' != '' ">$(SdkVersion)-$(VersionSuffix)</Version>
+    <FileVersion Condition=" '$(SdkVersion)' != '' ">$(SdkVersion)</FileVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
