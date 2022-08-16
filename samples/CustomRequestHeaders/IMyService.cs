@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace CustomIdentityHeaderSample
+namespace CustomRequestHeadersSample
 {
     public interface IMyService
     {
