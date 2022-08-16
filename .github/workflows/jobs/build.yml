@@ -12,15 +12,15 @@ steps:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: '$(Build.SourcesDirectory)/src/**/*.csproj'
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Build all projects in src'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '$(Build.SourcesDirectory)/tests/*/*Tests.csproj'
-  displayName: 'Run unit tests - $(buildConfiguration)'
+    projects: '$(Build.SourcesDirectory)/tests/**/*.csproj'
+  displayName: 'Run unit tests for all projects in tests'
   env:
     PROXY_TenantId: $(proxy-tenant-id)
     PROXY_ClientId: $(kv-client-id)
