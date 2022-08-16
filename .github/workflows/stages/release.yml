@@ -10,7 +10,7 @@ parameters:
 
 stages:
 
-  - stage: ${{ format('Signing-{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('Signing_{0}', parameters.ArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
     jobs:
@@ -34,7 +34,7 @@ stages:
                 artifact: '${{ parameters.ArtifactName }}-signed'
                 displayName: 'Store signed packages in ${{parameters.ArtifactName}}-signed artifact'
 
-  - stage: ${{ format('ReleaseInternal-{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('ReleaseInternal_{0}', parameters.ArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Prerelease Internal Package Publish'
     ${{ else }}:
@@ -63,7 +63,7 @@ stages:
 
   # Add integration tests here
 
-  - stage: ${{ format('ReleaseGithubNuget-{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('ReleaseGithubNuget_{0}', parameters.ArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'GitHub/Nuget Pre-Release Publish'
     ${{ else }}:
