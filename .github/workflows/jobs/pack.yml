@@ -1,13 +1,14 @@
 parameters:
-  - name: ArtifactName
-  - name: Version
+- name: ArtifactName
+  type: string
+- name: Version
+  type: string
 
 variables:
-  - name: package_version
-    value: ${{ parameters.Version }}
+- name: package_version
+  value: ${{ parameters.Version }}
 
 steps:
-
   - task: DotNetCoreCLI@2
     displayName: 'Pack Pre-Release Version Packages'
     inputs:
