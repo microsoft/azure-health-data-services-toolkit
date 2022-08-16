@@ -19,7 +19,7 @@ steps:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '$(Build.SourcesDirectory)/tests/**/*.csproj'
+    projects: '$(Build.SourcesDirectory)/tests/*/*Tests.csproj'
   displayName: 'Run unit tests - $(buildConfiguration)'
   env:
     PROXY_TenantId: $(proxy-tenant-id)
