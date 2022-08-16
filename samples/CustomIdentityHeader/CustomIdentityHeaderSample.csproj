@@ -11,4 +11,10 @@
     <PackageReference Include="Microsoft.Health.DataServices.Core" Version="0.9.25-prerelease" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="jwttest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

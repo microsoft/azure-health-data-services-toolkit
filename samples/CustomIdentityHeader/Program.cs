@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using CustomHeadersSample;
+﻿using CustomIdentityHeaderSample;
 using DataServices.Clients.Headers;
 using DataServices.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,24 +9,24 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
     .ConfigureServices(services =>
     {
         services.UseCustomHeaders();
-        services.AddCustomHeader("MyHeaderName1", "MyHeaderName1", CustomHeaderType.Static);
-        services.AddCustomHeader("MyHeaderName2", "MyHeaderName2", CustomHeaderType.Static);
+        services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.Identity);
         services.AddSingleton<IMyService, MyService>();
     });
 
 var app = builder.Build();
 app.RunAsync();
 
+string jwt = File.ReadAllText("../../../jwttest.txt");
 HttpRequestMessage request = new();
+request.Headers.Add("Authorization", $"Bearer {jwt}");
 
 IMyService myservice = app.Services.GetRequiredService<IMyService>();
-NameValueCollection headers = myservice.GetCustomHeaders(request);
+NameValueCollection headers = myservice.GetHeaders(request);
 foreach (string name in headers)
     foreach (string value in headers.GetValues(name))
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"{name}-{value}");
+        Console.WriteLine($"{name} : {value}");
     }
+
 Console.ResetColor();
-
-
