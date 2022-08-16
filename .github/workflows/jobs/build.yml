@@ -11,7 +11,7 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '$(Build.SourcesDirectory)/src/**/*.csproj'
+    projects: '**/src/*/*.csproj'
   displayName: 'Build all projects in src'
 
 # Wildcard for tests isn't supported
@@ -19,7 +19,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: --configuration $(buildConfiguration)'
+    arguments: --no-build --configuration $(buildConfiguration)'
     publishTestResults: true
     projects: '**/*Tests/*.csproj'
   displayName: 'Run all tests'

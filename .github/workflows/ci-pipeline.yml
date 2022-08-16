@@ -21,11 +21,11 @@ stages:
   - stage: Build
 
     jobs:
-    #- job: CodeChecks
-    #  pool:
-    #    vmImage: $(WindowsVmImage)
-    #  steps:
-    #  - template: ./jobs/checkCode.yml
+    - job: CodeChecks
+      pool:
+        vmImage: $(WindowsVmImage)
+      steps:
+      - template: ./jobs/checkCode.yml
 
     - job: BuildTestPack
       pool:
