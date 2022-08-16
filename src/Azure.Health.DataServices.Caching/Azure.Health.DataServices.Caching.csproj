@@ -24,7 +24,6 @@
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
     <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/Azure/health-data-services-sdk/blob/main/LICENSE</PackageLicenseUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
