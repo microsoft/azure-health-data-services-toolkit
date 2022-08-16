@@ -21,7 +21,7 @@ This sample solution describes how to append and replace existing headers with c
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
-```json
+```bash
 dotnet build CustomHeaders/CustomHeadersSample.csproj 
 ```
 
@@ -33,7 +33,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
     Run the following command from the directory that contains this sample: 
 
-    ```json
+    ```bash
     dotnet CustomHeaders\bin\Debug\net6.0 \CustomHeadersSample.dll
     ```
 
