@@ -24,7 +24,7 @@ namespace Capl.Operations
                 }
                 else
                 {
-                    ObjectHandle? handle = Activator.CreateInstance("Capl", $"Capl.Operations.{id.TrimStart('#')}Operation");
+                    ObjectHandle? handle = Activator.CreateInstance("Microsoft.Capl.Core", $"Capl.Operations.{id.TrimStart('#')}Operation");
                     if (handle?.Unwrap() is not Operation operation)
                     {
                         throw new ArgumentException("operation");

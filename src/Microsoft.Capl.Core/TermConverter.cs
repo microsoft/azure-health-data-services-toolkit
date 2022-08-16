@@ -25,7 +25,7 @@ namespace Capl
                 }
                 else
                 {
-                    ObjectHandle? handle = Activator.CreateInstance("Capl", $"Capl.{id.TrimStart('#')}");
+                    ObjectHandle? handle = Activator.CreateInstance("Microsoft.Capl.Core", $"Capl.{id.TrimStart('#')}");
                     if (handle?.Unwrap() is not Term term)
                     {
                         throw new ArgumentException("term");

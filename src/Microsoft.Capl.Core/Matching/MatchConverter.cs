@@ -27,7 +27,7 @@ namespace Capl.Matching
                 }
                 else
                 {
-                    ObjectHandle? handle = Activator.CreateInstance("Capl", $"Capl.Matching.{id.TrimStart('#')}Match");
+                    ObjectHandle? handle = Activator.CreateInstance("Microsoft.Capl.Core", $"Capl.Matching.{id.TrimStart('#')}Match");
                     if (handle?.Unwrap() is not Match match)
                     {
                         throw new ArgumentException("match");
