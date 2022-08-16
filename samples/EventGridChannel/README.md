@@ -28,8 +28,7 @@ Open a command prompt and navigate to `samples\EventGridChannelSample` inside of
 dotnet user-secrets init 
 dotnet user-secrets set "Subject" "<<Your Subject>>" 
 dotnet user-secrets set "AccessKey" "<<Your Topic Access Key>>"
-dotnet user-secrets set "ExecutionStatusType" 
-"<<Your Execution Status Type>>"
+dotnet user-secrets set "ExecutionStatusType" "<<Your Execution Status Type>>"
 dotnet user-secrets set "DataVersion" "<<Your Event Data Version>>" 
 dotnet user-secrets set "EventType" "<<Your Event Type>>" 
 dotnet user-secrets set "FallbackStorageConnectionString" "<<Your Fallback Storage Connection String>>"
