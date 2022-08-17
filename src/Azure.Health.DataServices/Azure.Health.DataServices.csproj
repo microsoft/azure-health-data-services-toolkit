@@ -32,8 +32,8 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
     <DebugType>portable</DebugType>
-    <IncludeSymbols>false</IncludeSymbols>
-    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Azure.Health.DataServices</RootNamespace>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>
