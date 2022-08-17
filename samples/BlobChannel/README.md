@@ -3,6 +3,7 @@
 This sample demonstrates the channel feature available in Azure Health Data Services SDK. In this sample, pipeline is created and a channel feature is used to store pipeline data to Azure storage account.
 
 ## Concepts
+
 This sample provides easy configuration of the application with Azure Blob storage and Azure storage with this SDK. We follow the best practices and allow you to understand how to configure the Blob storage as a channel and its options using Input channel and how we can use blob for storing pipline data.
 
 ## Prerequisites
