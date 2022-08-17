@@ -1,6 +1,6 @@
 ﻿using CustomIdentityHeaderSample;
-using DataServices.Clients.Headers;
-using DataServices.Configuration;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Specialized;

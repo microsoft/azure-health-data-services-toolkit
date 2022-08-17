@@ -3,6 +3,7 @@
 This sample solution describes how to append and replace existing headers with custom headers by using claim type in the security token and returns the modified collection headers.
 
 ## Concepts
+
 - This sample demonstrates the feature Custom Headers available in Azure Health Data Services SDK. given sample allows user to inject a new header name with the value determined by a claim type in the security token.  
 
 - sample is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. The `name` parameter is the name of the new http header, the value is a claim type in the security token which is used in new header.
@@ -18,12 +19,12 @@ This sample solution describes how to append and replace existing headers with c
 
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build CustomIdentityHeaderSample/CustomIdentityHeaderSample.csproj 
+dotnet build
 ```
 
 ## Run the Sample 
@@ -35,7 +36,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet CustomIdentityHeaderSample\bin\Debug\net6.0\CustomIdentityHeaderSample.dll
+    dotnet run
     ```
 
 ## Usage Details
