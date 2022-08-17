@@ -4,7 +4,7 @@ This sample is a standard ASP.NET Web Application and will show you how you can 
 
 ## Concepts
 
-This sample provides way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of Pipeline. 
+This sample provides a way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of Pipeline. 
 
 To implement how requests and responses work, there are two applications:
 1. SimpleCustomOperation: We are adding the simple inputs baseURL, method and path. 
@@ -41,9 +41,9 @@ dotnet build
 
 ## Usage Details 
 
-- Checkout the Program.cs file that outlines how you can implement the SampleInputFilterOption and SampleOutputFilterOption. 
+- Program.cs file  outlines how you can implement the SampleInputFilterOption and SampleOutputFilterOption. 
 
-- An API Controller (CustomOperationController) which outline how you can implement IPipeline<HttpRequestMessage,HttpResponseMessage> interface for request and response. 
+- An API Controller (CustomOperationController) outlines how you can implement IPipeline<HttpRequestMessage,HttpResponseMessage> interface for request and response. 
 
 - Get: This method will demonstrate how we can call and send the value to another API and read the response.  
 
