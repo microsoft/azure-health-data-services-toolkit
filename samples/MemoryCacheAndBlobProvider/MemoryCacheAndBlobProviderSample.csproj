@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Caching" Version="0.9.27-prerelease" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
