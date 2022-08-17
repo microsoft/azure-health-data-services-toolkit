@@ -87,15 +87,15 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 - Channels are of two types: input channel and output channel which can be used as per our need. 
 - For Azure Event Hub please refer to [this .NET documentation page](https://docs.microsoft.com/azure/event-hubs/event-hubs-about) for more information.
 - **Option Pattern**: uses classes to provide strongly typed access to groups of related settings.Look at [this .NET documentation page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0) for more information.
-- Event Hub Channel the Channel that can send or receive data with Azure Event Hub. 
-- Event Hub Channel Options - Event Hub channel options must be configured in order to send and receive data, below options need to configure for Azure Event Hub.
-  - Sku- Azure Event Hub Sku used to determine the maximum      message size allowed by the Event Hub. 
-  - ConnectionString - Azure Event Hub connection string.
-  - HubName - Azure Event Hub used for this channel.
-  - ExecutionStatusType - Gets or sets the requirement for   execution of the channel.
-  - FallbackStorageConnectionString- Azure Blob Storage connection string used when data exceeds the allowable Azure Event Hub size.
-  - FallbackStorageContainer- an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Hub size.
-  - ProcessorStorageContainer- container used for managing the processor that reads messages.
-- UseWebPipeline given extension is used to add scope to the web services configurations. 
--.OnReceive Event that signals pipeline service has received a message.
-- SendMessageAsync This method will Execute the pipeline service which is configured in given Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure event hub and Receive channel receives events from event hub. 
+- **Event Hub Channel**: the Channel that can send or receive data with Azure Event Hub. 
+- **Event Hub Channel Options** - Event Hub channel options must be configured in order to send and receive data, below options need to configure for Azure Event Hub.
+  - **Sku**- Azure Event Hub Sku used to determine the maximum      message size allowed by the Event Hub. 
+  - **ConnectionString** - Azure Event Hub connection string.
+  - **HubName** - Azure Event Hub used for this channel.
+  - **ExecutionStatusType** - Gets or sets the requirement for   execution of the channel.
+  - **FallbackStorageConnectionString**- Azure Blob Storage connection string used when data exceeds the allowable Azure Event Hub size.
+  - **FallbackStorageContainer**- an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Hub size.
+  - **ProcessorStorageContainer**- container used for managing the processor that reads messages.
+- **UseWebPipeline** given extension is used to add scope to the web services configurations. 
+-<your service name>.**OnReceive Event** that signals pipeline service has received a message.
+- **SendMessageAsync** This method will execute the pipeline service which is configured in given Program.cs file. HttpRequestMessage is passed as an input parameter to the given method, which includes execution of the pipeline and sending message to the Azure Event Hub. Receive channel receives events from event hub. 
