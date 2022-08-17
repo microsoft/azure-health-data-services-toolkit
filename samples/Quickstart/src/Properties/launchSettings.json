@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Quickstart": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7256",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
