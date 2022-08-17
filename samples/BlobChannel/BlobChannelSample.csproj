@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
-    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="0.9.25-prerelease" />
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.25-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="0.9.26-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
   </ItemGroup>
 
 </Project>
