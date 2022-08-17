@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Health.DataServices.Caching" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Azure.Health.DataServices.Caching" Version="0.9.26-prerelease" />
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
   </ItemGroup>
 
 </Project>
