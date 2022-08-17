@@ -40,3 +40,4 @@ module template '../../../deploy/main.bicep'= {
 }
 
 output AZURE_LOCATION string = location
+output AZURE_FhirServerUrl string = template.outputs.FhirServiceUrl
