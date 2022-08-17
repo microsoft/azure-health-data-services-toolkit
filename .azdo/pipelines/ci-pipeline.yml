@@ -23,13 +23,13 @@ stages:
     jobs:
     - job: CodeChecks
       pool:
-        vmImage: $(WindowsVmImage)
+        vmImage: $(VmImage)
       steps:
       - template: ./jobs/checkCode.yml
 
     - job: BuildTestPack
       pool:
-        vmImage: $(WindowsVmImage)
+        vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
         parameters:
