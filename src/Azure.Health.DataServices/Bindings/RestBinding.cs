@@ -90,7 +90,7 @@ namespace Azure.Health.DataServices.Bindings
                 if (authenticator != null)
                 {
                     string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
-                    securityToken = await authenticator?.AquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion, default);
+                    securityToken = await authenticator?.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion, default);
                 }
 
 

@@ -27,7 +27,7 @@ namespace Azure.Health.DataServices.Security
         /// <param name="userAssertion">Access token required when using OnBehalfOf.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Access token.</returns>
-        Task<string> AquireTokenForClientAsync(string resource,
+        Task<string> AcquireTokenForClientAsync(string resource,
                                                             string[] scopes = null,
                                                             string? parentRequestId = null,
                                                             string? claims = null,
@@ -45,7 +45,7 @@ namespace Azure.Health.DataServices.Security
         /// <param name="tenantId">The tenantId to be included in the token request.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Access token.</returns>
-        public Task<string> AquireTokenForClientAsync(string resource,
+        public Task<string> AcquireTokenForClientAsync(string resource,
                                                       TokenCredential credential,
                                                       string[] scopes = null,
                                                       string? parentRequestId = null,

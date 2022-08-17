@@ -86,7 +86,7 @@ namespace Azure.Health.DataServices.Filters
         /// <summary>
         /// Indicates whether a filter is contained in the collection.
         /// </summary>
-        /// <param name="item">Fitler used to determined if it is in the collection.</param>
+        /// <param name="item">Filter used to determined if it is in the collection.</param>
         /// <returns>True is filter in is the collection; otherwise false.</returns>
         public bool Contains(IFilter item)
         {

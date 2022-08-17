@@ -17,7 +17,7 @@ stages:
       - deployment: SignPackage
         environment: esrp
         pool:
-          vmImage: $(WindowsVmImage)
+          vmImage: $(VmImage)
         strategy:
           runOnce:
             deploy:
@@ -45,7 +45,7 @@ stages:
       displayName: 'Publish packages to DevOps Feed'
       environment: nuget-internal
       pool:
-        vmImage: $(WindowsVmImage)
+        vmImage: $(VmImage)
 
       strategy:
         runOnce:
@@ -77,7 +77,7 @@ stages:
         displayName: 'Publish NuGet Release'
       environment: nuget
       pool:
-        vmImage: $(WindowsVmImage)
+        vmImage: $(VmImage)
 
       strategy:
         runOnce:
@@ -100,7 +100,7 @@ stages:
       dependsOn: 'PublishPackageNuGet'
       environment: github
       pool:
-        vmImage: $(WindowsVmImage)
+        vmImage: $(VmImage)
       strategy:
         runOnce:
           deploy:

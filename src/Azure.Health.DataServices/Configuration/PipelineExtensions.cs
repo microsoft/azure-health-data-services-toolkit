@@ -70,7 +70,7 @@ namespace Azure.Health.DataServices.Configuration
         }
 
         /// <summary>
-        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
+        /// Use the authenticator with DefaultCredentials for acquisition of access tokens from Azure AD.
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <returns>Services collection.</returns>
