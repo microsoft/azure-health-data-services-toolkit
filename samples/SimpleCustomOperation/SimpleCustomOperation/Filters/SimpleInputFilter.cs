@@ -1,5 +1,5 @@
-﻿using DataServices.Filters;
-using DataServices.Pipelines;
+﻿using Azure.Health.DataServices.Filters;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;

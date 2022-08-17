@@ -19,14 +19,12 @@ To implement how requests and responses work, there are two applications:
 
 You can configure this sample either in Visual Studio or by using the command line.
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution
 
-- If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
+- If you are using the .NET Core CLI, run the following command from the directory that contains this sample i.e. `samples/SimpleCustomOperation/SimpleCustomOperation` and `samples/SimpleCustomOperation/SimpleWebApi`: 
 
 ```bash
-dotnet build SimpleCustomOperation\SimpleCustomOperation.csproj 
-
-dotnet build SimpleWebApi\SimpleWebApi.csproj 
+dotnet build
 ```
 
 ## Run the Sample
@@ -35,12 +33,10 @@ dotnet build SimpleWebApi\SimpleWebApi.csproj
 
 - Using the .NET Core CLI 
 
-    Run the following command from the directory that contains this sample: 
+    Run the following command from the directory that contains this sample i.e. `samples/SimpleCustomOperation/SimpleCustomOperation` and `samples/SimpleCustomOperation/SimpleWebApi`:
 
     ```bash
-    dotnet SimpleCustomOperation\bin\Debug\net6.0\SimpleCustomOperation.dll 
-
-    dotnet SimpleWebApi\bin\Debug\net6.0\SimpleWebAPI.dll 
+    dotnet run
     ```
 
 ## Usage Details 
