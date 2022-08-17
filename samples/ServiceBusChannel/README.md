@@ -1,4 +1,4 @@
-# Using Service Bus as Channel
+# Using Service Bus as a Channel
 
 This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
@@ -6,7 +6,7 @@ Here, we'll cover the channel scenario which can be used to access Azure Service
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Service Bus and Azure Storage with this SDK. We follow the best practices and allow you to understand how to configure the Serice Bus as channel and its options using Input channel, and how we can send and receive messages with Azure Service Bus. 
+This sample provides easy configuration of the application with Azure Service Bus and Azure Storage with this SDK. The sample shows how to configure Azure Service Bus as a channel, its options using input channel, and how to send and receive messages with Azure Service Bus. 
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ This sample provides easy configuration of the application with Azure Service Bu
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
-  - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.
+  - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
 - You will need the Azure Service Bus Data Owner and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
