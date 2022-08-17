@@ -78,5 +78,5 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
   
   The first two are performed through a chain of 0 or more `filters` where each filter in the chain performs some operation.  The latter is performed through `channels`, which simply output information 0 or more desired services.
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
-- **UseWebPipeline** This is used to add the scoped web services configuration.
-- **ExecuteAsync**  This method internally calls ExecuteChannelsAsync method which is part of the Azure Health Data Services SDK. It executes the pipeline and Channel and returns a response for the caller.
+- **UseWebPipeline**: This is used to add the scoped web services configuration.
+- **ExecuteAsync**: This method internally calls ExecuteChannelsAsync method which is part of the Azure Health Data Services SDK. It executes the pipeline and Channel and returns a response for the caller.
