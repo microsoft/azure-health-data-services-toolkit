@@ -15,7 +15,9 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/*.csproj'
+    projects: |
+      **/*.csproj
+      !**/*Sample.csproj
   displayName: 'Build all projects'
   env:
     FileVersion: ${{ parameters.BuildFileVersion }}

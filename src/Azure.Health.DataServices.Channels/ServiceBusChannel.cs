@@ -192,7 +192,7 @@ namespace Azure.Health.DataServices.Channels
         }
 
         /// <summary>
-        /// Starts the recieve operation for the channel.
+        /// Starts the receive operation for the channel.
         /// </summary>
         /// <returns>Task</returns>
         /// <remarks>Receive operation and subscription in Service Bus.</remarks>

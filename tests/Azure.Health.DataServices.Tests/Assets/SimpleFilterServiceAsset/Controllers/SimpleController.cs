@@ -26,7 +26,7 @@ namespace Azure.Health.DataServices.Tests.Assets.SimpleFilterServiceAsset.Contro
         {
             logger?.LogInformation("{info}", message.Value);
 
-            HttpRequestMessage request = Request.ConvertToHttpRequestMesssage();
+            HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
             {

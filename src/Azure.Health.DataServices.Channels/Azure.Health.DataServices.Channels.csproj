@@ -16,7 +16,6 @@
     <Title>Azure Health Data Services Sdk Channels Extension library</Title>
     <PackageId>Azure.Health.DataServices.Channels.Extensions</PackageId>
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
-    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -33,8 +32,8 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
     <DebugType>portable</DebugType>
-    <IncludeSymbols>false</IncludeSymbols>
-    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Azure.Health.DataServices.Channels</RootNamespace>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>

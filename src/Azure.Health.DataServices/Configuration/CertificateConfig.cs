@@ -49,7 +49,7 @@ namespace Azure.Health.DataServices.Core.Configuration
         /// <summary>
         /// Gets the certificate from the key vault.
         /// </summary>
-        public X509Certificate2 Certficate
+        public X509Certificate2 Certificate
         {
             get
             {

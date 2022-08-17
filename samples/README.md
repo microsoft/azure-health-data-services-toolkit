@@ -1,6 +1,6 @@
 # Azure Health Data Services SDK Samples
 
-These samples show how this SDK works for a few sample 
+These samples show how this SDK works for a few sample scenarios, and includes a Quickstart as well as feature samples:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
 - **Feature Samples**: Small projects showing how a SDK feature work. Local only.

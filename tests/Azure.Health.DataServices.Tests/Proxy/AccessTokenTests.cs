@@ -36,7 +36,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             string resource = "https://localhost";
             IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
             Authenticator auth = new(options);
-            string token = await auth.AquireTokenForClientAsync(resource);
+            string token = await auth.AcquireTokenForClientAsync(resource);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
 
@@ -54,7 +54,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             });
             Authenticator auth = new(options);
             ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);
-            string token = await auth.AquireTokenForClientAsync(resource, credential);
+            string token = await auth.AcquireTokenForClientAsync(resource, credential);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
 
@@ -71,7 +71,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
                 TenantId = config.TenantId,
             });
             Authenticator auth = new(options);
-            string token = await auth.AquireTokenForClientAsync(resource);
+            string token = await auth.AcquireTokenForClientAsync(resource);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
 
@@ -90,7 +90,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             });
             Authenticator auth = new(options);
             ClientSecretCredential credential = new(config.TenantId, config.ClientId, config.ClientSecret);
-            string token = await auth.AquireTokenForClientAsync(resource, credential, scopes);
+            string token = await auth.AcquireTokenForClientAsync(resource, credential, scopes);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
 
@@ -108,7 +108,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
                 TenantId = config.TenantId,
             });
             Authenticator auth = new(options);
-            string token = await auth.AquireTokenForClientAsync(resource, scopes);
+            string token = await auth.AcquireTokenForClientAsync(resource, scopes);
             Assert.IsNotNull(token, "Security token must not be null.");
         }
 
@@ -120,7 +120,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             services.UseAuthenticator();
             ServiceProvider prov = services.BuildServiceProvider();
             IAuthenticator authn = (IAuthenticator)prov.GetService(typeof(IAuthenticator));
-            string token = await authn.AquireTokenForClientAsync(resource);
+            string token = await authn.AcquireTokenForClientAsync(resource);
             Assert.IsNotNull(token, "access token is null.");
         }
     }
