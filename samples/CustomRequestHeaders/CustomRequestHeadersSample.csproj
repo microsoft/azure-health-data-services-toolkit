@@ -8,11 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
-<<<<<<< HEAD:samples/CustomRequestHeaders/CustomRequestHeadersSample.csproj
-=======
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
->>>>>>> main:samples/Authenticator/AuthenticatorSample.csproj
   </ItemGroup>
 
 </Project>
