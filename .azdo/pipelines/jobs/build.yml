@@ -18,8 +18,6 @@ steps:
     projects: |
       **/*.csproj
       !**/*Sample.csproj
-      !**/*Test.csproj
-      !**/*Tests.csproj
   displayName: 'Build all projects'
   env:
     FileVersion: ${{ parameters.BuildFileVersion }}
