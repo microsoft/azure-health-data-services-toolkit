@@ -15,6 +15,8 @@ This sample provides easy configuration of the application with Azure Event Hub 
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
+- Azure Storage Account. Please follow this link for setting up the storage account: [Setup Storage Account](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal). 
+- Azure Event Hub. Please follow this link for setting up the storage account: [Setup Event Hub](https://docs.microsoft.com/azure/event-hubs/event-hubs-create).
 - You will need the Azure Event Hub Data Owner and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
@@ -83,7 +85,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 - CheckOut Program.cs file that outlines how you can send the events to Azure event hub using Pipeline service. 
 - Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels.
 - Channels are of two types of input channel and output channel which can be used as per our need. 
-- For understanding Azure Event Hub look at [this .NET documentation page](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about)
+- For understanding Azure Event Hub look at [this .NET documentation page](https://docs.microsoft.com/azure/event-hubs/event-hubs-about)
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings.Look at [this .NET documentation page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0) for more information.
 - Event Hub Channel the Channel that can send or receive data with Azure Event Hub. 
 - Event Hub Channel Options - Event Hub channel options must be configured in order to send and receive data, below options need to configure for Azure Event Hub.
