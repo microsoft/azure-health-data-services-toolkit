@@ -1,10 +1,10 @@
 # Using Blob storage as Channel
 
-This sample demonstrates the channel feature available in Azure Health Data Services SDK. In this sample, pipeline is created and a channel feature is used to store pipeline data to Azure storage account.
+This sample demonstrates the channel feature available in Azure Health Data Services SDK. In this sample, a pipeline is created and a channel feature is used to store pipeline data to Azure Storage account.
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Blob storage and Azure storage with this SDK. We follow the best practices and allow you to understand how to configure the Blob storage as a channel and its options using Input channel and how we can use blob for storing pipline data.
+This sample provides easy configuration of the application with Azure Blob storage and Azure Storage with this SDK. We follow the best practices and allow you to understand how to configure the Blob storage as a channel and its options using Input channel, and how we can use Blob for storing pipeline data.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ This sample provides easy configuration of the application with Azure Blob stora
 
 ## Setup your environment
 
-This sample needs can be configured with varibles mentioned below to start. You can configure this either in Visual Studio or by using the command line.
+This sample can be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -70,13 +70,13 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
 ## Usage Details
 
-- checkout the `Program.cs` file in the sample that outlines how you can implement the pipeline, channel features and store and fetch the output data from Azure storage.
+- `Program.cs` file in the sample outlines how you can implement the pipeline, channel features, and how to store and fetch the output data from Azure Storage.
 - Pipelines are used to build the `custom operations` and can be used to 
   - modify information 
   - acquire additional information to make decisions
   - output information to our services
   
-  The first two are performed through a chain of 0 or more `filters` where each filter in the chain performs some operation.  The later is performed through `channels`, which simply output information 0 or more desired services.
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
-- **UseWebPipeline** This is used to add the scoped to the web services configuration.
+  The first two are performed through a chain of 0 or more `filters` where each filter in the chain performs some operation.  The latter is performed through `channels`, which simply output information 0 or more desired services.
+- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
+- **UseWebPipeline** This is used to add the scoped web services configuration.
 - **ExecuteAsync**  This method internally calls ExecuteChannelsAsync method which is part of the Azure Health Data Services SDK. It executes the pipeline and Channel and returns a response for the caller.
