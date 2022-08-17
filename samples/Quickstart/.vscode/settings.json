@@ -1,0 +1,5 @@
+{
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~4",
+    "azurite.location": ".azurite"
+  }
