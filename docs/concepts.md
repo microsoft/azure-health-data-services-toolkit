@@ -104,7 +104,7 @@ You get to choose which method is best for your custom operation. We recommend s
 | Azure CLI | Implicit only | Uses the Azure session from the Azure CLI. |
 | Azure PowerShell | Implicit only | Uses the Azure session from the Azure PowerShell. |
 
-## Implicit Configuration
+### Implicit Authenticator Configuration
 
 To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the authenticator to your custom operation *without* any parameters. The authenticator now will either automatically pull the needed information from your system (mainly for development or managed identity) or you can configure via configuring the environment [like DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
 
@@ -112,7 +112,7 @@ To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the
 services.UseAuthenticator();
 ```
 
-### Explicit Configuration
+### Explicit Authenticator Configuration
 
 When explicitly defining authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
 
