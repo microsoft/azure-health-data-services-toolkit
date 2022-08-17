@@ -16,7 +16,7 @@ namespace MemoryCacheAndBlobProvider
         {
             IConfigurationBuilder cbuilder = new ConfigurationBuilder()
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("AZURE");
+                .AddEnvironmentVariables("AZURE_");
             IConfigurationRoot root = cbuilder.Build();
             config = new();
             root.Bind(config);
