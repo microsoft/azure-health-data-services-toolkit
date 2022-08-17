@@ -14,7 +14,7 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
 - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-Pipeline Overview |  Input/Output Section of Pipeline
+Custom Operation/Pipeline Overview |  Input/Output Section of Pipeline
 :-------------------------:|:-------------------------:
 ![Pipeline overview](./images/pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
 
