@@ -1,6 +1,6 @@
 # Custom Operation 
 
-This sample will show you how you can create a request object and pass it to the pipeline and get the response back by using the SDK. 
+This sample is a standard ASP.NET Web Application and will show you how you can create a request object and pass it to the pipeline and get the response back by using the SDK. 
 
 ## Concepts
 
