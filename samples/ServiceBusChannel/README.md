@@ -30,12 +30,12 @@ Open a command prompt and navigate to `samples\ServiceBusChannelSample` inside o
 
 ```bash
 dotnet user-secrets init
-dotnet user-secrets set "ConnectionString" "<<Your ConnectionString>>"
+dotnet user-secrets set "ConnectionString" "<<Your Service Bus Connection String>>"
 dotnet user-secrets set "FallbackStorageConnectionString" "<<Your Fallback Storage Connection String>>"
-dotnet user-secrets set "FallbackStorageContainer" "<<Your Fallback Storage Container>>"
+dotnet user-secrets set "FallbackStorageContainer" "<<Your Fallback Storage Container Name>>"
 dotnet user-secrets set "ExecutionStatusType" "<<Status type>>"
 dotnet user-secrets set "Sku" "<<Name of your Service Bus SKU>>"
-dotnet user-secrets set "Topic" "<<Name of your Topic>>"
+dotnet user-secrets set "Topic" "<<Name of your Service Bus Topic>>"
 ```
 
 ### Visual Studio
@@ -47,12 +47,12 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 ```json
   {
-    "ConnectionString": "<Your ConnectionString>",
+    "ConnectionString": "<<Your Service Bus Connection String>>",
     "FallbackStorageConnectionString": "<<Your Fallback Storage Connection String>>",
-    "FallbackStorageContainer": "<<Your Fallback Storage Container>>",
+    "FallbackStorageContainer": "<<Your Fallback Storage Container Name>>",
     "ExecutionStatusType": "<<Status type>>",
     "Sku": "<<Name of your Service Bus SKU>>",
-    "Topic": "<<Name of your Topic>>"
+    "Topic": "<<Name of your Service Bus Topic>>"
   }
 ```
 
