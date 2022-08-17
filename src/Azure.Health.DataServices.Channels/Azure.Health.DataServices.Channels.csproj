@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Company>Microsoft Corporation</Company>
+    <Product>Microsoft(R) Azure Health Data Services</Product>
+    <Description>Channels extension library to assist with creating custom operations for Azure Health Data Services.</Description>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
+    <FileVersion>$(FileVersion)</FileVersion>
+    <Authors>Microsoft</Authors>
+
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Azure.Health.DataServices.Sdk.Channels</AssemblyName>
+
+    <Title>Azure Health Data Services Sdk Channels Extension library</Title>
+    <PackageId>Azure.Health.DataServices.Channels.Extensions</PackageId>
+    <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
+    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <IsPackable>true</IsPackable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DebugType>portable</DebugType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RootNamespace>Azure.Health.DataServices.Channels</RootNamespace>
+    <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="Icon.png" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.11.0" />
+    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.7.2" />
+    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.7.2" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Azure.Health.DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
+    <ProjectReference Include="..\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
+  </ItemGroup>
+</Project>
