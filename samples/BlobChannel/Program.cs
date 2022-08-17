@@ -1,9 +1,9 @@
 ﻿
 using BlobChannelSample;
-using DataServices.Channels;
-using DataServices.Configuration;
-using DataServices.Pipelines;
-using DataServices.Storage;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Configuration;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

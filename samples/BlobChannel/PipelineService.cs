@@ -1,4 +1,4 @@
-﻿using DataServices.Pipelines;
+﻿using Azure.Health.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 
 namespace BlobChannelSample
