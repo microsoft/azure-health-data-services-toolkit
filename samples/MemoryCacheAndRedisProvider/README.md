@@ -47,6 +47,16 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 3. Save and close `secrets.json`.
 
+## Build the Sample 
+
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
+
+- If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
+
+```bash
+dotnet build
+```
+
 ## Run the Sample
 
 - To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
@@ -55,7 +65,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
     Run the following command from the directory that contains this sample: 
     ```bash
-    dotnet MemoryCacheAndRedisProvider\bin\Debug\net6.0\MemoryCacheAndRedisProvider.dll 
+    dotnet run 
     ```
 
 ## Usage Details

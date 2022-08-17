@@ -1,4 +1,4 @@
-﻿using DataServices.Caching;
+﻿using Azure.Health.DataServices.Caching;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +15,7 @@ namespace MemoryCacheAndRedisProvider
         {
             IConfigurationBuilder cbuilder = new ConfigurationBuilder()
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("PROXY_");
+                .AddEnvironmentVariables("AZURE");
             IConfigurationRoot root = cbuilder.Build();
             config = new();
             root.Bind(config);
