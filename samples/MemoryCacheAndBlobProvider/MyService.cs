@@ -1,4 +1,4 @@
-﻿using DataServices.Caching;
+﻿using Azure.Health.DataServices.Caching;
 using System.Threading.Tasks;
 
 namespace MemoryCacheAndBlobProvider
