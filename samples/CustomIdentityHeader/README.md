@@ -13,9 +13,6 @@ This sample solution describes how to append and replace existing headers with c
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 
-## Setup your environment
-
-- Make sure that sample code repository cloned and loaded properly in a editor (e.g. Visual Studio or Visual Studio Code).
 
 ## Build the Sample 
 
