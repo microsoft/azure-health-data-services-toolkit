@@ -49,7 +49,7 @@ namespace Azure.Health.DataServices.Storage
         /// <param name="serviceUri">Uri referencing the file service.</param>
         /// <param name="credentials">The shared key credential used to sign requests.</param>
         /// <param name="options">Client options that define the transport pipeline policies for authentication, retries, etc., that are applied to every request.</param>
-        /// <param name="logger">Optionak ILogger.</param>
+        /// <param name="logger">Optional ILogger.</param>
         public StorageFiles(Uri serviceUri, StorageSharedKeyCredential credentials, ShareClientOptions options = null, ILogger logger = null)
             : this(logger)
         {

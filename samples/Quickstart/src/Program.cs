@@ -24,7 +24,7 @@ using IHost host = new HostBuilder()
         DotNetEnv.Env.Load();
 
         configuration
-            .AddJsonFile("local.settings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
             .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
             .AddEnvironmentVariables("AZURE_");
 
