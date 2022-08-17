@@ -3,6 +3,7 @@
 This sample solution describes how to append and replace existing headers with custom headers by determining the value in an incoming http request and returns the modified collection headers. 
 
 ## Concepts
+
 - This sample demonstrates the feature Custom Headers available in Azure Health Data Services SDK. given sample allows user to inject a new header name with the value determined by an incoming http request.  
 
 - sample is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. The `name` parameter is the name of the new http header, the  value is a name of a header in an incoming http request value is used in the new header.
@@ -17,15 +18,14 @@ This sample solution describes how to append and replace existing headers with c
 - Make sure that sample code repository cloned and loaded properly in a editor (e.g. Visual Studio or Visual Studio Code).
 
 
-
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```json
-dotnet build CustomRequestHeadersSample/CustomRequestHeadersSample.csproj 
+dotnet build
 ```
 
 ## Run the Sample 
@@ -37,7 +37,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```json
-    dotnet CustomRequestHeadersSample\bin\Debug\net6.0 \CustomRequestHeadersSample.dll
+    dotnet run
     ```
 
 ## Usage Details
