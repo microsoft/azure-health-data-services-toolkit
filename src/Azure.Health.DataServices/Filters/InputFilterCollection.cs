@@ -51,7 +51,7 @@ namespace Azure.Health.DataServices.Filters
         /// Inserts a filter into the collection.
         /// </summary>
         /// <param name="index">Index of the filter insertion.</param>
-        /// <param name="item">Fitler to insert.</param>
+        /// <param name="item">Filter to insert.</param>
         public void Insert(int index, IFilter item)
         {
             filters.Insert(index, item);
@@ -86,7 +86,7 @@ namespace Azure.Health.DataServices.Filters
         /// <summary>
         /// Indicates whether a filter is contained in the collection.
         /// </summary>
-        /// <param name="item">Fitler used to determined if it is in the collection.</param>
+        /// <param name="item">Filter used to determined if it is in the collection.</param>
         /// <returns>True is filter in is the collection; otherwise false.</returns>
         public bool Contains(IFilter item)
         {
