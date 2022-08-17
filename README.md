@@ -1,6 +1,6 @@
 # Azure Health Data Services SDK
 
-The Azure Health Data Services SDK helps you extend the functionality of Azure health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
+The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
 
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on meeting your requirements.
 
@@ -8,7 +8,7 @@ With the growth of health data workloads on Azure, we’ve found that developers
 
 | Package Name | Description | |
 | --- | --- | --- |
-| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Microsoft.Health.DataServices.Core/) | .NET 6 SDK for creating custom operations to when using Azure Health Data Services. |
+| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Microsoft.Health.DataServices.Core/) | .NET 6 SDK for creating custom operations when using Azure Health Data Services. |
 | [Azure.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.Health.DataServices.Channels.Extensions/) | .NET 6 SDK for extending channels using Azure Health Data Services. |
 | [Azure.Health.DataServices.Caching](https://www.nuget.org/packages/Microsoft.Health.DataServices.Caching/) | .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. |
 | [Azure.Health.DataServices.Storage](https://www.nuget.org/packages/Microsoft.Health.DataServices.Storage/) | .NET 6 SDK for adding caching using Azure Health Data Services. |
@@ -21,7 +21,7 @@ Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud 
 
 Also check out our full list of samples on [how to use the SDK here](./samples/README.md) for even more inspiration to create your own custom operations.
 
-## Common FHIR Use Cases
+## Common Fast Healthcare Interoperability Resources (FHIR®) Use Cases
 
 Some FHIR Service use cases this SDK can help you implement are:
 
@@ -39,7 +39,7 @@ FHIR Proxy was created in response to customer requests for customizing the Azur
 
 - This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
 - This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
-- This SDK is computed agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
 - This SDK is released and versioned via NuGet packages.
 - We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
 
@@ -71,7 +71,7 @@ For more information, read [the feature guide here](./docs/features.md).
 
 This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
 
-![](./docs/images/HealthcareAPIInfastructure.png)
+![](./docs/images/HealthcareAPIInfastructure20220815.png)
 
 ## Contributing
 
@@ -87,6 +87,14 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
+## Disclaimers
+
+
+The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.   
+
+
+The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data.  It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose. 
+
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
@@ -94,3 +102,6 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+
+
+FHIR® is the registered trademark of HL7 and is used with the permission of HL7. 

@@ -6,6 +6,8 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
+A custom operation is the business goal that you're trying to accomplish with this SDK, and a pipeline is the implementation of this custom operation. 
+
 ## Definitions
 
 - **Operation Context**: Common object passed between components of a pipeline containing the request and response.
@@ -14,9 +16,8 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
 - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-Pipeline Overview |  Input/Output Section of Pipeline
-:-------------------------:|:-------------------------:
-![Pipeline overview](./images/pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
+### Custom Operation/Pipeline Overview  
+![Pipeline overview](./images/pipeline.png)
 
 ## Pipelines
 
@@ -26,6 +27,9 @@ Pipelines allow you to hook into existing .NET hosting platforms to build custom
 - **Azure Function Pipeline** for use with Azure Functions as an isolated process.
 
 These pipelines allow you to hook into the configuration of ASP.NET and Azure Functions to use the other components below.
+
+### Input/Output Section of Pipeline
+![Pipeline input output](./images/pipeline-input-output.png)
 
 ### Filters
 
@@ -48,7 +52,7 @@ To create a filter for custom logic, they must have:
 
 Channels are an abstract way to communicate information in a pipeline to outside services. In practice, you can use channels to send information to other Azure services like Blob Storage or Service Bus. Channels are extensible - so custom channels can be built for any needed destination.
 
-Channels can be send only, receive only, send and receive. Examples: (1) A channel for an event hub that only sends to the event hub (2) A service bus channel that on only receives from a specific topic (3) A TCP channel that can send and receive.
+Channels can be send only, receive only, send and receive. Examples: (1) A channel for an event hub that only sends to the event hub (2) A service bus channel that only receives from a specific topic (3) A TCP channel that can send and receive.
 
 This SDK has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. All channels have:
 
@@ -102,7 +106,7 @@ You get to choose which method is best for your custom operation. We recommend s
 | Azure CLI | Implicit only | Uses the Azure session from the Azure CLI. |
 | Azure PowerShell | Implicit only | Uses the Azure session from the Azure PowerShell. |
 
-## Implicit Configuration
+### Implicit Authenticator Configuration
 
 To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the authenticator to your custom operation *without* any parameters. The authenticator now will either automatically pull the needed information from your system (mainly for development or managed identity) or you can configure via configuring the environment [like DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
 
@@ -110,7 +114,7 @@ To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the
 services.UseAuthenticator();
 ```
 
-### Explicit Configuration
+### Explicit Authenticator Configuration
 
 When explicitly defining authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
 
