@@ -124,6 +124,10 @@ namespace Azure.Health.DataServices.Clients
         /// </summary>
         public X509Certificate2 Certificate { get; internal set; }
 
+        /// <summary>
+        /// Builds an HttpRequestMessage.
+        /// </summary>
+        /// <returns>Http request Message</returns>
         public HttpRequestMessage Build()
         {
             UriBuilder builder = new(BaseUrl)

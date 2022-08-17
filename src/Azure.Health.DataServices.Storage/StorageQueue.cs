@@ -94,6 +94,10 @@ namespace Azure.Health.DataServices.Storage
             serviceClient = new QueueServiceClient(serviceUri, credential, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageQueue.
+        /// </summary>
+        /// <param name="logger">Optional ILogger</param>
         protected StorageQueue(ILogger logger = null)
         {
             this.logger = logger;

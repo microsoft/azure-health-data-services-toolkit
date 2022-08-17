@@ -122,7 +122,6 @@ namespace Azure.Health.DataServices.Clients.Headers
         /// Appends and replaces existing headers with custom headers and returns the modified collection headers.
         /// </summary>
         /// <param name="request">Http request message.</param>
-        /// <param name="headers">Collection of custom headers.</param>
         /// <returns>Modified collection headers</returns>
         public NameValueCollection AppendAndReplace(HttpRequestMessage request)
         {

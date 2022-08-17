@@ -22,10 +22,12 @@ namespace Azure.Health.DataServices.Pipelines
         /// <returns>HttpRequestMessage</returns>
         public static HttpRequestMessage ConvertToHttpRequestMesssage(this HttpRequestData req)
         {
-            HttpRequestMessage message = new()
+            HttpRequestMessage httpRequestMessage = new()
             {
                 Method = new HttpMethod(req.Method)
             };
+
+            HttpRequestMessage message = httpRequestMessage;
 
             message.RequestUri = req.Url;
 
@@ -127,7 +129,11 @@ namespace Azure.Health.DataServices.Pipelines
             return new ClaimsPrincipal(identity);
         }
 
-
+        /// <summary>
+        /// Gets a claims principal from an http request with a bearer security token.
+        /// </summary>
+        /// <param name="request">Http request containing the security bearer token.</param>
+        /// <returns></returns>
         public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestMessage request)
         {
             string? header = request.Headers.Authorization?.Parameter;

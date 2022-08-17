@@ -19,7 +19,6 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Creates an instance of AzureFunctionPipeline
         /// </summary>
-        /// <param name="options">Pipeline options.</param>
         /// <param name="inputFilters">Optional collection of input filters.</param>
         /// <param name="inputChannels">Optional cCollection of input channels.</param>
         /// <param name="binding">Optional binding. </param>
