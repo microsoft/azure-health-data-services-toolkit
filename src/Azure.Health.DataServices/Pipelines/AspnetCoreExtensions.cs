@@ -11,7 +11,7 @@ namespace Azure.Health.DataServices.Pipelines
         /// </summary>
         /// <param name="req">HttpRequest to convert.</param>
         /// <returns>HttpRequestMessage</returns>
-        public static HttpRequestMessage ConvertToHttpRequestMesssage(this HttpRequest req)
+        public static HttpRequestMessage ConvertToHttpRequestMessage(this HttpRequest req)
         {
             HttpRequestMessageFeature hreqmf = new(req.HttpContext);
             return hreqmf.HttpRequestMessage;

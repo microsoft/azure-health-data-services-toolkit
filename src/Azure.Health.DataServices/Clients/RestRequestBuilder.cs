@@ -139,7 +139,7 @@ namespace Azure.Health.DataServices.Clients
                 "PUT" => HttpMethod.Put,
                 "DELETE" => HttpMethod.Delete,
                 "PATCH" => HttpMethod.Patch,
-                _ => throw new Exception("Invald Http method."),
+                _ => throw new Exception("Invalid Http method."),
 
             };
 
