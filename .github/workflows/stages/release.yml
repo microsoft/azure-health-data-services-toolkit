@@ -115,8 +115,8 @@ stages:
                 repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: 'release/$(PackageVersion)'
-                title: '$(PackageVersion)'
+                tag: ${{ format('release/{0}', parameters.PackageVersion) }}
+                title: ${{ parameters.PackageVersion }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
