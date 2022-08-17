@@ -97,5 +97,5 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
   - **FallbackStorageContainer**- an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Hub size.
   - **ProcessorStorageContainer**- container used for managing the processor that reads messages.
 - **UseWebPipeline** given extension is used to add scope to the web services configurations. 
--<your service name>.**OnReceive Event** that signals pipeline service has received a message.
+- <your service name>.**OnReceive Event** that signals pipeline service has received a message.
 - **SendMessageAsync** This method will execute the pipeline service which is configured in given Program.cs file. HttpRequestMessage is passed as an input parameter to the given method, which includes execution of the pipeline and sending message to the Azure Event Hub. Receive channel receives events from event hub. 
