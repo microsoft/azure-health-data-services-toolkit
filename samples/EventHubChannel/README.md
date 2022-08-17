@@ -1,12 +1,12 @@
 # Using Event Hub as Channel
 
-This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Evnent Hub.
+This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Event Hub.
 
-Here, we'll cover channel scenario which can be used to access Azure Event Hub and Azure Storage.
+Here, we'll cover the channel scenario which can be used to access Azure Event Hub and Azure Storage.
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Event Hub and Azure storage with this SDK. We follow the best practices and allow you to understand how to configure the Event Hub as channel and its options using Input channel and how we can send and receive messages with Azure Event Hub. 
+This sample provides easy configuration of the application with Azure Event Hub and Azure Storage with this SDK. This sample will show you how to configure the Event Hub as a channel and its options using Input channel, and how we can send and receive messages with Azure Event Hub. 
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ This sample provides easy configuration of the application with Azure Event Hub 
 
 ## Setup your environment
 
-This sample needs can be configured with `Azure Event Hub` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
+This sample can be configured with `Azure Event Hub` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -82,11 +82,11 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     ```
 ## Usage Details 
 
-- CheckOut Program.cs file that outlines how you can send the events to Azure event hub using Pipeline service. 
-- Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels.
-- Channels are of two types of input channel and output channel which can be used as per our need. 
-- For understanding Azure Event Hub look at [this .NET documentation page](https://docs.microsoft.com/azure/event-hubs/event-hubs-about)
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings.Look at [this .NET documentation page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0) for more information.
+- `Program.cs` file outlines how you can send the events to Azure Event Hub using Pipeline service. 
+- Pipeline is a software design pattern that executes a sequence of operations, a pipeline consist of filters and/or channels.
+- Channels are of two types: input channel and output channel which can be used as per our need. 
+- For Azure Event Hub please refer to [this .NET documentation page](https://docs.microsoft.com/azure/event-hubs/event-hubs-about) for more information.
+- **Option Pattern**: uses classes to provide strongly typed access to groups of related settings.Look at [this .NET documentation page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0) for more information.
 - Event Hub Channel the Channel that can send or receive data with Azure Event Hub. 
 - Event Hub Channel Options - Event Hub channel options must be configured in order to send and receive data, below options need to configure for Azure Event Hub.
   - Sku- Azure Event Hub Sku used to determine the maximum      message size allowed by the Event Hub. 
