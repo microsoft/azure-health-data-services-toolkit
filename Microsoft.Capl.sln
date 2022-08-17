@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1446E87B-70C4-4A68-8078-67AFF37B56FB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Capl.Core", "src\Microsoft.Capl.Core\Microsoft.Capl.Core.csproj", "{BAEEEC17-17C6-4BAA-A4B8-4A403E092A1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capl.Tests", "tests\Microsoft.Capl.Tests\Microsoft.Capl.Tests.csproj", "{5DEBD723-8BC5-4F92-885A-F6CBAD360B1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAEEEC17-17C6-4BAA-A4B8-4A403E092A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEEEC17-17C6-4BAA-A4B8-4A403E092A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEEEC17-17C6-4BAA-A4B8-4A403E092A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEEEC17-17C6-4BAA-A4B8-4A403E092A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEBD723-8BC5-4F92-885A-F6CBAD360B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEBD723-8BC5-4F92-885A-F6CBAD360B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEBD723-8BC5-4F92-885A-F6CBAD360B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEBD723-8BC5-4F92-885A-F6CBAD360B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94F0FA02-D7FC-49A9-B186-55D81545BC30}
+	EndGlobalSection
+EndGlobal
