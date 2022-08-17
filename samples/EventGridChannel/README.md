@@ -89,7 +89,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 - Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels. 
 
 - Channels are of two types, input channel and output channel which can be used as per our need. 
-- For understanding Azure Event Grid look at [this .NET documentation page](https://docs.microsoft.com/en-us/azure/event-grid/overview) for more information.
+- For understanding Azure Event Grid look at [this .NET documentation page](https://docs.microsoft.com/azure/event-grid/overview) for more information.
 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - **Event Grid Channel** the Channel used to send events to Azure event grid. 
