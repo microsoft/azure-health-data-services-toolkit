@@ -1,4 +1,4 @@
-# Using Azure Event Grid as channel
+# Using Azure Event Grid as a channel
 This sample demonstrates the use of Azure Event Grid as a channel which is available in Azure Health Data Services SDK. We'll cover the channel scenario which can be used to send events to Azure Event Grid.
 
 ## Concepts
@@ -86,33 +86,33 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
 ## Usage Details
 
-- Please Refer the Program.cs file that outlines how you can send the events to Azure event grid using Pipeline service. 
+- `Program.cs` file outlines how you can send the events to Azure Event Grid using Pipeline service. 
 
 - Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels. 
 
 - Channels are of two types, input channel and output channel which can be used as per our need. 
-- For understanding Azure Event Grid look at [this .NET documentation page](https://docs.microsoft.com/azure/event-grid/overview) for more information.
+- For Azure Event Grid please refer to [this .NET documentation page](https://docs.microsoft.com/azure/event-grid/overview) for more information.
 
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
-- **Event Grid Channel** the Channel used to send events to Azure event grid. 
-- Event Grid Channel Options Event Grid channel options must be configured in order to send data; below options need to configure for Azure Event Grid. 
+- **Option Pattern**: uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
+- **Event Grid Channel**: the Channel used to send events to Azure event grid. 
+- **Event Grid Channel Options**: Event Grid channel options must be configured in order to send data; below options need to configure for Azure Event Grid. 
 
-  - TopicUriString- Gets or sets the Azure Event Grid topic. 
+  - **TopicUriString**- Gets or sets the Azure Event Grid topic. 
 
-  - AccessKey- Gets or sets the Azure Event Grid access key. 
+  - **AccessKey**- Gets or sets the Azure Event Grid access key. 
 
-  - Subject- Gets or sets Azure Event Grid subject. 
+  - **Subject**- Gets or sets Azure Event Grid subject. 
 
-  - EventType- Gets or sets the Azure Event Grid event type. 
+  - **EventType**- Gets or sets the Azure Event Grid event type. 
 
-  - DataVersion- Gets or sets the Azure Event Grid data version.  
+  - **DataVersion**- Gets or sets the Azure Event Grid data version.  
 
-  - ExecutionStatusType Gets or sets the requirement for execution of the channel. 
+  - **ExecutionStatusType** Gets or sets the requirement for execution of the channel. 
 
-  - FallbackStorageConnectionString- Gets or sets an Azure Blob Storage connection string used when data exceeds the allowable Azure Event Grid size. 
+  - **FallbackStorageConnectionString**- Gets or sets an Azure Blob Storage connection string used when data exceeds the allowable Azure Event Grid size. 
 
-   - FallbackStorageContainer- Gets or sets an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Grid size.
+   - **FallbackStorageContainer**- Gets or sets an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Grid size.
 - **UseWebPipeline** given extension is used to add scope to the web services configurations.
-- **Azure Queue Storage** is used when data exceeds the allowable Azure Event Grid Size, Blob storage is used for Queue storage.
+- **Azure Queue Storage** is used when data exceeds the allowable Azure Event Grid Size. Blob storage is used for Queue storage.
 - **< your service name >.OnReceive"** Event that signals pipeline service has received a message.
-- **ExecuteAsync** This method Executes the pipeline service which is configured in given Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure event grid. 
+- **ExecuteAsync** This method Executes the pipeline service which is configured in given Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Event Grid. 
