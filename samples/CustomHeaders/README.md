@@ -19,12 +19,12 @@ This sample solution describes how to append and replace existing headers with c
 
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build CustomHeaders/CustomHeadersSample.csproj 
+dotnet build
 ```
 
 ## Run the Sample 
@@ -36,7 +36,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet CustomHeaders\bin\Debug\net6.0\CustomHeadersSample.dll
+    dotnet run
     ```
 
 ## Usage Details
