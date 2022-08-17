@@ -8,7 +8,7 @@ This sample is meant to be run locally on your computer, not deployed to Azure.
 
 ## Concepts
 
-This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow the best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
+This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow best practices and allow you to use `DefaultAzureCredential` for , which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 
 First, make sure you have this sample open in your editor.
 
-This sample needs can be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 

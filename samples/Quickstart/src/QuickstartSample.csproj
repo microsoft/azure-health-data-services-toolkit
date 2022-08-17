@@ -10,7 +10,7 @@
   </PropertyGroup>
 	
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
     <PackageReference Include="DotNetEnv " Version="2.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
