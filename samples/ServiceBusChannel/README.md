@@ -2,11 +2,11 @@
 
 This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
-Here, we'll cover channel scenario which can be used to access Azure service bus and Azure Storage.
+Here, we'll cover the channel scenario which can be used to access Azure Service Bus and Azure Storage.
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure service Bus and Azure storage with this SDK. We follow the best practices and allow you to understand how to configure the service bus as channel and its options using Input channel and how we can send and receive messages with Azure Service Bus. 
+This sample provides easy configuration of the application with Azure Service Bus and Azure Storage with this SDK. We follow the best practices and allow you to understand how to configure the Serice Bus as channel and its options using Input channel, and how we can send and receive messages with Azure Service Bus. 
 
 ## Prerequisites
 
@@ -82,20 +82,20 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
 ## Usage Details 
 
-- Checkout Program.cs file that outlines how you can send and receive messages with Service bus using Pipeline service. 
+- Program.cs file  outlines how you can send and receive messages with Service Bus using Pipeline service. 
 - Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels. 
 - Channels are of two type’s input channel and output channel which can be used as per our need. 
-- For understanding Azure service bus look at [this .NET documentation page](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview ) for more information. 
+- For understanding Azure Service Bus please refer to [this .NET documentation page](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview ) for more information. 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0) for more information
-- Service Bus Channel the Channel that can send or receive data with Azure Service Bus. 
-- Service Bus Channel Options Service bus channel options must be configured in order to send and receive data, below options need to configure for Azure Service bus. 
-    - ConnectionString - Azure Service bus connection string 
-    - FallbackStorageConnectionString- Blob storage connection string used when storing large messages. 
-    - FallbackStorageContainer- Blob storage container used to store large messages. 
-    - ExecutionStatusType - Gets or sets the requirement for execution of the channel. 
-    - Sku- type of service bus sku used. 
-    - Topic- service bus topic. 
+- **Service Bus Channel**: the Channel that can send or receive data with Azure Service Bus. 
+- **Service Bus Channel Options**:N Service Bus channel options must be configured in order to send and receive data, below options need to configure for Azure Service Bus. 
+    - **ConnectionString** - Azure Service Bus connection string 
+    - **FallbackStorageConnectionString**- Blob storage connection string used when storing large messages. 
+    - **FallbackStorageContainer**- Blob storage container used to store large messages. 
+    - **ExecutionStatusType** - Gets or sets the requirement for execution of the channel. 
+    - **Sku**- type of Service Bus sku used. 
+    - **Topic**- Service Bus topic. 
 
-- UseWebPipeline given extension is used to add scope to the web services configurations. 
-- OnReceive Event that signals pipeline service has received a message. 
-- SendMessageAsync: This method will Execute the pipeline service which is configured in Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Service bus and Receive channel receives events from service bus.
+- **UseWebPipeline**: given extension is used to add scope to the web services configurations. 
+- **OnReceive**: Event that signals pipeline service has received a message. 
+- **SendMessageAsync**: This method will execute the pipeline service which is configured in Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Service Bus and Receive channel receives events from Service Bus.
