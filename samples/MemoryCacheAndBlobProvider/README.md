@@ -1,14 +1,14 @@
 # Using In-Memory and Azure cache for Blob Storage
 
-This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Blob store and cache the data.
+This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Blob to store and cache the data.
 
-Storing and reading the data from In Memory Cache will imporve the overall performance of the application.
+Storing and reading the data from in-memory cache will improve the overall performance of the application.
 
-Here, we'll cover how we can use in memory caching technique  methods and to cache the pipline output data to Blob on Azure.
+Here, we'll cover how we can use in-memory caching technique methods and to cache the pipeline output data to Blob on Azure.
 
 ## Concepts
 
-This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Blob. We follow the best practices and allow you to use `Azure Cache for Blob`, which combines with In-memory caching techinque.
+This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Blob. This sample will show how to use `Azure Cache for Blob` and combines with in-memory caching techinque.
 
 ## Prerequisites
 
@@ -74,12 +74,12 @@ dotnet build
 
 ## Usage Details
 
-- Checkout the Program.cs file that outlines how you can implement the caching and create and store the file in Azure storage. 
+- `Program.cs` file  outlines how you can implement caching, and create and store the file in Azure storage. 
 
-- AddMemoryCache: Look at [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
+- AddMemoryCache: Please refer to [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
  
-- SetAsync:  This method internally calls IJsonObjectCache interface which is part of the SDK. It will create a record with the given key in Redis. 
+- **SetAsync**:  This method internally calls IJsonObjectCache interface which is part of the SDK. It will create a record with the given key in Redis. 
 
-- GetAsync: This method will read the data from Redis, DeserializeObject it. To read the data, you need to pass the key name as a parameter.
+- **GetAsync**: This method will read the data from Redis, DeserializeObject it. To read the data, you need to pass the key name as a parameter.
