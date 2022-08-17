@@ -3,19 +3,25 @@ parameters:
 - name: Version
 
 steps:
-  - task: DotNetCoreCLI@2
-    displayName: ${{ format('Pack_{0}', parameters.ArtifactName) }}
+  - task: Bash@3
+    displayName: Pack All Projects (excluding samples and tests)
     inputs:
-      command: pack
-      packagesToPack: '**/src/*/*.csproj'
-      versioningScheme: byEnvVar
-      versionEnvVar: package_version
-      outputDir: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
+      targetType: 'inline'
+      script: |
+        find . -type f \( -iname "*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
+        do
+            echo "Packing $file..."
+            dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:PackageVersion="$PACKAGE_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
+        done
     env:
-      package_version: ${{ parameters.Version }}
+      PACKAGE_VERSION: ${{ parameters.Version }}
+      OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
+      NOTES: ${{ format('The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F{0}', parameters.Version) }}
 
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
       artifactName: ${{ parameters.ArtifactName }}
       artifactType: 'pipeline'
+
+

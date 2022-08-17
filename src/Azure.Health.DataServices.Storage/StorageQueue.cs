@@ -138,7 +138,7 @@ namespace Azure.Health.DataServices.Storage
         /// <param name="prefix">Optional string that filters the results to return only queues whose name begins with the specified prefix.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>Queue names as list of string.</returns>
-        public async Task<List<string>> ListQueuesAync(QueueTraits traits = QueueTraits.None, string prefix = null, CancellationToken cancellationToken = default)
+        public async Task<List<string>> ListQueuesAsync(QueueTraits traits = QueueTraits.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             var result = serviceClient.GetQueuesAsync(traits, prefix, cancellationToken)
                 .AsPages(default, null);
@@ -152,7 +152,7 @@ namespace Azure.Health.DataServices.Storage
                 }
             }
 
-            logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAync"), message: "Returned list of {Count} queue names.", queueNames.Count);
+            logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAsync"), message: "Returned list of {Count} queue names.", queueNames.Count);
             return queueNames;
         }
 

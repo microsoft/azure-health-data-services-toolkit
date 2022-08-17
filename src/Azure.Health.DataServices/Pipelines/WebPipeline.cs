@@ -115,7 +115,7 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Executes the pipeline and returns a response for the caller.
         /// </summary>
-        /// <param name="request">Iniitial request from the Web service.</param>
+        /// <param name="request">Initial request from the Web service.</param>
         /// <returns>Response for Web service.</returns>
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request)
         {
