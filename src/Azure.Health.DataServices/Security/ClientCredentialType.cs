@@ -8,7 +8,7 @@
         ClientSecret,
         Certificate,
         ManagedIdentity,
-        OnBehalfOfUsingClientSecert,
+        OnBehalfOfUsingClientSecret,
         OnBehalfOfUsingCertificate
     }
 }

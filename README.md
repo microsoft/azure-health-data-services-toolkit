@@ -15,7 +15,7 @@ With the growth of health data workloads on Azure, we’ve found that developers
 
 ## Getting Started
 
-The fastest way to test out the SDK and see it in action is [through our Quickstart Samples](./samples/Quickstart.README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services
+The fastest way to test out the SDK and see it in action is [through our Quickstart Sample](./samples/Quickstart.README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
 Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 

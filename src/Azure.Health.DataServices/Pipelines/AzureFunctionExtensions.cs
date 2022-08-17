@@ -20,7 +20,7 @@ namespace Azure.Health.DataServices.Pipelines
         /// </summary>
         /// <param name="req">HttpRequestData</param>
         /// <returns>HttpRequestMessage</returns>
-        public static HttpRequestMessage ConvertToHttpRequestMesssage(this HttpRequestData req)
+        public static HttpRequestMessage ConvertToHttpRequestMessage(this HttpRequestData req)
         {
             HttpRequestMessage message = new()
             {
@@ -54,7 +54,7 @@ namespace Azure.Health.DataServices.Pipelines
         }
 
         /// <summary>
-        /// Uses a combination of an HttpResponeMessage and HttpRequestData to conver to HttpResponseData.
+        /// Uses a combination of an HttpResponseMessage and HttpRequestData to convert to HttpResponseData.
         /// </summary>
         /// <param name="message">HttpRequestMessage that is extended.</param>
         /// <param name="request">HttpRequestData to use in the conversion.</param>

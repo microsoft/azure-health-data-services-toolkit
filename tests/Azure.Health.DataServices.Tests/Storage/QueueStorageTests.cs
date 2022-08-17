@@ -118,7 +118,7 @@ namespace Azure.Health.DataServices.Tests.Storage
             containers.Enqueue(queueName2);
             _ = await storage.CreateQueueIfNotExistsAsync(queueName1);
             _ = await storage.CreateQueueIfNotExistsAsync(queueName2);
-            List<string> list = await storage.ListQueuesAync();
+            List<string> list = await storage.ListQueuesAsync();
             Assert.IsTrue(list.Contains(queueName1));
             Assert.IsTrue(list.Contains(queueName2));
         }
