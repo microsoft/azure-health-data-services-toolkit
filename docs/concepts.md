@@ -16,9 +16,8 @@ A custom operation is the business goal that you're trying to accomplish with th
 - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
 - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-Custom Operation/Pipeline Overview |  Input/Output Section of Pipeline
-:-------------------------:|:-------------------------:
-![Pipeline overview](./images/pipeline.png)  | ![Pipeline input output](./images/pipeline-input-output.png)
+### Custom Operation/Pipeline Overview  
+![Pipeline overview](./images/pipeline.png)
 
 ## Pipelines
 
@@ -28,6 +27,9 @@ Pipelines allow you to hook into existing .NET hosting platforms to build custom
 - **Azure Function Pipeline** for use with Azure Functions as an isolated process.
 
 These pipelines allow you to hook into the configuration of ASP.NET and Azure Functions to use the other components below.
+
+### Input/Output Section of Pipeline
+![Pipeline input output](./images/pipeline-input-output.png)
 
 ### Filters
 
