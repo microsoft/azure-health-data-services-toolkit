@@ -1,6 +1,6 @@
-using DataServices.Configuration;
-using DataServices.Pipelines;
-using DataServices.Security;
+using Azure.Health.DataServices.Configuration;
+using Azure.Health.DataServices.Pipelines;
+using Azure.Health.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,47 +8,50 @@ using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace Quickstart
-{
-    public class Program
+
+MyServiceConfig config = new MyServiceConfig();
+
+using IHost host = new HostBuilder()
+    .ConfigureAppConfiguration((hostingContext, configuration) =>
     {
-        private static MyServiceConfig config;
-        public static async Task Main()
+        configuration.Sources.Clear();
+
+        IHostEnvironment env = hostingContext.HostingEnvironment;
+
+        // Load environment from the azd cli for local development.
+        // This is included in the project output via the .csproj for debug configurations only (not for release).
+        DotNetEnv.Env.Load();
+
+        configuration
+            .AddJsonFile("local.settings.json", optional: false, reloadOnChange: true)
+            .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
+            .AddEnvironmentVariables("AZURE_");
+
+        IConfigurationRoot configurationRoot = configuration.Build();
+
+        configurationRoot.Bind(config);
+
+    })
+    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureServices(services =>
+    {
+        if (config.InstrumentationKey != null)
         {
-            DotNetEnv.Env.Load("../.azure/*/.env");
-
-            IConfigurationBuilder builder = new ConfigurationBuilder()
-                .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("AZURE_");
-
-            IConfigurationRoot root = builder.Build();
-            config = new MyServiceConfig();
-            root.Bind(config);
-
-            using IHost host = CreateHostBuilder().Build();
-            await host.RunAsync();
+            services.UseAppInsightsLogging(config.InstrumentationKey, LogLevel.Information);
+            services.UseTelemetry(config.InstrumentationKey);
         }
+        
+        services.UseAuthenticator();
+        services.UseAzureFunctionPipeline();
+        services.AddInputFilter<QuickstartOptions>(typeof(QuickstartFilter), options =>
+        {
+            options.FhirServerUrl = config.FhirServerUrl;
+            options.RetryDelaySeconds = 5.0;
+            options.MaxRetryAttempts = 5;
+            options.ExecutionStatusType = StatusType.Normal;
+        });
+    })
+    .Build();
 
-        private static IHostBuilder CreateHostBuilder(string[] args = null) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureFunctionsWorkerDefaults()
-                .ConfigureServices(services =>
-                {
-                    services.UseAppInsightsLogging(config.InstrumentationKey, LogLevel.Information);
-                    services.UseTelemetry(config.InstrumentationKey);
-                    services.UseAuthenticator();
-                    services.UseAzureFunctionPipeline();
-                    services.AddInputFilter<QuickstartOptions>(typeof(QuickstartFilter), options =>
-                    {
-                        options.FhirServerUrl = config.FhirServerUrl;
-                        options.PageSize = 100;
-                        options.PageSize = 1000;
-                        options.RetryDelaySeconds = 5.0;
-                        options.MaxRetryAttempts = 5;
-                        options.ExecutionStatusType = StatusType.Normal;
-                    });
-                });
-    }
-}
+await host.RunAsync();

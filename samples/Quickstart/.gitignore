@@ -1,2 +1,12 @@
-
+# Ignore azd environment
 .azure
+
+# Don't ignore this folder's vscode configuration
+!.vscode/
+
+# Include VS launch settings for env
+!launchSettings.json
+
+# Azurite emulator temp files
+.azurite
+__*

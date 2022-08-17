@@ -1,22 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
+    <IsPackable>false</IsPackable>
     <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
-    <UserSecretsId>fec82817-d38f-4215-9a39-a88f5ec417e1</UserSecretsId>
+    <UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
   </PropertyGroup>
+	
   <ItemGroup>
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.26-prerelease" />
     <PackageReference Include="DotNetEnv " Version="2.3.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.3.0" OutputItemType="Analyzer" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.6.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.8.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.Health.DataServices.Core" Version="0.9.25-prerelease" />
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
+
   <ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -24,6 +29,14 @@
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'"> 
+    <None Include="../.azure/*/.env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      <TargetPath>.env</TargetPath>
     </None>
   </ItemGroup>
 </Project>

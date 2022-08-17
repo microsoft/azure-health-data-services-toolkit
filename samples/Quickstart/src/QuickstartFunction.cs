@@ -1,4 +1,4 @@
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -18,9 +18,9 @@ namespace Quickstart
         }
 
         [Function("QuickstartFunction")]
-        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Patient/{id}/$everything")] HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Patient")] HttpRequestData req)
         {
-            _logger.LogInformation("Patient everything pipeline started...");
+            _logger.LogInformation("Quickstart pipeline started...");
             return await pipeline.ExecuteAsync(req);
         }
     }

@@ -1,15 +1,11 @@
 ﻿
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Pipelines;
 
 namespace Quickstart.Filters
 {
     public class QuickstartOptions
     {
         public string FhirServerUrl { get; set; }
-
-        public int PageSize { get; set; }
-
-        public int MaxSize { get; set; }
 
         public double RetryDelaySeconds { get; set; }
 
