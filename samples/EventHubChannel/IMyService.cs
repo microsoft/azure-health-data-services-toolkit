@@ -1,5 +1,5 @@
 ﻿
-using DataServices.Channels;
+using Azure.Health.DataServices.Channels;
 
 namespace EventHubChannelSample
 {

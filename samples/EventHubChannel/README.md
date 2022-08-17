@@ -59,12 +59,12 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build EventHubChannelSample/EventHubChannelSample.csproj
+dotnet build
 ```
 
 ## Run the Sample 
@@ -76,7 +76,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet EventHubChannelSample\bin\Debug\net6.0\EventHubChannelSample.dll 
+    dotnet run
     ```
 ## Usage Details 
 
