@@ -11,6 +11,7 @@ steps:
       versioningScheme: byEnvVar
       versionEnvVar: package_version
       outputDir: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
+      arguments: ${{ format('-p:PackageReleaseNotes=The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F{0}', parameters.Version) }}
     env:
       package_version: ${{ parameters.Version }}
 
@@ -19,3 +20,5 @@ steps:
       targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
       artifactName: ${{ parameters.ArtifactName }}
       artifactType: 'pipeline'
+
+
