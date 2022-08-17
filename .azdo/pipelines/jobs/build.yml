@@ -15,7 +15,9 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/*.csproj'
+    projects: |
+      '$(Pipeline.Workspace)/s/src/Azure.Health*/Azure.Health*.csproj'
+      '$(Pipeline.Workspace)/s/src/Microsoft.Capl*/Microsoft.Capl*.csproj'
   displayName: 'Build all projects'
   env:
     FileVersion: ${{ parameters.BuildFileVersion }}
@@ -27,7 +29,9 @@ steps:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '**/tests/**/*.csproj'
+    projects: |
+      '$(Pipeline.Workspace)/s/tests/Azure.Health*/Azure.Health*.csproj'
+      '$(Pipeline.Workspace)/s/tests/Microsoft.Capl*/Microsoft.Capl*.csproj'
   displayName: 'Run all tests'
   env:
     PROXY_TenantId: $(proxy-tenant-id)
