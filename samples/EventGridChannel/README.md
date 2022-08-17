@@ -2,7 +2,9 @@
 This sample demonstrates the use of Azure Event Grid as a channel which is available in Azure Health Data Services SDK. we'll cover channel scenario which can be used to send events to Azure event grid.
 
 ## Concepts
-This sample will help you to understand how to configure the event grid channel and its options using input channel and how to send the events to Azure event grid and use Blob storage as a queue storage for Azure Event Grid.  
+
+This sample will help you to understand how to configure the event grid channel and its options using input channel and how to send the events to Azure event grid and use Blob storage as a queue storage for Azure Event Grid. 
+
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
@@ -60,12 +62,12 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build EventGridChannelSample/EventGridChannelSample.csproj 
+dotnet build
 ```
 
 ## Run the Sample 
@@ -77,7 +79,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet EventGridChannelSample\bin\Debug\net6.0 \EventGridChannelSample.dll
+    dotnet run
     ```
 
 ## Usage Details
