@@ -1,0 +1,74 @@
+# DESCRIPTION: 	
+# Builds, tests, and packages the solution for the main branch.	
+name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
+trigger: none
+
+resources:
+  repositories:
+  - repository: azure-health-data-services-sdk-build-tools
+    type: git
+    name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
+
+variables:
+  - group: sdk-test-pack
+  - group: sdk-build-version-configuration
+  - name: packageversion-prerelease
+    value: $(prerelease-major).$(prerelease-minor).$(prerelease-patch)-prerelease
+  - name: packageversion-release
+    value: $(release-major).$(release-minor).$(release-patch)
+
+stages:
+  - stage: Build
+
+    jobs:
+    - job: CodeChecks
+      pool:
+        vmImage: $(VmImage)
+      steps:
+      - template: ./jobs/checkCode.yml
+
+    - job: BuildTestPack
+      pool:
+        vmImage: $(VmImage)
+      steps:
+      - template: ./jobs/build.yml
+        parameters:
+          BuildPackageVersion: $(packageversion-release)
+          BuildFileVersion: $(packageversion-release).$(Build.BuildId)
+      - template: ./jobs/pack.yml
+        parameters:
+          ArtifactName: PrereleasePackages
+          Version: $(packageversion-prerelease)
+
+        # Prepare release packages if manually triggered
+      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+        - template: ./jobs/pack.yml
+          parameters:
+            ArtifactName: ReleasePackages
+            Version: $(packageversion-release)
+
+    # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+    - template: ./stages/release.yml
+      parameters:
+        ArtifactName: PrereleasePackages
+        Packages:
+          - name: Azure.Health.DataServices.Core
+          - name: Azure.Health.DataServices.Caching
+          - name: Azure.Health.DataServices.Channels.Extensions
+          - name: Azure.Health.DataServices.Storage
+        PackageVersion: $(packageversion-prerelease)
+        DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
+        IsPrerelease: true
+
+    - template: ./stages/release.yml
+      parameters:
+        ArtifactName: ReleasePackages
+        Packages:
+          - name: Azure.Health.DataServices.Core
+          - name: Azure.Health.DataServices.Caching
+          - name: Azure.Health.DataServices.Channels.Extensions
+          - name: Azure.Health.DataServices.Storage
+        PackageVersion: $(packageversion-release)
+        DevOpsFeedID: 'AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal'
+        IsPrerelease: false
