@@ -13,7 +13,7 @@ using System.Text;
 
 IConfigurationBuilder configBuilder = new ConfigurationBuilder()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-    .AddEnvironmentVariables("AZURE");
+    .AddEnvironmentVariables("AZURE_");
 IConfigurationRoot root = configBuilder.Build();
 MyServiceConfig config = new();
 root.Bind(config);
