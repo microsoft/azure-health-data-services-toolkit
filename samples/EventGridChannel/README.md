@@ -44,7 +44,7 @@ dotnet user-secrets set "TopicUriString" "<<Your Topic Uri String>>"
 
 If you are using Visual Studio, you can setup configuration via secrets without using the command line.
 
- 1. Right-click on the BlobChannelSample solution in the Solution Explorer and choose "Manage User Secrets".
+ 1. Right-click on the EventGridChannelSample solution in the Solution Explorer and choose "Manage User Secrets".
  2. An editor for `secrets.json` will open. Paste the below inside of this file.
 
 ```json
