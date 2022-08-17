@@ -2,6 +2,8 @@
 
 This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Blob store and cache the data.
 
+Storing and reading the data from In Memory Cache will imporve the overall performance of the application.
+
 Here, we'll cover how we can use in memory caching technique  methods and to cache the pipline output data to Blob on Azure.
 
 ## Concepts
@@ -15,11 +17,11 @@ This sample provides easy configuration to cache the pipeline data to in-memory 
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
-- You will need the Azure Cache for Blob Contributor role assigned to your account.
+- You will need an Azure Storage account and Blob Container.
 
 ## Setup your environment
 
-This sample needs can be configured with the `Azure Cache for Blob` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with the 'Azure Storage Blob' connection string to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
