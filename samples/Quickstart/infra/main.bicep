@@ -26,7 +26,7 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags: appTags
 }
 
-module template '../../../deploy/main.bicep'= {
+module template '../../../infra/main.bicep'= {
   name: 'main'
   scope: resourceGroup
   params: {
