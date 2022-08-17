@@ -10,7 +10,8 @@ steps:
       script: |
         find . -type f \( -iname "*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
-            dotnet pack "$file" --output $OUTPUT /p:Configuration=Release /p:PackageVersion=$PACKAGE_VERSION /p:PackageReleaseNotes=$NOTES --verbosity Detailed
+            echo "Packing $file..."
+            dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:PackageVersion="$PACKAGE_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
         done
     env:
       PACKAGE_VERSION: ${{ parameters.Version }}
