@@ -1,8 +1,10 @@
 # Using Blob storage as Channel
 
 This sample demonstrates the channel feature available in Azure Health Data Services SDK. In this sample, pipeline is created and a channel feature is used to store pipeline data to Azure storage account.
+
 ## Concepts
 This sample provides easy configuration of the application with Azure Blob storage and Azure storage with this SDK. We follow the best practices and allow you to understand how to configure the Blob storage as a channel and its options using Input channel and how we can use blob for storing pipline data.
+
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
@@ -23,7 +25,6 @@ Run this below command to set up the sample configuration in the dotnet secret s
 Open a command prompt and navigate to `samples\BlobChannelSample` inside of this repository.
 ```bash
 dotnet user-secrets init
-dotnet user-secrets set "TenantId" "<<Your Tenant ID>>"
 dotnet user-secrets set "ConnectionString" "<<Your Storage Account Connection String>>"
 dotnet user-secrets set "Container" "<<Your Storage Account Container Name>>"
 ```
@@ -37,7 +38,6 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 ```json
   {
-    "TenantId": "<Your Tenant ID>",
     "ConnectionString": "<Your Storage Account Connection String>",
     "Container": "<Your Storage Account Container Name>"
   }
@@ -61,10 +61,10 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
 - Using the .NET Core CLI 
 
-    Run the following command from the directory that contains this sample: 
+    Navigate to `samples\BlobChannelSample` directory and run the following command:
 
     ```bash
-    dotnet BlobChannelSample\bin\Debug\net6.0\BlobChannelSample.dll
+    dotnet run
     ```
 
 ## Usage Details
