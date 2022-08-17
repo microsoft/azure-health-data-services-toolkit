@@ -1,4 +1,9 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
-* text=auto
+* text eol=lf
+
+# Force crlf on checkout
+*.sln text eol=crlf
+*.csproj text eol=crlf
+*.cs text eol=crlf
