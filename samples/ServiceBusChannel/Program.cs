@@ -1,7 +1,7 @@
 ﻿
-using DataServices.Channels;
-using DataServices.Configuration;
-using DataServices.Pipelines;
+using Azure.Health.DataServices.Channels;
+using Azure.Health.DataServices.Configuration;
+using Azure.Health.DataServices.Pipelines;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +13,7 @@ using System.Text;
 
 IConfigurationBuilder configBuilder = new ConfigurationBuilder()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-    .AddEnvironmentVariables("PROXY_");
+    .AddEnvironmentVariables("AZURE");
 IConfigurationRoot root = configBuilder.Build();
 MyServiceConfig config = new();
 root.Bind(config);
