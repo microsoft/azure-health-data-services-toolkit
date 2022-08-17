@@ -17,6 +17,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: |
       **/*.csproj
+      !**/*Sample.csproj
       !**/*Test.csproj
       !**/*Tests.csproj
   displayName: 'Build all projects'
