@@ -1,9 +1,9 @@
 # Using Azure Event Grid as channel
-This sample demonstrates the use of Azure Event Grid as a channel which is available in Azure Health Data Services SDK. we'll cover channel scenario which can be used to send events to Azure event grid.
+This sample demonstrates the use of Azure Event Grid as a channel which is available in Azure Health Data Services SDK. We'll cover the channel scenario which can be used to send events to Azure Event Grid.
 
 ## Concepts
 
-This sample will help you to understand how to configure the event grid channel and its options using input channel and how to send the events to Azure event grid and use Blob storage as a queue storage for Azure Event Grid. 
+This sample will help you to understand how to configure the event grid channel and its options using input channel, and how to send the events to Azure Event Grid and use Blob storage as a queue storage for Azure Event Grid. 
 
 ## Prerequisites
 
@@ -12,13 +12,13 @@ This sample will help you to understand how to configure the event grid channel 
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
-- Azure Storage Account. Please follow this link for setting up the storage account: [Setup Storage Account ](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal).
+- Azure Storage account. Please follow this link for setting up the storage account: [Setup Storage Account ](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal).
 - Azure Event Grid. Please follow this link for setting up the Event Grid: [Setup Event Grid](https://docs.microsoft.com/azure/event-grid/create-view-manage-system-topics).
 - You will need the Event Grid Contributor Role and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
 
-This sample needs can be configured with varibles mentioned below to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs can be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
