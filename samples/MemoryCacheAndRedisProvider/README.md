@@ -4,11 +4,11 @@ This sample will show you how you can access the Azure resources with the SDK. C
 
 Since we are using Redis, we can use non-persistent hosts (like Azure Functions) for this caching approach. The memory cache will only work for a single host, but the Redis cache will work across hosts.
 
-Here, we'll cover how we can use in memory caching technique  methods and to cache the pipline output data to Redis on Azure.
+Here, we'll cover how we can use in-memory caching technique  methods and to cache the pipeline output data to Redis on Azure.
 
 ## Concepts
 
-This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Redis. We follow the best practices and allow you to use `Azure Cache for Redis`, which combines with In-memory caching techinque.
+This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Redis. This sample shows how to use `Azure Cache for Redis`, which combines with in-memory caching techinque.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ This sample provides easy configuration to cache the pipeline data to in-memory 
 
 ## Setup your environment
 
-This sample needs can be configured with the `Azure Cache for Redis` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with the `Azure Cache for Redis` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -72,9 +72,9 @@ dotnet build
 
 ## Usage Details
 
-- Checkout the Program.cs file that outlines how you can implement the caching and store the data in Azure Redis. 
+- `Program.cs` file outlines how you can implement the caching and store the data in Azure Redis. 
 
-- AddMemoryCache: Look at [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
+- AddMemoryCache: Please refer to [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
  
