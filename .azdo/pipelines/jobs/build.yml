@@ -1,0 +1,67 @@
+parameters:
+- name: BuildPackageVersion
+- name: BuildFileVersion
+
+steps:
+
+- task: UseDotNet@2
+  displayName: 'Install dotnet 6.0.x agent tools dir'
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration) --no-incremental'
+    projects: '**/*.csproj'
+  displayName: 'Build all projects'
+  env:
+    FileVersion: ${{ parameters.BuildFileVersion }}
+
+# Wildcard for tests isn't supported
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/tests/**/*.csproj'
+  displayName: 'Run all tests'
+  env:
+    PROXY_TenantId: $(proxy-tenant-id)
+    PROXY_ClientId: $(kv-client-id)
+    PROXY_ClientSecret: $(kv-client-secret)
+    PROXY_FhirServerUrl: $(fhir-api-url)
+    PROXY_KeyVaultUri: $(proxy-key-vault-uri)
+    PROXY_KeyVaultCertificateName: $(proxy-key-vault-certificate-name)
+    PROXY_InstrumentationKey: $(proxy-instrumentation-key)
+    PROXY_LoggingLevel: $(proxy-log-level)
+    STORAGE_CONNECTIONSTRING: $(storage-connectionstring-test)
+    PROXY_EventHubBlobConnectionString: $(proxy-storage-connectionstring)
+    PROXY_EventHubProcessorContainer: $(proxy-eventhub-processorcontainer-name)
+    PROXY_EventHubBlobContainer: $(proxy-eventhub-blobcontainer-name)
+    PROXY_EventHubSku: $(proxy-eventhub-sku)
+    PROXY_STORAGE_CONNECTIONSTRING: $(proxy-storage-connectionstring)
+    PROXY_EventHubName: $(proxy-eventhub-name)
+    PROXY_EventHubConnectionString: $(proxy-eventhub-connectionstring)
+    PROXY_ServiceBusConnectionString: $(proxy-servicebus-connectionstring)
+    PROXY_ServiceBusQueue: $(proxy-servicebus-queue)
+    PROXY_ServiceBusTopic: $(proxy-servicebus-topic)
+    PROXY_ServiceBusSubscription: $(proxy-servicebus-subscription)
+    PROXY_ServiceBusSku: $(proxy-servicebus-sku)
+    PROXY_ServiceBusBlobConnectionString: $(proxy-storage-connectionstring)
+    PROXY_ServiceBusBlobContainer: $(proxy-servicebus-blobcontainer-name)
+    PROXY_BlobStorageChannelConnectionString: $(proxy-storage-connectionstring)
+    PROXY_BlobStorageChannelContainer: $(proxy-blobchannel-container-name)
+    PROXY_EventGridSubject: $(proxy-eventgrid-subject)
+    PROXY_EventGridEventType: $(proxy-eventgrid-eventtype)
+    PROXY_EventGridDataVersion: $(proxy-eventgrid-dataversion)
+    PROXY_EventGridTopicUriString: $(proxy-eventgrid-topicuristring)
+    PROXY_EventGridTopicAccessKey: $(proxy-eventgrid-topicaccesskey)
+    PROXY_EventGridBlobConnectionString: $(proxy-eventgrid-blobconnectionstring)
+    PROXY_EventGridBlobContainer: $(proxy-eventgrid-blobcontainer)
+    PROXY_EventGrid_Message_Queue: $(eventgrid-message-queue)
+    PROXY_EventGrid_Reference_Queue: $(eventgrid-reference-queue)
+    PROXY_CacheConnectionString: $(cicd-redis-cache-connectionstring)

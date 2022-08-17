@@ -1,0 +1,35 @@
+steps:
+
+- task: UseDotNet@2
+  displayName: 'Install dotnet 6.0.x agent tools dir'
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet format'
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'update -g dotnet-format'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Lint Azure.Health.DataServices'
+  inputs:
+    command: 'custom'
+    custom: 'format'
+    arguments: 'Azure.Health.DataServices.sln --verify-no-changes --verbosity diagnostic'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Lint Microsoft.Capl'
+  inputs:
+    command: 'custom'
+    custom: 'format'
+    arguments: 'Microsoft.Capl.sln --verify-no-changes --verbosity diagnostic'
+
+- task: CredScan@3
+  inputs:
+    outputFormat: 'csv'
+    toolVersion: Latest
+    verboseOutput: true
