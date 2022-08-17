@@ -1,4 +1,4 @@
-﻿using DataServices.Clients.Headers;
+﻿using Azure.Health.DataServices.Clients.Headers;
 using System.Collections.Specialized;
 
 namespace CustomHeadersSample
