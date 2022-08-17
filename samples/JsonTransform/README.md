@@ -4,6 +4,8 @@ This sample will show you how you can read  JSON data and transform it using var
 
 Here we'll cover the scenario which can be used to read the data from a JSON file. 
 
+This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
+
 ## Concepts
 
 This sample will help you to understand how to use JSON features for JSON data transform with this SDK. This sample will show how to read and transform JSON data. 
@@ -12,7 +14,7 @@ This sample will help you to understand how to use JSON features for JSON data t
 
 - This repository cloned to your machine and an editor. (e.g. Visual Studio or Visual Studio Code). 
 - Open the cloned repo project file in Visual Studio or open the clone repo folder in Visual Studio Code. 
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
+- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer. 
 
 ## Build the Sample 
 
