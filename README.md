@@ -51,12 +51,11 @@ When we say “custom operations” we are talking about a purpose-built solutio
 
 When building custom operations, you’ll come across these concepts of the SDK.
 
-- Pipeline Manager: #TODO
-- Pipelines: #TODO
-  - Filters: #TODO
-  - Channels: #TODO
-- Bindings: #TODO
-- Transforms: #TODO
+- **Operation Context**: Common object passed between components of a pipeline containing the request and response.
+- **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings executed in the order shown below.
+  - **Filter:** A unit of action that modifies the request and/or result via the Operation Context. Filters can be chained together in a single input/output section of a pipeline.
+  - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
+  - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
 For more information, read [the feature guide here](./docs/features.md).
 
