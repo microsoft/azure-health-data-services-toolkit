@@ -3,9 +3,11 @@
 This sample solution describes how to append and replace existing headers with custom headers and returns the modified collection headers. 
 
 ## Concepts
+
 - This sample demonstrates the Headers feature available in Azure Health Data Services SDK. given sample allows user to inject a new header name and value pair into existing header collection.  
 
 - This is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. This is statically defined name and value of the header 
+
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
@@ -34,7 +36,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     Run the following command from the directory that contains this sample: 
 
     ```bash
-    dotnet CustomHeaders\bin\Debug\net6.0 \CustomHeadersSample.dll
+    dotnet CustomHeaders\bin\Debug\net6.0\CustomHeadersSample.dll
     ```
 
 ## Usage Details
