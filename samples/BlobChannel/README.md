@@ -48,12 +48,12 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 ## Build the Sample 
 
-- If you are using Microsoft Visual Studio 2017 on Windows, press Ctrl+Shift+B, or select Build > Build Solution 
+- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
 - If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
 
 ```bash
-dotnet build BlobChannelSample/BlobChannelSample.csproj 
+dotnet build
 ```
 
 ## Run the Sample 
