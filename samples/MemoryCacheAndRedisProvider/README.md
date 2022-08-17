@@ -74,10 +74,10 @@ dotnet build
 
 - `Program.cs` file outlines how you can implement the caching and store the data in Azure Redis. 
 
-- AddMemoryCache: Please refer to [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
+- **AddMemoryCache**: Please refer to [this .NET documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache?view=dotnet-plat-ext-6.0) for more information.
 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
  
-- SetAsync:  This method internally calls IJsonObjectCache interface which is part of the SDK. It will create a record with the given key in Redis. 
+- **SetAsync**:  This method internally calls IJsonObjectCache interface which is part of the SDK. It will create a record with the given key in Redis. 
 
-- GetAsync: This method will read the data from Redis, DeserializeObject it. To read the data, you need to pass the key name as a parameter.
+- **GetAsync**: This method will read the data from Redis, DeserializeObject it. To read the data, you will need to pass the key name as a parameter.
