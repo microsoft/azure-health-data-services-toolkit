@@ -6,6 +6,8 @@ The core goal of this SDK is to build **custom operations** to extend the behavi
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
+A custom operation is the business goal that you're trying to accomplish with this SDK, and a pipeline is the implementation of this custom operation. 
+
 ## Definitions
 
 - **Operation Context**: Common object passed between components of a pipeline containing the request and response.
