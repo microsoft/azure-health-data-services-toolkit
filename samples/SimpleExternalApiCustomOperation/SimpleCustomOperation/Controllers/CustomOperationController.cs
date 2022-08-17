@@ -21,7 +21,7 @@ namespace SimpleCustomOperation.Controllers
         public async Task<IActionResult> Get(string value)
         {
             _logger?.LogTrace("Value {val}", value);
-            HttpRequestMessage request = Request.ConvertToHttpRequestMesssage();
+            HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
             {
