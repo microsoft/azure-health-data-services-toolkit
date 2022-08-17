@@ -12,6 +12,8 @@ This sample will help you to understand how to configure the event grid channel 
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
+- Azure Storage Account. Please follow this link for setting up the storage account: [Setup Storage Account ](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal).
+- Azure Event Grid. Please follow this link for setting up the Event Grid: [Setup Event Grid](https://docs.microsoft.com/azure/event-grid/create-view-manage-system-topics).
 - You will need the Event Grid Contributor Role and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
