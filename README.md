@@ -57,7 +57,7 @@ When building custom operations, you’ll come across these concepts of the SDK.
   - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
   - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-For more information, read [the feature guide here](./docs/features.md).
+For more information, read [the concept guide here](./docs/concepts.md).
 
 ## Resources
 
