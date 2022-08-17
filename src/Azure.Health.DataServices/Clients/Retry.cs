@@ -70,7 +70,7 @@ namespace Azure.Health.DataServices.Clients
         /// <typeparam name="T">The type return by the executing function.</typeparam>
         /// <param name="func">Function that executes the rest request.</param>
         /// <param name="deltaBackoff">Time to wait for retry if request fails.</param>
-        /// <param name="maxRetries">Maxiumum number of times to retry failed requests.</param>
+        /// <param name="maxRetries">Maximum number of times to retry failed requests.</param>
         /// <param name="logger">ILogger</param>
         /// <returns>Type returned by the executing function.</returns>
         public static async Task<T> Execute<T>(Func<Task<T>> func, TimeSpan deltaBackoff, int maxRetries, ILogger logger = null)

@@ -16,7 +16,6 @@
     <Title>Microsoft Capl (Claims Authorization Policy Language) library</Title>
     <PackageId>Microsoft.Capl.Core</PackageId>
     <PackageTags>CAPL; Access Control; Authorization</PackageTags>
-    <PackageReleaseNotes>The change log for this SDK is made available at https://github.com/azure/health-data-services-sdk/releases/tag/release%2F$(VersionEnvVar).</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -33,8 +32,8 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
     <DebugType>portable</DebugType>
-    <IncludeSymbols>false</IncludeSymbols>
-    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Microsoft.Capl.Core</RootNamespace>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>

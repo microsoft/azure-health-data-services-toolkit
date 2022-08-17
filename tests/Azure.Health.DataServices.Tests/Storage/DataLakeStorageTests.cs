@@ -89,14 +89,14 @@ namespace Azure.Health.DataServices.Tests.Storage
 
             if (await storage.FileSystemExistsAsync(fileSystemName))
             {
-                await storage.DeleteFileSystemAsnyc(fileSystemName);
+                await storage.DeleteFileSystemAsync(fileSystemName);
             }
 
             while (!filesystems.IsEmpty)
             {
                 if (filesystems.TryDequeue(out string fs))
                 {
-                    await storage.DeleteFileSystemAsnyc(fs);
+                    await storage.DeleteFileSystemAsync(fs);
                 }
             }
         }
