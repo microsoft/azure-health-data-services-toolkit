@@ -39,6 +39,5 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 ## Usage Details
 
 - `Program.cs` file  outlines how you can implement the custom headers feature available in Azure Health Data Services SDK.
-- **Dependency Injection (DI)**: Software design pattern, which is a technique for achieving Inversion of Control (IoC) between classes and their dependencies. Please refer to the URL below for more information.
-[Dependency injection in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0)
+- **Dependency Injection (DI)**: Software design pattern, which is a technique for achieving Inversion of Control (IoC) between classes and their dependencies. Please refer to [Dependency injection in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0) for more information.
 - **GetCustomHeaders** This method internally calls AppendAndReplace method which is part of the SDK. It appends and replaces existing headers with custom headers and returns the modified collection headers. 
