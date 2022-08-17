@@ -37,11 +37,11 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     ```
 
 ## Usage Details 
-- `Program.cs` file outlines how you can add the node to the JSON data, transform using transform policy and verify the results.
-- AddTransform JSON transform used to add the node with properties like JSONPath, Append Node. 
-- TransformCollection this class represents a collection of JSON transforms used to add JSON transforms to the collection.  
-- TransformPolicy uses transform collection and transforms JSON document into modified JSON data using Transform method, which is given below. 
-- .Transfrom given method transforms a JSON data and returns the transformed document, JSON data to transform is passed as an input parameter for the given method, and it returns the transformed document as a JSON string.  
+- `Program.cs` file outlines how you can add a node to the JSON data, transform using transform policy, and verify the results.
+- **AddTransform** JSON transform used to add the node with properties like JSONPath, Append Node. 
+- **TransformCollection**: This class represents a collection of JSON transforms used to add JSON transforms to the collection.  
+- **TransformPolicy**: Uses transform collection and transforms JSON document into modified JSON data using Transform method, which is given below. 
+- \<Transform Policy name\>.**Transfrom** given method transforms a JSON data and returns the transformed document. JSON data to transform is passed as an input parameter for the given method, and the transformed document is returned as a JSON string.  
 - JSON Result from above method is verified using JSON object, JArray and JToken. 
 
  
