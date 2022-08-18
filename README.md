@@ -88,6 +88,10 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Disclaimers
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebf4e30 (Fix image issues (#37))
 The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
 
 
