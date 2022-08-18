@@ -1,4 +1,4 @@
-# Using Custom Headers
+# Using custom headers
 
 This sample solution describes how to append and replace existing headers with custom headers and return the modified collection headers. 
 
@@ -16,7 +16,7 @@ This sample doesn't require any setup or any access to Azure Resources because i
 - Open the cloned repo project file in Visual Studio or open the cloned repo folder in Visual Studio Code.
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 
-## Build the Sample 
+## Build the sample 
 
 - If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
@@ -26,7 +26,7 @@ This sample doesn't require any setup or any access to Azure Resources because i
 dotnet build
 ```
 
-## Run the Sample 
+## Run the sample 
 
 To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
 
@@ -38,7 +38,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     dotnet run
     ```
 
-## Usage Details
+## Usage details
 
 - `Program.cs` file  outlines how you can implement the custom headers feature available in the Azure Health Data Services SDK.
 - **Dependency Injection (DI)**: Software design pattern, which is a technique for achieving Inversion of Control (IoC) between classes and their dependencies. Please refer to [Dependency injection in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0) for more information.
