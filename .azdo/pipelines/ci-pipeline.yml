@@ -16,6 +16,10 @@ variables:
   - group: sdk-test-pack
   - group: sdk-build-version-configuration
 
+  # This allows for dynamic passing of the variable name to get the version
+  # Meant to allow for either "ahds-sdk-release-major" or "capl-release-major" etc to be used for versioning.
+  # These are passed in through the azdo pipeline parameters in the UI
+  # This is what allows us to tuse the same pipeline for the Azure Health Data Services SDK and CAPL
   - name: packageversion-prerelease
     value: $[ format('{0}.{1}.{2}-prerelease', variables[format('{0}-prerelease-major', variables['PipelineTarget'])], variables[format('{0}-prerelease-minor', variables['PipelineTarget'])], variables[format('{0}-prerelease-patch', variables['PipelineTarget'])] )]
   - name: packageversion-release
