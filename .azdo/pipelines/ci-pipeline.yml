@@ -15,10 +15,11 @@ resources:
 variables:
   - group: sdk-test-pack
   - group: sdk-build-version-configuration
+
   - name: packageversion-prerelease
-    value: $($(PipelineTarget)-prerelease-major).$($(PipelineTarget)-prerelease-minor).$($(PipelineTarget)-prerelease-patch)-prerelease
+    value: $[$(PipelineTarget)-prerelease-major].$[$(PipelineTarget)-prerelease-minor].$[$(PipelineTarget)-prerelease-patch]-prerelease
   - name: packageversion-release
-    value: $($(PipelineTarget)-release-major).$($(PipelineTarget)-release-minor).$($(PipelineTarget)-release-patch)
+    value: $[$(PipelineTarget)-release-major].$[$(PipelineTarget)-release-minor].$[$(PipelineTarget)-release-patch]
 
 stages:
   - stage: Build
