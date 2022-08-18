@@ -1,4 +1,4 @@
-# Using Blob storage as Channel
+# Channel to Blob Storage
 
 In this sample, a pipeline is created with a Blob channel to send pipeline data to Azure Blob Storage. 
 
