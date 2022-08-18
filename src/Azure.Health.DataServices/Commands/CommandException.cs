@@ -37,6 +37,11 @@ namespace Azure.Health.DataServices.Commands
 
         }
 
+        /// <summary>
+        /// Creates an instance of CommandException.
+        /// </summary>
+        /// <param name="info">SerializationInfo</param>
+        /// <param name="context">StreamingContext</param>
         protected CommandException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

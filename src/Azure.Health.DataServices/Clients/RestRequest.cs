@@ -24,6 +24,10 @@ namespace Azure.Health.DataServices.Clients
             this.builder = builder;
         }
 
+        /// <summary>
+        /// Creates an instance of RestRequest.
+        /// </summary>
+        /// <param name="logger">Optional ILogger.</param>
         protected RestRequest(ILogger logger = null)
         {
             this.logger = logger;

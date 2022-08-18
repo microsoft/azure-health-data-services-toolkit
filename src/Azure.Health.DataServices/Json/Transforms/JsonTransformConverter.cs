@@ -10,6 +10,12 @@ namespace Azure.Health.DataServices.Json.Transforms
     /// <typeparam name="T"></typeparam>
     public abstract class JsonTransformConverter<T> : JsonConverter
     {
+        /// <summary>
+        /// Creates of type of object.
+        /// </summary>
+        /// <param name="objectType">Type of object.</param>
+        /// <param name="jObject">JObject used to create the type.</param>
+        /// <returns></returns>
         protected abstract T Create(Type objectType, JObject jObject);
 
         /// <summary>

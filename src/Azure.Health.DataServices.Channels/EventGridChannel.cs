@@ -211,6 +211,10 @@ namespace Azure.Health.DataServices.Channels
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        /// <param name="disposing">Indicator is true if disposing.</param>
         protected void Dispose(bool disposing)
         {
             if (disposing && !disposed)

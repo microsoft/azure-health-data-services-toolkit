@@ -19,7 +19,6 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Creates an instance of AzureFunctionPipeline
         /// </summary>
-        /// <param name="options">Pipeline options.</param>
         /// <param name="inputFilters">Optional collection of input filters.</param>
         /// <param name="inputChannels">Optional cCollection of input channels.</param>
         /// <param name="binding">Optional binding. </param>
@@ -61,11 +60,11 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Executes the pipeline and returns a response for the caller.
         /// </summary>
-        /// <param name="request">Initiial request from the Azure Function.</param>
+        /// <param name="request">Iniitial request from the Azure Function.</param>
         /// <returns>Response for an Azure Function.</returns>
         public async Task<HttpResponseData> ExecuteAsync(HttpRequestData request)
         {
-            HttpRequestMessage message = request.ConvertToHttpRequestMessage();
+            HttpRequestMessage message = request.ConvertToHttpRequestMesssage();
             HttpResponseMessage response = await pipeline.ExecuteAsync(message);
             return await response.ConvertToHttpResponseDataAsync(request);
         }

@@ -14,6 +14,12 @@
         /// <returns>Task</returns>
         Task AddAsync<T>(string key, T value);
 
+        /// <summary>
+        /// Adds a object to the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Object to cache.</param>
+        /// <returns>Task</returns>
         Task AddAsync(string key, object value);
 
         /// <summary>
@@ -24,7 +30,11 @@
         /// <returns>Cached object.</returns>
         Task<T> GetAsync<T>(string key);
 
-
+        /// <summary>
+        /// Get a string from the cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Cached object as string.</returns>
         Task<string> GetAsync(string key);
 
         /// <summary>

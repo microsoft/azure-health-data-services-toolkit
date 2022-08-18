@@ -142,6 +142,10 @@ namespace Azure.Health.DataServices.Storage
             serviceClient = new DataLakeServiceClient(serviceUri, credential, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageLake.
+        /// </summary>
+        /// <param name="logger">Optional ILogger.</param>
         protected StorageLake(ILogger logger = null)
         {
             this.logger = logger;
