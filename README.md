@@ -34,19 +34,9 @@ Some FHIR Service use cases that this SDK can help you implement are:
 - Transforming request and/or response payloads.
 - Custom authorization logic, like consent.
 
-### What about FHIR Proxy? 
-
-FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
-
-- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
-- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
-- This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
-- This SDK is released and versioned via NuGet packages.
-- We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
-
-*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
-
 ## Key Concepts
+
+*For an in-depth look at the core concepts of this SDK, read [the concept guide here](./docs/concepts.md).*
 
 When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
 
@@ -58,7 +48,17 @@ When building custom operations, you’ll come across these concepts of the SDK.
   - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
   - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-For more information, read [the concept guide here](./docs/concepts.md).
+### What about FHIR Proxy? 
+
+FHIR Proxy was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
+
+- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
+- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
+- This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This SDK is released and versioned via NuGet packages.
+- We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
+
+*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
 
 ## Resources
 
