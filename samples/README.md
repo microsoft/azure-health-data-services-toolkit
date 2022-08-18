@@ -1,11 +1,11 @@
-# Azure Health Data Services SDK Samples
+# Azure Health Data Services SDK samples
 
 These samples show how this SDK works for a few sample scenarios:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
 - **Feature Samples**: Small projects showing how a SDK feature works. Local only.
 
-## Sample Prerequisites
+## Sample prerequisites
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
@@ -31,7 +31,7 @@ Use **[this quickstart sample](./Quickstart/)** to see some common ways the SDK 
 - Using a transform for a basic modification of FHIR server behavior.
 - Using a pipeline with input and output filters to modify the request and response.
 
-## Feature Samples
+## Feature samples
 
 These samples go deep into individual feature areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs. These samples are not meant to be deployed to Azure, but executed on your local machine.
 
@@ -50,7 +50,7 @@ These samples go deep into individual feature areas of this SDK, showing you how
 | [Service Bus Channel](./ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
 | [Simple External API](./SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
 
-## Use Case Samples
+## Use case samples
 
 These samples will show you how to implement a real FHIR customization use case, end-to-end.
 
