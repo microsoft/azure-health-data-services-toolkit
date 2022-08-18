@@ -12,6 +12,8 @@ namespace Azure.Health.DataServices.Channels
         /// Creates an instance of OutputChannelCollection.
         /// </summary>
         /// <param name="outputChannels">Optional collection of output channels to initialize.</param>
+    public class OutputChannelCollection : IOutputChannelCollection
+    {
         public OutputChannelCollection(IEnumerable<IOutputChannel> outputChannels = null)
         {
             channels = outputChannels != null ? new List<IChannel>(outputChannels) : new List<IChannel>();
@@ -41,11 +43,17 @@ namespace Azure.Health.DataServices.Channels
         /// </summary>
         /// <param name="item">Channel to determine its index.</param>
         /// <returns>Index of channel.</returns>
+        public int Count => channels.Count;
+
+        public bool IsReadOnly => false;
+
+        public IChannel this[int index] { get => channels[index]; set => channels[index] = value; }
+
         public int IndexOf(IChannel item)
         {
             return channels.IndexOf(item);
         }
-
+        
         /// <summary>
         /// Inserts a channel into the collection.
         /// </summary>

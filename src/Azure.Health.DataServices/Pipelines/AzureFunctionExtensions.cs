@@ -26,9 +26,7 @@ namespace Azure.Health.DataServices.Pipelines
             {
                 Method = new HttpMethod(req.Method)
             };
-
             HttpRequestMessage message = httpRequestMessage;
-
             message.RequestUri = req.Url;
 
             if (req.Body != null && req.Body.Length > 0)

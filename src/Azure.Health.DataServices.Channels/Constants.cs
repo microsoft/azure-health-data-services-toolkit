@@ -26,7 +26,7 @@
         public const int EventHubBasicSkuMaxMessageLength = 0x3E800;
 
         /// <summary>
-        /// Maxium message for EVent Hub message when not a Basic SKU.
+        /// Maximum message for EVent Hub message when not a Basic SKU.
         /// </summary>
         public const int EventHubNonBasicSkuMaxMessageLength = 0xF4240;
 

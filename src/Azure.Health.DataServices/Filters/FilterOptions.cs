@@ -8,6 +8,8 @@
         /// <summary>
         /// Gets or sets Fhir Server Url.
         /// </summary>
+    public class FilterOptions
+    {
         public string FhirServerUrl { get; set; }
     }
 }

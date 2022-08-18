@@ -8,7 +8,7 @@ This sample is meant to be run locally on your computer, not deployed to Azure.
 
 ## Concepts
 
-This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow the best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
+This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
-  - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.
+  - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
 - A [FHIR Service deployed](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-portal-quickstart) in your Azure environment to get a token for.
   - You will need the FHIR Contributor role assigned to your account.
 - For the advanced scenario, you will need a [client application created in Azure Active Directory](https://docs.microsoft.com/azure/healthcare-apis/register-application).
@@ -27,7 +27,7 @@ This sample provides easy configuration on top of the [Azure Identity Client Lib
 
 First, make sure you have this sample open in your editor.
 
-This sample needs can be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -90,7 +90,7 @@ Re-build and re-run the sample to ensure the new configuration is loaded.
 
 ## Usage Details
 
-- Checkout the `Program.cs` file in this sample that outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
+- `Program.cs` file in this sample outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
+- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - UseAuthenticator: Using this extension method you can set the necessary parameter to authenticate the request.
 - GetTokenAsync: Gets an access token via OAuth from Azure Active Directory.

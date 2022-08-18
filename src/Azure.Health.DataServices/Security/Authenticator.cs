@@ -29,7 +29,7 @@ namespace Azure.Health.DataServices.Security
         /// </summary>
         public bool RequiresOnBehalfOf
         {
-            get { return (options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingCertificate || options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingClientSecert); }
+            get { return (options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingCertificate || options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingClientSecret); }
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Azure.Health.DataServices.Security
         /// <param name="tenantId">The tenantId to be included in the token request.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Access token.</returns>
-        public async Task<string> AquireTokenForClientAsync(string resource,
+        public async Task<string> AcquireTokenForClientAsync(string resource,
                                                             TokenCredential credential,
                                                             string[] scopes = null,
                                                             string? parentRequestId = null,
@@ -69,7 +69,7 @@ namespace Azure.Health.DataServices.Security
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Access token.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public async Task<string> AquireTokenForClientAsync(string resource,
+        public async Task<string> AcquireTokenForClientAsync(string resource,
                                                             string[] scopes = null,
                                                             string? parentRequestId = null,
                                                             string? claims = null,
@@ -78,28 +78,28 @@ namespace Azure.Health.DataServices.Security
         {
             var token = options.Value.CredentialType switch
             {
-                ClientCredentialType.ManagedIdentity => await AquireTokenForClientAsync(resource,
+                ClientCredentialType.ManagedIdentity => await AcquireTokenForClientAsync(resource,
                                                                                         new ManagedIdentityCredential(options.Value.ClientId),
                                                                                         scopes,
                                                                                         parentRequestId,
                                                                                         claims,
                                                                                         options.Value.TenantId,
                                                                                         cancellationToken),
-                ClientCredentialType.ClientSecret => await AquireTokenForClientAsync(resource,
+                ClientCredentialType.ClientSecret => await AcquireTokenForClientAsync(resource,
                                                                                      new ClientSecretCredential(options.Value.TenantId,
                                                                                                                 options.Value.ClientId,
                                                                                                                 options.Value.ClientSecret),
                                                                                      scopes, parentRequestId, claims,
                                                                                      options.Value.TenantId,
                                                                                      cancellationToken),
-                ClientCredentialType.Certificate => await AquireTokenForClientAsync(resource,
+                ClientCredentialType.Certificate => await AcquireTokenForClientAsync(resource,
                                                                                      new ClientCertificateCredential(options.Value.TenantId,
                                                                                                                     options.Value.ClientId,
                                                                                                                     options.Value.Certficate),
                                                                                      scopes, parentRequestId, claims,
                                                                                      options.Value.TenantId,
                                                                                      cancellationToken),
-                ClientCredentialType.OnBehalfOfUsingClientSecert => await AquireTokenForClientAsync(resource,
+                ClientCredentialType.OnBehalfOfUsingClientSecret => await AcquireTokenForClientAsync(resource,
                                                                                    new OnBehalfOfCredential(options.Value.TenantId,
                                                                                                             options.Value.ClientId,
                                                                                                             options.Value.ClientSecret,
@@ -107,7 +107,7 @@ namespace Azure.Health.DataServices.Security
                                                                                    scopes, parentRequestId, claims,
                                                                                    options.Value.TenantId,
                                                                                    cancellationToken),
-                ClientCredentialType.OnBehalfOfUsingCertificate => await AquireTokenForClientAsync(resource,
+                ClientCredentialType.OnBehalfOfUsingCertificate => await AcquireTokenForClientAsync(resource,
                                                                                    new OnBehalfOfCredential(options.Value.TenantId,
                                                                                                             options.Value.ClientId,
                                                                                                             options.Value.Certficate,
@@ -115,7 +115,7 @@ namespace Azure.Health.DataServices.Security
                                                                                    scopes, parentRequestId, claims,
                                                                                    options.Value.TenantId,
                                                                                    cancellationToken),
-                _ => await AquireTokenForClientAsync(resource,
+                _ => await AcquireTokenForClientAsync(resource,
                                                     new DefaultAzureCredential(),
                                                     scopes, parentRequestId, claims,
                                                     options.Value.TenantId, cancellationToken),

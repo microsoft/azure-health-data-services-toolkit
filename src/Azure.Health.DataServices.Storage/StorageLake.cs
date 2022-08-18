@@ -187,10 +187,10 @@ namespace Azure.Health.DataServices.Storage
         /// <param name="conditions">Optional DataLakeRequestConditions to add conditions on the deletion of this file system.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>Task</returns>
-        public async Task DeleteFileSystemAsnyc(string fileSystemName, DataLakeRequestConditions conditions = null, CancellationToken cancellationToken = default)
+        public async Task DeleteFileSystemAsync(string fileSystemName, DataLakeRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             _ = await serviceClient.DeleteFileSystemAsync(fileSystemName, conditions, cancellationToken);
-            logger?.LogTrace(new EventId(92030, "StorageLake.DeleteFileSystemAsnyc"), "File system {FileSystemName} deleted.", fileSystemName);
+            logger?.LogTrace(new EventId(92030, "StorageLake.DeleteFileSystemAsync"), "File system {FileSystemName} deleted.", fileSystemName);
         }
 
         /// <summary>

@@ -14,6 +14,8 @@ namespace Azure.Health.DataServices.Caching
         /// <param name="services">Services collection.</param>
         /// <param name="options">Blob storage cache options.</param>
         /// <returns>Service collection.</returns>
+    public static class Extensions
+    {
         public static IServiceCollection AddAzureBlobCacheBackingStore(this IServiceCollection services, Action<AzureBlobStorageCacheOptions> options)
         {
             services.AddSingleton<ICacheBackingStoreProvider, AzureJsonBlobStorageProvider>();

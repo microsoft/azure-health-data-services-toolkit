@@ -105,7 +105,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             });
 
             var authenticator = new Mock<IAuthenticator>();
-            authenticator.Setup(p => p.AquireTokenForClientAsync(It.IsAny<string>(),
+            authenticator.Setup(p => p.AcquireTokenForClientAsync(It.IsAny<string>(),
                                                                 It.IsAny<string[]>(),
                                                                 It.IsAny<string>(),
                                                                 It.IsAny<string>(),

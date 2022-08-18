@@ -8,11 +8,11 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 
 // This loads our configuration first from dotnet user secrets and then
-// environment variables. They must be prefixed with "AHDS_" before the name
+// environment variables. They must be prefixed with "AZURE_" before the name
 // of the configuration variable in MyConfig.cs.
 IConfigurationBuilder configBuilder = new ConfigurationBuilder()
                 .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-                .AddEnvironmentVariables("AHDS_");
+                .AddEnvironmentVariables("AZURE_");
 
 IConfigurationRoot root = configBuilder.Build();
 MyConfig config = new();
