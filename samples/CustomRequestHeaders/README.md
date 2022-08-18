@@ -2,6 +2,9 @@
 
 This sample solution describes how to append and replace existing headers with custom headers by determining the value in an incoming http request and returning the modified collection headers. 
 
+This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
+
+
 ## Concepts
 
 - This sample demonstrates the feature Custom Headers available in Azure Health Data Services SDK. This sample allows the user to inject a new header name with the value determined by an incoming http request.  
