@@ -16,9 +16,9 @@ variables:
   - group: sdk-test-pack
   - group: sdk-build-version-configuration
   - name: packageversion-prerelease
-    value: $(${{ variables.PipelineTarget }}-prerelease-major).$(${{ variables.PipelineTarget }}-prerelease-minor).$(${{ variables.PipelineTarget }}-prerelease-patch)-prerelease
+    value: $($(PipelineTarget)-prerelease-major).$($(PipelineTarget)-prerelease-minor).$($(PipelineTarget)-prerelease-patch)-prerelease
   - name: packageversion-release
-    value: $(${{ variables.PipelineTarget }}-release-major).$(${{ variables.PipelineTarget }}-release-minor).$(${{ variables.PipelineTarget }}-release-patch)
+    value: $($(PipelineTarget)-release-major).$($(PipelineTarget)-release-minor).$($(PipelineTarget)-release-patch)
 
 stages:
   - stage: Build
@@ -28,7 +28,7 @@ stages:
       pool:
         vmImage: $(VmImage)
       steps:
-      - script: echo "$(ProjectPrefix) - $(PipelineTarget)"
+      - script: echo "$(ProjectPrefix) - $(PipelineTarget) - $(packageversion-prerelease) - $(packageversion-release)"
       - template: ./jobs/checkCode.yml
         parameters:
           SolutionName: $(ProjectPrefix).sln
