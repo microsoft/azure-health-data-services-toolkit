@@ -29,7 +29,7 @@ First, make sure you have this sample open in your editor.
 
 This sample needs to be configured with only the `FhirServerUrl` to start. You can configure this either in Visual Studio or by using the command line.
 
-### Command Line
+### Command line
 
 Run this below command to set up the sample configuration in the dotnet secret store.
 
