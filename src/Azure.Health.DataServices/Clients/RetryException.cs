@@ -36,6 +36,11 @@ namespace Azure.Health.DataServices.Clients
 
         }
 
+        /// <summary>
+        /// Creates an instance of RetryException.
+        /// </summary>
+        /// <param name="info">SerializationInfo</param>
+        /// <param name="context">StreamingContext</param>
         protected RetryException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

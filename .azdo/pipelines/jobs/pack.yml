@@ -24,5 +24,3 @@ steps:
       targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
       artifactName: ${{ parameters.ArtifactName }}
       artifactType: 'pipeline'
-
-

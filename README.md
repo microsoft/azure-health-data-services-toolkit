@@ -1,7 +1,6 @@
 # Azure Health Data Services SDK
 
 The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
-
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
@@ -88,7 +87,6 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Disclaimers
-
 
 The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
 
