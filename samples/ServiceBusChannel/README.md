@@ -1,12 +1,10 @@
-# Using Service Bus as a Channel
+# Channel to Azure Service Bus
 
-This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
-
-Here, we'll cover the channel scenario which can be used to access Azure Service Bus and Azure Storage.
+In this sample, a pipeline is created with a channel to send data to Azure Service Bus.
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Service Bus and Azure Storage with this SDK. The sample shows how to configure Azure Service Bus as a channel, its options using input channel, and how to send and receive messages with Azure Service Bus. 
+This sample shows how to configure a channel to send pipeline data to Azure Service Bus.
 
 ## Prerequisites
 
@@ -19,7 +17,7 @@ This sample provides easy configuration of the application with Azure Service Bu
 
 ## Setup your environment
 
-This sample needs can be configured with `Azure service Bus` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with `Azure service Bus` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -96,6 +94,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     - **Sku**- type of Service Bus sku used. 
     - **Topic**- Service Bus topic. 
 
-- **UseWebPipeline**: given extension is used to add scope to the web services configurations. 
+- **UseWebPipeline**: his is used to hook up our custom operation pipeline to ASP.NET.![image](https://user-images.githubusercontent.com/33711652/185283884-ddccdff1-33a8-4900-9213-4c0207a7e81a.png)
+
 - **OnReceive**: Event that signals pipeline service has received a message. 
 - **SendMessageAsync**: This method will execute the pipeline service which is configured in Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Service Bus and Receive channel receives events from Service Bus.
