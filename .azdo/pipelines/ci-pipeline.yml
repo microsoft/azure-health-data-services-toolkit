@@ -28,6 +28,7 @@ stages:
       pool:
         vmImage: $(VmImage)
       steps:
+      - script: echo "$(ProjectPrefix) - $(PipelineTarget)"
       - template: ./jobs/checkCode.yml
         parameters:
           SolutionName: $(ProjectPrefix).sln
