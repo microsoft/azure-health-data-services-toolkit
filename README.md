@@ -2,28 +2,29 @@
 
 The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
 
-With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on meeting your requirements.
+With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
 
-| Package Name | Description | |
-| --- | --- | --- |
-| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Azure.Health.DataServices.Core/) | .NET 6 SDK for creating custom operations when using Azure Health Data Services. | [![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Core) |
-| [Azure.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions/) | .NET 6 SDK for extending channels using Azure Health Data Services. | [![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions) |
-| [Azure.Health.DataServices.Caching](https://www.nuget.org/packages/Azure.Health.DataServices.Caching/) | .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. | [![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Caching) |
-| [Azure.Health.DataServices.Storage](https://www.nuget.org/packages/Azure.Health.DataServices.Storage/) | .NET 6 SDK for adding caching using Azure Health Data Services. | [![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Storage) |
+| Package Name | Description |
+| --- | --- |
+| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Azure.Health.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Core)| .NET 6 SDK for creating custom operations when using Azure Health Data Services. |
+| [Azure.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions) | .NET 6 SDK for extending channels using Azure Health Data Services. |
+| [Azure.Health.DataServices.Caching](https://www.nuget.org/packages/Azure.Health.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Caching) | .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. |
+| [Azure.Health.DataServices.Storage](https://www.nuget.org/packages/Azure.Health.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Storage)| .NET 6 SDK for adding caching using Azure Health Data Services. |
 
 ## Getting Started
 
-The fastest way to test out the SDK and see it in action is [through our Quickstart Sample](./samples/Quickstart.README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
+The fastest way to test out the SDK and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
-Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
-
-Also check out our full list of samples on [how to use the SDK here](./samples/README.md) for even more inspiration to create your own custom operations.
+<!---
+(Uncomment this when we have dev docs) Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
+--->
+Also check out our full list of [samples on how to use the SDK here](./samples/README.md) for even more inspiration on how to create your own custom operations.
 
 ## Common Fast Healthcare Interoperability Resources (FHIR®) Use Cases
 
-Some FHIR Service use cases this SDK can help you implement are:
+Some FHIR Service use cases that this SDK can help you implement are:
 
 - FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
   - Trial implementation guides.
@@ -47,7 +48,7 @@ FHIR Proxy was created in response to customer requests for customizing the Azur
 
 ## Key Concepts
 
-When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
+When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
 
 When building custom operations, you’ll come across these concepts of the SDK.
 
@@ -57,7 +58,7 @@ When building custom operations, you’ll come across these concepts of the SDK.
   - **Channel:** Used to output data in a pipeline to an external system actor (ESA). This is usually an Azure service (like Storage, Event Hub, and/or Service Bus).
   - **Binding:** The target service for a custom operation (usually a FHIR service). This can be null for custom operations that don't need to have a destination.
 
-For more information, read [the feature guide here](./docs/features.md).
+For more information, read [the concept guide here](./docs/concepts.md).
 
 ## Resources
 
@@ -70,7 +71,7 @@ For more information, read [the feature guide here](./docs/features.md).
 
 This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
 
-![](./docs/images/HealthcareAPIInfastructure20220815.png)
+![Sample architecture diagram](./docs/images/SampleArchitectureDiagram.png)
 
 ## Contributing
 

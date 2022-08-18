@@ -1,9 +1,10 @@
-# Using Azure Event Grid as a channel
-This sample demonstrates the use of Azure Event Grid as a channel which is available in Azure Health Data Services SDK. We'll cover the channel scenario which can be used to send events to Azure Event Grid.
+# Channel to Azure Event Grid
+In this sample, a pipeline is created with a channel to send data to Azure Event Grid.
+
 
 ## Concepts
 
-This sample will help you to understand how to configure the event grid channel and its options using input channel, and how to send the events to Azure Event Grid and use Blob storage as a queue storage for Azure Event Grid. 
+This sample shows how to configure a channel to send pipeline data to Azure Event Grid.
 
 ## Prerequisites
 
@@ -18,7 +19,7 @@ This sample will help you to understand how to configure the event grid channel 
 
 ## Setup your environment
 
-This sample needs can be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -95,7 +96,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 
 - **Option Pattern**: uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - **Event Grid Channel**: the Channel used to send events to Azure event grid. 
-- **Event Grid Channel Options**: Event Grid channel options must be configured in order to send data; below options need to configure for Azure Event Grid. 
+- **Event Grid Channel Options**: Event Grid channel options must be configured in order to send data; below options need to be configured for Azure Event Grid. 
 
   - **TopicUriString**- Gets or sets the Azure Event Grid topic. 
 
@@ -112,7 +113,6 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
   - **FallbackStorageConnectionString**- Gets or sets an Azure Blob Storage connection string used when data exceeds the allowable Azure Event Grid size. 
 
    - **FallbackStorageContainer**- Gets or sets an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Grid size.
-- **UseWebPipeline** given extension is used to add scope to the web services configurations.
-- **Azure Queue Storage** is used when data exceeds the allowable Azure Event Grid Size. Blob storage is used for Queue storage.
-- **< your service name >.OnReceive"** Event that signals pipeline service has received a message.
-- **ExecuteAsync** This method Executes the pipeline service which is configured in given Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Event Grid. 
+- **UseWebPipeline** - **Azure Queue Storage** is used when data exceeds the allowable Azure Event Grid Size. Blob storage is used for Queue storage.
+- \< your service name \>**.OnReceive** Event that signals pipeline service has received a message.
+- **ExecuteAsync** This method executes the pipeline service which is configured in given Program.cs file and HttpRequestMessage is passed as an input parameter to the given method, it includes execution of the pipeline and sending message to the Azure Event Grid. 

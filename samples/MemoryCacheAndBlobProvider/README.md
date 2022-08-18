@@ -1,14 +1,12 @@
 # Using In-Memory and Azure cache for Blob Storage
 
-This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Blob to store and cache the data.
+Here, we'll cover how we can use in-memory caching technique methods and to cache the pipeline output data to Azure Blob Storage.
 
 Storing and reading the data from in-memory cache will improve the overall performance of the application.
 
-Here, we'll cover how we can use in-memory caching technique methods and to cache the pipeline output data to Blob on Azure.
-
 ## Concepts
 
-This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Blob. This sample will show how to use `Azure Cache for Blob` and combines with in-memory caching techinque.
+This sample provides easy configuration steps to cache the pipeline data to in-memory and on Azure Blob. 
 
 ## Prerequisites
 

@@ -90,7 +90,7 @@ Re-build and re-run the sample to ensure the new configuration is loaded.
 
 ## Usage Details
 
-- Check out the `Program.cs` file in this sample that outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
-- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
+- `Program.cs` file in this sample outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
+- **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - UseAuthenticator: Using this extension method you can set the necessary parameter to authenticate the request.
 - GetTokenAsync: Gets an access token via OAuth from Azure Active Directory.

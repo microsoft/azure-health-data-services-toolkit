@@ -1,10 +1,10 @@
-# Using Blob storage as Channel
+# Channel to Blob Storage
 
-This sample demonstrates the channel feature available in Azure Health Data Services SDK. In this sample, a pipeline is created and a channel feature is used to store pipeline data to Azure Storage account.
+In this sample, a pipeline is created with a Blob channel to send pipeline data to Azure Blob Storage. 
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Blob storage and Azure Storage with this SDK. This sample shows how to configure the Blob storage as a channel and its options using Input channel, and how we can use Blob for storing pipeline data.
+This sample shows how to configure a channel to send pipeline data to Azure Blob storage. 
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ This sample provides easy configuration of the application with Azure Blob stora
 
 ## Setup your environment
 
-This sample can be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with the variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -79,4 +79,4 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
   The first two are performed through a chain of 0 or more `filters` where each filter in the chain performs some operation.  The latter is performed through `channels`, which simply output information 0 or more desired services.
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - **UseWebPipeline**: This is used to hook up our custom operation pipeline to ASP.NET.
-- **ExecuteAsync**: This method internally calls ExecuteChannelsAsync method which is part of the Azure Health Data Services SDK. It executes the pipeline and Channel and returns a response for the caller.
+- **ExecuteAsync**: This method internally calls ExecuteChannelsAsync method which is part of the Azure Health Data Services SDK. It executes the pipeline and channel and returns a response for the caller.

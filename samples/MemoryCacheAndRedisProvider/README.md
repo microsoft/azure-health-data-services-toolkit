@@ -1,14 +1,12 @@
 # Using In-Memory and Azure cache for Redis
 
-This sample will show you how you can access the Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to Azure Redis and cache the data.
+Here, we'll cover how we can use in-memory caching technique  methods and to cache the pipeline output data to Redis on Azure.
 
 Since we are using Redis, we can use non-persistent hosts (like Azure Functions) for this caching approach. The memory cache will only work for a single host, but the Redis cache will work across hosts.
 
-Here, we'll cover how we can use in-memory caching technique  methods and to cache the pipeline output data to Redis on Azure.
-
 ## Concepts
 
-This sample provides easy configuration to cache the pipeline data to in-memory and on Azure Redis. This sample shows how to use `Azure Cache for Redis`, which combines with in-memory caching techinque.
+This sample provides easy configuration steps to cache the pipeline data to in-memory and on Azure Redis. 
 
 ## Prerequisites
 
