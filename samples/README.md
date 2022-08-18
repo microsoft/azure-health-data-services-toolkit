@@ -43,7 +43,7 @@ These samples go deep into individual feature areas of this SDK, showing you how
 | [Custom Identity Header](./CustomIdentityHeader/) | Shows how to inject a custom identity header. |
 | [Custom Request Headers](./CustomRequestHeaders/) | Shows  how to inject custom request headers. |
 | [Event Grid Channel](./EventGridChannel/) | Shows how to use an Event Grid Channel. |
-| [Event Hub Channel](./EventHubChannel/) | Shows how to use a Event Hub Channel. |
+| [Event Hub Channel](./EventHubChannel/) | Shows how to use an Event Hub Channel. |
 | [JSON Transform](./JsonTransform/) | Shows how to easily transform a JSON payload. |
 | [Memory/Blob Cache](./MemoryCacheAndBlobProvider/) | Shows how to use a memory cache with Azure Blob storage backing. |
 | [Memory/Redis Cache](./MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
