@@ -2,16 +2,18 @@
 
 This sample solution describes how to append and replace existing headers with custom headers by using claim type in the security token and returns the modified collection headers.
 
+This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
+
 ## Concepts
 
-- This sample demonstrates the feature Custom Headers available in Azure Health Data Services SDK. This sample allows the user to inject a new header name with the value determined by a claim type in the security token.  
+- This sample demonstrates the feature Custom Headers available in the Azure Health Data Services SDK. This sample allows the user to inject a new header name with the value determined by a claim type in the security token.  
 
-- This sample is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. The `name` parameter is the name of the new http header, the value is a claim type in the security token which is used in the new header.
+- This sample is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. The `name` parameter is the name of the new http header, and the `value` is a claim type in the security token which is used in the new header.
 
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
-- Open the cloned repo project file in Visual Studio Or Open the clone repo folder in Visual Studio Code.
+- Open the cloned repo project file in Visual Studio or open the clone repo folder in Visual Studio Code.
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 
 
