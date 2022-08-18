@@ -46,7 +46,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 3. Save and close `secrets.json`.
 
-## Build the Sample 
+## Build the sample 
 
 - If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
@@ -56,7 +56,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 dotnet build
 ```
 
-## Run the Sample 
+## Run the sample 
 
 To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
 
@@ -68,7 +68,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     dotnet run
     ```
 
-## Usage Details
+## Usage details
 
 - `Program.cs` file in the sample outlines how you can implement the pipeline, channel features, and how to store and fetch the output data from Azure Storage.
 - Pipelines are used to build the `custom operations` and can be used to 
