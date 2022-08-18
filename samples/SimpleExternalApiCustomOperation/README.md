@@ -1,4 +1,4 @@
-# Simple External API Custom Operation 
+# Simple external API custom operation 
 
 This sample is a standard ASP.NET Web Application and will show how you can create a request object, pass it to the pipeline, and get the response back by using the SDK. 
 
@@ -18,7 +18,7 @@ To implement how requests and responses work, there are two applications:
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 
 
-## Build the Sample
+## Build the sample
 
 You can configure this sample either in Visual Studio or by using the command line.
 
@@ -30,7 +30,7 @@ You can configure this sample either in Visual Studio or by using the command li
 dotnet build
 ```
 
-## Run the Sample
+## Run the sample
 
 - To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
 
@@ -42,7 +42,7 @@ dotnet build
     dotnet run
     ```
 
-## Usage Details 
+## Usage details 
 
 - Program.cs file  outlines how you can implement the SampleInputFilterOption and SampleOutputFilterOption. 
 
