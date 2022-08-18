@@ -1,4 +1,4 @@
-# Using JsonTransform to Transform the Data
+# Using JsonTransform to transform data
 
 This sample will show you how you can read  JSON data and transform it using various methods provided by the SDK.
 
@@ -16,7 +16,7 @@ This sample will show how to read and transform JSON data.
 - Open the cloned repo project file in Visual Studio or open the cloned repo folder in Visual Studio Code. 
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer. 
 
-## Build the Sample 
+## Build the sample 
 
 - If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
@@ -26,7 +26,7 @@ This sample will show how to read and transform JSON data.
 dotnet build
 ```
 
-## Run the Sample 
+## Run the sample 
 
 To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
 
@@ -38,7 +38,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     dotnet run
     ```
 
-## Usage Details 
+## Usage details 
 - `Program.cs` file outlines how you can add a node to the JSON data, transform using transform policy, and verify the results.
 - **AddTransform** JSON transform used to add the node with properties like JSONPath, Append Node. 
 - **TransformCollection**: This class represents a collection of JSON transforms used to add JSON transforms to the collection.  
