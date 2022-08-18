@@ -17,9 +17,9 @@ variables:
   - group: sdk-build-version-configuration
 
   - name: packageversion-prerelease
-    value: $[ variables[format('{0}-prerelease-major', variables['PipelineTarget'])] ].$[ variables[format('{0}-prerelease-minor', variables['PipelineTarget'])] ].$[ variables[format('{0}-prerelease-patch', variables['PipelineTarget'])] ]-prerelease
+    value: $[ variables[format('{0}-prerelease-major', variables['PipelineTarget'])] ]
   - name: packageversion-release
-    value: $[ variables[format('{0}-release-major', variables['PipelineTarget'])] ].$[ variables[format('{0}-release-minor', variables['PipelineTarget'])] ].$[ variables[format('{0}-release-patch', variables['PipelineTarget'])] ]
+    value: $[ variables[format('{0}-release-major', variables['PipelineTarget'])] ]
 
 stages:
   - stage: Build
