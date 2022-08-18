@@ -46,7 +46,7 @@ namespace Azure.Health.DataServices.Channels
         {
             return channels.IndexOf(item);
         }
-        
+
         /// <summary>
         /// Inserts a channel into the collection.
         /// </summary>

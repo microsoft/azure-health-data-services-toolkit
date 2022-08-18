@@ -9,7 +9,7 @@
         /// Standard SKU
         /// </summary>
         Standard,
-        
+
         /// <summary>
         /// Premium SKU
         /// </summary>
