@@ -112,7 +112,7 @@ stages:
                 repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.PackagePrefix }}-${{ parameters.PackageVersion)}}
+                tag: release/${{ parameters.PackagePrefix }}/${{ parameters.PackageVersion }}
                 title: ${{ parameters.PackagePrefix }}-${{ parameters.PackageVersion }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
