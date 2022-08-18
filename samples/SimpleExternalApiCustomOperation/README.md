@@ -6,7 +6,7 @@ This sample doesn't require any setup or any access to Azure Resources because i
 
 ## Concepts
 
-This sample provides a way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of pipeline. 
+This sample provides a way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of a pipeline. 
 
 
 To implement how requests and responses work, there are two applications:
