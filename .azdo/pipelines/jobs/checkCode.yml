@@ -1,3 +1,6 @@
+parameters:
+- name: SolutionName
+
 steps:
 
 - task: UseDotNet@2
@@ -19,14 +22,7 @@ steps:
   inputs:
     command: 'custom'
     custom: 'format'
-    arguments: 'Azure.Health.DataServices.sln --verify-no-changes --verbosity diagnostic'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Lint Microsoft.Capl'
-  inputs:
-    command: 'custom'
-    custom: 'format'
-    arguments: 'Microsoft.Capl.sln --verify-no-changes --verbosity diagnostic'
+    arguments: '${{ parameters.SolutionName }} --verify-no-changes --verbosity diagnostic'
 
 - task: CredScan@3
   inputs:
