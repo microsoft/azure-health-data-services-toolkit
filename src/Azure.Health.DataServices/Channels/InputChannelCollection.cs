@@ -12,8 +12,6 @@ namespace Azure.Health.DataServices.Channels
         /// Creates an instance of InputChannelCollection.
         /// </summary>
         /// <param name="inputChannels">Optional collection of input channels to initialize.</param>
-    public class InputChannelCollection : IInputChannelCollection
-    {
         public InputChannelCollection(IEnumerable<IInputChannel> inputChannels = null)
         {
             channels = inputChannels != null ? new List<IChannel>(inputChannels) : new List<IChannel>();
@@ -41,14 +39,8 @@ namespace Azure.Health.DataServices.Channels
         /// <summary>
         /// Gets the index of a channel.
         /// </summary>
-        /// <param name="item">Channel to determine its index.</param>
+        /// <param name="item">Channel get index.</param>
         /// <returns>Index of channel.</returns>
-        public int Count => channels.Count;
-
-        public bool IsReadOnly => false;
-
-        public IChannel this[int index] { get => channels[index]; set => channels[index] = value; }
-
         public int IndexOf(IChannel item)
         {
             return channels.IndexOf(item);

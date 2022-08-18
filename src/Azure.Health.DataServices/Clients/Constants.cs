@@ -13,10 +13,6 @@
             /// <summary>
             /// JSON content type.
             /// </summary>
-    public class Constants
-    {
-        public class ContentTypes
-        {
             public const string Json = "application/json";
         }
     }
