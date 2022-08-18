@@ -23,16 +23,11 @@ For samples that work with resources or deploy code to Azure (like the Quickstar
 - If you are using Visual Studio Code:
   - [Azure Function Core Tools 4](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash#install-the-azure-functions-core-tools)
 
-<<<<<<< HEAD
 
 ## Quickstart
 
 Use [this quickstart sample](./Quickstart/) to see some common ways the SDK can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
-=======
-## Quickstart
 
-Use **[this quickstart sample](./Quickstart/)** to see some common ways the SDK can be used to modify requests to the FHIR service. In this quickstart we'll cover:
->>>>>>> main
 
 - Getting an access token for the FHIR service.
 - Adding a header to audit the original requestor.
@@ -41,17 +36,12 @@ Use **[this quickstart sample](./Quickstart/)** to see some common ways the SDK 
 
 ## Feature Samples
 
-<<<<<<< HEAD
-These samples go deep into individual features areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs.These samples are not meant to be deployed to Azure, but executed on your local machine.
-=======
 These samples go deep into individual feature areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs. These samples are not meant to be deployed to Azure, but executed on your local machine.
->>>>>>> main
+
 
 | Sample | Description |
 | --- | --- |
 | [Authenticator](./Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
-<<<<<<< HEAD
-=======
 | [Blob Channel](./BlobChannel/) | Shows how to use a Blob Channel. |
 | [Custom Headers](./CustomHeaders/) | Shows how to inject custom headers. |
 | [Custom Identity Header](./CustomIdentityHeader/) | Shows how to inject a custom identity header. |
@@ -63,7 +53,7 @@ These samples go deep into individual feature areas of this SDK, showing you how
 | [Memory/Redis Cache](./MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
 | [Service Bus Channel](./ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
 | [Simple External API](./SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
->>>>>>> main
+
 
 ## Use Case Samples
 

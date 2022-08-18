@@ -12,7 +12,4 @@
 *.png binary
 *.jpg binary
 *.svg binary
-<<<<<<< HEAD
-*.vsdx binary
-=======
 *.vsdx binary
