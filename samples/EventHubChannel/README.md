@@ -1,4 +1,5 @@
-# Channel to Azure Event Hubs
+
+# Channel to Event Hub
 
 In this sample, a pipeline is created with a channel to send data to Azure Event Hubs.
 
