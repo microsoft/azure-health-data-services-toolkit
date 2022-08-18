@@ -31,7 +31,7 @@
     <IsPackable>true</IsPackable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DebugType>portable</DebugType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
