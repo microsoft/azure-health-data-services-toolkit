@@ -1,5 +1,8 @@
 ﻿namespace Azure.Health.DataServices.Channels
 {
+    /// <summary>
+    /// Data services channel constants.
+    /// </summary>
     public class Constants
     {
         /// <summary>

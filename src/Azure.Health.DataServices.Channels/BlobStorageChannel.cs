@@ -181,8 +181,7 @@ namespace Azure.Health.DataServices.Channels
             object[] parameters = new object[7];
             try
             {
-                if (items == null)
-                    items = new object[7];
+                items ??= new object[7];
                 if (items.Length <= 7)
                     items.CopyTo(parameters, 0);
 
@@ -232,6 +231,10 @@ namespace Azure.Health.DataServices.Channels
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        /// <param name="disposing">Indicator is true if disposing.</param>
         protected void Dispose(bool disposing)
         {
             if (disposing && !disposed)
