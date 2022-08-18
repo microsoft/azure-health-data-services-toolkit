@@ -17,7 +17,7 @@ This sample shows how to configure a channel to send pipeline data to Azure Blob
 
 ## Setup your environment
 
-This sample can be configured with variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with the variables mentioned below to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
