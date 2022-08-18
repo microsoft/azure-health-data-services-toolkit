@@ -1,12 +1,12 @@
 # Simple External API Custom Operation 
 
-This sample is a standard ASP.NET Web Application and will show you how you can create a request object and pass it to the pipeline and get the response back by using the SDK. 
+This sample is a standard ASP.NET Web Application and will show how you can create a request object, pass it to the pipeline, and get the response back by using the SDK. 
 
 This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
 
 ## Concepts
 
-This sample provides a way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of Pipeline. 
+This sample provides a way to configure the custom operation (CO) in the pipeline. You will implement the request and response with the use of pipeline. 
 
 To implement how requests and responses work, there are two applications:
 1. SimpleCustomOperation: We are adding the simple inputs baseURL, method and path. 
