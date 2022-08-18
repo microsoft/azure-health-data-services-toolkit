@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <UserSecretsId>acdfdf6f-5a61-40b4-989c-3a1add9e9b35</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Storage" Version="0.9.27-prerelease" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>
