@@ -1,4 +1,4 @@
-# Using Authenticator to Access Azure Resources
+# Using Authenticator to access Azure resources
 
 This sample will show you how you can get an access token for Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
@@ -52,13 +52,13 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 3. Save and close `secrets.json`.
 
-## Build and Run the Sample
+## Build and run the sample
 
 The easiest way to run the sample in Visual Studio is to use the debugger by pressing F5 or select "Debug > Start Debugging".
 
 If you are using Visual Studio Code or something else, you can run the sample from the command line by executing `dotnet run` in this directory (`samples/Authenticator`).
 
-## Advanced Scenario - Specifying a Client Application
+## Advanced scenario - specifying a client application
 
 The Authenticator in the SDK allows you to specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal) to access Azure resources. You can actually achieve this in two ways:
 
@@ -88,7 +88,7 @@ In Visual Studio, you can set your secrets file like below.
 
 Re-build and re-run the sample to ensure the new configuration is loaded.
 
-## Usage Details
+## Usage details
 
 - `Program.cs` file in this sample outlines how you can use the authenticator and retrieve tokens for accessing Azure resources.
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
