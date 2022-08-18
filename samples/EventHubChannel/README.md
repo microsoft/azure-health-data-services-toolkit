@@ -1,12 +1,11 @@
-# Using Event Hub as Channel
+# Channel to Event Hub
 
-This sample will show you how you can access Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Event Hub.
-
-Here, we'll cover the channel scenario which can be used to access Azure Event Hub and Azure Storage.
+In this sample, a pipeline is created with a channel to send data to Azure Event Hubs.
 
 ## Concepts
 
-This sample provides easy configuration of the application with Azure Event Hub and Azure Storage with this SDK. This sample will show you how to configure the Event Hub as a channel and its options using Input channel, and how we can send and receive messages with Azure Event Hub. 
+This sample shows how to configure a channel to send pipeline data to Azure Event Hubs.
+
 
 ## Prerequisites
 
@@ -21,7 +20,7 @@ This sample provides easy configuration of the application with Azure Event Hub 
 
 ## Setup your environment
 
-This sample can be configured with `Azure Event Hub` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
+This sample needs to be configured with `Azure Event Hub` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
 
 ### Command Line
 
@@ -96,6 +95,6 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
   - **FallbackStorageConnectionString**- Azure Blob Storage connection string used when data exceeds the allowable Azure Event Hub size.
   - **FallbackStorageContainer**- an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Hub size.
   - **ProcessorStorageContainer**- container used for managing the processor that reads messages.
-- **UseWebPipeline** given extension is used to add scope to the web services configurations. 
-- <your service name>.**OnReceive Event** that signals pipeline service has received a message.
+- **UseWebPipeline** This is used to hook up our custom operation pipeline to ASP.NET.
+- \<your service name\>.**OnReceive Event** that signals pipeline service has received a message.
 - **SendMessageAsync** This method will execute the pipeline service which is configured in given Program.cs file. HttpRequestMessage is passed as an input parameter to the given method, which includes execution of the pipeline and sending message to the Azure Event Hub. Receive channel receives events from event hub. 
