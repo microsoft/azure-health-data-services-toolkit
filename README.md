@@ -90,10 +90,10 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 ## Disclaimers
 
 
-The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.   
+The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
 
 
-The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data.  It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose. 
+The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data.  It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
 
 ## Trademarks
 
