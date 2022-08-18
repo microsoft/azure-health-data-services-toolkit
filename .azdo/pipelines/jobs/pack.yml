@@ -1,6 +1,7 @@
 parameters:
 - name: ArtifactName
 - name: Version
+- name: ProjectPrefix
 
 steps:
   - task: Bash@3
@@ -8,7 +9,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        find . -type f \( -iname "*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
+        find . -type f \( -iname "*${{ parameters.ProjectPrefix }}*.csproj" ! -iname "*Test*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file..."
             dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:PackageVersion="$PACKAGE_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
