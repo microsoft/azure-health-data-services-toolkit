@@ -19,7 +19,7 @@ This sample shows how to configure a channel to send pipeline data to Azure Serv
 
 This sample needs to be configured with `Azure service Bus` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
 
-### Command Line
+### Command line
 
 Run this below command to set up the sample configuration in the dotnet secret store.
 
@@ -56,7 +56,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 
 3. Save and close `secrets.json`.
 
-## Build the Sample 
+## Build the sample 
 
 - If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
 
@@ -66,7 +66,7 @@ If you are using Visual Studio, you can setup configuration via secrets without 
 dotnet build
 ```
 
-## Run the Sample 
+## Run the sample 
 
 To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
 
@@ -78,7 +78,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
     dotnet run
     ```
 
-## Usage Details 
+## Usage details 
 
 - Program.cs file  outlines how you can send and receive messages with Service Bus using Pipeline service. 
 - Pipeline is a software design pattern that executes a sequence of operations, pipeline consist of filters or channels. 
