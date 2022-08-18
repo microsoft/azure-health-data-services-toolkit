@@ -1,7 +1,7 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
-* text eol=lf
+* text auto
 
 # Force crlf on checkout
 *.sln text eol=crlf
