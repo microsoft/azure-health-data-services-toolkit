@@ -42,21 +42,23 @@ stages:
           BuildFileVersion: $(packageversion-release).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
-          ArtifactName: $(ProjectPrefix)-PrereleasePackages
+          ArtifactName: PrereleasePackages
           Version: $(packageversion-prerelease)
+          ProjectPrefix: $(ProjectPrefix)
 
         # Prepare release packages if manually triggered
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
         - template: ./jobs/pack.yml
           parameters:
-            ArtifactName: $(ProjectPrefix)-ReleasePackages
+            ArtifactName: ReleasePackages
             Version: $(packageversion-release)
+            ProjectPrefix: $(ProjectPrefix)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
     - template: ./stages/release.yml
       parameters:
-        ArtifactName: $(ProjectPrefix)-PrereleasePackages
+        ArtifactName: PrereleasePackages
         PackagePrefix: $(ProjectPrefix)
         PackageVersion: $(packageversion-prerelease)
         DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
@@ -64,7 +66,7 @@ stages:
 
     - template: ./stages/release.yml
       parameters:
-        ArtifactName: $(ProjectPrefix)-ReleasePackages
+        ArtifactName: ReleasePackages
         PackagePrefix: $(ProjectPrefix)
         PackageVersion: $(packageversion-release)
         DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
