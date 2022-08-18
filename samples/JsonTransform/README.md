@@ -8,12 +8,12 @@ This sample doesn't require any setup or any access to Azure Resources because i
 
 ## Concepts
 
-This sample will help you to understand how to use JSON features for JSON data transform with this SDK. This sample will show how to read and transform JSON data. 
+This sample will show how to read and transform JSON data. 
 
 ## Prerequisites
 
 - This repository cloned to your machine and an editor. (e.g. Visual Studio or Visual Studio Code). 
-- Open the cloned repo project file in Visual Studio or open the clone repo folder in Visual Studio Code. 
+- Open the cloned repo project file in Visual Studio or open the cloned repo folder in Visual Studio Code. 
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer. 
 
 ## Build the Sample 
@@ -43,7 +43,7 @@ To debug the app and then run it, press F5 or use Debug > Start Debugging. To ru
 - **AddTransform** JSON transform used to add the node with properties like JSONPath, Append Node. 
 - **TransformCollection**: This class represents a collection of JSON transforms used to add JSON transforms to the collection.  
 - **TransformPolicy**: Uses transform collection and transforms JSON document into modified JSON data using Transform method, which is given below. 
-- \<Transform Policy name\>.**Transfrom** given method transforms a JSON data and returns the transformed document. JSON data to transform is passed as an input parameter for the given method, and the transformed document is returned as a JSON string.  
-- JSON Result from above method is verified using JSON object, JArray and JToken. 
+- \<Transform Policy name\>.**Transform** given method transforms a JSON data and returns the transformed document. JSON data to transform is passed as an input parameter for the given method, and the transformed document is returned as a JSON string.  
+- JSON result from above method is verified using JSON object, JArray and JToken. 
 
  
