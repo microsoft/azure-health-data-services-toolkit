@@ -68,7 +68,7 @@ stages:
             ProjectPrefix: $(ProjectPrefix)
             SkipTests: true
             Version: $(packageversion-release)
-            AssemblyVersion: $(packageversion-release).$(Build.BuildId)
+            AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: PrereleasePackages
