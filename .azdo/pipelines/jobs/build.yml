@@ -1,7 +1,7 @@
 parameters:
 - name: ProjectPrefix
 - name: BuildVersion
-- name: BuildFileVersion
+- name: BuildAssemblyVersion
 - name: SkipTests
   type: boolean
   default: false
@@ -18,7 +18,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) --no-incremental /p:Version=${{ parameters.BuildVersion }} /p:FileVersion=${{ parameters.BuildFileVersion }}'
+    arguments: '--configuration $(buildConfiguration) --no-incremental /p:Version=${{ parameters.BuildVersion }} /p:AssemblyVersion=${{ parameters.BuildAssemblyVersion }} /p:FileVersion=${{ parameters.BuildAssemblyVersion }}'
     projects: '**/${{ parameters.ProjectPrefix }}*.csproj'
   displayName: 'Build all projects'
 
