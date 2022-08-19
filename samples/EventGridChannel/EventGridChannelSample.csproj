@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
-    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="0.9.27-prerelease" />
-    <PackageReference Include="Azure.Health.DataServices.Storage" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" />
+    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="1.0.0" />
+    <PackageReference Include="Azure.Health.DataServices.Storage" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
