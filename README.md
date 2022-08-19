@@ -16,9 +16,8 @@ With the growth of health data workloads on Azure, we’ve found that developers
 
 The fastest way to test out the SDK and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
-<!---
-(Uncomment this when we have dev docs) Read [this guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
---->
+Read [the developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
+
 Also check out our full list of [samples on how to use the SDK here](./samples/README.md) for even more inspiration on how to create your own custom operations.
 
 ## Common Fast Healthcare Interoperability Resources (FHIR®) use cases
