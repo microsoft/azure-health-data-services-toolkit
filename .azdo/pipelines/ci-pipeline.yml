@@ -39,7 +39,7 @@ stages:
         parameters:
           SolutionName: $(ProjectPrefix).sln
 
-    - job: BuildTestPackRelease
+    - job: BuildTestPack
       pool:
         vmImage: $(VmImage)
       steps:

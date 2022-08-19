@@ -6,7 +6,7 @@ parameters:
 
 steps:
   - task: Bash@3
-    displayName: Pack All Projects (excluding samples and tests)
+    displayName: Pack ${{ parameters.Version }}
     inputs:
       targetType: 'inline'
       script: |
