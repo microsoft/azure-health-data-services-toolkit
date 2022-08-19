@@ -6,6 +6,9 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
+    <Version Condition=" '$(Version)' != '' ">$(Version)</Version>
+    <FileVersion Condition=" '$(FileVersion)' != '' ">$(FileVersion)</FileVersion>
+    <AssemblyVersion Condition=" '$(AssemblyVersion)' != '' ">$(AssemblyVersion)</AssemblyVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
