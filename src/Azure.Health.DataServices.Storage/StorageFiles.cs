@@ -81,6 +81,10 @@ namespace Azure.Health.DataServices.Storage
             serviceClient = new ShareServiceClient(serviceUri, credentials, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageFiles.
+        /// </summary>
+        /// <param name="logger">Optional ILogger.</param>
         protected StorageFiles(ILogger logger = null)
         {
             this.logger = logger;

@@ -1,6 +1,7 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
+
 * text auto
 
 # Force crlf on checkout

@@ -105,6 +105,10 @@ namespace Azure.Health.DataServices.Json
 
         }
 
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        /// <param name="dispose">Indicator when true signals the object should be disposed.</param>
         protected void Dispose(bool dispose)
         {
             if (dispose & !disposed)

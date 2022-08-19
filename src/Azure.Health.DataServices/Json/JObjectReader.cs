@@ -8,11 +8,18 @@ namespace Azure.Health.DataServices.Json
     /// </summary>
     public abstract class JObjectReader
     {
+        /// <summary>
+        /// Creates an instance of JObjectReader.
+        /// </summary>
+        /// <param name="root">The root of the JSON object.</param>
         protected JObjectReader(JObject root)
         {
             this.root = root;
         }
 
+        /// <summary>
+        /// JSON object root.
+        /// </summary>
         protected JObject root;
 
         /// <summary>

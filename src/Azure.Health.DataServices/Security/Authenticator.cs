@@ -29,7 +29,7 @@ namespace Azure.Health.DataServices.Security
         /// </summary>
         public bool RequiresOnBehalfOf
         {
-            get { return (options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingCertificate || options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingClientSecret); }
+            get { return (options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingCertificate || options.Value.CredentialType == ClientCredentialType.OnBehalfOfUsingClientSecert); }
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Azure.Health.DataServices.Security
                                                                                      scopes, parentRequestId, claims,
                                                                                      options.Value.TenantId,
                                                                                      cancellationToken),
-                ClientCredentialType.OnBehalfOfUsingClientSecret => await AcquireTokenForClientAsync(resource,
+                ClientCredentialType.OnBehalfOfUsingClientSecert => await AcquireTokenForClientAsync(resource,
                                                                                    new OnBehalfOfCredential(options.Value.TenantId,
                                                                                                             options.Value.ClientId,
                                                                                                             options.Value.ClientSecret,
@@ -125,7 +125,7 @@ namespace Azure.Health.DataServices.Security
             return token;
         }
 
-        private string[] GetDefaultScopes(string resource)
+        private static string[] GetDefaultScopes(string resource)
         {
             return new string[] { $"{resource.TrimEnd('/')}/.default" };
         }

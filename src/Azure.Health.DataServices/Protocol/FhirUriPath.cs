@@ -6,6 +6,9 @@ using System.Web;
 
 namespace Azure.Health.DataServices.Protocol
 {
+    /// <summary>
+    /// FHIR URI path.
+    /// </summary>
     public class FhirUriPath : Uri
     {
         /// <summary>

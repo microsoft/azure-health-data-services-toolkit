@@ -23,9 +23,9 @@ namespace Azure.Health.DataServices.Configuration
         /// <summary>
         /// Uses application insights for logging.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="instrumentationKey"></param>
-        /// <param name="logLevel"></param>
+        /// <param name="services">IServiceColllection.</param>
+        /// <param name="instrumentationConnectionString">AppInsights instrumentation key connection string.</param>
+        /// <param name="logLevel">Log level.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseAppInsightsLogging(this IServiceCollection services, string instrumentationConnectionString, LogLevel logLevel)
         {
@@ -41,8 +41,8 @@ namespace Azure.Health.DataServices.Configuration
         /// <summary>
         /// Use application insights for telemetry.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="instrumentationKey"></param>
+        /// <param name="services">IServicesCollection</param>
+        /// <param name="instrumentationConnectionString">AppInsights instrumentation key connection string.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseTelemetry(this IServiceCollection services, string instrumentationConnectionString)
         {
@@ -70,7 +70,7 @@ namespace Azure.Health.DataServices.Configuration
         }
 
         /// <summary>
-        /// Use the authenticator with DefaultCredentials for acquisition of access tokens from Azure AD.
+        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <returns>Services collection.</returns>
@@ -82,8 +82,7 @@ namespace Azure.Health.DataServices.Configuration
         /// <summary>
         /// Uses a Azure Function pipeline.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
+        /// <param name="services">IServiceCollection</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseAzureFunctionPipeline(this IServiceCollection services)
         {
@@ -131,6 +130,7 @@ namespace Azure.Health.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="name">Name of the http header to add.</param>
         /// <param name="value">Value of the http header.</param>
+        /// <param name="headerType">Type of custom header.</param>
         /// <returns>Services collection.</returns>
         public static IServiceCollection AddCustomHeader(this IServiceCollection services, string name, string value, CustomHeaderType headerType)
         {
