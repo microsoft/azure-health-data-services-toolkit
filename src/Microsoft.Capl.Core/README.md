@@ -1,5 +1,5 @@
 
-![](readme-capl.png)
+![CAPL](https://raw.githubusercontent.com/Azure/health-data-services-sdk/main/docs/images/readme-capl.png)
 
 ## Claims Authorization Policy Language
 #### JSON serialization version for access control
