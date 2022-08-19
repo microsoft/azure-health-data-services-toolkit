@@ -18,7 +18,7 @@ steps:
     arguments: 'update -g dotnet-format'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Lint Azure.Health.DataServices'
+  displayName: 'Lint with dotnet format'
   inputs:
     command: 'custom'
     custom: 'format'

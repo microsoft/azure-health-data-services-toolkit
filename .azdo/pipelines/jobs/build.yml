@@ -1,6 +1,5 @@
 parameters:
 - name: ProjectPrefix
-- name: BuildFileVersion
 
 steps:
 
@@ -17,11 +16,8 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: '**/${{ parameters.ProjectPrefix }}*.csproj'
   displayName: 'Build all projects'
-  env:
-    FileVersion: ${{ parameters.BuildFileVersion }}
 
-# Wildcard for tests isn't supported
-
+# Test skip to support building multiple versions
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'

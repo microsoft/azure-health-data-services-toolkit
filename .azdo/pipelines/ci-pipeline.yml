@@ -20,8 +20,10 @@ variables:
   # Meant to allow for either "ahds-sdk-release-major" or "capl-release-major" etc to be used for versioning.
   # These are passed in through the azdo pipeline parameters in the UI
   # This is what allows us to to use the same pipeline for the Azure Health Data Services SDK and CAPL
+  - name: packageversion-prerelease-no-suffix
+    value: $[ format('{0}.{1}.{2}', variables[format('{0}-prerelease-major', variables['VarPrefix'])], variables[format('{0}-prerelease-minor', variables['VarPrefix'])], variables[format('{0}-prerelease-patch', variables['VarPrefix'])] )]
   - name: packageversion-prerelease
-    value: $[ format('{0}.{1}.{2}-prerelease', variables[format('{0}-prerelease-major', variables['VarPrefix'])], variables[format('{0}-prerelease-minor', variables['VarPrefix'])], variables[format('{0}-prerelease-patch', variables['VarPrefix'])] )]
+    value: $(packageversion-prerelease-no-suffix)-prerelease
   - name: packageversion-release
     value: $[ format('{0}.{1}.{2}', variables[format('{0}-release-major', variables['VarPrefix'])], variables[format('{0}-release-minor', variables['VarPrefix'])], variables[format('{0}-release-patch', variables['VarPrefix'])] )]
 
@@ -44,19 +46,18 @@ stages:
       - template: ./jobs/build.yml
         parameters:
           ProjectPrefix: $(ProjectPrefix)
-          BuildFileVersion: $(packageversion-release).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
-          ArtifactName: PrereleasePackages
-          Version: $(packageversion-prerelease)
+          ArtifactName: ReleasePackages
+          Version: $(packageversion-release)
+          AssemblyVersion: $(packageversion-release).$(Build.BuildId)
           ProjectPrefix: $(ProjectPrefix)
-
-        # Prepare release packages if manually triggered
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
         - template: ./jobs/pack.yml
           parameters:
-            ArtifactName: ReleasePackages
-            Version: $(packageversion-release)
+            ArtifactName: PrereleasePackages
+            Version: $(packageversion-prerelease)
+            AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
             ProjectPrefix: $(ProjectPrefix)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release

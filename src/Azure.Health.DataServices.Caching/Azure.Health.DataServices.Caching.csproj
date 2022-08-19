@@ -7,7 +7,6 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <FileVersion>$(FileVersion)</FileVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
@@ -23,16 +22,15 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+
     <AnalysisLevel>latest</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
     <IsPackable>true</IsPackable>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DebugType>portable</DebugType>
+    <DebugType>embedded</DebugType>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Azure.Health.DataServices.Caching</RootNamespace>
