@@ -44,11 +44,12 @@ stages:
       - template: ./jobs/build.yml
         parameters:
           ProjectPrefix: $(ProjectPrefix)
+          BuildVersion: $(packageversion-prerelease)
           BuildFileVersion: $(packageversion-prerelease).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: PrereleasePackages
-          BuildVersion: $(packageversion-prerelease)
+          Version: $(packageversion-prerelease)
           ProjectPrefix: $(ProjectPrefix)
 
     # Prepare release packages if manually triggered
@@ -62,11 +63,6 @@ stages:
             ProjectPrefix: $(ProjectPrefix)
             BuildVersion: $(packageversion-release)
             BuildFileVersion: $(packageversion-release).$(Build.BuildId)
-        - template: ./jobs/pack.yml
-          parameters:
-            ArtifactName: ReleasePackages
-            Version: $(packageversion-release)
-            ProjectPrefix: $(ProjectPrefix)
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: ReleasePackages
