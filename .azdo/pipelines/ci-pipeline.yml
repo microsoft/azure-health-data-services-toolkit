@@ -57,6 +57,7 @@ stages:
     # Prepare release packages if manually triggered
     - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
       - job: BuildTestPackRelease
+        dependsOn: BuildTestPackPrerelease
         pool:
           vmImage: $(VmImage)
         steps:
