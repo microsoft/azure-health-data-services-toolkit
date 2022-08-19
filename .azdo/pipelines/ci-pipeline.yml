@@ -39,37 +39,38 @@ stages:
         parameters:
           SolutionName: $(ProjectPrefix).sln
 
-    - job: BuildTestPackPrerelease
+    - job: BuildTestPackRelease
       pool:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
         parameters:
           ProjectPrefix: $(ProjectPrefix)
-          BuildVersion: $(packageversion-prerelease)
-          BuildFileVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
+          BuildVersion: $(packageversion-release)
+          BuildFileVersion: $(packageversion-release).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
-          ArtifactName: PrereleasePackages
-          Version: $(packageversion-prerelease)
+          ArtifactName: ReleasePackages
+          Version: $(packageversion-release)
           ProjectPrefix: $(ProjectPrefix)
 
-    # Prepare release packages if manually triggered
+      # Pack prerelease packages if manually triggered to prep for publish
+      # Once tests can run in parallel, SkipTests can be removed
     - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
-      - job: BuildTestPackRelease
-        dependsOn: BuildTestPackPrerelease
+      - job: PackPrerelease
         pool:
           vmImage: $(VmImage)
         steps:
         - template: ./jobs/build.yml
           parameters:
             ProjectPrefix: $(ProjectPrefix)
-            BuildVersion: $(packageversion-release)
-            BuildFileVersion: $(packageversion-release).$(Build.BuildId)
+            BuildVersion: $(packageversion-prerelease)
+            BuildFileVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
+            SkipTests: true
         - template: ./jobs/pack.yml
           parameters:
-            ArtifactName: ReleasePackages
-            Version: $(packageversion-release)
+            ArtifactName: PrereleasePackages
+            Version: $(packageversion-prerelease)
             ProjectPrefix: $(ProjectPrefix)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
