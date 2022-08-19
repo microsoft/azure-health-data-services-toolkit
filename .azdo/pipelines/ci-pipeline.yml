@@ -57,7 +57,8 @@ stages:
       # Pack prerelease packages if manually triggered to prep for publish
       # Once tests can run in parallel, SkipTests can be removed
     - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
-      - job: PackPrerelease
+      - job: BuildPackPrerelease
+        dependsOn: BuildTestPackRelease
         pool:
           vmImage: $(VmImage)
         steps:
