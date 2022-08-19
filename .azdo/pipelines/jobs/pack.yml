@@ -17,7 +17,7 @@ steps:
         done
     env:
       VERSION: ${{ parameters.Version }}
-      ASS_VERSION: ${{ parameters.Version }}
+      ASS_VERSION: ${{ parameters.AssemblyVersion }}
       OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
       NOTES: ${{ format('The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F{0}%2F{1}', parameters.ProjectPrefix, parameters.Version) }}
 
