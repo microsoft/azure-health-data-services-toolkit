@@ -7,9 +7,6 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-		<Version Condition=" '$(Version)' != '' ">$(Version)</Version>
-    <FileVersion Condition=" '$(FileVersion)' != '' ">$(FileVersion)</FileVersion>
-    <AssemblyVersion Condition=" '$(AssemblyVersion)' != '' ">$(AssemblyVersion)</AssemblyVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
@@ -29,7 +26,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
     <IsPackable>true</IsPackable>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DebugType>portable</DebugType>

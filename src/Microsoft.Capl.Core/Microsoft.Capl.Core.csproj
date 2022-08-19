@@ -6,9 +6,6 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <Version Condition=" '$(Version)' != '' ">$(Version)</Version>
-    <FileVersion Condition=" '$(FileVersion)' != '' ">$(FileVersion)</FileVersion>
-    <AssemblyVersion Condition=" '$(AssemblyVersion)' != '' ">$(AssemblyVersion)</AssemblyVersion>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
@@ -25,7 +22,6 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AnalysisLevel>latest</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
