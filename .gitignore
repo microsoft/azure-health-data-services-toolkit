@@ -332,3 +332,5 @@ backup.json
 *.swo
 *.vi
 *.env
+
+*__azurite*

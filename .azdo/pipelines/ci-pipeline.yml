@@ -46,6 +46,8 @@ stages:
       - template: ./jobs/build.yml
         parameters:
           ProjectPrefix: $(ProjectPrefix)
+          Version: $(packageversion-release)
+          AssemblyVersion: $(packageversion-release).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: ReleasePackages
@@ -65,6 +67,8 @@ stages:
           parameters:
             ProjectPrefix: $(ProjectPrefix)
             SkipTests: true
+            Version: $(packageversion-release)
+            AssemblyVersion: $(packageversion-release).$(Build.BuildId)
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: PrereleasePackages

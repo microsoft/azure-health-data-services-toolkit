@@ -1,7 +1,7 @@
 parameters:
 - name: ProjectPrefix
-- name: BuildVersion
-- name: BuildAssemblyVersion
+- name: Version
+- name: AssemblyVersion
 - name: SkipTests
   type: boolean
   default: false
@@ -18,13 +18,9 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) --no-incremental'
+    arguments: '--configuration $(buildConfiguration) --no-incremental /p:Version="${{ parameters.Version }}" /p:AssemblyVersion="${{ parameters.AssemblyVersion }}" /p:FileVersion="${{ parameters.AssemblyVersion }}"'
     projects: '**/${{ parameters.ProjectPrefix }}*.csproj'
   displayName: 'Build all projects'
-  env:
-    Version: ${{ parameters.BuildVersion }}
-    AssemblyVersion: ${{ parameters.BuildAssemblyVersion }}
-    FileVersion: ${{ parameters.BuildAssemblyVersion }}
 
 # Test skip to support building multiple versions
 - ${{ if eq(parameters.SkipTests, false) }}:
