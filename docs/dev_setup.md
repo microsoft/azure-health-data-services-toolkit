@@ -12,6 +12,8 @@ We're only covering the recommended developer workflow for custom operations bui
 4. **Deploy and Test in Azure**: Run `azd deploy` to deploy your code to Azure.
 5. **Release via CI/CD Process**: Check your code into a git repository and use a CI/CD process to release.
 
+<br />
+
 ![Typical development flow](/docs/images/custom_operation_development_flow.png)
 
 ### Setup your system
