@@ -37,22 +37,36 @@ stages:
         parameters:
           SolutionName: $(ProjectPrefix).sln
 
-    - job: BuildTestPack
+    - job: BuildTestPackPrerelease
       pool:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
         parameters:
           ProjectPrefix: $(ProjectPrefix)
-          BuildFileVersion: $(packageversion-release).$(Build.BuildId)
+          BuildFileVersion: $(packageversion-prerelease).$(Build.BuildId)
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: PrereleasePackages
-          Version: $(packageversion-prerelease)
+          BuildVersion: $(packageversion-prerelease)
           ProjectPrefix: $(ProjectPrefix)
 
-        # Prepare release packages if manually triggered
-      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+    # Prepare release packages if manually triggered
+    - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+      - job: BuildTestPackRelease
+        pool:
+          vmImage: $(VmImage)
+        steps:
+        - template: ./jobs/build.yml
+          parameters:
+            ProjectPrefix: $(ProjectPrefix)
+            BuildVersion: $(packageversion-release)
+            BuildFileVersion: $(packageversion-release).$(Build.BuildId)
+        - template: ./jobs/pack.yml
+          parameters:
+            ArtifactName: ReleasePackages
+            Version: $(packageversion-release)
+            ProjectPrefix: $(ProjectPrefix)
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: ReleasePackages
