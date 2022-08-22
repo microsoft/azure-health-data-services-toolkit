@@ -4,6 +4,7 @@ The Azure Health Data Services SDK helps you extend the functionality of Azure H
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
+*NuGet packages coming soon!*
 
 | Package Name | Description |
 | --- | --- |
