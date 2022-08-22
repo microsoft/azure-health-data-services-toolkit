@@ -5,4 +5,4 @@
 # Lines starting with '#' are comments.
 
 # These owners will be the default owners for everything in the repo.
-*       @azure/health-data-services-sdk-admins
+*       @microsoft/health-data-services-sdk-admins
