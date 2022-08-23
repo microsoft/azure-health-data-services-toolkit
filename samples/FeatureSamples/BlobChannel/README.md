@@ -64,7 +64,7 @@ From the command line, you can run the sample by executing `dotnet run` in this 
 
 ## Usage details
 
-- `Program.cs` is this sample is the entry point. This file sets up the sample.
+- **`Program.cs`**: Outlines how you can add configuration for a Blob Channel. There are commends in this file - check it out.
 - `PipelineService.cs`/`IPipelineService.cs` provide access to test the web pipeline for the sample.
 - `BlobChannelConfig.cs` is an example configuration for the entire program. It uses the *option pattern* to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - `RandomString.cs` provides some sample data.

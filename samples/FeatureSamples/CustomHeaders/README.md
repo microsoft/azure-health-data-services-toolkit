@@ -39,6 +39,6 @@ From the command line, you can run the sample by executing `dotnet run` in this 
 
 ## Usage details
 
-- **`Program.cs`**: OItlines how you can add configuration for custom headers. There are commends in this file - check it out.
+- **`Program.cs`**: Outlines how you can add configuration for custom headers. There are commends in this file - check it out.
 - **Dependency Injection (DI)**: You should use dependency injection for `IHttpCustomHeaderCollection` in your custom operation pipeline filter. This will provide you the object you need to invoke the header replacement as defined in your `ConfigureServices` section in `Program.cs`.
 - **`IHttpCustomHeaderCollection.AppendAndReplace`**: You will need to invoke this inside your `ExecuteAsync` method of your filter. This will actually perform the defined header modifications where you want in your pipeline.
