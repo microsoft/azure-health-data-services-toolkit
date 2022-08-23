@@ -18,10 +18,12 @@ namespace Quickstart
         }
 
         [Function("QuickstartFunction")]
-        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Patient")] HttpRequestData req)
+        public async Task<HttpResponseData> Get([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", "put", "delete", Route = "Patient/{id?}")] HttpRequestData req)
         {
-            _logger.LogInformation("Quickstart pipeline started...");
-            return await pipeline.ExecuteAsync(req);
+            _logger.LogInformation("Patient sample pipeline started...");
+            var responseData = await pipeline.ExecuteAsync(req);
+            responseData.Headers.Remove("Content-length");
+            return responseData;
         }
     }
 }

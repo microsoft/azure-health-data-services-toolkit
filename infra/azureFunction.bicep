@@ -4,6 +4,8 @@ param functionAppName string
 param appInsightsInstrumentationKey string
 param location string
 param appTags object = {}
+param tenantId string
+param FhirServerUrl string
 
 @description('Azure Function required linked storage account')
 resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
@@ -68,6 +70,18 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         {
           name: 'SCM_DO_BUILD_DURING_DEPLOYMENT'
           value: 'true'
+        }
+        {
+          name: 'AZURE_InstrumentationKey'
+          value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
+        }
+        {
+          name:'AZURE_TenantId'
+          value: tenantId
+        }
+        {
+          name:'AZURE_FhirServerUrl'
+          value: FhirServerUrl
         }
       ]
     }

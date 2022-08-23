@@ -13,5 +13,11 @@ namespace Quickstart.Filters
 
         public StatusType ExecutionStatusType { get; set; }
 
+        public int PageSize { get; set; }
+
+        public int MaxSize { get; set; }
+
+
+
     }
 }

@@ -7,7 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
+using QuickstartSample.CustomHeader;
 using System.Reflection;
+using Azure.Health.DataServices.Clients.Headers;
 
 
 MyServiceConfig config = new MyServiceConfig();
@@ -41,12 +43,24 @@ using IHost host = new HostBuilder()
             services.UseAppInsightsLogging(config.InstrumentationKey, LogLevel.Information);
             services.UseTelemetry(config.InstrumentationKey);
         }
-        
-        services.UseAuthenticator();
+
+        //services.UseAuthenticator();
+        services.UseAuthenticator(options =>
+        {
+            options.CredentialType = ClientCredentialType.ClientSecret;
+            options.ClientId = config.ClientId;
+            options.ClientSecret = config.ClientSecret;
+            options.TenantId = config.TenantId;
+        });
+        services.UseCustomHeaders();
+        services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.Static);
+        services.AddScoped<ICustomHeaderService, CustomHeaderService>();
         services.UseAzureFunctionPipeline();
         services.AddInputFilter<QuickstartOptions>(typeof(QuickstartFilter), options =>
         {
             options.FhirServerUrl = config.FhirServerUrl;
+            options.PageSize = 100;
+            options.PageSize = 1000;
             options.RetryDelaySeconds = 5.0;
             options.MaxRetryAttempts = 5;
             options.ExecutionStatusType = StatusType.Normal;
