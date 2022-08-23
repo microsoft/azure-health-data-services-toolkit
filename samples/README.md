@@ -43,8 +43,6 @@ These samples go deep into individual feature areas of this SDK, showing you how
 | [Authenticator](./FeatureSamples/Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
 | [Blob Channel](./FeatureSamples/BlobChannel/) | Shows how to use a Blob Channel. |
 | [Custom Headers](./FeatureSamples/CustomHeaders/) | Shows how to inject custom headers. |
-| [Custom Identity Header](./FeatureSamples/CustomIdentityHeader/) | Shows how to inject a custom identity header. |
-| [Custom Request Headers](./FeatureSamples/CustomRequestHeaders/) | Shows  how to inject custom request headers. |
 | [Event Grid Channel](./FeatureSamples/EventGridChannel/) | Shows how to use an Event Grid Channel. |
 | [Event Hub Channel](./FeatureSamples/EventHubChannel/) | Shows how to use an Event Hub Channel. |
 | [JSON Transform](./FeatureSamples/JsonTransform/) | Shows how to easily transform a JSON payload. |

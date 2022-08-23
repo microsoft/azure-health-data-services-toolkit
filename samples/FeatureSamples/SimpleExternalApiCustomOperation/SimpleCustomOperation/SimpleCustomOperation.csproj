@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(LocalPackages)' == 'true'">
+    <ProjectReference Include="..\..\..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

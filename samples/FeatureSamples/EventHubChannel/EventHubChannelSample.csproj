@@ -9,9 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
-    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
+    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(LocalPackages)' == 'true'">
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices.Channels\Azure.Health.DataServices.Channels.csproj" />
   </ItemGroup>
 
 </Project>

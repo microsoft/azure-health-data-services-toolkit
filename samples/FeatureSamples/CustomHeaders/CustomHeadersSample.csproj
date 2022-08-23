@@ -8,8 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="0.9.27-prerelease" />
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(LocalPackages)' == 'true'">
+    <ProjectReference Include="..\..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="jwttest.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
