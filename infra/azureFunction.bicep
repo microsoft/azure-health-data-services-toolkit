@@ -6,7 +6,7 @@ param location string
 param appTags object = {}
 
 @description('Azure Function required linked storage account')
-resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
+resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   name: storageAccountName
   location: location
   kind: 'StorageV2'
@@ -17,13 +17,14 @@ resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
 }
 
 @description('App Service used to run Azure Function')
-resource appService 'Microsoft.Web/serverFarms@2020-06-01' = {
+resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: appServiceName
   location: location
   kind: 'functionapp'
   sku: {
     name: 'S1'
   }
+  properties: {}
   tags: appTags
 }
 
@@ -40,7 +41,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   properties: {
     httpsOnly: true
     enabled: true
-    serverFarmId: appService.id
+    serverFarmId: hostingPlan.id
     clientAffinityEnabled: false
     siteConfig: {
       alwaysOn:true
