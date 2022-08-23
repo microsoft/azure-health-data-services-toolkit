@@ -271,7 +271,7 @@ namespace PatientSample.Filters
             #endregion
 
             #region Security
-            if (!jobj.Exists("$.language"))
+            if (!jobj.Exists("$.meta.security"))
             {
                 AddTransform addMetaTrans = new()
                 {
