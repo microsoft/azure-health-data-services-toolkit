@@ -1,45 +1,44 @@
-# Using custom headers
+# Injecting Custom Headers into your Custom Operations
 
-This sample solution describes how to append and replace existing headers with custom headers and return the modified collection headers. 
+This sample shows you how to work with the custom header utilities in the Azure Health Data Services SDK. We'll cover the three different types of headers modifications in this sample.
+
+This sample doesn't contain a full custom operation pipeline, but is scoped to headers only.
 
 This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
 
 ## Concepts
 
-- This sample demonstrates the Headers feature available in the Azure Health Data Services SDK. This allows the user to inject a new header name and value pair into  the existing header collection.  
+This sample covers the following concepts:
 
-- This is helpful if you are planning to append and replace existing headers with custom headers and return the modified collection headers. This is the statically defined name and value of the header.
+- Header modification service configuration.
+- Static headers which are always injected into the request.
+- Request headers which are injected if the header exists on the request.
+- Identity headers which inject a header from a claim in an bearer token.
+
+Header modification is useful when you want to log information from the incoming request, especially using the [header logging capabilities](https://docs.microsoft.com//azure/healthcare-apis/azure-api-for-fhir/use-custom-headers) in the FHIR service.
 
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
-- Open the cloned repo project file in Visual Studio or open the cloned repo folder in Visual Studio Code.
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
+- Open the `CustomHeaderSample.sln` solution file in Visual Studio or open `samples/FeatureSamples/CustomHeaders` folder in Visual Studio Code.
+- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) installed on your computer.
 
-## Build the sample 
+## Build and run the sample
 
-- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
+**Visual Studio Code**
 
-- If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
+From Visual Studio, you can click the "Debug" icon on the left and the play button to run and debug this sample.
 
-```bash
-dotnet build
-```
+**Visual Studio**
 
-## Run the sample 
+The easiest way to run the sample in Visual Studio is to use the debugger by pressing F5 or select "Debug > Start Debugging".
 
-To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
+**Command Line**
 
-- Using the .NET Core CLI 
-
-    Run the following command from the directory that contains this sample: 
-
-    ```bash
-    dotnet run
-    ```
+From the command line, you can run the sample by executing `dotnet run` in this directory (`samples/FeatureSamples/CustomHeaders`).
 
 ## Usage details
 
-- `Program.cs` file  outlines how you can implement the custom headers feature available in the Azure Health Data Services SDK.
-- **Dependency Injection (DI)**: Software design pattern, which is a technique for achieving Inversion of Control (IoC) between classes and their dependencies. Please refer to [Dependency injection in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0) for more information.
-- **GetCustomHeaders**: This method internally calls AppendAndReplace method which is part of the SDK. It appends and replaces existing headers with custom headers and returns the modified collection headers. 
+- **`Program.cs`**: OItlines how you can add configuration for custom headers. There are commends in this file - check it out.
+- **Dependency Injection (DI)**: You should use dependency injection for `IHttpCustomHeaderCollection` in your custom operation pipeline filter. This will provide you the object you need to invoke the header replacement as defined in your `ConfigureServices` section in `Program.cs`.
+- **`IHttpCustomHeaderCollection.AppendAndReplace`**: You will need to invoke this inside your `ExecuteAsync` method of your filter. This will actually perform the defined header modifications where you want in your pipeline.
