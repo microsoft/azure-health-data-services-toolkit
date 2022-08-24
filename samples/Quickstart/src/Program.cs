@@ -44,14 +44,7 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
-        //services.UseAuthenticator();
-        services.UseAuthenticator(options =>
-        {
-            options.CredentialType = ClientCredentialType.ClientSecret;
-            options.ClientId = config.ClientId;
-            options.ClientSecret = config.ClientSecret;
-            options.TenantId = config.TenantId;
-        });
+        services.UseAuthenticator();
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.Static);
         services.AddScoped<ICustomHeaderService, CustomHeaderService>();
