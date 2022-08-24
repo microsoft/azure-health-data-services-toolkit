@@ -18,7 +18,7 @@ This quickstart will walk you through creating a simple custom operation on top 
 ### Prerequisite check
 
 - In a terminal or command window, run `dotnet --version` to check that the .NET SDK is version 6.0 or later.
-- Run `az --version` and `azd --version` to check that you have the appropriate Azure command-line tools installed.
+- Run `az --version` and `azd version` to check that you have the appropriate Azure command-line tools installed.
 
 ## Setting up
 
