@@ -4,8 +4,8 @@ param functionAppName string
 param appInsightsInstrumentationKey string
 param location string
 param appTags object = {}
-param tenantId string
-param FhirServerUrl string
+param fhirServiceName string
+param workspaceName string
 
 @description('Azure Function required linked storage account')
 resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
@@ -76,12 +76,8 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
           value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
         }
         {
-          name:'AZURE_TenantId'
-          value: tenantId
-        }
-        {
           name:'AZURE_FhirServerUrl'
-          value: FhirServerUrl
+          value: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
         }
       ]
     }

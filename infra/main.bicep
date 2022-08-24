@@ -75,8 +75,8 @@ module function './azureFunction.bicep'= {
     location: location
     appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
     appTags: appTags
-    tenantId: tenantId
-    FhirServerUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
+    workspaceName : workspaceName
+    fhirServiceName : fhirServiceName
   }
 }
 
