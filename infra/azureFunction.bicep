@@ -3,6 +3,7 @@ param appServiceName string
 param functionAppName string
 param appInsightsInstrumentationKey string
 param location string
+param functionSettings object = {}
 param appTags object = {}
 
 @description('Azure Function required linked storage account')
@@ -45,38 +46,25 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     clientAffinityEnabled: false
     siteConfig: {
       alwaysOn:true
-      appSettings: [
-        {
-          name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
-        }
-        {
-          name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~4'
-        }
-        {
-          name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet-isolated'
-        }
-        {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: appInsightsInstrumentationKey
-        }
-        {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-        }
-        {
-          name: 'SCM_DO_BUILD_DURING_DEPLOYMENT'
-          value: 'true'
-        }
-      ]
     }
   }
 
   tags: union(appTags, {
     'azd-service-name': 'func'
   })
+}
+
+resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
+  name: 'appsettings'
+  parent: functionApp
+  properties: union({
+    AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
+    FUNCTIONS_EXTENSION_VERSION: '~4'
+    FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
+    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
+    APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
+    SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
+  }, functionSettings)
 }
 
 output functionAppName string = functionAppName
