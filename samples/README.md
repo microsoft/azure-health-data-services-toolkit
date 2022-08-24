@@ -1,12 +1,11 @@
 # Azure Health Data Services SDK Samples
 
-
 These samples show how this SDK works for a few sample scenarios:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
 - **Feature Samples**: Small projects showing how a SDK feature works. Local only.
 
-## Sample Prerequisites
+## Sample prerequisites
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
@@ -34,26 +33,23 @@ Use [this quickstart sample](./Quickstart/) to see some common ways the SDK can 
 - Using a transform for a basic modification of FHIR server behavior.
 - Using a pipeline with input and output filters to modify the request and response.
 
-## Feature Samples
+## Feature samples
 
 These samples go deep into individual feature areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs. These samples are not meant to be deployed to Azure, but executed on your local machine.
 
 
 | Sample | Description |
 | --- | --- |
-| [Authenticator](./Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
-| [Blob Channel](./BlobChannel/) | Shows how to use a Blob Channel. |
-| [Custom Headers](./CustomHeaders/) | Shows how to inject custom headers. |
-| [Custom Identity Header](./CustomIdentityHeader/) | Shows how to inject a custom identity header. |
-| [Custom Request Headers](./CustomRequestHeaders/) | Shows  how to inject custom request headers. |
-| [Event Grid Channel](./EventGridChannel/) | Shows how to use an Event Grid Channel. |
-| [Event Hub Channel](./EventHubChannel/) | Shows how to use an Event Hub Channel. |
-| [JSON Transform](./JsonTransform/) | Shows how to easily transform a JSON payload. |
-| [Memory/Blob Cache](./MemoryCacheAndBlobProvider/) | Shows how to use a memory cache with Azure Blob storage backing. |
-| [Memory/Redis Cache](./MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
-| [Service Bus Channel](./ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
-| [Simple External API](./SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
-
+| [Authenticator](./FeatureSamples/Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
+| [Blob Channel](./FeatureSamples/BlobChannel/) | Shows how to use a Blob Channel. |
+| [Custom Headers](./FeatureSamples/CustomHeaders/) | Shows how to inject custom headers. |
+| [Event Grid Channel](./FeatureSamples/EventGridChannel/) | Shows how to use an Event Grid Channel. |
+| [Event Hub Channel](./FeatureSamples/EventHubChannel/) | Shows how to use an Event Hub Channel. |
+| [JSON Transform](./FeatureSamples/JsonTransform/) | Shows how to easily transform a JSON payload. |
+| [Memory/Blob Cache](./FeatureSamples/MemoryCacheAndBlobProvider/) | Shows how to use a memory cache with Azure Blob storage backing. |
+| [Memory/Redis Cache](./FeatureSamples/MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
+| [Service Bus Channel](./FeatureSamples/ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
+| [Simple External API](./FeatureSamples/SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
 
 ## Use Case Samples
 
