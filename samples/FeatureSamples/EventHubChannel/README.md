@@ -1,11 +1,12 @@
-# Channel to Azure Event Hubs
+# Sending/Receiving Data with Event Hubs Channel
 
-In this sample, a pipeline is created with a channel to send data to Azure Event Hubs.
+This sample shows you how you can *send and receive* data to/from Azure Event Hubs using a channel in the Azure Health Data Services SDK. This is useful for notifying other systems of data in your pipelines or receiving data from other services.
 
 ## Concepts
 
-This sample shows how to configure a channel to send pipeline data to Azure Event Hubs.
-
+- [Channels](/docs/concepts#channels) can be used as a source or a sink after your input or output filters in the pipeline.
+- The Event Hub channel can be used as a source of data or a sink of data.
+- Note: Receiving data only works for persistent hosting platforms like Azure App Service. It won't work for Azure Functions
 
 ## Prerequisites
 
@@ -16,18 +17,14 @@ This sample shows how to configure a channel to send pipeline data to Azure Even
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
 - Azure Storage Account. Please follow this link for setting up the storage account: [Setup Storage Account](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal). 
 - Azure Event Hub. Please follow this link for setting up the storage account: [Setup Event Hub](https://docs.microsoft.com/azure/event-hubs/event-hubs-create).
-- You will need the Azure Event Hub Data Owner and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
 
-This sample needs to be configured with `Azure Event Hub` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
+You need to have an Azure subscription with an Azure Storage account to run this sample. Once you have this setup, create a blob container in the storage account. Copy the container name and generate a storage account level connection string. You also will need a Event Hub access key. These will need to be added as configuration for the sample. You can configure this either in Visual Studio or by using the command line.
 
-### Command line
+**Visual Studio Code / Command Line**
 
-Run this below command to set up the sample configuration in the dotnet secret store.
-
-Open a command prompt and navigate to `samples\EventHubChannelSample` inside of this repository.
-- For the command line to setup the secret store, you can run these commands:
+Open a terminal command prompt and navigate to `samples/FeatureSamples/EventHubChannel` inside of this repository. Run the below to setup configuration with .NET user secrets.
 
 ```bash
 dotnet user-secrets init 
@@ -39,46 +36,41 @@ dotnet user-secrets set "FallbackStorageContainer" "<<Your Fallback Storage Cont
 dotnet user-secrets set "ProcessorStorageContainer" "<<Your Processor Storage Container>>"
 ```
 
-### Visual Studio
+**Visual Studio**
 
-If you are using Visual Studio, you can setup configuration via secrets without using the command line.
+You can add this configuration from inside of Visual Studio
 
- 1. Right-click on the EventHubChannelSample solution in the Solution Explorer and choose "Manage User Secrets".
- 2. An editor for `secrets.json` will open. Paste the below inside of this file.
+1. Open the `EventHubChannelSample.sln` solution inside of Visual Studio.
+2. Right-click on the EventHubChannelSample project in the Solution Explorer and choose "Manage User Secrets".
+3. An editor for `secrets.json` will open. Paste the below inside of this file.
 
- ```json
-  {
-    "ConnectionString" :"<Your ConnectionString>",
-    "HubName": "<Name of your Event Hub>",
-    "ExecutionStatusType": "<Status Type>",
-    "FallbackStorageConnectionString": "<Your Fallback Storage Connection String>",
-    "FallbackStorageContainer": "<Your Fallback Storage Container>", 
-    "ProcessorStorageContainer": "<Your Processor Storage Container>"
-  }
-```
-3. Save and close `secrets.json`.
-
-## Build the sample 
-
-- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
-
-- If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
-
-```bash
-dotnet build
-```
-
-## Run the sample 
-
-To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
-
-- Using the .NET Core CLI 
-
-    Run the following command from the directory that contains this sample: 
-
-    ```bash
-    dotnet run
+     ```json
+      {
+        "ConnectionString" :"<Your ConnectionString>",
+        "HubName": "<Name of your Event Hub>",
+        "ExecutionStatusType": "<Status Type>",
+        "FallbackStorageConnectionString": "<Your Fallback Storage Connection String>",
+        "FallbackStorageContainer": "<Your Fallback Storage Container>", 
+        "ProcessorStorageContainer": "<Your Processor Storage Container>"
+      }
     ```
+
+4. Save and close `secrets.json`.
+
+## Build and run the sample
+
+**Visual Studio Code**
+
+From Visual Studio, you can click the "Debug" icon on the left and the play button to run and debug this sample.
+
+**Visual Studio**
+
+The easiest way to run the sample in Visual Studio is to use the debugger by pressing F5 or select "Debug > Start Debugging".
+
+**Command Line**
+
+From the command line, you can run the sample by executing `dotnet run` in this directory (`samples/FeatureSamples/EventHubChannel`).
+
 ## Usage details 
 
 - `Program.cs` file outlines how you can send the events to Azure Event Hub using Pipeline service. 

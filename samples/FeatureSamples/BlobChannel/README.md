@@ -14,12 +14,11 @@ This samples shows you how to setup an output channel to Azure Blob Storage. You
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
+- Azure Storage account. Please follow this link for setting up the storage account: [Setup Storage Account](https://docs.microsoft.com/azure/storage/common/storage-account-create?tabs=azure-portal).
 
 ## Setup your environment
 
-You need to have an Azure subscription with an Azure Storage account to run this sample. Once you have this setup, create a blob container in the storage account. Copy the container name and generate a storage account level connection string. These will need to be added as configuration for the sample. You can configure this either in Visual Studio or by using the command line.
-
-### Command Line
+You need to have an Azure subscription with an Azure Storage account and Event Grid to run this sample. Once you have this setup, create a blob container in the storage account. Copy the container name and generate a storage account level connection string. These will need to be added as configuration for the sample. You can configure this either in Visual Studio or by using the command line.
 
 **Visual Studio Code / Command Line**
 
@@ -64,7 +63,7 @@ From the command line, you can run the sample by executing `dotnet run` in this 
 
 ## Usage details
 
-- **`Program.cs`**: Outlines how you can add configuration for a Blob Channel. There are commends in this file - check it out.
+- `Program.cs`: Outlines how you can add configuration for a Blob Channel. There are commends in this file - check it out.
 - `PipelineService.cs`/`IPipelineService.cs` provide access to test the web pipeline for the sample.
 - `BlobChannelConfig.cs` is an example configuration for the entire program. It uses the *option pattern* to provide strongly typed access to groups of related settings. Please refer to [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
 - `RandomString.cs` provides some sample data.

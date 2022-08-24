@@ -1,7 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-
-
-using Azure.Messaging.EventGrid;
 using Azure.Health.DataServices.Channels;
 using Azure.Health.DataServices.Configuration;
 using Azure.Health.DataServices.Pipelines;
@@ -12,6 +9,9 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using System.Text;
 
+// Sets up configuration either from dotnet secrets or environment variables (that start with AZURE_)
+// Here we just are binding to an object that we can use later in our configuration/testing. For an example of 
+// configuration via dependency injection, check out the Quickstart.
 IConfigurationBuilder configBuilder = new ConfigurationBuilder()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
     .AddEnvironmentVariables("AZURE_");
@@ -19,11 +19,17 @@ IConfigurationRoot root = configBuilder.Build();
 EventGridChannelConfig config = new();
 root.Bind(config);
 
+// Configures the custom operation.
 IHostBuilder builder = Host.CreateDefaultBuilder()
     .ConfigureServices(services =>
     {
         services.AddLogging();
+
+        // This creates the custom operation pipeline.
         services.UseWebPipeline();
+
+        // Adds Event Grid as the first input channel. Azure Storage is a backing store for events that are
+        // too large for Event Grid.
         services.AddInputChannel<EventGridChannelOptions>(typeof(EventGridChannel), options =>
         {
             options.Subject = config.Subject;
@@ -44,6 +50,8 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
 var app = builder.Build();
 app.RunAsync().GetAwaiter();
 
+// Get our wrapper for the pipeline service. This service allows us to use our pipeline for sending data to Event Grid in a pipeline
+// then we have an event which we'll use for testing to show that data made it to our Event Grid.
 IPipelineService myservice = app.Services.GetRequiredService<IPipelineService>();
 myservice.OnReceive += (s, e) =>
 {
@@ -54,11 +62,9 @@ myservice.OnReceive += (s, e) =>
     Console.ResetColor();
 };
 
-//create a request
+// Send a request to our pipeline to show data going to the Event Grid.
 HttpRequestMessage request = new(HttpMethod.Post, "https://example.org");
 request.Content = new StringContent("hi!");
 request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/plain");
 
 await myservice.ExecuteAsync(request);
-
-

@@ -28,6 +28,7 @@ namespace EventGridChannelSample
         {
             logger?.LogInformation("Starting pipeline");
             await pipeline.ExecuteAsync(message);
+
             QueueMessage queueMessage = null;
             while (queueMessage == null)
             {

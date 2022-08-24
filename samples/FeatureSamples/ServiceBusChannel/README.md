@@ -1,10 +1,12 @@
-# Channel to Azure Service Bus
+# Sending/Receiving Data with a Service Bus Channel
 
-In this sample, a pipeline is created with a channel to send data to Azure Service Bus.
+This sample shows you how you can *send and receive* data to/from Azure Service Bus using a channel in the Azure Health Data Services SDK. This is useful for notifying other systems of data in your pipelines or receiving data from other services.
 
 ## Concepts
 
-This sample shows how to configure a channel to send pipeline data to Azure Service Bus.
+- [Channels](/docs/concepts#channels) can be used as a source or a sink after your input or output filters in the pipeline.
+- The Service Bus channel can be used as a source of data or a sink of data.
+- Note: Receiving data only works for persistent hosting platforms like Azure App Service. It won't work for Azure Functions
 
 ## Prerequisites
 
@@ -13,18 +15,14 @@ This sample shows how to configure a channel to send pipeline data to Azure Serv
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also can be logged into Azure inside Visual Studio or Visual Studio Code.
-- You will need the Azure Service Bus Data Owner and Storage Blob Contributor role assigned to your account.
 
 ## Setup your environment
 
-This sample needs to be configured with `Azure service Bus` and `Azure Storage` to start. You can configure this either in Visual Studio or by using the command line.
+You need to have an Azure subscription with an Azure Storage account to run this sample. Once you have this setup, create a blob container in the storage account. Copy the container name and generate a storage account level connection string. You also will need a Service Bus access key. These will need to be added as configuration for the sample. You can configure this either in Visual Studio or by using the command line.
 
-### Command line
+**Visual Studio Code / Command Line**
 
-Run this below command to set up the sample configuration in the dotnet secret store.
-
-Open a command prompt and navigate to `samples\ServiceBusChannelSample` inside of this repository.
-- For the command line to setup the secret store, you can run these commands:
+Open a terminal command prompt and navigate to `samples/FeatureSamples/ServiceBusChannel` inside of this repository. Run the below to setup configuration with .NET user secrets.
 
 ```bash
 dotnet user-secrets init
@@ -36,47 +34,40 @@ dotnet user-secrets set "Sku" "<<Name of your Service Bus SKU>>"
 dotnet user-secrets set "Topic" "<<Name of your Service Bus Topic>>"
 ```
 
-### Visual Studio
+**Visual Studio**
 
-If you are using Visual Studio, you can setup configuration via secrets without using the command line.
+You can add this configuration from inside of Visual Studio
 
- 1. Right-click on the ServiceBusChannelSample solution in the Solution Explorer and choose "Manage User Secrets".
- 2. An editor for `secrets.json` will open. Paste the below inside of this file.
+1. Open the `ServiceBusChannelSample.sln` solution inside of Visual Studio.
+2. Right-click on the ServiceBusChannelSample project in the Solution Explorer and choose "Manage User Secrets".
+3. An editor for `secrets.json` will open. Paste the below inside of this file.
 
-```json
-  {
-    "ConnectionString": "<<Your Service Bus Connection String>>",
-    "FallbackStorageConnectionString": "<<Your Fallback Storage Connection String>>",
-    "FallbackStorageContainer": "<<Your Fallback Storage Container Name>>",
-    "ExecutionStatusType": "<<Status type>>",
-    "Sku": "<<Name of your Service Bus SKU>>",
-    "Topic": "<<Name of your Service Bus Topic>>"
-  }
-```
-
-3. Save and close `secrets.json`.
-
-## Build the sample 
-
-- If you are using Microsoft Visual Studio, press Ctrl+Shift+B, or select Build > Build Solution 
-
-- If you are using the .NET Core CLI, run the following command from the directory that contains this sample: 
-
-```bash
-dotnet build
-```
-
-## Run the sample 
-
-To debug the app and then run it, press F5 or use Debug > Start Debugging. To run the app without debugging, press Ctrl+F5 or use Debug > Start Without Debugging. 
-
-- Using the .NET Core CLI 
-
-    Run the following command from the directory that contains this sample: 
-
-    ```bash
-    dotnet run
+    ```json
+      {
+        "ConnectionString": "<<Your Service Bus Connection String>>",
+        "FallbackStorageConnectionString": "<<Your Fallback Storage Connection String>>",
+        "FallbackStorageContainer": "<<Your Fallback Storage Container Name>>",
+        "ExecutionStatusType": "<<Status type>>",
+        "Sku": "<<Name of your Service Bus SKU>>",
+        "Topic": "<<Name of your Service Bus Topic>>"
+      }
     ```
+
+4. Save and close `secrets.json`.
+
+## Build and run the sample
+
+**Visual Studio Code**
+
+From Visual Studio, you can click the "Debug" icon on the left and the play button to run and debug this sample.
+
+**Visual Studio**
+
+The easiest way to run the sample in Visual Studio is to use the debugger by pressing F5 or select "Debug > Start Debugging".
+
+**Command Line**
+
+From the command line, you can run the sample by executing `dotnet run` in this directory (`samples/FeatureSamples/ServiceBusChannel`).
 
 ## Usage details 
 

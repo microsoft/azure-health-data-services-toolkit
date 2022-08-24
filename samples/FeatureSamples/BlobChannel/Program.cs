@@ -14,6 +14,8 @@ using System.Text;
 
 
 // Sets up configuration either from dotnet secrets or environment variables (that start with AZURE_)
+// Here we just are binding to an object that we can use later in our configuration/testing. For an example of 
+// configuration via dependency injection, check out the Quickstart.
 IConfigurationBuilder configBuilder = new ConfigurationBuilder()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
     .AddEnvironmentVariables("AZURE_");
