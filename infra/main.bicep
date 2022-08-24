@@ -19,6 +19,9 @@ param additionalTags object = {}
 @description('ID of principals to give FHIR Contributor on the FHIR service')
 param fhirContributorPrincipals array = []
 
+@description('Any custom function app settings')
+param functionAppCustomSettings object = {}
+
 @description('Tenant ID where resources are deployed')
 var tenantId  = subscription().tenantId
 
@@ -74,9 +77,11 @@ module function './azureFunction.bicep'= {
     storageAccountName: funcStorName
     location: location
     appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
+    functionSettings: union({
+      AZURE_FhirServerUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
+      AZURE_InstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
+    }, functionAppCustomSettings)
     appTags: appTags
-    workspaceName : workspaceName
-    fhirServiceName : fhirServiceName
   }
 }
 
