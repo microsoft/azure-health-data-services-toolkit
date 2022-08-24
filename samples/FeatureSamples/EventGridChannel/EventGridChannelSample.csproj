@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <UserSecretsId>acdfdf6f-5a61-40b4-989c-3a1add9e9b35</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
+    <PackageReference Include="Azure.Health.DataServices.Channels.Extensions" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
+    <PackageReference Include="Azure.Health.DataServices.Storage" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(LocalPackages)' == 'true'">
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices.Channels\Azure.Health.DataServices.Channels.csproj" />
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices.Storage\Azure.Health.DataServices.Storage.csproj" />
+  </ItemGroup>
+
+</Project>
