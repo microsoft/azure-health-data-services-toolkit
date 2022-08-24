@@ -25,17 +25,21 @@ This quickstart will walk you through creating a simple custom operation on top 
 This quickstart will create the below resources. These will be used both for local development and the Azure deployment.
 
 - Azure Health Data Services workspace
-- FHIR Service,
+- FHIR Service
 - Function App (and associated storage account)
 - Log Analytics Workspace (for FHIR Service and Function App logs)
 - Application Insights (for monitoring your custom operation)
 
-### Deploy resources
+### Deploy Quickstart
 
-1. Clone this repository and open a terminal or command window to this folder `samples/Quickstart`.
-2. Deploy the needed resources by running: `azd provision`
-    1. This will take about 20 minutes to deploy the FHIR Service.
-    2. If you have run this sample in the past, using the same environment name and location will reuse your previous resources.
+1. Deploy the needed resources with `azd`. 
+
+    ```dotnetcli
+    azd up --template Azure-Samples/ahds-sdk-fhir-function-quickstart
+    ```
+
+2. This will take about 20 minutes to deploy the FHIR Service.
+    a. `If you have run this sample in the past, using the same environment name and location will reuse your previous resources.`
 
 ## Testing locally
 

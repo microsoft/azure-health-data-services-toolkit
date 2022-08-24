@@ -7,6 +7,7 @@
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   
@@ -24,7 +25,7 @@
   </ItemGroup>
 
    <!-- Default to version 1.0.0 if SdkVersion is not set -->
-  <ItemGroup Condition="'$(SdkVersion)' == ''" >
+  <ItemGroup Condition="'$(SdkVersion)' == ''">
     <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" />
   </ItemGroup>
 
@@ -34,7 +35,7 @@
   </ItemGroup>
 
   <!-- If neither of the above, read version from SdkVersion  -->
-  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Azure.Health.DataServices.Core" Version="$(SdkVersion)" />
   </ItemGroup>
 
