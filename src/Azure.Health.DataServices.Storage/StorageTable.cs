@@ -106,6 +106,10 @@ namespace Azure.Health.DataServices.Storage
             serviceClient = new TableServiceClient(endpoint, credential, options);
         }
 
+        /// <summary>
+        /// Creates an instance of StorageTable.
+        /// </summary>
+        /// <param name="logger"></param>
         protected StorageTable(ILogger logger = null)
         {
             this.logger = logger;
@@ -264,9 +268,8 @@ namespace Azure.Health.DataServices.Storage
         /// </summary>
         /// <typeparam name="T">The type of entity to retrieve.</typeparam>
         /// <param name="tableName">Name of table.</param>
-        /// <param name="partitionKey">Optional string containing the partition key.</param>
-        /// <param name="rowKey">Optional string containing the row key.</param>
-        /// <param name="token">Optional continuation token.</param>
+        /// <param name="filter">Optional string containing a filter.</param>
+        /// <param name="maxPerPage">Optional number of entities returned per page.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>TableQuerySegment</returns>
         public List<T> QueryTable<T>(string tableName, string filter = null, int? maxPerPage = null, CancellationToken cancellationToken = default)

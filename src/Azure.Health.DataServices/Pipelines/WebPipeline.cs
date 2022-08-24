@@ -19,7 +19,6 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Creates an instance of WebPipeline.
         /// </summary>
-        /// <param name="options">Pipeline options.</param>
         /// <param name="inputFilters">Optional collection of input filters.</param>
         /// <param name="inputChannels">Optional cCollection of input channels.</param>
         /// <param name="binding">Optional binding. </param>
@@ -115,7 +114,7 @@ namespace Azure.Health.DataServices.Pipelines
         /// <summary>
         /// Executes the pipeline and returns a response for the caller.
         /// </summary>
-        /// <param name="request">Initial request from the Web service.</param>
+        /// <param name="request">Iniitial request from the Web service.</param>
         /// <returns>Response for Web service.</returns>
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request)
         {

@@ -22,7 +22,6 @@ namespace Azure.Health.DataServices.Bindings
         /// <param name="options">Rest binding options.</param>
         /// <param name="authenticator">Optional authenticator to acquire security token.</param>
         /// <param name="customHeaders">Optional custom headers.</param>
-        /// <param name="identityHeaders">Optional custom identity headers.</param>
         /// <param name="logger">Optional logger.</param>
         public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, IHttpCustomHeaderCollection customHeaders = null, ILogger<RestBinding> logger = null)
         {
@@ -90,7 +89,6 @@ namespace Azure.Health.DataServices.Bindings
                 if (authenticator != null)
                 {
                     string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
-                    securityToken = await authenticator?.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion, default);
                 }
 
 

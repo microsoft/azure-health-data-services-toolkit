@@ -3,6 +3,11 @@ using System.Threading.Tasks;
 
 namespace Azure.Health.DataServices.Pipelines
 {
+    /// <summary>
+    /// An interface for a pipeline.
+    /// </summary>
+    /// <typeparam name="TRequest">Type of request received by the pipeline.</typeparam>
+    /// <typeparam name="TResponse">Type of response emitted by the pipeline.</typeparam>
     public interface IPipeline<TRequest, TResponse>
     {
         /// <summary>

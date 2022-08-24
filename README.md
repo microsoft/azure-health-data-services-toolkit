@@ -1,17 +1,17 @@
 # Azure Health Data Services SDK
 
 The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
-
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
+*NuGet packages coming soon!*
 
 | Package Name | Description |
 | --- | --- |
-| [Azure.Health.DataServices.Core](https://www.nuget.org/packages/Azure.Health.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Core)| .NET 6 SDK for creating custom operations when using Azure Health Data Services. |
-| [Azure.Health.DataServices.Channels.Extensions](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Channels.Extensions) | .NET 6 SDK for extending channels using Azure Health Data Services. |
-| [Azure.Health.DataServices.Caching](https://www.nuget.org/packages/Azure.Health.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Caching) | .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. |
-| [Azure.Health.DataServices.Storage](https://www.nuget.org/packages/Azure.Health.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Azure.Health.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Azure.Health.DataServices.Storage)| .NET 6 SDK for adding caching using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Core](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core)| .NET 6 SDK for creating custom operations when using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions) | .NET 6 SDK for extending channels using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Caching](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching) | .NET 6 SDK for adding caching using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Storage](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage)| .NET 6 SDK to simplify Azure storage operations when using Azure Health Data Services. |
 
 ## Getting Started
 
@@ -88,7 +88,6 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Disclaimers
-
 
 The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
 

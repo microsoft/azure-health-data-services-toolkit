@@ -38,6 +38,11 @@ namespace Azure.Health.DataServices.Json
 
         }
 
+        /// <summary>
+        /// Creates an instance of JPathException.
+        /// </summary>
+        /// <param name="info">SerializationInfo</param>
+        /// <param name="context">StreamingContext</param>
         protected JPathException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

@@ -19,7 +19,7 @@ namespace AuthenticatorSample
 
         public async Task<string> GetTokenAsync()
         {
-            return await authenticator.AquireTokenForClientAsync(fhirServerUrl);
+            return await authenticator.AcquireTokenForClientAsync(fhirServerUrl);
         }
     }
 }

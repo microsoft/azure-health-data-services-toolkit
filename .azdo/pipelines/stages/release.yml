@@ -1,7 +1,6 @@
 parameters:
   - name: ArtifactName
-  - name: Packages
-    type: object
+  - name: PackagePrefix
   - name: DevOpsFeedID
   - name: PackageVersion
   - name: IsPrerelease
@@ -23,16 +22,16 @@ stages:
             deploy:
               steps:
               - download: current
-                artifact: ${{parameters.ArtifactName}}
+                artifact: ${{ parameters.ArtifactName }}
                 timeoutInMinutes: 5
 
               - template: pipelines/steps/package-signing.yml@azure-health-data-services-sdk-build-tools
                 parameters:
-                  PackagesPath: '$(Pipeline.Workspace)/${{parameters.ArtifactName}}'
+                  PackagesPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}'
 
               - publish: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
                 artifact: '${{ parameters.ArtifactName }}-signed'
-                displayName: 'Store signed packages in ${{parameters.ArtifactName}}-signed artifact'
+                displayName: 'Store signed packages in ${{ parameters.ArtifactName }}-signed artifact'
 
   - stage: ${{ format('ReleaseInternal_{0}', parameters.ArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
@@ -54,12 +53,11 @@ stages:
             - download: current
               artifact: '${{ parameters.ArtifactName }}-signed'
 
-            - ${{ each package in parameters.Packages }}:
-              - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-sdk-build-tools
-                parameters:
-                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
-                  PackageName: ${{ package.name }}
-                  DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
+            - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-sdk-build-tools
+              parameters:
+                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                PackageName: ${{ parameters.PackagePrefix }}
+                DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
 
   # Add integration tests here
 
@@ -86,11 +84,10 @@ stages:
             - download: current
               artifact: '${{ parameters.ArtifactName }}-signed'
 
-            - ${{ each package in parameters.Packages }}:
-              - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
-                parameters:
-                  ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
-                  PackageName: ${{ package.name }}
+            - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
+              parameters:
+                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                PackageName: ${{ parameters.PackagePrefix }}
 
     - deployment: GithubRelease
       ${{ if eq( parameters['IsPrerelease'], true) }}:
@@ -115,8 +112,9 @@ stages:
                 repositoryName: azure/health-data-services-sdk
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: ${{ format('release/{0}', parameters.PackageVersion) }}
-                title: ${{ parameters.PackageVersion }}
+                tag: release/${{ parameters.PackagePrefix }}/${{ parameters.PackageVersion }}
+                title: ${{ parameters.PackagePrefix }}-${{ parameters.PackageVersion }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
-                  $(Pipeline.Workspace)/${{parameters.ArtifactName}}-signed/*.nupkg
+                  $(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed/*.nupkg
+                  $(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed/*.snupkg
