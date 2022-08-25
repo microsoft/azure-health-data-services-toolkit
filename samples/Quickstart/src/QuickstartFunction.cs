@@ -17,12 +17,13 @@ namespace Quickstart
             _logger = loggerFactory.CreateLogger<QuickstartFunction>();
         }
 
-        [Function("QuickstartFunction")]
-        public async Task<HttpResponseData> Get([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", "put", "delete", Route = "Patient/{id?}")] HttpRequestData req)
+        [Function("Patient")]
+        public async Task<HttpResponseData> PatientGet([HttpTrigger(AuthorizationLevel.Function, "get", "post", "put", "delete", Route = "Patient/{id?}")] HttpRequestData req)
         {
+            // This is what hooks up the Azure Function to the Custom Operation pipeline
             _logger.LogInformation("Patient sample pipeline started...");
             var responseData = await pipeline.ExecuteAsync(req);
-            responseData.Headers.Remove("Content-length");
+            responseData.Headers.Remove("Content-Length");
             return responseData;
         }
     }

@@ -1,16 +1,14 @@
 using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Pipelines;
-using Azure.Health.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
-using QuickstartSample.CustomHeader;
 using System.Reflection;
 using Azure.Health.DataServices.Clients.Headers;
-
+using Azure.Health.DataServices.Bindings;
+using Azure.Health.DataServices.Security;
 
 MyServiceConfig config = new MyServiceConfig();
 
@@ -44,19 +42,23 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
+        // Used for accessing Azure resources
         services.UseAuthenticator();
+
+        // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.Static);
-        services.AddScoped<ICustomHeaderService, CustomHeaderService>();
+
+        // Setup pipeline for Azure function
         services.UseAzureFunctionPipeline();
-        services.AddInputFilter<QuickstartOptions>(typeof(QuickstartFilter), options =>
+
+        // Add our header modification as the first filter
+        services.AddInputFilter(typeof(QuickstartFilter));
+
+        // Add our binding to pass the call to the FHIR service
+        services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
         {
-            options.FhirServerUrl = config.FhirServerUrl;
-            options.PageSize = 100;
-            options.PageSize = 1000;
-            options.RetryDelaySeconds = 5.0;
-            options.MaxRetryAttempts = 5;
-            options.ExecutionStatusType = StatusType.Normal;
+            options.ServerUrl = config.FhirServerUrl;
         });
     })
     .Build();

@@ -5,25 +5,23 @@ using Azure.Health.DataServices.Json.Transforms;
 using Azure.Health.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Newtonsoft.Json.Linq;
 using Quickstart.Configuration;
 using System.Collections.Specialized;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using Xunit.Abstractions;
 
 namespace QuickstartSample.Tests
 {
-    [TestClass]
     public class QuickstartSampleTests
     {
         private static MyServiceConfig config;
-        private static TestContext testContext;
+        private static ITestOutputHelper testContext;
 
-
-        [ClassInitialize]
-        public static void Initialize(TestContext context)
+        public QuickstartSampleTests(ITestOutputHelper context)
         {
             testContext = context;
             IConfigurationBuilder builder = new ConfigurationBuilder()
@@ -35,7 +33,7 @@ namespace QuickstartSample.Tests
 
         }
 
-        [TestMethod]
+        [Fact]
         public async Task QuckStartSample_Post()
         {
             string json = await File.ReadAllTextAsync("../../../patient.json");
@@ -53,7 +51,7 @@ namespace QuickstartSample.Tests
                 HttpResponseMessage msg = await req.SendAsync();
                 var content = await msg.Content.ReadAsStringAsync();
                 HttpStatusCode statusCode = HttpStatusCode.Created;
-                Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
+                Assert.Equal(statusCode, msg.StatusCode);
             }
             catch (Exception ex)
             {
@@ -61,13 +59,13 @@ namespace QuickstartSample.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task QuckStartSample_Get()
         {
             try
             {
                 var path = "Patient";
-                string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
+                string Id = "fd89fc75-a682-4dae-8ed9-a6914dc644bd";
                 IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
                 Authenticator auth = new(options);
                 string securityToken = await auth.AcquireTokenForClientAsync(config.FhirServerUrl);
@@ -79,12 +77,12 @@ namespace QuickstartSample.Tests
                 RestRequest req = new(builder);
                 HttpResponseMessage msg = await req.SendAsync();
                 var content = await msg.Content.ReadAsStringAsync();
-                Assert.IsNotNull(content, "Content is null.");
-                Assert.IsFalse(string.IsNullOrEmpty(content), "Content is empty.");
+                Assert.NotNull(content);
+                Assert.False(string.IsNullOrEmpty(content));
                 testContext.WriteLine(content);
                 JToken jsonToken = JToken.Parse(content);
-                Assert.IsNotNull(jsonToken, "Content is null");
-                Assert.AreEqual("Bundle", jsonToken.SelectToken("$.resourceType").Value<string>(), "Bundle not found.");
+                Assert.NotNull(jsonToken);
+                Assert.Equal("Bundle", jsonToken.SelectToken("$.resourceType").Value<string>());
             }
             catch (Exception ex)
             {
@@ -93,7 +91,7 @@ namespace QuickstartSample.Tests
         }
 
 
-        [TestMethod]
+        [Fact]
         public async Task QuckStartSample_Put()
         {
             string json = await File.ReadAllTextAsync("../../../patient.json");
@@ -114,7 +112,7 @@ namespace QuickstartSample.Tests
                 HttpResponseMessage msg = await req.SendAsync();
                 var content = await msg.Content.ReadAsStringAsync();
                 HttpStatusCode statusCode = HttpStatusCode.OK;
-                Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
+                Assert.Equal(statusCode, msg.StatusCode);
             }
             catch (Exception ex)
             {
@@ -122,7 +120,7 @@ namespace QuickstartSample.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task QuckStartSample_Delete()
         {
             try
@@ -140,7 +138,7 @@ namespace QuickstartSample.Tests
                 RestRequest req = new(builder);
                 HttpResponseMessage msg = await req.SendAsync();
                 HttpStatusCode statusCode = HttpStatusCode.NoContent;
-                Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
+                Assert.Equal(statusCode, msg.StatusCode);
             }
             catch (Exception ex)
             {
