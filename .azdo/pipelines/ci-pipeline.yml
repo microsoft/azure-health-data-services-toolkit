@@ -8,7 +8,7 @@ resources:
   repositories:
   - repository: azure-health-data-services-sdk-build-tools
     type: git
-    name: Azure.HealthDataServicesSdk/azure-health-data-services-sdk-build-tools
+    name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
 
 variables:
   - group: sdk-test-pack
