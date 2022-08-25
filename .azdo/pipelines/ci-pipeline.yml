@@ -1,7 +1,5 @@
 # DESCRIPTION: 	
 # Builds, tests, and packages the solution for the main branch.	
-# Depends on the following variables set in the pipeline in AzDo
-# SolutionName, ProjectPrefix
 
 name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
 trigger: none
@@ -10,22 +8,18 @@ resources:
   repositories:
   - repository: azure-health-data-services-sdk-build-tools
     type: git
-    name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
+    name: Azure.HealthDataServicesSdk/azure-health-data-services-sdk-build-tools
 
 variables:
   - group: sdk-test-pack
   - group: sdk-build-version-configuration
 
-  # This allows for dynamic passing of the variable name to get the version
-  # Meant to allow for either "ahds-sdk-release-major" or "capl-release-major" etc to be used for versioning.
-  # These are passed in through the azdo pipeline parameters in the UI
-  # This is what allows us to to use the same pipeline for the Azure Health Data Services SDK and CAPL
   - name: packageversion-prerelease-no-suffix
-    value: $[ format('{0}.{1}.{2}', variables[format('{0}-prerelease-major', variables['VarPrefix'])], variables[format('{0}-prerelease-minor', variables['VarPrefix'])], variables[format('{0}-prerelease-patch', variables['VarPrefix'])] )]
+    value: $(ahds-sdk-prerelease-major).$(ahds-sdk-prerelease-minor).$(ahds-sdk-prerelease-patch)
   - name: packageversion-prerelease
     value: $(packageversion-prerelease-no-suffix)-prerelease
   - name: packageversion-release
-    value: $[ format('{0}.{1}.{2}', variables[format('{0}-release-major', variables['VarPrefix'])], variables[format('{0}-release-minor', variables['VarPrefix'])], variables[format('{0}-release-patch', variables['VarPrefix'])] )]
+    value: $(ahds-sdk-release-major).$(ahds-sdk-release-minor).$(ahds-sdk-release-patch)
 
 stages:
   - stage: Build
@@ -36,36 +30,29 @@ stages:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/checkCode.yml
-        parameters:
-          SolutionName: $(ProjectPrefix).sln
 
     - job: BuildTestPack
       pool:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
-        parameters:
-          ProjectPrefix: $(ProjectPrefix)
       - template: ./jobs/pack.yml
         parameters:
           ArtifactName: ReleasePackages
           Version: $(packageversion-release)
           AssemblyVersion: $(packageversion-release).$(Build.BuildId)
-          ProjectPrefix: $(ProjectPrefix)
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: PrereleasePackages
             Version: $(packageversion-prerelease)
             AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
-            ProjectPrefix: $(ProjectPrefix)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
     - template: ./stages/release.yml
       parameters:
         ArtifactName: PrereleasePackages
-        PackagePrefix: $(ProjectPrefix)
         PackageVersion: $(packageversion-prerelease)
         DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
         IsPrerelease: true
@@ -73,7 +60,6 @@ stages:
     - template: ./stages/release.yml
       parameters:
         ArtifactName: ReleasePackages
-        PackagePrefix: $(ProjectPrefix)
         PackageVersion: $(packageversion-release)
         DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
         IsPrerelease: false

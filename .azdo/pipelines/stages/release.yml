@@ -1,11 +1,15 @@
 parameters:
   - name: ArtifactName
-  - name: PackagePrefix
   - name: DevOpsFeedID
   - name: PackageVersion
   - name: IsPrerelease
     type: boolean
     default: true
+  - name: PackagePrefix
+    default: Azure.Health.DataServices
+  - name: RepositoryName
+    default: microsoft/azure-health-data-services-sdk
+
 
 stages:
 
@@ -108,12 +112,12 @@ stages:
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
-                gitHubConnection: 'Github (azure/health-data-services-sdk)'
-                repositoryName: azure/health-data-services-sdk
+                gitHubConnection: 'Github (${{ parameters.RepositoryName }})'
+                repositoryName: ${{ parameters.RepositoryName }}
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.PackagePrefix }}/${{ parameters.PackageVersion }}
-                title: ${{ parameters.PackagePrefix }}-${{ parameters.PackageVersion }}
+                tag: release/${{ parameters.PackageVersion }}
+                title: ${{ parameters.PackagePrefix }} ${{ parameters.PackageVersion }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed/*.nupkg
