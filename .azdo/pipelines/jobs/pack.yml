@@ -2,15 +2,15 @@ parameters:
 - name: ArtifactName
 - name: Version
 - name: AssemblyVersion
-- name: ProjectPrefix
 
 steps:
+  # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
     displayName: Pack ${{ parameters.Version }}
     inputs:
       targetType: 'inline'
       script: |
-        find . -type f \( -iname "*${{ parameters.ProjectPrefix }}*.csproj" ! -iname "*Test*" \) -print0 | while read -d $'\0' file
+        find . -type f \( -iname "*Azure.Health.DataServices*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file..."
             dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$ASS_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
@@ -19,7 +19,7 @@ steps:
       VERSION: ${{ parameters.Version }}
       ASS_VERSION: ${{ parameters.AssemblyVersion }}
       OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
-      NOTES: ${{ format('The change log for this SDK is made available at https://github.com/Azure/health-data-services-sdk/releases/tag/release%2F{0}%2F{1}', parameters.ProjectPrefix, parameters.Version) }}
+      NOTES: ${{ format('The change log for this SDK is made available at https://github.com/microsoft/azure-health-data-services-sdk/releases/tag/release%2F{0}', parameters.Version) }}
 
   - task: PublishPipelineArtifact@1
     inputs:
