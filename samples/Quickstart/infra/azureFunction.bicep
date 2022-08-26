@@ -5,7 +5,6 @@ param appInsightsInstrumentationKey string
 param location string
 param functionSettings object = {}
 param appTags object = {}
-param functionSettings object = {}
 
 @description('Azure Function required linked storage account')
 resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
@@ -49,25 +48,10 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
       alwaysOn:true
     }
   }
+
   tags: union(appTags, {
     'azd-service-name': 'func'
   })
-  dependsOn:[
-    appService
-  ]
-}
-
-resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
-  name: 'appsettings'
-  parent: functionApp
-  properties: union({
-    AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
-    FUNCTIONS_EXTENSION_VERSION: '~4'
-    FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-    SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
-  }, functionSettings)
 }
 
 resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {

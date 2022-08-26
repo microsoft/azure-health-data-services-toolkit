@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using Azure.Health.DataServices.Pipelines;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace Quickstart
 {

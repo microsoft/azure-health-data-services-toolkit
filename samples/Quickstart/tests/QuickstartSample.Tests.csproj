@@ -22,11 +22,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		
+		<PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
 		<ProjectReference Include="..\src\QuickstartSample.csproj" />
 	</ItemGroup>
 

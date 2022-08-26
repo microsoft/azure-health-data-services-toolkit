@@ -1,4 +1,12 @@
-﻿using Azure.Health.DataServices.Clients;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Azure.Health.DataServices.Clients;
 using Azure.Health.DataServices.Clients.Headers;
 using Azure.Health.DataServices.Filters;
 using Azure.Health.DataServices.Json;
@@ -11,14 +19,6 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quickstart.Filters
 {
@@ -43,13 +43,13 @@ namespace Quickstart.Filters
         public StatusType ExecutionStatusType => _status;
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
 
-        public async Task<OperationContext> ExecuteAsync(OperationContext context)
+        public Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             DateTime start = DateTime.Now;
             _customHeader.AppendAndReplace(context.Request);
             // This filter only corresponds to Put ant Post
             if (context.Request.Method != HttpMethod.Put && context.Request.Method != HttpMethod.Post)
-                return context;
+                return Task.FromResult(context);
 
 
             try
@@ -81,7 +81,7 @@ namespace Quickstart.Filters
                 var content = new StringContent(transformedJson, Encoding.UTF8, "application/json");
                 context.Request.Content = content;
 
-                return context;
+                return Task.FromResult(context);
 
             }
             catch (JPathException jpathExp)
@@ -91,7 +91,7 @@ namespace Quickstart.Filters
                 context.StatusCode = HttpStatusCode.BadRequest;
                 OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, true, jpathExp, HttpStatusCode.BadRequest, null));
                 _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-JPathError", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
-                return context;
+                return Task.FromResult(context);
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace Quickstart.Filters
                 context.StatusCode = HttpStatusCode.InternalServerError;
                 OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, true, ex, HttpStatusCode.InternalServerError, null));
                 _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-Error", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
-                return context;
+                return Task.FromResult(context);
             }
         }
     }

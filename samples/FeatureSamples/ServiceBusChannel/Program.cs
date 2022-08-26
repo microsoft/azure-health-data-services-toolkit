@@ -31,8 +31,8 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
         // This creates the custom operation pipeline.
         services.UseWebPipeline();
 
-        // Adds Service Busas the first input channel. Azure Storage is a backing store for events that are
-        // too large for Storage Bus.
+        // Add Service Bus the first input channel. Azure Storage is a backing store for events that are
+        // too large for the Service Bus SKU.
         services.AddInputChannel<ServiceBusChannelOptions>(typeof(ServiceBusChannel), options =>
         {
             options.ConnectionString = config.ConnectionString;
