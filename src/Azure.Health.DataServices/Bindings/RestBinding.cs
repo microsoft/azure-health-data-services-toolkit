@@ -103,8 +103,6 @@ namespace Azure.Health.DataServices.Bindings
                                                                     "application/json");
                 RestRequest req = new(builder);
                 var resp = await req.SendAsync();
-
-                //resp.EnsureSuccessStatusCode();
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
