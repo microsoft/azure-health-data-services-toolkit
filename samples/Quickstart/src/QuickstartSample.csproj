@@ -38,11 +38,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Azure.Health.DataServices.Sdk">
-      <HintPath>..\..\..\src\Azure.Health.DataServices\bin\Debug\net6.0\Azure.Health.DataServices.Sdk.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   
 

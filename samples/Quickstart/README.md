@@ -33,7 +33,7 @@ This quickstart will create the below resources. These will be used both for loc
 ### Deploy Quickstart
 
 1. Create a new directory on your local machine and open that directory in a terminal or command prompt.
-2. User need to be logged in to Azure using `az login` .
+2. User need to be logged in to Azure using az login
 3. Deploy the needed resources with the below `azd` command. This will pull the Quickstart code and deploy needed Azure resources.
 
     ```dotnetcli
@@ -75,12 +75,12 @@ This quickstart will create the below resources. These will be used both for loc
     - AddInputFilter(typeof(QuickstartFilter)) Input filter added with name `QuickStart` which in turn used to modify the patient data using JsonTransform.
     -  Add binding to pass the call to the FHIR service.
 - Please refer `QuickstartFilter.cs` file for input filter modifications in the Patient Data.
-   - Added language to resource as ‘en’ (English)
+    - Added language to resource as ‘en’ (English)
     - If there is no `Patient.meta.security` label, added [HTEST](https://www.hl7.org/fhir/resource-definitions.html#Meta.security)
 - Custom operation QuickstartSample end point methods listed below 
    - GET: used to get the patient details using patient id.
-   - POST: creates new patient record with updated filter data which is given above.
-  - PUT: it updates the patient data, need to pass patient id.
-  - DELETE: used to delete the patient record from FHIR server by passing patient id.
+   - POST: creates new patient record with updated filter data which is given above,to verify the new created record use GET method and pass created id.
+   - PUT: it updates the patient data, need to pass patient id,to verify the updated record use GET method and pass updated id.
+   - DELETE: used to delete the patient record from FHIR server by passing patient id, to verify the deleted record use GET method and pass deleted id.
 
 
