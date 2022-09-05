@@ -89,6 +89,7 @@ namespace Azure.Health.DataServices.Bindings
                 if (authenticator != null)
                 {
                     string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
+                    securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
                 }
 
 
@@ -102,8 +103,6 @@ namespace Azure.Health.DataServices.Bindings
                                                                     "application/json");
                 RestRequest req = new(builder);
                 var resp = await req.SendAsync();
-
-                resp.EnsureSuccessStatusCode();
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));

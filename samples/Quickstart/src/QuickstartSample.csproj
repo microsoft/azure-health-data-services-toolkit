@@ -17,26 +17,26 @@
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.3.0" OutputItemType="Analyzer" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.8.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
    <!-- Default to version 1.0.0 if SdkVersion is not set -->
-  <ItemGroup Condition="'$(SdkVersion)' == ''">
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" />
-  </ItemGroup>
 
-  <!-- Default to referencing the project in this repo if local  -->
+  <!-- Default to referencing the project in this repo if local  --><!--
   <ItemGroup Condition="'$(SdkVersion)' == 'local'">
     <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <!-- If neither of the above, read version from SdkVersion  -->
   <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Azure.Health.DataServices.Core" Version="$(SdkVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
   </ItemGroup>
 
   

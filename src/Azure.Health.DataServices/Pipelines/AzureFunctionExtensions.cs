@@ -63,10 +63,12 @@ namespace Azure.Health.DataServices.Pipelines
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);
             string content = await message.Content?.ReadAsStringAsync();
+
             if (content != null)
             {
+                var contentlength = message.Content.Headers.GetValues("Content-Length").FirstOrDefault();
                 data.Headers.Add("Content-Type", "application/json");
-                data.Headers.Add("Content-Length", content.Length.ToString());
+                data.Headers.Add("Content-Length", contentlength);
                 await data.WriteStringAsync(content);
             }
 

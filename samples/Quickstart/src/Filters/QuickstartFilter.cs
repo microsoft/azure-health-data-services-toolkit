@@ -1,63 +1,93 @@
-﻿using Azure.Health.DataServices.Clients;
-using Azure.Health.DataServices.Filters;
+﻿using Azure.Health.DataServices.Filters;
 using Azure.Health.DataServices.Json;
+using Azure.Health.DataServices.Json.Transforms;
 using Azure.Health.DataServices.Pipelines;
-using Azure.Health.DataServices.Protocol;
-using Azure.Health.DataServices.Security;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
-using System;
-
-using System.Threading.Tasks;
+using System.Net;
+using System.Text;
 
 namespace Quickstart.Filters
 {
     public class QuickstartFilter : IInputFilter
     {
-        public QuickstartFilter(IOptions<QuickstartOptions> options, IAuthenticator authenticator, TelemetryClient telemetryClient = null, ILogger<QuickstartFilter> logger = null)
+        public QuickstartFilter(TelemetryClient telemetryClient = null, ILogger<QuickstartFilter> logger = null)
         {
-            id = Guid.NewGuid().ToString();
-            fhirServerUrl = options.Value.FhirServerUrl;
-            retryDelaySeconds = options.Value.RetryDelaySeconds;
-            maxRetryAttempts = options.Value.MaxRetryAttempts;
-            status = options.Value.ExecutionStatusType;
-            this.authenticator = authenticator;
-            this.telemetryClient = telemetryClient;
-            this.logger = logger;
+            _id = Guid.NewGuid().ToString();
+            _telemetryClient = telemetryClient;
+            _logger = logger;
         }
 
-        private readonly StatusType status;
-        private readonly string fhirServerUrl;
-        private readonly double retryDelaySeconds;
-        private readonly int maxRetryAttempts;
-        private readonly IAuthenticator authenticator;
-        private readonly TelemetryClient telemetryClient;
-        private readonly ILogger logger;
-        private readonly string id;
+        private readonly string _id;
+        private readonly StatusType _status;
+        private readonly TelemetryClient _telemetryClient;
+        private readonly ILogger _logger;
 
-        public string Id => id;
-
+        public string Id => _id;
         public string Name => "QuickstartFilter";
-
-        public StatusType ExecutionStatusType => status;
-
+        public StatusType ExecutionStatusType => _status;
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
 
-        public async Task<OperationContext> ExecuteAsync(OperationContext context)
+        public Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            // Ensure we have a valid context (useful with multiple filters)
-            if (context == null || context.IsFatal)
+            DateTime start = DateTime.Now;
+            // This filter only corresponds to Put ant Post
+            if (context.Request.Method != HttpMethod.Put && context.Request.Method != HttpMethod.Post)
+                return Task.FromResult(context);
+
+
+            try
             {
-                return context;
+                JObject jobj = JObject.Parse(context.ContentString);
+                TransformCollection transforms = new();
+
+                if (!jobj.Exists("$.language"))
+                {
+                    AddTransform addTrans = new()
+                    {
+                        JsonPath = "$",
+                        AppendNode = "{ \"language\": \"en\" }",
+                    };
+                    transforms.Add(addTrans);
+                }
+                if (!jobj.Exists("$.meta.security"))
+                {
+                    AddTransform addMetaTrans = new()
+                    {
+                        JsonPath = "$",
+                        AppendNode = "{\"meta\":{\"security\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/v3-ActReason\",\"code\":\"HTEST\",\"display\":\"test health data\"}]}}"
+                    };
+                    transforms.Add(addMetaTrans);
+                }
+
+                TransformPolicy policy = new(transforms);
+                string transformedJson = policy.Transform(context.ContentString);
+                var content = new StringContent(transformedJson, Encoding.UTF8, "application/json");
+                context.Request.Content = content;
+
+                return Task.FromResult(context);
+
             }
-
-            // Do your custom operation here
-            await Task.Delay(10);
-
-            return context;
+            catch (JPathException jpathExp)
+            {
+                _logger?.LogError(jpathExp, "{Name}-{Id} filter jpath fault.", Name, Id);
+                context.IsFatal = true;
+                context.StatusCode = HttpStatusCode.BadRequest;
+                OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, true, jpathExp, HttpStatusCode.BadRequest, null));
+                _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-JPathError", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
+                return Task.FromResult(context);
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "{Name}-{Id} filter fault.", Name, Id);
+                context.IsFatal = true;
+                context.StatusCode = HttpStatusCode.InternalServerError;
+                OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, true, ex, HttpStatusCode.InternalServerError, null));
+                _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-Error", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
+                return Task.FromResult(context);
+            }
         }
     }
 }

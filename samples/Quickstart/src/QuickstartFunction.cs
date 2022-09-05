@@ -1,8 +1,9 @@
+using System.Threading.Tasks;
 using Azure.Health.DataServices.Pipelines;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace Quickstart
 {
@@ -17,10 +18,19 @@ namespace Quickstart
             _logger = loggerFactory.CreateLogger<QuickstartFunction>();
         }
 
-        [Function("QuickstartFunction")]
-        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Patient")] HttpRequestData req)
+        [Function("Patient")]
+        public async Task<HttpResponseData> Patient([HttpTrigger(AuthorizationLevel.Function, "get", "put", "delete", Route = "Patient/{id}")] HttpRequestData req)
         {
-            _logger.LogInformation("Quickstart pipeline started...");
+            // This is what hooks up the Azure Function to the Custom Operation pipeline
+            _logger.LogInformation("Patient sample pipeline started...");
+            return await pipeline.ExecuteAsync(req);
+        }
+
+        [Function("PatientPost")]
+        public async Task<HttpResponseData> PatientPost([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Patient")] HttpRequestData req)
+        {
+            // This is what hooks up the Azure Function to the Custom Operation pipeline
+            _logger.LogInformation("Patient sample pipeline started...");
             return await pipeline.ExecuteAsync(req);
         }
     }
