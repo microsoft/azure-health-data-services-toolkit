@@ -24,23 +24,23 @@ Also check out our full list of [samples on how to use the SDK here](./samples/R
 
 ## Common Fast Healthcare Interoperability Resources (FHIR®) use cases
 
-Some FHIR Service use cases that this SDK can help you implement are:
+Some FHIR service use cases that this SDK can help you implement are:
 
 - FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
   - Trial implementation guides.
   - Organization-specific operations.
   - Less widely adopted operations.
-- Implementation  guide development.
+- Implementation guide development.
 - Transforming request and/or response payloads.
-- Custom authorization logic, like consent.
+- Custom authorization logic (like consent, etc.).
 
 ## Key Concepts
 
 For detailed information, read [the concept guide here](./docs/concepts.md).
 
-When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing their solutions. It’s recommended to use Azure API Management or similar for routing certain requests to this custom operation, so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients, which is why our samples don’t have authorization on the endpoints. 
+When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing such solutions. It’s recommended to use Azure API Management or similar for routing certain requests to these custom operations so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients. This is why our samples don’t have authorization on the endpoints. 
 
-When building custom operations, you’ll come across these concepts of the SDK.
+When building custom operations, you’ll come across these concepts for the SDK.
 
 - **Operation Context**: Common object passed between components of a pipeline containing the request and response.
 - **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings executed in the order shown below.
@@ -50,13 +50,13 @@ When building custom operations, you’ll come across these concepts of the SDK.
 
 ### What about the FHIR Proxy? 
 
-[FHIR Proxy] (https://github.com/microsoft/fhir-proxy) was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
+[FHIR Proxy](https://github.com/microsoft/fhir-proxy) was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
 
-- This SDK lets you go beyond the proxy pattern and gives you tools for other customization patterns.
+- This SDK lets you go beyond the proxy pattern and gives you tools for more extensive customization using modular building blocks.
 - This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
 - This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
 - This SDK is released and versioned via NuGet packages.
-- We have incorporated some coding best practices, like object-oriented pipelines and extended testing.
+- We have designed this SDK with coding best practices in mind, like object-oriented pipelines and extended testing.
 
 *If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
 
@@ -69,7 +69,7 @@ When building custom operations, you’ll come across these concepts of the SDK.
  
 ### Sample production architecture
 
-This architecture is a sample of how you could deploy and integrate the custom operations you build with the Azure Health Data Services SDK to a production environment with Azure Health Data Services.
+This architecture is a sample of how you could deploy and integrate custom operations built with the Azure Health Data Services SDK in a production environment with Azure Health Data Services.
 
 ![Example architecture diagram](./docs/images/ExampleArchitectureDiagram.png)
 
@@ -91,8 +91,7 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
 
-
-The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data.  It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
+The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data. It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
 
 ## Trademarks
 
