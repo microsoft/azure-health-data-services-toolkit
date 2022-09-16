@@ -52,7 +52,7 @@ When building custom operations, you’ll come across these concepts for the SDK
 
 [FHIR Proxy](https://github.com/microsoft/fhir-proxy) was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
 
-- This SDK lets you go beyond the proxy pattern and gives you tools for more extensive customization using modular building blocks.
+- This SDK lets you go beyond the proxy pattern and gives you tools for more extensive customization with reusable modular components.
 - This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
 - This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
 - This SDK is released and versioned via NuGet packages.
