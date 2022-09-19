@@ -40,7 +40,7 @@ For detailed information, read [the concept guide here](./docs/concepts.md).
 
 When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing such solutions. It’s recommended to use Azure API Management or similar for routing certain requests to these custom operations so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients. This is why our samples don’t have authorization on the endpoints. 
 
-When building custom operations, you’ll come across these concepts for the SDK.
+When building custom operations, you’ll come across these concepts related to the SDK.
 
 - **Operation Context**: Common object passed between components of a pipeline containing the request and response.
 - **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings executed in the order shown below.
