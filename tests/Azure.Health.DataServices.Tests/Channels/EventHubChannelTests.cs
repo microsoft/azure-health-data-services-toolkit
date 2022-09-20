@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Azure.Messaging.EventHubs.Producer;
+using Microsoft.Azure.Amqp.Framing;
 
 namespace Azure.Health.DataServices.Tests.Channels
 {
@@ -64,6 +66,65 @@ namespace Azure.Health.DataServices.Tests.Channels
             }
 
             processor = null;
+        }
+
+        [TestMethod]
+        public async Task EventHubChannel_SendOnEventHubAndReceiveOnChannelSmallMessage_Test()
+        {
+            string contentType = "application/json";
+            string propertyName = "Key1";
+            string value = "Value";
+            string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
+            byte[] message = Encoding.UTF8.GetBytes(contentString);
+
+            IOptions<EventHubChannelOptions> options = Options.Create<EventHubChannelOptions>(new EventHubChannelOptions()
+            {
+                ConnectionString = config.EventHubConnectionString,
+                FallbackStorageConnectionString = config.EventHubBlobConnectionString,
+                FallbackStorageContainer = config.EventHubBlobContainer,
+                HubName = config.EventHubName,
+                Sku = config.EventHubSku,
+                ProcessorStorageContainer = config.EventHubProcessorContainer,
+            });
+
+
+            IChannel channel = new EventHubChannel(options);
+            channel.OnError += (a, args) =>
+            {
+                Assert.Fail($"Channel error {args.Error.Message}");
+            };
+
+            bool completed = false;
+            channel.OnReceive += (a, args) =>
+            {
+                string actual = Encoding.UTF8.GetString(args.Message);
+                Assert.AreEqual(contentString, actual, "Content mismatch.");
+                completed = true;
+            };
+
+            await channel.OpenAsync();
+            await Task.Delay(2000);
+            await Task.Delay(2000);
+            await channel.ReceiveAsync();
+            await Task.Delay(5000);
+
+            var sender = new EventHubProducerClient(config.EventHubConnectionString, config.EventHubName);
+            using var eventBatch = await sender.CreateBatchAsync();
+            EventData data = new(message);
+            data.ContentType = contentType;
+            eventBatch.TryAdd(data);
+            await sender.SendAsync(eventBatch);
+
+
+            int i = 0;
+            while (!completed && i < 10)
+            {
+                await Task.Delay(1000);
+                i++;
+            }
+
+            channel.Dispose();
+            Assert.IsTrue(completed, "did not complete before timeout");
         }
 
         [TestMethod]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Azure.Health.DataServices.Channels;
 using Azure.Health.DataServices.Pipelines;
 using Azure.Health.DataServices.Storage;
 using Azure.Messaging.EventHubs;
@@ -141,7 +140,11 @@ namespace Azure.Health.DataServices.Channels
         public async Task OpenAsync()
         {
             sender = new EventHubProducerClient(connectionString, hubName);
-            storage = new StorageBlob(fallbackStorageConnectionString);
+
+            if (fallbackStorageConnectionString != null)
+            {
+                storage = new StorageBlob(fallbackStorageConnectionString);
+            }
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
@@ -172,6 +175,13 @@ namespace Azure.Health.DataServices.Channels
         /// <remarks>Receive operation uses the EventHubProcessor.</remarks>
         public async Task ReceiveAsync()
         {
+            if (string.IsNullOrEmpty(fallbackStorageConnectionString) || string.IsNullOrEmpty(processorContainer))
+            {
+                var exception = new EventHubChannelException("Requires blob storage and container configured to receive event data.");
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
+                throw exception;
+            }
+
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
@@ -181,16 +191,16 @@ namespace Azure.Health.DataServices.Channels
                 processor.ProcessEventAsync += async (args) =>
                 {
                     await args.UpdateCheckpointAsync(args.CancellationToken);
-                    if (args.Data.Properties.ContainsKey("PassedBy") && (string)args.Data.Properties["PassedBy"] == "Value")
-                    {
-                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, args.Data.EventBody.ToArray()));
-                    }
 
                     if (args.Data.Properties.ContainsKey("PassedBy") && (string)args.Data.Properties["PassedBy"] == "Reference")
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(args.Data.EventBody.ToArray()));
                         var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
+                    }
+                    else
+                    {
+                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, args.Data.EventBody.ToArray()));
                     }
                 };
 
@@ -221,24 +231,18 @@ namespace Azure.Health.DataServices.Channels
         {
             try
             {
-                string typeName = "Value";
-
-                if ((sku == EventHubSkuType.Basic && message.Length > Constants.EventHubBasicSkuMaxMessageLength) || (sku != EventHubSkuType.Basic && message.Length > Constants.EventHubNonBasicSkuMaxMessageLength))
-                {
-                    typeName = "Reference";
-                }
-
                 EventData data = null;
                 string contentType = (string)items[0];
 
-                if (typeName == "Reference")
+                if ((sku == EventHubSkuType.Basic && message.Length > Constants.EventHubBasicSkuMaxMessageLength) || (sku != EventHubSkuType.Basic && message.Length > Constants.EventHubNonBasicSkuMaxMessageLength))
                 {
                     string blob = await WriteBlobAsync(contentType, message);
-                    data = await GetBlobEventDataAsync(contentType, blob, typeName);
+                    data = await GetBlobEventDataAsync(contentType, blob);
                 }
                 else
                 {
-                    data = await GetEventHubEventDataAsync(contentType, typeName, message);
+                    data = new(message);
+                    data.ContentType = contentType;
                 }
 
                 using var eventBatch = await sender.CreateBatchAsync();
@@ -263,26 +267,32 @@ namespace Azure.Health.DataServices.Channels
 
         private async Task<string> WriteBlobAsync(string contentType, byte[] message)
         {
+            if (storage == null)
+            {
+                var exception = new EventHubChannelException("Requires blob storage configured to write.");
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
+                throw exception;
+            }
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
             await storage.WriteBlockBlobAsync(fallbackContainer, blob, contentType, message);
             return blob;
         }
 
-        private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
+        private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName)
         {
             EventDataByReference byref = new(fallbackContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             EventData data = new(Encoding.UTF8.GetBytes(json));
-            data.Properties.Add("PassedBy", typeName);
+            data.Properties.Add("PassedBy", "Reference");
             data.ContentType = contentType;
             return await Task.FromResult<EventData>(data);
         }
 
-        private static async Task<EventData> GetEventHubEventDataAsync(string contentType, string typeName, byte[] message)
+        private static async Task<EventData> GetEventHubEventDataAsync(string contentType, byte[] message)
         {
             EventData data = new(message);
-            data.Properties.Add("PassedBy", typeName);
+            data.Properties.Add("PassedBy", "Reference");
             data.ContentType = contentType;
             return await Task.FromResult<EventData>(data);
         }
