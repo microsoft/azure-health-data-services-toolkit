@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Azure.Health.DataServices.Clients
@@ -41,7 +42,7 @@ namespace Azure.Health.DataServices.Clients
             ContentType = contentType;
             Headers = headers;
             Content = content;
-            SecurityToken = securityToken;
+            SecurityToken = string.IsNullOrEmpty(securityToken) ? null : securityToken;
         }
 
         /// <summary>
@@ -78,6 +79,11 @@ namespace Azure.Health.DataServices.Clients
             Content = content;
             Certificate = certificate;
         }
+
+        /// <summary>
+        /// Default User-Agent http header.
+        /// </summary>
+        public static string DefaultUserAgentHeader = "Microsoft.Health.DataServices.Sdk";
 
         /// <summary>
         /// Gets the base url of the request.
@@ -158,12 +164,21 @@ namespace Azure.Health.DataServices.Clients
                 Headers.Remove("Authorization");
                 Headers.Remove("Accept");
                 Headers.Remove("Host");
-                Headers.Remove("User-Agent");
                 Headers.Add("Host", new Uri(BaseUrl).Authority);
                 foreach (string item in Headers.AllKeys)
                 {
                     request.Headers.Add(item, Headers.Get(item));
                 }
+            }
+            else
+            {
+                Headers = new NameValueCollection();
+                Headers.Add("Host", new Uri(BaseUrl).Authority);
+            }
+
+            if (request.Headers.UserAgent.Count == 0)
+            {
+                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(DefaultUserAgentHeader)));
             }
 
             request.Headers.Add("Accept", ContentType);
@@ -171,11 +186,11 @@ namespace Azure.Health.DataServices.Clients
             if (Content != null)
             {
                 request.Content = new ByteArrayContent(Content);
-                request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(ContentType);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
                 request.Content.Headers.ContentLength = Content.Length;
             }
 
-            if (SecurityToken != null)
+            if (!string.IsNullOrEmpty(SecurityToken))
             {
                 request.Headers.Add("Authorization", $"Bearer {SecurityToken}");
             }
