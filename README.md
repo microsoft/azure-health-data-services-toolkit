@@ -1,7 +1,7 @@
-# Azure Health Data Services SDK
+# Azure Health Data Services Toolkit
 
-The Azure Health Data Services SDK helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
-With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This SDK abstracts common patterns so you can focus on delivering your use cases.
+The Azure Health Data Services Toolkit helps you extend the functionality of Azure Health Data Services by providing a consistent toolset to build custom operations to modify the core service behavior.
+With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This toolkit abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
 *NuGet packages coming soon!*
@@ -16,15 +16,15 @@ With the growth of health data workloads on Azure, we’ve found that developers
 --->
 ## Getting started
 
-The fastest way to test out the SDK and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
+The fastest way to test out the toolkit and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
 Read [the developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
-Also check out our full list of [samples on how to use the SDK here](./samples/README.md) for even more inspiration on how to create your own custom operations.
+Also check out our full list of [samples on how to use the toolkit here](./samples/README.md) for even more inspiration on how to create your own custom operations.
 
 ## Common Fast Healthcare Interoperability Resources (FHIR®) use cases
 
-Some FHIR service use cases that this SDK can help you implement are:
+Some FHIR service use cases that this toolkit can help you implement are:
 
 - FHIR operations not [supported by the FHIR Service](https://docs.microsoft.com/azure/healthcare-apis/fhir/fhir-features-supported#extended-operations) yet.
   - Trial implementation guides.
@@ -38,9 +38,9 @@ Some FHIR service use cases that this SDK can help you implement are:
 
 For detailed information, read [the concept guide here](./docs/concepts.md).
 
-When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This SDK is here to simplify developing such solutions. It’s recommended to use Azure API Management or similar for routing certain requests to these custom operations so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients. This is why our samples don’t have authorization on the endpoints. 
+When we say “custom operations” we are talking about a purpose-built solution which acts as a proxy for a single or small set of HTTP endpoints. This toolkit is here to simplify developing such solutions. It’s recommended to use Azure API Management or similar for routing certain requests to these custom operations so that the client only sees one endpoint. Azure API Management can also present a unified authorization experience to your clients. This is why our samples don’t have authorization on the endpoints. 
 
-When building custom operations, you’ll come across these concepts related to the SDK.
+When building custom operations, you’ll come across these concepts related to the toolkit.
 
 - **Operation Context**: Common object passed between components of a pipeline containing the request and response.
 - **Pipeline**: Container for the actions of custom operations with filters, channels, and bindings executed in the order shown below.
@@ -52,13 +52,13 @@ When building custom operations, you’ll come across these concepts related to 
 
 [FHIR Proxy](https://github.com/microsoft/fhir-proxy) was created in response to customer requests for customizing the Azure API for FHIR. With the release of Azure Health Data Services, we’ve come up with a new approach to customization.
 
-- This SDK lets you go beyond the proxy pattern and gives you tools for more extensive customization with programmatic components that flexibly connect to the broader Azure ecosystem.
-- This SDK is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
-- This SDK is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
-- This SDK is released and versioned via NuGet packages.
-- We have designed this SDK with coding best practices in mind, like object-oriented pipelines and extended testing.
+- This toolkit lets you go beyond the proxy pattern and gives you tools for more extensive customization with programmatic components that flexibly connect to the broader Azure ecosystem.
+- This toolkit is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
+- This toolkit is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This toolkit is released and versioned via NuGet packages.
+- We have designed this toolkit with coding best practices in mind, like object-oriented pipelines and extended testing.
 
-*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services SDK, please submit an issue and we will look into adding a sample!*
+*If there is functionality in the FHIR Proxy that is not covered by the Health Data Services toolkit, please submit an issue and we will look into adding a sample!*
 
 ## Resources
 
@@ -69,7 +69,7 @@ When building custom operations, you’ll come across these concepts related to 
  
 ### Sample production architecture
 
-This architecture is a sample of how you could deploy and integrate custom operations built with the Azure Health Data Services SDK in a production environment with Azure Health Data Services.
+This architecture is a sample of how you could deploy and integrate custom operations built with the Azure Health Data Services toolkit in a production environment with Azure Health Data Services.
 
 ![Example architecture diagram](./docs/images/ExampleArchitectureDiagram.png)
 
@@ -89,9 +89,9 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Disclaimers
 
-The Azure Health Data Services SDK is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services SDK.
+The Azure Health Data Services toolkit is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services toolkit.
 
-The Azure Health Data Services SDK GitHub is intended only for use in transferring and formatting data. It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
+The Azure Health Data Services toolkit GitHub is intended only for use in transferring and formatting data. It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
 
 ## Trademarks
 
