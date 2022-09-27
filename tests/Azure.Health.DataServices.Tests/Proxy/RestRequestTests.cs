@@ -1,4 +1,15 @@
-﻿using System;
+﻿using Azure.Health.DataServices.Clients;
+using Azure.Health.DataServices.Clients.Headers;
+using Azure.Health.DataServices.Json;
+using Azure.Health.DataServices.Tests.Assets;
+using Azure.Health.DataServices.Tests.Configuration;
+using Azure.Identity;
+using Azure.Security.KeyVault.Certificates;
+using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
@@ -6,14 +17,6 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Azure;
-using Azure.Identity;
-using Azure.Security.KeyVault.Certificates;
-using Azure.Health.DataServices.Clients;
-using Azure.Health.DataServices.Tests.Assets;
-using Azure.Health.DataServices.Tests.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Health.DataServices.Tests.Proxy
 {
@@ -285,5 +288,7 @@ namespace Azure.Health.DataServices.Tests.Proxy
             HttpResponseMessage message = await request.SendAsync();
             Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
         }
+
+
     }
 }

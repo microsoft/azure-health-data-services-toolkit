@@ -141,7 +141,15 @@ namespace Azure.Health.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            storage = new StorageBlob(fallbackStorageConnectionString, null, 10, null, logger);
+            if (string.IsNullOrEmpty(fallbackStorageConnectionString))
+            {
+                logger?.LogWarning("Service Bus channel not configured fallback storage connection string.");
+            }
+            else
+            {
+                storage = new StorageBlob(fallbackStorageConnectionString, null, 10, null, logger);
+            }
+
             client = new(connectionString);
             string resource = topic ?? queue;
             sender = client.CreateSender(resource);
@@ -162,24 +170,20 @@ namespace Azure.Health.DataServices.Channels
         {
             try
             {
-                string typeName = "Value";
-
-                if ((sku != ServiceBusSkuType.Premium && message.Length > Constants.ServiceBusNonPremiumSkuMaxMessageLength) || (sku == ServiceBusSkuType.Premium && message.Length > Constants.ServiceBusPremiumSkuMaxMessageLength))
-                {
-                    typeName = "Reference";
-                }
-
                 string contentType = (string)items[0];
                 ServiceBusMessage data = null;
 
-                if (typeName == "Reference")
+
+                if ((sku != ServiceBusSkuType.Premium &&
+                    message.Length > Constants.ServiceBusNonPremiumSkuMaxMessageLength) ||
+                    (sku == ServiceBusSkuType.Premium && message.Length > Constants.ServiceBusPremiumSkuMaxMessageLength))
                 {
                     string blob = await WriteBlobAsync(contentType, message);
-                    data = await GetBlobEventDataAsync(contentType, blob, typeName);
+                    data = await GetBlobEventDataAsync(contentType, blob);
                 }
                 else
                 {
-                    data = await GetServiceBusEventDataAsync(contentType, typeName, message);
+                    data = await GetServiceBusEventDataAsync(contentType, message);
                 }
 
                 await sender.SendMessageAsync(data);
@@ -198,7 +202,6 @@ namespace Azure.Health.DataServices.Channels
         /// <remarks>Receive operation and subscription in Service Bus.</remarks>
         public async Task ReceiveAsync()
         {
-
             if (string.IsNullOrEmpty(subscription) && string.IsNullOrEmpty(queue))
             {
                 throw new InvalidOperationException("Neither queue or subscription configured to receive");
@@ -211,8 +214,6 @@ namespace Azure.Health.DataServices.Channels
 
             try
             {
-
-
                 ServiceBusProcessorOptions options = new()
                 {
                     AutoCompleteMessages = true,
@@ -243,12 +244,7 @@ namespace Azure.Health.DataServices.Channels
                     ServiceBusReceivedMessage msg = args.Message;
                     logger?.LogInformation("{Name}-{Id} message received.", Name, Id);
 
-                    if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Value")
-                    {
-                        logger?.LogInformation("{Name}-{Id} processing subscription message.", Name, Id);
-                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
-                    }
-                    else if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
+                    if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
                     {
                         var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
                         var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
@@ -257,8 +253,8 @@ namespace Azure.Health.DataServices.Channels
                     }
                     else
                     {
-                        logger?.LogWarning("{Name}-{Id} does not understand received message.", Name, Id);
-                        OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, new Exception("Invalid parameters in processor.")));
+                        logger?.LogInformation("{Name}-{Id} processing subscription message.", Name, Id);
+                        OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
                     }
                 };
 
@@ -338,26 +334,39 @@ namespace Azure.Health.DataServices.Channels
 
         private async Task<string> WriteBlobAsync(string contentType, byte[] message)
         {
+            if (storage == null)
+            {
+                var exception = new ServiceBusChannelException("Requires blob storage configured to write.");
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
+                throw exception;
+            }
+
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
             await storage.WriteBlockBlobAsync(storageContainer, blob, contentType, message);
             return blob;
         }
 
-        private async Task<ServiceBusMessage> GetBlobEventDataAsync(string contentType, string blobName, string typeName)
+        private async Task<ServiceBusMessage> GetBlobEventDataAsync(string contentType, string blobName)
         {
+            if (storageContainer == null)
+            {
+                var exception = new ServiceBusChannelException("Requires blob storage container configured to write event data.");
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
+                throw exception;
+            }
+
             EventDataByReference byref = new(storageContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             ServiceBusMessage data = new(Encoding.UTF8.GetBytes(json));
-            data.ApplicationProperties.Add("PassedBy", typeName);
+            data.ApplicationProperties.Add("PassedBy", "Reference");
             data.ContentType = contentType;
             return await Task.FromResult<ServiceBusMessage>(data);
         }
 
-        private static async Task<ServiceBusMessage> GetServiceBusEventDataAsync(string contentType, string typeName, byte[] message)
+        private static async Task<ServiceBusMessage> GetServiceBusEventDataAsync(string contentType, byte[] message)
         {
             ServiceBusMessage data = new(message);
-            data.ApplicationProperties.Add("PassedBy", typeName);
             data.ContentType = contentType;
             return await Task.FromResult<ServiceBusMessage>(data);
         }

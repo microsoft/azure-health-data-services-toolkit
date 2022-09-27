@@ -319,6 +319,109 @@ namespace Azure.Health.DataServices.Tests.Channels
 
         }
 
+        [TestMethod]
+        public async Task ServiceBusChannel_QueueSendViaServiceBusAndReceiveViaChannelSmallMessage()
+        {
+            string contentType = "application/json";
+            string propertyName = "Key1";
+            string value = "Value";
+            string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
+            byte[] message = Encoding.UTF8.GetBytes(contentString);
+
+            IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Sku = config.ServiceBusSku,
+                Queue = config.ServiceBusQueue,
+            });
+
+            IChannel channel = new ServiceBusChannel(options);
+            channel.OnError += (a, args) =>
+            {
+                Assert.Fail($"Channel error {args.Error.Message}");
+            };
+
+            bool completed = false;
+
+            channel.OnReceive += (a, args) =>
+            {
+                string actual = Encoding.UTF8.GetString(args.Message);
+                Assert.AreEqual(contentString, actual, "Content mismatch.");
+                completed = true;
+            };
+
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
+
+            ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
+            var sender = client.CreateSender(config.ServiceBusQueue);
+            ServiceBusMessage msg = new(message);
+            msg.ContentType = contentType;
+            await sender.SendMessageAsync(msg);
+
+            int i = 0;
+            while (!completed && i < 10)
+            {
+                await Task.Delay(1000);
+                i++;
+            }
+
+            channel.Dispose();
+            Assert.IsTrue(completed, "Did not complete.");
+        }
+
+        [TestMethod]
+        public async Task ServiceBusChannel_TopicSendViaServiceBusAndReceiveViaChannelSmallMessage()
+        {
+            string contentType = "application/json";
+            string propertyName = "Key1";
+            string value = "Value";
+            string contentString = $"{{ \"{propertyName}\": \"{value}\" }}";
+            byte[] message = Encoding.UTF8.GetBytes(contentString);
+
+            IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
+            {
+                ConnectionString = config.ServiceBusConnectionString,
+                Sku = config.ServiceBusSku,
+                Topic = config.ServiceBusTopic,
+                Subscription = config.ServiceBusSubscription,
+            });
+
+            IChannel channel = new ServiceBusChannel(options);
+            channel.OnError += (a, args) =>
+            {
+                Assert.Fail($"Channel error {args.Error.Message}");
+            };
+
+            bool completed = false;
+
+            channel.OnReceive += (a, args) =>
+            {
+                string actual = Encoding.UTF8.GetString(args.Message);
+                Assert.AreEqual(contentString, actual, "Content mismatch.");
+                completed = true;
+            };
+
+            await channel.OpenAsync();
+            await channel.ReceiveAsync();
+
+            ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
+            var sender = client.CreateSender(config.ServiceBusTopic);
+            ServiceBusMessage msg = new(message);
+            msg.ContentType = contentType;
+            await sender.SendMessageAsync(msg);
+
+            int i = 0;
+            while (!completed && i < 10)
+            {
+                await Task.Delay(1000);
+                i++;
+            }
+
+            channel.Dispose();
+            Assert.IsTrue(completed, "Did not complete.");
+        }
+
 
 
     }
