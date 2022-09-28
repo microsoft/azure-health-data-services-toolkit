@@ -41,12 +41,12 @@ stages:
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Analyze Prerelease Code'
     ${{ else }}:
-      displayName: 'Release Release Code'
+      displayName: 'Analyze Release Code'
     dependsOn: Build
     jobs:
       - job: Guardian
         pool:
-          vmImage: $(VmImage)
+          vmImage: $(WindowsVmImage)
         steps:
         - template: ../jobs/analyze.yml
           parameters:
