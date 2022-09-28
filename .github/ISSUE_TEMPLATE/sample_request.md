@@ -1,6 +1,6 @@
 ---
 name: Sample Request
-about: Suggest a sample showing how to use the Azure Health Data Services SDK.
+about: Suggest a sample showing how to use the Azure Health Data Services Toolkit.
 labels: ''
 ---
 

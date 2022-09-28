@@ -1,9 +1,9 @@
-# Azure Health Data Services SDK Samples
+# Azure Health Data Services Toolkit Samples
 
-These samples show how this SDK works for a few sample scenarios:
+These samples show how this toolkit works for a few sample scenarios:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
-- **Feature Samples**: Small projects showing how a SDK feature works. Local only.
+- **Feature Samples**: Small projects showing how toolkit features works. Local only.
 
 ## Sample prerequisites
 
@@ -25,7 +25,7 @@ For samples that work with resources or deploy code to Azure (like the Quickstar
 
 ## Quickstart
 
-Use [this quickstart sample](./Quickstart/) to see some common ways the SDK can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
+Use [this quickstart sample](./Quickstart/) to see some common ways the toolkit can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
 
 
 - Getting an access token for the FHIR service.
@@ -35,7 +35,7 @@ Use [this quickstart sample](./Quickstart/) to see some common ways the SDK can 
 
 ## Feature samples
 
-These samples go deep into individual feature areas of this SDK, showing you how the individual pieces work so you can use them to build custom operations that fit your needs. These samples are not meant to be deployed to Azure, but executed on your local machine.
+These samples go deep into individual feature areas of this toolkit, showing you how the individual pieces work so you can use them to build custom operations that fit your needs. These samples are not meant to be deployed to Azure, but executed on your local machine.
 
 
 | Sample | Description |
