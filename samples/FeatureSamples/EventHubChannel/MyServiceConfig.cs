@@ -6,8 +6,8 @@ namespace EventHubChannelSample
 {
     public class MyServiceConfig
     {
-        public EventHubSkuType Sku { get; set; }   
-        
+        public EventHubSkuType Sku { get; set; }
+
         public string ConnectionString { get; set; }
 
         public string HubName { get; set; }

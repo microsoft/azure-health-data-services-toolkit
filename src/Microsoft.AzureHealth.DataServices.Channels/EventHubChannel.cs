@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Storage;
 using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
 using Azure.Storage.Blobs;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;

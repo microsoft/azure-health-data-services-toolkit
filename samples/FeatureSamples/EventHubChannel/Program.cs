@@ -22,7 +22,7 @@ root.Bind(config);
 // Configures the custom operation.
 IHostBuilder builder = Host.CreateDefaultBuilder()
     .ConfigureServices(services =>
-    {   
+    {
         services.AddLogging();
 
         // This creates the custom operation pipeline.

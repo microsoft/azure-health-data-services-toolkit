@@ -39,7 +39,7 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
             options.EventType = config.EventType;
             options.FallbackStorageConnectionString = config.FallbackStorageConnectionString;
             options.FallbackStorageContainer = config.FallbackStorageContainer;
-            options.TopicUriString = config.TopicUriString;           
+            options.TopicUriString = config.TopicUriString;
         });
 
         AzureQueueConfig queueConfig = new() { ConnectionString = config.FallbackStorageConnectionString, QueueName = config.QueueName };

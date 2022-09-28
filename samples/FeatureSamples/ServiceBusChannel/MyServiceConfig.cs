@@ -14,7 +14,7 @@ namespace ServiceBusChannelSample
 
         public string Subscription { get; set; }
 
-        public StatusType ExecutionStatusType { get; set; }  
+        public StatusType ExecutionStatusType { get; set; }
 
         public ServiceBusSkuType Sku { get; set; }
 

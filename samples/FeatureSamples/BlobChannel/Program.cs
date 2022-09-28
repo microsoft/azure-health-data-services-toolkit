@@ -79,7 +79,7 @@ async Task TestSample()
     StorageBlob storage = new(config.ConnectionString);
     var list = await storage.ListBlobsAsync(config.Container);
     Console.ForegroundColor = ConsoleColor.Yellow;
-    foreach(var item in list)
+    foreach (var item in list)
     {
         byte[] blob = await storage.ReadBlockBlobAsync(config.Container, item);
         string payloadJson = Encoding.UTF8.GetString(blob);

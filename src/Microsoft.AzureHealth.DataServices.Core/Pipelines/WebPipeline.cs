@@ -2,11 +2,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines

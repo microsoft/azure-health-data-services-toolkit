@@ -33,7 +33,7 @@ namespace EventGridChannelSample
             while (queueMessage == null)
             {
                 queueMessage = await queue.DequeueAsync(config.QueueName, TimeSpan.FromSeconds(20.0), default);
-                
+
                 if (queueMessage != null)
                 {
                     string text = queueMessage.MessageText;

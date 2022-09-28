@@ -41,12 +41,12 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
                 options.TenantId = config.TenantId;
             });
         }
-        
+
         if (string.IsNullOrEmpty(config.FhirServerUrl))
         {
             throw new Exception("The Fhir Server URL must be configured to run this sample");
         }
-        
+
         // This is how you would add a service to your application with configuration scoped to that service.
         services.UseMyService(options =>
         {

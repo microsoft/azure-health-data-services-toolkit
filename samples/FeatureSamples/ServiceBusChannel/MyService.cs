@@ -29,7 +29,7 @@ namespace ServiceBusChannelSample
             });
             _channel = new ServiceBusChannel(options);
             _channel.OnReceive += Channel_OnReceive;
-        }        
+        }
 
         private readonly IChannel _channel;
         private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;

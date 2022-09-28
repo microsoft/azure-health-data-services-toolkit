@@ -2,10 +2,10 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure;
+using Azure.Messaging.EventGrid;
 using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
-using Azure.Messaging.EventGrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

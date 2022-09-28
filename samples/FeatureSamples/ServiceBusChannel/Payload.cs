@@ -10,6 +10,6 @@ namespace ServiceBusChannelSample
         public string Name { get; set; }
 
         [JsonProperty("value")]
-        public string Value { get; set; }   
+        public string Value { get; set; }
     }
 }

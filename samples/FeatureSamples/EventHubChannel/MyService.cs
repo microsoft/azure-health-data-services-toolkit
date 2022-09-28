@@ -44,7 +44,7 @@ namespace EventHubChannelSample
                 receiveChannel.OnReceive += ReceiveChannel_OnReceive;
                 await receiveChannel.OpenAsync();
                 receiveChannel.ReceiveAsync().GetAwaiter();
-            }    
+            }
         }
 
         private void ReceiveChannel_OnReceive(object sender, ChannelReceivedEventArgs e)

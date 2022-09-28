@@ -63,7 +63,7 @@ void TestSample()
     using (var serviceScope = app.Services.CreateScope())
     {
         IMyService myservice = serviceScope.ServiceProvider.GetRequiredService<IMyService>();
-        
+
         // This is what invokes the haeder replacement. You would usually do this in an input filter.
         headers = myservice.GetCustomHeaders(request);
     }
