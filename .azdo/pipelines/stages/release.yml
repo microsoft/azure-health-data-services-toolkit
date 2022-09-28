@@ -37,7 +37,7 @@ stages:
                 artifact: '${{ parameters.PackageArtifactName }}-signed'
                 displayName: 'Store signed packages in ${{ parameters.PackageArtifactName }}-signed artifact'
 
-  - stage: Analyze_Code
+  - stage: ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Analyze Prerelease Code'
     ${{ else }}:
@@ -59,7 +59,7 @@ stages:
       displayName: 'Release Internal Package Publish'
     dependsOn:
       - ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
-      - Analyze_Code
+      - ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
     jobs:
     - deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
