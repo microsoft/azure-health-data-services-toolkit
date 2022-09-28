@@ -8,7 +8,7 @@ parameters:
   - name: PackagePrefix
     default: Microsoft.AzureHealth.DataServices
   - name: RepositoryName
-    default: microsoft/azure-health-data-services-sdk
+    default: microsoft/azure-health-data-services-toolkit
 
 
 stages:
@@ -29,7 +29,7 @@ stages:
                 artifact: ${{ parameters.ArtifactName }}
                 timeoutInMinutes: 5
 
-              - template: pipelines/steps/package-signing.yml@azure-health-data-services-sdk-build-tools
+              - template: pipelines/steps/package-signing.yml@azure-health-data-services-toolkit-build-tools
                 parameters:
                   PackagesPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}'
 
@@ -57,7 +57,7 @@ stages:
             - download: current
               artifact: '${{ parameters.ArtifactName }}-signed'
 
-            - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-sdk-build-tools
+            - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-toolkit-build-tools
               parameters:
                 ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
                 PackageName: ${{ parameters.PackagePrefix }}
@@ -88,7 +88,7 @@ stages:
             - download: current
               artifact: '${{ parameters.ArtifactName }}-signed'
 
-            - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
+            - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-toolkit-build-tools
               parameters:
                 ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
                 PackageName: ${{ parameters.PackagePrefix }}

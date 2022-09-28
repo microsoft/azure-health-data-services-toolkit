@@ -6,20 +6,20 @@ trigger: none
 
 resources:
   repositories:
-  - repository: azure-health-data-services-sdk-build-tools
+  - repository: azure-health-data-services-toolkit-build-tools
     type: git
-    name: AzureHealthDataServicesSdk/azure-health-data-services-sdk-build-tools
+    name: AzureHealthDataServicesToolkit/azure-health-data-services-toolkit-build-tools
 
 variables:
-  - group: sdk-test-pack
-  - group: sdk-build-version-configuration
+  - group: toolkit-test-pack
+  - group: toolkit-build-version-configuration
 
   - name: packageversion-prerelease-no-suffix
-    value: $(ahds-sdk-prerelease-major).$(ahds-sdk-prerelease-minor).$(ahds-sdk-prerelease-patch)
+    value: $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)
   - name: packageversion-prerelease
     value: $(packageversion-prerelease-no-suffix)-prerelease
   - name: packageversion-release
-    value: $(ahds-sdk-release-major).$(ahds-sdk-release-minor).$(ahds-sdk-release-patch)
+    value: $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch)
 
 stages:
   - stage: Build
@@ -41,7 +41,7 @@ stages:
           ArtifactName: ReleasePackages
           Version: $(packageversion-release)
           AssemblyVersion: $(packageversion-release).$(Build.BuildId)
-      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
         - template: ./jobs/pack.yml
           parameters:
             ArtifactName: PrereleasePackages
@@ -49,17 +49,17 @@ stages:
             AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
-  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesSdk'))}}:
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
     - template: ./stages/release.yml
       parameters:
         ArtifactName: PrereleasePackages
         PackageVersion: $(packageversion-prerelease)
-        DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
+        DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         ArtifactName: ReleasePackages
         PackageVersion: $(packageversion-release)
-        DevOpsFeedID: AzureHealthDataServicesSdk/AzureHealthDataServicesSdkInternal
+        DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: false

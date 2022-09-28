@@ -19,7 +19,7 @@ steps:
       VERSION: ${{ parameters.Version }}
       ASS_VERSION: ${{ parameters.AssemblyVersion }}
       OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
-      NOTES: ${{ format('The change log for this SDK is made available at https://github.com/microsoft/azure-health-data-services-sdk/releases/tag/release%2F{0}', parameters.Version) }}
+      NOTES: ${{ format('The change log for this toolkit is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', parameters.Version) }}
 
   - task: PublishPipelineArtifact@1
     inputs:
