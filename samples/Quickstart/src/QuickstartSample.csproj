@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv " Version="2.3.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.21.6" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
