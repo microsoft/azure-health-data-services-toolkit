@@ -1,28 +1,29 @@
 parameters:
-- name: ArtifactName
+- name: PackageArtifactName
 - name: Version
 - name: AssemblyVersion
 
 steps:
   # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
-    displayName: Pack ${{ parameters.Version }}
+    displayName: Pack and Publish ${{ parameters.Version }}
     inputs:
       targetType: 'inline'
       script: |
         find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file..."
-            dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$ASS_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
+            dotnet pack "$file" --output "$PACKAGE_OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$ASS_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed
         done
     env:
       VERSION: ${{ parameters.Version }}
       ASS_VERSION: ${{ parameters.AssemblyVersion }}
-      OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
+      PACKAGE_OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
       NOTES: ${{ format('The change log for this toolkit is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', parameters.Version) }}
 
   - task: PublishPipelineArtifact@1
+    displayName: Publish packages
     inputs:
-      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.ArtifactName, parameters.Version) }}
-      artifactName: ${{ parameters.ArtifactName }}
+      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
+      artifactName: ${{ parameters.PackageArtifactName }}
       artifactType: 'pipeline'

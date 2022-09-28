@@ -38,13 +38,13 @@ stages:
       - template: ./jobs/build.yml
       - template: ./jobs/pack.yml
         parameters:
-          ArtifactName: ReleasePackages
+          PackageArtifactName: ReleasePackages
           Version: $(packageversion-release)
           AssemblyVersion: $(packageversion-release).$(Build.BuildId)
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
         - template: ./jobs/pack.yml
           parameters:
-            ArtifactName: PrereleasePackages
+            PackageArtifactName: PrereleasePackages
             Version: $(packageversion-prerelease)
             AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
 
@@ -52,14 +52,14 @@ stages:
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
     - template: ./stages/release.yml
       parameters:
-        ArtifactName: PrereleasePackages
+        PackageArtifactName: PrereleasePackages
         PackageVersion: $(packageversion-prerelease)
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
-        ArtifactName: ReleasePackages
+        PackageArtifactName: ReleasePackages
         PackageVersion: $(packageversion-release)
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: false
