@@ -6,7 +6,7 @@ The core goal of this toolkit is to build **custom operations** to extend the be
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
-A custom operation is the business goal that you're trying to accomplish with this toolkit, and a pipeline is the implementation of this custom operation. 
+A custom operation is the business goal that you're trying to accomplish with this SDK, and a pipeline is the implementation of the custom operation. 
 
 ## Definitions
 
@@ -22,7 +22,7 @@ A custom operation is the business goal that you're trying to accomplish with th
 
 ## Pipelines
 
-Pipelines allow you to hook into existing .NET hosting platforms to build custom operations. Currently, there are two types of pipelines that you can use.
+Pipelines allow you to hook into existing .NET hosting platforms to build custom operations. Currently, there are two types of pipelines that you can use in this SDK.
 
 - **WebPipeline** for use with ASP.NET Web APIs in Azure App Services or other ASP.NET hosting platforms.
 - **Azure Function pipeline** for use with Azure Functions as an isolated process.
@@ -37,37 +37,37 @@ These pipelines allow you to hook into the configuration of ASP.NET and Azure Fu
 
 Filters are a logical container for units of your custom operations. They are separated into input filters to modify the request before it goes to its destination (like FHIR Service). For complex custom operations, multiple filters can be chained together so pieces of logic can stay small, reusable, and testable.
 
-Filters have a common interface which allow them to be used in a pipeline, since the properties, methods, and events can be hooked into the pipeline. Filters always input and output an operation context.
+Filters have a common interface which allows them to be used in a pipeline, since the properties, methods, and events can be hooked into the pipeline. Filters always input and output an operation context.
 
-A Filter should be created from a factory and NOT be a singleton or static class, rather an instance per call.
+A Filter should be created from a factory and NOT be a singleton or static class. Rather, a filter instance should be generated per call.
 
-To create a filter for custom logic, they must have:
+To create a filter for custom logic, it must have:
 
 | Name | Type | Description |
 |------| ---- | ----------- |
 | Id | Property | Unique Id for the filter (useful for logging). |
-| Name | Property | Unique to the type of filter that can be used for create the filter from a factory. |
-| ExecuteAsync | Method | An async method with an OperationContext as a argument and returns an OperationContext. |
+| Name | Property | Unique to the type of filter and can be used for creating the filter from a factory. |
+| ExecuteAsync | Method | An async method with an OperationContext as an argument and returns an OperationContext. |
 | OnFilterError | Event | An event that is a trigger for filter errors, which can be used to terminate and dispose the pipeline. |
 
 ### Channels
 
-Channels are an abstract way to communicate information in a pipeline to and from outside services. In practice, you can use channels to send information to other Azure services like Blob Storage or Service Bus. Channels are extensible - so custom channels can be built for any needed destination.
+Channels are an abstract way to communicate information in a pipeline to and from outside services. In practice, you can use channels to send information to other Azure services like Blob Storage or a Service Bus. Channels are extensible - so custom channels can be built for any needed destination.
 
-This toolkit has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. Channels can be send only, receive only, send and receive. 
+This SDK has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. Channels can be send only, receive only, or send and receive. 
 
-- Event Grid and Blob Service channels are receive only.
-- Event Hub and Service but can be receive only, send only, and send/receive.
+- Event Grid and Blob Storage channels are receive only.
+- Event Hub and Service Bus can be receive only, send only, or send/receive.
 
 All channels have:
 
 | Name | Type | Description |
 |------| ---- | ----------- |
 | Id | Property | Unique Id for the filter (useful for logging). |
-| Name | Property | Unique to the type of filter that can be used for create the filter from a factory. |
+| Name | Property | Unique to the type of filter and can be used for creating the filter from a factory. |
 | IsEncrypted | Property | Indicates whether the channel is encrypted. |
 | IsConnected | Property | Indicates whether the channel is connected. |
-| IsAuthenticated | Property | Indicates whether the channel has authenticated. |
+| IsAuthenticated | Property | Indicates whether the channel has been authenticated. |
 | Port | Property | The port used by the channel. |
 | State | Property | Current channel state. A change SHOULD signal a StateChanged event. |
  OpenAsync | Method | Opens the channel. |
@@ -76,7 +76,7 @@ All channels have:
 | ReceiveAsync | Method | Receives a message on the channel. |
 | OnOpen | Event | Channel has opened. |
 | OnClose | Event | Channel has closed. |
-| OnError | Event | Channel has errored. |
+| OnError | Event | Channel has returned an error. |
 | OnStateChange | Event | Chanel state has changed. |
 | OnReceive | Event | Channel received a message. |
 
@@ -94,18 +94,18 @@ Bindings couple inputs and outputs in pipelines. The most common use of a bindin
 
 ## Authenticator
 
-Authenticator is a flexible class to help acquire an access token for calling the FHIR Service and other Azure Services. You have two options for configuring the authenticator for use in your custom operations:
+Authenticator is a flexible class to help acquire an access token for calling the FHIR service and other Azure services. You have two options for configuring the authenticator for use in your custom operations:
 
 1. Without any explicit configuration or reference in your code to the authentication method or settings. This leverages [DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
 2. With explicit selection of the authorization method and configuration via the settings on the authenticator class.
 
-You get to choose which method is best for your custom operation. We recommend starting with the non-explicit method that uses `DefaultAzureCredential` as it is intended to simplify getting started with custom operations. The injection of authentication method via the environment works great for secret-less connection both in local development and cloud deployment. If you want more control over your authentication, you can explicitly define this when you call the authenticator class.
+You get to choose which method is best for your custom operation. We recommend starting with the non-explicit method that uses `DefaultAzureCredential` as it is intended to simplify getting started with custom operations. The injection of the authentication method via the environment works great for secret-less connection both in local development and cloud deployment. If you want more control over your authentication, you can explicitly define this when you call the authenticator class.
 
 | Authentication Method | Configuration Method | Description
 |------| ---- | ----------- |
 | Managed Identity | Explicit or implicit  | Attempts authentication using a managed identity that has been assigned to the deployment environment |
 | Client Credentials | Explicit or implicit | Uses a service principal to connect. Either via a secret or certificate. |
-| On-Behalf-Of | Explicit only | Calls the endpoint on-behalf-of the caller, propagating the original caller'r identify and permissions. |
+| On-Behalf-Of | Explicit only | Calls the endpoint on-behalf-of the caller, propagating the original caller's identity and permissions. |
 | Visual Studio | Implicit only | Uses the Azure session from Visual Studio. |
 | Visual Studio Code | Implicit only | Uses the Azure session from Visual Studio Code. |
 | Azure CLI | Implicit only | Uses the Azure session from the Azure CLI. |
@@ -121,7 +121,7 @@ services.UseAuthenticator();
 
 ### Explicit Authenticator configuration
 
-When explicitly defining authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
+When explicitly defining an authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
 
 ```csharp
 services.UseAuthenticator(options =>
@@ -135,6 +135,6 @@ services.UseAuthenticator(options =>
 
 ## Clients
 
-This toolkit has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR Service (or external REST services) inside of filters to gather additional information needed for a custom operation.
+This SDK has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR service (or external REST services) inside of filters to gather additional information needed for a custom operation.
 
 The `RestRequestBuilder` class is also available for an easy, builder style creation of a `RestRequest` client. See [RestBinding.cs](/src/DataServices/Bindings/RestBinding.cs) for an example of how this is used.
