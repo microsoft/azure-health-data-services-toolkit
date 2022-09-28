@@ -1,19 +1,19 @@
 parameters:
-  - name: ArtifactName
+  - name: PackageArtifactName
   - name: DevOpsFeedID
   - name: PackageVersion
   - name: IsPrerelease
     type: boolean
     default: true
   - name: PackagePrefix
-    default: Azure.Health.DataServices
+    default: Microsoft.AzureHealth.DataServices
   - name: RepositoryName
-    default: microsoft/azure-health-data-services-sdk
+    default: microsoft/azure-health-data-services-toolkit
 
 
 stages:
 
-  - stage: ${{ format('Signing_{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
     jobs:
@@ -26,23 +26,40 @@ stages:
             deploy:
               steps:
               - download: current
-                artifact: ${{ parameters.ArtifactName }}
+                artifact: ${{ parameters.PackageArtifactName }}
                 timeoutInMinutes: 5
 
-              - template: pipelines/steps/package-signing.yml@azure-health-data-services-sdk-build-tools
+              - template: pipelines/steps/package-signing.yml@azure-health-data-services-toolkit-build-tools
                 parameters:
-                  PackagesPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}'
+                  PackagesPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}'
 
-              - publish: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
-                artifact: '${{ parameters.ArtifactName }}-signed'
-                displayName: 'Store signed packages in ${{ parameters.ArtifactName }}-signed artifact'
+              - publish: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+                artifact: '${{ parameters.PackageArtifactName }}-signed'
+                displayName: 'Store signed packages in ${{ parameters.PackageArtifactName }}-signed artifact'
 
-  - stage: ${{ format('ReleaseInternal_{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
+    ${{ if eq( parameters['IsPrerelease'], true) }}:
+      displayName: 'Analyze Prerelease Code'
+    ${{ else }}:
+      displayName: 'Analyze Release Code'
+    dependsOn: Build
+    jobs:
+      - job: Guardian
+        pool:
+          vmImage: $(WindowsVmImage)
+        steps:
+        - template: ../jobs/analyze.yml
+          parameters:
+            PackageArtifactName: ${{ parameters.PackageArtifactName }}
+
+  - stage: ${{ format('ReleaseInternal_{0}', parameters.PackageArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'Prerelease Internal Package Publish'
     ${{ else }}:
       displayName: 'Release Internal Package Publish'
-    dependsOn: ${{ format('Signing_{0}', parameters.ArtifactName) }}
+    dependsOn:
+      - ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
+      - ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
     jobs:
     - deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
@@ -55,22 +72,22 @@ stages:
           deploy:
             steps:
             - download: current
-              artifact: '${{ parameters.ArtifactName }}-signed'
+              artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-sdk-build-tools
+            - template: pipelines/steps/package-push-internal.yml@azure-health-data-services-toolkit-build-tools
               parameters:
-                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
                 PackageName: ${{ parameters.PackagePrefix }}
                 DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
 
   # Add integration tests here
 
-  - stage: ${{ format('ReleaseGithubNuget_{0}', parameters.ArtifactName) }}
+  - stage: ${{ format('ReleaseGithubNuget_{0}', parameters.PackageArtifactName) }}
     ${{ if eq( parameters['IsPrerelease'], true) }}:
       displayName: 'GitHub/Nuget Pre-Release Publish'
     ${{ else }}:
       displayName: 'GitHub/Nuget Release Publish'
-    dependsOn: ${{ format('ReleaseInternal_{0}', parameters.ArtifactName) }}
+    dependsOn: ${{ format('ReleaseInternal_{0}', parameters.PackageArtifactName) }}
     jobs:
     - deployment: PublishPackageNuGet
       ${{ if eq( parameters['IsPrerelease'], true) }}:
@@ -86,11 +103,11 @@ stages:
           deploy:
             steps:
             - download: current
-              artifact: '${{ parameters.ArtifactName }}-signed'
+              artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-sdk-build-tools
+            - template: pipelines/steps/package-push-nuget.yml@azure-health-data-services-toolkit-build-tools
               parameters:
-                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed'
+                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
                 PackageName: ${{ parameters.PackagePrefix }}
 
     - deployment: GithubRelease
@@ -107,7 +124,7 @@ stages:
           deploy:
             steps:
             - download: current
-              artifact: '${{ parameters.ArtifactName }}-signed'
+              artifact: '${{ parameters.PackageArtifactName }}-signed'
 
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
@@ -120,5 +137,5 @@ stages:
                 title: ${{ parameters.PackagePrefix }} ${{ parameters.PackageVersion }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
-                  $(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed/*.nupkg
-                  $(Pipeline.Workspace)/${{ parameters.ArtifactName }}-signed/*.snupkg
+                  $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg
+                  $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.snupkg

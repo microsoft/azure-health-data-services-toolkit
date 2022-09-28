@@ -1,5 +1,5 @@
 ﻿
-using Azure.Health.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace EventGridChannelSample
 {
@@ -9,7 +9,7 @@ namespace EventGridChannelSample
 
         public string Subject { get; set; }
 
-        public string AccessKey { get; set; }   
+        public string AccessKey { get; set; }
 
         public StatusType ExecutionStatusType { get; set; }
 

@@ -19,7 +19,7 @@ steps:
   inputs:
     command: 'custom'
     custom: 'format'
-    arguments: 'Azure.Health.DataServices.Sdk.sln --verify-no-changes --verbosity diagnostic'
+    arguments: 'Microsoft.AzureHealth.DataServices.Toolkit.sln --verify-no-changes --verbosity diagnostic'
 
 - task: CredScan@3
   inputs:

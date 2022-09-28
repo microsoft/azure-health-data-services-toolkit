@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Configuration;
 using EventHubChannelSample;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ root.Bind(config);
 // Configures the custom operation.
 IHostBuilder builder = Host.CreateDefaultBuilder()
     .ConfigureServices(services =>
-    {   
+    {
         services.AddLogging();
 
         // This creates the custom operation pipeline.

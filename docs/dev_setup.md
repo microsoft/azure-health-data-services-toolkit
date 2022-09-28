@@ -1,6 +1,6 @@
 # Developer Workflow
 
-Creating custom operations with the Azure Health Data Services SDK requires developing against resources that exist in Azure only. This document will cover the recommended developer workflow to easily code *and* test custom operations locally before deploying to Azure. We've focused on a fast developer "inner loop" with this SDK. It's built to quickly write and test code locally.
+Creating custom operations with the Azure Health Data Services toolkit requires developing against resources that exist in Azure only. This document will cover the recommended developer workflow to easily code *and* test custom operations locally before deploying to Azure. We've focused on a fast developer "inner loop" with this SDK. It's built to quickly write and test code locally.
 
 We're only covering the recommended developer workflow for custom operations build and hosted on *Azure Functions*.
 
@@ -58,7 +58,7 @@ This will deploy a minimal set of resources to use for your custom operation. If
 
 Now that your local and cloud environment is setup, you can add your business logic to your custom operation. You can use the template as a starting point, but this step is up to you.
 
-This SDK does have patterns and tooling to help make this process easier. Check out the [SDK concept document](/docs/concepts.md) to see what each component does. Also checkout the [samples](/samples/) for inspiration.
+This toolkit does have patterns and tooling to help make this process easier. Check out the [Toolkit concept document](/docs/concepts.md) to see what each component does. Also checkout the [samples](/samples/) for inspiration.
 
 If you copied the Quickstart template, it is already setup to use the output from the Azure Developer CLI inside your application as configuration. You can debug your custom operation locally.
 

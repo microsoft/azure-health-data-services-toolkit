@@ -1,5 +1,5 @@
-﻿using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -44,7 +44,7 @@ namespace EventHubChannelSample
                 receiveChannel.OnReceive += ReceiveChannel_OnReceive;
                 await receiveChannel.OpenAsync();
                 receiveChannel.ReceiveAsync().GetAwaiter();
-            }    
+            }
         }
 
         private void ReceiveChannel_OnReceive(object sender, ChannelReceivedEventArgs e)

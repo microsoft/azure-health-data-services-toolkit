@@ -1,8 +1,8 @@
 using System.Reflection;
-using Azure.Health.DataServices.Bindings;
-using Azure.Health.DataServices.Clients.Headers;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Security;
+using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

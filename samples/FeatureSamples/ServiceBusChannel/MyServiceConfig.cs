@@ -1,7 +1,7 @@
 ﻿
 
-using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace ServiceBusChannelSample
 {
@@ -14,7 +14,7 @@ namespace ServiceBusChannelSample
 
         public string Subscription { get; set; }
 
-        public StatusType ExecutionStatusType { get; set; }  
+        public StatusType ExecutionStatusType { get; set; }
 
         public ServiceBusSkuType Sku { get; set; }
 

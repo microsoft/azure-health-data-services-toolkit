@@ -11,7 +11,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-		<PackageReference Include="coverlet.collector" Version="3.1.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
 		<PackageReference Include="xunit" Version="2.4.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -22,8 +21,22 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" />
 	</ItemGroup>
+
+  <!-- Default to version 1.0.0 if SdkVersion is not set -->
+  <ItemGroup Condition="'$(SdkVersion)' == ''" >
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />
+  </ItemGroup>
+
+  <!-- Default to referencing the project in this repo if local  -->
+  <ItemGroup Condition="'$(SdkVersion)' == 'local'">
+    <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
+  </ItemGroup>
+
+  <!-- If neither of the above, read version from SdkVersion  -->
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\src\QuickstartSample.csproj" />
