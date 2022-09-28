@@ -1,9 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for information on 
 using BlobChannelSample;
-using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Pipelines;
-using Azure.Health.DataServices.Storage;
+using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <UserSecretsId>d481917b-f435-474b-8abb-bd1fd96e61c3</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Integration\**" />
+    <EmbeddedResource Remove="Integration\**" />
+    <None Remove="Integration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+    <PackageReference Include="Moq" Version="4.18.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
+	  <ProjectReference Include="..\..\src\Microsoft.AzureHealth.DataServices.Caching\Microsoft.AzureHealth.DataServices.Caching.csproj" />
+	  <ProjectReference Include="..\..\src\Microsoft.AzureHealth.DataServices.Channels\Microsoft.AzureHealth.DataServices.Channels.csproj" />
+	  <ProjectReference Include="..\..\src\Microsoft.AzureHealth.DataServices.Storage\Microsoft.AzureHealth.DataServices.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\BundleRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\capstmt.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\jwttest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿using Azure.Health.DataServices.Security;
+﻿using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Options;
 
 namespace AuthenticatorSample

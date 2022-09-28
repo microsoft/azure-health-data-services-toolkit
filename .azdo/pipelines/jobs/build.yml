@@ -11,7 +11,7 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/Azure.Health.DataServices*.csproj'
+    projects: '**/Microsoft.AzureHealth.DataServices.*.csproj'
   displayName: 'Build all projects'
 
 # Test skip to support building multiple versions
@@ -20,7 +20,7 @@ steps:
     command: 'test'
     arguments: '--no-build --configuration $(buildConfiguration)'
     publishTestResults: true
-    projects: '**/Azure.Health.DataServices.Tests.csproj'
+    projects: '**/Microsoft.AzureHealth.DataServices.Tests.csproj'
   displayName: 'Run all tests'
   env:
     PROXY_TenantId: $(proxy-tenant-id)

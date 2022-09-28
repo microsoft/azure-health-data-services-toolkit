@@ -10,7 +10,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        find . -type f \( -iname "*Azure.Health.DataServices*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
+        find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file..."
             dotnet pack "$file" --output "$OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$ASS_VERSION" /p:PackageReleaseNotes="$NOTES" --verbosity Detailed

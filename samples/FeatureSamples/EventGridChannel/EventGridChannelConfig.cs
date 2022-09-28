@@ -1,5 +1,5 @@
 ﻿
-using Azure.Health.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace EventGridChannelSample
 {

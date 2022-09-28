@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information about console apps without a main function
 using AuthenticatorSample;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Security;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -6,7 +6,7 @@ parameters:
     type: boolean
     default: true
   - name: PackagePrefix
-    default: Azure.Health.DataServices
+    default: Microsoft.AzureHealth.DataServices
   - name: RepositoryName
     default: microsoft/azure-health-data-services-sdk
 

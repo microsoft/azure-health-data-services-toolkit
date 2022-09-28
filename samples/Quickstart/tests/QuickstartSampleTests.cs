@@ -1,8 +1,8 @@
-﻿using Azure.Health.DataServices.Clients;
-using Azure.Health.DataServices.Clients.Headers;
-using Azure.Health.DataServices.Json;
-using Azure.Health.DataServices.Json.Transforms;
-using Azure.Health.DataServices.Security;
+﻿using Microsoft.AzureHealth.DataServices.Clients;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
+using Microsoft.AzureHealth.DataServices.Json;
+using Microsoft.AzureHealth.DataServices.Json.Transforms;
+using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Xunit;
