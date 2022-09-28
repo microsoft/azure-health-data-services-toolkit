@@ -1,6 +1,6 @@
 # Concepts
 
-The core goal of this SDK is to build **custom operations** to extend the behavior of Azure Health Data Services. Abstractly, custom operations can:
+The core goal of this toolkit is to build **custom operations** to extend the behavior of Azure Health Data Services. Abstractly, custom operations can:
 
 - Modify incoming requests.
 - Acquire additional information to make decisions.

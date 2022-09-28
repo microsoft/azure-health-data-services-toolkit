@@ -1,0 +1,21 @@
+<!-- List of Include Files and folders and exception lists for this repo for GeoPolitical scanning. Contact aka.ms/HLSGeoPol for detail. -->
+<!DOCTYPE varsdefined [
+<!ENTITY GitReposFolder "C:\GITs\Repos">
+<!ENTITY GitRepoName "azure-health-data-services-toolkit">
+]>
+
+<GeoPol_Folders>
+<!-- List of Folders to include for GeoPolitical scanning -->
+<GitRepoName>&GitRepoName;</GitRepoName>
+    <Component Include="List here folders to Include in a GeoPol Scan">    
+  <!-- . means the entire repo -->
+  <!-- Use back slash \ to indicate folder path e.g. src\Test -->
+    <IncludeFolder>.</IncludeFolder>
+  </Component>
+    <Component Exclude="List exceptions here to not be scanned, that have been included above">    
+    <!-- Use back slash \ to indicate folder path e.g. src\external\ -->
+    <ExcludeFolder>.gitignore</ExcludeFolder>
+    <ExcludeFolder>GeoPol.xml</ExcludeFolder>
+    <!-- 3rd Party Libraries section below -->
+  </Component>
+</GeoPol_Folders>

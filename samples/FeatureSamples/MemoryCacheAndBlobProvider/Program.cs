@@ -1,5 +1,5 @@
 ﻿
-using Azure.Health.DataServices.Caching;
+using Microsoft.AzureHealth.DataServices.Caching;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

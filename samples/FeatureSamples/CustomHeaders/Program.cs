@@ -1,11 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using CustomHeadersSample;
-using Azure.Health.DataServices.Clients.Headers;
-using Azure.Health.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
+using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Specialized;
-using Azure.Health.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
@@ -63,7 +63,7 @@ void TestSample()
     using (var serviceScope = app.Services.CreateScope())
     {
         IMyService myservice = serviceScope.ServiceProvider.GetRequiredService<IMyService>();
-        
+
         // This is what invokes the haeder replacement. You would usually do this in an input filter.
         headers = myservice.GetCustomHeaders(request);
     }

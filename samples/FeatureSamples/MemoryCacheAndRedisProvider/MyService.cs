@@ -1,4 +1,4 @@
-﻿using Azure.Health.DataServices.Caching;
+﻿using Microsoft.AzureHealth.DataServices.Caching;
 using System.Threading.Tasks;
 
 namespace MemoryCacheAndRedisProvider

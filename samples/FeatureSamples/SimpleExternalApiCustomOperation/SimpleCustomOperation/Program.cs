@@ -1,6 +1,6 @@
-using Azure.Health.DataServices.Bindings;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using SimpleCustomOperation.Filters;
 
 var builder = WebApplication.CreateBuilder(args);

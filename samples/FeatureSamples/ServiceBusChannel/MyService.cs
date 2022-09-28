@@ -1,5 +1,5 @@
-﻿using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -29,7 +29,7 @@ namespace ServiceBusChannelSample
             });
             _channel = new ServiceBusChannel(options);
             _channel.OnReceive += Channel_OnReceive;
-        }        
+        }
 
         private readonly IChannel _channel;
         private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;

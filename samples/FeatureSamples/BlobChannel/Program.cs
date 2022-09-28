@@ -1,9 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for information on 
 using BlobChannelSample;
-using Azure.Health.DataServices.Channels;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Pipelines;
-using Azure.Health.DataServices.Storage;
+using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -79,7 +79,7 @@ async Task TestSample()
     StorageBlob storage = new(config.ConnectionString);
     var list = await storage.ListBlobsAsync(config.Container);
     Console.ForegroundColor = ConsoleColor.Yellow;
-    foreach(var item in list)
+    foreach (var item in list)
     {
         byte[] blob = await storage.ReadBlockBlobAsync(config.Container, item);
         string payloadJson = Encoding.UTF8.GetString(blob);

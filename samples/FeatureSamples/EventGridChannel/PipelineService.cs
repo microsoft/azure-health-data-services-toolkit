@@ -1,7 +1,7 @@
 ﻿using Azure.Messaging.EventGrid;
 using Azure.Storage.Queues.Models;
-using Azure.Health.DataServices.Pipelines;
-using Azure.Health.DataServices.Storage;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
@@ -33,7 +33,7 @@ namespace EventGridChannelSample
             while (queueMessage == null)
             {
                 queueMessage = await queue.DequeueAsync(config.QueueName, TimeSpan.FromSeconds(20.0), default);
-                
+
                 if (queueMessage != null)
                 {
                     string text = queueMessage.MessageText;

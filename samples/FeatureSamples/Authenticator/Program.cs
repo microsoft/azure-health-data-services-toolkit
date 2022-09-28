@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information about console apps without a main function
 using AuthenticatorSample;
-using Azure.Health.DataServices.Configuration;
-using Azure.Health.DataServices.Security;
+using Microsoft.AzureHealth.DataServices.Configuration;
+using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,12 +41,12 @@ IHostBuilder builder = Host.CreateDefaultBuilder()
                 options.TenantId = config.TenantId;
             });
         }
-        
+
         if (string.IsNullOrEmpty(config.FhirServerUrl))
         {
             throw new Exception("The Fhir Server URL must be configured to run this sample");
         }
-        
+
         // This is how you would add a service to your application with configuration scoped to that service.
         services.UseMyService(options =>
         {

@@ -7,14 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Health.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
-    <PackageReference Include="Azure.Health.DataServices.Caching" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(LocalPackages)' == 'true'">
-    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices\Azure.Health.DataServices.csproj" />
-    <ProjectReference Include="..\..\..\src\Azure.Health.DataServices.Caching\Azure.Health.DataServices.Caching.csproj" />
+  <!-- Default to version 1.0.0 if SdkVersion is not set -->
+  <ItemGroup Condition="'$(SdkVersion)' == ''" >
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Caching" Version="1.0.0" />
+  </ItemGroup>
+
+  <!-- Default to referencing the project in this repo if local  -->
+  <ItemGroup Condition="'$(SdkVersion)' == 'local'">
+    <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Caching\Microsoft.AzureHealth.DataServices.Caching.csproj" />
+  </ItemGroup>
+
+  <!-- If neither of the above, read version from SdkVersion  -->
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Caching" Version="$(SdkVersion)" />
   </ItemGroup>
 
 </Project>
