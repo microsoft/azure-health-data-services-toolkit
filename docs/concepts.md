@@ -6,7 +6,7 @@ The core goal of this toolkit is to build **custom operations** to extend the be
 - Acquire additional information to make decisions.
 - Output information to Azure services.
 
-A custom operation is the business goal that you're trying to accomplish with this SDK, and a pipeline is the implementation of the custom operation. 
+A custom operation is the business goal that you're trying to accomplish with this toolkit, and a pipeline is the implementation of the custom operation. 
 
 ## Definitions
 
@@ -22,7 +22,7 @@ A custom operation is the business goal that you're trying to accomplish with th
 
 ## Pipelines
 
-Pipelines allow you to hook into existing .NET hosting platforms to build custom operations. Currently, there are two types of pipelines that you can use in this SDK.
+Pipelines allow you to hook into existing .NET hosting platforms to build custom operations. Currently, there are two types of pipelines that you can use in this toolkit.
 
 - **WebPipeline** for use with ASP.NET Web APIs in Azure App Services or other ASP.NET hosting platforms.
 - **Azure Function pipeline** for use with Azure Functions as an isolated process.
@@ -54,7 +54,7 @@ To create a filter for custom logic, it must have:
 
 Channels are an abstract way to communicate information in a pipeline to and from outside services. In practice, you can use channels to send information to other Azure services like Blob Storage or a Service Bus. Channels are extensible - so custom channels can be built for any needed destination.
 
-This SDK has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. Channels can be send only, receive only, or send and receive. 
+This toolkit has prebuilt channels from Azure Blob Storage, Azure Event Hubs, and Azure Service Bus. Channels can be send only, receive only, or send and receive. 
 
 - Event Grid and Blob Storage channels are receive only.
 - Event Hub and Service Bus can be receive only, send only, or send/receive.
@@ -135,6 +135,6 @@ services.UseAuthenticator(options =>
 
 ## Clients
 
-This SDK has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR service (or external REST services) inside of filters to gather additional information needed for a custom operation.
+This toolkit has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR service (or external REST services) inside of filters to gather additional information needed for a custom operation.
 
 The `RestRequestBuilder` class is also available for an easy, builder style creation of a `RestRequest` client. See [RestBinding.cs](/src/DataServices/Bindings/RestBinding.cs) for an example of how this is used.
