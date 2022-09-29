@@ -4,19 +4,17 @@ The Azure Health Data Services Toolkit helps you extend the functionality of Azu
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This toolkit abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
-*NuGet packages coming soon!*
 
-<!---
 | Package Name | Description |
 | --- | --- |
 | [Microsoft.AzureHealth.DataServices.Core](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core)| .NET 6 toolkit for creating custom operations when using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions) | .NET 6 toolkit for extending channels using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Caching](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching) | .NET 6 toolkit for adding caching using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Storage](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage)| .NET 6 toolkit to simplify Azure storage operations when using Azure Health Data Services. |
---->
+
 ## Getting started
 
-The fastest way to test out the toolkit and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
+The fastest way to test out the toolkit and see it in action is [through our Quickstart sample](https://github.com/Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
 Read [the developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
@@ -71,7 +69,7 @@ When building custom operations, you’ll come across these concepts related to 
 
 This architecture is a sample of how you could deploy and integrate custom operations built with the Azure Health Data Services toolkit in a production environment with Azure Health Data Services.
 
-![Example architecture diagram](./docs/images/ExampleArchitectureDiagram.png)
+![Example architecture diagram](./docs/images/HealthcareAPIInfastructure20220929.png)
 
 ## Contributing
 
