@@ -1,6 +1,6 @@
 # Simple external API custom operation 
 
-This sample is a standard ASP.NET Web Application and will show how you can create a request object, pass it to the pipeline, and get the response back by using the SDK. 
+This sample is a standard ASP.NET Web Application and will show how you can create a request object, pass it to the pipeline, and get the response back by using the toolkit. 
 
 This sample doesn't require any setup or any access to Azure Resources because it does everything locally.
 

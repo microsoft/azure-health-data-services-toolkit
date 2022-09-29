@@ -1,6 +1,6 @@
 # Using Authenticator to access Azure resources
 
-This sample will show you how you can get an access token for Azure resources with the SDK. Custom operations and solutions built with this SDK usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
+This sample will show you how you can get an access token for Azure resources with the help of toolkit. Custom operations and solutions built with this toolkit usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
 Here, we'll cover different authentication methods and how to get tokens from Azure Active Directory which can be used to access any Azure service that supports Azure Active Directory authentication.
 
@@ -8,7 +8,7 @@ This sample is meant to be run locally on your computer, not deployed to Azure.
 
 ## Concepts
 
-This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the SDK by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
+This sample provides easy configuration on top of the [Azure Identity Client Library for .NET](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential). We follow best practices and allow you to use `DefaultAzureCredential`, which combines credentials commonly used to authenticate when deployed with credentials used to authenticate in a development environment. `DefaultAzureCredential` is intended to simplify getting started with the toolkit by handling common scenarios with reasonable default behaviors. Developers who want more control or whose scenario isn't served by the default settings can specify their authenticator method and settings.
 
 ## Prerequisites
 
@@ -69,10 +69,10 @@ From the command line, you can run the sample by executing `dotnet run` in this 
 
 ## Advanced scenario - specifying a client application
 
-The Authenticator in the SDK allows you to specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal) to access Azure resources. You can actually achieve this in two ways:
+The Authenticator in the toolkit allows you to specify which authentication method your application will use. Here, let's set up this sample to use a client application (or service principal) to access Azure resources. You can actually achieve this in two ways:
 
 - By [setting environment variables](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables).
-- By using the built in configuration helpers inside this SDK. We'll be doing this here.
+- By using the built in configuration helpers inside this toolkit. We'll be doing this here.
 
 To setup for service principal access using the build in configuration helpers, you'll need to add the below configuration.
 

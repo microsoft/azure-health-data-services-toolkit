@@ -1,4 +1,4 @@
-# Azure Health Data Services SDK Azure Function Custom Operation Quickstart
+# Azure Health Data Services toolkit Azure Function Custom Operation Quickstart
 
 This quickstart will walk you through creating a simple custom operation on top of the FHIR Service using Azure Functions. We'll cover everything from deploying infrastructure, debugging locally, and deploying to Azure.
 
@@ -37,7 +37,7 @@ This quickstart will create the below resources. These will be used both for loc
 3. Deploy the needed resources with the below `azd` command. This will pull the Quickstart code and deploy needed Azure resources.
 
     ```dotnetcli
-    azd up --template Azure-Samples/ahds-sdk-fhir-function-quickstart
+    azd up --template Azure-Samples/ahds-toolkit-fhir-function-quickstart
     ```
 
 4. This will take about 20 minutes to deploy the FHIR Service.

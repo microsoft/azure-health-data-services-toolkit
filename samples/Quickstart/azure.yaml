@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: azure-health-data-services-sdk-quickstart
+name: azure-health-data-services-toolkit-quickstart
 metadata:
-  template: azure-health-data-services-sdk-quickstart@0.0.1-beta
+  template: azure-health-data-services-toolkit-quickstart@0.0.1-beta
 services:
   func:
     project: src/

@@ -16,7 +16,7 @@ var resourceToken = toLower(uniqueString(subscription().id, name, location))
 
 var appTags = {
   'azd-env-name': name
-  'app-id': 'azure-health-data-services-sdk'
+  'app-id': 'azure-health-data-services-toolkit'
   'sample-name': 'Quickstart'
 }
 

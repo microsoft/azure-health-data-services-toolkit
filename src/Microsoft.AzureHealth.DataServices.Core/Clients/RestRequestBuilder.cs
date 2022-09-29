@@ -83,7 +83,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <summary>
         /// Default User-Agent http header.
         /// </summary>
-        public static string DefaultUserAgentHeader = "Microsoft.Health.DataServices.Sdk";
+        public static string DefaultUserAgentHeader = "Microsoft.Health.DataServices.toolkit";
 
         /// <summary>
         /// Gets the base url of the request.
