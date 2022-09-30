@@ -76,6 +76,6 @@ dotnet build
 
 - **Option Pattern** uses classes to provide strongly typed access to groups of related settings. Look at [this .NET documentation page](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#environment-variables) for more information.
  
-- **SetAsync**:  This method internally calls IJsonObjectCache interface which is part of the SDK. It will create a record with the given key in Redis. 
+- **SetAsync**:  This method internally calls IJsonObjectCache interface which is part of the toolkit. It will create a record with the given key in Redis. 
 
 - **GetAsync**: This method will read the data from Redis, DeserializeObject it. To read the data, you will need to pass the key name as a parameter.
