@@ -25,7 +25,7 @@ For samples that work with resources or deploy code to Azure (like the Quickstar
 
 ## Quickstart
 
-Use [this quickstart sample](./Quickstart/) to see some common ways the toolkit can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
+Use [quickstart sample](https://github.com/Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart) to see some common ways the toolkit can be used to modify requests to the FHIR service. Is this quickstart we'll cover:
 
 
 - Getting an access token for the FHIR service.
