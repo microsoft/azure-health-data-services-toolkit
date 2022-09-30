@@ -1,6 +1,6 @@
 # Using Authenticator to access Azure resources
 
-This sample will show you how you can get an access token for Azure resources with the help of toolkit. Custom operations and solutions built with this toolkit usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
+This sample will show you how you can get an access token for Azure resources with the help of the toolkit. Custom operations and solutions built with this toolkit usually need access to Azure resources - from interacting with your FHIR service to integrations with Azure Storage or Service Bus.
 
 Here, we'll cover different authentication methods and how to get tokens from Azure Active Directory which can be used to access any Azure service that supports Azure Active Directory authentication.
 
