@@ -3,7 +3,7 @@
 These samples show how this toolkit works for a few sample scenarios:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
-- **Feature Samples**: Small projects showing how toolkit features works. Local only.
+- **Feature Samples**: Small projects showing how the toolkit features work. Local only.
 
 ## Sample prerequisites
 
