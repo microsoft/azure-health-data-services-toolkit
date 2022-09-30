@@ -39,5 +39,6 @@ module template 'core.bicep'= {
   }
 }
 
-output AZURE_LOCATION string = location
-output AZURE_FhirServerUrl string = template.outputs.FhirServiceUrl
+// These map to user secrets for local execution of the program
+output LOCATION string = location
+output FhirServerUrl string = template.outputs.FhirServiceUrl

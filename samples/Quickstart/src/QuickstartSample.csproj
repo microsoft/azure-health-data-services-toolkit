@@ -10,11 +10,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  
-
   <ItemGroup>
-    <PackageReference Include="DotNetEnv " Version="2.3.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.21.6" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
@@ -27,7 +23,7 @@
 
   <!-- Default to version 1.0.0 if SdkVersion is not set -->
   <ItemGroup Condition="'$(SdkVersion)' == ''">
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="0.9.34-prerelease" />
   </ItemGroup>
 
   <!-- Default to referencing the project in this repo if local  -->
@@ -47,14 +43,6 @@
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'"> 
-    <None Include="../.azure/*/.env">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-      <TargetPath>.env</TargetPath>
     </None>
   </ItemGroup>
 </Project>

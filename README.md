@@ -4,21 +4,19 @@ The Azure Health Data Services Toolkit helps you extend the functionality of Azu
 With the growth of health data workloads on Azure, we’ve found that developers need custom behavior on top of our services. This toolkit abstracts common patterns so you can focus on delivering your use cases.
 
 ## NuGet Packages
-*NuGet packages coming soon!*
 
-<!---
 | Package Name | Description |
 | --- | --- |
 | [Microsoft.AzureHealth.DataServices.Core](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core)| .NET 6 toolkit for creating custom operations when using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions) | .NET 6 toolkit for extending channels using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Caching](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching) | .NET 6 toolkit for adding caching using Azure Health Data Services. |
 | [Microsoft.AzureHealth.DataServices.Storage](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage)| .NET 6 toolkit to simplify Azure storage operations when using Azure Health Data Services. |
---->
+
 ## Getting started
 
-The fastest way to test out the toolkit and see it in action is [through our Quickstart sample](./samples/Quickstart/README.md). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
+The fastest way to test out the toolkit and see it in action is through our [Quickstart sample](https://github.com/Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
-Read [the developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
+Read the [developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
 Also check out our full list of [samples on how to use the toolkit here](./samples/README.md) for even more inspiration on how to create your own custom operations.
 
@@ -71,7 +69,7 @@ When building custom operations, you’ll come across these concepts related to 
 
 This architecture is a sample of how you could deploy and integrate custom operations built with the Azure Health Data Services toolkit in a production environment with Azure Health Data Services.
 
-![Example architecture diagram](./docs/images/ExampleArchitectureDiagram.png)
+![Example architecture diagram](./docs/images/HealthcareAPIInfastructure20220929.png)
 
 ## Contributing
 
@@ -89,9 +87,9 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Disclaimers
 
-The Azure Health Data Services toolkit is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services toolkit.
+The Azure Health Data Services toolkit is an open-source project. It is not a managed service, and it is not part of Microsoft Azure Health Data Services. You bear sole responsibility for compliance with local law and for any data you use with this open-source toolkit. Please review the information and licensing terms on this GitHub website before using the Azure Health Data Services toolkit.
 
-The Azure Health Data Services toolkit GitHub is intended only for use in transferring and formatting data. It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established.  You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
+The Azure Health Data Services toolkit GitHub is intended only for use in transferring and formatting data. It is not intended for use as a medical device or to perform any analysis or any medical function and the performance of the software for such purposes has not been established. You bear sole responsibility for any use of this software, including incorporation into any product intended for a medical purpose.
 
 ## Trademarks
 
