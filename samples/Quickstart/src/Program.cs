@@ -19,10 +19,6 @@ using IHost host = new HostBuilder()
 
         IHostEnvironment env = hostingContext.HostingEnvironment;
 
-        // Load environment from the azd cli for local development.
-        // This is included in the project output via the .csproj for debug configurations only (not for release).
-        //DotNetEnv.Env.Load();
-
         configuration
             .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
             .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
