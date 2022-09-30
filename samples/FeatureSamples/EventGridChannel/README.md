@@ -1,6 +1,6 @@
 # Sending Data to Event Grid in a Channel
 
-This sample shows you how you can send data to Azure Event Grid using a channel in the Azure Health Data Services Toolkit. This is useful for notifying other systems of data in your pipelines.
+This sample shows you how you can send data to Azure Event Grid using a channel in the Azure Health Data Services toolkit. This is useful for notifying other systems of data in your pipelines.
 
 ## Concepts
 

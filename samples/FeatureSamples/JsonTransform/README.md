@@ -1,6 +1,6 @@
 # Transforming Data with JsonTransform
 
-This sample shows you how to work with the JSON transformation utilities in the Azure Health Data Services Toolkit. We'll show a simple example of how you can easily modify JSON data (usually HTTP request or response data) as part of a filter in your custom operations.
+This sample shows you how to work with the JSON transformation utilities in the Azure Health Data Services toolkit. We'll show a simple example of how you can easily modify JSON data (usually HTTP request or response data) as part of a filter in your custom operations.
 
 This sample doesn't contain a full custom operation pipeline, but is scoped to JSON transforms only.
 

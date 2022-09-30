@@ -1,6 +1,6 @@
 # Injecting Custom Headers into your Custom Operations
 
-This sample shows you how to work with the custom header utilities in the Azure Health Data Services Toolkit. We'll cover the three different types of headers modifications in this sample.
+This sample shows you how to work with the custom header utilities in the Azure Health Data Services toolkit. We'll cover the three different types of headers modifications in this sample.
 
 This sample doesn't contain a full custom operation pipeline, but is scoped to headers only.
 

@@ -29,7 +29,7 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   tags: appTags
 }
 
-@description('Azure Function used to run SDK endpoints')
+@description('Azure Function used to run toolkit endpoints')
 resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   name: functionAppName
   location: location

@@ -28,7 +28,7 @@ var tenantId  = subscription().tenantId
 @description('Tags for all Azure resources in the solution')
 var appTags = union(
   {
-    AppID: 'azure-health-data-service-sdk'
+    AppID: 'azure-health-data-service-toolkit'
   }, 
   additionalTags
 )
@@ -62,13 +62,13 @@ module monitoring './monitoring.bicep'= {
 @description('Name for the App Service used to host the Function App.')
 var appServiceName = '${prefixName}-appserv'
 
-@description('Name for the Function App to deploy the SDK custom operations to.')
+@description('Name for the Function App to deploy the toolkit custom operations to.')
 var functionAppName = '${prefixName}-func'
 
 @description('Name for the storage account needed for the Function App')
 var funcStorName = '${prefixName}funcsa'
 
-@description('Deploy Azure Function to run SDK custom operations')
+@description('Deploy Azure Function to run toolkit custom operations')
 module function './azureFunction.bicep'= {
   name: 'functionDeploy'
   params: {
