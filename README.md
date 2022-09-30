@@ -14,9 +14,9 @@ With the growth of health data workloads on Azure, we’ve found that developers
 
 ## Getting started
 
-The fastest way to test out the toolkit and see it in action is [through our Quickstart sample](https://github.com/Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
+The fastest way to test out the toolkit and see it in action is through our [Quickstart sample](https://github.com/Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart). This sample will walk you through some common patterns that you'll need to create custom operations for Azure Health Data Services.
 
-Read [the developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
+Read the [developer guide](./docs/dev_setup.md) for help setting up your local and cloud environment for developing custom behaviors for Azure Health Data Services.
 
 Also check out our full list of [samples on how to use the toolkit here](./samples/README.md) for even more inspiration on how to create your own custom operations.
 
