@@ -149,7 +149,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 {
                     response.Headers.Add(header.Name, header.Value);
                 }
-                
+
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
 

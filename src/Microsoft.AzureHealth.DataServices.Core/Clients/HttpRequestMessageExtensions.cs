@@ -33,7 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <returns>NameValueCollection of http headers.</returns>
         public static NameValueCollection GetHeaders(this HttpResponseMessage response, bool restricted = true) =>
             GetHeaders(response.Headers, restricted);
-        
+
 
         private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, bool restricted)
         {
