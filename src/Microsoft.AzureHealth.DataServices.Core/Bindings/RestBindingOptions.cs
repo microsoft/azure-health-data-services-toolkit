@@ -17,8 +17,8 @@
         public string[] Scopes { get; set; }
 
         /// <summary>
-        /// Forwards the response headers from the binding to the pipeline respone.
+        /// Adds the response headers from the binding to the pipeline
         /// </summary>
-        public bool ForwardResponseHeaders { get; set; } = true;
+        public bool AddResponseHeaders { get; set; } = true;
     }
 }

@@ -10,10 +10,17 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
     public interface IHttpCustomHeaderCollection : IList<IHeaderNameValuePair>
     {
         /// <summary>
-        /// Appends and replaces existing headers with custom headers and returns the modified collection headers.
+        /// Appends and replaces existing request headers with custom headers and returns the modified collection headers.
         /// </summary>
         /// <param name="request">Http request message.</param>
         /// <returns>Modified collection headers</returns>
-        NameValueCollection AppendAndReplace(HttpRequestMessage request);
+        NameValueCollection RequestAppendAndReplace(HttpRequestMessage request);
+
+        /// <summary>
+        /// Updates this header collection from a HttpResponseMessage
+        /// </summary>
+        /// <param name="request">Http request message.</param>
+        /// <returns>Modified collection headers</returns>
+        void UpdateFromResponse(HttpResponseMessage request);
     }
 }

@@ -19,11 +19,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public OperationContext()
         {
             properties = new Dictionary<string, string>();
-            responseHeaders = new HttpCustomHeaderCollection();
+            headers = new HttpCustomHeaderCollection();
         }
 
         private readonly Dictionary<string, string> properties;
-        private readonly IHttpCustomHeaderCollection responseHeaders;
+        private readonly IHttpCustomHeaderCollection headers;
 
         /// <summary>
         /// Creates an instance of OperationContext
@@ -35,7 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             Request = message;
             properties = new Dictionary<string, string>();
-            responseHeaders = new HttpCustomHeaderCollection();
+            headers = new HttpCustomHeaderCollection();
             SetContentAsync(message).GetAwaiter();
         }
 
@@ -60,9 +60,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public byte[] Content { get; set; }
 
         /// <summary>
-        /// Gets the collection of response headers.
+        /// Gets the collection of headers. Request headers feed into bindings. Response headers feed into the output of the pipeline.
         /// </summary>
-        public IHttpCustomHeaderCollection ResponseHeaders { get => responseHeaders; }
+        public IHttpCustomHeaderCollection Headers { get => headers; }
 
         /// <summary>
         /// Gets or sets the body content of an http request or response as a string.

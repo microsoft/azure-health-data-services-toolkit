@@ -23,20 +23,17 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// </summary>
         /// <param name="options">Rest binding options.</param>
         /// <param name="authenticator">Optional authenticator to acquire security token.</param>
-        /// <param name="customHeaders">Optional custom headers.</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, IHttpCustomHeaderCollection customHeaders = null, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;
-            this.customHeaders = customHeaders;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
         private readonly IOptions<RestBindingOptions> options;
         private readonly IAuthenticator authenticator;
-        private readonly IHttpCustomHeaderCollection customHeaders;
         private readonly ILogger logger;
 
 
@@ -77,15 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
 
             try
             {
-                NameValueCollection headers = null;
-                if (customHeaders == null)
-                {
-                    headers = context.Request.GetHeaders();
-                }
-                else
-                {
-                    headers = customHeaders?.AppendAndReplace(context.Request);
-                }
+                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request);
 
                 string securityToken = null;
                 if (authenticator != null)
@@ -108,9 +97,10 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
 
-                if (options.Value.ForwardResponseHeaders)
-                    foreach (var header in resp.Headers)
-                        context.ResponseHeaders.Add(new HeaderNameValuePair(header.Key, header.Value.FirstOrDefault(), CustomHeaderType.Static));
+                if (options.Value.AddResponseHeaders)
+                {
+                    context.Headers.UpdateFromResponse(resp);
+                }
 
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
                 logger?.LogInformation("{Name}-{Id} completed.", Name, Id);

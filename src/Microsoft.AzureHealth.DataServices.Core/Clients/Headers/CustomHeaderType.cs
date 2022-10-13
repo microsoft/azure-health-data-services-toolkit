@@ -6,19 +6,24 @@
     public enum CustomHeaderType
     {
         /// <summary>
-        /// Injects a new header name and value that is determined the name value pair.
+        /// Injects a new request header name and value that is determined the name value pair.
         /// </summary>
         /// <remarks>This is statically defined name and value of the header.</remarks>
-        Static,
+        RequestStatic,
         /// <summary>
-        /// Injects a new header name with the value determined by a claim type in the security token.
+        /// Injects a new request header name with the value determined by a claim type in the security token.
         /// </summary>
         /// <remarks>The name paramter is the name of the new http header and the value is a claim type in the security token, which its value is used in the new header.</remarks>
-        Identity,
+        RequestIdentity,
         /// <summary>
-        /// Inject a new header name with the value determined by header in an incoming http request.
+        /// Inject a new request header name with the value determined by header in an incoming http request.
         /// </summary>
         /// <remarks>The name parameter is the name of the new http header and the value is name of a header in an incoming http request, which its value is used in the new header.</remarks>
-        Request
+        RequestMatch,
+        /// <summary>
+        /// Injects a new response header name and value that is determined the name value pair.
+        /// </summary>
+        /// <remarks>This is statically defined name and value of the header.</remarks>
+        ResponseStatic
     }
 }

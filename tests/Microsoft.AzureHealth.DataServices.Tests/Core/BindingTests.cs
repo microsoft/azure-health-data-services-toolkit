@@ -101,7 +101,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
                 ServerUrl = uriString,
-                ForwardResponseHeaders = true,
+                AddResponseHeaders = true,
             });
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
@@ -144,7 +144,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.AreEqual(argContext.Request.RequestUri.ToString(), actualContext.Request.RequestUri.ToString(), "Request URI mismatch.");
 
             // Echo API sends request headers back so we can look for Authorization header
-            Assert.IsTrue(actualContext.ResponseHeaders.ToList().Where(x => x.Name == "TestHeader" && x.Value == "TestValue").Count() == 1);
+            Assert.IsTrue(actualContext.Headers.Where(x => x.Name == "TestHeader" && x.Value == "TestValue" && x.HeaderType == CustomHeaderType.ResponseStatic).Count() == 1);
             Assert.AreEqual(expectedContext, actualResult, "Content mismatch.");
         }
     }

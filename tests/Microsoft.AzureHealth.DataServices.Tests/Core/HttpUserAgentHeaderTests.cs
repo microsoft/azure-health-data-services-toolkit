@@ -53,10 +53,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             HttpRequestMessage request = new HttpRequestMessage();
             request.Headers.Add(userAgentHeader, "fake-agent");
-            IHeaderNameValuePair customHeader = new HeaderNameValuePair(userAgentHeader, expectedHeaderValue, CustomHeaderType.Static);
+            IHeaderNameValuePair customHeader = new HeaderNameValuePair(userAgentHeader, expectedHeaderValue, CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] customHeaders = new IHeaderNameValuePair[] { customHeader };
             IHttpCustomHeaderCollection collection = new HttpCustomHeaderCollection(customHeaders);
-            var headers = collection.AppendAndReplace(request);
+            var headers = collection.RequestAppendAndReplace(request);
 
 
             RestRequestBuilder builder = new("GET", $"http://localhost:{port}", "", null, null, headers, null, "application/json");

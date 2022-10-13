@@ -41,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
         {
             string content = "{ \"property\": \"value\" }";
             context.ContentString = content;
-            context.ResponseHeaders.Add(new HeaderNameValuePair("TestName", "TestValue", CustomHeaderType.Static));
+            context.Headers.Add(new HeaderNameValuePair("TestName", "TestValue", CustomHeaderType.ResponseStatic));
             return await Task.FromResult<OperationContext>(context);
         }
     }

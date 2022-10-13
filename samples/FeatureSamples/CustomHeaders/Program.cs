@@ -26,15 +26,15 @@ builder.ConfigureServices(services =>
     services.UseCustomHeaders();
 
     // Static headers are always added
-    services.AddCustomHeader("X-ServiceSource", "CustomHeaderTest", CustomHeaderType.Static);
-    services.AddCustomHeader("X-EnvironmentName", environmentName, CustomHeaderType.Static);
+    services.AddCustomHeader("X-ServiceSource", "CustomHeaderTest", CustomHeaderType.RequestStatic);
+    services.AddCustomHeader("X-EnvironmentName", environmentName, CustomHeaderType.RequestStatic);
 
     // Request headers are only added if the headers exists on the request
-    services.AddCustomHeader("X-Custom-Location", "X-FHIR-Location", CustomHeaderType.Request);
-    services.AddCustomHeader("X-Custom-Geo", "X-FHIR-Geography", CustomHeaderType.Request);
+    services.AddCustomHeader("X-Custom-Location", "X-FHIR-Location", CustomHeaderType.RequestMatch);
+    services.AddCustomHeader("X-Custom-Geo", "X-FHIR-Geography", CustomHeaderType.RequestMatch);
 
     // The "name" claim will be extracted and mapped to the "X-MS-Test" header
-    services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.Identity);
+    services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.RequestIdentity);
     services.AddSingleton<IMyService, MyService>();
 });
 
