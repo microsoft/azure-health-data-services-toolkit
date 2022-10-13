@@ -18,7 +18,7 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
-    projects: '**/samples/**.csproj'
+    projects: '**/samples/**/*.csproj'
   displayName: 'Build samples projects'
 
 # Test skip to support building multiple versions
