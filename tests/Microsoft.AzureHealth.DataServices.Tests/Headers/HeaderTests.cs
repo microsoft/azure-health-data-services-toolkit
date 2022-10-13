@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -213,7 +214,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             Assert.AreEqual(values[3], nvc.GetValues(1)[0], "Not value.");
         }
 
-
         [TestMethod]
         public void HttpCustomHeaderCollection_GetRequestHeaders_Test()
         {
@@ -265,7 +265,27 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             Assert.AreEqual(val2, nvc.GetValues(2)[0], "Not value.");
         }
 
+        [TestMethod]
+        public void HttpCustomHeaderCollection_UpdateFromResponse_Test()
+        {
+            IHeaderNameValuePair[] items = new IHeaderNameValuePair[] {
+                new HeaderNameValuePair("RequestName1", "RequestValue1", CustomHeaderType.RequestStatic),
+                new HeaderNameValuePair("ResponseName1", "ResponseValue1", CustomHeaderType.ResponseStatic),
+                new HeaderNameValuePair("ResponseName2", "ResponseValue2", CustomHeaderType.ResponseStatic),
+            };
 
+            HttpCustomHeaderCollection headers = new(items);
+            HttpResponseMessage response = new();
+            response.Headers.Add("ResponseName1", "fail");
+            response.Headers.Add("ResponseName3", "ResponseValue3");
+            headers.UpdateFromResponse(response);
+
+            var responseHeaders = headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic).ToList();
+            Assert.IsTrue(responseHeaders.Count == 3, "Count headers mismatch.");
+            Assert.IsTrue(responseHeaders[0].Name == "ResponseName1" && responseHeaders[0].Value == "ResponseValue1");
+            Assert.IsTrue(responseHeaders[1].Name == "ResponseName2" && responseHeaders[1].Value == "ResponseValue2");
+            Assert.IsTrue(responseHeaders[2].Name == "ResponseName3" && responseHeaders[2].Value == "ResponseValue3");
+        }
 
         #endregion
 
