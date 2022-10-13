@@ -15,7 +15,7 @@ steps:
     arguments: 'update -g dotnet-format'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Lint Toolkit'
+  displayName: 'Lint Toolkit and Samples'
   inputs:
     command: 'custom'
     custom: 'format'
