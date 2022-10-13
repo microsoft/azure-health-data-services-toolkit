@@ -145,6 +145,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
                 response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
 
+                foreach (var header in context.Headers.Where(x => x.HeaderType == Clients.Headers.CustomHeaderType.ResponseStatic))
+                {
+                    response.Headers.Add(header.Name, header.Value);
+                }
+                
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
 
