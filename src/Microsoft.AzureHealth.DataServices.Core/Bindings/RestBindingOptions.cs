@@ -11,12 +11,14 @@
         /// </summary>
         public string ServerUrl { get; set; }
 
-
         /// <summary>
         /// Gets or sets the scopes required to call the server.  This is purely optional and used with non-default scopes are required.
         /// </summary>
         public string[] Scopes { get; set; }
 
-
+        /// <summary>
+        /// Forwards the response headers from the binding to the pipeline respone.
+        /// </summary>
+        public bool ForwardResponseHeaders { get; set; } = true;
     }
 }

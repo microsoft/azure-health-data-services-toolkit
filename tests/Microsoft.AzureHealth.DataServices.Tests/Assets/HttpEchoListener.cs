@@ -85,6 +85,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             byte[] message = new byte[bytesRead];
             Buffer.BlockCopy(buffer, 0, message, 0, bytesRead);
             await context.Response.OutputStream.WriteAsync(message.AsMemory(0, message.Length));
+            foreach (var requestHeaderKey in context.Request.Headers.AllKeys)
+                context.Response.Headers.Add(requestHeaderKey, context.Request.Headers[requestHeaderKey]);
             context.Response.StatusCode = 200;
             context.Response.Close();
         }
@@ -110,6 +112,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             builder.Append(" }");
             string body = builder.ToString();
             byte[] buffer = Encoding.UTF8.GetBytes(body);
+            foreach (var requestHeaderKey in context.Request.Headers.AllKeys)
+                context.Response.AppendHeader(requestHeaderKey, context.Request.Headers[requestHeaderKey]);
             await context.Response.OutputStream.WriteAsync(buffer.AsMemory(0, buffer.Length));
             context.Response.StatusCode = 200;
             context.Response.Close();

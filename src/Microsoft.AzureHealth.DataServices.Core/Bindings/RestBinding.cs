@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -105,6 +107,11 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 var resp = await req.SendAsync();
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
+
+                if (options.Value.ForwardResponseHeaders)
+                    foreach (var header in resp.Headers)
+                        context.ResponseHeaders.Add(new HeaderNameValuePair(header.Key, header.Value.FirstOrDefault(), CustomHeaderType.Static));
+
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
                 logger?.LogInformation("{Name}-{Id} completed.", Name, Id);
                 return context;

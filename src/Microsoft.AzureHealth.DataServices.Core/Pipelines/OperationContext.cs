@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Protocol;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
@@ -18,9 +19,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public OperationContext()
         {
             properties = new Dictionary<string, string>();
+            responseHeaders = new HttpCustomHeaderCollection();
         }
 
         private readonly Dictionary<string, string> properties;
+        private readonly IHttpCustomHeaderCollection responseHeaders;
 
         /// <summary>
         /// Creates an instance of OperationContext
@@ -32,6 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             Request = message;
             properties = new Dictionary<string, string>();
+            responseHeaders = new HttpCustomHeaderCollection();
             SetContentAsync(message).GetAwaiter();
         }
 
@@ -54,6 +58,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// Gets or sets the body content of an http request or response.
         /// </summary>
         public byte[] Content { get; set; }
+
+        /// <summary>
+        /// Gets the collection of response headers.
+        /// </summary>
+        public IHttpCustomHeaderCollection ResponseHeaders { get => responseHeaders; }
 
         /// <summary>
         /// Gets or sets the body content of an http request or response as a string.

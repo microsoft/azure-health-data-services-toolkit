@@ -14,6 +14,15 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
     public class HttpCustomHeaderCollection : IHttpCustomHeaderCollection
     {
         /// <summary>
+        /// Creates an empty instance of HttpCustomHeaderCollection.
+        /// </summary>
+        public HttpCustomHeaderCollection():
+            this(new IHeaderNameValuePair[] { })
+        {
+
+        }
+
+        /// <summary>
         /// Creates an instance of HttpCustomHeaderCollection.
         /// </summary>
         /// <param name="items">Items to initialize the collection.</param>
@@ -140,8 +149,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
                 if (item.HeaderType == CustomHeaderType.Identity)
                 {
                     var principal = request.GetClaimsPrincipal();
-                    var identity = principal.Identity;
-                    if (principal.HasClaim(claim => claim.Type == item.Value))
+                    if (principal is not null && principal.HasClaim(claim => claim.Type == item.Value))
                     {
                         IEnumerable<Claim> claimset = principal.Claims.Where(claim => claim.Type == item.Value);
                         foreach (var claim in claimset)
