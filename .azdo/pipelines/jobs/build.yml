@@ -12,7 +12,14 @@ steps:
     command: 'build'
     arguments: '--configuration $(buildConfiguration) --no-incremental'
     projects: '**/Microsoft.AzureHealth.DataServices.*.csproj'
-  displayName: 'Build all projects'
+  displayName: 'Build toolkit projects'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration) --no-incremental'
+    projects: '**/samples/**.csproj'
+  displayName: 'Build samples projects'
 
 # Test skip to support building multiple versions
 - task: DotNetCoreCLI@2

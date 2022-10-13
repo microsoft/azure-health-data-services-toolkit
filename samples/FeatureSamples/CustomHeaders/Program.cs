@@ -37,8 +37,8 @@ builder.ConfigureServices(services =>
     services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.RequestIdentity);
 
     // Response static headers are always added on the response
-    services.AddCustomHeader("X-MS-Proxy", "Azure Health Data Services Toolkit", CustomHeaderType.ResponesStatic);
-    
+    services.AddCustomHeader("X-MS-Proxy", "Azure Health Data Services Toolkit", CustomHeaderType.ResponseStatic);
+
     services.AddSingleton<IMyService, MyService>();
 });
 
