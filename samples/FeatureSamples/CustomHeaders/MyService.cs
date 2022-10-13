@@ -14,7 +14,7 @@ namespace CustomHeadersSample
 
         public NameValueCollection GetCustomHeaders(HttpRequestMessage message)
         {
-            return customHeaders.AppendAndReplace(message);
+            return customHeaders.RequestAppendAndReplace(message);
         }
     }
 }

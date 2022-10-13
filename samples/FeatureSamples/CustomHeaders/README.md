@@ -1,6 +1,6 @@
 # Injecting Custom Headers into your Custom Operations
 
-This sample shows you how to work with the custom header utilities in the Azure Health Data Services toolkit. We'll cover the three different types of headers modifications in this sample.
+This sample shows you how to work with the custom header utilities in the Azure Health Data Services Toolkit. We'll cover the four different types of headers modifications in this sample.
 
 This sample doesn't contain a full custom operation pipeline, but is scoped to headers only.
 
@@ -11,11 +11,14 @@ This sample doesn't require any setup or any access to Azure Resources because i
 This sample covers the following concepts:
 
 - Header modification service configuration.
-- Static headers which are always injected into the request.
-- Request headers which are injected if the header exists on the request.
-- Identity headers which inject a header from a claim in an bearer token.
+- Request static headers which are always injected into the request.
+- Request match headers which are injected if the header exists on the request.
+- Request identity headers which inject a header from a claim in a request bearer token.
+- Response static headers which are always injected into the response.
 
-Header modification is useful when you want to log information from the incoming request, especially using the [header logging capabilities](https://docs.microsoft.com//azure/healthcare-apis/azure-api-for-fhir/use-custom-headers) in the FHIR service.
+Request header modifications are useful when you want to log information from the incoming request, especially using the [header logging capabilities](https://docs.microsoft.com//azure/healthcare-apis/azure-api-for-fhir/use-custom-headers) in the FHIR service.
+
+Response header modifications are useful when you want to return headers to the requesting client.
 
 ## Prerequisites
 

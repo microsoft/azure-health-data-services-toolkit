@@ -7,7 +7,7 @@ using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
+namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class RetryTests

@@ -1,6 +1,6 @@
 # Sending/Receiving Data with Event Hubs Channel
 
-This sample shows you how you can *send and receive* data to/from Azure Event Hubs using a channel in the Azure Health Data Services toolkit. This is useful for notifying other systems of data in your pipelines or receiving data from other services.
+This sample shows you how you can *send and receive* data to/from Azure Event Hubs using a channel in the Azure Health Data Services Toolkit. This is useful for notifying other systems of data in your pipelines or receiving data from other services.
 
 ## Concepts
 

@@ -33,8 +33,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
                 options.ExecutionStatus = DataServices.Pipelines.StatusType.Any;
             });
             services.UseCustomHeaders();
-            services.AddCustomHeader("X-MS-Test", "customvalue", CustomHeaderType.Static);
-            services.AddCustomHeader("X-MS-Identity", "name", CustomHeaderType.Identity);
+            services.AddCustomHeader("X-MS-Test", "customvalue", CustomHeaderType.RequestStatic);
+            services.AddCustomHeader("X-MS-Identity", "name", CustomHeaderType.RequestIdentity);
 
             services.AddRouting();
             services.AddMvcCore();

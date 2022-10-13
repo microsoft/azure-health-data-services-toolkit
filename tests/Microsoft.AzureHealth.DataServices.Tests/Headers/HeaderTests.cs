@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void HttpCustomHeaderCollection_Add_Test()
         {
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.Static);
-            HeaderNameValuePair nvp3 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp3 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -36,8 +37,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void HttpCustomHeaderCollection_Remove_Test()
         {
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -49,9 +50,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void HttpCustomHeaderCollection_RemoveAt_Test()
         {
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.Static);
-            HeaderNameValuePair nvp3 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair("name1", "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp3 = new HeaderNameValuePair("name2", "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2, nvp3 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -65,8 +66,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_GetEnumerator_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
             HttpCustomHeaderCollection headers = new(items);
 
@@ -84,8 +85,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_ToArray_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -99,8 +100,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_Contains_True_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -111,9 +112,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_Contains_False_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
-            HeaderNameValuePair fake = new HeaderNameValuePair("boom", "bang", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair fake = new HeaderNameValuePair("boom", "bang", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -124,8 +125,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_IndexOf_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -136,9 +137,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_Insert_Test()
         {
             string[] names = new string[] { "name1", "name2", "name3" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
-            HeaderNameValuePair nvp3 = new HeaderNameValuePair(names[2], "bang", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp3 = new HeaderNameValuePair(names[2], "bang", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -154,8 +155,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public void HttpCustomHeaderCollection_Clear_Test()
         {
             string[] names = new string[] { "name1", "name2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], "value1", CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], "value2", CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
@@ -170,15 +171,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         {
             string[] names = new string[] { "header1", "header2", "name1", "name2" };
             string[] values = new string[] { "v1", "v2", "value1", "value2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[2], values[2], CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[3], values[3], CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[2], values[2], CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[3], values[3], CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.AppendAndReplace(httpRequestMessage);
+            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count + 2, "Count headers mismatch.");
             Assert.AreEqual(names[0], nvc.GetKey(0), "Not name.");
@@ -196,15 +197,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         {
             string[] names = new string[] { "name1", "name2", "name1", "name2" };
             string[] values = new string[] { "v1", "v2", "value1", "value2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[2], values[2], CustomHeaderType.Static);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[3], values[3], CustomHeaderType.Static);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[2], values[2], CustomHeaderType.RequestStatic);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[3], values[3], CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.AppendAndReplace(httpRequestMessage);
+            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count, "Count headers mismatch.");
             Assert.AreEqual(names[0], nvc.GetKey(0), "Not name.");
@@ -213,21 +214,20 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             Assert.AreEqual(values[3], nvc.GetValues(1)[0], "Not value.");
         }
 
-
         [TestMethod]
         public void HttpCustomHeaderCollection_GetRequestHeaders_Test()
         {
             string[] names = new string[] { "name1", "name2", "xname1", "xname2" };
             string[] values = new string[] { "v1", "v2" };
-            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], names[2], CustomHeaderType.Request);
-            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], names[3], CustomHeaderType.Request);
+            HeaderNameValuePair nvp1 = new HeaderNameValuePair(names[0], names[2], CustomHeaderType.RequestMatch);
+            HeaderNameValuePair nvp2 = new HeaderNameValuePair(names[1], names[3], CustomHeaderType.RequestMatch);
             IHeaderNameValuePair[] items = new IHeaderNameValuePair[] { nvp1, nvp2 };
 
             HttpCustomHeaderCollection headers = new(items);
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.AppendAndReplace(httpRequestMessage);
+            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count, "Count headers mismatch.");
             Assert.AreEqual(names[2], nvc.GetKey(0), "Not name.");
@@ -245,15 +245,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             string[] names = new string[] { "Location", "X-MS-IDENTITY", "X-MS-EMAIL" };
             string[] values = new string[] { "Basement", "name", "email" };
 
-            HeaderNameValuePair nvp1 = new(names[1], values[1], CustomHeaderType.Identity);
-            HeaderNameValuePair nvp2 = new(names[2], values[2], CustomHeaderType.Identity);
+            HeaderNameValuePair nvp1 = new(names[1], values[1], CustomHeaderType.RequestIdentity);
+            HeaderNameValuePair nvp2 = new(names[2], values[2], CustomHeaderType.RequestIdentity);
             IHeaderNameValuePair[] items = new HeaderNameValuePair[] { nvp1, nvp2 };
             HttpCustomHeaderCollection headers = new(items);
             HttpRequestMessage request = new();
             request.Headers.Authorization = new("http", $"Bearer {jwtString}");
             request.Headers.Add(names[0], values[0]);
 
-            var nvc = headers.AppendAndReplace(request);
+            var nvc = headers.RequestAppendAndReplace(request);
             nvc.Remove("Authorization");
 
             Assert.IsTrue(nvc.Count == headers.Count + 1, "Count headers mismatch.");
@@ -265,7 +265,27 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             Assert.AreEqual(val2, nvc.GetValues(2)[0], "Not value.");
         }
 
+        [TestMethod]
+        public void HttpCustomHeaderCollection_UpdateFromResponse_Test()
+        {
+            IHeaderNameValuePair[] items = new IHeaderNameValuePair[] {
+                new HeaderNameValuePair("RequestName1", "RequestValue1", CustomHeaderType.RequestStatic),
+                new HeaderNameValuePair("ResponseName1", "ResponseValue1", CustomHeaderType.ResponseStatic),
+                new HeaderNameValuePair("ResponseName2", "ResponseValue2", CustomHeaderType.ResponseStatic),
+            };
 
+            HttpCustomHeaderCollection headers = new(items);
+            HttpResponseMessage response = new();
+            response.Headers.Add("ResponseName1", "fail");
+            response.Headers.Add("ResponseName3", "ResponseValue3");
+            headers.UpdateFromResponse(response);
+
+            var responseHeaders = headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic).ToList();
+            Assert.IsTrue(responseHeaders.Count == 3, "Count headers mismatch.");
+            Assert.IsTrue(responseHeaders[0].Name == "ResponseName1" && responseHeaders[0].Value == "ResponseValue1");
+            Assert.IsTrue(responseHeaders[1].Name == "ResponseName2" && responseHeaders[1].Value == "ResponseValue2");
+            Assert.IsTrue(responseHeaders[2].Name == "ResponseName3" && responseHeaders[2].Value == "ResponseValue3");
+        }
 
         #endregion
 

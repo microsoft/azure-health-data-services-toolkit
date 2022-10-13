@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
+namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class OperationContextTests

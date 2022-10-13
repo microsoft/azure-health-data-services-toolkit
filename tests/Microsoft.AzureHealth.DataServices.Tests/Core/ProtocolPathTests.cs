@@ -2,7 +2,7 @@
 using Microsoft.AzureHealth.DataServices.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
+namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class ProtocolPathTests

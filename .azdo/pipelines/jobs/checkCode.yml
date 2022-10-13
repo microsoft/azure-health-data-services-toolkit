@@ -15,11 +15,18 @@ steps:
     arguments: 'update -g dotnet-format'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Lint with dotnet format'
+  displayName: 'Lint Toolkit'
   inputs:
     command: 'custom'
     custom: 'format'
     arguments: 'Microsoft.AzureHealth.DataServices.Toolkit.sln --verify-no-changes --verbosity diagnostic'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Lint Toolkit'
+  inputs:
+    command: 'custom'
+    custom: 'format'
+    arguments: 'samples/Samples.sln --verify-no-changes --verbosity diagnostic'
 
 - task: CredScan@3
   inputs:

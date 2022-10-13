@@ -25,16 +25,20 @@ builder.ConfigureServices(services =>
     // Inform the pipeline that we are using Custom Headers
     services.UseCustomHeaders();
 
-    // Static headers are always added
-    services.AddCustomHeader("X-ServiceSource", "CustomHeaderTest", CustomHeaderType.Static);
-    services.AddCustomHeader("X-EnvironmentName", environmentName, CustomHeaderType.Static);
+    // Request static headers are always added to requests
+    services.AddCustomHeader("X-ServiceSource", "CustomHeaderTest", CustomHeaderType.RequestStatic);
+    services.AddCustomHeader("X-EnvironmentName", environmentName, CustomHeaderType.RequestStatic);
 
-    // Request headers are only added if the headers exists on the request
-    services.AddCustomHeader("X-Custom-Location", "X-FHIR-Location", CustomHeaderType.Request);
-    services.AddCustomHeader("X-Custom-Geo", "X-FHIR-Geography", CustomHeaderType.Request);
+    // Request match headers are only added if the headers exists on the request
+    services.AddCustomHeader("X-Custom-Location", "X-FHIR-Location", CustomHeaderType.RequestMatch);
+    services.AddCustomHeader("X-Custom-Geo", "X-FHIR-Geography", CustomHeaderType.RequestMatch);
 
-    // The "name" claim will be extracted and mapped to the "X-MS-Test" header
-    services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.Identity);
+    // The "name" claim will be extracted and mapped to the "X-MS-Test" header on requests
+    services.AddCustomHeader("X-MS-TEST", "name", CustomHeaderType.RequestIdentity);
+
+    // Response static headers are always added on the response
+    services.AddCustomHeader("X-MS-Proxy", "Azure Health Data Services Toolkit", CustomHeaderType.ResponseStatic);
+
     services.AddSingleton<IMyService, MyService>();
 });
 

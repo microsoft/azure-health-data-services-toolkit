@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
@@ -11,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
+namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class BindingTests
@@ -89,6 +92,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
             string expectedContext = "{ \"name\": \"value\" }";
             var request = new HttpRequestMessage(HttpMethod.Get, uriString);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "token");
+            request.Headers.Add("TestHeader", "TestValue");
             OperationContext context = new()
             {
                 Request = request,
@@ -97,6 +101,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
                 ServerUrl = uriString,
+                AddResponseHeaders = true,
             });
 
             IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
@@ -137,6 +142,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
             Assert.AreEqual(argBindingName, binding.Name, "Name mismatch.");
             Assert.AreEqual(argContext.Request.Method, actualContext.Request.Method, "Method mismatch.");
             Assert.AreEqual(argContext.Request.RequestUri.ToString(), actualContext.Request.RequestUri.ToString(), "Request URI mismatch.");
+
+            // Echo API sends request headers back so we can look for Authorization header
+            Assert.IsTrue(actualContext.Headers.Where(x => x.Name == "TestHeader" && x.Value == "TestValue" && x.HeaderType == CustomHeaderType.ResponseStatic).Count() == 1);
             Assert.AreEqual(expectedContext, actualResult, "Content mismatch.");
         }
     }

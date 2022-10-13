@@ -41,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            NameValueCollection nvc = customerHeaders.AppendAndReplace(context.Request);
+            NameValueCollection nvc = customerHeaders.RequestAppendAndReplace(context.Request);
             TestMessage msg = new() { Value = "filter" };
             string json = JsonConvert.SerializeObject(msg);
             RestRequestBuilder builder = new RestRequestBuilder(method, baseUrl, "", path, null, nvc, Encoding.UTF8.GetBytes(json), "application/json");

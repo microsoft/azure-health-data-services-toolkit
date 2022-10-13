@@ -13,8 +13,9 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using System.Linq;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
+namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class PipelineTests
@@ -442,5 +443,19 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Proxy
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Http status code mismatch.");
         }
 
+        [TestMethod]
+        public async Task WebPipeline_OutputsResponseHeaders_Test()
+        {
+            string requestUriString = "http://example.org/path";
+            IInputFilterCollection filters = new InputFilterCollection();
+            filters.Add(new FakeFilterWithContent());
+
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters);
+
+            HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
+            HttpResponseMessage output = await pipeline.ExecuteAsync(request);
+            Assert.IsTrue(output.Headers.Contains("TestName"));
+            Assert.IsTrue(output.Headers.GetValues("TestName").First() == "TestValue");
+        }
     }
 }

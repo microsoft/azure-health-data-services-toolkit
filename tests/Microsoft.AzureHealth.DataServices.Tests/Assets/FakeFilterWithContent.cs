@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 
@@ -40,6 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
         {
             string content = "{ \"property\": \"value\" }";
             context.ContentString = content;
+            context.Headers.Add(new HeaderNameValuePair("TestName", "TestValue", CustomHeaderType.ResponseStatic));
             return await Task.FromResult<OperationContext>(context);
         }
     }

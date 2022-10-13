@@ -14,6 +14,15 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
     public class HttpCustomHeaderCollection : IHttpCustomHeaderCollection
     {
         /// <summary>
+        /// Creates an empty instance of HttpCustomHeaderCollection.
+        /// </summary>
+        public HttpCustomHeaderCollection() :
+            this(new IHeaderNameValuePair[] { })
+        {
+
+        }
+
+        /// <summary>
         /// Creates an instance of HttpCustomHeaderCollection.
         /// </summary>
         /// <param name="items">Items to initialize the collection.</param>
@@ -119,17 +128,17 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         }
 
         /// <summary>
-        /// Appends and replaces existing headers with custom headers and returns the modified collection headers.
+        /// Appends and replaces existing request headers with custom headers and returns the modified collection headers.
         /// </summary>
         /// <param name="request">Http request message.</param>
         /// <returns>Modified collection headers</returns>
-        public NameValueCollection AppendAndReplace(HttpRequestMessage request)
+        public NameValueCollection RequestAppendAndReplace(HttpRequestMessage request)
         {
             NameValueCollection nvc = request.GetHeaders();
 
             foreach (IHeaderNameValuePair item in headers)
             {
-                if (item.HeaderType == CustomHeaderType.Static)
+                if (item.HeaderType == CustomHeaderType.RequestStatic)
                 {
                     if (!string.IsNullOrEmpty(nvc[item.Name]))
                         nvc.Remove(item.Name);
@@ -137,11 +146,10 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
                     nvc.Add(item.Name, item.Value);
                 }
 
-                if (item.HeaderType == CustomHeaderType.Identity)
+                if (item.HeaderType == CustomHeaderType.RequestIdentity)
                 {
                     var principal = request.GetClaimsPrincipal();
-                    var identity = principal.Identity;
-                    if (principal.HasClaim(claim => claim.Type == item.Value))
+                    if (principal is not null && principal.HasClaim(claim => claim.Type == item.Value))
                     {
                         IEnumerable<Claim> claimset = principal.Claims.Where(claim => claim.Type == item.Value);
                         foreach (var claim in claimset)
@@ -154,7 +162,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
                     }
                 }
 
-                if (item.HeaderType == CustomHeaderType.Request)
+                if (item.HeaderType == CustomHeaderType.RequestMatch)
                 {
                     if (!string.IsNullOrEmpty(nvc[item.Name]))
                     {
@@ -166,6 +174,25 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
             }
 
             return nvc;
+        }
+
+        /// <summary>
+        /// Updates this header collection from a HttpResponseMessage
+        /// </summary>
+        /// <param name="response">Http response message.</param>
+        public void UpdateFromResponse(HttpResponseMessage response)
+        {
+            var responseHeaderEnumerator = response.Headers.GetEnumerator();
+            while (responseHeaderEnumerator.MoveNext())
+            {
+                var current = responseHeaderEnumerator.Current;
+
+                // If the current input element does not match a static response header in our existing collection
+                if (!headers.Where(x => x.Name == current.Key && x.HeaderType == CustomHeaderType.ResponseStatic).Any())
+                {
+                    headers.Add(new HeaderNameValuePair(current.Key, current.Value.First(), CustomHeaderType.ResponseStatic));
+                }
+            }
         }
 
         /// <summary>
