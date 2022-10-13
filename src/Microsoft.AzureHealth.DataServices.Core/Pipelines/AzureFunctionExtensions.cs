@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
@@ -62,6 +63,13 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public static async Task<HttpResponseData> ConvertToHttpResponseDataAsync(this HttpResponseMessage message, HttpRequestData request)
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);
+
+            var messageHeaders = message.GetHeaders();
+            foreach (var messageHeaderKey in messageHeaders.AllKeys)
+            {
+                data.Headers.Add(messageHeaderKey, messageHeaders[messageHeaderKey]);
+            }
+
             string content = await message.Content?.ReadAsStringAsync();
 
             if (content != null)

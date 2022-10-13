@@ -137,12 +137,13 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
                 context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
                 HttpResponseMessage response = new(context.StatusCode);
-                response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
 
                 foreach (var header in context.Headers.Where(x => x.HeaderType == Clients.Headers.CustomHeaderType.ResponseStatic))
                 {
                     response.Headers.Add(header.Name, header.Value);
                 }
+
+                response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
 
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
