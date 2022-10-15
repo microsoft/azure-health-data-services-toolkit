@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{55081F1E-460
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{90B392B4-BC7D-4221-BCD0-FF6FF04EAB56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zsamples", "zsamples", "{C28090B7-2D76-46A9-AFF1-6F8CAB453A37}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "z_samples", "z_samples", "{C28090B7-2D76-46A9-AFF1-6F8CAB453A37}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticatorSample", "samples\FeatureSamples\Authenticator\AuthenticatorSample.csproj", "{C9A997BE-A480-479A-B32B-E9407072EF83}"
 EndProject

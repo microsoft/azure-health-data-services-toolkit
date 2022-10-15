@@ -74,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
 
             try
             {
-                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request);
+                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
                 string securityToken = null;
                 if (authenticator != null)
