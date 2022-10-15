@@ -131,10 +131,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// Appends and replaces existing request headers with custom headers and returns the modified collection headers.
         /// </summary>
         /// <param name="request">Http request message.</param>
+        /// <param name="restricted">Restrict to user editable headers?</param>
         /// <returns>Modified collection headers</returns>
-        public NameValueCollection RequestAppendAndReplace(HttpRequestMessage request)
+        public NameValueCollection RequestAppendAndReplace(HttpRequestMessage request, bool restricted = true)
         {
-            NameValueCollection nvc = request.GetHeaders();
+            NameValueCollection nvc = request.GetHeaders(restricted);
 
             foreach (IHeaderNameValuePair item in headers)
             {
