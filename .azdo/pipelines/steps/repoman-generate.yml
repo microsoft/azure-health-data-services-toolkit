@@ -1,0 +1,42 @@
+parameters:
+  TargetBranchName: $(TargetBranchName)
+  RemoteName: azure-samples-main
+  GitHubPat: $(repoman-github-pat)
+  Username: mikaelweave
+  Email: mikael.weaver@microsoft.com
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 16
+
+  - pwsh: |
+      git config --global user.name "${{ parameters.Username }}"
+      git config --global user.email "${{ parameters.Email }}"
+      Set-Content `
+        -Value "https://${{ parameters.Username }}:${{ parameters.GitHubPat }}@github.com" `
+        -Path ~/.git-credentials
+      git config --global credential.helper "store"
+    displayName: Set global git credentials
+
+  - pwsh: npm install
+    displayName: Install dependencies
+    workingDirectory: .azdo/generators/repo
+
+  - pwsh: npm run build
+    displayName: Build
+    workingDirectory: .azdo/generators/repo
+
+  - pwsh: npm link
+    displayName: Install repoman locally
+    workingDirectory: .azdo/generators/repo
+
+  - task: PowerShell@2
+    displayName: Generate Azure-Samples repos
+    inputs:
+      pwsh: true
+      targetType: filePath
+      filePath: .azdo/generators/repo/Invoke-RepomanGenerate.ps1
+      arguments: >-
+        -TargetBranchName "${{ parameters.TargetBranchName }}"
+        -RemoteName "${{ parameters.RemoteName }}"
