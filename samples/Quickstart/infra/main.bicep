@@ -22,7 +22,8 @@ param existingFhirServiceName string = ''
 param existingResourceGroupName string = ''
 
 var envRandomString = toLower(uniqueString(subscription().id, name, existingResourceGroupName, location))
-var resourcePrefix = '${substring(name, 0, 11)}-${substring(envRandomString, 0, 5)}'
+var nameShort = length(name) > 11 ? substring(name, 0, 11) : name
+var resourcePrefix = '${nameShort}-${substring(envRandomString, 0, 5)}'
 
 var createResourceGroup = empty(existingResourceGroupName) ? true : false
 var createWorkspace = empty(existingAzureHealthDataServicesWorkspaceName) ? true : false
