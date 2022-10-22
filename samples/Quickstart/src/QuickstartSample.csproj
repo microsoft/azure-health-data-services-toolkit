@@ -23,7 +23,7 @@
 
   <!-- Default to version 1.0.0 if SdkVersion is not set -->
   <ItemGroup Condition="'$(SdkVersion)' == ''">
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="0.9.34-prerelease" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="*" />
   </ItemGroup>
 
   <!-- Default to referencing the project in this repo if local  -->
