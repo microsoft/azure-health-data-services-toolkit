@@ -18,6 +18,7 @@ namespace Quickstart.Filters
             _id = Guid.NewGuid().ToString();
             _telemetryClient = telemetryClient;
             _logger = logger;
+            _status = StatusType.Normal;
         }
 
         private readonly string _id;
