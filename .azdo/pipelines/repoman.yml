@@ -80,12 +80,12 @@ stages:
               targetType: filePath
               filePath: ./eng/scripts/Update-PRComment.ps1
               arguments: >-
-                -Repo 'azure/azure-dev'
+                -Repo 'microsoft/azure-health-data-services-toolkit'
                 -PRNumber '$(PRNumber)'
                 -BodyFile '$(CommentBodyFile)'
                 -Tag '<!-- #comment-repoman-generate -->'
             env:
-              GH_TOKEN: $(azuresdk-github-pat)
+              GH_TOKEN: $(repoman-github-pat)
 
       - job: Publish_Staging
         condition: >-
@@ -132,7 +132,7 @@ stages:
       )
     jobs:
     - deployment: Publish_Repos
-      environment: azure-dev
+      environment: github
       pool:
           vmImage: $(VmImage)
 
