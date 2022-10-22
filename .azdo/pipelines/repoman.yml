@@ -5,7 +5,7 @@ trigger:
       - samples/Quickstart
       - .azdo/pipelines/repoman.yml
   branches: 
-    include:k 
+    include:
       - main
 
 pr:
