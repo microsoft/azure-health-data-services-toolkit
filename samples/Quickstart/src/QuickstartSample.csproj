@@ -21,7 +21,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
-  <!-- Default to version 1.0.0 if SdkVersion is not set -->
+  <!-- Default to latest version if SdkVersion is not set -->
   <ItemGroup Condition="'$(SdkVersion)' == ''">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="*" />
   </ItemGroup>
