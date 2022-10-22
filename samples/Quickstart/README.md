@@ -1,4 +1,4 @@
----
+<!-----
 page_type: sample
 languages:
 - csharp
@@ -6,7 +6,7 @@ products:
 - azure
 - azure-healthcare-apis
 description: Get started quickly with the Azure Health Data Services Toolkit on Azure Functions
----
+----->
 # Azure Health Data Services Toolkit Azure Function Custom Operation Quickstart
 
 This quickstart will walk you through creating a simple custom operation on top of the FHIR Service using Azure Functions. We'll cover everything from deploying infrastructure, debugging locally, and deploying to Azure.
@@ -67,7 +67,7 @@ This quickstart will create the below resources. These will be used both for loc
     azd deploy
     ```
 
-*Note: For more information for developing on the Azure Health Data Services Toolkit, check out the [concepts document](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/concepts.md).
+*Note*: For more information for developing on the Azure Health Data Services Toolkit, check out the [concepts document](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/concepts.md).
 
 ## Testing locally
 

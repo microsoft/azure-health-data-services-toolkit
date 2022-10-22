@@ -14,31 +14,21 @@ repo:
       url: git@github.com:Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart.git
       branch: staging
 
+  rewrite:
+    rules:
+      - from: "<!--"
+        to: ""
+        patterns:
+          - "README.md"
+
+      - from: "-->"
+        to: ""
+        patterns:
+          - "README.md"
+
   assets:
     # Common assets
-    - from: ./.vscode/
-      to: ./.vscode
-
-    # Infra
-    - from: ./infra/
-      to: ./infra
-
-    # Code
-    - from: ./src/
-      to: ./src
-
-    # Tests
-    - from: ./tests/
-      to: ./tests
-
-    # Azure.yml
-    - from: ./azure.yaml
-      to: ./azure.yaml
-
-    # Solution
-    - from: ./QuickstartSample.sln
-      to: ./QuickstartSample.sln
-
-    # README
-    - from: ./README.md
-      to: ./README.md
+    - from: ./
+      to: ./
+      ignore:
+        - repo.yaml
