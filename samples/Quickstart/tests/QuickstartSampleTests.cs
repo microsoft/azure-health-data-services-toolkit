@@ -18,8 +18,8 @@ namespace QuickstartSample.Tests
 {
     public class QuickstartSampleTests
     {
-        private static MyServiceConfig config;
-        private static ITestOutputHelper testContext;
+        private static MyServiceConfig? config;
+        private static ITestOutputHelper? testContext;
 
         public QuickstartSampleTests(ITestOutputHelper context)
         {
@@ -30,7 +30,6 @@ namespace QuickstartSample.Tests
             IConfigurationRoot root = builder.Build();
             config = new MyServiceConfig();
             root.Bind(config);
-
         }
 
         [Fact]
@@ -41,7 +40,7 @@ namespace QuickstartSample.Tests
             {
                 IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
                 Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config.FhirServerUrl);
+                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
@@ -55,7 +54,7 @@ namespace QuickstartSample.Tests
             }
             catch (Exception ex)
             {
-                testContext.WriteLine(ex.StackTrace);
+                testContext!.WriteLine(ex.StackTrace);
             }
         }
 
@@ -68,7 +67,7 @@ namespace QuickstartSample.Tests
                 string Id = "85e2e069-e2e5-48ba-9b22-4af8653a9b17";
                 IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
                 Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config.FhirServerUrl);
+                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
@@ -79,14 +78,14 @@ namespace QuickstartSample.Tests
                 var content = await msg.Content.ReadAsStringAsync();
                 Assert.NotNull(content);
                 Assert.False(string.IsNullOrEmpty(content));
-                testContext.WriteLine(content);
+                testContext!.WriteLine(content);
                 JToken jsonToken = JToken.Parse(content);
                 Assert.NotNull(jsonToken);
-                Assert.Equal("Bundle", jsonToken.SelectToken("$.resourceType").Value<string>());
+                Assert.Equal("Bundle", jsonToken.SelectToken("$.resourceType")!.Value<string>());
             }
             catch (Exception ex)
             {
-                testContext.WriteLine(ex.StackTrace);
+                testContext!.WriteLine(ex.StackTrace);
             }
         }
 
@@ -101,7 +100,7 @@ namespace QuickstartSample.Tests
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
                 IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
                 Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config.FhirServerUrl);
+                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
@@ -114,7 +113,7 @@ namespace QuickstartSample.Tests
                 HttpStatusCode statusCode = HttpStatusCode.OK;
                 Assert.Equal(statusCode, msg.StatusCode);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -129,7 +128,7 @@ namespace QuickstartSample.Tests
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
                 IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
                 Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config.FhirServerUrl);
+                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
@@ -142,7 +141,7 @@ namespace QuickstartSample.Tests
             }
             catch (Exception ex)
             {
-                testContext.WriteLine(ex.StackTrace);
+                testContext!.WriteLine(ex.StackTrace);
             }
         }
 

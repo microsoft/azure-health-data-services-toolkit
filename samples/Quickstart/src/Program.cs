@@ -43,7 +43,7 @@ using IHost host = new HostBuilder()
 
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
-        services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.Static);
+        services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
 
         // Setup pipeline for Azure function
         services.UseAzureFunctionPipeline();
