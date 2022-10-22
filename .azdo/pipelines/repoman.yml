@@ -113,7 +113,7 @@ stages:
               }
               Write-Host "##vso[task.setvariable variable=TargetBranchName]$targetBranchName"
             displayName: Set TargetBranchName
-          - template: /eng/pipelines/templates/steps/repoman-generate.yml
+          - template: /.azdo/pipelines/steps/repoman-generate.yml
             parameters:
               TargetBranchName: $(TargetBranchName)
               RemoteName: $(StagingRemoteName)
@@ -150,7 +150,7 @@ stages:
                   }
                   Write-Host "##vso[task.setvariable variable=TargetBranchName]$targetBranchName"
                 displayName: Set TargetBranchName
-              - template: /eng/pipelines/templates/steps/repoman-generate.yml
+              - template: /.azdo/pipelines/steps/repoman-generate.yml
                 parameters:
                   TargetBranchName: $(TargetBranchName)
                   RemoteName: azure-samples-main
