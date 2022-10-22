@@ -1,0 +1,44 @@
+templateApi: 1.0.0
+metadata:
+  type: repo
+  name: azure-health-data-services-toolkit-fhir-function-quickstart
+  description: Quickstart for FHIR Function App with Azure Health Data Services Toolkit 
+
+repo:
+  includeProjectAssets: false
+
+  remotes:
+    - name: azure-samples-main
+      url: git@github.com:Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart.git
+    - name: azure-samples-staging
+      url: git@github.com:Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart.git
+      branch: staging
+
+  assets:
+    # Common assets
+    - from: ./.vscode/
+      to: ./.vscode
+
+    # Infra
+    - from: ./infra/
+      to: ./infra
+
+    # Code
+    - from: ./src/
+      to: ./src
+
+    # Tests
+    - from: ./tests/
+      to: ./tests
+
+    # Azure.yml
+    - from: ./azure.yaml
+      to: ./azure.yaml
+
+    # Solution
+    - from: ./QuickstartSample.sln
+      to: ./QuickstartSample.sln
+
+    # README
+    - from: ./README.md
+      to: ./README.md
