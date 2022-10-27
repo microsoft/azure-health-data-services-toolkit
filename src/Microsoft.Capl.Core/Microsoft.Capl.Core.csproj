@@ -16,7 +16,7 @@
     <PackageId>Microsoft.Capl.Core</PackageId>
     <PackageTags>CAPL; Access Control; Authorization</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

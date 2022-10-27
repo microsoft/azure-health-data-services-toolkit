@@ -1,6 +1,6 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @azure/health-data-services-toolkit-admins will be requested for
+# @microsoft/azure-health-data-services-toolkit-admins will be requested for
 # review when someone opens a pull request.
 # Lines starting with '#' are comments.
 

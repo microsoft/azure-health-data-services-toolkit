@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <Company>Microsoft Corporation</Company>
-    <Product>Microsoft(R) Azure Health Data Services</Product>
-    <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
+    <Product>Microsoft(R) Azure Health Data Services Toolkit</Product>
+    <Description>Storage library to assist with creating custom operations for Azure Health Data Services.</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
     <Authors>Microsoft</Authors>
 
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>Microsoft.AzureHealth.DataServices.Sdk.Storage</AssemblyName>
+    <AssemblyName>Microsoft.AzureHealth.DataServices.Storage</AssemblyName>
 
-    <Title>Azure Health Data Services Sdk Storage library</Title>
+    <Title>Azure Health Data Services Toolkit Storage Library</Title>
     <PackageId>Microsoft.AzureHealth.DataServices.Storage</PackageId>
     <PackageTags>microsoft;azure;azurehealthdataservices;healthdataservices;fhir;</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Azure/health-data-services-sdk/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

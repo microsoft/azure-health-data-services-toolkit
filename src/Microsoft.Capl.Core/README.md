@@ -1,5 +1,5 @@
 
-![CAPL](https://raw.githubusercontent.com/Azure/health-data-services-sdk/main/docs/images/readme-capl.png)
+![CAPL](https://raw.githubusercontent.com/microsoft/azure-health-data-services-toolkit/main/docs/images/readme-capl.png)
 
 ## Claims Authorization Policy Language
 #### JSON serialization version for access control
@@ -12,7 +12,7 @@ Claims Authorization Policy Language, CAPL, is a serializable, logic-based, secu
  
 CAPL is intended to be used by applications, where the application enforces access control decisions using CAPL policies. Because the policies are serializable, applications can acquire authorization policies from data stores or other services and control how policies are refreshed.  This means that access control within applications can be managed externally without the need to redeploy applications.
 
-Additional information regarding encoding and definitions [here](https://github.com/microsoft/capl/blob/main/docs/policy.md)
+Additional information regarding encoding and definitions [here](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/capl/policy.md)
 
 Evaluation expressions can be **simple**, e.g., (a==b), or **complex**, e.g., [(a==b)||(c<d)].  CAPL rules are used to create simple expressions and logical connectives, i.e., logical AND or logical OR, are used to form complex expressions.
 

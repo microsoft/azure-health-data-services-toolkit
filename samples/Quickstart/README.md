@@ -103,7 +103,7 @@ This quickstart will create the below resources. These will be used both for loc
 - Please refer `QuickstartFilter.cs` file for input filter modifications in the Patient Data.
   - Added language to resource as ‘en’ (English)
   - If there is no `Patient.meta.security` label, added [HTEST](https://www.hl7.org/fhir/resource-definitions.html#Meta.security)
-- Custom operation QuickstartSample end point methods listed below 
+- Custom operation QuickstartSample end point methods listed below.
   - GET: used to get the patient details using patient id.
   - POST: creates new patient record with updated filter data which is given above,to verify the new created record use GET method and pass created id.
   - PUT: it updates the patient data, need to pass patient id,to verify the updated record use GET method and pass updated id.
