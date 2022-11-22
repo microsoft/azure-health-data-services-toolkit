@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
@@ -83,7 +84,10 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <summary>
         /// Default User-Agent http header.
         /// </summary>
-        public static string DefaultUserAgentHeader = "Microsoft.Health.DataServices.Toolkit";
+        public static ProductHeaderValue DefaultUserAgentHeader = new ProductHeaderValue(
+            "Microsoft.AzureHealth.DataServices.Toolkit", 
+            Assembly.GetExecutingAssembly().GetName().Version.ToString()
+        );
 
         /// <summary>
         /// Gets the base url of the request.
@@ -164,30 +168,17 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 Headers.Remove("Authorization");
                 Headers.Remove("Accept");
                 Headers.Remove("Host");
-                Headers.Add("Host", new Uri(BaseUrl).Authority);
-
-                var userAgentHeaderList = Headers.Get("User-Agent").Split("/");
                 Headers.Remove("User-Agent");
 
                 foreach (string item in Headers.AllKeys)
                 {
                     request.Headers.Add(item, Headers.Get(item));
                 }
-
-                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(DefaultUserAgentHeader)));
-                foreach (var agent in userAgentHeaderList)
-                {
-                    request.Headers.UserAgent.Add(new ProductInfoHeaderValue(agent));
-                }
-
             }
-            else
-            {
-                request.Headers.Add("Host", new Uri(BaseUrl).Authority);
-                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(DefaultUserAgentHeader)));
-            }
-
+            
+            request.Headers.Add("Host", new Uri(BaseUrl).Authority);
             request.Headers.Add("Accept", ContentType);
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
 
             if (Content != null)
             {
