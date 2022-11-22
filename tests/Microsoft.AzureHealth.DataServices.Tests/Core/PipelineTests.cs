@@ -107,7 +107,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             filters.Add(filter1);
             filters.Add(filter2);
 
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, null, null, null, null, logger);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, logger: logger);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -146,7 +146,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             filters.Add(filter1);
             filters.Add(filter2);
 
-            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, null, null, null, null, logger);
+            IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, channels, logger: logger);
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>

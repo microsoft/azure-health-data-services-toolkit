@@ -165,19 +165,25 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 Headers.Remove("Accept");
                 Headers.Remove("Host");
                 Headers.Add("Host", new Uri(BaseUrl).Authority);
+
+                var userAgentHeaderList = Headers.Get("User-Agent").Split("/");
+                Headers.Remove("User-Agent");
+
                 foreach (string item in Headers.AllKeys)
                 {
                     request.Headers.Add(item, Headers.Get(item));
                 }
+
+                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(DefaultUserAgentHeader)));
+                foreach (var agent in userAgentHeaderList)
+                {
+                    request.Headers.UserAgent.Add(new ProductInfoHeaderValue(agent));
+                }
+
             }
             else
             {
-                Headers = new NameValueCollection();
-                Headers.Add("Host", new Uri(BaseUrl).Authority);
-            }
-
-            if (request.Headers.UserAgent.Count == 0)
-            {
+                request.Headers.Add("Host", new Uri(BaseUrl).Authority);
                 request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(DefaultUserAgentHeader)));
             }
 

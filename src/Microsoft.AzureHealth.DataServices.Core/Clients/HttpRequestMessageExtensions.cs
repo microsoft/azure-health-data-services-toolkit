@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Azure;
-using Azure.Core;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
+using Microsoft.Net.Http.Headers;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
@@ -51,6 +52,40 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             }
 
             return nvc;
+        }
+
+        private static readonly List<string> _contentHeaderNames = new List<string>
+        {
+            HeaderNames.Accept,
+            HeaderNames.ContentDisposition,
+            HeaderNames.ContentEncoding,
+            HeaderNames.ContentLanguage,
+            HeaderNames.ContentLength,
+            HeaderNames.ContentLocation,
+            HeaderNames.ContentRange,
+            HeaderNames.ContentType,
+            HeaderNames.Expires,
+            HeaderNames.LastModified,
+        };
+
+        /// <summary>
+        /// Adds custom headers to a HttpResponseMessage object
+        /// </summary>
+        /// <param name="response">Response data to modify.</param>
+        /// <param name="headers">Custom headers collection.</param>
+        public static void AddCustomHeadersToResponse(this HttpResponseMessage response, IHttpCustomHeaderCollection headers)
+        {
+            foreach (var header in headers.Where(x => x.HeaderType == Clients.Headers.CustomHeaderType.ResponseStatic))
+            {
+                if (_contentHeaderNames.Any(x => x.ToLowerInvariant() == header.Name.ToLowerInvariant()))
+                {
+                    response.Content.Headers.Add(header.Name, header.Value);
+                }
+                else if (!header.Name.Equals("Server", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    response.Headers.Add(header.Name, header.Value);
+                }
+            }
         }
     }
 }

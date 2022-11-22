@@ -5,6 +5,7 @@ using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
@@ -24,12 +25,13 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="binding">Optional binding. </param>
         /// <param name="outputFilters">Optional collection of output filters.</param>
         /// <param name="outputChannels">Optional collection of output channels.</param>
+        /// <param name="headers">Optional collection of custom headers.</param>
         /// <param name="telemetryClient">Optional application insights telemetry client.</param>
         /// <param name="logger">Optional ILogger.</param>
-        public AzureFunctionPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
+        public AzureFunctionPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
         {
             id = Guid.NewGuid().ToString();
-            pipeline = new WebPipeline(Name, id, inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger);
+            pipeline = new WebPipeline(Name, id, inputFilters, inputChannels, binding, outputFilters, outputChannels, headers, telemetryClient, logger);
             pipeline.OnComplete += Pipeline_OnComplete;
             pipeline.OnError += Pipeline_OnError;
         }
