@@ -293,7 +293,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
@@ -302,7 +302,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
