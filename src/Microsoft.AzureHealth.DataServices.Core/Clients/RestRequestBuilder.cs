@@ -85,7 +85,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// Default User-Agent http header.
         /// </summary>
         public static ProductHeaderValue DefaultUserAgentHeader = new ProductHeaderValue(
-            "Microsoft.AzureHealth.DataServices.Toolkit", 
+            "Microsoft.AzureHealth.DataServices.Toolkit",
             Assembly.GetExecutingAssembly().GetName().Version.ToString()
         );
 
@@ -175,7 +175,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                     request.Headers.Add(item, Headers.Get(item));
                 }
             }
-            
+
             request.Headers.Add("Host", new Uri(BaseUrl).Authority);
             request.Headers.Add("Accept", ContentType);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));

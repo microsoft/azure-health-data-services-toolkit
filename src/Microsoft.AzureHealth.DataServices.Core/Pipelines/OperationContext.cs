@@ -53,7 +53,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             this.headers = headers;
             SetContentAsync(message).GetAwaiter();
         }
-        
+
         /// <summary>
         /// Gets a dictionary of custom properties.
         /// </summary>
