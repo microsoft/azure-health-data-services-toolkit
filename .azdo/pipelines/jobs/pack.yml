@@ -13,6 +13,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        FILE_VERSION="${$VERSION/-prerelease/}".$(Build.BuildId)
         find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file with version $VERSION / $ASS_VERSION / $FILE_VERSION"
@@ -21,7 +22,6 @@ steps:
     env:
       VERSION: ${{ parameters.Version }}
       ASS_VERSION: ${{ parameters.AssemblyVersion }}
-      FILE_VERSION: $[replace(parameters['Version'], '-prerelease', '')].$(Build.BuildId)
       PACKAGE_OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
       NOTES: ${{ format('The change log for this toolkit is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', parameters.Version) }}
 
