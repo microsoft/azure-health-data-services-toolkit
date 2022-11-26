@@ -1,7 +1,10 @@
 parameters:
 - name: PackageArtifactName
+  type: string
 - name: Version
+  type: string
 - name: AssemblyVersion
+  type: string
 
 steps:
   # Script is used here so we can pass custom parameters to dotnet pack
