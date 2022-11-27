@@ -13,15 +13,8 @@ parameters:
   - name: RepositoryName
     default: microsoft/azure-health-data-services-toolkit
 
-variables:
-  - namme: GithubReleseTag
-    ${{ if eq(parameters['RevisionVersion], '')}}:
-      value: $(MajorVersion).$(MinorVersion).$(PatchVersion)
-    ${{ else }}:
-      value: $(MajorVersion).$(MinorVersion).$(PatchVersion).$(RevisionVersion)
 
 stages:
-
   - stage: ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
@@ -135,6 +128,13 @@ stages:
             - download: current
               artifact: '${{ parameters.PackageArtifactName }}-signed'
 
+            - template: ./version.yml
+              parameters:
+                MajorVersion: $(MajorVersion)
+                MinorVersion: $(MinorVersion)
+                PatchVersion: $(PatchVersion)
+                RevisionVersion: $(RevisionVersion)
+
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
@@ -142,8 +142,8 @@ stages:
                 repositoryName: ${{ parameters.RepositoryName }}
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.GithubReleseTag }}
-                title: ${{ parameters.PackagePrefix }} ${{ parameters.GithubReleseTag }}
+                tag: release/${{ parameters.Version }}
+                title: ${{ parameters.PackagePrefix }} ${{ parameters.Version }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg

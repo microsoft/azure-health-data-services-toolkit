@@ -5,17 +5,14 @@ parameters:
 - name: PatchVersion
 - name: RevisionVersion
 
-variables:
-  - name: Version
-    ${{ if eq(parameters['RevisionVersion], '')}}:
-      value: $(MajorVersion).$(MinorVersion).$(PatchVersion)
-    ${{ else }}:
-      value: $(MajorVersion).$(MinorVersion).$(PatchVersion).$(RevisionVersion)
-  - name: FileVersion
-    value: $(MajorVersion).$(MinorVersion).$[split(parameters['PatchVersion'], '-')[0]].$(Build.BuildId)
-
-
 steps:
+  - template: ./version.yml
+    parameters:
+      MajorVersion: $(MajorVersion)
+      MinorVersion: $(MinorVersion)
+      PatchVersion: $(PatchVersion)
+      RevisionVersion: $(RevisionVersion)
+
   # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
     displayName: Pack and Publish ${{ parameters.Version }}

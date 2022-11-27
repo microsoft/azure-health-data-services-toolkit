@@ -1,0 +1,24 @@
+parameters:
+- name: MajorVersion
+- name: MinorVersion
+- name: PatchVersion
+- name: RevisionVersion
+
+steps:
+  - task: Bash@3
+    displayName: Set version variables
+    inputs:
+      targetType: 'inline'
+      script: |
+        TRIMMED_VERSION=`echo $myVar | sed 's/\.*$//g'`
+        echo "##vso[task.setvariable variable=Version]$TRIMMED_VERSION"
+        echo "##vso[task.setvariable variable=FileVersion]$FileVersion"
+        echo "##vso[task.setvariable variable=AssemblyVersion]$AssemblyVersion"
+
+variables:
+  - name: Version
+    value: $(MajorVersion).$(MinorVersion).$(PatchVersion).$(RevisionVersion)
+  - name: AssemblyVersion
+    value: $(MajorVersion).0.0.0
+  - name: FileVersion
+    value: $(MajorVersion).$(MinorVersion).$[split(parameters['PatchVersion'], '-')[0]].$(Build.BuildId)
