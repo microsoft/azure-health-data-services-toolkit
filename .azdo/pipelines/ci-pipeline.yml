@@ -15,14 +15,14 @@ variables:
   - group: toolkit-build-version-configuration
 
   - name: packageversion-prerelease
-    ${{ if eq(variables.ahds-toolkit-prerelease-revision, '') }}:
+    $[if eq(variables['ahds-toolkit-prerelease-revision'], '')]:
       value: $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)-prerelease
-    ${{ else }}:
+    $[ else ]:
       value: $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)-prerelease.$(ahds-toolkit-prerelease-revision)
   - name: packageversion-release
-    ${{ if eq(variables.ahds-toolkit-release-revision, '') }}:
+    $[ if eq(variables['ahds-toolkit-release-revision'], '') ]:
       value: $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch)
-    ${{ else }}:
+    $[ else ]:
       value: $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(ahds-toolkit-release-revision)
 
 stages:
