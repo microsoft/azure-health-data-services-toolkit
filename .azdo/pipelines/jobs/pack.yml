@@ -15,7 +15,7 @@ steps:
 
   # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
-    displayName: Pack and Publish ${{ parameters.Version }}
+    displayName: Pack and Publish
     inputs:
       targetType: 'inline'
       script: |
@@ -27,7 +27,7 @@ steps:
     env:
       VERSION: $(Version)
       FILE_VERSION: $(FileVersion)
-      ASS_VERSION: ${{ parameters.MajorVersion }}.0.0.0
+      ASS_VERSION: $(AssemblyVersion)
       PACKAGE_OUTPUT: $[ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, variables.Version) ]
       NOTES: $[ format('The change log for this version is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', variables.Version) ]
 
