@@ -36,7 +36,7 @@ stages:
           echo "##vso[task.setvariable variable=ReleaseFileVersion]$(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(Build.BuildId)"
           echo "##vso[task.setvariable variable=ReleaseAssemblyVersion]$(ahds-toolkit-release-major).0.0.0"
 
-          TRIMMED_VERSION=`echo $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch).$(ahds-toolkit-prerelease-revision) | sed 's/\.*$//g'`
+          TRIMMED_VERSION=`echo $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)-prerelease.$(ahds-toolkit-prerelease-revision) | sed 's/\.*$//g'`
           echo "##vso[task.setvariable variable=PrereleaseVersion;isOutput=true]$TRIMMED_VERSION"
           echo "##vso[task.setvariable variable=PrereleaseFileVersion]$(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch).$(Build.BuildId)"
           echo "##vso[task.setvariable variable=PrereleaseAssemblyVersion]$(ahds-toolkit-prerelease-major).0.0.0"
