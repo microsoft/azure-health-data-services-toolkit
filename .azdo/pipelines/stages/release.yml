@@ -1,10 +1,7 @@
 parameters:
   - name: PackageArtifactName
   - name: DevOpsFeedID
-  - name: MajorVersion
-  - name: MinorVersion
-  - name: PatchVersion
-  - name: RevisionVersion
+  - name: GithubReleseTag
   - name: IsPrerelease
     type: boolean
     default: true
@@ -128,13 +125,6 @@ stages:
             - download: current
               artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: ./version.yml
-              parameters:
-                MajorVersion: $(MajorVersion)
-                MinorVersion: $(MinorVersion)
-                PatchVersion: $(PatchVersion)
-                RevisionVersion: $(RevisionVersion)
-
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
               inputs:
@@ -142,8 +132,8 @@ stages:
                 repositoryName: ${{ parameters.RepositoryName }}
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.Version }}
-                title: ${{ parameters.PackagePrefix }} ${{ parameters.Version }}
+                tag: release/${{ parameters.GithubReleseTag }}
+                title: ${{ parameters.PackagePrefix }} ${{ parameters.GithubReleseTag }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg

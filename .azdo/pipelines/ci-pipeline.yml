@@ -29,34 +29,47 @@ stages:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
+
+      - bash: |
+          TRIMMED_VERSION=`echo $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(ahds-toolkit-release-revision) | sed 's/\.*$//g'`
+          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]$TRIMMED_VERSION"
+          echo "##vso[task.setvariable variable=ReleaseFileVersion]$(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(Build.BuildId)"
+          echo "##vso[task.setvariable variable=ReleaseAssemblyVersion]$(ahds-toolkit-release-major).0.0.0"
+
+          TRIMMED_VERSION=`echo $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch).$(ahds-toolkit-prerelease-revision) | sed 's/\.*$//g'`
+          echo "##vso[task.setvariable variable=PrereleaseVersion;isOutput=true]$TRIMMED_VERSION"
+          echo "##vso[task.setvariable variable=PrereleaseFileVersion]$(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch).$(Build.BuildId)"
+          echo "##vso[task.setvariable variable=PrereleaseAssemblyVersion]$(ahds-toolkit-prerelease-major).0.0.0"
+        name: SetVariables
+        displayName: Set Version Variables
+      
       - template: ./jobs/pack.yml
         parameters:
           PackageArtifactName: ReleasePackages
-          MajorVersion: $(ahds-toolkit-release-major)
-          MinorVersion: $(ahds-toolkit-release-minor)
-          PatchVersion: $(ahds-toolkit-release-patch)
-          RevisionVersion: $(ahds-toolkit-release-revision)
+          Version: $(ReleaseVersion)
+          AssemblyVersion: $(ReleaseAssemblyVersion)
+          FileVersion: $(ReleaseFileVersion)
+
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
         - template: ./jobs/pack.yml
           parameters:
             PackageArtifactName: PrereleasePackages
-            MajorVersion: $(ahds-toolkit-prerelease-major)
-            MinorVersion: $(ahds-toolkit-prerelease-minor)
-            PatchVersion: $(ahds-toolkit-prerelease-patch)
-            RevisionVersion: $(ahds-toolkit-prerelease-revision)
+            Version: $(PrereleaseVersion)
+            AssemblyVersion: $(PrereleaseAssemblyVersion)
+            FileVersion: $(PrereleaseFileVersion)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: PrereleasePackages
-        GithubReleseTag: $(packageversion-prerelease)
+        GithubReleseTag: $[stageDependencies.Build.BuildTestPack.outputs['SetVariables.PrereleaseVersion']]
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: ReleasePackages
-        GithubReleseTag: $(packageversion-release)
+        GithubReleseTag: $[stageDependencies.Build.BuildTestPack.outputs['SetVariables.ReleaseVersion']]
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: false

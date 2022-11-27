@@ -1,18 +1,10 @@
 parameters:
 - name: PackageArtifactName
-- name: MajorVersion
-- name: MinorVersion
-- name: PatchVersion
-- name: RevisionVersion
+- name: Version
+- name: AssemblyVersion
+- name: FileVersion
 
 steps:
-  - template: ./version.yml
-    parameters:
-      MajorVersion: $(MajorVersion)
-      MinorVersion: $(MinorVersion)
-      PatchVersion: $(PatchVersion)
-      RevisionVersion: $(RevisionVersion)
-
   # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
     displayName: Pack and Publish
@@ -28,12 +20,12 @@ steps:
       VERSION: $(Version)
       FILE_VERSION: $(FileVersion)
       ASS_VERSION: $(AssemblyVersion)
-      PACKAGE_OUTPUT: $[ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, variables.Version) ]
-      NOTES: $[ format('The change log for this version is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', variables.Version) ]
+      PACKAGE_OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
+      NOTES: ${{ format('The change log for this version is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', parameters.Version) }}
 
   - task: PublishPipelineArtifact@1
     displayName: Publish packages
     inputs:
-      targetPath: $[ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, variables.Version) ]
+      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
       artifactName: ${{ parameters.PackageArtifactName }}
       artifactType: 'pipeline'
