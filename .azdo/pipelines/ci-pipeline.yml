@@ -46,7 +46,7 @@ stages:
       - template: ./jobs/pack.yml
         parameters:
           PackageArtifactName: ReleasePackages
-          Version: $(ReleaseVersion)
+          Version: $(SetVariables.ReleaseVersion)
           AssemblyVersion: $(ReleaseAssemblyVersion)
           FileVersion: $(ReleaseFileVersion)
 
@@ -54,7 +54,7 @@ stages:
         - template: ./jobs/pack.yml
           parameters:
             PackageArtifactName: PrereleasePackages
-            Version: $(PrereleaseVersion)
+            Version: $(SetVariables.PrereleaseVersion)
             AssemblyVersion: $(PrereleaseAssemblyVersion)
             FileVersion: $(PrereleaseFileVersion)
 
