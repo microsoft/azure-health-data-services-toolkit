@@ -1,10 +1,19 @@
 parameters:
 - name: PackageArtifactName
-  type: string
-- name: Version
-  type: string
-- name: AssemblyVersion
-  type: string
+- name: MajorVersion
+- name: MinorVersion
+- name: PatchVersion
+- name: RevisionVersion
+
+variables:
+  - name: Version
+    ${{ if eq(parameters['RevisionVersion], '')}}:
+      value: $(MajorVersion).$(MinorVersion).$(PatchVersion)
+    ${{ else }}:
+      value: $(MajorVersion).$(MinorVersion).$(PatchVersion).$(RevisionVersion)
+  - name: FileVersion
+    value: $(MajorVersion).$(MinorVersion).$[split(parameters['PatchVersion'], '-')[0]].$(Build.BuildId)
+
 
 steps:
   # Script is used here so we can pass custom parameters to dotnet pack
@@ -19,15 +28,15 @@ steps:
             dotnet pack "$file" --output "$PACKAGE_OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$FILE_VERSION" /p:PackageReleaseNotes="$NOTES"
         done
     env:
-      VERSION: ${{ parameters.Version }}
-      ASS_VERSION: ${{ parameters.AssemblyVersion }}
-      FILE_VERSION: $[replace(parameters['Version'], '-prerelease', '')]
-      PACKAGE_OUTPUT: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
-      NOTES: ${{ format('The change log for this toolkit is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', parameters.Version) }}
+      VERSION: $(Version)
+      FILE_VERSION: $(FileVersion)
+      ASS_VERSION: ${{ parameters.MajorVersion }}.0.0.0
+      PACKAGE_OUTPUT: $[ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, variables.Version) ]
+      NOTES: $[ format('The change log for this version is made available at https://github.com/microsoft/azure-health-data-services-toolkit/releases/tag/release%2F{0}', variables.Version) ]
 
   - task: PublishPipelineArtifact@1
     displayName: Publish packages
     inputs:
-      targetPath: ${{ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, parameters.Version) }}
+      targetPath: $[ format('$(Build.ArtifactStagingDirectory)/{0}/{1}', parameters.PackageArtifactName, variables.Version) ]
       artifactName: ${{ parameters.PackageArtifactName }}
       artifactType: 'pipeline'

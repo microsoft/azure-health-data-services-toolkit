@@ -1,7 +1,10 @@
 parameters:
   - name: PackageArtifactName
   - name: DevOpsFeedID
-  - name: GithubReleseTag
+  - name: MajorVersion
+  - name: MinorVersion
+  - name: PatchVersion
+  - name: RevisionVersion
   - name: IsPrerelease
     type: boolean
     default: true
@@ -10,6 +13,12 @@ parameters:
   - name: RepositoryName
     default: microsoft/azure-health-data-services-toolkit
 
+variables:
+  - namme: GithubReleseTag
+    ${{ if eq(parameters['RevisionVersion], '')}}:
+      value: $(MajorVersion).$(MinorVersion).$(PatchVersion)
+    ${{ else }}:
+      value: $(MajorVersion).$(MinorVersion).$(PatchVersion).$(RevisionVersion)
 
 stages:
 
