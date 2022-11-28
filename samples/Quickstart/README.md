@@ -48,6 +48,7 @@ This quickstart will create the below resources. These will be used both for loc
     ```dotnetcli
     azd init --template Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart
     ```
+    > **Note:** lower-case name is needed to be compatible with all the resource types
 
 3. If you want to use an existing FHIR Service, you need to open `infra/main.parameters.json` in a code editor and change the following settings:
 
