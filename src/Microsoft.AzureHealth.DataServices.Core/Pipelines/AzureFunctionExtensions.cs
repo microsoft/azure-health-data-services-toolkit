@@ -74,9 +74,14 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             if (content != null)
             {
-                var contentlength = message.Content.Headers.GetValues("Content-Length").FirstOrDefault();
-                data.Headers.Add("Content-Type", message.Content.Headers.ContentType?.ToString() ?? "application/json");
-                data.Headers.Add("Content-Length", contentlength);
+                // Add Content-Type header if not already present.
+                if (!data.Headers.Any(x => x.Key.ToLowerInvariant() == "content-type"))
+                {
+                    data.Headers.Add("Content-Type", "application/json");
+                }
+
+                var contentLength = message.Content.Headers.GetValues("Content-Length").FirstOrDefault();
+                data.Headers.Add("Content-Length", contentLength);
                 await data.WriteStringAsync(content);
             }
 

@@ -165,7 +165,6 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             {
                 Headers.Remove("Content-Type");
                 Headers.Remove("Content-Length");
-                Headers.Remove("Transfer-Encoding");
                 Headers.Remove("Authorization");
                 Headers.Remove("Accept");
                 Headers.Remove("Host");

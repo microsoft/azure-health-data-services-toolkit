@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Azure.Core;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.Net.Http.Headers;
 
@@ -12,9 +13,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
     /// <summary>
     /// Extensions for HttpRequestMessage.
     /// </summary>
-    public static class HttpRequestMessageExtensions
+    public static class HttpMessageExtensions
     {
-        private static string[] RestrictedHeaderList = new string[] { "content-type", "content-length", "authorization", "accept", "host", "user-agent" };
+        private static string[] RequestRestrictedHeaderList = new string[] { "content-type", "content-length", "authorization", "accept", "host", "user-agent" };
+        
+        private static string[] ResponseRestrictedHeaderList = new string[] { "content-length", "host", "transfer-encoding" };
 
 
         /// <summary>
@@ -23,26 +26,55 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="request">Request message.</param>
         /// <param name="restricted">If true (default), omits the following headers, Content-Type, Content-Length, Authorization, Accept, Host, User-Agent.  Otherwise, returns all headers. </param>
         /// <returns>NameValueCollection of http headers.</returns>
-        public static NameValueCollection GetHeaders(this HttpRequestMessage request, bool restricted = true) =>
-            GetHeaders(request.Headers, restricted);
+        public static NameValueCollection GetHeaders(this HttpRequestMessage request, bool restricted = true)
+        {
+            if (restricted)
+            {
+                return GetHeaders(request.Headers, RequestRestrictedHeaderList);
+            }
+            else
+            {
+                return GetHeaders(request.Headers, Array.Empty<string>());
+            }
+        }
 
         /// <summary>
         /// Converts HttpRequestMessage headers into a NameValueCollection.
         /// </summary>
         /// <param name="response">Response message.</param>
-        /// <param name="restricted">If true (default), omits the following headers, Content-Type, Content-Length, Authorization, Accept, Host, User-Agent.  Otherwise, returns all headers. </param>
+        /// <param name="restricted">If true (default), omits the following headers, Content-Length, Authorization, Transfer-Encoding.  Otherwise, returns all headers. </param>
         /// <returns>NameValueCollection of http headers.</returns>
-        public static NameValueCollection GetHeaders(this HttpResponseMessage response, bool restricted = true) =>
-            GetHeaders(response.Headers, restricted);
+        public static NameValueCollection GetHeaders(this HttpResponseMessage response, bool restricted = true)
+        {
+            NameValueCollection headers = new();
+            NameValueCollection contentHeaders = new();
 
+            if (restricted)
+            {
+                headers = GetHeaders(response.Headers, ResponseRestrictedHeaderList);
+                contentHeaders = GetHeaders(response.Content.Headers, ResponseRestrictedHeaderList);
+            }
+            else
+            {
+                headers = GetHeaders(response.Headers, Array.Empty<string>());
+                contentHeaders = GetHeaders(response.Content.Headers, ResponseRestrictedHeaderList);
+            }
 
-        private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, bool restricted)
+            foreach (string key in contentHeaders.AllKeys)
+            {
+                headers.Add(key, contentHeaders[key]);
+            }
+
+            return headers;
+        }
+        
+        private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, string[] restrictedHeaderList)
         {
             NameValueCollection nvc = new();
 
             foreach (var header in genericHeaderList)
             {
-                if (!(restricted && RestrictedHeaderList.Contains(header.Key.ToLowerInvariant())))
+                if (!restrictedHeaderList.Contains(header.Key.ToLowerInvariant()))
                 {
                     foreach (var val in header.Value)
                     {
@@ -79,6 +111,13 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             {
                 if (_contentHeaderNames.Any(x => x.ToLowerInvariant() == header.Name.ToLowerInvariant()))
                 {
+                    // remove existing headers
+                    var existingHeaderNames = response.Content.Headers.Where(x => x.Key.ToLowerInvariant() == header.Name.ToLowerInvariant()).Select(x => x.Key);
+                    foreach (var name in existingHeaderNames)
+                    {
+                        response.Content.Headers.Remove(name);
+                    }
+
                     response.Content.Headers.Add(header.Name, header.Value);
                 }
                 else if (!header.Name.Equals("Server", StringComparison.InvariantCultureIgnoreCase))
