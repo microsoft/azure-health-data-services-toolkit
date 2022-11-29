@@ -1,57 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Company>Microsoft Corporation</Company>
-    <Product>Microsoft(R) Azure Health Data Services Toolkit</Product>
-    <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <Authors>Microsoft</Authors>
-
-    <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>Microsoft.AzureHealth.DataServices.Caching</AssemblyName>
-    <ImplicitUsings>enable</ImplicitUsings>
-
     <Title>Azure Health Data Services Toolkit Caching Library</Title>
     <PackageId>Microsoft.AzureHealth.DataServices.Caching</PackageId>
-    <PackageTags>microsoft;azure;azurehealthdataservices;fhir;</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageIcon>Icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-
-    <AnalysisLevel>latest</AnalysisLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-    <IsPackable>true</IsPackable>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DebugType>portable</DebugType>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Deterministic>true</Deterministic>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RootNamespace>Microsoft.AzureHealth.DataServices.Caching</RootNamespace>
-    <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
+    <AssemblyName>Microsoft.AzureHealth.DataServices.Caching</AssemblyName>
+    <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="Icon.png" Pack="true" PackagePath="\" />
-    <None Include="README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.7.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
