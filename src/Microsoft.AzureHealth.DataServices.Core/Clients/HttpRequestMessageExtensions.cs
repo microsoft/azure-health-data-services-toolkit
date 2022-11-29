@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Azure.Core;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.Net.Http.Headers;
 
@@ -88,7 +87,6 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
         private static readonly List<string> _contentHeaderNames = new List<string>
         {
-            HeaderNames.Accept,
             HeaderNames.ContentDisposition,
             HeaderNames.ContentEncoding,
             HeaderNames.ContentLanguage,
@@ -107,18 +105,40 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="headers">Custom headers collection.</param>
         public static void AddCustomHeadersToResponse(this HttpResponseMessage response, IHttpCustomHeaderCollection headers)
         {
-            foreach (var header in headers.Where(x => x.HeaderType == Clients.Headers.CustomHeaderType.ResponseStatic))
+            foreach (var header in headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic))
             {
                 if (_contentHeaderNames.Any(x => x.ToLowerInvariant() == header.Name.ToLowerInvariant()))
                 {
-                    // remove existing headers
-                    var existingHeaderNames = response.Content.Headers.Where(x => x.Key.ToLowerInvariant() == header.Name.ToLowerInvariant()).Select(x => x.Key);
-                    foreach (var name in existingHeaderNames)
+                    switch (header.Name.ToLowerInvariant())
                     {
-                        response.Content.Headers.Remove(name);
+                        case string s when s.Equals(HeaderNames.ContentDisposition, StringComparison.OrdinalIgnoreCase):
+                            if (System.Net.Http.Headers.ContentDispositionHeaderValue.TryParse(header.Value, out System.Net.Http.Headers.ContentDispositionHeaderValue dis))
+                            {
+                                response.Content.Headers.ContentDisposition = dis;
+                            }
+                            break;
+                        case string s when s.Equals(HeaderNames.ContentEncoding, StringComparison.OrdinalIgnoreCase):
+                            response.Content.Headers.ContentEncoding.Add(header.Value);
+                            break;
+                        case string s when s.Equals(HeaderNames.ContentLanguage, StringComparison.OrdinalIgnoreCase):
+                            response.Content.Headers.ContentLanguage.Add(header.Value);
+                            break;
+                        case string s when s.Equals(HeaderNames.ContentLocation, StringComparison.OrdinalIgnoreCase):
+                            response.Content.Headers.ContentLocation = new Uri(header.Value);
+                            break;
+                        case string s when s.Equals(HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase):
+                            if (System.Net.Http.Headers.MediaTypeHeaderValue.TryParse(header.Value, out System.Net.Http.Headers.MediaTypeHeaderValue med))
+                            {
+                                response.Content.Headers.ContentType = med;
+                            }
+                            break;
+                        case string s when s.Equals(HeaderNames.Expires, StringComparison.OrdinalIgnoreCase):
+                            response.Content.Headers.Expires = DateTimeOffset.Parse(header.Value);
+                            break;
+                        case string s when s.Equals(HeaderNames.LastModified, StringComparison.OrdinalIgnoreCase):
+                            response.Content.Headers.LastModified = DateTimeOffset.Parse(header.Value);
+                            break;
                     }
-
-                    response.Content.Headers.Add(header.Name, header.Value);
                 }
                 else if (!header.Name.Equals("Server", StringComparison.InvariantCultureIgnoreCase))
                 {
