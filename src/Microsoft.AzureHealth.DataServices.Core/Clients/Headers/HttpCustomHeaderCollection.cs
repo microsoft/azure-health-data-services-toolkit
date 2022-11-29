@@ -181,17 +181,17 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// Updates this header collection from a HttpResponseMessage
         /// </summary>
         /// <param name="response">Http response message.</param>
-        public void UpdateFromResponse(HttpResponseMessage response)
+        /// <param name="restricted">If true (default), omits the following headers, Content-Length, Authorization, Transfer-Encoding.  Otherwise, returns all headers. </param>
+        public void UpdateFromResponse(HttpResponseMessage response, bool restricted = true)
         {
-            var responseHeaderEnumerator = response.Headers.GetEnumerator();
-            while (responseHeaderEnumerator.MoveNext())
-            {
-                var current = responseHeaderEnumerator.Current;
+            var nvc = response.GetHeaders(restricted);
 
+            foreach (var key in nvc.AllKeys)
+            {
                 // If the current input element does not match a static response header in our existing collection
-                if (!headers.Where(x => x.Name == current.Key && x.HeaderType == CustomHeaderType.ResponseStatic).Any())
+                if (!headers.Where(x => x.Name == key && x.HeaderType == CustomHeaderType.ResponseStatic).Any())
                 {
-                    headers.Add(new HeaderNameValuePair(current.Key, current.Value.First(), CustomHeaderType.ResponseStatic));
+                    headers.Add(new HeaderNameValuePair(key, nvc[key], CustomHeaderType.ResponseStatic));
                 }
             }
         }

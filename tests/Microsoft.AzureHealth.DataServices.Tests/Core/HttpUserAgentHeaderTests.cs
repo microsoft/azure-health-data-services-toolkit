@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.AzureHealth.DataServices.Json;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Core
+namespace Microsoft.AzureHealth.DataServices.Tests.Headers
 {
     [TestClass]
     public class HttpUserAgentHeaderTests
@@ -20,7 +20,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         private static readonly int port = 1239;
         private static string userAgentHeader = "User-Agent";
         private static string expectedHeader = "Output-Header";
-        private static string expectedHeaderValue = "my-injected-value";
+        private static string customTestHeaderValue = "my-injected-value";
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -45,7 +45,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             RestRequestBuilder builder = new("GET", "http://localhost", "", "foo", null, null, null, "application/json");
             var request = builder.Build();
-            Assert.AreEqual(request.Headers.UserAgent.ToString(), RestRequestBuilder.DefaultUserAgentHeader);
+            Assert.AreEqual(request.Headers.UserAgent.ToString(), RestRequestBuilder.DefaultUserAgentHeader.ToString());
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             HttpRequestMessage request = new HttpRequestMessage();
             request.Headers.Add(userAgentHeader, "fake-agent");
-            IHeaderNameValuePair customHeader = new HeaderNameValuePair(userAgentHeader, expectedHeaderValue, CustomHeaderType.RequestStatic);
+            IHeaderNameValuePair customHeader = new HeaderNameValuePair(userAgentHeader, customTestHeaderValue, CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] customHeaders = new IHeaderNameValuePair[] { customHeader };
             IHttpCustomHeaderCollection collection = new HttpCustomHeaderCollection(customHeaders);
             var headers = collection.RequestAppendAndReplace(request);
@@ -67,7 +67,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             var token = JToken.Parse(actualContent);
             var propToken = token.GetToken($"$.{expectedHeader}");
             var actual = propToken.GetValue<string>();
-            Assert.AreEqual(actual, expectedHeaderValue);
+            Assert.AreEqual(actual, RestRequestBuilder.DefaultUserAgentHeader.ToString());
         }
     }
 }

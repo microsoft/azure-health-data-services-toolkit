@@ -21,7 +21,8 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// Updates this header collection from a HttpResponseMessage
         /// </summary>
         /// <param name="request">Http request message.</param>
+        /// <param name="restricted">If true (default), omits the following headers, Content-Length, Authorization, Transfer-Encoding.  Otherwise, returns all headers. </param>
         /// <returns>Modified collection headers</returns>
-        void UpdateFromResponse(HttpResponseMessage request);
+        void UpdateFromResponse(HttpResponseMessage request, bool restricted = true);
     }
 }

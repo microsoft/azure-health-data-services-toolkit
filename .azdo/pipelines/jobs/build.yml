@@ -38,7 +38,7 @@ steps:
     PROXY_KeyVaultCertificateName: $(proxy-key-vault-certificate-name)
     PROXY_InstrumentationKey: $(proxy-instrumentation-key)
     PROXY_LoggingLevel: $(proxy-log-level)
-    STORAGE_CONNECTIONSTRING: $(storage-connectionstring-test)
+    PROXY_StorageConnectionString: $(storage-connectionstring-test)
     PROXY_EventHubBlobConnectionString: $(proxy-storage-connectionstring)
     PROXY_EventHubProcessorContainer: $(proxy-eventhub-processorcontainer-name)
     PROXY_EventHubBlobContainer: $(proxy-eventhub-blobcontainer-name)

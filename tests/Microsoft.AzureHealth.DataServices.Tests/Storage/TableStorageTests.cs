@@ -36,7 +36,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             random = new Random();
 
             Console.WriteLine(context.TestName);
-            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
+            string connectionString = root["StorageConnectionString"];
 
             queue = new ConcurrentQueue<string>();
 

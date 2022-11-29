@@ -1,6 +1,4 @@
 ﻿using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Clients.Headers;
-using Microsoft.AzureHealth.DataServices.Json;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.AzureHealth.DataServices.Tests.Configuration;
 using AzureCore = Azure;
@@ -8,9 +6,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
