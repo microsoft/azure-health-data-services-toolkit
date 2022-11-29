@@ -129,7 +129,7 @@ stages:
             - download: current
               artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: ./../steps/versionVariables.yml
+            - template: ../steps/versionVariables.yml
 
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
