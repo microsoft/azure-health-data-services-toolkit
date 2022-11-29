@@ -14,7 +14,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</RepositoryUrl>
-    <ProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</ProjectUrl>
+    <PackageProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</PackageProjectUrl>
 
     <DebugType>Portable</DebugType>
     <Deterministic>true</Deterministic>
