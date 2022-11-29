@@ -21,9 +21,15 @@
     <HighEntropyVA>true</HighEntropyVA>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Microsoft.AzureHealth.DataServices</RootNamespace>
+
+    <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <TargetFramework>net6.0</TargetFramework>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
