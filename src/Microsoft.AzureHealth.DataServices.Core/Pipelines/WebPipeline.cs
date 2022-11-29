@@ -144,11 +144,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
                 HttpResponseMessage response = new(context.StatusCode);
 
-
-                var existingContentTypeHeader = headers.FirstOrDefault(x => x.Name.ToLowerInvariant() == "content-type" && x.HeaderType == CustomHeaderType.ResponseStatic)?.Value ?? "application/json";
-                response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(existingContentTypeHeader);
-
+                response.Content = !string.IsNullOrEmpty(context.ContentString) ? new ByteArrayContent(context.Content) : null;
                 response.AddCustomHeadersToResponse(headers);
 
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
