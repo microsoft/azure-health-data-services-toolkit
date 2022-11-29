@@ -4,7 +4,7 @@ steps:
   displayName: 'Install dotnet 6.0.x agent tools dir'
   inputs:
     packageType: 'sdk'
-    version: '6.0.x'
+    useGlobalJson: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
@@ -15,14 +15,14 @@ steps:
     arguments: 'update -g dotnet-format'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Lint Toolkit and Samples'
+  displayName: 'Lint Toolkit'
   inputs:
     command: 'custom'
     custom: 'format'
     arguments: 'Microsoft.AzureHealth.DataServices.Toolkit.sln --verify-no-changes --verbosity diagnostic'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Lint Toolkit'
+  displayName: 'Lint Samples'
   inputs:
     command: 'custom'
     custom: 'format'
