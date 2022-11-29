@@ -2,9 +2,9 @@
 
   <!-- Nuget related properties.-->
   <PropertyGroup>
-    <Authors>Microsoft Health and Life Sciences Team</Authors>
+    <Authors>Microsoft</Authors>
     <Company>Microsoft Corporation</Company>
-    <Copyright>Copyright © Microsoft Corporation. All rights reserved.</Copyright>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <Product>Microsoft(R) Azure Health Data Services Toolkit</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
@@ -14,6 +14,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</RepositoryUrl>
+    <ProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</ProjectUrl>
 
     <DebugType>Portable</DebugType>
     <Deterministic>true</Deterministic>
