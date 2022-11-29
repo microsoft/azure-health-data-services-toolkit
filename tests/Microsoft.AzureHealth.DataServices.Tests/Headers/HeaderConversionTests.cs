@@ -31,7 +31,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             listener.StopAsync().GetAwaiter();
         }
 
-        
+
         [TestMethod]
         public async Task HttpMessageExtensions_ContentTypeConversionSimple_Test()
         {
@@ -41,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             filters.Add(new FakeFilter());
             filters.Add(new FakeFilterWithContent());
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, headers: headers);
-            
+
             HttpRequestMessage request = new(HttpMethod.Get, "http://example.org/path");
             HttpResponseMessage output = await pipeline.ExecuteAsync(request);
             Assert.AreEqual("application/json", output.Content.Headers.GetValues("Content-Type").First());
@@ -74,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
 
             HttpRequestMessage request = new(HttpMethod.Get, "http://example.org/path");
             HttpResponseMessage output = await pipeline.ExecuteAsync(request);
-            Assert.AreEqual(0, output.Content.Headers.Count(x => x.Key== "Content-Type"));
+            Assert.AreEqual(0, output.Content.Headers.Count(x => x.Key == "Content-Type"));
         }
 
         [TestMethod]
