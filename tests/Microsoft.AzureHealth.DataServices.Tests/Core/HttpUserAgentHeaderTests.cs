@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.AzureHealth.DataServices.Json;
 
-namespace Microsoft.AzureHealth.DataServices.Tests.Core
+namespace Microsoft.AzureHealth.DataServices.Tests.Headers
 {
     [TestClass]
     public class HttpUserAgentHeaderTests

@@ -350,9 +350,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(fault, "Should have fault.");
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Http status code mismatch.");
-
-
-
         }
 
         [TestMethod]
@@ -402,11 +399,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
             var response = await pipeline.ExecuteAsync(request);
+            
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
             Assert.AreEqual(content.Length, response.Body.Length, "Content length mismatch.");
 
-
+            // Tests default content-type.
+            Assert.AreEqual("application/json", response.Headers.FirstOrDefault(x => x.Key == "Content-Type").Value.First(), "Content type mismatch.");
         }
 
         [TestMethod]

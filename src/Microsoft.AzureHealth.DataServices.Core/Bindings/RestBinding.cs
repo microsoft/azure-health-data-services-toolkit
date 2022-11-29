@@ -100,7 +100,6 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 if (options.Value.AddResponseHeaders)
                 {
                     context.Headers.UpdateFromResponse(resp);
-                    // context.Headers.Add(new HeaderNameValuePair("Content-Type", "application/json", CustomHeaderType.ResponseStatic));
                 }
 
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));

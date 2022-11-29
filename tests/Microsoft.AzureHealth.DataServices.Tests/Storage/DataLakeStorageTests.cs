@@ -34,7 +34,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<DataLakeStorageTests>(true);
             var root = builder.Build();
-            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
+            string connectionString = root["StorageConnectionString"];
             containers = new();
             filesystems = new();
             var slog = new LoggerConfiguration()

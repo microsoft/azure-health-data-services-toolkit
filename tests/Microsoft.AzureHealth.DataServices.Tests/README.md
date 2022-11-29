@@ -23,7 +23,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "KeyVaultUri": "<general-keyvault-uri>",
   "KeyVaultCertificateName": "localhost",
 
-  "LogLevel": "Information",
+  "LoggingLevel": "Information",
   "InstrumentationKey": "<general-app-insights-key>",
 
   "BlobStorageChannelConnectionString": "<general-storage-connection-string>",
@@ -42,7 +42,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "EventGridTopicUriString": "<event hub topic uri>",
   "EventHubConnectionString": "<general-eventhub-string>",
   "EventHubName": "test",
-  "EventHubProcessorContainerName": "hub",
+  "EventHubProcessorContainer": "hub",
   "EventHubSku": "Basic",
   "EventHubBlobConnectionString": "<general-storage-connection-string>",
   "EventHubBlobContainer": "eventhub-blobs",
@@ -52,7 +52,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "ServiceBusSku": "Standard",
   "ServiceBusSubscription": "sub1",
   "ServiceBusTopic": "test",
-  "ServiceBusBlobContainerName": "servicebus-blobs",
+  "ServiceBusBlobContainer": "servicebus-blobs",
   "ServiceBusBlobConnectionString": "<general-storage-connection-string>"
 }
 ```
