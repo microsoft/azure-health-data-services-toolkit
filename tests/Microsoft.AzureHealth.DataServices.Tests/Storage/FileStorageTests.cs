@@ -29,8 +29,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             random = new();
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<FileStorageTests>(true);
+            builder.AddEnvironmentVariables("PROXY_");
             var root = builder.Build();
-            string connectionString = string.IsNullOrEmpty(root["BlobStorageConnectionString"]) ? Environment.GetEnvironmentVariable("PROXY_STORAGE_CONNECTIONSTRING") : root["BlobStorageConnectionString"];
+            string connectionString = root["StorageConnectionString"];
 
             containers = new();
 

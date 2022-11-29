@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Clients;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
@@ -25,25 +28,27 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="binding">Optional binding. </param>
         /// <param name="outputFilters">Optional collection of output filters.</param>
         /// <param name="outputChannels">Optional collection of output channels.</param>
+        /// <param name="headers">Optional collection of custom headers for OperationContext</param>
         /// <param name="telemetryClient">Optional application insights telemetry client.</param>
         /// <param name="logger">Optional ILogger.</param>
-        public WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
-            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
+        public WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
+            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, headers, telemetryClient, logger)
         {
 
         }
 
-        internal WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
-            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, telemetryClient, logger)
+        internal WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
+            : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, headers, telemetryClient, logger)
         {
 
         }
 
-        internal WebPipeline(string name, string id, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, TelemetryClient telemetryClient = null, ILogger logger = null)
+        internal WebPipeline(string name, string id, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger logger = null)
         {
             this.name = name;
             this.id = id;
 
+            this.headers = headers ?? new HttpCustomHeaderCollection();
             this.inputFilters = inputFilters ?? new InputFilterCollection();
             this.outputFilters = outputFilters ?? new OutputFilterCollection();
             this.inputChannels = inputChannels ?? new InputChannelCollection();
@@ -83,6 +88,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         private OperationContext context;
         private readonly string name;
         private readonly string id;
+        private readonly IHttpCustomHeaderCollection headers;
         private readonly IInputFilterCollection inputFilters;
         private readonly IOutputFilterCollection outputFilters;
         private readonly IBinding binding;
@@ -123,7 +129,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             try
             {
-                context = new(request);
+                context = new(request, headers);
 
                 context = await ExecuteFiltersAsync(inputFilters, context);
 
@@ -138,12 +144,12 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
                 HttpResponseMessage response = new(context.StatusCode);
 
-                foreach (var header in context.Headers.Where(x => x.HeaderType == Clients.Headers.CustomHeaderType.ResponseStatic))
-                {
-                    response.Headers.Add(header.Name, header.Value);
-                }
 
+                var existingContentTypeHeader = headers.FirstOrDefault(x => x.Name.ToLowerInvariant() == "content-type" && x.HeaderType == CustomHeaderType.ResponseStatic)?.Value ?? "application/json";
                 response.Content = !string.IsNullOrEmpty(context.ContentString) ? new StringContent(context.ContentString) : null;
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(existingContentTypeHeader);
+
+                response.AddCustomHeadersToResponse(headers);
 
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
@@ -290,7 +296,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
@@ -299,7 +305,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             context.IsFatal = true;
             context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
             context.Error = e.Error;
-            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {ChannelName}-{ChannelId} error.", Name, Id, e.Name, e.Id);
+            logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 

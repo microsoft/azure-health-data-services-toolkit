@@ -14,13 +14,6 @@ variables:
   - group: toolkit-test-pack
   - group: toolkit-build-version-configuration
 
-  - name: packageversion-prerelease-no-suffix
-    value: $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)
-  - name: packageversion-prerelease
-    value: $(packageversion-prerelease-no-suffix)-prerelease
-  - name: packageversion-release
-    value: $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch)
-
 stages:
   - stage: Build
 
@@ -36,30 +29,47 @@ stages:
         vmImage: $(VmImage)
       steps:
       - template: ./jobs/build.yml
+
+      - bash: |
+          TRIMMED_VERSION=`echo $(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(ahds-toolkit-release-revision) | sed 's/\.*$//g'`
+          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]$TRIMMED_VERSION"
+          echo "##vso[task.setvariable variable=ReleaseFileVersion]$(ahds-toolkit-release-major).$(ahds-toolkit-release-minor).$(ahds-toolkit-release-patch).$(Build.BuildId)"
+          echo "##vso[task.setvariable variable=ReleaseAssemblyVersion]$(ahds-toolkit-release-major).0.0.0"
+
+          TRIMMED_VERSION=`echo $(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch)-prerelease.$(ahds-toolkit-prerelease-revision) | sed 's/\.*$//g'`
+          echo "##vso[task.setvariable variable=PrereleaseVersion;isOutput=true]$TRIMMED_VERSION"
+          echo "##vso[task.setvariable variable=PrereleaseFileVersion]$(ahds-toolkit-prerelease-major).$(ahds-toolkit-prerelease-minor).$(ahds-toolkit-prerelease-patch).$(Build.BuildId)"
+          echo "##vso[task.setvariable variable=PrereleaseAssemblyVersion]$(ahds-toolkit-prerelease-major).0.0.0"
+        name: SetVariables
+        displayName: Set Version Variables
+      
       - template: ./jobs/pack.yml
         parameters:
           PackageArtifactName: ReleasePackages
-          Version: $(packageversion-release)
-          AssemblyVersion: $(packageversion-release).$(Build.BuildId)
+          Version: $(SetVariables.ReleaseVersion)
+          AssemblyVersion: $(ReleaseAssemblyVersion)
+          FileVersion: $(ReleaseFileVersion)
+
       - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
         - template: ./jobs/pack.yml
           parameters:
             PackageArtifactName: PrereleasePackages
-            Version: $(packageversion-prerelease)
-            AssemblyVersion: $(packageversion-prerelease-no-suffix).$(Build.BuildId)
+            Version: $(SetVariables.PrereleaseVersion)
+            AssemblyVersion: $(PrereleaseAssemblyVersion)
+            FileVersion: $(PrereleaseFileVersion)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
   - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: PrereleasePackages
-        PackageVersion: $(packageversion-prerelease)
+        GithubReleseTag: $[stageDependencies.Build.BuildTestPack.outputs['SetVariables.PrereleaseVersion']]
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: ReleasePackages
-        PackageVersion: $(packageversion-release)
+        GithubReleseTag: $[stageDependencies.Build.BuildTestPack.outputs['SetVariables.ReleaseVersion']]
         DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
         IsPrerelease: false

@@ -1,7 +1,7 @@
 parameters:
   - name: PackageArtifactName
   - name: DevOpsFeedID
-  - name: PackageVersion
+  - name: GithubReleseTag
   - name: IsPrerelease
     type: boolean
     default: true
@@ -12,7 +12,6 @@ parameters:
 
 
 stages:
-
   - stage: ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
@@ -133,8 +132,8 @@ stages:
                 repositoryName: ${{ parameters.RepositoryName }}
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.PackageVersion }}
-                title: ${{ parameters.PackagePrefix }} ${{ parameters.PackageVersion }}
+                tag: release/${{ parameters.GithubReleseTag }}
+                title: ${{ parameters.PackagePrefix }} ${{ parameters.GithubReleseTag }}
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg

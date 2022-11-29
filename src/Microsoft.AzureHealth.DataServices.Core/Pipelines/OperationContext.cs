@@ -35,7 +35,22 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             Request = message;
             properties = new Dictionary<string, string>();
-            headers = new HttpCustomHeaderCollection();
+            this.headers = new HttpCustomHeaderCollection();
+            SetContentAsync(message).GetAwaiter();
+        }
+
+        /// <summary>
+        /// Creates an instance of OperationContext
+        /// </summary>
+        /// <param name="message">Initial http request message</param>
+        /// <param name="headers">Initial header collection</param>
+        public OperationContext(HttpRequestMessage message, IHttpCustomHeaderCollection headers)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            Request = message;
+            properties = new Dictionary<string, string>();
+            this.headers = headers;
             SetContentAsync(message).GetAwaiter();
         }
 
