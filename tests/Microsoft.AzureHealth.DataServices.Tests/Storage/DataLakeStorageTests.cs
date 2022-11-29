@@ -33,6 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             fileSystemName = GetRandomName();
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<DataLakeStorageTests>(true);
+            builder.AddEnvironmentVariables("PROXY_");
             var root = builder.Build();
             string connectionString = root["StorageConnectionString"];
             containers = new();

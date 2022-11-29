@@ -29,6 +29,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             Console.WriteLine(context.TestName);
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<QueueStorageTests>(true);
+            builder.AddEnvironmentVariables("PROXY_");
             var root = builder.Build();
             string connectionString = root["StorageConnectionString"];
             random = new();

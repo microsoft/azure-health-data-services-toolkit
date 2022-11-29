@@ -16,7 +16,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
     public static class HttpMessageExtensions
     {
         private static string[] RequestRestrictedHeaderList = new string[] { "content-type", "content-length", "authorization", "accept", "host", "user-agent" };
-        
+
         private static string[] ResponseRestrictedHeaderList = new string[] { "content-length", "host", "transfer-encoding" };
 
 
@@ -67,7 +67,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             return headers;
         }
-        
+
         private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, string[] restrictedHeaderList)
         {
             NameValueCollection nvc = new();
