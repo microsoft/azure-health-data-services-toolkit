@@ -1,7 +1,6 @@
 parameters:
   - name: PackageArtifactName
   - name: DevOpsFeedID
-  - name: GithubReleseTag
   - name: IsPrerelease
     type: boolean
     default: true
@@ -47,7 +46,7 @@ stages:
         pool:
           vmImage: $(WindowsVmImage)
         steps:
-        - template: ../jobs/analyze.yml
+        - template: ../steps/analyze.yml
           parameters:
             PackageArtifactName: ${{ parameters.PackageArtifactName }}
 
@@ -118,12 +117,19 @@ stages:
       environment: github
       pool:
         vmImage: $(VmImage)
+      variables:
+        ${{ if eq( parameters['IsPrerelease'], true) }}:
+          PackageVersion: $(SetVariables.PrereleaseVersion)
+        ${{ else }}:
+          PackageVersion: $(SetVariables.ReleaseVersion)
       strategy:
         runOnce:
           deploy:
             steps:
             - download: current
               artifact: '${{ parameters.PackageArtifactName }}-signed'
+
+            - template: ../steps/versionVariables.yml
 
             - task: GithubRelease@1 
               displayName: 'Create GitHub Release'
@@ -132,8 +138,9 @@ stages:
                 repositoryName: ${{ parameters.RepositoryName }}
                 action: 'create'
                 tagSource: userSpecifiedTag
-                tag: release/${{ parameters.GithubReleseTag }}
-                title: ${{ parameters.PackagePrefix }} ${{ parameters.GithubReleseTag }}
+                
+                tag: release/$(PackageVersion)
+                title: ${{ parameters.PackagePrefix }} $(PackageVersion)
                 isPreRelease: ${{ parameters.IsPrerelease }}
                 assets: |
                   $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg
