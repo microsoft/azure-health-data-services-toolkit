@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Caching;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.AzureHealth.DataServices.Security;
@@ -44,6 +45,13 @@ using IHost host = new HostBuilder()
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
+
+        //Setup In-Memorycache to store the secret token.
+        services.AddMemoryCache();
+        services.AddJsonObjectMemoryCache(options =>
+        {
+            options.CacheItemExpiry = TimeSpan.FromMinutes(1.0);
+        });
 
         // Setup pipeline for Azure function
         services.UseAzureFunctionPipeline();

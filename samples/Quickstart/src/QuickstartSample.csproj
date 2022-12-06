@@ -35,6 +35,9 @@
   <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Caching\Microsoft.AzureHealth.DataServices.Caching.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="host.json">

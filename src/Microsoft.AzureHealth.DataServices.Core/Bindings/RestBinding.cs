@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AzureHealth.DataServices.Caching;
 using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Microsoft.AzureHealth.DataServices.Bindings
 {
@@ -22,18 +22,21 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// Creates an instance of RestBinding.
         /// </summary>
         /// <param name="options">Rest binding options.</param>
+        /// <param name="jsonObjectCache">Rest binding options.</param>
         /// <param name="authenticator">Optional authenticator to acquire security token.</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, IJsonObjectCache jsonObjectCache = null, ILogger<RestBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;
+            this.jsonObjectCache = jsonObjectCache;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
         private readonly IOptions<RestBindingOptions> options;
         private readonly IAuthenticator authenticator;
+        private readonly IJsonObjectCache jsonObjectCache;
         private readonly ILogger logger;
 
 
@@ -57,6 +60,12 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// </summary>
         public event EventHandler<BindingCompleteEventArgs> OnComplete;
 
+        private string TokenName => "SecurityToken";
+
+        private int MaxAttempt => 3;
+
+        private TimeSpan RetryTime => TimeSpan.FromSeconds(1.0);
+
         /// <summary>
         /// Executes the binding.
         /// </summary>
@@ -74,26 +83,36 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
 
             try
             {
-                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
-
                 string securityToken = null;
                 if (authenticator != null)
                 {
-                    string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
-                    securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
+                    if (jsonObjectCache != null)
+                    {
+                        securityToken = await jsonObjectCache.GetAsync(TokenName);
+                        if (string.IsNullOrEmpty(securityToken))
+                        {
+                            securityToken = await FetchToken(context);
+                            await jsonObjectCache.AddAsync(TokenName, securityToken);
+                        }
+                        else
+                        {
+                            securityToken = JsonConvert.DeserializeObject<string>(securityToken);
+                        }
+                    }
+                    else
+                    {
+                        securityToken = await FetchToken(context);
+                    }
                 }
-
-
-                RestRequestBuilder builder = new(context.Request.Method.ToString(),
-                                                                    options.Value.ServerUrl,
-                                                                    securityToken,
-                                                                    context.Request.RequestUri.LocalPath,
-                                                                    context.Request.RequestUri.Query,
-                                                                    headers,
-                                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                                    "application/json");
-                RestRequest req = new(builder);
-                var resp = await req.SendAsync();
+                var resp = await GetRestRequest(context, securityToken).Result.SendAsync();
+                if (resp.StatusCode == HttpStatusCode.Unauthorized && jsonObjectCache != null)
+                {
+                    await jsonObjectCache.RemoveAsync(TokenName);
+                    securityToken = await FetchToken(context);
+                    await jsonObjectCache.AddAsync(TokenName, securityToken);
+                    RestRequest req = await GetRestRequest(context, securityToken);
+                    resp = await Retry.ExecuteRequest(req, RetryTime, MaxAttempt);
+                }
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
 
@@ -116,6 +135,43 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 logger?.LogInformation("{Name}-{Id} signaled error.", Name, Id);
                 return context;
             }
+        }
+
+        /// <summary>
+        /// Set the Token in In-Memory cache.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private async Task<string> FetchToken(OperationContext context)
+        {
+            string securityToken = null;
+            if (string.IsNullOrEmpty(securityToken) && authenticator != null)
+            {
+                string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
+                securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
+            }
+            return securityToken;
+        }
+
+        /// <summary>
+        /// Create Rest Request Object.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="securityToken"></param>
+        /// <returns></returns>
+        private async Task<RestRequest> GetRestRequest(OperationContext context, string securityToken)
+        {
+            NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
+            RestRequestBuilder builder = new(context.Request.Method.ToString(),
+                                                                    options.Value.ServerUrl,
+                                                                    securityToken,
+                                                                    context.Request.RequestUri.LocalPath,
+                                                                    context.Request.RequestUri.Query,
+                                                                    headers,
+                                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                                                                    "application/json");
+            RestRequest req = new(builder);
+            return req;
         }
 
     }
