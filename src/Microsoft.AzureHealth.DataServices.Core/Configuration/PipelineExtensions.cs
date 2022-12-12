@@ -246,7 +246,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <returns>Services collection.</returns>
         public static IServiceCollection AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Singleton));
             services.Configure<TOptions>(options);
             return services;
         }
