@@ -59,7 +59,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
             tenantId ??= options.Value.TenantId;
             TokenRequestContext context = new(scopes, parentRequestId, claims, tenantId);
             var tokenResult = await credential.GetTokenAsync(context, cancellationToken);
-            if (!RequiresOnBehalfOf)
+            if (!RequiresOnBehalfOf && tokenCache != null)
             {
                 await tokenCache.AddToken(cacheToken, tokenResult.Token);
             }
@@ -142,10 +142,13 @@ namespace Microsoft.AzureHealth.DataServices.Security
 
         private async Task<string> GetTokenfromCache()
         {
-            string token = await tokenCache.GetToken(cacheToken);
-            if (!string.IsNullOrEmpty(token))
+            if (tokenCache != null)
             {
-                return token;
+                string token = await tokenCache.GetToken(cacheToken);
+                if (!string.IsNullOrEmpty(token))
+                {
+                    return token;
+                }
             }
             return null;
         }
