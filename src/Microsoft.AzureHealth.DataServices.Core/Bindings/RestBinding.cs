@@ -23,7 +23,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <param name="authenticator">Optional authenticator to acquire security token.</param>
         /// <param name="httpClientFactory">Optional HttpClientFactory to create HTTPClient object.</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IOptions<RestBindingOptions> options,  IAuthenticator authenticator = null, IHttpClientFactory httpClientFactory = null, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, IHttpClientFactory httpClientFactory = null, ILogger<RestBinding> logger = null)
         {
             this.options = options;
             this.authenticator = authenticator;

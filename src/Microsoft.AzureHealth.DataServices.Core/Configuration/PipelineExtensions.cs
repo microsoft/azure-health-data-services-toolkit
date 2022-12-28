@@ -65,8 +65,8 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         {
             services.AddMemoryCache();
             services.AddScoped<ITokenCache, TokenCache>();
-            services.AddScoped<IAuthenticator, Authenticator>();           
-            services.Configure<ServiceIdentityOptions>(options);    
+            services.AddScoped<IAuthenticator, Authenticator>();
+            services.Configure<ServiceIdentityOptions>(options);
             return services;
         }
 
