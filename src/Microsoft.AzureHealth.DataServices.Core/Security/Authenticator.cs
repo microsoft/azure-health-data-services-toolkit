@@ -17,12 +17,16 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// Creates an instance of Authenticator.
         /// </summary>
         /// <param name="options">ServiceIdentity options used by the authenticator.</param>
-        public Authenticator(IOptions<ServiceIdentityOptions> options)
+        /// <param name="tokenCache">Cache is used to store the token.</param>
+        public Authenticator(IOptions<ServiceIdentityOptions> options, ITokenCache tokenCache = null)
         {
             this.options = options;
+            this.tokenCache = tokenCache;
         }
 
         private readonly IOptions<ServiceIdentityOptions> options;
+        private readonly ITokenCache tokenCache;
+        private string cacheToken => "authToken";
 
         /// <summary>
         /// Gets a indication whether OBO is required for access token acquisition.
@@ -55,6 +59,10 @@ namespace Microsoft.AzureHealth.DataServices.Security
             tenantId ??= options.Value.TenantId;
             TokenRequestContext context = new(scopes, parentRequestId, claims, tenantId);
             var tokenResult = await credential.GetTokenAsync(context, cancellationToken);
+            if (!RequiresOnBehalfOf)
+            {
+                await tokenCache.AddToken(cacheToken, tokenResult.Token);
+            }
             return tokenResult.Token;
         }
 
@@ -76,23 +84,25 @@ namespace Microsoft.AzureHealth.DataServices.Security
                                                             string? userAssertion = null,
                                                             CancellationToken cancellationToken = default)
         {
+
+            string cacheToken = await GetTokenfromCache();
             var token = options.Value.CredentialType switch
             {
-                ClientCredentialType.ManagedIdentity => await AcquireTokenForClientAsync(resource,
+                ClientCredentialType.ManagedIdentity => cacheToken ?? await AcquireTokenForClientAsync(resource,
                                                                                         new ManagedIdentityCredential(options.Value.ClientId),
                                                                                         scopes,
                                                                                         parentRequestId,
                                                                                         claims,
                                                                                         options.Value.TenantId,
                                                                                         cancellationToken),
-                ClientCredentialType.ClientSecret => await AcquireTokenForClientAsync(resource,
+                ClientCredentialType.ClientSecret => cacheToken ?? await AcquireTokenForClientAsync(resource,
                                                                                      new ClientSecretCredential(options.Value.TenantId,
                                                                                                                 options.Value.ClientId,
                                                                                                                 options.Value.ClientSecret),
                                                                                      scopes, parentRequestId, claims,
                                                                                      options.Value.TenantId,
                                                                                      cancellationToken),
-                ClientCredentialType.Certificate => await AcquireTokenForClientAsync(resource,
+                ClientCredentialType.Certificate => cacheToken ?? await AcquireTokenForClientAsync(resource,
                                                                                      new ClientCertificateCredential(options.Value.TenantId,
                                                                                                                     options.Value.ClientId,
                                                                                                                     options.Value.Certficate),
@@ -115,7 +125,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
                                                                                    scopes, parentRequestId, claims,
                                                                                    options.Value.TenantId,
                                                                                    cancellationToken),
-                _ => await AcquireTokenForClientAsync(resource,
+                _ => cacheToken ?? await AcquireTokenForClientAsync(resource,
                                                     new DefaultAzureCredential(),
                                                     scopes, parentRequestId, claims,
                                                     options.Value.TenantId, cancellationToken),
@@ -128,6 +138,16 @@ namespace Microsoft.AzureHealth.DataServices.Security
         private static string[] GetDefaultScopes(string resource)
         {
             return new string[] { $"{resource.TrimEnd('/')}/.default" };
+        }
+
+        private async Task<string> GetTokenfromCache()
+        {
+            string token = await tokenCache.GetToken(cacheToken);
+            if (!string.IsNullOrEmpty(token))
+            {
+                return token;
+            }
+            return null;
         }
     }
 }

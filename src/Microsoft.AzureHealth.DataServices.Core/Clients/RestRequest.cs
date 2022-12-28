@@ -15,12 +15,13 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// Creates an instance of the RestRequest.
         /// </summary>
         /// <param name="builder">REST request builder that creates the HttpWebRequest object.</param>
+        /// <param name="httpClientFactory">IHttpClientFactory to create HTTPClient object.</param>
         /// <param name="logger">Optional logger.</param>
-        public RestRequest(RestRequestBuilder builder, ILogger logger = null)
+        public RestRequest(RestRequestBuilder builder, IHttpClientFactory httpClientFactory = null, ILogger logger = null)
            : this(logger)
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
-
+            this.httpClientFactory = httpClientFactory;
             this.builder = builder;
         }
 
@@ -35,6 +36,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
         private readonly ILogger logger;
         private readonly RestRequestBuilder builder;
+        private readonly IHttpClientFactory httpClientFactory;
 
         /// <summary>
         /// Sends and http request and returns a response.
@@ -45,6 +47,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             try
             {
                 HttpClient client;
+                client = httpClientFactory == null ? new HttpClient() : httpClientFactory.CreateClient();
                 HttpRequestMessage message = builder.Build();
                 if (builder.Certificate != null)
                 {
@@ -52,11 +55,6 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                     handler.ClientCertificates.Add(builder.Certificate);
                     client = new HttpClient(handler);
                 }
-                else
-                {
-                    client = new HttpClient();
-                }
-
                 HttpResponseMessage response = await client.SendAsync(message);
                 logger?.LogInformation("Rest response returned status {StatusCode}.", response.StatusCode);
                 logger?.LogTrace("Rest response returned with content-type {ContentType}.", response.Content?.Headers.ContentType);

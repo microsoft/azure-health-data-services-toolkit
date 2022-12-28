@@ -63,9 +63,10 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <returns>Services collection.</returns>
         public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
         {
-            services.AddScoped<IAuthenticator, Authenticator>();
-            services.Configure<ServiceIdentityOptions>(options);
-
+            services.AddMemoryCache();
+            services.AddScoped<ITokenCache, TokenCache>();
+            services.AddScoped<IAuthenticator, Authenticator>();           
+            services.Configure<ServiceIdentityOptions>(options);    
             return services;
         }
 

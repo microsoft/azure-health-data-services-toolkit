@@ -19,7 +19,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <param name="cache">In-memory cache.</param>
         /// <param name="provider">Cache persistence provider.</param>
         /// <param name="logger">ILogger</param>
-        public JsonObjectCache(IOptions<JsonCacheOptions> options, IMemoryCache cache, ICacheBackingStoreProvider provider = null, ILogger<JsonObjectCache> logger = null)
+        public JsonObjectCache(IOptions<JsonCacheOptions> options, IMemoryCache cache, ICacheBackingStoreProvider provider, ILogger<JsonObjectCache> logger = null)
         {
             expiry = options.Value.CacheItemExpiry;
             this.cache = cache;
@@ -50,10 +50,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
             {
                 string json = JsonConvert.SerializeObject(value);
                 cache.Set(key, json, GetOptions());
-                if (provider != null)
-                {
-                    await provider.AddAsync(key, value);
-                }
+                await provider.AddAsync(key, value);
                 logger?.LogTrace("Key {key} set to local memory cache.", key);
             }
             finally
@@ -77,10 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
             {
                 string json = JsonConvert.SerializeObject(value);
                 cache.Set(key, json, GetOptions());
-                if (provider != null)
-                {
-                    await provider.AddAsync(key, value);
-                }
+                await provider.AddAsync(key, value);
                 logger?.LogTrace("Key {key} set to local memory cache.", key);
             }
             finally
@@ -142,10 +136,10 @@ namespace Microsoft.AzureHealth.DataServices.Caching
                 }
 
                 logger?.LogTrace("Key {key} not found in local memory cache.", key);
-                string remote = null;
-                if (provider != null)
+                string remote = await provider.GetAsync(key);
+
+                if (remote != null)
                 {
-                    remote = await provider.GetAsync(key);
                     cache.Set(key, remote, GetOptions());
                 }
 
@@ -171,12 +165,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
             try
             {
                 cache.Remove(key);
-                if (provider != null)
-                {
-                    return await provider.RemoveAsync(key);
-                }
-                return true;
-
+                return await provider.RemoveAsync(key);
             }
             finally
             {
