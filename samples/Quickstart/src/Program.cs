@@ -1,14 +1,13 @@
-using System.Reflection;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
-using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
+using System.Reflection;
 
 MyServiceConfig config = new MyServiceConfig();
 
@@ -40,6 +39,9 @@ using IHost host = new HostBuilder()
 
         // Used for accessing Azure resources
         services.UseAuthenticator();
+
+        // Used to create HTTPClient object using IHttpClientFactory.
+        services.AddHttpClient();
 
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
