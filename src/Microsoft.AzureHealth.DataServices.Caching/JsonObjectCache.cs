@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+﻿using AsyncKeyedLock;
 using Microsoft.AzureHealth.DataServices.Caching.StorageProviders;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -25,14 +25,18 @@ namespace Microsoft.AzureHealth.DataServices.Caching
             this.cache = cache;
             this.provider = provider;
             this.logger = logger;
-            keyLocker = new ConcurrentDictionary<string, SemaphoreSlim>();
+            keyLocker = new AsyncKeyedLocker<string>(o =>
+            {
+                o.PoolSize = 20;
+                o.PoolInitialFill = 1;
+            });
         }
 
         private readonly IMemoryCache cache;
         private readonly ILogger logger;
         private readonly ICacheBackingStoreProvider provider;
         private readonly TimeSpan expiry;
-        private readonly ConcurrentDictionary<string, SemaphoreSlim> keyLocker;
+        private readonly AsyncKeyedLocker<string> keyLocker;
 
         /// <summary>
         /// Adds an item to the cache.
@@ -43,19 +47,12 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <returns>Task.</returns>
         public async Task AddAsync<T>(string key, T value)
         {
-            var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync();
-
-            try
+            using (await keyLocker.LockAsync(key).ConfigureAwait(false))
             {
                 string json = JsonConvert.SerializeObject(value);
                 cache.Set(key, json, GetOptions());
                 await provider.AddAsync(key, value);
                 logger?.LogTrace("Key {key} set to local memory cache.", key);
-            }
-            finally
-            {
-                keyLock?.Release();
             }
         }
 
@@ -67,19 +64,12 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <returns>Task.</returns>
         public async Task AddAsync(string key, object value)
         {
-            var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync();
-
-            try
+            using (await keyLocker.LockAsync(key).ConfigureAwait(false))
             {
                 string json = JsonConvert.SerializeObject(value);
                 cache.Set(key, json, GetOptions());
                 await provider.AddAsync(key, value);
                 logger?.LogTrace("Key {key} set to local memory cache.", key);
-            }
-            finally
-            {
-                keyLock?.Release();
             }
         }
 
@@ -91,10 +81,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <returns>Item from cache otherwise null.</returns>
         public async Task<T> GetAsync<T>(string key)
         {
-            var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync();
-
-            try
+            using (await keyLocker.LockAsync(key).ConfigureAwait(false))
             {
                 if (cache.TryGetValue(key, out string value))
                 {
@@ -112,10 +99,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching
                 logger?.LogInformation("Key {key} reset from store to local memory cache.", key);
                 return remote;
             }
-            finally
-            {
-                keyLock?.Release();
-            }
         }
 
         /// <summary>
@@ -125,10 +108,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <returns>An item from cache otherwise null.</returns>
         public async Task<string> GetAsync(string key)
         {
-            var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync();
-
-            try
+            using (await keyLocker.LockAsync(key).ConfigureAwait(false))
             {
                 if (cache.TryGetValue(key, out string value))
                 {
@@ -146,10 +126,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching
                 logger?.LogInformation("Key {key} reset from store to local memory cache.", key);
                 return remote;
             }
-            finally
-            {
-                keyLock?.Release();
-            }
         }
 
         /// <summary>
@@ -159,17 +135,10 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// <returns>True is remove otherwise false.</returns>
         public async Task<bool> RemoveAsync(string key)
         {
-            var keyLock = keyLocker.GetOrAdd(key, x => new SemaphoreSlim(1));
-            await keyLock.WaitAsync();
-
-            try
+            using (await keyLocker.LockAsync(key).ConfigureAwait(false))
             {
                 cache.Remove(key);
                 return await provider.RemoveAsync(key);
-            }
-            finally
-            {
-                keyLock?.Release();
             }
         }
 
