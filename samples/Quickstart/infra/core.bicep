@@ -79,7 +79,7 @@ module function './azureFunction.bicep'= {
     appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
     functionSettings: union({
       AZURE_FhirServerUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
-      AZURE_InstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
+      AZURE_InstrumentationKey: monitoring.outputs.appInsightsInstrumentationString
     }, functionAppCustomSettings)
     appTags: appTags
   }
