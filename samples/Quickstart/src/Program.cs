@@ -1,14 +1,18 @@
-using System.Reflection;
+using Azure.Core;
+using Azure.Core.Pipeline;
+using Azure.Identity;
 using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
-using Microsoft.AzureHealth.DataServices.Security;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
+using System.Reflection;
 
 MyServiceConfig config = new MyServiceConfig();
 
@@ -38,13 +42,24 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
-        // Used for accessing Azure resources
-        services.UseAuthenticator();
-
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
 
+        
+
+
+        services.AddAzureClients(clientBuilder =>
+        {
+            clientBuilder.AddGenericRestClient(new Uri(config.FhirServerUrl))
+            .WithCredential(new DefaultAzureCredential())
+            .ConfigureOptions(options =>
+            {
+                options.Retry.Mode = Azure.Core.RetryMode.Exponential;
+                options.Retry.MaxRetries = 5;
+                options.Retry.MaxDelay = TimeSpan.FromSeconds(60);
+            });
+        });
         // Setup pipeline for Azure function
         services.UseAzureFunctionPipeline();
 
@@ -52,10 +67,7 @@ using IHost host = new HostBuilder()
         services.AddInputFilter(typeof(QuickstartFilter));
 
         // Add our binding to pass the call to the FHIR service
-        services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
-        {
-            options.ServerUrl = config.FhirServerUrl;
-        });
+        services.AddRestBinding();
     })
     .Build();
 

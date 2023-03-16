@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Net.Http;
+using Azure.Core;
+using Azure.Core.Extensions;
+using Azure.Data.AppConfiguration;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
@@ -251,19 +255,29 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="services"></param>
+        ///// <returns></returns>
+        //public static IServiceCollection AddRestClient(this IServiceCollection services)
+        //{
+        //    services.AddSingleton<IGenericRestClient, GenericRestClient>();
+        //    return services;
+        //}
+
 
         /// <summary>
         /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for REST binding.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddRestBinding(this IServiceCollection services, Action<RestBindingOptions> options)
+        public static IServiceCollection AddRestBinding(this IServiceCollection services)
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
-            services.Configure<RestBindingOptions>(options);
             return services;
         }
+
 
     }
 }
