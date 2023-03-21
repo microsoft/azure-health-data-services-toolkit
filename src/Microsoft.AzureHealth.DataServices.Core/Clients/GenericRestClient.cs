@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.Identity;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Protocol;
 using Microsoft.Extensions.Logging;
 
@@ -46,21 +48,29 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
-
+        /// <summary>
+        /// Default Content Type as Json
+        /// </summary>
+        private static string ContentType => "application/json";
 
         /// <summary>
         /// Sends and http request and returns a response.
         /// </summary>
         /// <returns>HttpResponseMessage</returns>
-        public async Task<Response> SendAsync(string body, CancellationToken cancellationToken = default)
+        public async Task<Response> SendAsync(OperationContext operationContext)
         {
             try
             {
-                RequestContext context = new RequestContext()
+                //string token = await FetchToken();
+                using HttpMessage message = operationContext.Request.Method.ToString().ToUpperInvariant() switch
                 {
-                    CancellationToken = cancellationToken,
+                    "GET" => CreateRequest(operationContext),
+                    "POST" => CreateRequest(operationContext),
+                    "PUT" => CreateRequest(operationContext),
+                    "DELETE" => CreateRequest(operationContext),
+                    "PATCH" => CreateRequest(operationContext),
+                    _ => throw new Exception("Invalid Http method."),
                 };
-                using HttpMessage message = CreatePostSecretRequest(body, context);
                 await _pipeline.SendAsync(message, CancellationToken.None);
                 var response = message.Response;
                 logger?.LogInformation("Rest response returned status {StatusCode}.", response);
@@ -89,17 +99,50 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             }
         }
 
-        internal HttpMessage CreatePostSecretRequest(string body, RequestContext context)
+        /// <summary>
+        /// Create Http Message Request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private HttpMessage CreateRequest(OperationContext context)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
-            request.Method = RequestMethod.Post;
-            request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(body));
-            request.Headers.Add("Content-Type", "application/json");
-            request.Uri.Reset(_endpoint);
+            request.Method = ConvertToRequestMethod(context.Request.Method.ToString());
+            var uri = new RawRequestUriBuilder();
+            uri.AppendRaw(_endpoint.ToString(), false);
+            if (context.Request.RequestUri.LocalPath.Trim().ToLower() != "/postbundle")
+            {
+                uri.AppendPath(context.Request.RequestUri.LocalPath.Trim(), escape: false);
+            }
+            request.Uri = uri;
+            if (!string.IsNullOrEmpty(context.ContentString))
+            {
+                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));
+                request.Headers.Add("Content-Type", context.Request.Content.Headers.ContentType.MediaType.ToString().Trim());
+            }
+            else
+            {
+                request.Headers.Add("Content-Type", ContentType);
+            }
+
             return message;
         }
 
+        private static RequestMethod ConvertToRequestMethod(string method)
+        {
+            RequestMethod requestMethod = method.ToUpperInvariant() switch
+            {
+                "GET" => RequestMethod.Get,
+                "POST" => RequestMethod.Post,
+                "PUT" => RequestMethod.Put,
+                "DELETE" => RequestMethod.Delete,
+                "PATCH" => RequestMethod.Patch,
+                _ => throw new Exception("Invalid Http method."),
+
+            };
+            return requestMethod;
+        }
 
         private static string GetDefaultScope(Uri uri)
             => $"{uri.GetComponents(UriComponents.SchemeAndServer, UriFormat.SafeUnescaped)}/.default";

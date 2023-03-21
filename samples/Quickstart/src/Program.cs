@@ -47,17 +47,15 @@ using IHost host = new HostBuilder()
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
 
         
-
-
         services.AddAzureClients(clientBuilder =>
         {
             clientBuilder.AddGenericRestClient(new Uri(config.FhirServerUrl))
-            .WithCredential(new DefaultAzureCredential())
+            .WithCredential(new DefaultAzureCredential(true))
             .ConfigureOptions(options =>
             {
-                options.Retry.Mode = Azure.Core.RetryMode.Exponential;
-                options.Retry.MaxRetries = 5;
-                options.Retry.MaxDelay = TimeSpan.FromSeconds(60);
+                options.Retry.Mode = Azure.Core.RetryMode.Fixed;
+                options.Retry.MaxRetries = 3;
+                options.Retry.MaxDelay = TimeSpan.FromSeconds(120);
             });
         });
         // Setup pipeline for Azure function

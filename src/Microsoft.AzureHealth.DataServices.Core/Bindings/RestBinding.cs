@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Azure;
 using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Azure;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.AzureHealth.DataServices.Bindings
 {
@@ -78,11 +72,9 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
                 GenericRestClient client = genericRestClient.CreateClient("Default");
-                var resp = await client.SendAsync(context.ContentString);
-                //var resp = await req.SendAsync();
+                var resp = await client.SendAsync(context);
                 context.StatusCode = (HttpStatusCode)resp.Status;
-                //context.Content = await resp.Content?.ReadAsByteArrayAsync();
-
+                context.Content = resp.Content.ToArray();
                 //if (options.Value.AddResponseHeaders)
                 //{
                 //    context.Headers.UpdateFromResponse(resp);
