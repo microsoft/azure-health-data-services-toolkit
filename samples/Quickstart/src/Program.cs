@@ -10,11 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Quickstart.Configuration;
 using Quickstart.Filters;
 using System.Reflection;
 
-MyServiceConfig config = new MyServiceConfig();
+MyServiceConfig config = new();
 
 using IHost host = new HostBuilder()
     .ConfigureAppConfiguration((hostingContext, configuration) =>
@@ -46,7 +47,7 @@ using IHost host = new HostBuilder()
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
 
-        
+
         services.AddAzureClients(clientBuilder =>
         {
             clientBuilder.AddGenericRestClient(new Uri(config.FhirServerUrl))
@@ -65,7 +66,15 @@ using IHost host = new HostBuilder()
         services.AddInputFilter(typeof(QuickstartFilter));
 
         // Add our binding to pass the call to the FHIR service
-        services.AddRestBinding();
+
+        services.AddBinding<RestBindingOptions>(typeof(RestBinding), option =>
+                {
+                    option.ServerUrl = config.FhirServerUrl;
+                    option.Retry.Mode = Azure.Core.RetryMode.Fixed;
+                    option.Retry.MaxRetries = 3;
+                    option.tokenCredential = new DefaultAzureCredential(true);
+                    option.Retry.MaxDelay = TimeSpan.FromSeconds(120);
+                });
     })
     .Build();
 

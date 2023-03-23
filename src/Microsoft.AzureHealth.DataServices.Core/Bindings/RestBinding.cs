@@ -27,7 +27,6 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             this.genericRestClient = genericRestClient;
         }
 
-
         private readonly ILogger logger;
         private readonly IAzureClientFactory<GenericRestClient> genericRestClient;
 
@@ -68,9 +67,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             }
 
             try
-            {
-                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
-
+            {                
                 GenericRestClient client = genericRestClient.CreateClient("Default");
                 var resp = await client.SendAsync(context);
                 context.StatusCode = (HttpStatusCode)resp.Status;

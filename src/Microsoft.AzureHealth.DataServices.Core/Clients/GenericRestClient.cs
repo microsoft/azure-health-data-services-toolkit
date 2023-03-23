@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.Identity;
+using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Protocol;
 using Microsoft.Extensions.Logging;
@@ -33,7 +36,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="clientOptions"></param>
         /// <param name="tokenCredential"></param>
         /// <param name="logger"></param>
-        public GenericRestClient(Uri endpoint, TokenCredential tokenCredential, GenericRestClientOption clientOptions, ILogger<GenericRestClient> logger = null)
+        public GenericRestClient(Uri endpoint, TokenCredential tokenCredential, RestBindingOptions clientOptions, ILogger<GenericRestClient> logger = null)
         {
             this._tokenCredential = tokenCredential;
             _endpoint = endpoint;
@@ -115,10 +118,27 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             {
                 uri.AppendPath(context.Request.RequestUri.LocalPath.Trim(), escape: false);
             }
-            request.Uri = uri;
+            request.Uri = uri;            
+
+            NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
+            if (headers != null)
+            {
+                headers.Remove("Content-Type");
+                headers.Remove("Content-Length");
+                headers.Remove("Authorization");
+                headers.Remove("Accept");
+                headers.Remove("Host");
+                headers.Remove("User-Agent");
+
+                foreach (string item in headers.AllKeys)
+                {
+                    request.Headers.Add(item, headers.Get(item));
+                }
+            }
+
             if (!string.IsNullOrEmpty(context.ContentString))
             {
-                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));
+                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));                
                 request.Headers.Add("Content-Type", context.Request.Content.Headers.ContentType.MediaType.ToString().Trim());
             }
             else
@@ -126,6 +146,8 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 request.Headers.Add("Content-Type", ContentType);
             }
 
+            request.Headers.Add("Host", new Uri(_endpoint.ToString()).Authority);            
+            //request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
             return message;
         }
 
