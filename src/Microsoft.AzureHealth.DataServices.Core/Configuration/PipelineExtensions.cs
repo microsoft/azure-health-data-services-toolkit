@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Net.Http;
-using Azure.Core;
-using Azure.Core.Extensions;
-using Azure.Data.AppConfiguration;
-using Azure.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
-using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
@@ -278,7 +273,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         public static IServiceCollection AddRestBinding(this IServiceCollection services, RestBindingOptions option)
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
-            //services.Configure<RestBindingOptions>(option);
             services.AddAzureClients(clientBuilder =>
             {
                 clientBuilder.AddGenericRestClient(new Uri(option.ServerUrl))
@@ -288,7 +282,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
                     options.Retry.Mode = option.Retry.Mode;
                     options.Retry.MaxRetries = option.Retry.MaxRetries;
                     options.Retry.MaxDelay = option.Retry.MaxDelay;
-                    option.Retry.Delay = option.Retry.Delay;
                 });
             });
             return services;
