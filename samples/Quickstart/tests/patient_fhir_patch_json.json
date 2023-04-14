@@ -1,0 +1,18 @@
+{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "operation",
+            "part": [
+                {
+                    "name": "type",
+                    "valueCode": "delete"
+                },
+                {
+                    "name": "path",
+                    "valueString": "Patient.telecom.where(use = 'home')"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "op": "add",
+        "path": "/address/0",
+        "value": {
+            "use": "home",
+            "line": [
+                "23 thule st",
+                "avon"
+            ],
+            "city": "Big Smoke",
+            "country": "erewhon",
+            "text": "23 thule st"
+        }
+    }
+]

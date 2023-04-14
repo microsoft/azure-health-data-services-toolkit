@@ -1,9 +1,12 @@
-﻿namespace Microsoft.AzureHealth.DataServices.Bindings
+﻿using System;
+using Azure.Core;
+
+namespace Microsoft.AzureHealth.DataServices.Bindings
 {
     /// <summary>
     /// Options for REST binding.
     /// </summary>
-    public class RestBindingOptions
+    public class RestBindingOptions : ClientOptions
     {
 
         /// <summary>
@@ -20,5 +23,11 @@
         /// Adds the response headers from the binding to the pipeline
         /// </summary>
         public bool AddResponseHeaders { get; set; } = true;
+
+        /// <summary>
+        /// Get or set the TokenCredential.
+        /// </summary>
+        public TokenCredential tokenCredential { get; set; }
+
     }
 }

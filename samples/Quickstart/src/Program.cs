@@ -1,16 +1,18 @@
-using System.Reflection;
+using Azure.Core;
+using Azure.Identity;
 using Microsoft.AzureHealth.DataServices.Bindings;
+using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
-using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
+using System.Reflection;
 
-MyServiceConfig config = new MyServiceConfig();
+MyServiceConfig config = new();
 
 using IHost host = new HostBuilder()
     .ConfigureAppConfiguration((hostingContext, configuration) =>
@@ -38,9 +40,6 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
-        // Used for accessing Azure resources
-        services.UseAuthenticator();
-
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
@@ -52,10 +51,14 @@ using IHost host = new HostBuilder()
         services.AddInputFilter(typeof(QuickstartFilter));
 
         // Add our binding to pass the call to the FHIR service
-        services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
-        {
-            options.ServerUrl = config.FhirServerUrl;
-        });
+
+        RestBindingOptions restBindingOptions = new();
+        restBindingOptions.Retry.Delay = TimeSpan.FromSeconds(1);
+        restBindingOptions.Retry.Mode = RetryMode.Exponential;
+        restBindingOptions.ServerUrl = config.FhirServerUrl;
+        restBindingOptions.Retry.MaxRetries = 3;
+        restBindingOptions.tokenCredential = new DefaultAzureCredential(true);
+        services.AddRestBinding(restBindingOptions);
     })
     .Build();
 
