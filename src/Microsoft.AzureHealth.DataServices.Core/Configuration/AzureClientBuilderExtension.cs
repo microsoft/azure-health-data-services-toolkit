@@ -26,7 +26,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         public static IAzureClientBuilder<GenericRestClient, RestBindingOptions> AddGenericRestClient<TBuilder>(this TBuilder builder, Uri uri)
            where TBuilder : IAzureClientFactoryBuilderWithCredential
         {
-            return builder.RegisterClientFactory<GenericRestClient, RestBindingOptions>((options, cred) => new GenericRestClient(uri, cred, options));
+            return builder.RegisterClientFactory<GenericRestClient, GenericRestClientOptions>((options, cred) => new GenericRestClient(uri, options, cred));
         }
 
     }

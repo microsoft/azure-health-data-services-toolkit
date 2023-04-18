@@ -25,9 +25,9 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         public bool AddResponseHeaders { get; set; } = true;
 
         /// <summary>
-        /// Get or set the TokenCredential.
+        /// Azure credential to be used by the binding.
         /// </summary>
-        public TokenCredential tokenCredential { get; set; }
+        public TokenCredential? Credential { get; set; }
 
     }
 }

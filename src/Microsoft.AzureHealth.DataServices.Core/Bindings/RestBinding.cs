@@ -72,6 +72,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 var resp = await client.SendAsync(context);
                 context.StatusCode = (HttpStatusCode)resp.Status;
                 context.Content = resp.Content.ToArray();
+
                 //if (options.Value.AddResponseHeaders)
                 //{
                 //    context.Headers.UpdateFromResponse(resp);

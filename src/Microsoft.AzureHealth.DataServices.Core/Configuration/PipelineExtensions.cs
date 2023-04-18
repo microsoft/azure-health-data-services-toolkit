@@ -5,6 +5,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
@@ -252,41 +253,25 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="services"></param>
-        ///// <returns></returns>
-        //public static IServiceCollection AddRestClient(this IServiceCollection services)
-        //{
-        //    services.AddSingleton<IGenericRestClient, GenericRestClient>();
-        //    return services;
-        //}
-
-
-        /// <summary>
         /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <param name="option">Options for REST binding.</param>
+        /// <param name="bindingOptions">Options for REST binding.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddRestBinding(this IServiceCollection services, RestBindingOptions option)
+        public static IServiceCollection AddRestBinding(this IServiceCollection services, RestBindingOptions bindingOptions)
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
             services.AddAzureClients(clientBuilder =>
             {
-                clientBuilder.AddGenericRestClient(new Uri(option.ServerUrl))
-                .WithCredential(option.tokenCredential)
+                clientBuilder.AddGenericRestClient(new Uri(bindingOptions.ServerUrl))
+                .WithCredential(bindingOptions.Credential)
                 .ConfigureOptions(options =>
                 {
-                    options.Retry.Mode = option.Retry.Mode;
-                    options.Retry.MaxRetries = option.Retry.MaxRetries;
-                    options.Retry.MaxDelay = option.Retry.MaxDelay;
+                    options = bindingOptions.ClientOptions;
                 });
             });
+
             return services;
         }
-
-
     }
 }
