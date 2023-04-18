@@ -106,3 +106,4 @@ module specifiedIdentity './fhirIdentity.bicep' =  [for principalId in  fhirCont
 
 output FhirServiceId string = fhir.outputs.fhirId
 output FhirServiceUrl string = 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
+output Azure_FunctionURL string=function.outputs.functionBaseUrl
