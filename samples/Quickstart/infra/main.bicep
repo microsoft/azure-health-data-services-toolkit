@@ -77,3 +77,4 @@ module existingResourceGrouptemplate 'core.bicep'= if (!createResourceGroup) {
 // These map to user secrets for local execution of the program
 output LOCATION string = location
 output FhirServerUrl string = createResourceGroup ? template.outputs.FhirServiceUrl : existingResourceGrouptemplate.outputs.FhirServiceUrl
+output Azure_FunctionURL string = createResourceGroup ? template.outputs.Azure_FunctionURL : existingResourceGrouptemplate.outputs.Azure_FunctionURL

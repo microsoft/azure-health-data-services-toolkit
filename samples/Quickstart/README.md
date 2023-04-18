@@ -93,6 +93,25 @@ This quickstart will create the below resources. These will be used both for loc
 2. The command will output ae endpoint for your function app. Copy this.
 3. Test the endpoint by going to `<Endpoint>/Patient` in your browser or API testing tool.
 
+## Get the deployment details
+
+ 1. Run the below command to get the deployed Azure function URL variable named `Azure_FunctionURL`.
+    ```
+     azd get-values
+    ```
+2. Run the below command to get the default key from the deployed Azure function.  
+    ```
+     az functionapp keys list --name
+                         --resource-group
+    ```
+    
+   As output, it will return the default key and master key.
+
+    Please click on [link](https://learn.microsoft.com/en-us/cli/azure/functionapp/keys?view=azure-cli-latest#az-functionapp-keys-list) to read more about the function key.
+
+
+  Note: No need to append a key to the url if AuthorizationLevel is Anonymous. To check the authorization level, please see the Quickstartfunction.cs file's methods. For now, it's set to `Function`, but you can change it as per your needs.   
+
 ## Usage details
 
 - `Program.cs` outlines how we can use Azure Function for Simple custom operation using various types of services like authenticator, headers and filters.
@@ -105,7 +124,69 @@ This quickstart will create the below resources. These will be used both for loc
   - Added language to resource as ‘en’ (English)
   - If there is no `Patient.meta.security` label, added [HTEST](https://www.hl7.org/fhir/resource-definitions.html#Meta.security)
 - Custom operation QuickstartSample end point methods listed below.
+
+-  Please copy the quickstartfunction URL from the above command and replace it with `QuickStartFunctionURL`.
+- Copy the default key value from the above command and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
+
   - GET: used to get the patient details using patient id.
+     ```
+     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
+     Method : GET
+     content-type : "application/json"
+     ```
   - POST: creates new patient record with updated filter data which is given above,to verify the new created record use GET method and pass created id.
+     ```
+     url : <QuickStartFuncrtionURL>/Patient?Code=defaultkey
+     METHOD :POST 
+     content-type : "application/json"     
+     ```
   - PUT: it updates the patient data, need to pass patient id,to verify the updated record use GET method and pass updated id.
+     ```
+     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
+     METHOD : PUT
+     content-type : "application/json"     
+     ```
+
   - DELETE: used to delete the patient record from FHIR server by passing patient id, to verify the deleted record use GET method and pass deleted id.
+     ```
+     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
+     METHOD : DELETE
+     content-type : "application/json"     
+     ```
+   - PATCH : used to update the only portion of the FHIR resource.To verify the updated record use GET method and pass the patient id.  
+     ```
+     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
+     METHOD : PATCH
+     content-type : "application/json"     
+     ```
+
+  - SearchPatient : used to search the patient based on the respurcetype.
+    ```
+     url : <QuickStartFuncrtionURL>/{respurcetype}?Code=defaultkey
+     METHOD : GET
+     content-type : "application/json"     
+     ```
+      here, resource type can be patient,encounter,observation etc.
+      Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/fhir/search-samples) to learn more about the FHIR Search.
+
+   - Post Bundle : used to post the FHIR bundle. 
+     ```
+     url : <QuickStartFuncrtionURL>/PostBundle?Code=defaultkey
+     METHOD : POST
+     content-type : "application/json"     
+     ```
+   -  FHIR PATCH : update an element in a list without knowing the order of the list.
+      ```
+      url : <QuickStartFuncrtionURL>/Patient/{Id}?Code=defaultkey
+      METHOD : PATCH
+      content-type : "application/fhir+json"     
+      ```
+         Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/azure-api-for-fhir/fhir-rest-api-capabilities#patch-with-fhirpath-patch) to learn more about the Patch with FHIR Path Patch.
+    - JSON PATCH : used to update the json part of the FHIR json.      
+       ```
+      url : <QuickStartFuncrtionURL>/Patient/{Id}?Code=defaultkey
+      METHOD : PATCH
+      content-type : "application/json-patch+json"     
+      ```
+         Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/azure-api-for-fhir/fhir-rest-api-capabilities#patch-with-json-patch) to learn more about the Patch with JSON Patch.
+         

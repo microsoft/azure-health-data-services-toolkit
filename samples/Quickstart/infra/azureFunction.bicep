@@ -70,3 +70,4 @@ resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
 output functionAppName string = functionAppName
 output functionAppPrincipalId string = functionApp.identity.principalId
 output hostName string = functionApp.properties.defaultHostName
+output functionBaseUrl string = 'https://${functionApp.properties.defaultHostName}'
