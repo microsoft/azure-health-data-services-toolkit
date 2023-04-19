@@ -83,7 +83,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 Array.Empty<HttpPipelinePolicy>(), 
                 new HttpPipelinePolicy[] { 
                     new BearerTokenAuthenticationPolicy(credential, GetDefaultScope(endpoint))
-                }, 
+                },
                 new ResponseClassifier()
             );
         }
