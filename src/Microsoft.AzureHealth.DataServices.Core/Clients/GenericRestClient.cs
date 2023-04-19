@@ -118,7 +118,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             {
                 uri.AppendPath(context.Request.RequestUri.LocalPath.Trim(), escape: false);
             }
-            request.Uri = uri;            
+            request.Uri = uri;
 
             NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
             if (headers != null)
@@ -138,7 +138,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             if (!string.IsNullOrEmpty(context.ContentString))
             {
-                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));                
+                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));
                 request.Headers.Add("Content-Type", context.Request.Content.Headers.ContentType.MediaType.ToString().Trim());
             }
             else
@@ -146,7 +146,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 request.Headers.Add("Content-Type", ContentType);
             }
 
-            request.Headers.Add("Host", new Uri(_endpoint.ToString()).Authority);            
+            request.Headers.Add("Host", new Uri(_endpoint.ToString()).Authority);
             //request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
             return message;
         }

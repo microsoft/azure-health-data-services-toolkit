@@ -276,7 +276,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             services.AddAzureClients(clientBuilder =>
             {
                 clientBuilder.AddGenericRestClient(new Uri(option.ServerUrl))
-                .WithCredential(option.tokenCredential)
+                .WithCredential(option.Credential)
                 .ConfigureOptions(options =>
                 {
                     options.Retry.Mode = option.Retry.Mode;

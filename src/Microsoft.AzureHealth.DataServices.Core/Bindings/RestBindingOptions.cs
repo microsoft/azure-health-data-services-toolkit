@@ -1,5 +1,5 @@
-﻿using System;
-using Azure.Core;
+﻿using Azure.Core;
+using Microsoft.AzureHealth.DataServices.Clients;
 
 namespace Microsoft.AzureHealth.DataServices.Bindings
 {
@@ -20,14 +20,14 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         public string[] Scopes { get; set; }
 
         /// <summary>
-        /// Adds the response headers from the binding to the pipeline
+        /// Azure credential to be used by the binding.
         /// </summary>
-        public bool AddResponseHeaders { get; set; } = true;
+        public TokenCredential? Credential { get; set; }
 
         /// <summary>
-        /// Get or set the TokenCredential.
+        /// Options for the generic rest client.
         /// </summary>
-        public TokenCredential tokenCredential { get; set; }
+        public GenericRestClientOptions ClientOptions { get; set; }
 
     }
 }
