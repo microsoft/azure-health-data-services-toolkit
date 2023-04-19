@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Extensions;
-using Azure.Data.AppConfiguration;
-using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Clients;
 
 namespace Microsoft.AzureHealth.DataServices.Configuration
@@ -23,10 +17,10 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="builder"></param>
         /// <param name="uri">Fhir server url.</param>
         /// <returns></returns>
-        public static IAzureClientBuilder<GenericRestClient, RestBindingOptions> AddGenericRestClient<TBuilder>(this TBuilder builder, Uri uri)
+        public static IAzureClientBuilder<GenericRestClient, ClientOptions> AddGenericRestClient<TBuilder>(this TBuilder builder, Uri uri)
            where TBuilder : IAzureClientFactoryBuilderWithCredential
         {
-            return builder.RegisterClientFactory<GenericRestClient, GenericRestClientOptions>((options, cred) => new GenericRestClient(uri, options, cred));
+            return builder.RegisterClientFactory<GenericRestClient, ClientOptions>((options, cred) => new GenericRestClient(uri, options, cred));
         }
 
     }

@@ -28,6 +28,5 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// Azure credential to be used by the binding.
         /// </summary>
         public TokenCredential? Credential { get; set; }
-
     }
 }

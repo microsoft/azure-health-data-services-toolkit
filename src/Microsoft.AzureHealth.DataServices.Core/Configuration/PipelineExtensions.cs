@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Azure.Core;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -253,6 +254,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
+        /// <summary>
         /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
@@ -267,7 +269,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
                 .WithCredential(bindingOptions.Credential)
                 .ConfigureOptions(options =>
                 {
-                    options = bindingOptions.ClientOptions;
+                    options = bindingOptions;
                 });
             });
 
