@@ -18,86 +18,114 @@ using Microsoft.Extensions.Logging;
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
     /// <summary>
-    /// Make Http Request to a web server.
+    /// Generic REST client for interacting with Azure services.
     /// </summary>
     public class GenericRestClient
     {
         /// <summary>
-        /// 
+        /// Protected constructor to allow mocking.
         /// </summary>
-        public GenericRestClient()
+        protected GenericRestClient()
         {
 
         }
+
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GenericRestClient"/> class.
         /// </summary>
-        /// <param name="endpoint"></param>
-        /// <param name="clientOptions"></param>
-        /// <param name="tokenCredential"></param>
-        /// <param name="logger"></param>
-        public GenericRestClient(Uri endpoint, TokenCredential tokenCredential, RestBindingOptions clientOptions, ILogger<GenericRestClient> logger = null)
+        /// <param name="endpoint">#TODO</param>
+        ///  <param name="tokenCredential">#TODO</param>
+        /// <param name="clientOptions">#TODO</param>
+        /// <param name="logger">#TODO</param>
+
+        // #TODO - sorry I was wrong, the options class should be GenericRestClientOptions
+        // RestBindingOptions should not be used for client optioins because GenericRestClient should be lower level than RestBinding.
+        // Empty GenericRestClientOptions class is better
+        public GenericRestClient(Uri endpoint, GenericRestClientOptions clientOptions, TokenCredential tokenCredential, ILogger<GenericRestClient> logger = null)
         {
-            this._tokenCredential = tokenCredential;
+            if (endpoint is null) 
+                throw new ArgumentNullException(nameof(endpoint));
+            if (clientOptions is null)
+                throw new ArgumentNullException(nameof(endpoint));
+
+            // #TODO - "token passthrough" would be enabled by this parameter being null and the token being passed in a below method.
+            if (tokenCredential is null)
+                throw new ArgumentNullException(nameof(tokenCredential));
+
             _endpoint = endpoint;
-            _pipeline = HttpPipelineBuilder.Build(clientOptions, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, GetDefaultScope(endpoint)) }, new ResponseClassifier());
-            this.logger = logger;
+            _tokenCredential = tokenCredential;
+            _logger = logger;
+
+            _pipeline = CreatePipeline(endpoint, clientOptions, tokenCredential);
         }
 
-        private readonly ILogger logger;
-        private readonly TokenCredential _tokenCredential;
+        private readonly ILogger _logger;
+        private readonly TokenCredential _credential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
+        
         /// <summary>
-        /// Default Content Type as Json
+        /// Default ContentType for requests to JSON.
         /// </summary>
         private static string ContentType => "application/json";
+
+        private static HttpPipeline CreatePipeline(Uri endpoint, GenericRestClientOptions options, TokenCredential credential)
+        {
+            return HttpPipelineBuilder.Build(options, 
+                Array.Empty<HttpPipelinePolicy>(), 
+                new HttpPipelinePolicy[] { 
+                    new BearerTokenAuthenticationPolicy(credential, GetDefaultScope(endpoint))
+                }, 
+                new ResponseClassifier()
+            );
+        }
 
         /// <summary>
         /// Sends and http request and returns a response.
         /// </summary>
         /// <returns>HttpResponseMessage</returns>
+
+        // #TODO - this class should not take an OperationContext because then this client is tightly bound to the Toolkit pipeline and it limits the ability to use this client in other scenarios.
+        // Instead it should take a HttpRequestMessage or other lower level types.
+        // I would suggest making this class take a HttpMessage and move the logic to convert from OperationContext to HttpMessage into the Pipelines folder. For example you can see AzureFunctionExtensions.
+        // Or have two methods
         public async Task<Response> SendAsync(OperationContext operationContext)
         {
             try
             {
-                //string token = await FetchToken();
-                using HttpMessage message = operationContext.Request.Method.ToString().ToUpperInvariant() switch
-                {
-                    "GET" => CreateRequest(operationContext),
-                    "POST" => CreateRequest(operationContext),
-                    "PUT" => CreateRequest(operationContext),
-                    "DELETE" => CreateRequest(operationContext),
-                    "PATCH" => CreateRequest(operationContext),
-                    _ => throw new Exception("Invalid Http method."),
-                };
+                HttpMessage message = CreateRequest(operationContext);
                 await _pipeline.SendAsync(message, CancellationToken.None);
                 var response = message.Response;
-                logger?.LogInformation("Rest response returned status {StatusCode}.", response);
-                logger?.LogTrace("Rest response returned with content-type {ContentType}.", response?.Headers.ContentType);
+
+                // #TODO - not sure the logging is useful here. pattern from the Azure SDK is to throw exceptions and use the ClientDiagnostics class
+                // https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/appconfiguration/Azure.Data.AppConfiguration/src/ConfigurationClient.cs#L201
+
+
+                _logger?.LogInformation("GenericRestClient response returned status {StatusCode}.", response);
+                _logger?.LogTrace("GenericRestClient response returned with content-type {ContentType}.", response?.Headers.ContentType);
 
                 if (response.Status == (int)HttpStatusCode.OK)
                 {
-                    logger?.LogInformation("Return http response.");
+                    _logger?.LogInformation("Return http response.");
                 }
                 else
                 {
-                    logger?.LogWarning("Rest response returned fault reason phrase {ReasonPhrase}.", response.ReasonPhrase);
+                    _logger?.LogWarning("Rest response returned fault reason phrase {ReasonPhrase}.", response.ReasonPhrase);
                 }
 
                 return response;
             }
             catch (WebException wex)
             {
-                logger?.LogError(wex, "Rest web request faulted '{Status}'.", wex.Status);
+                _logger?.LogError(wex, "Rest web request faulted '{Status}'.", wex.Status);
                 throw;
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, "Rest request faulted '{Message}'.", ex.Message);
+                _logger?.LogError(ex, "Rest request faulted '{Message}'.", ex.Message);
                 throw;
             }
         }
@@ -112,8 +140,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = ConvertToRequestMethod(context.Request.Method.ToString());
+            
+            // #TODO - I think this class is unneeded but we can look later.
             var uri = new RawRequestUriBuilder();
             uri.AppendRaw(_endpoint.ToString(), false);
+
             if (context.Request.RequestUri.LocalPath.Trim().ToLower() != "/postbundle")
             {
                 uri.AppendPath(context.Request.RequestUri.LocalPath.Trim(), escape: false);

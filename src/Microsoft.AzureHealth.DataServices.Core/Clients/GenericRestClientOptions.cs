@@ -3,7 +3,7 @@
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
     /// <summary>
-    /// Inherited options class to allow users to configure requests sent to GenericRestClien
+    /// Inherited options class to allow users to configure requests sent to GenericRestClient
     /// </summary>
     public class GenericRestClientOptions : ClientOptions
     {
@@ -12,7 +12,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// Initializes a new instance of the <see cref="GenericRestClientOptions"/> class.
         /// </summary>
         public GenericRestClientOptions()
-        {
+        { 
         }
     }
 }
