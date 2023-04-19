@@ -23,7 +23,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="builder"></param>
         /// <param name="uri">Fhir server url.</param>
         /// <returns></returns>
-        public static IAzureClientBuilder<GenericRestClient, RestBindingOptions> AddGenericRestClient<TBuilder>(this TBuilder builder, Uri uri)
+        public static IAzureClientBuilder<GenericRestClient, GenericRestClientOptions> AddGenericRestClient<TBuilder>(this TBuilder builder, Uri uri)
          where TBuilder : IAzureClientFactoryBuilderWithCredential
         {
             return builder.RegisterClientFactory<GenericRestClient, GenericRestClientOptions>((options, cred) => new GenericRestClient(uri, options, cred));

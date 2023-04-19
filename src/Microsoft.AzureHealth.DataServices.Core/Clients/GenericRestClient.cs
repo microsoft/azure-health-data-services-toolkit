@@ -43,7 +43,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         // Empty GenericRestClientOptions class is better
         public GenericRestClient(Uri endpoint, GenericRestClientOptions clientOptions, TokenCredential tokenCredential, ILogger<GenericRestClient> logger = null)
         {
-            if (endpoint is null) 
+            if (endpoint is null)
                 throw new ArgumentNullException(nameof(endpoint));
             if (clientOptions is null)
                 throw new ArgumentNullException(nameof(endpoint));
@@ -60,13 +60,13 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         }
 
         private readonly ILogger _logger;
-        private readonly TokenCredential _credential;
-        private readonly HttpPipeline _pipeline;
-        private readonly Uri _endpoint;
+        private readonly TokenCredential _tokenCredential = null;
+        private readonly HttpPipeline _pipeline = null;
+        private readonly Uri _endpoint = null;
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
-        
+
         /// <summary>
         /// Default ContentType for requests to JSON.
         /// </summary>
@@ -74,11 +74,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
         private static HttpPipeline CreatePipeline(Uri endpoint, GenericRestClientOptions options, TokenCredential credential)
         {
-            return HttpPipelineBuilder.Build(options, 
-                Array.Empty<HttpPipelinePolicy>(), 
-                new HttpPipelinePolicy[] { 
+            return HttpPipelineBuilder.Build(options,
+                Array.Empty<HttpPipelinePolicy>(),
+                new HttpPipelinePolicy[] {
                     new BearerTokenAuthenticationPolicy(credential, GetDefaultScope(endpoint))
-                }, 
+                },
                 new ResponseClassifier()
             );
         }
@@ -140,7 +140,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = ConvertToRequestMethod(context.Request.Method.ToString());
-            
+
             // #TODO - I think this class is unneeded but we can look later.
             var uri = new RawRequestUriBuilder();
             uri.AppendRaw(_endpoint.ToString(), false);

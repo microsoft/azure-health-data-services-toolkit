@@ -253,6 +253,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
+        /// <summary>
         /// Adds a REST binding.
         /// </summary>
         /// <param name="services">Services collection.</param>
