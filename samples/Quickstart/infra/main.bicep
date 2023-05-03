@@ -21,6 +21,18 @@ param existingFhirServiceName string = ''
 @description('Name of your existing resource group (leave blank to create a new one)')
 param existingResourceGroupName string = ''
 
+@description('Flag to use API Management service instance')
+param useAPIM bool = true
+
+@description('Name of the owner of the API Management resource')
+@minLength(1)
+param publisherName string 
+
+@description('Email of the owner of the API Management resource')
+@minLength(1)
+param publisherEmail string
+
+
 var envRandomString = toLower(uniqueString(subscription().id, name, existingResourceGroupName, location))
 var nameShort = length(name) > 11 ? substring(name, 0, 11) : name
 var resourcePrefix = '${nameShort}-${substring(envRandomString, 0, 5)}'
@@ -56,6 +68,9 @@ module template 'core.bicep'= if (createResourceGroup) {
     location: location
     appTags: appTags
     fhirContributorPrincipals: [principalId]
+    useAPIM: useAPIM
+    publisherName:publisherName
+    publisherEmail:publisherEmail
   }
 }
 
@@ -71,9 +86,17 @@ module existingResourceGrouptemplate 'core.bicep'= if (!createResourceGroup) {
     location: location
     appTags: appTags
     fhirContributorPrincipals: [principalId]
+    useAPIM: useAPIM
+    publisherName:publisherName
+    publisherEmail:publisherEmail
   }
 }
 
 // These map to user secrets for local execution of the program
 output LOCATION string = location
 output FhirServerUrl string = createResourceGroup ? template.outputs.FhirServiceUrl : existingResourceGrouptemplate.outputs.FhirServiceUrl
+output Azure_FunctionURL string = createResourceGroup ? template.outputs.Azure_FunctionURL : existingResourceGrouptemplate.outputs.Azure_FunctionURL
+output USE_APIM bool = useAPIM
+output APIM_HostName string = useAPIM ? template.outputs.APIM_HostName:''
+output APIM_GatewayUrl string = useAPIM ? template.outputs.APIM_GatewayUrl:''
+
