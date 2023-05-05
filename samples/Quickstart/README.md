@@ -104,6 +104,22 @@ To get the deployed APIM Gateway URL variable named `APIM_GatewayUrl` Run the be
 ```
 azd get-values
 ```
+If you don't want to use the APIM and are planning to call the Azure function instead, please follow the below steps to get the function url and key.
+
+ 1. Run the below command to get the deployed Azure function URL variable named `Azure_FunctionURL`.
+    ```
+     azd get-values
+    ```
+2. Run the below command to get the default key from the deployed Azure function.  
+    ```
+     az functionapp keys list --name
+                         --resource-group
+    ```
+    
+   As output, it will return the default key and master key.
+
+    Please click on [link](https://learn.microsoft.com/en-us/cli/azure/functionapp/keys?view=azure-cli-latest#az-functionapp-keys-list) to read more about the function key.
+
 
 ## Usage details
 ### Quickstart function app
@@ -128,5 +144,23 @@ azd get-values
 
 - APIM supports the complete API lifecycle, this template is prepared to use APIM for Fhir Service and Function App endpoints.
 - in given APIM all the operations related to Patient are routed to QuickStart function app and for Fhir Service endpoints we have four methods like GET, POST, PUT, DELETE.
+
+### Calling the Azure Function 
+
+Please follow the below instructions if you want to perform operations using the Azure function instead of APIM.
+
+  For POST,
+
+     url : <QuickStartFunctionURL>/Patient?Code=defaultkey
+    
+  For GET/PUT/DELETE,
+  
+     url : <QuickStartFunctionURL>/Patient/{id}?Code=defaultkey
+     
+
+  -  Please copy the quickstartfunction URL from the above [command](##get-the-deployment-details) and replace it with `QuickStartFunctionURL`.
+
+  - Copy the default key value from the above [command](##get-the-deployment-details) and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
+
 
  
