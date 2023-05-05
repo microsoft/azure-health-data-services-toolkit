@@ -100,13 +100,13 @@ This quickstart will create the below resources. These will be used both for loc
 
 ## Get the deployment details
 
- - Run the below command to get the deployed APIM Gateway URL variable named `APIM_GatewayUrl`.
-    ```
-     azd get-values
-    ```
+To get the deployed APIM Gateway URL variable named `APIM_GatewayUrl` Run the below command: 
+```
+azd get-values
+```
 
 ## Usage details
-#### Quickstart function app
+### Quickstart function app
 
 - `Program.cs` outlines how we can use Azure Function for Simple custom operation using various types of services like authenticator, headers and filters.
   - UseAuthenticator() Used for accessing Azure resources, it uses azure default credentials.
@@ -124,7 +124,7 @@ This quickstart will create the below resources. These will be used both for loc
   - DELETE: used to delete the patient record from FHIR server by passing patient id, to verify the deleted record use GET method and pass deleted id.
 
 
-#### APIM- Azure API Management
+### APIM- Azure API Management
 
 - APIM supports the complete API lifecycle, this template is prepared to use APIM for Fhir Service and Function App endpoints.
 - in given APIM all the operations related to Patient are routed to QuickStart function app and for Fhir Service endpoints we have four methods like GET, POST, PUT, DELETE.
