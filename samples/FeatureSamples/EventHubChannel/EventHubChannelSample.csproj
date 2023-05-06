@@ -11,7 +11,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels.Extensions" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
   <!-- Default to version 1.0.0 if SdkVersion is not set -->

@@ -1,13 +1,11 @@
-﻿using Azure.Core;
-using Microsoft.AzureHealth.DataServices.Clients;
-
-namespace Microsoft.AzureHealth.DataServices.Bindings
+﻿namespace Microsoft.AzureHealth.DataServices.Bindings
 {
     /// <summary>
     /// Options for REST binding.
     /// </summary>
-    public class RestBindingOptions : GenericRestClientOptions
+    public class RestBindingOptions
     {
+
         /// <summary>
         /// Gets or sets the server URL to call.
         /// </summary>
@@ -19,8 +17,8 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         public string[] Scopes { get; set; }
 
         /// <summary>
-        /// Azure credential to be used by the binding.
+        /// Adds the response headers from the binding to the pipeline
         /// </summary>
-        public TokenCredential? Credential { get; set; }
+        public bool AddResponseHeaders { get; set; } = true;
     }
 }

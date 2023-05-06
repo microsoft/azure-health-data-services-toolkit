@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Protocol;
 
@@ -149,58 +148,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             {
                 Content = await message.Content.ReadAsByteArrayAsync();
             }
-        }
-
-        /// <summary>
-        /// Create Http Message Request.
-        /// </summary>
-        /// <returns></returns>
-        public HttpMessage ToHttpMessage()
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = ConvertToRequestMethod(context.Request.Method.ToString());
-
-            // #TODO - I think this class is unneeded but we can look later.
-            var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint.ToString(), false);
-
-            if (context.Request.RequestUri.LocalPath.Trim().ToLower() != "/postbundle")
-            {
-                uri.AppendPath(context.Request.RequestUri.LocalPath.Trim(), escape: false);
-            }
-
-            request.Uri = uri;
-
-            NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
-            if (headers != null)
-            {
-                headers.Remove("Content-Type");
-                headers.Remove("Content-Length");
-                headers.Remove("Authorization");
-                headers.Remove("Accept");
-                headers.Remove("Host");
-                headers.Remove("User-Agent");
-
-                foreach (string item in headers.AllKeys)
-                {
-                    request.Headers.Add(item, headers.Get(item));
-                }
-            }
-
-            if (!string.IsNullOrEmpty(context.ContentString))
-            {
-                request.Content = RequestContent.Create(Encoding.UTF8.GetBytes(context.ContentString));
-                request.Headers.Add("Content-Type", context.Request.Content.Headers.ContentType.MediaType.ToString().Trim());
-            }
-            else
-            {
-                request.Headers.Add("Content-Type", ContentType);
-            }
-
-            request.Headers.Add("Host", new Uri(_endpoint.ToString()).Authority);
-            //request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
-            return message;
         }
     }
 }

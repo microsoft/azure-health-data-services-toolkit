@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Net;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Clients;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.Extensions.Azure;
+using Microsoft.AzureHealth.DataServices.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Microsoft.AzureHealth.DataServices.Bindings
 {
@@ -18,17 +21,20 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <summary>
         /// Creates an instance of RestBinding.
         /// </summary>
-        /// <param name="genericRestClient">Generic Rest Client.</param>
+        /// <param name="options">Rest binding options.</param>
+        /// <param name="authenticator">Optional authenticator to acquire security token.</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IAzureClientFactory<GenericRestClient> genericRestClient, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
         {
+            this.options = options;
+            this.authenticator = authenticator;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
-            this.genericRestClient = genericRestClient;
         }
 
+        private readonly IOptions<RestBindingOptions> options;
+        private readonly IAuthenticator authenticator;
         private readonly ILogger logger;
-        private readonly IAzureClientFactory<GenericRestClient> genericRestClient;
 
 
         /// <summary>
@@ -67,16 +73,34 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             }
 
             try
-            {                
-                GenericRestClient client = genericRestClient.CreateClient("Default");
-                var resp = await client.SendAsync(context);
-                context.StatusCode = (HttpStatusCode)resp.Status;
-                context.Content = resp.Content.ToArray();
+            {
+                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
-                //if (options.Value.AddResponseHeaders)
-                //{
-                //    context.Headers.UpdateFromResponse(resp);
-                //}
+                string securityToken = null;
+                if (authenticator != null)
+                {
+                    string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
+                    securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
+                }
+
+
+                RestRequestBuilder builder = new(context.Request.Method.ToString(),
+                                                                    options.Value.ServerUrl,
+                                                                    securityToken,
+                                                                    context.Request.RequestUri.LocalPath,
+                                                                    context.Request.RequestUri.Query,
+                                                                    headers,
+                                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                                                                    "application/json");
+                RestRequest req = new(builder);
+                var resp = await req.SendAsync();
+                context.StatusCode = resp.StatusCode;
+                context.Content = await resp.Content?.ReadAsByteArrayAsync();
+
+                if (options.Value.AddResponseHeaders)
+                {
+                    context.Headers.UpdateFromResponse(resp);
+                }
 
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));
                 logger?.LogInformation("{Name}-{Id} completed.", Name, Id);

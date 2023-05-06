@@ -253,27 +253,5 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             services.Configure<TOptions>(options);
             return services;
         }
-
-        /// <summary>
-        /// Adds a REST binding.
-        /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <param name="bindingOptions">Options for REST binding.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddRestBinding(this IServiceCollection services, RestBindingOptions bindingOptions)
-        {
-            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
-            services.AddAzureClients(clientBuilder =>
-            {
-                clientBuilder.AddGenericRestClient(new Uri(bindingOptions.ServerUrl))
-                .WithCredential(bindingOptions.Credential)
-                .ConfigureOptions(options =>
-                {
-                    options = bindingOptions;
-                });
-            });
-
-            return services;
-        }
     }
 }
