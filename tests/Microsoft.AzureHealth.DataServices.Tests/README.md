@@ -16,7 +16,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "ClientId": "<client-id>",
   "ClientSecret": "<client-secret>",
   "TenantId": "<tenant-id>",
-  "FhirServerUrl": "https://workspace-fhir.fhir.azurehealthcareapis.com",
+  "FhirServerUrl": "foobar", // can stay foobars
 
   "StorageConnectionString": "<general-storage-connection-string>",
 

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -26,15 +23,15 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <param name="logger">Optional logger.</param>
         public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
         {
-            _options = options;
-            _authenticator = authenticator;
-            _logger = logger;
+            this.options = options;
+            this.authenticator = authenticator;
+            this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
-        private readonly IOptions<RestBindingOptions> _options;
-        private readonly IAuthenticator _authenticator;
-        private readonly ILogger _logger;
+        private readonly IOptions<RestBindingOptions> options;
+        private readonly IAuthenticator authenticator;
+        private readonly ILogger logger;
 
 
         /// <summary>

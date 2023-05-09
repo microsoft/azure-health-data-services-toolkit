@@ -1,7 +1,5 @@
-using Azure.Core;
-using Azure.Identity;
+using System.Reflection;
 using Microsoft.AzureHealth.DataServices.Bindings;
-using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quickstart.Configuration;
 using Quickstart.Filters;
-using System.Reflection;
 
 MyServiceConfig config = new();
 
@@ -40,6 +37,9 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
+        // Used for accessing Azure resources
+        services.UseAuthenticator();
+
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
@@ -51,17 +51,10 @@ using IHost host = new HostBuilder()
         services.AddInputFilter(typeof(QuickstartFilter));
 
         // Add our binding to pass the call to the FHIR service
-
-        RestBindingOptions restBindingOptions = new();
-        restBindingOptions.ServerUrl = config.FhirServerUrl;
-        restBindingOptions.Credential = new DefaultAzureCredential(true);
-        GenericRestClientOptions genericRestClientOptions = new();
-        genericRestClientOptions.Retry.Delay = TimeSpan.FromSeconds(1);
-        genericRestClientOptions.Retry.Mode = RetryMode.Exponential;
-        genericRestClientOptions.Retry.MaxRetries = 3;
-        restBindingOptions.ClientOptions = genericRestClientOptions;
-
-        services.AddRestBinding(restBindingOptions);
+        services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
+        {
+            options.ServerUrl = config.FhirServerUrl;
+        });
     })
     .Build();
 
