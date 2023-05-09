@@ -1,9 +1,7 @@
 ﻿using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
-using Microsoft.AzureHealth.DataServices.Tests.Configuration;
 using AzureCore = Azure;
 using Azure.Identity;
-using Azure.Security.KeyVault.Certificates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -21,24 +19,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
     public class RestRequestTests
     {
         private static HttpEchoListener listener;
-        private static X509Certificate2 certificate;
         private static readonly int port = 1888;
-        private static ServiceConfig config;
-
-        public RestRequestTests()
-        {
-            IConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
-            builder.AddEnvironmentVariables("PROXY_");
-            IConfigurationRoot root = builder.Build();
-            config = new ServiceConfig();
-            root.Bind(config);
-
-            ClientSecretCredential cred = new(config.TenantId, config.ClientId, config.ClientSecret);
-            CertificateClient client = new(new Uri(config.KeyVaultUri), cred);
-            AzureCore.Response<KeyVaultCertificateWithPolicy> resp = client.GetCertificate(config.KeyVaultCertificateName);
-            certificate = new(resp.Value.Cer);
-        }
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -57,21 +38,22 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         [TestMethod]
         public void RequestBuilder_Validate_RequestProperties_Test()
         {
-            string method = "POST";
+            HttpMethod method = HttpMethod.Post;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             string baseUrl = "https://www.example.org";
             string path = "/path";
             string query = "key=value";
-            string token = "token";
             string jsonType = "application/json";
-            NameValueCollection headers = new();
-            headers.Add("Accept", jsonType);
-            headers.Add("Authorize", "Bearer foo");
-            headers.Add("Content-Type", "application/xml");
-            headers.Add("Location", "kitchen");
+            NameValueCollection headers = new()
+            {
+                { "Accept", jsonType },
+                { "Authorize", "Bearer foo" },
+                { "Content-Type", "application/xml" },
+                { "Location", "kitchen" }
+            };
 
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, content);
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content);
             HttpRequestMessage actual = builder.Build();
 
 
@@ -79,36 +61,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.AreEqual(content.Length, actual.Content.Headers.ContentLength, "Content length mismatch.");
             Assert.AreEqual(jsonType, actual.Headers.Accept.ToString(), "Accept mismatch.");
             Assert.AreEqual(jsonType, actual.Content.Headers.ContentType.ToString(), "Content type mismatch.");
-            Assert.AreEqual($"Bearer {token}", actual.Headers.Authorization.ToString(), "Authorization mismatch.");
             Assert.AreEqual($"{baseUrl}{path}?{query}", actual.RequestUri.ToString().ToLowerInvariant(), "Url mismatch.");
         }
 
         [TestMethod]
         public async Task RestRequest_Post_Test()
         {
-            string method = "POST";
-            string contentString = "{ \"prop\": \"value\"}";
-            byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
-            string path = null;
-            string query = null;
-            string token = "token";
-            string jsonType = "application/json";
-            NameValueCollection headers = null;
-
-            HttpStatusCode statusCode = HttpStatusCode.OK;
-
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-            Assert.AreEqual(contentString, await message.Content.ReadAsStringAsync(), "Content mismatch.");
-        }
-
-        [TestMethod]
-        public async Task RestRequest_Post_WithCert_Test()
-        {
-            string method = "POST";
+            HttpMethod method = HttpMethod.Post;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             string baseUrl = $"http://localhost:{port}";
@@ -119,38 +78,17 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            RestRequestBuilder builder = new(method, baseUrl, certificate, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-            Assert.AreEqual(contentString, await message.Content.ReadAsStringAsync(), "Content mismatch.");
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content, jsonType);
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
+            Assert.AreEqual(contentString, await msg.Content.ReadAsStringAsync(), "Content mismatch.");
         }
 
         [TestMethod]
         public async Task RestRequest_Get_Test()
         {
-            string method = "GET";
-            string contentString = "{ \"key\": \"value\" }";
-            string baseUrl = $"http://localhost:{port}";
-            string path = null;
-            string query = "key=value";
-            string token = "token";
-            string jsonType = "application/json";
-            NameValueCollection headers = null;
-
-            HttpStatusCode statusCode = HttpStatusCode.OK;
-
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, null, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-            Assert.AreEqual(contentString, await message.Content.ReadAsStringAsync(), "Content mismatch.");
-        }
-
-        [TestMethod]
-        public async Task RestRequest_Get_WithCert_Test()
-        {
-            string method = "GET";
+            HttpMethod method = HttpMethod.Get;
             string contentString = "{ \"key\": \"value\" }";
             string baseUrl = $"http://localhost:{port}";
             string path = null;
@@ -160,38 +98,17 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            RestRequestBuilder builder = new(method, baseUrl, certificate, path, query, headers, null, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-            Assert.AreEqual(contentString, await message.Content.ReadAsStringAsync(), "Content mismatch.");
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, null, jsonType);
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
+            Assert.AreEqual(contentString, await msg.Content.ReadAsStringAsync(), "Content mismatch.");
         }
 
         [TestMethod]
         public async Task RestRequest_Put_Test()
         {
-            string method = "PUT";
-            string contentString = "{ \"prop\": \"value\"}";
-            byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
-            string path = null;
-            string query = null;
-            string token = "token";
-            string jsonType = "application/json";
-            NameValueCollection headers = null;
-
-            HttpStatusCode statusCode = HttpStatusCode.OK;
-
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-        }
-
-        [TestMethod]
-        public async Task RestRequest_Put_WithCert_Test()
-        {
-            string method = "PUT";
+            HttpMethod method = HttpMethod.Put;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             string baseUrl = $"http://localhost:{port}";
@@ -202,35 +119,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            RestRequestBuilder builder = new(method, baseUrl, certificate, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content, jsonType);
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
         }
 
         [TestMethod]
         public async Task RestRequest_Delete_Test()
         {
-            string method = "Delete";
-            string baseUrl = $"http://localhost:{port}";
-            string path = null;
-            string query = "id=1";
-            string token = "token";
-            string jsonType = "application/json";
-            NameValueCollection headers = null;
-
-            HttpStatusCode statusCode = HttpStatusCode.NoContent;
-
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, null, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-        }
-
-        [TestMethod]
-        public async Task RestRequest_Delete_WithCert_Test()
-        {
-            string method = "Delete";
+            HttpMethod method = HttpMethod.Delete;
             string baseUrl = $"http://localhost:{port}";
             string path = null;
             string query = "id=1";
@@ -239,37 +137,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.NoContent;
 
-            RestRequestBuilder builder = new(method, baseUrl, certificate, path, query, headers, null, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, null, jsonType);
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
         }
 
         [TestMethod]
         public async Task RestRequest_Patch_Test()
         {
-            string method = "PATCH";
-            string contentString = "{ \"prop\": \"value\"}";
-            byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
-            string path = null;
-            string query = null;
-            string token = "token";
-            string jsonType = "application/json";
-            NameValueCollection headers = null;
-
-            HttpStatusCode statusCode = HttpStatusCode.NoContent;
-
-            RestRequestBuilder builder = new(method, baseUrl, token, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
-        }
-
-        [TestMethod]
-        public async Task RestRequest_Patch_WithCert_Test()
-        {
-            string method = "PATCH";
+            HttpMethod method = HttpMethod.Patch;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             string baseUrl = $"http://localhost:{port}";
@@ -280,12 +157,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.NoContent;
 
-            RestRequestBuilder builder = new(method, baseUrl, certificate, path, query, headers, content, jsonType);
-            RestRequest request = new(builder);
-            HttpResponseMessage message = await request.SendAsync();
-            Assert.AreEqual(statusCode, message.StatusCode, "Status code mismatch.");
+            HttpRequestMessageBuilder builder = new(method, baseUrl,  path, query, headers, content, jsonType);
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
         }
-
-
     }
 }

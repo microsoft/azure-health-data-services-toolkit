@@ -8,7 +8,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
     [TestClass]
     public class ConfigurationTests
     {
-        private static ServiceConfig config;
         private static EventHubConfig eventHubConfig;
         private static ServiceBusConfig serviceBusConfig;
         private static BlobStorageConfig blobConfig;
@@ -19,11 +18,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
-            config = new ServiceConfig();
             eventHubConfig = new EventHubConfig();
             serviceBusConfig = new ServiceBusConfig();
             blobConfig = new BlobStorageConfig();
-            root.Bind(config);
             root.Bind(eventHubConfig);
             root.Bind(serviceBusConfig);
             root.Bind(blobConfig);

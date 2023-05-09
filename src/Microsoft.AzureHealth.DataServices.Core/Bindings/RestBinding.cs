@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -19,18 +19,18 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// Creates an instance of RestBinding.
         /// </summary>
         /// <param name="options">Rest binding options.</param>
-        /// <param name="authenticator">Optional authenticator to acquire security token.</param>
+        /// <param name="client">HttpClient used to exeucute the binding</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, HttpClient client, ILogger<RestBinding> logger = null)
         {
             this.options = options;
-            this.authenticator = authenticator;
+            this.client = client;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
         private readonly IOptions<RestBindingOptions> options;
-        private readonly IAuthenticator authenticator;
+        private readonly HttpClient client;
         private readonly ILogger logger;
 
 
@@ -73,24 +73,17 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             {
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
-                string securityToken = null;
-                if (authenticator != null)
-                {
-                    string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
-                    securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
-                }
+                HttpRequestMessageBuilder builder = new(context.Request.Method,
+                                                    options.Value.BaseAddress,
+                                                    context.Request.RequestUri.LocalPath,
+                                                    context.Request.RequestUri.Query,
+                                                    headers,
+                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                                                    context.Request.Content.Headers.ContentType.ToString());
 
+                HttpRequestMessage request = builder.Build();
+                var resp = await client.SendAsync(request);
 
-                RestRequestBuilder builder = new(context.Request.Method.ToString(),
-                                                                    options.Value.ServerUrl,
-                                                                    securityToken,
-                                                                    context.Request.RequestUri.LocalPath,
-                                                                    context.Request.RequestUri.Query,
-                                                                    headers,
-                                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                                    "application/json");
-                RestRequest req = new(builder);
-                var resp = await req.SendAsync();
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
 

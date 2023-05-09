@@ -17,7 +17,7 @@ builder.Services.AddInputFilter<SimpleInputFilterOptions>(typeof(SimpleInputFilt
 
 builder.Services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
 {
-    options.ServerUrl = "http://localhost:7777";
+    options.BaseAddress = "http://localhost:7777";
 });
 
 builder.Services.AddOutputFilter<SimpleOutputFilterOptions>(typeof(SimpleOutputFilter), options =>

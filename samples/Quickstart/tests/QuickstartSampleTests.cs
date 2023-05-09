@@ -38,16 +38,12 @@ namespace QuickstartSample.Tests
             string json = await File.ReadAllTextAsync("../../../patient.json");
             try
             {
-                IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
-                Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
-
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
                 byte[] postContent = Encoding.UTF8.GetBytes(json);
-                RestRequestBuilder builder = new("post", config.FhirServerUrl, securityToken, "Patient", null, customHeader, postContent);
-                RestRequest req = new(builder);
-                HttpResponseMessage msg = await req.SendAsync();
+                HttpRequestMessageBuilder builder = new(HttpMethod.Post, config!.FhirServerUrl, "Patient", null, customHeader, postContent);
+                HttpClient client = new();
+                HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
                 HttpStatusCode statusCode = HttpStatusCode.Created;
                 Assert.Equal(statusCode, msg.StatusCode);
@@ -65,16 +61,13 @@ namespace QuickstartSample.Tests
             {
                 var path = "Patient";
                 string Id = "85e2e069-e2e5-48ba-9b22-4af8653a9b17";
-                IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
-                Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
 
-                RestRequestBuilder builder = new("Get", config.FhirServerUrl, securityToken, path, $"_id={Id}", customHeader, null);
-                RestRequest req = new(builder);
-                HttpResponseMessage msg = await req.SendAsync();
+                HttpRequestMessageBuilder builder = new(HttpMethod.Get, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
+                HttpClient client = new();
+                HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
                 Assert.NotNull(content);
                 Assert.False(string.IsNullOrEmpty(content));
@@ -98,17 +91,14 @@ namespace QuickstartSample.Tests
             {
                 var path = "Patient";
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
-                IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
-                Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
                 string transformedJson = TransformJson(json, Id);
                 byte[] postContent = Encoding.UTF8.GetBytes(transformedJson);
-                RestRequestBuilder builder = new("put", config.FhirServerUrl, securityToken, path, $"_id={Id}", customHeader, postContent);
-                RestRequest req = new(builder);
-                HttpResponseMessage msg = await req.SendAsync();
+                HttpRequestMessageBuilder builder = new(HttpMethod.Put, config!.FhirServerUrl, path, $"_id={Id}", customHeader, postContent);
+                HttpClient client = new();
+                HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
                 HttpStatusCode statusCode = HttpStatusCode.OK;
                 Assert.Equal(statusCode, msg.StatusCode);
@@ -126,16 +116,13 @@ namespace QuickstartSample.Tests
             {
                 var path = "Patient";
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
-                IOptions<ServiceIdentityOptions> options = Options.Create<ServiceIdentityOptions>(new());
-                Authenticator auth = new(options);
-                string securityToken = await auth.AcquireTokenForClientAsync(config!.FhirServerUrl);
 
                 NameValueCollection customHeader = new NameValueCollection();
                 customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
 
-                RestRequestBuilder builder = new("Delete", config.FhirServerUrl, securityToken, path, $"_id={Id}", customHeader, null);
-                RestRequest req = new(builder);
-                HttpResponseMessage msg = await req.SendAsync();
+                HttpRequestMessageBuilder builder = new(HttpMethod.Delete, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
+                HttpClient client = new();
+                HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 HttpStatusCode statusCode = HttpStatusCode.NoContent;
                 Assert.Equal(statusCode, msg.StatusCode);
             }

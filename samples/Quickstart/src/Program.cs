@@ -1,4 +1,5 @@
 using System.Reflection;
+using Azure.Identity;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Configuration;
@@ -37,9 +38,6 @@ using IHost host = new HostBuilder()
             services.UseTelemetry(config.InstrumentationKey);
         }
 
-        // Used for accessing Azure resources
-        services.UseAuthenticator();
-
         // Setup custom headers for use in an Input Filter
         services.UseCustomHeaders();
         services.AddCustomHeader("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation", CustomHeaderType.RequestStatic);
@@ -53,8 +51,9 @@ using IHost host = new HostBuilder()
         // Add our binding to pass the call to the FHIR service
         services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
         {
-            options.ServerUrl = config.FhirServerUrl;
-        });
+            options.BaseAddress = config.FhirServerUrl;
+        })
+        .UseCredential(new DefaultAzureCredential());
     })
     .Build();
 

@@ -42,17 +42,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string name = "RestBinding";
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                ServerUrl = "",
+                BaseAddress = "",
             });
 
-            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
-            {
-                CredentialType = ClientCredentialType.ManagedIdentity,
-            });
-
-            IAuthenticator authenticator = new Authenticator(soptions);
-
-            IBinding binding = new RestBinding(options, authenticator);
+            IBinding binding = new RestBinding(options, new HttpClient());
 
             Assert.AreEqual(name, binding.Name, "Binding name mismatch.");
             Assert.IsNotNull(binding.Id, "Expected not null Id");
@@ -65,17 +58,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Exception error = null;
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                ServerUrl = "",
+                BaseAddress = "",
             });
 
-            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
-            {
-                CredentialType = ClientCredentialType.ManagedIdentity,
-            });
-
-            IAuthenticator authenticator = new Authenticator(soptions);
-
-            IBinding binding = new RestBinding(options, authenticator);
+            IBinding binding = new RestBinding(options, new HttpClient());
             binding.OnError += (i, args) =>
             {
                 error = args.Error;
@@ -100,26 +86,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                ServerUrl = uriString,
+                BaseAddress = uriString,
                 AddResponseHeaders = true,
             });
 
-            IOptions<ServiceIdentityOptions> soptions = Options.Create<ServiceIdentityOptions>(new ServiceIdentityOptions()
-            {
-                CredentialType = ClientCredentialType.ManagedIdentity,
-            });
-
-            var authenticator = new Mock<IAuthenticator>();
-            authenticator.Setup(p => p.AcquireTokenForClientAsync(It.IsAny<string>(),
-                                                                It.IsAny<string[]>(),
-                                                                It.IsAny<string>(),
-                                                                It.IsAny<string>(),
-                                                                It.IsAny<string>(),
-                                                                CancellationToken.None)).Returns(Task.FromResult<string>("token"));
-
-
-
-            IBinding binding = new RestBinding(options, authenticator.Object);
+            IBinding binding = new RestBinding(options, new HttpClient());
             string argId = null;
             string argBindingName = null;
             OperationContext argContext = null;

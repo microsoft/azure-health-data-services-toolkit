@@ -308,14 +308,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
 
             string baseUrl = $"http://localhost:{filterServicePort}";
             string path = "simple";
-            string method = "Post";
+            HttpMethod method = HttpMethod.Post;
             TestMessage msg = new TestMessage() { Value = "test" };
             string payload = JsonConvert.SerializeObject(msg);
             byte[] content = Encoding.UTF8.GetBytes(payload);
             string jwtString = File.ReadAllText("../../../Assets/jwttest.txt");
-            RestRequestBuilder builder = new(method, baseUrl, jwtString, path, null, null, content, "application/json");
-            RestRequest request = new(builder);
-            HttpResponseMessage response = await request.SendAsync();
+            HttpRequestMessageBuilder builder = new(method, baseUrl, jwtString, path, null, content, "application/json");
+            HttpClient client = new();
+            HttpResponseMessage response = await client.SendAsync(builder.Build());
             string msgJson = await response.Content.ReadAsStringAsync();
             TestMessage actual = JsonConvert.DeserializeObject<TestMessage>(msgJson);
 

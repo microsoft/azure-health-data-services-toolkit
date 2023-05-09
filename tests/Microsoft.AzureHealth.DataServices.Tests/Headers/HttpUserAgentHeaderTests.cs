@@ -43,9 +43,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void RestRequest_BuildDefaultUserAgentHeader_Test()
         {
-            RestRequestBuilder builder = new("GET", "http://localhost", "", "foo", null, null, null, "application/json");
+            HttpRequestMessageBuilder builder = new(HttpMethod.Get, "http://localhost", "", "foo", null, null, "application/json");
             var request = builder.Build();
-            Assert.AreEqual(request.Headers.UserAgent.ToString(), RestRequestBuilder.DefaultUserAgentHeader.ToString());
+            Assert.AreEqual(request.Headers.UserAgent.ToString(), HttpRequestMessageBuilder.DefaultUserAgentHeader.ToString());
         }
 
         [TestMethod]
@@ -59,15 +59,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             var headers = collection.RequestAppendAndReplace(request);
 
 
-            RestRequestBuilder builder = new("GET", $"http://localhost:{port}", "", null, null, headers, null, "application/json");
-            RestRequest req = new RestRequest(builder);
-            var response = await req.SendAsync();
-            string actualContent = await response.Content.ReadAsStringAsync();
+            HttpRequestMessageBuilder builder = new(HttpMethod.Get, $"http://localhost:{port}", "", null, headers, null, "application/json");
+            HttpClient client = new();
+            HttpResponseMessage msg = await client.SendAsync(builder.Build());
+            string actualContent = await msg.Content.ReadAsStringAsync();
             //actualContent = actualContent.Replace("{  }", "");
             var token = JToken.Parse(actualContent);
             var propToken = token.GetToken($"$.{expectedHeader}");
             var actual = propToken.GetValue<string>();
-            Assert.AreEqual(actual, RestRequestBuilder.DefaultUserAgentHeader.ToString());
+            Assert.AreEqual(actual, HttpRequestMessageBuilder.DefaultUserAgentHeader.ToString());
         }
     }
 }

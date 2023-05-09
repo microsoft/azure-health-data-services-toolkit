@@ -18,13 +18,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         {
             id = Guid.NewGuid().ToString();
             baseUrl = options.Value.BaseUrl;
-            method = options.Value.HttpMethod;
+            method = new HttpMethod(options.Value.HttpMethod);
             path = options.Value.Path;
             this.customerHeaders = customHeaders;
         }
 
         private readonly string baseUrl;
-        private readonly string method;
+        private readonly HttpMethod method;
         private readonly string path;
         private readonly IHttpCustomHeaderCollection customerHeaders;
 
@@ -44,7 +44,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
             NameValueCollection nvc = customerHeaders.RequestAppendAndReplace(context.Request);
             TestMessage msg = new() { Value = "filter" };
             string json = JsonConvert.SerializeObject(msg);
-            RestRequestBuilder builder = new RestRequestBuilder(method, baseUrl, "", path, null, nvc, Encoding.UTF8.GetBytes(json), "application/json");
+            HttpRequestMessageBuilder builder = new (method, baseUrl, "", path, nvc, Encoding.UTF8.GetBytes(json), "application/json");
             RestRequest request = new(builder);
             HttpResponseMessage response = await request.SendAsync();
             context.StatusCode = response.StatusCode;

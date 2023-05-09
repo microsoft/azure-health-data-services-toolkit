@@ -9,7 +9,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
     /// <summary>
     /// 
     /// </summary>
-    public class AzureTokenCredentialProvider : CredentialProvider
+    public class TokenCredentialProvider : CredentialProvider
     {
         /// <summary>
         /// 
@@ -17,7 +17,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// <param name="credential"></param>
         /// <param name="scopes"></param>
         /// <param name="tenantId"></param>
-        public AzureTokenCredentialProvider(TokenCredential credential, string[]? scopes = null, string? tenantId = null)
+        public TokenCredentialProvider(TokenCredential credential, string[]? scopes = null, string? tenantId = null)
         {
             _credential = credential;
             _scopes = scopes ?? Array.Empty<string>();

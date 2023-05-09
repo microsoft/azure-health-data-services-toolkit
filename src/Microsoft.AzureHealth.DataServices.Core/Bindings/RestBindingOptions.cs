@@ -3,13 +3,13 @@
     /// <summary>
     /// Options for REST binding.
     /// </summary>
-    public class RestBindingOptions
+    public class RestBindingOptions : IBindingWithHttpClientOptions
     {
 
         /// <summary>
         /// Gets or sets the server URL to call.
         /// </summary>
-        public string ServerUrl { get; set; }
+        public string BaseAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the scopes required to call the server.  This is purely optional and used with non-default scopes are required.

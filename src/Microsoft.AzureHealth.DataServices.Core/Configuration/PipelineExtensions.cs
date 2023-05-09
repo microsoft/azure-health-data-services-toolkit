@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.Health.Client.Authentication;
-using Microsoft.Health.Fhir.Client;
 
 namespace Microsoft.AzureHealth.DataServices.Configuration
 {
@@ -57,30 +56,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             services.AddScoped<TelemetryClient>();
 
             return services;
-        }
-
-        /// <summary>
-        /// Use the authenticator for acquisition of access tokens from Azure AD.
-        /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for configuration.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
-        {
-            services.AddScoped<IAuthenticator, Authenticator>();
-            services.Configure<ServiceIdentityOptions>(options);
-
-            return services;
-        }
-
-        /// <summary>
-        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
-        /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAuthenticator(this IServiceCollection services)
-        {
-            return services.UseAuthenticator(options => options.CredentialType = null);
         }
 
         /// <summary>
@@ -233,11 +208,16 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of binding.</param>
+        /// <param name="baseAddress">Base address for the binding to execute requests against.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddBinding(this IServiceCollection services, Type type)
+        public static IHttpClientBuilder AddBinding(this IServiceCollection services, Type type, Uri baseAddress)
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
-            return services;
+
+            return services.AddHttpClient<IBinding>(client =>
+            {
+                client.BaseAddress = baseAddress;
+            });
         }
 
         /// <summary>
@@ -248,24 +228,13 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="type">Type of binding.</param>
         /// <param name="options">Options for binding.</param>
         /// <returns>Services collection.</returns>
-        public static IServiceCollection AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        public static IHttpClientBuilder AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class, IBindingWithHttpClientOptions
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
-            services.Configure<TOptions>(options);
-            return services;
-        }
+            var optionsValue = Activator.CreateInstance<TOptions>();
+            options(optionsValue);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="credential"></param>
-        /// <param name="scopes"></param>
-        /// <param name="tenantId"></param>
-        public static void AddTokenCredentialProvider(this IServiceCollection services, TokenCredential credential, string[]? scopes = null, string? tenantId = null)
-        {
-            var provider = new AzureTokenCredentialProvider(credential, scopes, tenantId);
-            services.Add(new ServiceDescriptor(typeof(CredentialProvider), provider));
+            services.Configure<TOptions>(options);
+            return services.AddBinding(type, new Uri(optionsValue.BaseAddress));
         }
 
         /// <summary>
@@ -273,39 +242,13 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="credential"></param>
-        /// <param name="scopes"></param>
-        /// <param name="tenantId"></param>
-        public static void AddAzureAuthentication(this IHttpClientBuilder builder, TokenCredential credential = null, string[]? scopes = null, string? tenantId = null)
-        {
-            if (credential is null)
-            {
-                credential = new DefaultAzureCredential();
-            }
-
-            builder.Services.AddTokenCredentialProvider(credential, scopes, tenantId);
-            builder.AddHttpMessageHandler(x => new AuthenticationHttpMessageHandler(x.GetService<CredentialProvider>()));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="options"></param>
         /// <returns></returns>
-        public static IServiceCollection AddFhirBinding(this IServiceCollection services, Action<FhirBindingOptions> options)
+        public static IHttpClientBuilder UseCredential(this IHttpClientBuilder builder, TokenCredential credential)
         {
-            var optionsValue = new FhirBindingOptions();
-            options(optionsValue);
+            var credProvider = new TokenCredentialProvider(credential);
+            builder.Services.AddSingleton<CredentialProvider>(credProvider);
 
-            var credential = new DefaultAzureCredential();
-
-            services.AddHttpClient<IFhirClient, FhirClient>(client =>
-                {
-                    client.BaseAddress = new Uri(optionsValue.ServerUrl);
-                })
-                .AddAzureAuthentication(credential, optionsValue.Scopes);
-
-            return services.AddBinding(typeof(FhirBinding), options);
+            return builder.AddHttpMessageHandler(x => new AuthenticationHttpMessageHandler(x.GetService<CredentialProvider>()));
         }
     }
 }

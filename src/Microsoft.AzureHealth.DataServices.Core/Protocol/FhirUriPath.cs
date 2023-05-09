@@ -20,7 +20,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <param name="requestUri">The request URI.</param>
         /// <param name="routePrefix">Optional route prefix.</param>
         public FhirUriPath(HttpMethod method, Uri requestUri, string routePrefix = "")
-            : this(method.ToString(), requestUriString.ToString(), routePrefix)
+            : this(method, requestUri.ToString(), routePrefix)
         { }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <param name="method">HTTP method used in request.</param>
         /// <param name="requestUriString">The request URI.</param>
         /// <param name="routePrefix">Optional route prefix.</param>
-        public FhirUriPath(string method, string requestUriString, string routePrefix = "")
+        public FhirUriPath(HttpMethod method, string requestUriString, string routePrefix = "")
             : base(requestUriString)
         {
             Method = method;
@@ -45,7 +45,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the HTTP method used with the request URI.
         /// </summary>
-        public string Method { get; set; }
+        public HttpMethod Method { get; set; }
 
         /// <summary>
         /// Gets or sets the FHIR resource in the request URI.
