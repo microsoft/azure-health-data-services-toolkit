@@ -37,7 +37,8 @@ This quickstart will create the below resources. These will be used both for loc
 - Azure Health Data Services workspace
 - FHIR Service
 - Function App (and associated storage account)
-- Log Analytics Workspace (for FHIR Service and Function App logs)
+- APIM - [Azure API Management](https://learn.microsoft.com/azure/api-management/) (for Function App and Fhir Service)
+- Log Analytics Workspace (for FHIR Service, Function App and APIM logs)
 - Application Insights (for monitoring your custom operation)
 
 ### Deploy Quickstart
@@ -56,13 +57,16 @@ This quickstart will create the below resources. These will be used both for loc
     - `existingAzureHealthDataServicesWorkspaceName`: The name of your existing Azure Health Data Services workspace.
     - `existingFhirServiceName`: The name of your existing FHIR Service.
 
-4. Next, you need to provision your Azure resources to run the sample with azd. If you are creating a new FHIR Service, this deploy may take 20 minutes.
+4. By default, APIM is enabled for use. if you do not want to use APIM then pass `useAPIM` value as false Or  Open `infra/main.parameters.json` in a code editor and set the value of the parameter named `useAPIM` to false.
+ 
+
+5. Next, you need to provision your Azure resources to run the sample with azd. If you are creating a new FHIR Service, this deploy may take 20 minutes.
 
     ```dotnetcli
     azd provision
     ```
 
-5. To deploy your code (this can be done after local testing), run the deploy command.
+6. To deploy your code (this can be done after local testing), run the deploy command.
 
     ```dotnetcli
     azd deploy
@@ -92,8 +96,15 @@ This quickstart will create the below resources. These will be used both for loc
 1. Once you are ready to deploy to Azure, we can use azd. Run `azd deploy` from your terminal or command prompt.
 2. The command will output ae endpoint for your function app. Copy this.
 3. Test the endpoint by going to `<Endpoint>/Patient` in your browser or API testing tool.
+4. For APIM endpoint, get APIM Gateway URL from section [Get the deployment details](##get-the-deployment-details) and test endpoint in API testing tool.
 
 ## Get the deployment details
+
+To get the deployed APIM Gateway URL variable named `APIM_GatewayUrl` Run the below command: 
+```
+azd get-values
+```
+If you don't want to use the APIM and are planning to call the Azure function instead, please follow the below steps to get the function url and key.
 
  1. Run the below command to get the deployed Azure function URL variable named `Azure_FunctionURL`.
     ```
@@ -110,9 +121,8 @@ This quickstart will create the below resources. These will be used both for loc
     Please click on [link](https://learn.microsoft.com/en-us/cli/azure/functionapp/keys?view=azure-cli-latest#az-functionapp-keys-list) to read more about the function key.
 
 
-  Note: No need to append a key to the url if AuthorizationLevel is Anonymous. To check the authorization level, please see the Quickstartfunction.cs file's methods. For now, it's set to `Function`, but you can change it as per your needs.   
-
 ## Usage details
+### Quickstart function app
 
 - `Program.cs` outlines how we can use Azure Function for Simple custom operation using various types of services like authenticator, headers and filters.
   - UseAuthenticator() Used for accessing Azure resources, it uses azure default credentials.
@@ -124,69 +134,33 @@ This quickstart will create the below resources. These will be used both for loc
   - Added language to resource as ‘en’ (English)
   - If there is no `Patient.meta.security` label, added [HTEST](https://www.hl7.org/fhir/resource-definitions.html#Meta.security)
 - Custom operation QuickstartSample end point methods listed below.
-
--  Please copy the quickstartfunction URL from the above command and replace it with `QuickStartFunctionURL`.
-- Copy the default key value from the above command and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
-
   - GET: used to get the patient details using patient id.
-     ```
-     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
-     Method : GET
-     content-type : "application/json"
-     ```
   - POST: creates new patient record with updated filter data which is given above,to verify the new created record use GET method and pass created id.
-     ```
-     url : <QuickStartFuncrtionURL>/Patient?Code=defaultkey
-     METHOD :POST 
-     content-type : "application/json"     
-     ```
   - PUT: it updates the patient data, need to pass patient id,to verify the updated record use GET method and pass updated id.
-     ```
-     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
-     METHOD : PUT
-     content-type : "application/json"     
-     ```
-
   - DELETE: used to delete the patient record from FHIR server by passing patient id, to verify the deleted record use GET method and pass deleted id.
-     ```
-     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
-     METHOD : DELETE
-     content-type : "application/json"     
-     ```
-   - PATCH : used to update the only portion of the FHIR resource.To verify the updated record use GET method and pass the patient id.  
-     ```
-     url : <QuickStartFuncrtionURL>/Patient/{id}?Code=defaultkey
-     METHOD : PATCH
-     content-type : "application/json"     
-     ```
 
-  - SearchPatient : used to search the patient based on the respurcetype.
-    ```
-     url : <QuickStartFuncrtionURL>/{respurcetype}?Code=defaultkey
-     METHOD : GET
-     content-type : "application/json"     
-     ```
-      here, resource type can be patient,encounter,observation etc.
-      Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/fhir/search-samples) to learn more about the FHIR Search.
 
-   - Post Bundle : used to post the FHIR bundle. 
-     ```
-     url : <QuickStartFuncrtionURL>/PostBundle?Code=defaultkey
-     METHOD : POST
-     content-type : "application/json"     
-     ```
-   -  FHIR PATCH : update an element in a list without knowing the order of the list.
-      ```
-      url : <QuickStartFuncrtionURL>/Patient/{Id}?Code=defaultkey
-      METHOD : PATCH
-      content-type : "application/fhir+json"     
-      ```
-         Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/azure-api-for-fhir/fhir-rest-api-capabilities#patch-with-fhirpath-patch) to learn more about the Patch with FHIR Path Patch.
-    - JSON PATCH : used to update the json part of the FHIR json.      
-       ```
-      url : <QuickStartFuncrtionURL>/Patient/{Id}?Code=defaultkey
-      METHOD : PATCH
-      content-type : "application/json-patch+json"     
-      ```
-         Please refer [link](https://learn.microsoft.com/en-us/azure/healthcare-apis/azure-api-for-fhir/fhir-rest-api-capabilities#patch-with-json-patch) to learn more about the Patch with JSON Patch.
-         
+### APIM- Azure API Management
+
+- APIM supports the complete API lifecycle, this template is prepared to use APIM for Fhir Service and Function App endpoints.
+- in given APIM all the operations related to Patient are routed to QuickStart function app and for Fhir Service endpoints we have four methods like GET, POST, PUT, DELETE.
+
+### Calling the Azure Function 
+
+Please follow the below instructions if you want to perform operations using the Azure function instead of APIM.
+
+  For POST,
+
+     url : <QuickStartFunctionURL>/Patient?Code=defaultkey
+    
+  For GET/PUT/DELETE,
+  
+     url : <QuickStartFunctionURL>/Patient/{id}?Code=defaultkey
+     
+
+  -  Please copy the quickstartfunction URL from the above [command](##get-the-deployment-details) and replace it with `QuickStartFunctionURL`.
+
+  - Copy the default key value from the above [command](##get-the-deployment-details) and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
+
+
+ 
