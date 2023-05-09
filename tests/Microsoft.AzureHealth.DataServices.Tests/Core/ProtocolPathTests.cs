@@ -123,7 +123,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir";
             string key = "key";
             string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}?{key}=value";
-            Uri uri = new(requestUriString);
 
             string badKey = "badkey";
             FhirUriPath fhirPath = new(method, requestUriString, routePrefix);

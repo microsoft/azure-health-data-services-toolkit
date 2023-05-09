@@ -38,8 +38,10 @@ namespace QuickstartSample.Tests
             string json = await File.ReadAllTextAsync("../../../patient.json");
             try
             {
-                NameValueCollection customHeader = new NameValueCollection();
-                customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
+                NameValueCollection customHeader = new()
+                {
+                    { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
+                };
                 byte[] postContent = Encoding.UTF8.GetBytes(json);
                 HttpRequestMessageBuilder builder = new(HttpMethod.Post, config!.FhirServerUrl, "Patient", null, customHeader, postContent);
                 HttpClient client = new();
@@ -62,8 +64,10 @@ namespace QuickstartSample.Tests
                 var path = "Patient";
                 string Id = "85e2e069-e2e5-48ba-9b22-4af8653a9b17";
 
-                NameValueCollection customHeader = new NameValueCollection();
-                customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
+                NameValueCollection customHeader = new()
+                {
+                    { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
+                };
 
                 HttpRequestMessageBuilder builder = new(HttpMethod.Get, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
                 HttpClient client = new();
@@ -92,8 +96,10 @@ namespace QuickstartSample.Tests
                 var path = "Patient";
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
 
-                NameValueCollection customHeader = new NameValueCollection();
-                customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
+                NameValueCollection customHeader = new()
+                {
+                    { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
+                };
                 string transformedJson = TransformJson(json, Id);
                 byte[] postContent = Encoding.UTF8.GetBytes(transformedJson);
                 HttpRequestMessageBuilder builder = new(HttpMethod.Put, config!.FhirServerUrl, path, $"_id={Id}", customHeader, postContent);
@@ -117,8 +123,10 @@ namespace QuickstartSample.Tests
                 var path = "Patient";
                 string Id = "f49a176a-1029-4f9a-a5a7-ca87e957e7df";
 
-                NameValueCollection customHeader = new NameValueCollection();
-                customHeader.Add("X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation");
+                NameValueCollection customHeader = new()
+                {
+                    { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
+                };
 
                 HttpRequestMessageBuilder builder = new(HttpMethod.Delete, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
                 HttpClient client = new();
@@ -132,7 +140,7 @@ namespace QuickstartSample.Tests
             }
         }
 
-        private string TransformJson(string reqContent, string patientId)
+        private static string TransformJson(string reqContent, string patientId)
         {
             string json = reqContent;
             JObject jobj = JObject.Parse(json);

@@ -118,8 +118,10 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             requestPath.Operation = operation ?? requestPath.Operation;
             requestPath.Version = version ?? requestPath.Version;
 
-            UriBuilder uriBuilder = new(this.Request.RequestUri);
-            uriBuilder.Path = requestPath.Path;
+            UriBuilder uriBuilder = new(this.Request.RequestUri)
+            {
+                Path = requestPath.Path
+            };
             Request.RequestUri = uriBuilder.Uri;
 
             Request.Method = method;
@@ -134,9 +136,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="query">Optional query.</param>
         public void UpdateRequestUri(HttpMethod method, string baseUrl, string path = null, string query = null)
         {
-            UriBuilder uriBuilder = new(baseUrl);
-            uriBuilder.Path = path;
-            uriBuilder.Query = query;
+            UriBuilder uriBuilder = new(baseUrl)
+            {
+                Path = path,
+                Query = query
+            };
             Request.RequestUri = uriBuilder.Uri;
             Request.Method = method;
         }

@@ -14,9 +14,9 @@ namespace Microsoft.AzureHealth.DataServices.Clients
     /// </summary>
     public static class HttpMessageExtensions
     {
-        private static string[] RequestRestrictedHeaderList = new string[] { "content-type", "content-length", "authorization", "accept", "host", "user-agent" };
+        private static readonly string[] RequestRestrictedHeaderList = new string[] { "content-type", "content-length", "authorization", "accept", "host", "user-agent" };
 
-        private static string[] ResponseRestrictedHeaderList = new string[] { "content-length", "host", "transfer-encoding" };
+        private static readonly string[] ResponseRestrictedHeaderList = new string[] { "content-length", "host", "transfer-encoding" };
 
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <returns>NameValueCollection of http headers.</returns>
         public static NameValueCollection GetHeaders(this HttpResponseMessage response, bool restricted = true)
         {
-            NameValueCollection headers = new();
-            NameValueCollection contentHeaders = new();
+            NameValueCollection headers;
+            NameValueCollection contentHeaders;
 
             if (restricted)
             {
@@ -85,7 +85,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             return nvc;
         }
 
-        private static readonly List<string> _contentHeaderNames = new List<string>
+        private static readonly List<string> _contentHeaderNames = new()
         {
             HeaderNames.ContentDisposition,
             HeaderNames.ContentEncoding,

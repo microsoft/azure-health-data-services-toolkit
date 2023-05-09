@@ -18,17 +18,19 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
     {
         private static HttpTestListener listener;
         private static readonly int port = 1239;
-        private static string userAgentHeader = "User-Agent";
-        private static string expectedHeader = "Output-Header";
-        private static string customTestHeaderValue = "my-injected-value";
+        private static readonly string userAgentHeader = "User-Agent";
+        private static readonly string expectedHeader = "Output-Header";
+        private static readonly string customTestHeaderValue = "my-injected-value";
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
             listener = new();
-            List<Tuple<string, string>> headerMap = new List<Tuple<string, string>>();
-            headerMap.Add(new Tuple<string, string>(userAgentHeader, expectedHeader));
+            List<Tuple<string, string>> headerMap = new()
+            {
+                new Tuple<string, string>(userAgentHeader, expectedHeader)
+            };
 
             listener = new();
             listener.StartAsync(port, headerMap).GetAwaiter();
@@ -51,7 +53,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public async Task RestRequest_CustomUserAgentHeader_Test()
         {
-            HttpRequestMessage request = new HttpRequestMessage();
+            HttpRequestMessage request = new();
             request.Headers.Add(userAgentHeader, "fake-agent");
             IHeaderNameValuePair customHeader = new HeaderNameValuePair(userAgentHeader, customTestHeaderValue, CustomHeaderType.RequestStatic);
             IHeaderNameValuePair[] customHeaders = new IHeaderNameValuePair[] { customHeader };

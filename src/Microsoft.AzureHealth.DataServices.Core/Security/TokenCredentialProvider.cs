@@ -24,9 +24,9 @@ namespace Microsoft.AzureHealth.DataServices.Security
             _tenantId = tenantId;
         }
 
-        private TokenCredential _credential;
-        private string[]? _scopes;
-        private string? _tenantId;
+        private readonly TokenCredential _credential;
+        private readonly string[]? _scopes;
+        private readonly string? _tenantId;
 
         /// <summary>
         /// 

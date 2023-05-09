@@ -35,6 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
 
         public StatusType ExecutionStatusType => StatusType.Any;
 
+
 #pragma warning disable CS0067 // The event 'SimpleFilter.OnFilterError' is never used
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
 #pragma warning restore CS0067 // The event 'SimpleFilter.OnFilterError' is never used
@@ -45,8 +46,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
             TestMessage msg = new() { Value = "filter" };
             string json = JsonConvert.SerializeObject(msg);
             HttpRequestMessageBuilder builder = new (method, baseUrl, "", path, nvc, Encoding.UTF8.GetBytes(json), "application/json");
-            RestRequest request = new(builder);
-            HttpResponseMessage response = await request.SendAsync();
+            HttpClient client = new();
+            HttpResponseMessage response = await client.SendAsync(builder.Build());
             context.StatusCode = response.StatusCode;
             context.ContentString = await response.Content.ReadAsStringAsync();
 
