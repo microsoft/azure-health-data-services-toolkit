@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
+using Microsoft.AzureHealth.DataServices.Configuration;
 
 namespace Microsoft.AzureHealth.DataServices.Protocol
 {
@@ -15,9 +17,19 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// Creates an instance of FhirPath.
         /// </summary>
         /// <param name="method">HTTP method used in request.</param>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="routePrefix">Optional route prefix.</param>
+        public FhirUriPath(HttpMethod method, Uri requestUri, string routePrefix = "")
+            : this(method.ToString(), requestUriString.ToString(), routePrefix)
+        { }
+
+        /// <summary>
+        /// Creates an instance of FhirPath.
+        /// </summary>
+        /// <param name="method">HTTP method used in request.</param>
         /// <param name="requestUriString">The request URI.</param>
-        /// <param name="routePrefix">Optional route prefix; default is 'fhir'.</param>
-        public FhirUriPath(string method, string requestUriString, string routePrefix = "fhir")
+        /// <param name="routePrefix">Optional route prefix.</param>
+        public FhirUriPath(string method, string requestUriString, string routePrefix = "")
             : base(requestUriString)
         {
             Method = method;
@@ -48,7 +60,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the FHIR operation in the request URI.
         /// </summary>
-        public string Operation { get; set; }
+        public FhirOperationType? Operation { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the FHIR version in the request URI.
@@ -62,18 +74,13 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         {
             get
             {
-                StringBuilder builder = new();
-
+                string rtn = "";
                 if (!string.IsNullOrEmpty(RoutePrefix))
                 {
-                    builder = AddPathSegment(RoutePrefix, builder);
+                    rtn = $"{RoutePrefix}/";
                 }
 
-                builder = AddPathSegment(Resource, builder);
-                builder = AddPathSegment(Id, builder);
-                builder = AddPathSegment(Operation, builder);
-                builder = AddPathSegment(Version, builder);
-                return builder.ToString().TrimEnd('/');
+                return rtn + NormalizedPath;
             }
         }
 
@@ -85,24 +92,34 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             get
             {
                 StringBuilder builder = new();
-                if (Resource != null)
+
+                if (Operation is not null)
                 {
-                    builder.Append(Resource);
+                    if (Id is null)
+                    {
+                        AddPathSegment($"${Operation.GetDescription()}", builder);
+                    }
+                    else if (Operation.GetCategory() == "async" )
+                    {
+                        AddPathSegment("/_operations", builder);
+                        AddPathSegment($"/{Operation.GetDescription()}", builder);
+                        AddPathSegment($"/{Id}", builder);
+                    }
                 }
 
-                if (Id != null)
+                if (Resource is not null)
                 {
-                    builder.Append($"/{Id}");
-                }
+                    AddPathSegment(Resource, builder);
+                    if (Id != null)
+                    {
+                        AddPathSegment($"/{Id}", builder);
+                    }
 
-                if (Operation != null)
-                {
-                    builder.Append($"/{Operation}");
-                }
-
-                if (Version != null)
-                {
-                    builder.Append($"/{Version}");
+                    if (Version is not null)
+                    {
+                        AddPathSegment("_history", builder);
+                        AddPathSegment(Version, builder);
+                    }
                 }
 
                 return builder.ToString().TrimEnd('/');
@@ -143,11 +160,33 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                           where (item.Length > 0 && item != "/")
                           select item.Replace("/", ""));
 
-            var parts = values.ToArray();
-            Resource = parts.Length > 0 ? parts.ElementAt(0) : null;
-            Id = parts.Length > 1 ? parts.ElementAt(1) : null;
-            Operation = parts.Length > 2 ? parts.ElementAt(2) : null;
-            Version = parts.Length > 3 ? parts.ElementAt(3) : null;
+            // Handle root level operation= requests
+            try
+            {
+                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>(values.ElementAt(0).TrimStart('$'));
+                return;
+            }
+            catch { }
+            
+
+            // Handle operation instance requests
+            if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase))
+            {
+                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>(values.ElementAt(1));
+                Id = values.ElementAt(2);
+                return;
+            }
+
+            // Handle bundle operations
+            if (!values.Any())
+            {
+                return;
+            }
+
+            // Handle resource requests
+            Resource = values.ElementAt(0);
+            Id = values.Count() > 1 ? values.ElementAt(1) : null;
+            Version = values.Count()> 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
         }
 
     }

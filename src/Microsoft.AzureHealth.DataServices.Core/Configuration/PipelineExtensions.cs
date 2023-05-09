@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Net.Http;
 using Azure.Core;
+using Azure.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
-using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.ApplicationInsights;
+using Microsoft.Health.Client.Authentication;
+using Microsoft.Health.Fhir.Client;
 
 namespace Microsoft.AzureHealth.DataServices.Configuration
 {
@@ -252,6 +253,59 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
             return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="credential"></param>
+        /// <param name="scopes"></param>
+        /// <param name="tenantId"></param>
+        public static void AddTokenCredentialProvider(this IServiceCollection services, TokenCredential credential, string[]? scopes = null, string? tenantId = null)
+        {
+            var provider = new AzureTokenCredentialProvider(credential, scopes, tenantId);
+            services.Add(new ServiceDescriptor(typeof(CredentialProvider), provider));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="credential"></param>
+        /// <param name="scopes"></param>
+        /// <param name="tenantId"></param>
+        public static void AddAzureAuthentication(this IHttpClientBuilder builder, TokenCredential credential = null, string[]? scopes = null, string? tenantId = null)
+        {
+            if (credential is null)
+            {
+                credential = new DefaultAzureCredential();
+            }
+
+            builder.Services.AddTokenCredentialProvider(credential, scopes, tenantId);
+            builder.AddHttpMessageHandler(x => new AuthenticationHttpMessageHandler(x.GetService<CredentialProvider>()));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddFhirBinding(this IServiceCollection services, Action<FhirBindingOptions> options)
+        {
+            var optionsValue = new FhirBindingOptions();
+            options(optionsValue);
+
+            var credential = new DefaultAzureCredential();
+
+            services.AddHttpClient<IFhirClient, FhirClient>(client =>
+                {
+                    client.BaseAddress = new Uri(optionsValue.ServerUrl);
+                })
+                .AddAzureAuthentication(credential, optionsValue.Scopes);
+
+            return services.AddBinding(typeof(FhirBinding), options);
         }
     }
 }
