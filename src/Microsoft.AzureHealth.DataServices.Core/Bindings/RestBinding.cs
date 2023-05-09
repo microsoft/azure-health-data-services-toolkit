@@ -26,15 +26,15 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <param name="logger">Optional logger.</param>
         public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
         {
-            this.options = options;
-            this.authenticator = authenticator;
-            this.logger = logger;
+            _options = options;
+            _authenticator = authenticator;
+            _logger = logger;
             Id = Guid.NewGuid().ToString();
         }
 
-        private readonly IOptions<RestBindingOptions> options;
-        private readonly IAuthenticator authenticator;
-        private readonly ILogger logger;
+        private readonly IOptions<RestBindingOptions> _options;
+        private readonly IAuthenticator _authenticator;
+        private readonly ILogger _logger;
 
 
         /// <summary>
