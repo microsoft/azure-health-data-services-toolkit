@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -11,7 +9,6 @@ using EnsureThat;
 
 namespace Microsoft.AzureHealth.DataServices.Security
 {
-
     /// <summary>
     /// A HttpClient handler that sends an Access Token provided by a <see cref="TokenCredential"/> as an Authentication header.
     /// </summary>
@@ -21,10 +18,10 @@ namespace Microsoft.AzureHealth.DataServices.Security
         private readonly AccessTokenCache _accessTokenCache;
 
         /// <summary>
-        /// 
+        /// Creates bearer token handler with default token cache settings.
         /// </summary>
-        /// <param name="tokenCredential"></param>
-        /// <param name="scopes"></param>
+        /// <param name="tokenCredential">Credential used to create tokens/</param>
+        /// <param name="scopes">Optional scopes if you want to override the `.default` resource scope.</param>
         public BearerTokenHandler(TokenCredential tokenCredential, string[]? scopes)
             : this(tokenCredential, scopes, TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(30))
         {
@@ -42,10 +39,10 @@ namespace Microsoft.AzureHealth.DataServices.Security
         }
 
         /// <summary>
-        /// 
+        /// Sends the request with the bearer token header.
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="request">Incoming request message.</param>
+        /// <param name="cancellationToken">Incoming cancellation token.</param>
         /// <returns></returns>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {

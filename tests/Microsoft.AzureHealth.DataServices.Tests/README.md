@@ -16,7 +16,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "ClientId": "<client-id>",
   "ClientSecret": "<client-secret>",
   "TenantId": "<tenant-id>",
-  "FhirServerUrl": "foobar", // can stay foobars
+  "FhirServerUrl": "foobar", // can stay foobar
 
   "StorageConnectionString": "<general-storage-connection-string>",
 
