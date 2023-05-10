@@ -38,7 +38,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
         {
             EnsureArg.IsNotNull(tokenCredential, nameof(tokenCredential));
             _scopes = scopes;
-            _accessTokenCache = new AccessTokenCache(tokenCredential, _scopes, tokenRefreshOffset, tokenRefreshRetryDelay);
+            _accessTokenCache = new AccessTokenCache(tokenCredential, tokenRefreshOffset, tokenRefreshRetryDelay);
         }
 
         /// <summary>
@@ -49,28 +49,27 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// <returns></returns>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            // Only add header for requests that don't already have one.
+            if (request.Headers.Authorization is not null)
+            {
+                return await base.SendAsync(request, cancellationToken);
+            }
+
             if (request.RequestUri.Scheme != Uri.UriSchemeHttps)
             {
                 throw new InvalidOperationException("Bearer token authentication is not permitted for non TLS protected (https) endpoints.");
             }
 
-            try
+            var scopes = _scopes;
+            if (scopes is null or { Length: 0 })
             {
-                var scopes = _scopes;
-                if (scopes is null or { Length: 0 })
-                {
-                    scopes = GetDefaultScopes(request.RequestUri);
-                }
-                AccessToken cachedToken = await _accessTokenCache.GetTokenAsync(scopes, cancellationToken).ConfigureAwait(false);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", cachedToken.Token);
+                scopes = GetDefaultScopes(request.RequestUri);
+            }
+            AccessToken cachedToken = await _accessTokenCache.GetTokenAsync(scopes, cancellationToken).ConfigureAwait(false);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", cachedToken.Token);
 
-                // Send the request.
-                return await base.SendAsync(request, cancellationToken);
-            }
-            catch (AuthenticationFailedException ex)
-            {
-                throw ex;
-            }
+            // Send the request.
+            return await base.SendAsync(request, cancellationToken);
         }
 
         private static string[] GetDefaultScopes(Uri requestUri)
@@ -90,7 +89,6 @@ namespace Microsoft.AzureHealth.DataServices.Security
 
             public AccessTokenCache(
                            TokenCredential tokenCredential,
-                            string[] scopes,
                             TimeSpan tokenRefreshOffset,
                             TimeSpan tokenRefreshRetryDelay)
             {

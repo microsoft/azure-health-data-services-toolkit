@@ -313,7 +313,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             string payload = JsonConvert.SerializeObject(msg);
             byte[] content = Encoding.UTF8.GetBytes(payload);
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, null, null, content, "application/json");
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, content: content);
             HttpClient client = new();
             HttpRequestMessage requestMessage = builder.Build();
             requestMessage.Headers.Authorization = new("Bearer", File.ReadAllText("../../../Assets/jwttest.txt"));

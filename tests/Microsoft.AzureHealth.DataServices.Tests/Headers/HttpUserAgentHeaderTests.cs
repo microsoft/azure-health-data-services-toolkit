@@ -61,7 +61,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             var headers = collection.RequestAppendAndReplace(request);
 
 
-            HttpRequestMessageBuilder builder = new(HttpMethod.Get, $"http://localhost:{port}", "", null, headers, null, "application/json");
+            HttpRequestMessageBuilder builder = new(HttpMethod.Get, $"http://localhost:{port}", headers: headers);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             string actualContent = await msg.Content.ReadAsStringAsync();

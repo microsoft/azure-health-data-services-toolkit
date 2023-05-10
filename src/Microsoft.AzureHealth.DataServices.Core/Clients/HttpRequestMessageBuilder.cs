@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
@@ -16,6 +17,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// </summary>
         /// <param name="method">Http Method.</param>
         /// <param name="baseUrl">Base URL for http request, i.e., scheme and authority.</param>
+        /// <param name="securityToken">Security token for http request.</param>
         /// <param name="path">Path of the http request, i.e., scheme://authority/path</param>
         /// <param name="query">Query string for http request.</param>
         /// <param name="headers">Http headers to add to request.</param>
@@ -23,10 +25,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="contentType">Content type of the http request.</param>
         public HttpRequestMessageBuilder(HttpMethod method,
                                   string baseUrl,
-                                  string? path,
-                                  string? query,
-                                  NameValueCollection? headers,
-                                  byte[]? content,
+                                  string? path = null,
+                                  string? query = null,
+                                  NameValueCollection? headers = null,
+                                  byte[]? content = null,
+                                  string? securityToken = null,
                                   string contentType = "application/json")
         {
             _ = method ?? throw new ArgumentNullException(nameof(method));
@@ -40,6 +43,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             ContentType = contentType;
             Headers = headers;
             Content = content;
+            SecurityToken = string.IsNullOrEmpty(securityToken) ? null : securityToken;
         }
 
         /// <summary>
@@ -86,6 +90,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         public HttpMethod Method { get; private set; }
 
         /// <summary>
+        /// Gets a security token (JWT) if used in the request.
+        /// </summary>
+        public string SecurityToken { get; private set; }
+
+        /// <summary>
         /// Builds an HttpRequestMessage.
         /// </summary>
         /// <returns>Http request Message</returns>
@@ -125,6 +134,11 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 request.Content = new ByteArrayContent(Content);
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
                 request.Content.Headers.ContentLength = Content.Length;
+            }
+
+            if (!string.IsNullOrEmpty(SecurityToken))
+            {
+                request.Headers.Add("Authorization", $"Bearer {SecurityToken}");
             }
 
             return request;

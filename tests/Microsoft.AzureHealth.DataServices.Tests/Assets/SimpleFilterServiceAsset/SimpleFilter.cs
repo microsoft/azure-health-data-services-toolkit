@@ -45,7 +45,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
             NameValueCollection nvc = customerHeaders.RequestAppendAndReplace(context.Request);
             TestMessage msg = new() { Value = "filter" };
             string json = JsonConvert.SerializeObject(msg);
-            HttpRequestMessageBuilder builder = new (method, baseUrl, path, "", nvc, Encoding.UTF8.GetBytes(json), "application/json");
+            HttpRequestMessageBuilder builder = new (method, baseUrl, path, headers: nvc, content: Encoding.UTF8.GetBytes(json));
             HttpClient client = new();
             HttpResponseMessage response = await client.SendAsync(builder.Build());
             context.StatusCode = response.StatusCode;

@@ -5,11 +5,15 @@
     /// </summary>
     public class RestBindingOptions : IBindingWithHttpClientOptions
     {
-
         /// <summary>
         /// Gets or sets the server URL to call.
         /// </summary>
         public string BaseAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the setting controlling if the caller's access token is passed through to the server.
+        /// </summary>
+        public bool PassThroughAuthorizationHeader { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the scopes required to call the server.  This is purely optional and used with non-default scopes are required.

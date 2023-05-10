@@ -43,7 +43,7 @@ namespace QuickstartSample.Tests
                     { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
                 };
                 byte[] postContent = Encoding.UTF8.GetBytes(json);
-                HttpRequestMessageBuilder builder = new(HttpMethod.Post, config!.FhirServerUrl, "Patient", null, customHeader, postContent);
+                HttpRequestMessageBuilder builder = new(HttpMethod.Post, config!.FhirServerUrl, path: "Patient", headers: customHeader, content: postContent);
                 HttpClient client = new();
                 HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
@@ -69,7 +69,7 @@ namespace QuickstartSample.Tests
                     { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
                 };
 
-                HttpRequestMessageBuilder builder = new(HttpMethod.Get, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
+                HttpRequestMessageBuilder builder = new(HttpMethod.Get, config!.FhirServerUrl, path, query: $"_id={Id}", headers: customHeader);
                 HttpClient client = new();
                 HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
@@ -102,7 +102,7 @@ namespace QuickstartSample.Tests
                 };
                 string transformedJson = TransformJson(json, Id);
                 byte[] postContent = Encoding.UTF8.GetBytes(transformedJson);
-                HttpRequestMessageBuilder builder = new(HttpMethod.Put, config!.FhirServerUrl, path, $"_id={Id}", customHeader, postContent);
+                HttpRequestMessageBuilder builder = new(HttpMethod.Put, config!.FhirServerUrl, path, query: $"_id={Id}", headers: customHeader, content: postContent);
                 HttpClient client = new();
                 HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 var content = await msg.Content.ReadAsStringAsync();
@@ -128,7 +128,7 @@ namespace QuickstartSample.Tests
                     { "X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST", "QuickstartCustomOperation" }
                 };
 
-                HttpRequestMessageBuilder builder = new(HttpMethod.Delete, config!.FhirServerUrl, path, $"_id={Id}", customHeader, null);
+                HttpRequestMessageBuilder builder = new(HttpMethod.Delete, config!.FhirServerUrl, path, query: $"_id={Id}", headers: customHeader);
                 HttpClient client = new();
                 HttpResponseMessage msg = await client.SendAsync(builder.Build());
                 HttpStatusCode statusCode = HttpStatusCode.NoContent;

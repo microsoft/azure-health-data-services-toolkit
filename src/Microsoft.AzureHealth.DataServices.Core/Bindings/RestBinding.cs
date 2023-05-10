@@ -73,13 +73,19 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             {
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
-                HttpRequestMessageBuilder builder = new(context.Request.Method,
-                                                    options.Value.BaseAddress,
-                                                    context.Request.RequestUri.LocalPath,
-                                                    context.Request.RequestUri.Query,
-                                                    headers,
-                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                    context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json");
+                // Forward the token if required via configuration.
+                string? token = options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.ToString() : null;
+
+                string contentType = context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json";
+
+                HttpRequestMessageBuilder builder = new(method: context.Request.Method,
+                                                    baseUrl: options.Value.BaseAddress,
+                                                    path: context.Request.RequestUri.LocalPath,
+                                                    query: context.Request.RequestUri.Query,
+                                                    headers: headers,
+                                                    content: context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                                                    securityToken: token,
+                                                    contentType: contentType);
 
                 HttpRequestMessage request = builder.Build();
                 var resp = await client.SendAsync(request);
