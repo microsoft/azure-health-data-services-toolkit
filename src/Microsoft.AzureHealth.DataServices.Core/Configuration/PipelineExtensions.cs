@@ -203,12 +203,13 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
 
         /// <summary>
-        /// Add a binding
+        /// Adds an instance of the specified binding type <typeparamref name="TBinding"/> to the <paramref name="services"/> collection, and configures an <see cref="HttpClient"/> instance for the binding with the specified <paramref name="baseAddress"/>.
         /// </summary>
-        /// <typeparam name="TBinding">Type of binding.</typeparam>
-        /// <param name="services">Services collection.</param>
-        /// <param name="baseAddress">Base address for the binding to execute requests against.</param>
-        /// <returns>Services collection.</returns>
+        /// <typeparam name="TBinding">The binding type to add to the <paramref name="services"/> collection.</typeparam>
+        /// <param name="services">The <see cref="IServiceCollection"/> instance to add the binding to.</param>
+        /// <param name="baseAddress">The base URI address for the binding's client.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="baseAddress"/> is null.</exception>
         public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress) where TBinding : class, IBinding
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(TBinding), ServiceLifetime.Scoped));
@@ -220,13 +221,15 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
 
         /// <summary>
-        /// Adds a binding.
+        /// Adds an instance of the specified binding type <typeparamref name="TBinding"/> to the <paramref name="services"/> collection, configures it with the specified <paramref name="options"/>, and configures an <see cref="HttpClient"/> instance using the configuration object/>.
         /// </summary>
-        /// <typeparam name="TBinding">Type of binding.</typeparam>
-        /// <typeparam name="TOptions">Type of options for binding.</typeparam>
-        /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for binding.</param>
-        /// <returns>Services collection.</returns>
+        /// <typeparam name="TBinding">The binding type to add to the <paramref name="services"/> collection.</typeparam>
+        /// <typeparam name="TOptions">The type of options to configure for the binding. Must implement the <see cref="IBindingWithHttpClientOptions"/> interface.</typeparam>
+        /// <param name="services">The <see cref="IServiceCollection"/> instance to add the binding to.</param>
+        /// <param name="options">An action that configures the <typeparamref name="TOptions"/> instance for the binding.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="options"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an instance of <typeparamref name="TOptions"/> cannot be created using the default constructor.</exception>
         public static IHttpClientBuilder AddBinding<TBinding, TOptions>(this IServiceCollection services, Action<TOptions> options)
             where TBinding : class, IBinding
             where TOptions : class, IBindingWithHttpClientOptions
@@ -239,12 +242,13 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
 
         /// <summary>
-        /// 
+        /// Configures the <see cref="IHttpClientBuilder"/> to use the specified <paramref name="credential"/> for authentication using the Azure Token Credential library.
         /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="credential"></param>
-        /// <param name="scopes">Optional scopes to override service default.</param>
-        /// <returns></returns>
+        /// <param name="builder">The <see cref="IHttpClientBuilder"/> instance to configure.</param>
+        /// <param name="credential">The <see cref="TokenCredential"/> instance to use for authentication.</param>
+        /// <param name="scopes">The optional list of scopes required for the authentication. If omitted, the default value of null is used.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance with the <see cref="BearerTokenHandler"/> added to its message handlers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="builder"/> or <paramref name="credential"/> is null.</exception>
         public static IHttpClientBuilder UseCredential(this IHttpClientBuilder builder, TokenCredential credential, string[] scopes = default)
         {
             return builder.AddHttpMessageHandler(x => new BearerTokenHandler(credential, scopes));
