@@ -95,15 +95,28 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
 
                 if (Operation is not null)
                 {
+                    if (Resource is not null)
+                    {
+                        AddPathSegment(Resource, builder);
+                        if (Id is not null)
+                        {
+                            AddPathSegment($"{Id}", builder);
+                        }
+
+                        AddPathSegment($"{Operation.GetDescription()}", builder);
+
+                        return builder.ToString().TrimEnd('/');
+                    }
+                    
                     if (Id is null)
                     {
-                        AddPathSegment($"${Operation.GetDescription()}", builder);
+                        AddPathSegment($"{Operation.GetDescription()}", builder);
                     }
                     else if (Operation.GetCategory() == "async" )
                     {
-                        AddPathSegment("/_operations", builder);
-                        AddPathSegment($"/{Operation.GetDescription()}", builder);
-                        AddPathSegment($"/{Id}", builder);
+                        AddPathSegment("_operations", builder);
+                        AddPathSegment($"{Operation.GetDescription().TrimStart('$')}", builder);
+                        AddPathSegment($"{Id}", builder);
                     }
                 }
 
@@ -112,7 +125,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                     AddPathSegment(Resource, builder);
                     if (Id != null)
                     {
-                        AddPathSegment($"/{Id}", builder);
+                        AddPathSegment($"{Id}", builder);
                     }
 
                     if (Version is not null)
@@ -161,18 +174,17 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                           select item.Replace("/", ""));
 
             // Handle root level operation= requests
-            try
+            var possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(0));
+            if (possibleOperations.Any())
             {
-                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>(values.ElementAt(0).TrimStart('$'));
+                Operation = possibleOperations.First();
                 return;
-            }
-            catch { }
-            
+            }            
 
             // Handle operation instance requests
-            if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase))
+            if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase) && values.Count() > 2)
             {
-                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>(values.ElementAt(1));
+                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>("$" + values.ElementAt(1));
                 Id = values.ElementAt(2);
                 return;
             }
@@ -185,7 +197,35 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
 
             // Handle resource requests
             Resource = values.ElementAt(0);
+
+            if (values.Count() == 1)
+            {
+                return;
+            }
+
+            // Handle resource level operations
+            possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(1));
+            if (possibleOperations.Any())
+            {
+                Operation = possibleOperations.First();
+                return;
+            }
+
             Id = values.Count() > 1 ? values.ElementAt(1) : null;
+
+            if (values.Count() == 2)
+            {
+                return;
+            }
+
+            // Handle resource instance level operations
+            possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(2));
+            if (possibleOperations.Any())
+            {
+                Operation = possibleOperations.First();
+                return;
+            }
+
             Version = values.Count()> 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
         }
 

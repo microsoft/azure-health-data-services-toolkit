@@ -6,6 +6,7 @@
     <AssemblyName>Microsoft.AzureHealth.DataServices.Caching</AssemblyName>
     <Description>Caching library to assist with creating custom operations for Azure Health Data Services.</Description>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3df16eaf-e275-48f7-8c86-27fca826858c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

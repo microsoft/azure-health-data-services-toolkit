@@ -10,25 +10,25 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// FHIR $reindex operation
         /// </summary>
-        [Description("reindex"), Category("async")]
+        [Description("$reindex"), Category("async")]
         Reindex,
 
         /// <summary>
         /// FHIR $convert-data operation
         /// </summary>
-        [Description("convert-data")]
+        [Description("$convert-data")]
         ConvertData,
 
         /// <summary>
         /// FHIR $import operation
         /// </summary>
-        [Description("import"), Category("async")]
+        [Description("$import"), Category("async")]
         Import,
 
         /// <summary>
         /// FHIR $import operation
         /// </summary>
-        [Description("export"), Category("async")]
+        [Description("$export"), Category("async")]
         Export
     }
 }

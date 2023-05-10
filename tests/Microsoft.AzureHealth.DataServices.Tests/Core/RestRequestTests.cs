@@ -1,15 +1,10 @@
 ﻿using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
-using AzureCore = Azure;
-using Azure.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,7 +52,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpRequestMessage actual = builder.Build();
 
 
-            Assert.AreEqual(method, actual.Method.ToString(), "Method mismatch.");
+            Assert.AreEqual(method, actual.Method, "Method mismatch.");
             Assert.AreEqual(content.Length, actual.Content.Headers.ContentLength, "Content length mismatch.");
             Assert.AreEqual(jsonType, actual.Headers.Accept.ToString(), "Accept mismatch.");
             Assert.AreEqual(jsonType, actual.Content.Headers.ContentType.ToString(), "Content type mismatch.");

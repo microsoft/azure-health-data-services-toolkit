@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.AzureHealth.DataServices.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,17 +15,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Get;
             string resource = "Resource";
             string id = "Id";
-            string operation = "Operation";
             string version = "Version";
             string routePrefix = "fhir";
-            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation}/{version}";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/_history/{version}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
             Assert.AreEqual(id, fhirPath.Id, "ID mismatch.");
-            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
             Assert.AreEqual(version, fhirPath.Version, "Version mismatch.");
             Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
             Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
@@ -38,18 +37,95 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Get;
             string resource = "Resource";
             string id = "Id";
-            string operation = "Operation";
             string version = "Version";
             string routePrefix = "fhir/long";
-            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation}/{version}";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/_history/{version}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
             Assert.AreEqual(id, fhirPath.Id, "ID mismatch.");
-            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
             Assert.AreEqual(version, fhirPath.Version, "Version mismatch.");
+            Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
+            Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
+            Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.Path, "Path mismatch.");
+            Assert.AreEqual(normalizedPath.TrimStart('/'), fhirPath.NormalizedPath, "Normalized path mismatch.");
+        }
+
+        [TestMethod]
+        public void FhirUriPath_Default_StartRootOperation_Test()
+        {
+            HttpMethod method = HttpMethod.Get;
+            FhirOperationType operation = FhirOperationType.Reindex;
+            string routePrefix = "fhir";
+            string requestUriString = $"https://example.org/{routePrefix}/{operation.GetDescription()}";
+            Uri uri = new(requestUriString);
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+
+            FhirUriPath fhirPath = new(method, uri, routePrefix);
+            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
+            Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
+            Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
+            Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.Path, "Path mismatch.");
+            Assert.AreEqual(normalizedPath.TrimStart('/'), fhirPath.NormalizedPath, "Normalized path mismatch.");
+        }
+
+        [TestMethod]
+        public void FhirUriPath_Default_CheckOperation_Test()
+        {
+            HttpMethod method = HttpMethod.Get;
+            FhirOperationType operation = FhirOperationType.Import;
+            string routePrefix = "fhir";
+            string id = "Id";
+            string requestUriString = $"https://example.org/fhir/_operations/{operation.GetDescription().TrimStart('$')}/{id}";
+            Uri uri = new(requestUriString);
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+
+            FhirUriPath fhirPath = new(method, uri, routePrefix);
+            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
+            Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
+            Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
+            Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.Path, "Path mismatch.");
+            Assert.AreEqual(normalizedPath.TrimStart('/'), fhirPath.NormalizedPath, "Normalized path mismatch.");
+        }
+
+        [TestMethod]
+        public void FhirUriPath_Default_StartResourceTypeOperation_Test()
+        {
+            HttpMethod method = HttpMethod.Get;
+            string resource = "Resource";
+            FhirOperationType operation = FhirOperationType.Export;
+            string routePrefix = "fhir";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{operation.GetDescription()}";
+            Uri uri = new(requestUriString);
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+
+            FhirUriPath fhirPath = new(method, uri, routePrefix);
+            Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
+            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
+            Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
+            Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
+            Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.Path, "Path mismatch.");
+            Assert.AreEqual(normalizedPath.TrimStart('/'), fhirPath.NormalizedPath, "Normalized path mismatch.");
+        }
+
+        [TestMethod]
+        public void FhirUriPath_Default_StartSingleResourceOperation_Test()
+        {
+            HttpMethod method = HttpMethod.Get;
+            string resource = "Resource";
+            string id = "Id";
+            FhirOperationType operation = FhirOperationType.Export;
+            string routePrefix = "fhir";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation.GetDescription()}";
+            Uri uri = new(requestUriString);
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+
+            FhirUriPath fhirPath = new(method, uri, routePrefix);
+            Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
+            Assert.AreEqual(operation, fhirPath.Operation, "ID mismatch.");
+            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
             Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
             Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
             Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.Path, "Path mismatch.");
@@ -62,15 +138,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Get;
             string resource = "Resource";
             string id = "Id";
-            string operation = "Operation";
             string version = "Version";
-            string requestUriString = $"https://example.org/{resource}/{id}/{operation}/{version}";
+            string requestUriString = $"https://example.org/{resource}/{id}/_history/{version}";
             Uri uri = new(requestUriString);
 
             FhirUriPath fhirPath = new(method, uri, null);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
             Assert.AreEqual(id, fhirPath.Id, "ID mismatch.");
-            Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
             Assert.AreEqual(version, fhirPath.Version, "Version mismatch.");
             Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
             Assert.IsNull(fhirPath.RoutePrefix, "Route prefix not null.");

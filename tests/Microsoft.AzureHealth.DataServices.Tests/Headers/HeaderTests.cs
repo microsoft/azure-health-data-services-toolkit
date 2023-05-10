@@ -312,14 +312,23 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             TestMessage msg = new () { Value = "test" };
             string payload = JsonConvert.SerializeObject(msg);
             byte[] content = Encoding.UTF8.GetBytes(payload);
-            string jwtString = File.ReadAllText("../../../Assets/jwttest.txt");
-            HttpRequestMessageBuilder builder = new(method, baseUrl, jwtString, path, null, content, "application/json");
+
+            HttpRequestMessageBuilder builder = new(method, baseUrl, path, null, null, content, "application/json");
             HttpClient client = new();
-            HttpResponseMessage response = await client.SendAsync(builder.Build());
+            HttpRequestMessage requestMessage = builder.Build();
+            requestMessage.Headers.Authorization = new("Bearer", File.ReadAllText("../../../Assets/jwttest.txt"));
+
+            HttpResponseMessage response = await client.SendAsync(requestMessage);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Assert.Fail($"Response status code: {response.StatusCode}");
+            }
+
             string msgJson = await response.Content.ReadAsStringAsync();
             TestMessage actual = JsonConvert.DeserializeObject<TestMessage>(msgJson);
 
-            Assert.AreEqual(actual.Value, expectedValue, "not expected value");
+            Assert.AreEqual(expectedValue, actual.Value, "not expected value");
 
             simple.Stop();
             webhost.Stop();

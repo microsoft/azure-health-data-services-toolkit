@@ -49,7 +49,7 @@ using IHost host = new HostBuilder()
         services.AddInputFilter(typeof(QuickstartFilter));
 
         // Add our binding to pass the call to the FHIR service
-        services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
+        services.AddBinding<RestBinding, RestBindingOptions>(options =>
         {
             options.BaseAddress = config.FhirServerUrl;
         })

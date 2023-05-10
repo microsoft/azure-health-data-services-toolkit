@@ -123,8 +123,10 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         {
             cacheOptions = new MemoryCacheEntryOptions();
             cacheOptions.SetSlidingExpiration(TimeSpan.FromSeconds(300));
-            MemoryCacheOptions memOptions = new();
-            memOptions.ExpirationScanFrequency = TimeSpan.FromSeconds(30);
+            MemoryCacheOptions memOptions = new()
+            {
+                ExpirationScanFrequency = TimeSpan.FromSeconds(30)
+            };
             containerCache = new MemoryCache(memOptions);
             this.logger = logger;
 

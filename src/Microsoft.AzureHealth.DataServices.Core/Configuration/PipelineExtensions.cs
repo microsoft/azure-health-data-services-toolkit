@@ -14,7 +14,6 @@ using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.ApplicationInsights;
-using Microsoft.Health.Client.Authentication;
 
 namespace Microsoft.AzureHealth.DataServices.Configuration
 {
@@ -206,15 +205,15 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <summary>
         /// Add a binding
         /// </summary>
+        /// <typeparam name="TBinding">Type of binding.</typeparam>
         /// <param name="services">Services collection.</param>
-        /// <param name="type">Type of binding.</param>
         /// <param name="baseAddress">Base address for the binding to execute requests against.</param>
         /// <returns>Services collection.</returns>
-        public static IHttpClientBuilder AddBinding(this IServiceCollection services, Type type, Uri baseAddress)
+        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress) where TBinding : class, IBinding
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(TBinding), ServiceLifetime.Scoped));
 
-            return services.AddHttpClient<IBinding>(client =>
+            return services.AddHttpClient<IBinding, TBinding>(client =>
             {
                 client.BaseAddress = baseAddress;
             });
@@ -223,18 +222,20 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <summary>
         /// Adds a binding.
         /// </summary>
+        /// <typeparam name="TBinding">Type of binding.</typeparam>
         /// <typeparam name="TOptions">Type of options for binding.</typeparam>
         /// <param name="services">Services collection.</param>
-        /// <param name="type">Type of binding.</param>
         /// <param name="options">Options for binding.</param>
         /// <returns>Services collection.</returns>
-        public static IHttpClientBuilder AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class, IBindingWithHttpClientOptions
+        public static IHttpClientBuilder AddBinding<TBinding, TOptions>(this IServiceCollection services, Action<TOptions> options)
+            where TBinding : class, IBinding
+            where TOptions : class, IBindingWithHttpClientOptions
         {
             var optionsValue = Activator.CreateInstance<TOptions>();
             options(optionsValue);
 
             services.Configure<TOptions>(options);
-            return services.AddBinding(type, new Uri(optionsValue.BaseAddress));
+            return services.AddBinding<TBinding>(new Uri(optionsValue.BaseAddress));
         }
 
         /// <summary>
@@ -242,13 +243,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="credential"></param>
+        /// <param name="scopes">Optional scopes to override service default.</param>
         /// <returns></returns>
-        public static IHttpClientBuilder UseCredential(this IHttpClientBuilder builder, TokenCredential credential)
+        public static IHttpClientBuilder UseCredential(this IHttpClientBuilder builder, TokenCredential credential, string[] scopes = default)
         {
-            var credProvider = new TokenCredentialProvider(credential);
-            builder.Services.AddSingleton<CredentialProvider>(credProvider);
-
-            return builder.AddHttpMessageHandler(x => new AuthenticationHttpMessageHandler(x.GetService<CredentialProvider>()));
+            return builder.AddHttpMessageHandler(x => new BearerTokenHandler(credential, scopes));
         }
     }
 }
+

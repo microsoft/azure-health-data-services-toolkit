@@ -15,7 +15,7 @@ builder.Services.AddInputFilter<SimpleInputFilterOptions>(typeof(SimpleInputFilt
     options.ExecutionStatus = StatusType.Any;
 });
 
-builder.Services.AddBinding<RestBindingOptions>(typeof(RestBinding), options =>
+builder.Services.AddBinding<RestBinding, RestBindingOptions>(options =>
 {
     options.BaseAddress = "http://localhost:7777";
 });

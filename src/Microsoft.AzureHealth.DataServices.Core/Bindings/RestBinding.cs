@@ -79,7 +79,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                                                     context.Request.RequestUri.Query,
                                                     headers,
                                                     context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                    context.Request.Content.Headers.ContentType.ToString());
+                                                    context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json");
 
                 HttpRequestMessage request = builder.Build();
                 var resp = await client.SendAsync(request);
