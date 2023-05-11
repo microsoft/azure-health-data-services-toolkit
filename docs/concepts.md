@@ -92,49 +92,30 @@ Bindings couple inputs and outputs in pipelines. The most common use of a bindin
 | BindingErrorEventArgs | Event | Signals an error on the binding. |
 | BindingCompleteEventArgs | Event | Signals completion of a binding. |
 
-## Authenticator
+## Authentication
 
-Authenticator is a flexible class to help acquire an access token for calling the FHIR service and other Azure services. You have two options for configuring the authenticator for use in your custom operations:
+Authentication is recommended via the [Azure Identity client library for .NET](https://learn.microsoft.com/dotnet/api/overview/azure/identity-readme?view=azure-dotnet). We recommend using `DefaultAzureCredential`. 
 
-1. Without any explicit configuration or reference in your code to the authentication method or settings. This leverages [DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
-2. With explicit selection of the authorization method and configuration via the settings on the authenticator class.
+### Azure Authentication
 
-You get to choose which method is best for your custom operation. We recommend starting with the non-explicit method that uses `DefaultAzureCredential` as it is intended to simplify getting started with custom operations. The injection of the authentication method via the environment works great for secret-less connection both in local development and cloud deployment. If you want more control over your authentication, you can explicitly define this when you call the authenticator class.
-
-| Authentication Method | Configuration Method | Description
-|------| ---- | ----------- |
-| Managed Identity | Explicit or implicit  | Attempts authentication using a managed identity that has been assigned to the deployment environment |
-| Client Credentials | Explicit or implicit | Uses a service principal to connect. Either via a secret or certificate. |
-| On-Behalf-Of | Explicit only | Calls the endpoint on-behalf-of the caller, propagating the original caller's identity and permissions. |
-| Visual Studio | Implicit only | Uses the Azure session from Visual Studio. |
-| Visual Studio Code | Implicit only | Uses the Azure session from Visual Studio Code. |
-| Azure CLI | Implicit only | Uses the Azure session from the Azure CLI. |
-| Azure PowerShell | Implicit only | Uses the Azure session from the Azure PowerShell. |
-
-### Implicit Authenticator configuration
-
-To use the authenticator implicitly leveraging `DefaultAzureCredential`, add the authenticator to your custom operation *without* any parameters. The authenticator now will either automatically pull the needed information from your system (mainly for development or managed identity) or you can configure via configuring the environment [like DefaultAzureCredential](https://docs.microsoft.com/dotnet/api/overview/azure/identity-readme#defaultazurecredential).
+When setting up a binding (like `RestBinding`), you just need to add a new instance of `DefaultAzureCredential` to the configuration. All calls to the binding target will now automatically be authenticated via this credential.
 
 ```csharp
-services.UseAuthenticator();
+services.AddBinding<RestBinding, RestBindingOptions>(options =>
+{
+    options.BaseAddress = "https://<workspace>-<fhir service>.fhir.azurehealthcareapis.com";
+    options.Credential = new new DefaultAzureCredential();
+})
 ```
 
-### Explicit Authenticator configuration
+### Authorization Header Forwarding
 
-When explicitly defining an authentication configuration, you must define the configuration when adding the authenticator to your custom operation. For example, this code explicitly sets the authentication type to `ClientSecret` and the `ClientId`, `ClientSecret`, and `TenantId` from the application configuration (often passed in from environment variables or Azure KeyVault).
+The RestBinding supports forwarding the `Authorization` header from the client to the binding target. This is useful for the simplest authentication configuration when routing requests between the FHIR Service and your custom operation via API Management. The client just needs to get an access token for the FHIR Service. The custom operation will simply use this token in the binding versus having to get it's own token.
 
 ```csharp
-services.UseAuthenticator(options =>
-  {
-      options.CredentialType = ClientCredentialType.ClientSecret;
-      options.ClientId = config.ClientId;
-      options.ClientSecret = config.ClientSecret;
-      options.TenantId = config.TenantId;
-  });
+services.AddBinding<RestBinding, RestBindingOptions>(options =>
+{
+    options.BaseAddress = "https://<workspace>-<fhir service>.fhir.azurehealthcareapis.com";
+    options.PassThroughAuthorizationHeader = true;
+})
 ```
-
-## Clients
-
-This toolkit has a built-in REST client (called `RestRequest`) which abstracts the logic for a resilient client needed for REST requests for cloud services. This client is used for bindings in a pipeline, but this client is also useful for calling the FHIR service (or external REST services) inside of filters to gather additional information needed for a custom operation.
-
-The `RestRequestBuilder` class is also available for an easy, builder style creation of a `RestRequest` client. See [RestBinding.cs](/src/DataServices/Bindings/RestBinding.cs) for an example of how this is used.
