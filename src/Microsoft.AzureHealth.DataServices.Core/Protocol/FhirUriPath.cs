@@ -107,12 +107,12 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
 
                         return builder.ToString().TrimEnd('/');
                     }
-                    
+
                     if (Id is null)
                     {
                         AddPathSegment($"{Operation.GetDescription()}", builder);
                     }
-                    else if (Operation.GetCategory() == "async" )
+                    else if (Operation.GetCategory() == "async")
                     {
                         AddPathSegment("_operations", builder);
                         AddPathSegment($"{Operation.GetDescription().TrimStart('$')}", builder);
@@ -179,7 +179,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             {
                 Operation = possibleOperations.First();
                 return;
-            }            
+            }
 
             // Handle operation instance requests
             if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase) && values.Count() > 2)
@@ -226,7 +226,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                 return;
             }
 
-            Version = values.Count()> 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
+            Version = values.Count() > 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
         }
 
     }

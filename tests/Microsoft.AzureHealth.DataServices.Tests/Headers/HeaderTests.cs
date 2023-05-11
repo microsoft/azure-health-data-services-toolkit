@@ -310,7 +310,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             string baseUrl = $"http://localhost:{filterServicePort}";
             string path = "simple";
             HttpMethod method = HttpMethod.Post;
-            TestMessage msg = new () { Value = "test" };
+            TestMessage msg = new() { Value = "test" };
             string payload = JsonConvert.SerializeObject(msg);
             byte[] content = Encoding.UTF8.GetBytes(payload);
 

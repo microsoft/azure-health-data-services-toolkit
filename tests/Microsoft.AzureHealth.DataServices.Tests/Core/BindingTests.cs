@@ -87,7 +87,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string tokenValue = Guid.NewGuid().ToString();
             credential.TokenFactory = (x, y) => new AccessToken(tokenValue, DateTimeOffset.UtcNow.AddMinutes(10));
             HttpClient client = GenerateClient(baseAddress, _ => new BearerTokenHandler(credential, baseAddress, null));
-           
+
             IBinding binding = new RestBinding(options, client);
 
             OperationContext actualContext = await binding.ExecuteAsync(context);
@@ -166,7 +166,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             if (messageHandler is not null)
             {
                 httpBuilder.AddHttpMessageHandler(messageHandler);
-            }            
+            }
 
             // Build the service provider
             var serviceProvider = services.BuildServiceProvider();
@@ -176,7 +176,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             var client = httpClientFactory.CreateClient("TestClient");
             client.BaseAddress = baseAddress;
-            return client; 
+            return client;
         }
     }
 }

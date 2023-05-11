@@ -32,6 +32,6 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// Adds the response headers from the binding to the pipeline
         /// </summary>
         public bool AddResponseHeaders { get; set; } = true;
-        
+
     }
 }

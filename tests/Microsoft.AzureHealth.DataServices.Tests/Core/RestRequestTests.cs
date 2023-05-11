@@ -152,7 +152,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.NoContent;
 
-            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl),  path, query, headers, content, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, content, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");

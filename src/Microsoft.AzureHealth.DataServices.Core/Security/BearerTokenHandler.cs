@@ -46,7 +46,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
             {
                 _scopes = scopes;
             }
-               
+
             _accessTokenCache = new AccessTokenCache(tokenCredential, tokenRefreshOffset, tokenRefreshRetryDelay);
         }
 
