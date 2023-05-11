@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -313,7 +314,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             string payload = JsonConvert.SerializeObject(msg);
             byte[] content = Encoding.UTF8.GetBytes(payload);
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, content: content);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, content: content);
             HttpClient client = new();
             HttpRequestMessage requestMessage = builder.Build();
             requestMessage.Headers.Authorization = new("Bearer", File.ReadAllText("../../../Assets/jwttest.txt"));

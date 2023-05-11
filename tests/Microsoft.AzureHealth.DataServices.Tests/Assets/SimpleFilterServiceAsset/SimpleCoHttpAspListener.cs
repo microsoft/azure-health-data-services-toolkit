@@ -3,6 +3,8 @@ using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
+using System;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
@@ -27,8 +29,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
             services.UseWebPipeline();
             services.AddInputFilter<SimpleFilterOptions>(typeof(SimpleFilter), options =>
             {
-                options.BaseUrl = $"http://localhost:1212";
-                options.HttpMethod = "Post";
+                options.BaseUrl = new Uri("http://localhost:1212");
+                options.HttpMethod = HttpMethod.Post;
                 options.Path = "echo";
                 options.ExecutionStatus = DataServices.Pipelines.StatusType.Any;
             });

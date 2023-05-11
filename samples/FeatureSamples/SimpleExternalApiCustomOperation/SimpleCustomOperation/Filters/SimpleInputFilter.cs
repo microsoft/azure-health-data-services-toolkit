@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Shared;
+using System;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -21,8 +22,8 @@ namespace SimpleCustomOperation.Filters
             id = Guid.NewGuid().ToString();
         }
 
-        private readonly string baseUrl;
-        private readonly string method;
+        private readonly Uri baseUrl;
+        private readonly HttpMethod method;
         private readonly string path;
         private readonly StatusType status;
         private readonly string id;
@@ -50,8 +51,7 @@ namespace SimpleCustomOperation.Filters
             context.Request.Content = new ByteArrayContent(content);
 
             //update the request uri to send to the server in the sample
-            HttpMethod httpMethod = new(method);
-            context.UpdateRequestUri(httpMethod, baseUrl, path, null);
+            context.UpdateRequestUri(method, baseUrl.GetLeftPart(UriPartial.Authority), path, null);
 
             //set the request content type to send to the server in the sample
             context.Request.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");

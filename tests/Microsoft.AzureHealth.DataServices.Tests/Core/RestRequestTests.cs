@@ -48,7 +48,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 { "Location", "kitchen" }
             };
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, content);
             HttpRequestMessage actual = builder.Build();
 
 
@@ -73,7 +73,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, content, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
@@ -93,7 +93,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, null, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, null, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
@@ -114,7 +114,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.OK;
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, content, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, content, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
@@ -132,7 +132,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.NoContent;
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, query, headers, null, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, null, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");
@@ -152,7 +152,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             HttpStatusCode statusCode = HttpStatusCode.NoContent;
 
-            HttpRequestMessageBuilder builder = new(method, baseUrl,  path, query, headers, content, jsonType);
+            HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl),  path, query, headers, content, jsonType);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             Assert.AreEqual(statusCode, msg.StatusCode, "Status code mismatch.");

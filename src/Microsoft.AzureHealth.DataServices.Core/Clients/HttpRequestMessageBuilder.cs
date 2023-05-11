@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
@@ -24,7 +23,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="content">Body content of the http request.</param>
         /// <param name="contentType">Content type of the http request.</param>
         public HttpRequestMessageBuilder(HttpMethod method,
-                                  string baseUrl,
+                                  Uri baseUrl,
                                   string? path = null,
                                   string? query = null,
                                   NameValueCollection? headers = null,
@@ -57,7 +56,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <summary>
         /// Gets the base url of the request.
         /// </summary>
-        public string BaseUrl { get; private set; }
+        public Uri BaseUrl { get; private set; }
 
         /// <summary>
         /// Gets the content type of the request.
@@ -125,7 +124,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 }
             }
 
-            request.Headers.Add("Host", new Uri(BaseUrl).Authority);
+            request.Headers.Add("Host", BaseUrl.Authority);
             request.Headers.Add("Accept", ContentType);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
 

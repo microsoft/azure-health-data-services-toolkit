@@ -1,12 +1,14 @@
 ﻿using Microsoft.AzureHealth.DataServices.Pipelines;
+using System;
+using System.Net.Http;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
     public class SimpleFilterOptions
     {
-        public string BaseUrl { get; set; }
+        public Uri BaseUrl { get; set; }
 
-        public string HttpMethod { get; set; }
+        public HttpMethod HttpMethod { get; set; }
 
         public string Path { get; set; }
 

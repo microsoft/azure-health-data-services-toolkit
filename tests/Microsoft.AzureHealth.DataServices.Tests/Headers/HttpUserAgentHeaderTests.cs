@@ -45,7 +45,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void RestRequest_BuildDefaultUserAgentHeader_Test()
         {
-            HttpRequestMessageBuilder builder = new(HttpMethod.Get, "http://localhost", "", "foo", null, null, "application/json");
+            HttpRequestMessageBuilder builder = new(HttpMethod.Get, new Uri("http://localhost"), "", "foo", null, null, "application/json");
             var request = builder.Build();
             Assert.AreEqual(request.Headers.UserAgent.ToString(), HttpRequestMessageBuilder.DefaultUserAgentHeader.ToString());
         }
@@ -61,7 +61,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             var headers = collection.RequestAppendAndReplace(request);
 
 
-            HttpRequestMessageBuilder builder = new(HttpMethod.Get, $"http://localhost:{port}", headers: headers);
+            HttpRequestMessageBuilder builder = new(HttpMethod.Get, new Uri($"http://localhost:{port}"), headers: headers);
             HttpClient client = new();
             HttpResponseMessage msg = await client.SendAsync(builder.Build());
             string actualContent = await msg.Content.ReadAsStringAsync();

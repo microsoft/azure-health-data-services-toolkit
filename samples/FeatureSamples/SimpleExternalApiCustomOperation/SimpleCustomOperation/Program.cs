@@ -9,15 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.UseWebPipeline();
 builder.Services.AddInputFilter<SimpleInputFilterOptions>(typeof(SimpleInputFilter), options =>
 {
-    options.BaseUrl = "http://localhost:7777";
-    options.HttpMethod = "POST";
+    options.BaseUrl = new Uri("http://localhost:7777");
+    options.HttpMethod = HttpMethod.Post;
     options.Path = "simple";
     options.ExecutionStatus = StatusType.Any;
 });
 
 builder.Services.AddBinding<RestBinding, RestBindingOptions>(options =>
 {
-    options.BaseAddress = "http://localhost:7777";
+    options.BaseAddress = new Uri("http://localhost:7777");
 });
 
 builder.Services.AddOutputFilter<SimpleOutputFilterOptions>(typeof(SimpleOutputFilter), options =>

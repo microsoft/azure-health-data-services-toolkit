@@ -74,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
                 // Forward the token if required via configuration.
-                string? token = options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.ToString() : null;
+                string? token = options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.Parameter?.ToString() : null;
 
                 string contentType = context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json";
 

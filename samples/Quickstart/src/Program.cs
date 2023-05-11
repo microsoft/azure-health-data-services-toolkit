@@ -52,8 +52,8 @@ using IHost host = new HostBuilder()
         services.AddBinding<RestBinding, RestBindingOptions>(options =>
         {
             options.BaseAddress = config.FhirServerUrl;
-        })
-        .UseCredential(new DefaultAzureCredential());
+            options.Credential = new DefaultAzureCredential();
+        });
     })
     .Build();
 

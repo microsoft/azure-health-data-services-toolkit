@@ -21,20 +21,32 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// Creates bearer token handler with default token cache settings.
         /// </summary>
         /// <param name="tokenCredential">Credential used to create tokens/</param>
+        /// <param name="baseAddress">Base address for the client using the credential. Used for resource based scoping via {{baseAddress}}/.default</param>
         /// <param name="scopes">Optional scopes if you want to override the `.default` resource scope.</param>
-        public BearerTokenHandler(TokenCredential tokenCredential, string[]? scopes)
-            : this(tokenCredential, scopes, TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(30))
+        public BearerTokenHandler(TokenCredential tokenCredential, Uri baseAddress, string[]? scopes)
+            : this(tokenCredential, baseAddress, scopes, TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(30))
         {
         }
 
         internal BearerTokenHandler(
             TokenCredential tokenCredential,
+            Uri baseAddress,
             string[]? scopes,
             TimeSpan tokenRefreshOffset,
             TimeSpan tokenRefreshRetryDelay)
         {
             EnsureArg.IsNotNull(tokenCredential, nameof(tokenCredential));
-            _scopes = scopes;
+
+            if (scopes is null or { Length: 0 })
+            {
+                EnsureArg.IsNotNull(baseAddress);
+                _scopes = GetDefaultScopes(baseAddress);
+            }
+            else
+            {
+                _scopes = scopes;
+            }
+               
             _accessTokenCache = new AccessTokenCache(tokenCredential, tokenRefreshOffset, tokenRefreshRetryDelay);
         }
 
@@ -52,7 +64,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
                 return await base.SendAsync(request, cancellationToken);
             }
 
-            if (request.RequestUri.Scheme != Uri.UriSchemeHttps)
+            if (request.RequestUri.Scheme != Uri.UriSchemeHttps && request.RequestUri.Host != "localhost")
             {
                 throw new InvalidOperationException("Bearer token authentication is not permitted for non TLS protected (https) endpoints.");
             }

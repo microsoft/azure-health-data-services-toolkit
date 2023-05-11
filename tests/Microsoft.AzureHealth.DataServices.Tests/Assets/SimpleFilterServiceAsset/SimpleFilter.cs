@@ -18,12 +18,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         {
             id = Guid.NewGuid().ToString();
             baseUrl = options.Value.BaseUrl;
-            method = new HttpMethod(options.Value.HttpMethod);
+            method = options.Value.HttpMethod;
             path = options.Value.Path;
             this.customerHeaders = customHeaders;
         }
 
-        private readonly string baseUrl;
+        private readonly Uri baseUrl;
         private readonly HttpMethod method;
         private readonly string path;
         private readonly IHttpCustomHeaderCollection customerHeaders;
