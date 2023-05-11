@@ -26,7 +26,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             var description = operationType.GetDescription();
 
             // Assert
-            Assert.AreEqual("reindex", description);
+            Assert.AreEqual("$reindex", description);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             // Arrange
 
             // Act
-            var operationType = EnumExtensions.GetValueFromDescription<FhirOperationType>("import");
+            var operationType = EnumExtensions.GetValueFromDescription<FhirOperationType>("$import");
 
             // Assert
             Assert.AreEqual(FhirOperationType.Import, operationType);
@@ -86,7 +86,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             // Arrange
 
             // Act
-            var operationType = EnumExtensions.GetValueFromDescription<FhirOperationType>("convert-data");
+            var operationType = EnumExtensions.GetValueFromDescription<FhirOperationType>("$convert-data");
 
             // Assert
             Assert.AreEqual(FhirOperationType.ConvertData, operationType);
@@ -107,7 +107,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             // Arrange
 
             // Act
-            var asyncOperationTypes = EnumExtensions.GetValuesByDescription<FhirOperationType>("reindex");
+            var asyncOperationTypes = EnumExtensions.GetValuesByDescription<FhirOperationType>("$reindex");
 
             // Assert
             CollectionAssert.AreEquivalent(new[] { FhirOperationType.Reindex }, asyncOperationTypes.ToList());

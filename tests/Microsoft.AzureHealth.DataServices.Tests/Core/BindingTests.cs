@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Azure.Core;
 using Microsoft.AzureHealth.DataServices.Bindings;
@@ -10,9 +9,9 @@ using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Security;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
@@ -68,6 +67,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         [TestMethod]
         public async Task RestPipelineBinding_TokenCredential_Test()
         {
+            Uri baseAddress = new Uri($"http://localhost:{port}");
             string uriString = $"http://localhost:{port}?name=value";
             var request = new HttpRequestMessage(HttpMethod.Get, uriString);
             request.Headers.Add("TestHeader", "TestValue");
@@ -78,7 +78,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             IOptions<RestBindingOptions> options = Options.Create<RestBindingOptions>(new RestBindingOptions()
             {
-                BaseAddress = new Uri(uriString),
+                BaseAddress = baseAddress,
                 AddResponseHeaders = true,
             });
 
@@ -86,9 +86,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeTokenCredential credential = new();
             string tokenValue = Guid.NewGuid().ToString();
             credential.TokenFactory = (x, y) => new AccessToken(tokenValue, DateTimeOffset.UtcNow.AddMinutes(10));
-            HttpClient client = HttpClientFactory.Create(new BearerTokenHandler(credential, new Uri(uriString), null));
-            client.BaseAddress = new Uri(uriString);
-
+            HttpClient client = GenerateClient(baseAddress, _ => new BearerTokenHandler(credential, baseAddress, null));
+           
             IBinding binding = new RestBinding(options, client);
 
             OperationContext actualContext = await binding.ExecuteAsync(context);
@@ -99,7 +98,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
         [TestMethod]
         public async Task RestPipelineBinding_Complete_Test()
-        { 
+        {
+            Uri baseAddress = new Uri($"http://localhost:{port}");
             string uriString = $"http://localhost:{port}?name=value";
             string expectedContext = "{ \"name\": \"value\" }";
             var request = new HttpRequestMessage(HttpMethod.Get, uriString);
@@ -119,12 +119,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 AddResponseHeaders = true,
             });
 
-            // Generate a HTTPClient with a BearerTokenHandler. This handler should be ovveriden by Authorization header via PassThroughAuthorizationHeader.
+            // Generate a HTTPClient with a BearerTokenHandler
             FakeTokenCredential credential = new();
             string tokenValue = Guid.NewGuid().ToString();
             credential.TokenFactory = (x, y) => new AccessToken(tokenValue, DateTimeOffset.UtcNow.AddMinutes(10));
-            HttpClient client = HttpClientFactory.Create(new BearerTokenHandler(credential, new Uri(uriString), null));
-            client.BaseAddress = new Uri(uriString);
+            HttpClient client = GenerateClient(baseAddress, _ => new BearerTokenHandler(credential, baseAddress, null));
 
             IBinding binding = new RestBinding(options, client);
             string argId = null;
@@ -154,6 +153,30 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(actualContext.Headers.Where(x => x.Name == "Authorization" && x.Value == "Bearer token" && x.HeaderType == CustomHeaderType.ResponseStatic).Count() == 1);
             Assert.IsTrue(actualContext.Headers.Where(x => x.Name == "TestHeader" && x.Value == "TestValue" && x.HeaderType == CustomHeaderType.ResponseStatic).Count() == 1);
             Assert.AreEqual(expectedContext, actualResult, "Content mismatch.");
+        }
+
+        private HttpClient GenerateClient(Uri baseAddress, Func<IServiceProvider, DelegatingHandler>? messageHandler)
+        {
+            // Create a new service collection
+            var services = new ServiceCollection();
+
+            // Add HttpClientFactory to the service collection
+            var httpBuilder = services.AddHttpClient("TestClient");
+
+            if (messageHandler is not null)
+            {
+                httpBuilder.AddHttpMessageHandler(messageHandler);
+            }            
+
+            // Build the service provider
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Get an instance of IHttpClientFactory
+            var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
+
+            var client = httpClientFactory.CreateClient("TestClient");
+            client.BaseAddress = baseAddress;
+            return client; 
         }
     }
 }

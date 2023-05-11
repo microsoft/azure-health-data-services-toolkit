@@ -4,9 +4,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Shared;
-using System;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 
 namespace SimpleCustomOperation.Filters
 {
@@ -41,7 +41,7 @@ namespace SimpleCustomOperation.Filters
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             logger?.LogInformation("Entered {Name}", Name);
-            var nvc = context.Request.RequestUri.ParseQueryString();
+            var nvc = HttpUtility.ParseQueryString(context.Request.RequestUri.Query);
 
             //create a message to send to the binding
             Message msg = new() { Value = $"{nvc[0]}-{Name}" };

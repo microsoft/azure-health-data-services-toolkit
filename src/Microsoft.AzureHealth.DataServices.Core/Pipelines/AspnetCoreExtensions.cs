@@ -1,6 +1,6 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.WebApiCompatShim;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
 {
@@ -12,12 +12,29 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <summary>
         /// Converts HttpRequest to HttpRequestMessage.
         /// </summary>
-        /// <param name="req">HttpRequest to convert.</param>
+        /// <param name="httpRequest">HttpRequest to convert.</param>
         /// <returns>HttpRequestMessage</returns>
-        public static HttpRequestMessage ConvertToHttpRequestMessage(this HttpRequest req)
+        public static HttpRequestMessage ConvertToHttpRequestMessage(this HttpRequest httpRequest)
         {
-            HttpRequestMessageFeature hreqmf = new(req.HttpContext);
-            return hreqmf.HttpRequestMessage;
+            HttpRequestMessage httpRequestMessage = new()
+            {
+                // Set the HTTP method
+                Method = new(httpRequest.Method),
+
+                // Set the request URI
+                RequestUri = new(httpRequest.Scheme + "://" + httpRequest.Host.Value + httpRequest.Path)
+            };
+
+            // Copy headers from HttpRequest to HttpRequestMessage
+            foreach (var header in httpRequest.Headers)
+            {
+                httpRequestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
+            }
+
+            // Copy the request body
+            httpRequestMessage.Content = new StreamContent(httpRequest.Body);
+
+            return httpRequestMessage;
         }
     }
 }

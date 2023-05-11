@@ -1,6 +1,5 @@
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Http;
 
 namespace SimpleCustomOperation.Controllers
 {
