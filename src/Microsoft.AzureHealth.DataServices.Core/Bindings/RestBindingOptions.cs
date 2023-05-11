@@ -1,14 +1,22 @@
-﻿namespace Microsoft.AzureHealth.DataServices.Bindings
+﻿using System;
+using Azure.Core;
+
+namespace Microsoft.AzureHealth.DataServices.Bindings
 {
     /// <summary>
     /// Options for REST binding.
     /// </summary>
-    public class RestBindingOptions : IBindingWithHttpClientOptions
+    public class RestBindingOptions : IBindingOptions
     {
         /// <summary>
         /// Gets or sets the server URL to call.
         /// </summary>
-        public string BaseAddress { get; set; }
+        public Uri BaseAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the credential used to call the server.
+        /// </summary>
+        public TokenCredential? Credential { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the setting controlling if the caller's access token is passed through to the server.
@@ -24,5 +32,6 @@
         /// Adds the response headers from the binding to the pipeline
         /// </summary>
         public bool AddResponseHeaders { get; set; } = true;
+        
     }
 }

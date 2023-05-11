@@ -1,13 +1,21 @@
-﻿namespace Microsoft.AzureHealth.DataServices.Bindings
+﻿using System;
+using Azure.Core;
+
+namespace Microsoft.AzureHealth.DataServices.Bindings
 {
     /// <summary>
     /// Common options for bindings that use HttpClient.
     /// </summary>
-    public interface IBindingWithHttpClientOptions
+    public interface IBindingOptions
     {
         /// <summary>
-        /// BaseAddress for the HttpClient used by the binding.
+        /// Gets or sets the BaseAddress for the HttpClient used by the binding.
         /// </summary>
-        string BaseAddress { get; set; }
+        Uri BaseAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Credential for the HttpClient used by the binding.
+        /// </summary>
+        TokenCredential? Credential { get; set; }
     }
 }
