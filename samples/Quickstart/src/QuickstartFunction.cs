@@ -9,6 +9,7 @@ namespace Quickstart
     {
         private readonly ILogger _logger;
         private readonly IPipeline<HttpRequestData, HttpResponseData> pipeline;
+
         public QuickstartFunction(IPipeline<HttpRequestData, HttpResponseData> pipeline, ILoggerFactory loggerFactory)
         {
             this.pipeline = pipeline;

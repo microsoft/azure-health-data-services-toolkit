@@ -38,7 +38,6 @@ namespace Quickstart.Filters
             if (context.Request.Method != HttpMethod.Put && context.Request.Method != HttpMethod.Post)
                 return Task.FromResult(context);
 
-
             try
             {
                 JObject jobj = JObject.Parse(context.ContentString);
@@ -65,8 +64,7 @@ namespace Quickstart.Filters
 
                 TransformPolicy policy = new(transforms);
                 string transformedJson = policy.Transform(context.ContentString);
-                var content = new StringContent(transformedJson, Encoding.UTF8, "application/json");
-                context.Request.Content = content;
+                context.ContentString = transformedJson;
 
                 return Task.FromResult(context);
 
