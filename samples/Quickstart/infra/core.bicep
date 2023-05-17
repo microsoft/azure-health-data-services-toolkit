@@ -78,6 +78,20 @@ module monitoring './monitoring.bicep'= {
     }
 }
 
+@description('Name for app insights resource used to monitor the Function App and APIM')
+var dashboardName = '${prefixName}-dash'
+
+@description('Deploy monitoring dashboard')
+module dashboard './dashboard.bicep'= {
+    name: 'dashboard'
+    params: {
+        location: location
+        tags: appTags
+        applicationInsightsName: appInsightsName
+        name: dashboardName
+    }
+}
+
 @description('Name for the App Service used to host the Function App.')
 var appServiceName = '${prefixName}-appserv'
 

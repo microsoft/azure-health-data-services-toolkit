@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <!-- If neither of the above, read version from SdkVersion  -->
-  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
   </ItemGroup>
 

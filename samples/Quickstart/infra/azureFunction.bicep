@@ -19,21 +19,24 @@ resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
 
 @description('App Service used to run Azure Function')
 resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-    name: appServiceName
-    location: location
-    kind: 'functionapp'
-    sku: {
-        name: 'S1'
-    }
-    properties: {}
-    tags: appTags
+  name: appServiceName
+  location: location
+  kind: 'functionapp'
+  sku: {
+    name: 'Y1'
+    tier: 'Dynamic'
+  }
+  properties: {
+    reserved: true
+  }
+  tags: appTags
 }
 
 @description('Azure Function used to run toolkit compute')
 resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     name: functionAppName
     location: location
-    kind: 'functionapp'
+    kind: 'functionapp,linux'
 
     identity: {
         type: 'SystemAssigned'
@@ -43,9 +46,11 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         httpsOnly: true
         enabled: true
         serverFarmId: hostingPlan.id
+        reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            alwaysOn:true
+            linuxFxVersion: 'dotnet-isolated|6.0'
+            use32BitWorkerProcess: false
         }
     }
 
@@ -55,6 +60,8 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
 
     resource ftpPublishingPolicy 'basicPublishingCredentialsPolicies' = {
         name: 'ftp'
+        // Location is needed regardless of the warning.
+        #disable-next-line BCP187
         location: location
         properties: {
             allow: false
@@ -63,6 +70,8 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
 
     resource scmPublishingPolicy 'basicPublishingCredentialsPolicies' = {
         name: 'scm'
+        // Location is needed regardless of the warning.
+        #disable-next-line BCP187
         location: location
         properties: {
             allow: false
@@ -70,7 +79,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     }
 }
 
-resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
+resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
     name: 'appsettings'
     parent: functionApp
     properties: union({
@@ -79,7 +88,8 @@ resource fhirProxyAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
             APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
             APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-            SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
+            SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+            ENABLE_ORYX_BUILD: 'true'
         }, functionSettings)
 }
 
