@@ -8,14 +8,14 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) --no-incremental'
+    arguments: '--configuration $(buildConfiguration) --no-incremental -f $(defaultBuildFramework)'
     projects: '**/Microsoft.AzureHealth.DataServices.*.csproj'
   displayName: 'Build toolkit projects'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) --no-incremental'
+    arguments: '--configuration $(buildConfiguration) --no-incremental -f $(defaultBuildFramework)'
     projects: '**/samples/**/*.csproj'
   displayName: 'Build samples projects'
 
@@ -23,7 +23,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    arguments: '--no-build --configuration $(buildConfiguration)'
+    arguments: '--no-build --configuration $(buildConfiguration) -f $(defaultBuildFramework)'
     publishTestResults: true
     projects: '**/Microsoft.AzureHealth.DataServices.Tests.csproj'
   displayName: 'Run all tests'

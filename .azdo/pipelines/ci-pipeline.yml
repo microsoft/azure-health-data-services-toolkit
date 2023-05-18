@@ -13,6 +13,7 @@ resources:
 variables:
   - group: toolkit-test-pack
   - group: toolkit-build-version-configuration
+  - defaultBuildFramework: 'net7.0'
 
 stages:
   - stage: Build
