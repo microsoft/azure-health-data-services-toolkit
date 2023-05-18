@@ -78,13 +78,13 @@ namespace QuickstartSample.Tests
         {
             string logPath = "../../quickstartlog.txt";
 
-        var slog = new LoggerConfiguration()
-            .WriteTo.File(
-            logPath,
-            shared: true,
-            flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
-            .MinimumLevel.Debug()
-            .CreateLogger();
+            var slog = new LoggerConfiguration()
+                .WriteTo.File(
+                logPath,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
+                .MinimumLevel.Debug()
+                .CreateLogger();
 
             ILoggerFactory factory = LoggerFactory.Create(log =>
             {

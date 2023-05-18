@@ -33,7 +33,7 @@ namespace QuickstartSample.Tests
         {
             string json = await File.ReadAllTextAsync("../../../patient.json");
 
-            OperationContext filterContext= new();
+            OperationContext filterContext = new();
             filterContext.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost");
             filterContext.ContentString = json;
 

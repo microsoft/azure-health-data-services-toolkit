@@ -76,7 +76,7 @@ namespace Quickstart.Filters
                 _logger?.LogError(jpathExp, "{Name}-{Id} filter jpath fault.", Name, Id);
                 context.IsFatal = true;
                 context.StatusCode = HttpStatusCode.BadRequest;
-                FilterErrorEventArgs error = new (Name, Id, true, jpathExp, HttpStatusCode.BadRequest, null);
+                FilterErrorEventArgs error = new(Name, Id, true, jpathExp, HttpStatusCode.BadRequest, null);
                 OnFilterError?.Invoke(this, error);
                 _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-JPathError", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
                 return Task.FromResult(context.SetContextErrorBody(error, _debug));
@@ -86,7 +86,7 @@ namespace Quickstart.Filters
                 _logger?.LogError(ex, "{Name}-{Id} filter fault.", Name, Id);
                 context.IsFatal = true;
                 context.StatusCode = HttpStatusCode.InternalServerError;
-                FilterErrorEventArgs error = new (Name, Id, true, ex, HttpStatusCode.InternalServerError, null);
+                FilterErrorEventArgs error = new(Name, Id, true, ex, HttpStatusCode.InternalServerError, null);
                 OnFilterError?.Invoke(this, error);
                 _telemetryClient?.TrackMetric(new MetricTelemetry($"{Name}-{Id}-Error", TimeSpan.FromTicks(DateTime.Now.Ticks - start.Ticks).TotalMilliseconds));
                 return Task.FromResult(context.SetContextErrorBody(error, _debug));
