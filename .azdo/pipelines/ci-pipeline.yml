@@ -13,7 +13,6 @@ resources:
 variables:
   - group: toolkit-test-pack
   - group: toolkit-build-version-configuration
-  - defaultBuildFramework: 'net7.0'
 
 stages:
   - stage: Build
@@ -30,6 +29,8 @@ stages:
         vmImage: $(VmImage)
       steps:
       - template: ./steps/build.yml
+        parameters:
+          targetBuildFramework: 'net7.0'
 
       - template: ./steps/versionVariables.yml
       
