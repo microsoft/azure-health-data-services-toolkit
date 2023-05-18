@@ -155,7 +155,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.AreEqual(expectedContext, actualResult, "Content mismatch.");
         }
 
-        private HttpClient GenerateClient(Uri baseAddress, Func<IServiceProvider, DelegatingHandler>? messageHandler)
+        private HttpClient GenerateClient(Uri baseAddress, Func<IServiceProvider, DelegatingHandler> messageHandler)
         {
             // Create a new service collection
             var services = new ServiceCollection();

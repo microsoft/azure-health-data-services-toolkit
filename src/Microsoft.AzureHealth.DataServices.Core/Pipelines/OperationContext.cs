@@ -110,7 +110,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="id">Optional FHIR Id</param>
         /// <param name="operation">Optional FHIR operation</param>
         /// <param name="version">Optional FHIR version</param>
-        public void UpdateFhirRequestUri(HttpMethod method, string routePrefix = null, string resource = null, string id = null, FhirOperationType? operation = null, string version = null)
+        public void UpdateFhirRequestUri(HttpMethod method, string routePrefix = null, string resource = null, string id = null, string? operation = null, string version = null)
         {
             FhirUriPath requestPath = new(method, Request.RequestUri, routePrefix);
             requestPath.Resource = resource ?? requestPath.Resource;

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
-using Microsoft.AzureHealth.DataServices.Configuration;
 
 namespace Microsoft.AzureHealth.DataServices.Protocol
 {
     /// <summary>
-    /// FHIR URI path.
+    /// Class to parse and build FHIR request URIs.
     /// </summary>
     public class FhirUriPath : Uri
     {
@@ -60,7 +59,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the FHIR operation in the request URI.
         /// </summary>
-        public FhirOperationType? Operation { get; set; } = null;
+        public string? Operation { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the FHIR version in the request URI.
@@ -100,22 +99,22 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                         AddPathSegment(Resource, builder);
                         if (Id is not null)
                         {
-                            AddPathSegment($"{Id}", builder);
+                            AddPathSegment(Id, builder);
                         }
 
-                        AddPathSegment($"{Operation.GetDescription()}", builder);
+                        AddPathSegment(Operation, builder);
 
                         return builder.ToString().TrimEnd('/');
                     }
 
                     if (Id is null)
                     {
-                        AddPathSegment($"{Operation.GetDescription()}", builder);
+                        AddPathSegment(Operation, builder);
                     }
-                    else if (Operation.GetCategory() == "async")
+                    else
                     {
                         AddPathSegment("_operations", builder);
-                        AddPathSegment($"{Operation.GetDescription().TrimStart('$')}", builder);
+                        AddPathSegment(Operation, builder);
                         AddPathSegment($"{Id}", builder);
                     }
                 }
@@ -173,25 +172,23 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                           where (item.Length > 0 && item != "/")
                           select item.Replace("/", ""));
 
-            // Handle root level operation= requests
-            var possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(0));
-            if (possibleOperations.Any())
+            // Handle root requests like posting bundles
+            if (!values.Any())
             {
-                Operation = possibleOperations.First();
                 return;
+            }
+
+            // Handle root level operation= requests
+            if (values.ElementAt(0).StartsWith('$'))
+            {
+                Operation = values.ElementAt(0);
             }
 
             // Handle operation instance requests
             if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase) && values.Count() > 2)
             {
-                Operation = EnumExtensions.GetValueFromDescription<FhirOperationType>("$" + values.ElementAt(1));
+                Operation = values.ElementAt(1);
                 Id = values.ElementAt(2);
-                return;
-            }
-
-            // Handle bundle operations
-            if (!values.Any())
-            {
                 return;
             }
 
@@ -204,11 +201,9 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             }
 
             // Handle resource level operations
-            possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(1));
-            if (possibleOperations.Any())
+            if (values.ElementAt(1).StartsWith('$'))
             {
-                Operation = possibleOperations.First();
-                return;
+                Operation = values.ElementAt(1);
             }
 
             Id = values.Count() > 1 ? values.ElementAt(1) : null;
@@ -219,11 +214,9 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             }
 
             // Handle resource instance level operations
-            possibleOperations = EnumExtensions.GetValuesByDescription<FhirOperationType>(values.ElementAt(2));
-            if (possibleOperations.Any())
+           if (values.ElementAt(2).StartsWith('$'))
             {
-                Operation = possibleOperations.First();
-                return;
+                Operation = values.ElementAt(2);
             }
 
             Version = values.Count() > 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;

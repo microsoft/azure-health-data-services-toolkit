@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using Azure.Core;
-using Azure.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;

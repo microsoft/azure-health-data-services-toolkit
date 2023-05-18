@@ -57,9 +57,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void FhirUriPath_Default_StartRootOperation_Test()
         {
             HttpMethod method = HttpMethod.Get;
-            FhirOperationType operation = FhirOperationType.Reindex;
+            string operation = "$reindex";
             string routePrefix = "fhir";
-            string requestUriString = $"https://example.org/{routePrefix}/{operation.GetDescription()}";
+            string requestUriString = $"https://example.org/{routePrefix}/{operation}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
@@ -75,10 +75,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void FhirUriPath_Default_CheckOperation_Test()
         {
             HttpMethod method = HttpMethod.Get;
-            FhirOperationType operation = FhirOperationType.Import;
+            string operation = "$import";
             string routePrefix = "fhir";
             string id = "Id";
-            string requestUriString = $"https://example.org/fhir/_operations/{operation.GetDescription().TrimStart('$')}/{id}";
+            string requestUriString = $"https://example.org/fhir/_operations/{operation.TrimStart('$')}/{id}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
@@ -95,9 +95,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             HttpMethod method = HttpMethod.Get;
             string resource = "Resource";
-            FhirOperationType operation = FhirOperationType.Export;
+            string operation = "$export";
             string routePrefix = "fhir";
-            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{operation.GetDescription()}";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{operation}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
@@ -116,9 +116,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Get;
             string resource = "Resource";
             string id = "Id";
-            FhirOperationType operation = FhirOperationType.Export;
+            string operation = "$export";
             string routePrefix = "fhir";
-            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation.GetDescription()}";
+            string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 
