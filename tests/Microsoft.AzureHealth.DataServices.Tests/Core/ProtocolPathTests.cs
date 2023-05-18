@@ -75,10 +75,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void FhirUriPath_Default_CheckOperation_Test()
         {
             HttpMethod method = HttpMethod.Get;
-            string operation = "$import";
+            string operation = "import";
             string routePrefix = "fhir";
             string id = "Id";
-            string requestUriString = $"https://example.org/fhir/_operations/{operation.TrimStart('$')}/{id}";
+            string requestUriString = $"https://example.org/fhir/_operations/{operation}/{id}";
             Uri uri = new(requestUriString);
             string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
 

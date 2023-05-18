@@ -182,6 +182,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             if (values.ElementAt(0).StartsWith('$'))
             {
                 Operation = values.ElementAt(0);
+                return;
             }
 
             // Handle operation instance requests
@@ -204,6 +205,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             if (values.ElementAt(1).StartsWith('$'))
             {
                 Operation = values.ElementAt(1);
+                return;
             }
 
             Id = values.Count() > 1 ? values.ElementAt(1) : null;
