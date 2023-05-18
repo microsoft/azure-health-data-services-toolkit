@@ -1,12 +1,10 @@
-﻿using Castle.Core.Logging;
-using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Quickstart.Configuration;
 using Quickstart.Filters;
-using System.Net;
 using System.Reflection;
 
 namespace QuickstartSample.Tests
@@ -15,6 +13,7 @@ namespace QuickstartSample.Tests
     public class QuickstartSampleTests
     {
         private static MyServiceConfig? config;
+        private static ILogger<QuickstartFilter>? filterLogger;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -26,6 +25,12 @@ namespace QuickstartSample.Tests
             IConfigurationRoot root = builder.Build();
             config = new MyServiceConfig();
             root.Bind(config);
+
+            using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+                .SetMinimumLevel(LogLevel.Trace)
+                .AddConsole());
+
+            filterLogger = loggerFactory.CreateLogger<QuickstartFilter>();
         }
 
         [TestMethod]
@@ -37,8 +42,7 @@ namespace QuickstartSample.Tests
             filterContext.Request = new HttpRequestMessage(HttpMethod.Post, "http://localhost");
             filterContext.ContentString = json;
 
-            ILogger<QuickstartFilter> logger = TestFactory.TestLoggerFactory.CreateLogger<QuickstartFilter>();
-            QuickstartFilter filter = new(null, logger);
+            QuickstartFilter filter = new(null, filterLogger!);
             var resultContext = await filter.ExecuteAsync(filterContext);
 
             JObject jobj = JObject.Parse(resultContext.ContentString);
