@@ -1,32 +1,15 @@
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Install dotnet 6.0.x agent tools dir'
+  displayName: 'Use .NET SDK'
   inputs:
-    packageType: 'sdk'
     useGlobalJson: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- task: DotNetCoreCLI@2
-  displayName: 'Install dotnet format'
+- task: RoslynAnalyzers@3
   inputs:
-    command: 'custom'
-    custom: 'tool'
-    arguments: 'update -g dotnet-format'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Lint Toolkit'
-  inputs:
-    command: 'custom'
-    custom: 'format'
-    arguments: 'Microsoft.AzureHealth.DataServices.Toolkit.sln --verify-no-changes --verbosity diagnostic'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Lint Samples'
-  inputs:
-    command: 'custom'
-    custom: 'format'
-    arguments: 'samples/Samples.sln --verify-no-changes --verbosity diagnostic'
+    userProvideBuildInfo: 'msBuildInfo'
+    msBuildArchitecture: 'DotNetCore'
+    msBuildCommandline: 'C:\hostedtoolcache\windows\dotnet\dotnet.exe build $(Build.SourcesDirectory)\Microsoft.AzureHealth.DataServices.Toolkit.sln'
 
 - task: CredScan@3
   inputs:

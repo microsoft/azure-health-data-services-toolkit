@@ -1,11 +1,9 @@
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Install dotnet 6.0.x agent tools dir'
+  displayName: 'Use .NET SDK'
   inputs:
-    packageType: 'sdk'
     useGlobalJson: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
   inputs:
