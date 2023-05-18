@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Azure.Core;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Protocol;
 
@@ -16,6 +13,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
     /// </summary>
     public class OperationContext
     {
+        private readonly Dictionary<string, string> properties;
+        private readonly IHttpCustomHeaderCollection headers;
+
         /// <summary>
         /// Creates an instance of OperationContext
         /// </summary>
@@ -24,9 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             properties = new Dictionary<string, string>();
             headers = new HttpCustomHeaderCollection();
         }
-
-        private readonly Dictionary<string, string> properties;
-        private readonly IHttpCustomHeaderCollection headers;
 
         /// <summary>
         /// Creates an instance of OperationContext
@@ -38,7 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             Request = message;
             properties = new Dictionary<string, string>();
-            this.headers = new HttpCustomHeaderCollection();
+            headers = new HttpCustomHeaderCollection();
             SetContentAsync(message).GetAwaiter();
         }
 
@@ -87,7 +84,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// </summary>
         public string ContentString
         {
-            get => Content != null ? System.Text.Encoding.UTF8.GetString(Content) : null;
+            get => Content is not null ? System.Text.Encoding.UTF8.GetString(Content) : string.Empty;
             set => Content = value != null ? System.Text.Encoding.UTF8.GetBytes(value) : null;
         }
 
@@ -110,7 +107,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="id">Optional FHIR Id</param>
         /// <param name="operation">Optional FHIR operation</param>
         /// <param name="version">Optional FHIR version</param>
-        public void UpdateFhirRequestUri(HttpMethod method, string routePrefix = null, string resource = null, string id = null, string? operation = null, string version = null)
+        public void UpdateFhirRequestUri(HttpMethod method, string routePrefix = null, string resource = null, string id = null, string operation = null, string version = null)
         {
             FhirUriPath requestPath = new(method, Request.RequestUri, routePrefix);
             requestPath.Resource = resource ?? requestPath.Resource;
@@ -118,9 +115,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             requestPath.Operation = operation ?? requestPath.Operation;
             requestPath.Version = version ?? requestPath.Version;
 
-            UriBuilder uriBuilder = new(this.Request.RequestUri)
+            UriBuilder uriBuilder = new(Request.RequestUri)
             {
-                Path = requestPath.Path
+                Path = requestPath.Path,
             };
             Request.RequestUri = uriBuilder.Uri;
 
@@ -139,7 +136,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             UriBuilder uriBuilder = new(baseUrl)
             {
                 Path = path,
-                Query = query
+                Query = query,
             };
             Request.RequestUri = uriBuilder.Uri;
             Request.Method = method;

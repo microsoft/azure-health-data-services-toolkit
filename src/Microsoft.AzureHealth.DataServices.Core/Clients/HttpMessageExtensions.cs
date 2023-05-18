@@ -18,6 +18,18 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
         private static readonly string[] ResponseRestrictedHeaderList = new string[] { "content-length", "host", "transfer-encoding" };
 
+        private static readonly List<string> _contentHeaderNames = new()
+        {
+            HeaderNames.ContentDisposition,
+            HeaderNames.ContentEncoding,
+            HeaderNames.ContentLanguage,
+            HeaderNames.ContentLength,
+            HeaderNames.ContentLocation,
+            HeaderNames.ContentRange,
+            HeaderNames.ContentType,
+            HeaderNames.Expires,
+            HeaderNames.LastModified,
+        };
 
         /// <summary>
         /// Converts HttpRequestMessage headers into a NameValueCollection.
@@ -67,37 +79,6 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             return headers;
         }
 
-        private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, string[] restrictedHeaderList)
-        {
-            NameValueCollection nvc = new();
-
-            foreach (var header in genericHeaderList)
-            {
-                if (!restrictedHeaderList.Contains(header.Key.ToLowerInvariant()))
-                {
-                    foreach (var val in header.Value)
-                    {
-                        nvc.Add(header.Key, val);
-                    }
-                }
-            }
-
-            return nvc;
-        }
-
-        private static readonly List<string> _contentHeaderNames = new()
-        {
-            HeaderNames.ContentDisposition,
-            HeaderNames.ContentEncoding,
-            HeaderNames.ContentLanguage,
-            HeaderNames.ContentLength,
-            HeaderNames.ContentLocation,
-            HeaderNames.ContentRange,
-            HeaderNames.ContentType,
-            HeaderNames.Expires,
-            HeaderNames.LastModified,
-        };
-
         /// <summary>
         /// Adds custom headers to a HttpResponseMessage object
         /// </summary>
@@ -105,7 +86,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="headers">Custom headers collection.</param>
         public static void AddCustomHeadersToResponse(this HttpResponseMessage response, IHttpCustomHeaderCollection headers)
         {
-            foreach (var header in headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic))
+            foreach (IHeaderNameValuePair header in headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic))
             {
                 if (_contentHeaderNames.Any(x => x.ToLowerInvariant() == header.Name.ToLowerInvariant()))
                 {
@@ -116,6 +97,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                             {
                                 response.Content.Headers.ContentDisposition = dis;
                             }
+
                             break;
                         case string s when s.Equals(HeaderNames.ContentEncoding, StringComparison.OrdinalIgnoreCase):
                             response.Content.Headers.ContentEncoding.Add(header.Value);
@@ -131,6 +113,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                             {
                                 response.Content.Headers.ContentType = med;
                             }
+
                             break;
                         case string s when s.Equals(HeaderNames.Expires, StringComparison.OrdinalIgnoreCase):
                             response.Content.Headers.Expires = DateTimeOffset.Parse(header.Value);
@@ -145,6 +128,24 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                     response.Headers.Add(header.Name, header.Value);
                 }
             }
+        }
+
+        private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, string[] restrictedHeaderList)
+        {
+            NameValueCollection nvc = new();
+
+            foreach (KeyValuePair<string, IEnumerable<string>> header in genericHeaderList)
+            {
+                if (!restrictedHeaderList.Contains(header.Key.ToLowerInvariant()))
+                {
+                    foreach (var val in header.Value)
+                    {
+                        nvc.Add(header.Key, val);
+                    }
+                }
+            }
+
+            return nvc;
         }
     }
 }

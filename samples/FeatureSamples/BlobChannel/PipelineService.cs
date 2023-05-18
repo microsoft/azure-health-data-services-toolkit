@@ -5,19 +5,19 @@ namespace BlobChannelSample
 {
     public class PipelineService : IPipelineService
     {
+        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
+        private readonly ILogger _logger;
+
         public PipelineService(IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline, ILogger<PipelineService> logger = null)
         {
-            this.pipeline = pipeline;
-            this.logger = logger;
+            _pipeline = pipeline;
+            _logger = logger;
         }
-
-        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline;
-        private readonly ILogger logger;
 
         public async Task ExecuteAsync(HttpRequestMessage message)
         {
-            logger?.LogInformation("Start pipeline");
-            await pipeline.ExecuteAsync(message);
+            _logger?.LogInformation("Start pipeline");
+            await _pipeline.ExecuteAsync(message);
         }
     }
 }

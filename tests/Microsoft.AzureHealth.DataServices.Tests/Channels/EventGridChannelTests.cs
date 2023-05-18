@@ -126,7 +126,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string[] parts = actualReference.Split(new char[] { ',' });
             string container = parts[0];
             string blobName = parts[1];
-            var blobResult = await blobStorage.DownloadBlockBlobAsync(container, blobName);
+            global::Azure.Storage.Blobs.Models.BlobDownloadResult blobResult = await blobStorage.DownloadBlockBlobAsync(container, blobName);
             string actual = Convert.ToBase64String(blobResult.Content.ToArray());
             Assert.AreEqual(expected, actual, "Message mismatch");
         }

@@ -13,7 +13,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// </summary>
         /// <param name="jtoken">JToken root.</param>
         /// <param name="jpath">JPath to test whether the JToken exists.</param>
-        /// <returns></returns>
+        /// <returns>If the path exists in the token.</returns>
         public static bool Exists(this JToken jtoken, string jpath)
         {
             return jtoken.SelectToken(jpath) != null;
@@ -46,11 +46,11 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <param name="jpath">JPath to test for JToken.</param>
         /// <param name="value">Value to test for JToken in path.</param>
         /// <returns>True is match; otherwise false.</returns>
-        public static bool IsMatch<T>(this JToken jtoken, string jpath, T? value)
+        public static bool IsMatch<T>(this JToken jtoken, string jpath, T value)
         {
             try
             {
-                T val = jtoken.SelectToken(jpath).Value<T?>();
+                T val = jtoken.SelectToken(jpath).Value<T>();
                 return val.Equals(value);
             }
             catch
@@ -127,8 +127,8 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <param name="token">JToken root.</param>
         /// <param name="jpath">JPath to array.</param>
         /// <param name="throwIfNull">Determines whether an exception is throw if the item value cannot be returned; otherwise returns null.</param>
-        /// <returns></returns>
-        public static T? GetArrayItem<T>(this JToken token, string jpath, bool throwIfNull = false)
+        /// <returns>Concrete object of T in the array</returns>
+        public static T GetArrayItem<T>(this JToken token, string jpath, bool throwIfNull = false)
         {
             JToken ztoken = GetToken(token, jpath);
             if (ztoken != null)
@@ -151,8 +151,8 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <typeparam name="T">Data type of value.</typeparam>
         /// <param name="token">JToken to get value.</param>
         /// <param name="throwIfNull">Determines whether an exception is throw if the item value cannot be returned; otherwise returns null.</param>
-        /// <returns></returns>
-        public static T? GetValue<T>(this JToken token, bool throwIfNull = false)
+        /// <returns>Token as object</returns>
+        public static T GetValue<T>(this JToken token, bool throwIfNull = false)
         {
             if (token.IsNullOrEmpty())
             {
@@ -161,7 +161,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
 
             if (token is JValue value)
             {
-                return value.Value<T?>();
+                return value.Value<T>();
             }
             else if (throwIfNull)
             {
@@ -176,12 +176,12 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <summary>
         /// Gets a value from a JToken root via JPath.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="token"></param>
-        /// <param name="jpath"></param>
-        /// <param name="throwIfNull"></param>
+        /// <typeparam name="T">Type of value to get</typeparam>
+        /// <param name="token">Input token</param>
+        /// <param name="jpath">Input path</param>
+        /// <param name="throwIfNull">Throw an exception if result is null.</param>
         /// <returns>Value of token if found.</returns>
-        public static T? GetValue<T>(this JToken token, string jpath, bool throwIfNull = false)
+        public static T GetValue<T>(this JToken token, string jpath, bool throwIfNull = false)
         {
             JToken ztoken = GetToken(token, jpath);
 
@@ -196,7 +196,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
 
             if (ztoken is JValue value)
             {
-                return value.Value<T?>();
+                return value.Value<T>();
             }
             else if (throwIfNull)
             {
@@ -211,8 +211,8 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <summary>
         /// Indicates true when a value found by a JPath is null or empty; otherwise false.
         /// </summary>
-        /// <param name="token"></param>
-        /// <param name="jpath"></param>
+        /// <param name="token">Input token</param>
+        /// <param name="jpath">Input path</param>
         /// <returns>True if the token found is null or empty; otherwise false.</returns>
         public static bool IsNullOrEmpty(this JToken token, string jpath)
         {
@@ -228,7 +228,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <summary>
         /// Indicates true when a JToken value is null or empty; otherwise false.
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="token">Input token</param>
         /// <returns>True is the token is null or empty; otherwise false.</returns>
         public static bool IsNullOrEmpty(this JToken token)
         {
@@ -248,7 +248,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <returns>JToken if found.</returns>
         public static JToken GetToken(this JToken token, string jpath, bool throwIfNull = false)
         {
-            JToken? ztoken = token.SelectToken(jpath);
+            JToken ztoken = token.SelectToken(jpath);
 
             if (throwIfNull && ztoken.IsNullOrEmpty())
             {

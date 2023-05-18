@@ -13,7 +13,6 @@
         /// <summary>
         /// Premium SKU
         /// </summary>
-        Premium
-
+        Premium,
     }
 }

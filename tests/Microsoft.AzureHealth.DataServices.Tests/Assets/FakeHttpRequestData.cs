@@ -9,6 +9,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeHttpRequestData : HttpRequestData
     {
+        private readonly string method;
+        private readonly string uriString;
+        private readonly Stream stream;
+        private readonly HttpHeadersCollection headers;
+
         public FakeHttpRequestData(FunctionContext context, string method, string uriString, Stream stream, HttpHeadersCollection headers)
             : base(context)
         {
@@ -17,11 +22,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             this.stream = stream;
             this.headers = headers;
         }
-
-        private readonly string method;
-        private readonly string uriString;
-        private readonly Stream stream;
-        private readonly HttpHeadersCollection headers;
 
         public override Stream Body => stream;
 

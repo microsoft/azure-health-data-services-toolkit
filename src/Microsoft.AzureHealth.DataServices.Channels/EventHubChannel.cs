@@ -19,6 +19,20 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     /// <remarks>The ProcessorStorageContainer storage container name must be configured to receive events.</remarks>
     public class EventHubChannel : IInputChannel, IOutputChannel
     {
+        private readonly EventHubSkuType _sku;
+        private readonly string _connectionString;
+        private readonly string _hubName;
+        private readonly string _processorContainer;
+        private readonly string _fallbackStorageConnectionString;
+        private readonly string _fallbackContainer;
+        private readonly ILogger _logger;
+        private readonly StatusType _statusType;
+        private ChannelState _state;
+        private EventHubProducerClient _sender;
+        private EventProcessorClient _processor;
+        private StorageBlob _storage;
+        private bool _disposed;
+
         /// <summary>
         /// Creates an instance of EventHubChannel for sending to an event hub.
         /// </summary>
@@ -26,75 +40,14 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="logger">ILogger</param>
         public EventHubChannel(IOptions<EventHubChannelOptions> options, ILogger<EventHubChannel> logger = null)
         {
-            sku = options.Value.Sku;
-            connectionString = options.Value.ConnectionString;
-            hubName = options.Value.HubName;
-            statusType = options.Value.ExecutionStatusType;
-            fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
-            fallbackContainer = options.Value.FallbackStorageContainer;
-            processorContainer = options.Value.ProcessorStorageContainer;
-            this.logger = logger;
-        }
-
-
-        private ChannelState state;
-        private readonly EventHubSkuType sku;
-        private readonly string connectionString;
-        private readonly string hubName;
-        private readonly string processorContainer;
-        private readonly string fallbackStorageConnectionString;
-        private readonly string fallbackContainer;
-        private EventHubProducerClient sender;
-        private EventProcessorClient processor;
-        private readonly ILogger logger;
-        private readonly StatusType statusType;
-        private StorageBlob storage;
-        private bool disposed;
-
-        /// <summary>
-        /// Gets the instance ID of the channel.
-        /// </summary>
-        public string Id { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the channel, i.e., "EventHubChannel".
-        /// </summary>
-        public string Name => "EventHubChannel";
-
-        /// <summary>
-        /// Gets the requirement for executing the channel.
-        /// </summary>
-        public StatusType ExecutionStatusType => statusType;
-
-        /// <summary>
-        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
-        /// </summary>
-        public bool IsAuthenticated => false;
-
-        /// <summary>
-        /// Indicates whether the channel is encrypted, which is always true.
-        /// </summary>
-        public bool IsEncrypted => true;
-
-        /// <summary>
-        /// Gets the port used, which by default always 0.
-        /// </summary>
-        public int Port => 0;
-
-        /// <summary>
-        /// Gets or sets the channel state.
-        /// </summary>
-        public ChannelState State
-        {
-            get => state;
-            set
-            {
-                if (state != value)
-                {
-                    state = value;
-                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, state));
-                }
-            }
+            _sku = options.Value.Sku;
+            _connectionString = options.Value.ConnectionString;
+            _hubName = options.Value.HubName;
+            _statusType = options.Value.ExecutionStatusType;
+            _fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
+            _fallbackContainer = options.Value.FallbackStorageContainer;
+            _processorContainer = options.Value.ProcessorStorageContainer;
+            _logger = logger;
         }
 
         /// <summary>
@@ -123,6 +76,52 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the channel, i.e., "EventHubChannel".
+        /// </summary>
+        public string Name => "EventHubChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => _statusType;
+
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
+        public bool IsAuthenticated => false;
+
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
+        public bool IsEncrypted => true;
+
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
+        public int Port => 0;
+
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
+        public ChannelState State
+        {
+            get => _state;
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, _state));
+                }
+            }
+        }
+
+        /// <summary>
         /// Add a message to the channel which is surface by the OnReceive event.
         /// </summary>
         /// <param name="message">Message to add.</param>
@@ -139,16 +138,16 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            sender = new EventHubProducerClient(connectionString, hubName);
+            _sender = new EventHubProducerClient(_connectionString, _hubName);
 
-            if (fallbackStorageConnectionString != null)
+            if (_fallbackStorageConnectionString != null)
             {
-                storage = new StorageBlob(fallbackStorageConnectionString);
+                _storage = new StorageBlob(_fallbackStorageConnectionString);
             }
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
+            _logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -162,7 +161,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -175,7 +174,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <remarks>Receive operation uses the EventHubProcessor.</remarks>
         public async Task ReceiveAsync()
         {
-            if (string.IsNullOrEmpty(fallbackStorageConnectionString) || string.IsNullOrEmpty(processorContainer))
+            if (string.IsNullOrEmpty(_fallbackStorageConnectionString) || string.IsNullOrEmpty(_processorContainer))
             {
                 var exception = new EventHubChannelException("Requires blob storage and container configured to receive event data.");
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
@@ -185,17 +184,17 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-                var storageClient = new BlobContainerClient(fallbackStorageConnectionString, processorContainer);
-                processor = new EventProcessorClient(storageClient, consumerGroup, connectionString, hubName);
+                var storageClient = new BlobContainerClient(_fallbackStorageConnectionString, _processorContainer);
+                _processor = new EventProcessorClient(storageClient, consumerGroup, _connectionString, _hubName);
 
-                processor.ProcessEventAsync += async (args) =>
+                _processor.ProcessEventAsync += async (args) =>
                 {
                     await args.UpdateCheckpointAsync(args.CancellationToken);
 
                     if (args.Data.Properties.ContainsKey("PassedBy") && (string)args.Data.Properties["PassedBy"] == "Reference")
                     {
-                        var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(args.Data.EventBody.ToArray()));
-                        var result = await storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
+                        EventDataByReference byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(args.Data.EventBody.ToArray()));
+                        global::Azure.Storage.Blobs.Models.BlobDownloadResult result = await _storage.DownloadBlockBlobAsync(byRef.Container, byRef.Blob);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result.Content.ToArray()));
                     }
                     else
@@ -204,20 +203,20 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                     }
                 };
 
-                processor.ProcessErrorAsync += async (args) =>
+                _processor.ProcessErrorAsync += async (args) =>
                 {
-                    //log exception
+                    // log exception
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
-                    logger?.LogError(args.Exception, "{Name}-{Id} event hub channel processor receive error.", Name, Id);
+                    _logger?.LogError(args.Exception, "{Name}-{Id} event hub channel processor receive error.", Name, Id);
                     await Task.CompletedTask;
                 };
 
-                await processor.StartProcessingAsync();
+                await _processor.StartProcessingAsync();
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} event hub channel error receiving messages.", Name, Id);
+                _logger?.LogError(ex, "{Name}-{Id} event hub channel error receiving messages.", Name, Id);
             }
         }
 
@@ -234,7 +233,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                 EventData data = null;
                 string contentType = (string)items[0];
 
-                if ((sku == EventHubSkuType.Basic && message.Length > Constants.EventHubBasicSkuMaxMessageLength) || (sku != EventHubSkuType.Basic && message.Length > Constants.EventHubNonBasicSkuMaxMessageLength))
+                if ((_sku == EventHubSkuType.Basic && message.Length > Constants.EventHubBasicSkuMaxMessageLength) || (_sku != EventHubSkuType.Basic && message.Length > Constants.EventHubNonBasicSkuMaxMessageLength))
                 {
                     string blob = await WriteBlobAsync(contentType, message);
                     data = await GetBlobEventDataAsync(contentType, blob);
@@ -245,56 +244,24 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                     data.ContentType = contentType;
                 }
 
-                using var eventBatch = await sender.CreateBatchAsync();
+                using EventDataBatch eventBatch = await _sender.CreateBatchAsync();
                 if (eventBatch.TryAdd(data))
                 {
-                    await sender.SendAsync(eventBatch);
-                    logger?.LogInformation("{Name}-{Id} event hub channel message sent.", Name, Id);
+                    await _sender.SendAsync(eventBatch);
+                    _logger?.LogInformation("{Name}-{Id} event hub channel message sent.", Name, Id);
                 }
                 else
                 {
                     Exception ex = new("Event hub could not send message.");
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                    logger?.LogError(ex, "{Name}-{Id} event hub error sending message.", Name, Id);
+                    _logger?.LogError(ex, "{Name}-{Id} event hub error sending message.", Name, Id);
                 }
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} event hub error attempting to send message.", Name, Id);
+                _logger?.LogError(ex, "{Name}-{Id} event hub error attempting to send message.", Name, Id);
             }
-        }
-
-        private async Task<string> WriteBlobAsync(string contentType, byte[] message)
-        {
-            if (storage == null)
-            {
-                var exception = new EventHubChannelException("Requires blob storage configured to write.");
-                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
-                throw exception;
-            }
-            string guid = Guid.NewGuid().ToString();
-            string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(fallbackContainer, blob, contentType, message);
-            return blob;
-        }
-
-        private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName)
-        {
-            EventDataByReference byref = new(fallbackContainer, blobName, contentType);
-            string json = JsonConvert.SerializeObject(byref);
-            EventData data = new(Encoding.UTF8.GetBytes(json));
-            data.Properties.Add("PassedBy", "Reference");
-            data.ContentType = contentType;
-            return await Task.FromResult<EventData>(data);
-        }
-
-        private static async Task<EventData> GetEventHubEventDataAsync(string contentType, byte[] message)
-        {
-            EventData data = new(message);
-            data.Properties.Add("PassedBy", "Reference");
-            data.ContentType = contentType;
-            return await Task.FromResult<EventData>(data);
         }
 
         /// <summary>
@@ -312,32 +279,65 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="disposing">Indicator is true if disposing.</param>
         protected async void Dispose(bool disposing)
         {
-            if (disposing && !disposed)
+            if (disposing && !_disposed)
             {
-                disposed = true;
+                _disposed = true;
 
                 try
                 {
-                    storage = null;
+                    _storage = null;
 
-                    if (sender != null)
+                    if (_sender != null)
                     {
-                        await sender.DisposeAsync();
+                        await _sender.DisposeAsync();
                     }
 
-                    if (processor != null)
+                    if (_processor != null)
                     {
-                        processor.StopProcessing();
+                        _processor.StopProcessing();
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError(ex, "{Name}-{Id} event hub fault disposing.", Name, Id);
+                    _logger?.LogError(ex, "{Name}-{Id} event hub fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
             }
+        }
+
+        private static async Task<EventData> GetEventHubEventDataAsync(string contentType, byte[] message)
+        {
+            EventData data = new(message);
+            data.Properties.Add("PassedBy", "Reference");
+            data.ContentType = contentType;
+            return await Task.FromResult<EventData>(data);
+        }
+
+        private async Task<string> WriteBlobAsync(string contentType, byte[] message)
+        {
+            if (_storage == null)
+            {
+                var exception = new EventHubChannelException("Requires blob storage configured to write.");
+                OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
+                throw exception;
+            }
+
+            string guid = Guid.NewGuid().ToString();
+            string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
+            await _storage.WriteBlockBlobAsync(_fallbackContainer, blob, contentType, message);
+            return blob;
+        }
+
+        private async Task<EventData> GetBlobEventDataAsync(string contentType, string blobName)
+        {
+            EventDataByReference byref = new(_fallbackContainer, blobName, contentType);
+            string json = JsonConvert.SerializeObject(byref);
+            EventData data = new(Encoding.UTF8.GetBytes(json));
+            data.Properties.Add("PassedBy", "Reference");
+            data.ContentType = contentType;
+            return await Task.FromResult<EventData>(data);
         }
     }
 }

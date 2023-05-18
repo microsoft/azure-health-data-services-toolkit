@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.AzureHealth.DataServices.Bindings;
@@ -10,7 +8,6 @@ using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Clients;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
-using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
@@ -20,6 +17,19 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
     /// </summary>
     public class WebPipeline : IPipeline<HttpRequestMessage, HttpResponseMessage>
     {
+        private readonly string _name;
+        private readonly string _id;
+        private readonly IHttpCustomHeaderCollection _headers;
+        private readonly IInputFilterCollection _inputFilters;
+        private readonly IOutputFilterCollection _outputFilters;
+        private readonly IBinding _binding;
+        private readonly IInputChannelCollection _inputChannels;
+        private readonly IOutputChannelCollection _outputChannels;
+        private readonly TelemetryClient _telemetryClient;
+        private readonly ILogger logger;
+        private OperationContext _context;
+        private long _startTicks;
+
         /// <summary>
         /// Creates an instance of WebPipeline.
         /// </summary>
@@ -34,45 +44,42 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger<WebPipeline> logger = null)
             : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, headers, telemetryClient, logger)
         {
-
         }
 
         internal WebPipeline(IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger<AzureFunctionPipeline> logger = null)
             : this("WebPipeline", Guid.NewGuid().ToString(), inputFilters, inputChannels, binding, outputFilters, outputChannels, headers, telemetryClient, logger)
         {
-
         }
 
         internal WebPipeline(string name, string id, IInputFilterCollection inputFilters = null, IInputChannelCollection inputChannels = null, IBinding binding = null, IOutputFilterCollection outputFilters = null, IOutputChannelCollection outputChannels = null, IHttpCustomHeaderCollection headers = null, TelemetryClient telemetryClient = null, ILogger logger = null)
         {
-            this.name = name;
-            this.id = id;
-
-            this.headers = headers ?? new HttpCustomHeaderCollection();
-            this.inputFilters = inputFilters ?? new InputFilterCollection();
-            this.outputFilters = outputFilters ?? new OutputFilterCollection();
-            this.inputChannels = inputChannels ?? new InputChannelCollection();
-            this.outputChannels = outputChannels ?? new OutputChannelCollection();
-            this.binding = binding;
-            this.telemetryClient = telemetryClient;
+            _name = name;
+            _id = id;
+            _headers = headers ?? new HttpCustomHeaderCollection();
+            _inputFilters = inputFilters ?? new InputFilterCollection();
+            _outputFilters = outputFilters ?? new OutputFilterCollection();
+            _inputChannels = inputChannels ?? new InputChannelCollection();
+            _outputChannels = outputChannels ?? new OutputChannelCollection();
+            _binding = binding;
+            _telemetryClient = telemetryClient;
             this.logger = logger;
 
-            foreach (var inputFilter in this.inputFilters)
+            foreach (IFilter inputFilter in _inputFilters)
             {
                 inputFilter.OnFilterError += InputFilter_OnFilterError;
             }
 
-            foreach (var outputFilter in this.outputFilters)
+            foreach (IFilter outputFilter in _outputFilters)
             {
                 outputFilter.OnFilterError += OutputFilter_OnFilterError;
             }
 
-            foreach (var inputChannel in this.inputChannels)
+            foreach (IChannel inputChannel in _inputChannels)
             {
                 inputChannel.OnError += InputChannel_OnError;
             }
 
-            foreach (var outputChannel in this.outputChannels)
+            foreach (IChannel outputChannel in _outputChannels)
             {
                 outputChannel.OnError += OutputChannel_OnError;
             }
@@ -83,30 +90,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 binding.OnComplete += Binding_OnComplete;
             }
         }
-
-
-        private OperationContext context;
-        private readonly string name;
-        private readonly string id;
-        private readonly IHttpCustomHeaderCollection headers;
-        private readonly IInputFilterCollection inputFilters;
-        private readonly IOutputFilterCollection outputFilters;
-        private readonly IBinding binding;
-        private readonly IInputChannelCollection inputChannels;
-        private readonly IOutputChannelCollection outputChannels;
-        private readonly TelemetryClient telemetryClient;
-        private readonly ILogger logger;
-        private long startTicks;
-
-        /// <summary>
-        /// Gets the name of the pipeline.
-        /// </summary>
-        public string Name => name;
-
-        /// <summary>
-        /// Gets the unique ID of the pipeline instance.
-        /// </summary>
-        public string Id => id;
 
         /// <summary>
         /// Signals an event that an error occurred in the pipeline.
@@ -119,43 +102,53 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         public event EventHandler<PipelineCompleteEventArgs> OnComplete;
 
         /// <summary>
+        /// Gets the name of the pipeline.
+        /// </summary>
+        public string Name => _name;
+
+        /// <summary>
+        /// Gets the unique ID of the pipeline instance.
+        /// </summary>
+        public string Id => _id;
+
+        /// <summary>
         /// Executes the pipeline and returns a response for the caller.
         /// </summary>
         /// <param name="request">Iniitial request from the Web service.</param>
         /// <returns>Response for Web service.</returns>
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request)
         {
-            startTicks = DateTime.Now.Ticks;
+            _startTicks = DateTime.Now.Ticks;
 
             try
             {
-                context = new(request, headers);
+                _context = new(request, _headers);
 
-                context = await ExecuteFiltersAsync(inputFilters, context);
+                _context = await ExecuteFiltersAsync(_inputFilters, _context);
 
-                await ExecuteChannelsAsync(inputChannels, context);
+                await ExecuteChannelsAsync(_inputChannels, _context);
 
-                context = await ExecuteBindingAsync(binding, context);
+                _context = await ExecuteBindingAsync(_binding, _context);
 
-                context = await ExecuteFiltersAsync(outputFilters, context);
+                _context = await ExecuteFiltersAsync(_outputFilters, _context);
 
-                await ExecuteChannelsAsync(outputChannels, context);
+                await ExecuteChannelsAsync(_outputChannels, _context);
 
-                context.StatusCode = !context.IsFatal && context.StatusCode == 0 ? HttpStatusCode.OK : context.StatusCode;
-                HttpResponseMessage response = new(context.StatusCode);
+                _context.StatusCode = !_context.IsFatal && _context.StatusCode == 0 ? HttpStatusCode.OK : _context.StatusCode;
+                HttpResponseMessage response = new(_context.StatusCode);
 
-                response.Content = !string.IsNullOrEmpty(context.ContentString) ? new ByteArrayContent(context.Content) : null;
-                response.AddCustomHeadersToResponse(headers);
+                response.Content = !string.IsNullOrEmpty(_context.ContentString) ? new ByteArrayContent(_context.Content) : null;
+                response.AddCustomHeadersToResponse(_headers);
 
-                logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - startTicks).TotalMilliseconds);
-                OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, context));
+                logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - _startTicks).TotalMilliseconds);
+                OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, _context));
 
                 return response;
             }
             catch (Exception ex)
             {
                 logger?.LogError(ex, "Pipeline {Name}-{Id} error with fault response.", Name, Id);
-                telemetryClient?.TrackException(ex);
+                _telemetryClient?.TrackException(ex);
                 OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, ex));
             }
 
@@ -166,14 +159,16 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         private async Task<OperationContext> ExecuteBindingAsync(IBinding binding, OperationContext context)
         {
             if (context.IsFatal || binding == null)
+            {
                 return context;
+            }
 
             return await binding.ExecuteAsync(context);
         }
 
         private async Task<OperationContext> ExecuteFiltersAsync(IFilterCollection filters, OperationContext context)
         {
-            foreach (var filter in filters)
+            foreach (IFilter filter in filters)
             {
                 try
                 {
@@ -189,7 +184,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 }
                 catch (Exception ex)
                 {
-                    telemetryClient?.TrackException(ex);
+                    _telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {FilterName}-{FilterName} error.", Name, Id, filter.Name, filter.Id);
                     context.IsFatal = true;
                     context.StatusCode = HttpStatusCode.InternalServerError;
@@ -202,7 +197,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
         private async Task ExecuteChannelsAsync(IChannelCollection channels, OperationContext context)
         {
-            foreach (var channel in channels)
+            foreach (IChannel channel in channels)
             {
                 try
                 {
@@ -236,7 +231,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 }
                 catch (Exception ex)
                 {
-                    telemetryClient?.TrackException(ex);
+                    _telemetryClient?.TrackException(ex);
                     logger?.LogError(ex, "Pipeline {Name}-{Id} channel {ChannelName}-{ChannelId} error.", Name, Id, channel.Name, channel.Id);
                     context.IsFatal = true;
                     context.StatusCode = HttpStatusCode.InternalServerError;
@@ -245,12 +240,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             }
         }
 
-
         private bool ExecutionStatusCheck(StatusType status, OperationContext context)
         {
-            return status == StatusType.Fault && context.IsFatal ||
-                    status == StatusType.Normal && !context.IsFatal ||
-                    status == StatusType.Any;
+            return (status == StatusType.Fault && context.IsFatal) ||
+                   (status == StatusType.Normal && !context.IsFatal) ||
+                   (status == StatusType.Any);
         }
 
         #region error events
@@ -262,9 +256,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
         private void Binding_OnError(object sender, BindingErrorEventArgs e)
         {
-            context.IsFatal = true;
-            context.StatusCode = HttpStatusCode.InternalServerError;
-            context.Error = e.Error;
+            _context.IsFatal = true;
+            _context.StatusCode = HttpStatusCode.InternalServerError;
+            _context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} binding {BindingName}- {BindingId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
@@ -272,35 +266,35 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         private void OutputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} output channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
-            context.IsFatal = true;
-            context.StatusCode = HttpStatusCode.InternalServerError;
-            context.Error = e.Error;
+            _context.IsFatal = true;
+            _context.StatusCode = HttpStatusCode.InternalServerError;
+            _context.Error = e.Error;
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void InputChannel_OnError(object sender, ChannelErrorEventArgs e)
         {
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} input channel {ChannelName}- {ChannelId} error.", Name, Id, e.Name, e.Id);
-            context.IsFatal = true;
-            context.StatusCode = HttpStatusCode.InternalServerError;
-            context.Error = e.Error;
+            _context.IsFatal = true;
+            _context.StatusCode = HttpStatusCode.InternalServerError;
+            _context.Error = e.Error;
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void OutputFilter_OnFilterError(object sender, FilterErrorEventArgs e)
         {
-            context.IsFatal = true;
-            context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
-            context.Error = e.Error;
+            _context.IsFatal = true;
+            _context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
+            _context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} output filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }
 
         private void InputFilter_OnFilterError(object sender, FilterErrorEventArgs e)
         {
-            context.IsFatal = true;
-            context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
-            context.Error = e.Error;
+            _context.IsFatal = true;
+            _context.StatusCode = e.Code ?? HttpStatusCode.InternalServerError;
+            _context.Error = e.Error;
             logger?.LogError(e.Error, "Pipeline {Name}-{Id} input filter {FilterName}-{FilterId} error.", Name, Id, e.Name, e.Id);
             OnError?.Invoke(this, new PipelineErrorEventArgs(Id, Name, e.Error));
         }

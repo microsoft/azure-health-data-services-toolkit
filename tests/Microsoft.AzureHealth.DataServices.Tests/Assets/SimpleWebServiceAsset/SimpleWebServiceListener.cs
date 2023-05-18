@@ -10,7 +10,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleWebServiceAsset
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
             });
 
             app.UseRouting();
@@ -22,7 +22,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleWebServiceAsset
 
         public static void ConfigureServices(IServiceCollection services)
         {
-
             services.AddRouting();
             services.AddMvcCore();
         }

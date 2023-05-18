@@ -9,8 +9,18 @@ using Newtonsoft.Json;
 
 namespace Quickstart.Extensions
 {
+    /// <summary>
+    /// Extensions to help with filter errors.
+    /// </summary>
     public static class FilterExtensions
     {
+        /// <summary>
+        /// Sets the context body to the error message.
+        /// </summary>
+        /// <param name="context">Pipeline context object.</param>
+        /// <param name="args">Filter error arguements.</param>
+        /// <param name="debug">Show error to called.</param>
+        /// <returns>Modified context object.</returns>
         public static OperationContext SetContextErrorBody(this OperationContext context, FilterErrorEventArgs args, bool debug = false)
         {
             if (!debug)

@@ -5,6 +5,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Quickstart
 {
+    /// <summary>
+    /// Azure function class for Quickststart toolkit sample
+    /// </summary>
     public class QuickstartFunction
     {
         private readonly ILogger _logger;
@@ -23,6 +26,7 @@ namespace Quickstart
             _logger.LogInformation("Patient sample pipeline started...");
             return await pipeline.ExecuteAsync(req);
         }
+
         [Function("PatientPost")]
         public async Task<HttpResponseData> PatientPost([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Patient")] HttpRequestData req)
         {

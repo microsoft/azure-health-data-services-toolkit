@@ -1,27 +1,27 @@
-﻿using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Tests.Assets;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AzureHealth.DataServices.Clients;
+using Microsoft.AzureHealth.DataServices.Tests.Assets;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class RestRequestTests
     {
+        private static readonly int Port = 1888;
         private static HttpEchoListener listener;
-        private static readonly int port = 1888;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
             listener = new();
-            listener.StartAsync(port).GetAwaiter();
+            listener.StartAsync(Port).GetAwaiter();
         }
 
         [ClassCleanup]
@@ -45,12 +45,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 { "Accept", jsonType },
                 { "Authorize", "Bearer foo" },
                 { "Content-Type", "application/xml" },
-                { "Location", "kitchen" }
+                { "Location", "kitchen" },
             };
 
             HttpRequestMessageBuilder builder = new(method, new Uri(baseUrl), path, query, headers, content);
             HttpRequestMessage actual = builder.Build();
-
 
             Assert.AreEqual(method, actual.Method, "Method mismatch.");
             Assert.AreEqual(content.Length, actual.Content.Headers.ContentLength, "Content length mismatch.");
@@ -65,7 +64,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Post;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
+            string baseUrl = $"http://localhost:{Port}";
             string path = null;
             string query = null;
             string jsonType = "application/json";
@@ -85,7 +84,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             HttpMethod method = HttpMethod.Get;
             string contentString = "{ \"key\": \"value\" }";
-            string baseUrl = $"http://localhost:{port}";
+            string baseUrl = $"http://localhost:{Port}";
             string path = null;
             string query = "key=value";
             string jsonType = "application/json";
@@ -106,7 +105,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Put;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
+            string baseUrl = $"http://localhost:{Port}";
             string path = null;
             string query = null;
             string jsonType = "application/json";
@@ -124,7 +123,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public async Task RestRequest_Delete_Test()
         {
             HttpMethod method = HttpMethod.Delete;
-            string baseUrl = $"http://localhost:{port}";
+            string baseUrl = $"http://localhost:{Port}";
             string path = null;
             string query = "id=1";
             string jsonType = "application/json";
@@ -144,7 +143,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Patch;
             string contentString = "{ \"prop\": \"value\"}";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
-            string baseUrl = $"http://localhost:{port}";
+            string baseUrl = $"http://localhost:{Port}";
             string path = null;
             string query = null;
             string jsonType = "application/json";

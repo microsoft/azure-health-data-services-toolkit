@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1446E87B-70C4-4A68-8078-67AFF37B56FB}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CustomAnalysisRules.ruleset = CustomAnalysisRules.ruleset
+		CustomAnalysisRules.Test.ruleset = CustomAnalysisRules.Test.ruleset
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AzureHealth.DataServices.Core", "src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj", "{0CE88EC8-2EC8-46C7-B313-68BE2ACE6B81}"

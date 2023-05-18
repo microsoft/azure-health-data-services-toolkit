@@ -58,8 +58,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string json = await File.ReadAllTextAsync("../../../Assets/capstmt.json");
             string jpath = "$.contact[0].telecom";
             RemoveTransform trans = new() { JsonPath = jpath };
-            TransformCollection coll = new();
-            coll.Add(trans);
+            TransformCollection coll = new()
+            {
+                trans,
+            };
             TransformPolicy policy = new(coll);
             string actualJson = policy.Transform(json);
             JObject obj = JObject.Parse(actualJson);
@@ -79,10 +81,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             RemoveTransform trans2 = new() { JsonPath = jpath };
 
             AddTransform trans3 = new() { JsonPath = "$.contact", AppendNode = appendNode };
-            TransformCollection coll = new();
-            coll.Add(trans1);
-            coll.Add(trans2);
-            coll.Add(trans3);
+            TransformCollection coll = new()
+            {
+                trans1,
+                trans2,
+                trans3,
+            };
             TransformPolicy policy = new(coll);
             string actualJson = policy.Transform(json);
             JObject obj = JObject.Parse(actualJson);
@@ -96,8 +100,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             string jpath = "$.contact[0].telecom";
             RemoveTransform trans = new() { JsonPath = jpath };
-            TransformCollection transforms = new();
-            transforms.Add(trans);
+            TransformCollection transforms = new()
+            {
+                trans,
+            };
             string policyId = "ABC";
             TransformPolicy policy = new(policyId, transforms);
             string json = JsonConvert.SerializeObject(policy);
@@ -117,10 +123,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             ReplaceTransform replaceTransform = new() { JsonPath = jpath, ReplaceNode = replaceNode };
             RemoveTransform removeTransform = new() { JsonPath = jpath };
             AddTransform addTransform = new() { JsonPath = jpath2, AppendNode = appendNode };
-            TransformCollection transforms = new();
-            transforms.Add(replaceTransform);
-            transforms.Add(removeTransform);
-            transforms.Add(addTransform);
+            TransformCollection transforms = new()
+            {
+                replaceTransform,
+                removeTransform,
+                addTransform,
+            };
             string policyId = "ABC";
             TransformPolicy policy = new(policyId, transforms);
             string json = JsonConvert.SerializeObject(policy);

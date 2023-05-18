@@ -18,7 +18,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public string ConnectionString { get; set; }
 
         /// <summary>
-        /// Gets or sets the Azure Event Hub used for this channel. 
+        /// Gets or sets the Azure Event Hub used for this channel.
         /// </summary>
         public string HubName { get; set; }
 
@@ -42,9 +42,5 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// </summary>
         /// <remarks>Used only for receiving from Event Hub.</remarks>
         public string ProcessorStorageContainer { get; set; }
-
-
-
-
     }
 }

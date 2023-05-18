@@ -7,7 +7,6 @@ using Microsoft.AzureHealth.DataServices.Bindings;
 using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
-using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
@@ -17,6 +16,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
     /// </summary>
     public class AzureFunctionPipeline : IPipeline<HttpRequestData, HttpResponseData>
     {
+        private readonly WebPipeline pipeline;
+        private readonly string id;
+
         /// <summary>
         /// Creates an instance of AzureFunctionPipeline
         /// </summary>
@@ -35,9 +37,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             pipeline.OnComplete += Pipeline_OnComplete;
             pipeline.OnError += Pipeline_OnError;
         }
-
-        private readonly WebPipeline pipeline;
-        private readonly string id;
 
         /// <summary>
         /// Signals an event that an error occurred in the pipeline.
@@ -80,6 +79,5 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         {
             OnComplete?.Invoke(this, e);
         }
-
     }
 }

@@ -27,12 +27,12 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// Executes the replace transform.
         /// </summary>
         /// <param name="json">Json document which a node is replaced based on the Json path and replace node.</param>
-        /// <returns></returns>
+        /// <returns>Transformed json object.</returns>
         public override JObject Execute(string json)
         {
             JToken replaceNode = JToken.Parse(ReplaceNode);
             JObject jobj = JObject.Parse(json);
-            JToken? token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
+            JToken token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
 
             if (token.IsNullOrEmpty())
             {

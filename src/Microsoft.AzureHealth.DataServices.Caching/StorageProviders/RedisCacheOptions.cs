@@ -13,6 +13,6 @@
         /// <summary>
         /// Optional instance name
         /// </summary>
-        public string? InstanceName { get; set; }
+        public string InstanceName { get; set; }
     }
 }

@@ -7,25 +7,30 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeFilter : IFilter
     {
+        private readonly StatusType _status;
+        private string _id;
+
         public FakeFilter(StatusType execStatus)
         {
-            status = execStatus;
+            _status = execStatus;
             Id = Guid.NewGuid().ToString();
         }
 
         public FakeFilter()
         {
-            status = StatusType.Any;
+            _status = StatusType.Any;
             Id = Guid.NewGuid().ToString();
         }
 
-        private string id;
-        private readonly StatusType status;
-
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
         public string Id
         {
-            get { return id; }
+            get
+            {
+                return _id;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -34,15 +39,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
                 }
                 else
                 {
-                    id = value;
+                    _id = value;
                 }
             }
         }
 
-
         public string Name => "Fake";
 
-        public StatusType ExecutionStatusType => status;
+        public StatusType ExecutionStatusType => _status;
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {

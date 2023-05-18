@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AzureHealth.DataServices.Channels;
+﻿using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace EventHubChannelSample
@@ -19,9 +18,5 @@ namespace EventHubChannelSample
         public string ProcessorStorageContainer { get; set; }
 
         public StatusType ExecutionStatusType { get; set; }
-
-
-
-
     }
 }

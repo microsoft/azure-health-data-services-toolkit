@@ -1,28 +1,27 @@
-﻿using Microsoft.AzureHealth.DataServices.Clients.Headers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AzureHealth.DataServices.Tests.Assets;
-using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Filters;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Tests.Assets;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Headers
 {
     [TestClass]
     public class HeaderConversionTests
     {
+        private static readonly int Port = 1240;
         private static HttpTestListener listener;
-        private static readonly int port = 1240;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
             listener = new();
-            listener.StartAsync(port).GetAwaiter();
+            listener.StartAsync(Port).GetAwaiter();
         }
 
         [ClassCleanup]
@@ -30,7 +29,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         {
             listener.StopAsync().GetAwaiter();
         }
-
 
         [TestMethod]
         public async Task HttpMessageExtensions_ContentTypeConversionSimple_Test()
@@ -81,9 +79,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         public async Task HttpMessageExtensions_ContentTypeNoInput_Test()
         {
             IHttpCustomHeaderCollection headers = new HttpCustomHeaderCollection();
-            IInputFilterCollection filters = new InputFilterCollection();
-            filters.Add(new FakeFilter());
-            filters.Add(new FakeFilterWithContent());
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                new FakeFilter(),
+                new FakeFilterWithContent(),
+            };
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, headers: headers);
 
             HttpRequestMessage request = new(HttpMethod.Get, "http://example.org/path");

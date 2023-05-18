@@ -10,6 +10,11 @@ namespace Microsoft.AzureHealth.DataServices.Json
     /// </summary>
     public class BundleEnumerator : IEnumerator<JToken>
     {
+        private readonly bool _ifNoneExist;
+        private JArray _array;
+        private int _index = -1;
+        private bool _disposed;
+
         /// <summary>
         /// Creates an instance of BundleEnumerator.
         /// </summary>
@@ -17,14 +22,9 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <param name="ifNoneExist">FHIR ifNoneExists flag omits if false.</param>
         public BundleEnumerator(JArray array, bool ifNoneExist)
         {
-            this.array = array;
-            this.ifNoneExist = ifNoneExist;
+            _array = array;
+            _ifNoneExist = ifNoneExist;
         }
-
-        private JArray array;
-        private int index = -1;
-        private bool disposed;
-        private readonly bool ifNoneExist;
 
         /// <summary>
         /// Gets the current JToken for the enumerator.
@@ -35,7 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
             {
                 try
                 {
-                    return array[index];
+                    return _array[_index];
                 }
                 catch (IndexOutOfRangeException)
                 {
@@ -52,39 +52,39 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <returns>True if item is available; otherwise false.</returns>
         public bool MoveNext()
         {
-            index++;
+            _index++;
 
-            if (index == array.Count)
+            if (_index == _array.Count)
             {
                 return false;
             }
 
-            if (ifNoneExist)
+            if (_ifNoneExist)
             {
-                while ((array[index].IsNullOrEmpty() || array.GetArrayItem<string>($"$[{index}].request.ifNoneExist") == null))
+                while (_array[_index].IsNullOrEmpty() || _array.GetArrayItem<string>($"$[{_index}].request.ifNoneExist") == null)
                 {
-                    if (index == array.Count - 1)
+                    if (_index == _array.Count - 1)
                     {
                         return false;
                     }
 
-                    index++;
+                    _index++;
                 }
             }
             else
             {
-                while (array[index].IsNullOrEmpty())
+                while (_array[_index].IsNullOrEmpty())
                 {
-                    if (index == array.Count - 1)
+                    if (_index == _array.Count - 1)
                     {
                         return false;
                     }
 
-                    index++;
+                    _index++;
                 }
             }
 
-            return (index < array.Count);
+            return _index < _array.Count;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// </summary>
         public void Reset()
         {
-            index = -1;
+            _index = -1;
         }
 
         /// <summary>
@@ -102,7 +102,6 @@ namespace Microsoft.AzureHealth.DataServices.Json
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-
         }
 
         /// <summary>
@@ -111,12 +110,11 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <param name="dispose">Indicator when true signals the object should be disposed.</param>
         protected void Dispose(bool dispose)
         {
-            if (dispose & !disposed)
+            if (dispose & !_disposed)
             {
-                disposed = true;
-                array = null;
+                _disposed = true;
+                _array = null;
             }
         }
-
     }
 }

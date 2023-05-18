@@ -32,7 +32,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         {
             services.AddLogging(builder =>
             {
-                builder.AddFilter<ApplicationInsightsLoggerProvider>("", logLevel);
+                builder.AddFilter<ApplicationInsightsLoggerProvider>(string.Empty, logLevel);
                 builder.AddApplicationInsights(op => op.ConnectionString = instrumentationConnectionString, op => op.FlushOnDispose = true);
             });
 
@@ -71,8 +71,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
-
-
         /// <summary>
         /// Use a Web pipeline for Web services.
         /// </summary>
@@ -88,18 +86,16 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
-
         /// <summary>
         /// Use custom http headers to when sending http requests.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection UseCustomHeaders(this IServiceCollection services)
         {
             services.AddScoped<IHttpCustomHeaderCollection, HttpCustomHeaderCollection>();
             return services;
         }
-
 
         /// <summary>
         /// Adds a custom header for sending http requests.
@@ -108,13 +104,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="name">Name of the http header to add.</param>
         /// <param name="value">Value of the http header.</param>
         /// <param name="headerType">Type of custom header.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddCustomHeader(this IServiceCollection services, string name, string value, CustomHeaderType headerType)
         {
             services.Add(new ServiceDescriptor(typeof(IHeaderNameValuePair), new HeaderNameValuePair(name, value, headerType)));
             return services;
         }
-
 
         /// <summary>
         /// Adds an input filter.
@@ -123,8 +118,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input filter.</param>
         /// <param name="options">Options for input filter.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -136,13 +132,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input filter.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddInputFilter(this IServiceCollection services, Type type)
         {
             services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
             return services;
         }
-
 
         /// <summary>
         /// Add an output filter.
@@ -151,8 +146,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output filter.</param>
         /// <param name="options">Options for output filter.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddOutputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddOutputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -164,7 +160,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output filter.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddOutputFilter(this IServiceCollection services, Type type)
         {
             services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
@@ -178,8 +174,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input channel.</param>
         /// <param name="options">Options for input channel.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputChannel), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -193,8 +190,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output channel.</param>
         /// <param name="options">Options for output channel.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputChannel), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -210,11 +208,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="credential">Credential used by the binding to access the target.</param>
         /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="baseAddress"/> is null.</exception>
-        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress, TokenCredential? credential = null) where TBinding : class, IBinding
+        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress, TokenCredential credential = null)
+            where TBinding : class, IBinding
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(TBinding), ServiceLifetime.Scoped));
 
-            var clientBuilder = services.AddHttpClient<IBinding, TBinding>(client =>
+            IHttpClientBuilder clientBuilder = services.AddHttpClient<IBinding, TBinding>(client =>
             {
                 client.BaseAddress = baseAddress;
             });
@@ -241,7 +240,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             where TBinding : class, IBinding
             where TOptions : class, IBindingOptions
         {
-            var optionsValue = Activator.CreateInstance<TOptions>();
+            TOptions optionsValue = Activator.CreateInstance<TOptions>();
             options(optionsValue);
 
             services.Configure<TOptions>(options);
@@ -263,4 +262,3 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
     }
 }
-

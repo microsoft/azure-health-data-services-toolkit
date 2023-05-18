@@ -43,6 +43,5 @@
         /// <param name="key">Cache key.</param>
         /// <returns>True is removed otherwise false.</returns>
         Task<bool> RemoveAsync(string key);
-
     }
 }

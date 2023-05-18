@@ -16,6 +16,6 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <summary>
         /// Gets or sets the Credential for the HttpClient used by the binding.
         /// </summary>
-        TokenCredential? Credential { get; set; }
+        TokenCredential Credential { get; set; }
     }
 }

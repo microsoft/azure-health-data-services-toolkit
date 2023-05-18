@@ -22,14 +22,15 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="headers">Http headers to add to request.</param>
         /// <param name="content">Body content of the http request.</param>
         /// <param name="contentType">Content type of the http request.</param>
-        public HttpRequestMessageBuilder(HttpMethod method,
-                                  Uri baseUrl,
-                                  string? path = null,
-                                  string? query = null,
-                                  NameValueCollection? headers = null,
-                                  byte[]? content = null,
-                                  string? securityToken = null,
-                                  string contentType = "application/json")
+        public HttpRequestMessageBuilder(
+            HttpMethod method,
+            Uri baseUrl,
+            string path = null,
+            string query = null,
+            NameValueCollection headers = null,
+            byte[] content = null,
+            string securityToken = null,
+            string contentType = "application/json")
         {
             _ = method ?? throw new ArgumentNullException(nameof(method));
             _ = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
@@ -37,12 +38,12 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             Method = method;
             BaseUrl = baseUrl;
-            Path = path;
-            QueryString = query;
+            Path = path ?? string.Empty;
+            QueryString = query ?? string.Empty;
             ContentType = contentType;
-            Headers = headers;
+            Headers = headers ?? new NameValueCollection();
             Content = content;
-            SecurityToken = string.IsNullOrEmpty(securityToken) ? null : securityToken;
+            SecurityToken = securityToken;
         }
 
         /// <summary>
@@ -50,8 +51,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// </summary>
         public static ProductHeaderValue DefaultUserAgentHeader { get; } = new(
             "Microsoft.AzureHealth.DataServices.Toolkit",
-            Assembly.GetExecutingAssembly().GetName().Version.ToString()
-        );
+            Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
         /// <summary>
         /// Gets the base url of the request.
@@ -102,14 +102,14 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             UriBuilder builder = new(BaseUrl)
             {
                 Path = Path,
-                Query = QueryString
+                Query = QueryString,
             };
 
-            string? baseUrl = new Uri(builder.ToString()).AbsoluteUri;
+            string baseUrl = new Uri(builder.ToString()).AbsoluteUri;
 
             HttpRequestMessage request = new(Method, baseUrl);
 
-            if (Headers != null)
+            if (Headers?.AllKeys is not null)
             {
                 Headers.Remove("Content-Type");
                 Headers.Remove("Content-Length");
@@ -118,9 +118,12 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 Headers.Remove("Host");
                 Headers.Remove("User-Agent");
 
-                foreach (string item in Headers.AllKeys)
+                foreach (var item in Headers.AllKeys)
                 {
-                    request.Headers.Add(item, Headers.Get(item));
+                    if (item is not null)
+                    {
+                        request.Headers.Add(item, Headers.Get(item));
+                    }
                 }
             }
 

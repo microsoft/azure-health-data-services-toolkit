@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -25,17 +24,18 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         {
             HttpRequestMessage httpRequestMessage = new()
             {
-                Method = new HttpMethod(req.Method)
+                Method = new HttpMethod(req.Method),
             };
+
             HttpRequestMessage message = httpRequestMessage;
             message.RequestUri = req.Url;
 
             if (req.Body != null && req.Body.Length > 0)
             {
-                message.Content = new StringContent(req.ReadAsString());
+                message.Content = new StringContent(req.ReadAsString() ?? string.Empty);
             }
 
-            foreach (var header in req.Headers)
+            foreach (System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.IEnumerable<string>> header in req.Headers)
             {
                 if (header.Key.ToLowerInvariant() == "content-type")
                 {
@@ -64,13 +64,16 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);
 
-            var messageHeaders = message.GetHeaders();
+            System.Collections.Specialized.NameValueCollection messageHeaders = message.GetHeaders();
             foreach (var messageHeaderKey in messageHeaders.AllKeys)
             {
-                data.Headers.Add(messageHeaderKey, messageHeaders[messageHeaderKey]);
+                if (messageHeaderKey is not null && messageHeaders[messageHeaderKey] is not null)
+                {
+                    data.Headers.Add(messageHeaderKey, messageHeaders[messageHeaderKey]);
+                }
             }
 
-            string content = await message.Content?.ReadAsStringAsync();
+            string content = await message.Content.ReadAsStringAsync();
 
             if (content != null)
             {
@@ -131,7 +134,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <returns>ClaimsPrincipal</returns>
         public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestData request)
         {
-            if (!request.Headers.TryGetValues("Authorization", out IEnumerable<string> tokens))
+            if (!request.Headers.TryGetValues("Authorization", out System.Collections.Generic.IEnumerable<string> tokens))
             {
                 return null;
             }
@@ -146,20 +149,19 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// Gets a claims principal from an http request with a bearer security token.
         /// </summary>
         /// <param name="request">Http request containing the security bearer token.</param>
-        /// <returns></returns>
+        /// <returns>Claims principal object</returns>
         public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestMessage request)
         {
-            string? header = request.Headers.Authorization?.Parameter;
+            string header = request.Headers.Authorization?.Parameter;
             if (header == null)
             {
                 return null;
             }
 
-            header = header.Replace("Bearer ", "");
+            header = header.Replace("Bearer ", string.Empty);
             JsonWebToken jwt = new(header);
             ClaimsIdentity identity = new(jwt.Claims);
             return new ClaimsPrincipal(identity);
-
         }
     }
 }

@@ -18,15 +18,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
     [TestClass]
     public class BindingTests
     {
+        private static readonly int Port = 1888;
         private static HttpEchoListener listener;
-        private static readonly int port = 1888;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Console.WriteLine(context.TestName);
             listener = new();
-            listener.StartAsync(port).GetAwaiter();
+            listener.StartAsync(Port).GetAwaiter();
         }
 
         [ClassCleanup]
@@ -67,8 +67,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         [TestMethod]
         public async Task RestPipelineBinding_TokenCredential_Test()
         {
-            Uri baseAddress = new Uri($"http://localhost:{port}");
-            string uriString = $"http://localhost:{port}?name=value";
+            Uri baseAddress = new Uri($"http://localhost:{Port}");
+            string uriString = $"http://localhost:{Port}?name=value";
             var request = new HttpRequestMessage(HttpMethod.Get, uriString);
             request.Headers.Add("TestHeader", "TestValue");
             OperationContext context = new()
@@ -99,8 +99,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         [TestMethod]
         public async Task RestPipelineBinding_Complete_Test()
         {
-            Uri baseAddress = new Uri($"http://localhost:{port}");
-            string uriString = $"http://localhost:{port}?name=value";
+            Uri baseAddress = new Uri($"http://localhost:{Port}");
+            string uriString = $"http://localhost:{Port}?name=value";
             string expectedContext = "{ \"name\": \"value\" }";
             var request = new HttpRequestMessage(HttpMethod.Get, uriString);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "token");
@@ -161,7 +161,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             var services = new ServiceCollection();
 
             // Add HttpClientFactory to the service collection
-            var httpBuilder = services.AddHttpClient("TestClient");
+            IHttpClientBuilder httpBuilder = services.AddHttpClient("TestClient");
 
             if (messageHandler is not null)
             {
@@ -169,12 +169,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             }
 
             // Build the service provider
-            var serviceProvider = services.BuildServiceProvider();
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Get an instance of IHttpClientFactory
-            var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
+            IHttpClientFactory httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
 
-            var client = httpClientFactory.CreateClient("TestClient");
+            HttpClient client = httpClientFactory.CreateClient("TestClient");
             client.BaseAddress = baseAddress;
             return client;
         }

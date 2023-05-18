@@ -5,7 +5,6 @@
     /// </summary>
     public class HeaderNameValuePair : IHeaderNameValuePair
     {
-
         /// <summary>
         /// Creates an instance of HeaderNameValuePair.
         /// </summary>
@@ -33,7 +32,5 @@
         /// Gets or sets the type of custom header for the operation.
         /// </summary>
         public CustomHeaderType HeaderType { get; set; }
-
-
     }
 }

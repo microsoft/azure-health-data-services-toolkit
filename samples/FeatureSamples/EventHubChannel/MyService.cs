@@ -5,11 +5,16 @@ using Microsoft.Extensions.Options;
 
 namespace EventHubChannelSample
 {
-    public class MyService : IMyService
+    public class MyService : IMyService, IDisposable
     {
+        private readonly ILogger _logger;
+        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
+        private readonly IChannel receiveChannel;
+        private bool _disposed;
+
         public MyService(MyServiceConfig config, IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline, ILogger<MyService> logger = null)
         {
-            this._pipeline = pipeline;
+            _pipeline = pipeline;
             _logger = logger;
             IOptions<EventHubChannelOptions> options = Options.Create<EventHubChannelOptions>(new EventHubChannelOptions()
             {
@@ -18,22 +23,33 @@ namespace EventHubChannelSample
                 FallbackStorageConnectionString = config.FallbackStorageConnectionString,
                 FallbackStorageContainer = config.FallbackStorageContainer,
                 HubName = config.HubName,
-                ProcessorStorageContainer = config.ProcessorStorageContainer
+                ProcessorStorageContainer = config.ProcessorStorageContainer,
             });
             receiveChannel = new EventHubChannel(options);
         }
 
-        private readonly ILogger _logger;
-        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
-        private readonly IChannel receiveChannel;
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
-
 
         public async Task SendMessageAsync(HttpRequestMessage message)
         {
             _logger?.LogInformation("Send message to event hub.");
             _ = _pipeline.ExecuteAsync(message);
             await OpenReceiveChannelAsync();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && !_disposed)
+            {
+                _disposed = true;
+                receiveChannel.Dispose();
+            }
         }
 
         private async Task OpenReceiveChannelAsync()

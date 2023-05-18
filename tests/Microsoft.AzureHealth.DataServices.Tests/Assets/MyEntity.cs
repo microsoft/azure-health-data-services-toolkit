@@ -40,9 +40,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 
         [JsonProperty("lastName")]
         public string LastName { get; set; }
+
         public string PartitionKey { get; set; }
+
         public string RowKey { get; set; }
+
         public DateTimeOffset? Timestamp { get; set; }
+
         public ETag ETag { get; set; }
     }
 }

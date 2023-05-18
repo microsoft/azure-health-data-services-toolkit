@@ -14,42 +14,46 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
 {
     public class SimpleFilter : IInputFilter
     {
+        private readonly Uri _baseUrl;
+        private readonly HttpMethod _method;
+        private readonly string _path;
+        private readonly IHttpCustomHeaderCollection _customerHeaders;
+        private readonly string _id;
+
         public SimpleFilter(IOptions<SimpleFilterOptions> options, IHttpCustomHeaderCollection customHeaders)
         {
-            id = Guid.NewGuid().ToString();
-            baseUrl = options.Value.BaseUrl;
-            method = options.Value.HttpMethod;
-            path = options.Value.Path;
-            this.customerHeaders = customHeaders;
+            _id = Guid.NewGuid().ToString();
+            _baseUrl = options.Value.BaseUrl;
+            _method = options.Value.HttpMethod;
+            _path = options.Value.Path;
+            _customerHeaders = customHeaders;
         }
 
-        private readonly Uri baseUrl;
-        private readonly HttpMethod method;
-        private readonly string path;
-        private readonly IHttpCustomHeaderCollection customerHeaders;
+        public event EventHandler<FilterErrorEventArgs> OnFilterError;
 
-        private readonly string id;
-        public string Id => id;
+        public string Id => _id;
 
         public string Name => "SimpleFilter";
 
         public StatusType ExecutionStatusType => StatusType.Any;
 
-
-#pragma warning disable CS0067 // The event 'SimpleFilter.OnFilterError' is never used
-        public event EventHandler<FilterErrorEventArgs> OnFilterError;
-#pragma warning restore CS0067 // The event 'SimpleFilter.OnFilterError' is never used
-
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            NameValueCollection nvc = customerHeaders.RequestAppendAndReplace(context.Request);
-            TestMessage msg = new() { Value = "filter" };
-            string json = JsonConvert.SerializeObject(msg);
-            HttpRequestMessageBuilder builder = new(method, baseUrl, path, headers: nvc, content: Encoding.UTF8.GetBytes(json));
-            HttpClient client = new();
-            HttpResponseMessage response = await client.SendAsync(builder.Build());
-            context.StatusCode = response.StatusCode;
-            context.ContentString = await response.Content.ReadAsStringAsync();
+            try
+            {
+                NameValueCollection nvc = _customerHeaders.RequestAppendAndReplace(context.Request);
+                TestMessage msg = new() { Value = "filter" };
+                string json = JsonConvert.SerializeObject(msg);
+                HttpRequestMessageBuilder builder = new(_method, _baseUrl, _path, headers: nvc, content: Encoding.UTF8.GetBytes(json));
+                HttpClient client = new();
+                HttpResponseMessage response = await client.SendAsync(builder.Build());
+                context.StatusCode = response.StatusCode;
+                context.ContentString = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, false, ex));
+            }
 
             return context;
         }

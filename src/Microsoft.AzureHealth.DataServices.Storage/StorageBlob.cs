@@ -19,7 +19,17 @@ namespace Microsoft.AzureHealth.DataServices.Storage
     /// </summary>
     public class StorageBlob
     {
+        private readonly MemoryCacheEntryOptions _cacheOptions = new();
+        private readonly MemoryCache containerCache;
+        private readonly ILogger logger;
+        private readonly BlobServiceClient blobService;
+        private BlobContainerClient containerClient;
+        private StorageTransferOptions storageTransferOptions;
+
+#pragma warning disable SA1124 // Do not use regions
+
         #region ctor
+
         /// <summary>
         /// Creates an instance of StorageBlob
         /// </summary>
@@ -121,11 +131,11 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <param name="logger">Optional ILogger.</param>
         public StorageBlob(long? initialTransferSize, int? maxConcurrency, int? maxTransferSize, ILogger logger = null)
         {
-            cacheOptions = new MemoryCacheEntryOptions();
-            cacheOptions.SetSlidingExpiration(TimeSpan.FromSeconds(300));
+            _cacheOptions = new MemoryCacheEntryOptions();
+            _cacheOptions.SetSlidingExpiration(TimeSpan.FromSeconds(300));
             MemoryCacheOptions memOptions = new()
             {
-                ExpirationScanFrequency = TimeSpan.FromSeconds(30)
+                ExpirationScanFrequency = TimeSpan.FromSeconds(30),
             };
             containerCache = new MemoryCache(memOptions);
             this.logger = logger;
@@ -134,25 +144,14 @@ namespace Microsoft.AzureHealth.DataServices.Storage
             {
                 InitialTransferSize = initialTransferSize,
                 MaximumConcurrency = maxConcurrency,
-                MaximumTransferSize = maxTransferSize
+                MaximumTransferSize = maxTransferSize,
             };
         }
 
         #endregion
 
-        private readonly BlobServiceClient blobService;
-
-        private BlobContainerClient containerClient;
-
-        private StorageTransferOptions storageTransferOptions;
-
-        private readonly MemoryCacheEntryOptions cacheOptions = new();
-
-        private readonly MemoryCache containerCache;
-
-        private readonly ILogger logger;
-
         #region Container Methods
+
         /// <summary>
         /// Deletes a blob storage container if it exists.
         /// </summary>
@@ -251,7 +250,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task<List<string>> ListBlobsAsync(string containerName, int? segmentSize = null, BlobTraits traits = BlobTraits.None, BlobStates states = BlobStates.None, string prefix = null, CancellationToken cancellationToken = default)
         {
             BlobContainerClient containerClient = GetContainerClient(containerName.ToLowerInvariant());
-            var result = containerClient.GetBlobsAsync(traits, states, prefix, cancellationToken)
+            IAsyncEnumerable<Page<BlobItem>> result = containerClient.GetBlobsAsync(traits, states, prefix, cancellationToken)
                 .AsPages(default, segmentSize);
 
             List<string> blobNames = new();
@@ -333,6 +332,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         #endregion
 
         #region Write Methods
+
         /// <summary>
         /// Writes a block blob to a container.
         /// </summary>
@@ -468,13 +468,12 @@ namespace Microsoft.AzureHealth.DataServices.Storage
             {
                 HttpHeaders = new BlobHttpHeaders()
                 {
-                    ContentType = contentType
+                    ContentType = contentType,
                 },
-                TransferOptions = storageTransferOptions
-
+                TransferOptions = storageTransferOptions,
             };
-            _ = await blobClient.UploadAsync(path, options, cancellationToken);
 
+            _ = await blobClient.UploadAsync(path, options, cancellationToken);
 
             if (metadata != null)
             {
@@ -487,6 +486,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         #endregion
 
         #region Download Methods
+
         /// <summary>
         /// Downloads a block blob from a container and returns the result.
         /// </summary>
@@ -641,7 +641,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
             if (!containerCache.TryGetValue<BlobContainerClient>(containerName, out BlobContainerClient client))
             {
                 client = blobService.GetBlobContainerClient(containerName);
-                containerCache.Set<BlobContainerClient>(containerName, client, cacheOptions);
+                containerCache.Set<BlobContainerClient>(containerName, client, _cacheOptions);
             }
 
             if (client == null)

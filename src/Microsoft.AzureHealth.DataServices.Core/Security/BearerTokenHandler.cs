@@ -14,7 +14,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
     /// </summary>
     public class BearerTokenHandler : DelegatingHandler
     {
-        private readonly string[]? _scopes;
+        private readonly string[] _scopes;
         private readonly AccessTokenCache _accessTokenCache;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// <param name="tokenCredential">Credential used to create tokens/</param>
         /// <param name="baseAddress">Base address for the client using the credential. Used for resource based scoping via {{baseAddress}}/.default</param>
         /// <param name="scopes">Optional scopes if you want to override the `.default` resource scope.</param>
-        public BearerTokenHandler(TokenCredential tokenCredential, Uri baseAddress, string[]? scopes)
+        public BearerTokenHandler(TokenCredential tokenCredential, Uri baseAddress, string[] scopes)
             : this(tokenCredential, baseAddress, scopes, TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(30))
         {
         }
@@ -31,7 +31,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
         internal BearerTokenHandler(
             TokenCredential tokenCredential,
             Uri baseAddress,
-            string[]? scopes,
+            string[] scopes,
             TimeSpan tokenRefreshOffset,
             TimeSpan tokenRefreshRetryDelay)
         {
@@ -55,7 +55,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
         /// </summary>
         /// <param name="request">Incoming request message.</param>
         /// <param name="cancellationToken">Incoming cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>Response message from request.</returns>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // Only add header for requests that don't already have one.
@@ -74,6 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
             {
                 scopes = GetDefaultScopes(request.RequestUri);
             }
+
             AccessToken cachedToken = await _accessTokenCache.GetTokenAsync(scopes, cancellationToken).ConfigureAwait(false);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", cachedToken.Token);
 
@@ -98,13 +99,14 @@ namespace Microsoft.AzureHealth.DataServices.Security
 
             public AccessTokenCache(
                            TokenCredential tokenCredential,
-                            TimeSpan tokenRefreshOffset,
-                            TimeSpan tokenRefreshRetryDelay)
+                           TimeSpan tokenRefreshOffset,
+                           TimeSpan tokenRefreshRetryDelay)
             {
                 _tokenCredential = tokenCredential;
                 _tokenRefreshOffset = tokenRefreshOffset;
                 _tokenRefreshRetryDelay = tokenRefreshRetryDelay;
             }
+
             public async Task<AccessToken> GetTokenAsync(string[] scopes, CancellationToken cancellationToken)
             {
                 await _semaphoreSlim.WaitAsync(cancellationToken).ConfigureAwait(false);
@@ -125,6 +127,7 @@ namespace Microsoft.AzureHealth.DataServices.Security
                             _accessTokenExpiration = _accessToken.Value.ExpiresOn;
                         }
                     }
+
                     return _accessToken.Value;
                 }
                 finally

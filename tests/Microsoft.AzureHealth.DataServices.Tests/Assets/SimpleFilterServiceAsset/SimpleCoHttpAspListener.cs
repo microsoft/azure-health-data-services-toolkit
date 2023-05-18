@@ -1,10 +1,10 @@
-﻿using Microsoft.AzureHealth.DataServices.Clients.Headers;
-using Microsoft.AzureHealth.DataServices.Configuration;
+﻿using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
+using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using System;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {
@@ -14,7 +14,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
             });
 
             app.UseRouting();

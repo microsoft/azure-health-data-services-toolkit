@@ -15,7 +15,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// </summary>
         public EventGridConfig()
         {
-
         }
 
         /// <summary>
@@ -26,8 +25,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// <param name="subject">Event Grid subject.</param>
         /// <param name="eventType">Event Grid event type.</param>
         /// <param name="dataVersion">Event Grid data version.</param>
-        public EventGridConfig(string topicUriString, string topicAccessKey,
-                               string subject, string eventType, string dataVersion)
+        public EventGridConfig(string topicUriString, string topicAccessKey, string subject, string eventType, string dataVersion)
         {
             EventGridTopicUriString = topicUriString;
             EventGridTopicAccessKey = topicAccessKey;
@@ -35,7 +33,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             EventGridEventType = eventType;
             EventGridDataVersion = dataVersion;
         }
-
 
         /// <summary>
         /// Gets or sets Event Grid topic URI string.

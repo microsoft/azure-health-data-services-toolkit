@@ -18,7 +18,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
     [TestClass]
     public class HeaderTests
     {
-
         #region Custom Headers
 
         [TestMethod]
@@ -151,7 +150,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             Assert.AreEqual(headers[2].Name, names[1], "Item order mismatch.");
         }
 
-
         [TestMethod]
         public void HttpCustomHeaderCollection_Clear_Test()
         {
@@ -180,7 +178,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
+            System.Collections.Specialized.NameValueCollection nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count + 2, "Count headers mismatch.");
             Assert.AreEqual(names[0], nvc.GetKey(0), "Not name.");
@@ -206,7 +204,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
+            System.Collections.Specialized.NameValueCollection nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count, "Count headers mismatch.");
             Assert.AreEqual(names[0], nvc.GetKey(0), "Not name.");
@@ -228,7 +226,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             HttpRequestMessage httpRequestMessage = new();
             httpRequestMessage.Headers.Add(names[0], values[0]);
             httpRequestMessage.Headers.Add(names[1], values[1]);
-            var nvc = headers.RequestAppendAndReplace(httpRequestMessage);
+            System.Collections.Specialized.NameValueCollection nvc = headers.RequestAppendAndReplace(httpRequestMessage);
 
             Assert.IsTrue(nvc.Count == headers.Count, "Count headers mismatch.");
             Assert.AreEqual(names[2], nvc.GetKey(0), "Not name.");
@@ -254,7 +252,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             request.Headers.Authorization = new("http", $"Bearer {jwtString}");
             request.Headers.Add(names[0], values[0]);
 
-            var nvc = headers.RequestAppendAndReplace(request);
+            System.Collections.Specialized.NameValueCollection nvc = headers.RequestAppendAndReplace(request);
             nvc.Remove("Authorization");
 
             Assert.IsTrue(nvc.Count == headers.Count + 1, "Count headers mismatch.");
@@ -269,7 +267,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         [TestMethod]
         public void HttpCustomHeaderCollection_UpdateFromResponse_Test()
         {
-            IHeaderNameValuePair[] items = new IHeaderNameValuePair[] {
+            IHeaderNameValuePair[] items = new IHeaderNameValuePair[]
+            {
                 new HeaderNameValuePair("RequestName1", "RequestValue1", CustomHeaderType.RequestStatic),
                 new HeaderNameValuePair("ResponseName1", "ResponseValue1", CustomHeaderType.ResponseStatic),
                 new HeaderNameValuePair("ResponseName2", "ResponseValue2", CustomHeaderType.ResponseStatic),
@@ -289,7 +288,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
         }
 
         #endregion
-
 
         #region Web Tests
 
@@ -334,7 +332,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             simple.Stop();
             webhost.Stop();
         }
-
 
         #endregion
     }

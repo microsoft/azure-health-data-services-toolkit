@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.AzureHealth.DataServices.Protocol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,7 +18,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir";
             string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/_history/{version}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
@@ -41,7 +40,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir/long";
             string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/_history/{version}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
@@ -61,7 +60,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir";
             string requestUriString = $"https://example.org/{routePrefix}/{operation}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
@@ -80,7 +79,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string id = "Id";
             string requestUriString = $"https://example.org/fhir/_operations/{operation}/{id}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(operation, fhirPath.Operation, "Operation mismatch.");
@@ -99,7 +98,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir";
             string requestUriString = $"https://example.org/{routePrefix}/{resource}/{operation}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
@@ -120,7 +119,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string routePrefix = "fhir";
             string requestUriString = $"https://example.org/{routePrefix}/{resource}/{id}/{operation}";
             Uri uri = new(requestUriString);
-            string normalizedPath = uri.LocalPath.Replace(routePrefix, "");
+            string normalizedPath = uri.LocalPath.Replace(routePrefix, string.Empty);
 
             FhirUriPath fhirPath = new(method, uri, routePrefix);
             Assert.AreEqual(resource, fhirPath.Resource, "Resource mismatch.");
@@ -152,7 +151,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.AreEqual(uri.LocalPath.TrimStart('/'), fhirPath.NormalizedPath, "Normalized path mismatch.");
         }
 
-
         [TestMethod]
         public void FhirPath_Default_Fragment_Uri_Test()
         {
@@ -171,7 +169,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.AreEqual(method, fhirPath.Method, "Method mismatch.");
             Assert.AreEqual(routePrefix, fhirPath.RoutePrefix, "Route prefix mismatch.");
         }
-
 
         [TestMethod]
         public void FhirPath_HasQueryKey_True_Test()

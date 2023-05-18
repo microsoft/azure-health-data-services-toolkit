@@ -1,11 +1,11 @@
-﻿using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using System.Reflection;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Quickstart.Configuration;
 using Quickstart.Filters;
-using System.Reflection;
 
 namespace QuickstartSample.Tests
 {
@@ -26,7 +26,7 @@ namespace QuickstartSample.Tests
             config = new MyServiceConfig();
             root.Bind(config);
 
-            using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+            using ILoggerFactory loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
                 .SetMinimumLevel(LogLevel.Trace)
                 .AddConsole());
 
@@ -43,7 +43,7 @@ namespace QuickstartSample.Tests
             filterContext.ContentString = json;
 
             QuickstartFilter filter = new(null, filterLogger!);
-            var resultContext = await filter.ExecuteAsync(filterContext);
+            OperationContext resultContext = await filter.ExecuteAsync(filterContext);
 
             JObject jobj = JObject.Parse(resultContext.ContentString);
 

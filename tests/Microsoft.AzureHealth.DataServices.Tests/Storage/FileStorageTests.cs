@@ -14,12 +14,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
     [TestClass]
     public class FileStorageTests
     {
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string ShareName = "myshare";
+        private static readonly string LogPath = "../../storagefilelog.txt";
         private static Random random;
         private static ConcurrentQueue<string> containers;
         private static StorageFiles storage;
-        private static readonly string shareName = "myshare";
-        private static readonly string logPath = "../../storagefilelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]
@@ -30,14 +30,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<FileStorageTests>(true);
             builder.AddEnvironmentVariables("PROXY_");
-            var root = builder.Build();
+            IConfigurationRoot root = builder.Build();
             string connectionString = root["StorageConnectionString"];
 
             containers = new();
 
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -53,23 +53,23 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             logger = factory.CreateLogger("test");
             factory.Dispose();
             storage = new(connectionString, logger);
-            storage.CreateShareIfNotExistsAsync(shareName).GetAwaiter().GetResult();
+            storage.CreateShareIfNotExistsAsync(ShareName).GetAwaiter().GetResult();
         }
 
-
         [TestInitialize]
-        public async Task Initialize()
+        public static async Task Initialize()
         {
             while (!containers.IsEmpty)
             {
                 if (containers.TryDequeue(out string container))
                 {
-                    List<string> list = await storage.ListFilesAsync(shareName, container);
+                    List<string> list = await storage.ListFilesAsync(ShareName, container);
                     foreach (var item in list)
                     {
-                        await storage.DeleteFileIfExistsAsync(shareName, container, item);
+                        await storage.DeleteFileIfExistsAsync(ShareName, container, item);
                     }
-                    await storage.DeleteDirectoryIfExistsAsync(shareName, container);
+
+                    await storage.DeleteDirectoryIfExistsAsync(ShareName, container);
                 }
             }
         }
@@ -81,12 +81,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             {
                 if (containers.TryDequeue(out string container))
                 {
-                    List<string> list = await storage.ListFilesAsync(shareName, container);
+                    List<string> list = await storage.ListFilesAsync(ShareName, container);
                     foreach (var item in list)
                     {
-                        await storage.DeleteFileIfExistsAsync(shareName, container, item);
+                        await storage.DeleteFileIfExistsAsync(ShareName, container, item);
                     }
-                    await storage.DeleteDirectoryIfExistsAsync(shareName, container);
+
+                    await storage.DeleteDirectoryIfExistsAsync(ShareName, container);
                 }
             }
         }
@@ -96,20 +97,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
         {
             string dir = GetRandomName();
             containers.Enqueue(dir);
-            await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
-            List<string> list = await storage.ListDirectoriesAsync(shareName, null);
+            await storage.CreateDirectoryIfNotExistsAsync(ShareName, dir);
+            List<string> list = await storage.ListDirectoriesAsync(ShareName, null);
             Assert.IsTrue(list.Contains(dir), $"Directory {dir} not found.");
         }
-
-        // [TestMethod]
-        // public async Task Files_DeleteDirectory_Test()
-        // {
-        //     string dir = GetRandomName();
-        //     containers.Enqueue(dir);
-        //     await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
-        //     List<string> list = await storage.ListDirectoriesAsync(shareName, null);
-        //     Assert.AreEqual(dir, list[0], "Directory name mismatch.");
-        // }
 
         [TestMethod]
         public async Task Files_WriteFile_Test()
@@ -117,11 +108,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string dir = GetRandomName();
             string filename = $"{GetRandomName()}.txt";
             containers.Enqueue(dir);
-            await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
+            await storage.CreateDirectoryIfNotExistsAsync(ShareName, dir);
             string expected = "hi";
             byte[] content = Encoding.UTF8.GetBytes(expected);
-            await storage.WriteFileAsync(shareName, dir, filename, content);
-            byte[] actualBytes = await storage.ReadFileAsync(shareName, dir, filename);
+            await storage.WriteFileAsync(ShareName, dir, filename, content);
+            byte[] actualBytes = await storage.ReadFileAsync(ShareName, dir, filename);
             string actual = Encoding.UTF8.GetString(actualBytes);
             Assert.AreEqual(expected, actual, "Content mismatch.");
         }
@@ -133,12 +124,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string filename1 = $"{GetRandomName()}.txt";
             string filename2 = $"{GetRandomName()}.txt";
             containers.Enqueue(dir);
-            await storage.CreateDirectoryIfNotExistsAsync(shareName, dir);
+            await storage.CreateDirectoryIfNotExistsAsync(ShareName, dir);
             string expected = "hi";
             byte[] content = Encoding.UTF8.GetBytes(expected);
-            await storage.WriteFileAsync(shareName, dir, filename1, content);
-            await storage.WriteFileAsync(shareName, dir, filename2, content);
-            List<string> list = await storage.ListFilesAsync(shareName, dir);
+            await storage.WriteFileAsync(ShareName, dir, filename1, content);
+            await storage.WriteFileAsync(ShareName, dir, filename2, content);
+            List<string> list = await storage.ListFilesAsync(ShareName, dir);
             Assert.IsTrue(list.Contains(filename1), "File name not found.");
             Assert.IsTrue(list.Contains(filename2), "File name not found.");
             Assert.IsTrue(list.Count == 2, $"File count mismatch was {list.Count} expected 2.");
@@ -150,7 +141,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 

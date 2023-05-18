@@ -9,6 +9,7 @@
         /// Execute regardless of whether OperationContext is faulted.
         /// </summary>
         Any,
+
         /// <summary>
         /// Execute only if OperationContext is not faulted.
         /// </summary>
@@ -17,6 +18,6 @@
         /// <summary>
         /// Execute only if OperationContext is faulted.
         /// </summary>
-        Fault
+        Fault,
     }
 }

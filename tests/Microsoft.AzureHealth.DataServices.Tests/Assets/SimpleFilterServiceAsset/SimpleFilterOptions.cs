@@ -1,6 +1,6 @@
-﻿using Microsoft.AzureHealth.DataServices.Pipelines;
-using System;
+﻿using System;
 using System.Net.Http;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAsset
 {

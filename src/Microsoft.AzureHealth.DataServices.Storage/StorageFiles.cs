@@ -16,10 +16,11 @@ namespace Microsoft.AzureHealth.DataServices.Storage
     /// </summary>
     public class StorageFiles
     {
-        private readonly ShareServiceClient serviceClient;
-        private readonly ILogger logger;
+        private readonly ShareServiceClient _serviceClient;
+        private readonly ILogger _logger;
 
         #region ctor
+
         /// <summary>
         /// Creates an instance of StorageFiles.
         /// </summary>
@@ -28,7 +29,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageFiles(string connectionString, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new ShareServiceClient(connectionString);
+            _serviceClient = new ShareServiceClient(connectionString);
         }
 
         /// <summary>
@@ -40,11 +41,11 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageFiles(string connectionString, ShareClientOptions options, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new ShareServiceClient(connectionString, options);
+            _serviceClient = new ShareServiceClient(connectionString, options);
         }
 
         /// <summary>
-        /// 
+        /// Creates an instance of StorageFiles.
         /// </summary>
         /// <param name="serviceUri">Uri referencing the file service.</param>
         /// <param name="credentials">The shared key credential used to sign requests.</param>
@@ -53,7 +54,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageFiles(Uri serviceUri, StorageSharedKeyCredential credentials, ShareClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new ShareServiceClient(serviceUri, credentials, options);
+            _serviceClient = new ShareServiceClient(serviceUri, credentials, options);
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageFiles(Uri serviceUri, ShareClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new ShareServiceClient(serviceUri, options);
+            _serviceClient = new ShareServiceClient(serviceUri, options);
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageFiles(Uri serviceUri, AzureSasCredential credentials, ShareClientOptions options, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new ShareServiceClient(serviceUri, credentials, options);
+            _serviceClient = new ShareServiceClient(serviceUri, credentials, options);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <param name="logger">Optional ILogger.</param>
         protected StorageFiles(ILogger logger = null)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         #endregion
@@ -101,9 +102,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>ShareInfo</returns>
         public async Task<ShareInfo> CreateShareIfNotExistsAsync(string shareName, ShareCreateOptions options = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
             Response<ShareInfo> info = await shareClient.CreateIfNotExistsAsync(options, cancellationToken);
-            logger?.LogTrace(new EventId(93000, "StorageFile.CreateShareIfNotExistsAsync"), "File share {ShareName} created.", shareName);
+            _logger?.LogTrace(new EventId(93000, "StorageFile.CreateShareIfNotExistsAsync"), "File share {ShareName} created.", shareName);
             return info?.Value;
         }
 
@@ -116,9 +117,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if share is deleted; otherwise false.</returns>
         public async Task<bool> DeleteShareIfExistsAsync(string shareName, ShareDeleteOptions options = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
             bool result = await shareClient.DeleteIfExistsAsync(options, cancellationToken);
-            logger?.LogTrace(new EventId(93010, "StorageFile.DeleteShareIfExistsAsync"), "File share {ShareName} deleted {Result}.", shareName, result);
+            _logger?.LogTrace(new EventId(93010, "StorageFile.DeleteShareIfExistsAsync"), "File share {ShareName} deleted {Result}.", shareName, result);
             return result;
         }
 
@@ -134,10 +135,10 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>ShareDirectoryInfo</returns>
         public async Task<ShareDirectoryInfo> CreateDirectoryIfNotExistsAsync(string shareName, string directoryName, IDictionary<string, string> metadata = null, FileSmbProperties smbProperties = null, string filePermission = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
             Response<ShareDirectoryInfo> result = await dirClient.CreateIfNotExistsAsync(metadata, smbProperties, filePermission, cancellationToken);
-            logger?.LogTrace(new EventId(93020, "StorageFile.CreateDirectoryIfNotExistsAsync"), "Directory {DirectoryName} created on file share {ShareName}.", directoryName, shareName);
+            _logger?.LogTrace(new EventId(93020, "StorageFile.CreateDirectoryIfNotExistsAsync"), "Directory {DirectoryName} created on file share {ShareName}.", directoryName, shareName);
             return result.Value;
         }
 
@@ -150,10 +151,10 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if the directory is deleted or does not exist; otherwise false.</returns>
         public async Task<bool> DeleteDirectoryIfExistsAsync(string shareName, string directoryName, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
             Response<bool> response = await dirClient.DeleteIfExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(93030, "StorageFile.DeleteDirectoryIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted {Response}.", directoryName, shareName, response.Value);
+            _logger?.LogTrace(new EventId(93030, "StorageFile.DeleteDirectoryIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted {Response}.", directoryName, shareName, response.Value);
             return response.Value;
         }
 
@@ -170,14 +171,14 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task WriteFileAsync(string shareName, string directoryName, string fileName, byte[] content, ShareFileOpenWriteOptions options = null, CancellationToken cancellationToken = default)
         {
             options ??= new ShareFileOpenWriteOptions() { MaxSize = content.Length };
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
-            var fileClient = dirClient.GetFileClient(fileName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
+            ShareFileClient fileClient = dirClient.GetFileClient(fileName);
             Stream stream = await fileClient.OpenWriteAsync(true, 0, options, cancellationToken);
             await stream.WriteAsync(content.AsMemory(0, content.Length), cancellationToken);
             await stream.FlushAsync(cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(93040, "StorageFile.WriteFileAsync"), "Directory {DirectoryName} on file share {ShareName} wrote file {FileName} with {ContentLength} bytes.", directoryName, shareName, fileName, content?.Length);
+            _logger?.LogTrace(new EventId(93040, "StorageFile.WriteFileAsync"), "Directory {DirectoryName} on file share {ShareName} wrote file {FileName} with {ContentLength} bytes.", directoryName, shareName, fileName, content?.Length);
         }
 
         /// <summary>
@@ -191,14 +192,14 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>Array of bytes of the file content.</returns>
         public async Task<byte[]> ReadFileAsync(string shareName, string directoryName, string fileName, ShareFileOpenReadOptions options = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
-            var fileClient = dirClient.GetFileClient(fileName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
+            ShareFileClient fileClient = dirClient.GetFileClient(fileName);
             Stream stream = await fileClient.OpenReadAsync(options, cancellationToken);
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(93050, "StorageFile.ReadFileAsync"), "Directory {DirectoryName} on file share {ShareName} read file {FileName} with {Length} bytes.", directoryName, shareName, fileName, buffer?.Length);
+            _logger?.LogTrace(new EventId(93050, "StorageFile.ReadFileAsync"), "Directory {DirectoryName} on file share {ShareName} read file {FileName} with {Length} bytes.", directoryName, shareName, fileName, buffer?.Length);
             return buffer;
         }
 
@@ -213,11 +214,11 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if the file is deleted or does not exist; otherwise false.</returns>
         public async Task<bool> DeleteFileIfExistsAsync(string shareName, string directoryName, string fileName, ShareFileRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
-            var fileClient = dirClient.GetFileClient(fileName);
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
+            ShareFileClient fileClient = dirClient.GetFileClient(fileName);
             Response<bool> response = await fileClient.DeleteIfExistsAsync(conditions, cancellationToken);
-            logger?.LogTrace(new EventId(93060, "StorageFile.DeleteFileIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted file {FileName} {Response}.", directoryName, shareName, fileName, response.Value);
+            _logger?.LogTrace(new EventId(93060, "StorageFile.DeleteFileIfExistsAsync"), "Directory {DirectoryName} on file share {ShareName} deleted file {FileName} {Response}.", directoryName, shareName, fileName, response.Value);
             return response.Value;
         }
 
@@ -231,9 +232,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>File names in directory as list of strings.</returns>
         public async Task<List<string>> ListFilesAsync(string shareName, string directoryName, string prefix = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
-            var result = dirClient.GetFilesAndDirectoriesAsync(prefix, cancellationToken)
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
+            IAsyncEnumerable<Page<ShareFileItem>> result = dirClient.GetFilesAndDirectoriesAsync(prefix, cancellationToken)
                 .AsPages(default, null);
 
             List<string> fileNames = new();
@@ -248,7 +249,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
                 }
             }
 
-            logger?.LogTrace(new EventId(93070, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} files.", directoryName, shareName, fileNames.Count);
+            _logger?.LogTrace(new EventId(93070, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} files.", directoryName, shareName, fileNames.Count);
             return fileNames;
         }
 
@@ -262,9 +263,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>Sub-directory names as a list of strings.</returns>
         public async Task<List<string>> ListDirectoriesAsync(string shareName, string directoryName, string prefix = null, CancellationToken cancellationToken = default)
         {
-            var shareClient = serviceClient.GetShareClient(shareName);
-            var dirClient = shareClient.GetDirectoryClient(directoryName);
-            var result = dirClient.GetFilesAndDirectoriesAsync(prefix, cancellationToken)
+            ShareClient shareClient = _serviceClient.GetShareClient(shareName);
+            ShareDirectoryClient dirClient = shareClient.GetDirectoryClient(directoryName);
+            IAsyncEnumerable<Page<ShareFileItem>> result = dirClient.GetFilesAndDirectoriesAsync(prefix, cancellationToken)
                 .AsPages(default, null);
 
             List<string> dirNames = new();
@@ -278,9 +279,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
                     }
                 }
             }
-            logger?.LogTrace(new EventId(93080, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} directories.", directoryName, shareName, dirNames.Count);
+
+            _logger?.LogTrace(new EventId(93080, "StorageFile.ListFilesAsync"), "Directory {DirectoryName} on file share {ShareName} listed {Count} directories.", directoryName, shareName, dirNames.Count);
             return dirNames;
         }
-
     }
 }

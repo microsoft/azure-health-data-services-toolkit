@@ -41,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="options">Json cache options.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified services collection.</returns>
         public static IServiceCollection AddJsonObjectMemoryCache(this IServiceCollection services, Action<JsonCacheOptions> options)
         {
             services.AddSingleton<IJsonObjectCache, JsonObjectCache>();
@@ -49,6 +49,5 @@ namespace Microsoft.AzureHealth.DataServices.Caching
 
             return services;
         }
-
     }
 }

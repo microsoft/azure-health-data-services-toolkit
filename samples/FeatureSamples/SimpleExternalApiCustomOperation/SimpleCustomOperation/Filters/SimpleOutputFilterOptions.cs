@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace SimpleCustomOperation.Filters
 {

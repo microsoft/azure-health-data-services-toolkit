@@ -19,15 +19,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
     [TestClass]
     public class ServiceBusChannelTests
     {
-        public ServiceBusChannelTests()
-        {
-
-        }
-
+        private static readonly string LogPath = "../../servicebuslog.txt";
         private static ServiceBusConfig config;
-        private static readonly string logPath = "../../servicebuslog.txt";
         private static Microsoft.Extensions.Logging.ILogger<ServiceBusChannel> logger;
 
+        public ServiceBusChannelTests()
+        {
+        }
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -40,9 +38,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             config = new ServiceBusConfig();
             root.Bind(config);
 
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -65,19 +63,19 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         public async Task CleanupTest()
         {
             ServiceBusClient client = new(config.ServiceBusConnectionString);
-            var subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
+            ServiceBusReceiver subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
 
             while (await subscriptionReceiver.PeekMessageAsync() != null)
             {
-                var msg = await subscriptionReceiver.ReceiveMessageAsync();
+                ServiceBusReceivedMessage msg = await subscriptionReceiver.ReceiveMessageAsync();
                 await subscriptionReceiver.CompleteMessageAsync(msg);
             }
 
-            var queueReceiver = client.CreateReceiver(config.ServiceBusQueue);
+            ServiceBusReceiver queueReceiver = client.CreateReceiver(config.ServiceBusQueue);
 
             while (await queueReceiver.PeekMessageAsync() != null)
             {
-                var msg = await queueReceiver.ReceiveMessageAsync();
+                ServiceBusReceivedMessage msg = await queueReceiver.ReceiveMessageAsync();
                 await queueReceiver.CompleteMessageAsync(msg);
             }
         }
@@ -86,19 +84,19 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         public async Task InitialTest()
         {
             ServiceBusClient client = new(config.ServiceBusConnectionString);
-            var subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
+            ServiceBusReceiver subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
 
             while (await subscriptionReceiver.PeekMessageAsync() != null)
             {
-                var msg = await subscriptionReceiver.ReceiveMessageAsync();
+                ServiceBusReceivedMessage msg = await subscriptionReceiver.ReceiveMessageAsync();
                 await subscriptionReceiver.CompleteMessageAsync(msg);
             }
 
-            var queueReceiver = client.CreateReceiver(config.ServiceBusQueue);
+            ServiceBusReceiver queueReceiver = client.CreateReceiver(config.ServiceBusQueue);
 
             while (await queueReceiver.PeekMessageAsync() != null)
             {
-                var msg = await queueReceiver.ReceiveMessageAsync();
+                ServiceBusReceivedMessage msg = await queueReceiver.ReceiveMessageAsync();
                 await queueReceiver.CompleteMessageAsync(msg);
             }
         }
@@ -156,7 +154,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         {
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-
                 ConnectionString = config.ServiceBusConnectionString,
                 Sku = config.ServiceBusSku,
                 FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
@@ -209,7 +206,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             channel.Dispose();
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
-
         }
 
         [TestMethod]
@@ -264,7 +260,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         {
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-
                 ConnectionString = config.ServiceBusConnectionString,
                 Sku = config.ServiceBusSku,
                 FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
@@ -316,7 +311,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             channel.Dispose();
             Assert.IsNull(error, "Error {0}-{1}", error?.Message, error?.StackTrace);
             Assert.IsTrue(completed, "Did not detect OnReceive event.");
-
         }
 
         [TestMethod]
@@ -354,7 +348,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             await channel.ReceiveAsync();
 
             ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
-            var sender = client.CreateSender(config.ServiceBusQueue);
+            ServiceBusSender sender = client.CreateSender(config.ServiceBusQueue);
             ServiceBusMessage msg = new(message);
             msg.ContentType = contentType;
             await sender.SendMessageAsync(msg);
@@ -406,7 +400,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             await channel.ReceiveAsync();
 
             ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
-            var sender = client.CreateSender(config.ServiceBusTopic);
+            ServiceBusSender sender = client.CreateSender(config.ServiceBusTopic);
             ServiceBusMessage msg = new(message);
             msg.ContentType = contentType;
             await sender.SendMessageAsync(msg);
@@ -421,8 +415,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             channel.Dispose();
             Assert.IsTrue(completed, "Did not complete.");
         }
-
-
-
     }
 }

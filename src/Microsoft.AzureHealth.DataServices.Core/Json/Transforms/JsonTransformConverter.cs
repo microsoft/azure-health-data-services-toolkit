@@ -7,26 +7,15 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
     /// <summary>
     /// JSON.NET transform converter
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Generic type for the transform.</typeparam>
     public abstract class JsonTransformConverter<T> : JsonConverter
     {
-        /// <summary>
-        /// Creates of type of object.
-        /// </summary>
-        /// <param name="objectType">Type of object.</param>
-        /// <param name="jObject">JObject used to create the type.</param>
-        /// <returns></returns>
-        protected abstract T Create(Type objectType, JObject jObject);
-
         /// <summary>
         /// Indicates whether the object can be converter.
         /// </summary>
         /// <param name="objectType">Type of object to convert.</param>
         /// <returns>True if can be converted; otherwise false.</returns>
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(T).IsAssignableFrom(objectType);
-        }
+        public override bool CanConvert(Type objectType) => typeof(T).IsAssignableFrom(objectType);
 
         /// <summary>
         /// Read the json object.
@@ -35,7 +24,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// <param name="objectType">Type of object to read.</param>
         /// <param name="existingValue">Object to read.</param>
         /// <param name="serializer">JsonSerializer.</param>
-        /// <returns></returns>
+        /// <returns>Vague object.</returns>
         public override object ReadJson(
             JsonReader reader,
             Type objectType,
@@ -85,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// <param name="jObject">JObject to evaluate.</param>
         /// <param name="name">Name of field.</param>
         /// <param name="type">Type of JToken.</param>
-        /// <returns></returns>
+        /// <returns>Whether the field exists or not.</returns>
         protected static bool FieldExists(
             JObject jObject,
             string name,
@@ -93,6 +82,14 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         {
             return jObject.TryGetValue(name, out JToken token) && token.Type == type;
         }
+
+        /// <summary>
+        /// Creates of type of object.
+        /// </summary>
+        /// <param name="objectType">Type of object.</param>
+        /// <param name="jObject">JObject used to create the type.</param>
+        /// <returns>Generic type.</returns>
+        protected abstract T Create(Type objectType, JObject jObject);
 
         private static void SerializeAddTransform(JsonWriter writer, Transform transform)
         {
@@ -142,7 +139,5 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
 
             writer.WriteEndObject();
         }
-
-
     }
 }

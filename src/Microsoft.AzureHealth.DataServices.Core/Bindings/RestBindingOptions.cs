@@ -16,7 +16,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <summary>
         /// Gets or sets the credential used to call the server.
         /// </summary>
-        public TokenCredential? Credential { get; set; } = null;
+        public TokenCredential Credential { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the setting controlling if the caller's access token is passed through to the server.
@@ -32,6 +32,5 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// Adds the response headers from the binding to the pipeline
         /// </summary>
         public bool AddResponseHeaders { get; set; } = true;
-
     }
 }

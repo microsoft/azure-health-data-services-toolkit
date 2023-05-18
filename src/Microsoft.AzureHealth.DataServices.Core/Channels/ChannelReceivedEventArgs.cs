@@ -26,8 +26,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="name">Channel name.</param>
         /// <param name="message">Message received by the channel.</param>
         /// <param name="properties">Additional properties to be passed.</param>
-        public ChannelReceivedEventArgs(string id, string name, byte[] message,
-            IEnumerable<KeyValuePair<string, string>> properties)
+        public ChannelReceivedEventArgs(string id, string name, byte[] message, IEnumerable<KeyValuePair<string, string>> properties)
         {
             Id = id;
             Name = name;

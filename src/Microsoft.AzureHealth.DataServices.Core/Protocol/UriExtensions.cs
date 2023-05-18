@@ -12,7 +12,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// </summary>
         /// <param name="uri">URI to remove route prefix.</param>
         /// <param name="routePrefix">Route prefix to remove.</param>
-        /// <returns></returns>
+        /// <returns>Uri without prefex</returns>
         public static Uri RemoveRoutePrefix(this Uri uri, string routePrefix)
         {
             if (string.IsNullOrEmpty(routePrefix))
@@ -22,13 +22,13 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
 
             var routePrefix2 = "/" + routePrefix.Trim('/');
             Uri uri2 = new(uri.ToString());
-            var path = uri2.LocalPath.Replace(routePrefix2, "");
+            var path = uri2.LocalPath.Replace(routePrefix2, string.Empty);
             UriBuilder builder = new()
             {
                 Scheme = uri.Scheme,
                 Host = uri.Host,
                 Path = path,
-                Query = uri.Query
+                Query = uri.Query,
             };
             return new Uri(builder.ToString());
         }

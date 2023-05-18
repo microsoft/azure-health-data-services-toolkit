@@ -14,6 +14,9 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
     /// </summary>
     public class RestBinding : IBinding
     {
+        private readonly IOptions<RestBindingOptions> _options;
+        private readonly HttpClient client;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Creates an instance of RestBinding.
@@ -23,26 +26,11 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <param name="logger">Optional logger.</param>
         public RestBinding(IOptions<RestBindingOptions> options, HttpClient client, ILogger<RestBinding> logger = null)
         {
-            this.options = options;
+            _options = options;
             this.client = client;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
-
-        private readonly IOptions<RestBindingOptions> options;
-        private readonly HttpClient client;
-        private readonly ILogger logger;
-
-
-        /// <summary>
-        /// Gets the name of the binding "RestBinding".
-        /// </summary>
-        public string Name => "RestBinding";
-
-        /// <summary>
-        /// Gets a unique ID of the binding instance.
-        /// </summary>
-        public string Id { get; internal set; }
 
         /// <summary>
         /// An event that signals an error in the binding.
@@ -55,10 +43,20 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         public event EventHandler<BindingCompleteEventArgs> OnComplete;
 
         /// <summary>
+        /// Gets the name of the binding "RestBinding".
+        /// </summary>
+        public string Name => "RestBinding";
+
+        /// <summary>
+        /// Gets a unique ID of the binding instance.
+        /// </summary>
+        public string Id { get; internal set; }
+
+        /// <summary>
         /// Executes the binding.
         /// </summary>
         /// <param name="context">Operation context.</param>
-        /// <returns>Operation context.</returns>
+        /// <returns>Modified operation context by binding.</returns>
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             logger?.LogInformation("{Name}-{Id} binding received.", Name, Id);
@@ -74,26 +72,27 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
                 // Forward the token if required via configuration.
-                string? token = options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.Parameter?.ToString() : null;
+                string token = _options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.Parameter?.ToString() : null;
 
                 string contentType = context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json";
 
-                HttpRequestMessageBuilder builder = new(method: context.Request.Method,
-                                                    baseUrl: options.Value.BaseAddress,
-                                                    path: context.Request.RequestUri.LocalPath,
-                                                    query: context.Request.RequestUri.Query,
-                                                    headers: headers,
-                                                    content: context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                    securityToken: token,
-                                                    contentType: contentType);
+                HttpRequestMessageBuilder builder = new(
+                    method: context.Request.Method,
+                    baseUrl: _options.Value.BaseAddress,
+                    path: context.Request.RequestUri.LocalPath,
+                    query: context.Request.RequestUri.Query,
+                    headers: headers,
+                    content: context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                    securityToken: token,
+                    contentType: contentType);
 
                 HttpRequestMessage request = builder.Build();
-                var resp = await client.SendAsync(request);
+                HttpResponseMessage resp = await client.SendAsync(request);
 
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
 
-                if (options.Value.AddResponseHeaders)
+                if (_options.Value.AddResponseHeaders)
                 {
                     context.Headers.UpdateFromResponse(resp);
                 }
@@ -113,6 +112,5 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 return context;
             }
         }
-
     }
 }

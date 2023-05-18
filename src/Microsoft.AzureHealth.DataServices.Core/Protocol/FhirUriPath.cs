@@ -20,7 +20,8 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <param name="routePrefix">Optional route prefix.</param>
         public FhirUriPath(HttpMethod method, Uri requestUri, string routePrefix = "")
             : this(method, requestUri.ToString(), routePrefix)
-        { }
+        {
+        }
 
         /// <summary>
         /// Creates an instance of FhirPath.
@@ -59,7 +60,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the FHIR operation in the request URI.
         /// </summary>
-        public string? Operation { get; set; } = null;
+        public string Operation { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the FHIR version in the request URI.
@@ -73,7 +74,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         {
             get
             {
-                string rtn = "";
+                string rtn = string.Empty;
                 if (!string.IsNullOrEmpty(RoutePrefix))
                 {
                     rtn = $"{RoutePrefix}/";
@@ -141,16 +142,16 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Indicates whether a query string parameter is present in the request URI.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">Key for query parameter.</param>
+        /// <returns>If query parameter is in Uri.</returns>
         public bool HasQueryParameter(string key)
         {
-            if (base.Query == null)
+            if (Query is null)
             {
                 return false;
             }
 
-            NameValueCollection query = HttpUtility.ParseQueryString(base.Query);
+            NameValueCollection query = HttpUtility.ParseQueryString(Query);
             return query.AllKeys.Any(str => str.ToLowerInvariant().Contains(key.ToLowerInvariant()));
         }
 
@@ -168,12 +169,12 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         {
             Uri uri = new Uri(uriString).RemoveRoutePrefix(routePrefix);
 
-            var values = (from item in uri.Segments
-                          where (item.Length > 0 && item != "/")
-                          select item.Replace("/", ""));
+            System.Collections.Generic.IEnumerable<string> values = from item in uri.Segments
+                          where item.Length > 0 && item != "/"
+                          select item.Replace("/", string.Empty);
 
             // Handle root requests like posting bundles
-            if (!values.Any())
+            if (values is null || !values.Any())
             {
                 return;
             }
@@ -208,7 +209,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
                 return;
             }
 
-            Id = values.Count() > 1 ? values.ElementAt(1) : null;
+            Id = values.Count() <= 1 ? null : values.ElementAt(1);
 
             if (values.Count() == 2)
             {
@@ -223,6 +224,5 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
 
             Version = values.Count() > 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
         }
-
     }
 }

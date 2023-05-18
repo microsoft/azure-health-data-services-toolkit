@@ -8,14 +8,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
     [TestClass]
     public class JTokenExtensionTests
     {
-        [ClassInitialize()]
+        private static string json;
+
+        [ClassInitialize]
         public static void JTokenInit(TestContext context)
         {
             context.WriteLine("JTokenExtensions");
             json = File.ReadAllTextAsync("../../../Assets/BundleRequest.json").GetAwaiter().GetResult();
         }
-
-        private static string json;
 
         [TestMethod]
         public void JToken_IsMatch_True_Test()
@@ -88,7 +88,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
             Assert.IsNotNull(array, "array must not be null.");
             Assert.IsTrue(array.Count > 0, "array must have members.");
         }
-
 
         [TestMethod]
         public void JToken_IsArray_True_Test()

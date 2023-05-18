@@ -8,22 +8,23 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeFilterWithError : IFilter
     {
+        private readonly bool _fatal;
+        private readonly Exception _error;
+        private readonly HttpStatusCode _code;
+        private readonly string _body;
+
         public FakeFilterWithError(string name, bool fatal, Exception error, HttpStatusCode code, string body)
         {
             Name = name;
-            this.fatal = fatal;
-            this.error = error;
-            this.code = code;
-            this.body = body;
+            _fatal = fatal;
+            _error = error;
+            _code = code;
+            _body = body;
             Id = Guid.NewGuid().ToString();
         }
 
-        private readonly bool fatal;
-        private readonly Exception error;
-        private readonly HttpStatusCode code;
-        private readonly string body;
-
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
         public string Id { get; private set; }
 
         public string Name { get; private set; }
@@ -32,7 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, fatal, error, code, body));
+            OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, _fatal, _error, _code, _body));
             return await Task.FromResult<OperationContext>(context);
         }
     }

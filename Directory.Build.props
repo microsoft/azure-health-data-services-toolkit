@@ -32,7 +32,7 @@
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>
@@ -40,11 +40,5 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json" Link="stylecop.json" />
   </ItemGroup>
-
-    <ItemGroup>
-    <None Include=".editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
 </Project>

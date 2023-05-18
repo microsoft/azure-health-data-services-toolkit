@@ -4,7 +4,6 @@ using Microsoft.Azure.Functions.Worker;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
-
     public class FakeFunctionContext : FunctionContext, IDisposable
     {
         private readonly FunctionInvocation invocation;
@@ -14,19 +13,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
         {
         }
 
-        public override RetryContext RetryContext => throw new NotImplementedException();
         public FakeFunctionContext(FunctionDefinition functionDefinition, FunctionInvocation invocation)
         {
             FunctionDefinition = functionDefinition;
             this.invocation = invocation;
-
-            //Features.Set<IFunctionBindingsFeature>(new TestFunctionBindingsFeature
-            //{
-            //    OutputBindingsInfo = new DefaultOutputBindingsInfoProvider().GetBindingsInfo(FunctionDefinition)
-            //});
-
-            //BindingContext = new DefaultBindingContext(this);
         }
+
+        public override RetryContext RetryContext => throw new NotImplementedException();
 
         public bool IsDisposed { get; private set; }
 

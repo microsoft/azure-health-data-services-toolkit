@@ -19,6 +19,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             Name = name;
             Error = error;
         }
+
         /// <summary>
         /// Gets the name of the binding.
         /// </summary>

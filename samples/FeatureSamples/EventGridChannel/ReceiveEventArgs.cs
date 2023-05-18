@@ -1,5 +1,4 @@
 ﻿using Azure.Messaging.EventGrid;
-using Azure.Storage.Queues.Models;
 
 namespace EventGridChannelSample
 {

@@ -15,12 +15,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
     [TestClass]
     public class QueueStorageTests
     {
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string LogPath = "../../storagetablelog.txt";
         private static Random random;
         private static StorageQueue storage;
         private static ConcurrentQueue<string> containers;
         private static string preExistingQueue;
-        private static readonly string logPath = "../../storagetablelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]
@@ -30,13 +30,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<QueueStorageTests>(true);
             builder.AddEnvironmentVariables("PROXY_");
-            var root = builder.Build();
+            IConfigurationRoot root = builder.Build();
             string connectionString = root["StorageConnectionString"];
             random = new();
             containers = new();
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -53,7 +53,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             factory.Dispose();
             storage = new(connectionString, logger);
 
-
             preExistingQueue = GetRandomName();
             _ = storage.CreateQueueIfNotExistsAsync(preExistingQueue).GetAwaiter().GetResult();
             containers.Enqueue(preExistingQueue);
@@ -67,11 +66,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
                 if (containers.TryDequeue(out string container))
                 {
                     await storage.DeleteQueueIfExistsAsync(container);
-                    //List<string> list = await storage.ListQueuesAync();
-                    //foreach (var item in list)
-                    //{
-                    //    await storage.DeleteQueueIfExistsAsync(item);
-                    //}
                 }
             }
         }
@@ -182,7 +176,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             _ = await storage.CreateQueueIfNotExistsAsync(queueName);
             string msg = "hi";
             _ = await storage.EnqueueAsync(queueName, msg, null, null);
-            var qmsg = await storage.PeekMessageAsync(queueName);
+            PeekedMessage qmsg = await storage.PeekMessageAsync(queueName);
             Assert.AreEqual(msg, qmsg.Body.ToString(), "Message mismatch.");
         }
 
@@ -196,7 +190,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string msg2 = "hi-2";
             _ = await storage.EnqueueAsync(queueName, msg1, null, null);
             _ = await storage.EnqueueAsync(queueName, msg2, null, null);
-            var messages = await storage.PeekMessagesAsync(queueName, 2);
+            PeekedMessage[] messages = await storage.PeekMessagesAsync(queueName, 2);
             Assert.AreEqual(msg1, messages[0].Body.ToString(), "Message 1 mismatch.");
             Assert.AreEqual(msg2, messages[1].Body.ToString(), "Message 2 mismatch.");
         }
@@ -212,7 +206,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             _ = await storage.EnqueueAsync(queueName, msg1, null, null);
             _ = await storage.EnqueueAsync(queueName, msg2, null, null);
             await storage.ClearMessagesAsync(queueName);
-            var messages = await storage.PeekMessagesAsync(queueName, 10);
+            PeekedMessage[] messages = await storage.PeekMessagesAsync(queueName, 10);
             Assert.IsTrue(messages.Length == 0, "Expected 0 messages.");
         }
 
@@ -222,7 +216,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 

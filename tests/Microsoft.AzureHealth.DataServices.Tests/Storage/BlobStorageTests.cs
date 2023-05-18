@@ -16,9 +16,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
     [TestClass]
     public class BlobStorageTests
     {
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static ConcurrentQueue<string> cleanupContainers;
         private static StorageBlob storage;
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
         private static BlobStorageConfig config;
 
@@ -38,6 +38,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             Console.WriteLine(context.TestName);
         }
 
+        [ClassCleanup]
+        public static void CleanupTestSuite()
+        {
+            if (cleanupContainers.TryDequeue(out string container))
+            {
+                storage.DeleteContainerIfExistsAsync(container).GetAwaiter();
+            }
+        }
+
         [TestCleanup]
         public async Task CleanupTest()
         {
@@ -50,22 +59,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             }
         }
 
-        [ClassCleanup]
-        public static void CleanupTestSuite()
-        {
-            if (cleanupContainers.TryDequeue(out string container))
-            {
-                storage.DeleteContainerIfExistsAsync(container).GetAwaiter();
-            }
-        }
-
         [TestMethod]
         public async Task CreateContainerIfNotExistsTest_Test()
         {
             int expectedStatus = 201;
             string container = GetRandomName();
             cleanupContainers.Enqueue(container);
-            var response = await storage.CreateContainerIfNotExistsAsync(container);
+            global::Azure.Response<BlobContainerInfo> response = await storage.CreateContainerIfNotExistsAsync(container);
             var actualStatus = response.GetRawResponse().Status;
             Assert.AreEqual(expectedStatus, actualStatus, "Status mismatch.");
         }
@@ -98,15 +98,15 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             _ = await storage.CreateContainerIfNotExistsAsync(container1);
             _ = await storage.CreateContainerIfNotExistsAsync(container2);
 
-            var result = storage.ListContainers();
-            var en = result.GetAsyncEnumerator();
+            global::Azure.AsyncPageable<BlobContainerItem> result = storage.ListContainers();
+            IAsyncEnumerator<BlobContainerItem> en = result.GetAsyncEnumerator();
             List<string> list = new();
             while (await en.MoveNextAsync())
             {
                 list.Add(en.Current.Name);
             }
 
-            //note: some containers may not yet be deleted, but can be listed.
+            // note: some containers may not yet be deleted, but can be listed.
             Assert.IsTrue(list.Count >= 2, "Invalid number in list.");
             Assert.IsTrue(list.Contains(container1), "Container not found.");
             Assert.IsTrue(list.Contains(container2), "Container not found.");
@@ -142,7 +142,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             await storage.WriteBlockBlobAsync(container, blob, contentType, content);
 
-            var result = await storage.DownloadBlockBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadBlockBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
@@ -159,14 +159,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
             {
-                {propertyName, value }
+                { propertyName, value },
             };
             _ = await storage.CreateContainerIfNotExistsAsync(container);
             string contentString = "hi";
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             await storage.WriteBlockBlobAsync(container, blob, contentType, content, null, metadata);
 
-            var properties = await storage.GetBlobPropertiesAsync(container, blob);
+            BlobProperties properties = await storage.GetBlobPropertiesAsync(container, blob);
             Assert.AreEqual(value, properties.Metadata[propertyName], "Mismatched metadata.");
         }
 
@@ -183,7 +183,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             var stream = new MemoryStream(contentArray);
             await storage.WriteBlockBlobAsync(container, blob, contentType, stream);
 
-            var result = await storage.DownloadBlockBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadBlockBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
@@ -201,7 +201,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             byte[] content = Encoding.UTF8.GetBytes(contentString);
             await storage.WriteAppendBlobAsync(container, blob, contentType, content);
 
-            var result = await storage.DownloadAppendBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
@@ -224,7 +224,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             await storage.WriteAppendBlobAsync(container, blob, contentType, content1);
             await storage.WriteAppendBlobAsync(container, blob, contentType, content2);
 
-            var result = await storage.DownloadAppendBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
@@ -246,13 +246,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
             {
-                {propertyName, value }
+                { propertyName, value },
             };
 
             await storage.WriteAppendBlobAsync(container, blob, contentType, content1, null, null, metadata);
             await storage.WriteAppendBlobAsync(container, blob, contentType, content2);
 
-            var properties = await storage.GetBlobPropertiesAsync(container, blob);
+            BlobProperties properties = await storage.GetBlobPropertiesAsync(container, blob);
             Assert.AreEqual(value, properties.Metadata[propertyName], "Metadata mismatch.");
         }
 
@@ -269,7 +269,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             var stream = new MemoryStream(content);
             await storage.WriteAppendBlobAsync(container, blob, contentType, stream);
 
-            var result = await storage.DownloadAppendBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
@@ -293,12 +293,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             await storage.WriteAppendBlobAsync(container, blob, contentType, stream1);
             await storage.WriteAppendBlobAsync(container, blob, contentType, stream2);
 
-            var result = await storage.DownloadAppendBlobAsync(container, blob);
+            BlobDownloadResult result = await storage.DownloadAppendBlobAsync(container, blob);
             string actualString = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
             Assert.AreEqual(contentType, result.Details.ContentType, "Content type mismatch.");
         }
-
 
         [TestMethod]
         public async Task ReadBlockBlob_Test()
@@ -315,7 +314,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             BlobOpenReadOptions options = new(false)
             {
                 BufferSize = content.Length,
-                Position = 0
+                Position = 0,
             };
 
             byte[] actual = await storage.ReadBlockBlobAsync(container, blob, options);
@@ -343,7 +342,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             BlobOpenReadOptions options = new(false)
             {
                 BufferSize = 100,
-                Position = 0
+                Position = 0,
             };
 
             byte[] actual = await storage.ReadAppendBlobAsync(container, blob, options);
@@ -351,21 +350,17 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             Assert.AreEqual(contentString, actualString, "Content mismatch.");
         }
 
-
         private static string GetRandomName()
         {
             StringBuilder builder = new();
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 
             return builder.ToString();
         }
-
-
-
     }
 }

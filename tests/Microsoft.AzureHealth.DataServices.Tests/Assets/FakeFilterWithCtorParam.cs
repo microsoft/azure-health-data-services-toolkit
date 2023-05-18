@@ -14,6 +14,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
         }
 
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
         public string Id { get; private set; }
 
         public string Name { get; private set; }

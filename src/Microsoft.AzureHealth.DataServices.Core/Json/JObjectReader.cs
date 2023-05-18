@@ -14,13 +14,10 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <param name="root">The root of the JSON object.</param>
         protected JObjectReader(JObject root)
         {
-            this.root = root;
+            Root = root;
         }
 
-        /// <summary>
-        /// JSON object root.
-        /// </summary>
-        protected JObject root;
+        protected JObject Root { get; set; }
 
         /// <summary>
         /// Gets an enumerator.

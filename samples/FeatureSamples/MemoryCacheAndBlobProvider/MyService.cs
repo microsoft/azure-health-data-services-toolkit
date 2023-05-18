@@ -1,18 +1,19 @@
-﻿using Microsoft.AzureHealth.DataServices.Caching;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AzureHealth.DataServices.Caching;
 
 namespace MemoryCacheAndBlobProvider
 {
     public class MyService : IMyService
     {
+        private readonly IJsonObjectCache cache;
+
         public MyService(IJsonObjectCache cache)
         {
             this.cache = cache;
         }
 
-        private readonly IJsonObjectCache cache;
-
-        public async Task<T> GetAsync<T>(string key) where T : class
+        public async Task<T> GetAsync<T>(string key)
+            where T : class
         {
             return await cache.GetAsync<T>(key);
         }
@@ -21,6 +22,5 @@ namespace MemoryCacheAndBlobProvider
         {
             await cache.AddAsync(key, item);
         }
-
     }
 }

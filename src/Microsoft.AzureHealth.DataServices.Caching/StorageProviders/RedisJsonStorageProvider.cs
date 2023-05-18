@@ -11,6 +11,9 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
     /// </summary>
     public class RedisJsonStorageProvider : ICacheBackingStoreProvider
     {
+        private readonly IHost host;
+        private readonly IDistributedCache redis;
+
         /// <summary>
         /// Creates an instance of RedisJsonStorageProvider.
         /// </summary>
@@ -28,9 +31,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             redis = host.Services.GetRequiredService<IDistributedCache>();
         }
 
-        private readonly IHost host;
-        private readonly IDistributedCache redis;
-
         /// <summary>
         /// Adds an object to the cache.
         /// </summary>
@@ -43,7 +43,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             string json = JsonConvert.SerializeObject(value);
             await redis.SetStringAsync(key, json);
         }
-
 
         /// <summary>
         /// Adds a item to the cache.
@@ -67,9 +66,13 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         {
             string json = await redis.GetStringAsync(key);
             if (json == null)
+            {
                 return default;
+            }
             else
+            {
                 return JsonConvert.DeserializeObject<T>(json);
+            }
         }
 
         /// <summary>
@@ -92,6 +95,5 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             await redis.RemoveAsync(key);
             return true;
         }
-
     }
 }

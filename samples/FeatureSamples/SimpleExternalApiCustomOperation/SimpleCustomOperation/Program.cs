@@ -3,37 +3,42 @@ using Microsoft.AzureHealth.DataServices.Configuration;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using SimpleCustomOperation.Filters;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.UseWebPipeline();
-builder.Services.AddInputFilter<SimpleInputFilterOptions>(typeof(SimpleInputFilter), options =>
+#pragma warning disable CA1852
+internal class Program
 {
-    options.BaseUrl = new Uri("http://localhost:7777");
-    options.HttpMethod = HttpMethod.Post;
-    options.Path = "simple";
-    options.ExecutionStatus = StatusType.Any;
-});
+    private static void Main(string[] args)
+    {
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBinding<RestBinding, RestBindingOptions>(options =>
-{
-    options.BaseAddress = new Uri("http://localhost:7777");
-});
+        // Add services to the container.
+        builder.Services.UseWebPipeline();
+        builder.Services.AddInputFilter<SimpleInputFilterOptions>(typeof(SimpleInputFilter), options =>
+        {
+            options.BaseUrl = new Uri("http://localhost:7777");
+            options.HttpMethod = HttpMethod.Post;
+            options.Path = "simple";
+            options.ExecutionStatus = StatusType.Any;
+        });
 
-builder.Services.AddOutputFilter<SimpleOutputFilterOptions>(typeof(SimpleOutputFilter), options =>
-{
-    options.ExecutionStatus = StatusType.Normal;
-});
+        builder.Services.AddBinding<RestBinding, RestBindingOptions>(options =>
+        {
+            options.BaseAddress = new Uri("http://localhost:7777");
+        });
 
+        builder.Services.AddOutputFilter<SimpleOutputFilterOptions>(typeof(SimpleOutputFilter), options =>
+        {
+            options.ExecutionStatus = StatusType.Normal;
+        });
 
-builder.Services.AddControllers();
+        builder.Services.AddControllers();
 
-var app = builder.Build();
+        WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
+        // Configure the HTTP request pipeline.
+        app.UseAuthorization();
 
-app.UseAuthorization();
+        app.MapControllers();
 
-app.MapControllers();
-
-app.Run("http://localhost:7776");
+        app.Run("http://localhost:7776");
+    }
+}

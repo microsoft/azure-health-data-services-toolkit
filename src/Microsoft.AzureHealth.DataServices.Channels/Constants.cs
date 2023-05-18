@@ -29,6 +29,5 @@
         /// Maximum message for EVent Hub message when not a Basic SKU.
         /// </summary>
         public const int EventHubNonBasicSkuMaxMessageLength = 0xF4240;
-
     }
 }

@@ -28,12 +28,12 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// Executes the add transform.
         /// </summary>
         /// <param name="json">Json document which to add the node based on the Json path.</param>
-        /// <returns></returns>
+        /// <returns>JObject with transform applied.</returns>
         public override JObject Execute(string json)
         {
             JToken appendNode = JToken.Parse(AppendNode);
             JObject jobj = JObject.Parse(json);
-            JToken? token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
+            JToken token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
 
             if (token.IsNullOrEmpty())
             {
@@ -46,7 +46,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
             }
             else
             {
-                foreach (var childProp in appendNode.Children())
+                foreach (JToken childProp in appendNode.Children())
                 {
                     if (childProp is JProperty prop)
                     {

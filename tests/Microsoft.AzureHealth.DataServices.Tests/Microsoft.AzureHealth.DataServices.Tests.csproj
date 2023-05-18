@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
     <UserSecretsId>d481917b-f435-474b-8abb-bd1fd96e61c3</UserSecretsId>
   </PropertyGroup>

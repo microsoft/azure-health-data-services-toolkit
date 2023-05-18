@@ -1,16 +1,16 @@
-﻿using Microsoft.AzureHealth.DataServices.Clients.Headers;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 
 namespace CustomHeadersSample
 {
     public class MyService : IMyService
     {
+        private readonly IHttpCustomHeaderCollection customHeaders;
+
         public MyService(IHttpCustomHeaderCollection customHeaders)
         {
             this.customHeaders = customHeaders;
         }
-
-        private readonly IHttpCustomHeaderCollection customHeaders;
 
         public NameValueCollection GetCustomHeaders(HttpRequestMessage message)
         {

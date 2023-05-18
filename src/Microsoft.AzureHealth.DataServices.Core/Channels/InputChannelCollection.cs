@@ -8,6 +8,8 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     /// </summary>
     public class InputChannelCollection : IInputChannelCollection
     {
+        private readonly List<IChannel> channels;
+
         /// <summary>
         /// Creates an instance of InputChannelCollection.
         /// </summary>
@@ -16,8 +18,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         {
             channels = inputChannels != null ? new List<IChannel>(inputChannels) : new List<IChannel>();
         }
-
-        private readonly List<IChannel> channels;
 
         /// <summary>
         /// Gets the count of channels in the collection.

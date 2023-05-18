@@ -22,7 +22,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public EventHubChannelException(string message)
             : base(message)
         {
-
         }
 
         /// <summary>
@@ -33,7 +32,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public EventHubChannelException(string message, Exception innerException)
             : base(message, innerException)
         {
-
         }
 
         /// <summary>
@@ -44,7 +42,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         protected EventHubChannelException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-
         }
     }
 }

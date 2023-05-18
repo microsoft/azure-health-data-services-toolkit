@@ -68,7 +68,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             {
                 var properties = new Dictionary<string, object>
                 {
-                    {"FakePropertyKey", "FakePropertyValue" }
+                    { "FakePropertyKey", "FakePropertyValue" },
                 };
 
                 parameters.Add(new FunctionParameter($"Parameter{i}", paramTypes[i], properties.ToImmutableDictionary()));

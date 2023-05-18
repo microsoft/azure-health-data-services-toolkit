@@ -3,14 +3,12 @@ using Newtonsoft.Json;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
 {
-
     [Serializable]
     [JsonObject]
     public class StorageProviderConfig
     {
         public StorageProviderConfig()
         {
-
         }
 
         public StorageProviderConfig(double expiry, string connectionString)
@@ -26,6 +24,3 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         public double CacheExpirationMilliseconds { get; set; }
     }
 }
-
-
-
