@@ -216,7 +216,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             }
 
             // Handle resource instance level operations
-           if (values.ElementAt(2).StartsWith('$'))
+            if (values.ElementAt(2).StartsWith('$'))
             {
                 Operation = values.ElementAt(2);
             }
