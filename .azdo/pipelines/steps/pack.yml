@@ -19,7 +19,7 @@ steps:
         find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file with version $VERSION / $ASS_VERSION / $FILE_VERSION"
-            dotnet pack "$file" --output "$PACKAGE_OUTPUT" -f $(defaultBuildFramework) /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$FILE_VERSION" /p:PackageReleaseNotes="$NOTES"
+            dotnet pack "$file" --output "$PACKAGE_OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$FILE_VERSION" /p:PackageReleaseNotes="$NOTES"
         done
     env:
       VERSION: ${{ parameters.Version }}
