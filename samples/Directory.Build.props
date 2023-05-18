@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<SdkVersion>local</SdkVersion>
-	</PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props" />
+
+  <PropertyGroup>
+	<SdkVersion>local</SdkVersion>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="$(MSBuildProjectName.Contains('Test'))">
+      <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/../test/CustomAnalysisRules.Test.ruleset</CodeAnalysisRuleSet>
+      </PropertyGroup>
+      <ItemGroup>
+        <PackageReference Include="coverlet.collector" Version="3.1.2" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <IsPackable>true</IsPackable>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/../src/CustomAnalysisRules.ruleset</CodeAnalysisRuleSet>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
 </Project>
