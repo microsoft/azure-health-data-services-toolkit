@@ -5,12 +5,6 @@
     <UserSecretsId>72d506a0-2925-4986-b233-9f305433d4de</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-  </ItemGroup>
-
   <!-- Default to version 1.0.0 if SdkVersion is not set -->
   <ItemGroup Condition="'$(SdkVersion)' == ''" >
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />

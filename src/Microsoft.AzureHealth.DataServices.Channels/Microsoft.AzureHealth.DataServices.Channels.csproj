@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.11.0" />
-    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.7.2" />
-    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.7.2" />
-    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.10.0" />
+    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.16.0" />
+    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.9.1" />
+    <PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.9.1" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.14.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,15 +7,10 @@
     <UserSecretsId>d3307977-6b7f-4658-8a33-1185ac439e5a</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels.Extensions" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
-  </ItemGroup>
-
-  <!-- Default to version 1.0.0 if SdkVersion is not set -->
+  <!-- Default to version 1.0.1 if SdkVersion is not set -->
   <ItemGroup Condition="'$(SdkVersion)' == ''" >
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels" Version="1.0.1" />
   </ItemGroup>
 
   <!-- Default to referencing the project in this repo if local  -->
