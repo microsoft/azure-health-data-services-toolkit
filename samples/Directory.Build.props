@@ -3,13 +3,13 @@
   <Import Project="$(MSBuildThisFileDirectory)/../src/Directory.Build.props" />
 
   <PropertyGroup>
-	<SdkVersion>local</SdkVersion>
+	  <SdkVersion>local</SdkVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <Choose>
     <When Condition="$(MSBuildProjectName.Contains('Test'))">
       <PropertyGroup>
-        <IsPackable>false</IsPackable>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/../tests/CustomAnalysisRules.Test.ruleset</CodeAnalysisRuleSet>
       </PropertyGroup>
       <ItemGroup>
@@ -20,7 +20,6 @@
       <PropertyGroup>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-        <IsPackable>true</IsPackable>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/../src/CustomAnalysisRules.ruleset</CodeAnalysisRuleSet>
       </PropertyGroup>
     </Otherwise>

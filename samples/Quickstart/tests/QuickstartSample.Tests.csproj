@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<IsPackable>false</IsPackable>
 		<UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
 	</PropertyGroup>
 

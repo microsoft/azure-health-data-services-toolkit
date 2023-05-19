@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props" />
   
   <PropertyGroup>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/CustomAnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 

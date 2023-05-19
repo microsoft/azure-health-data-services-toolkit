@@ -21,7 +21,6 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <HighEntropyVA>true</HighEntropyVA>
     <LangVersion>latest</LangVersion>
-    <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
