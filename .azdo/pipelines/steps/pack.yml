@@ -16,6 +16,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        mkdir -p $PACKAGE_OUTPUT
         find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
             echo "Packing $file with version $VERSION / $ASS_VERSION / $FILE_VERSION to path $PACKAGE_OUTPUT"
