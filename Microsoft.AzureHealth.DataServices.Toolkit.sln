@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1446E87B-70C4-4A68-8078-67AFF37B56FB}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CustomAnalysisRules.ruleset = CustomAnalysisRules.ruleset
+		CustomAnalysisRules.Test.ruleset = CustomAnalysisRules.Test.ruleset
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AzureHealth.DataServices.Core", "src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj", "{0CE88EC8-2EC8-46C7-B313-68BE2ACE6B81}"
@@ -23,8 +27,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{90B392B4-BC7D-4221-BCD0-FF6FF04EAB56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "z_samples", "z_samples", "{C28090B7-2D76-46A9-AFF1-6F8CAB453A37}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticatorSample", "samples\FeatureSamples\Authenticator\AuthenticatorSample.csproj", "{C9A997BE-A480-479A-B32B-E9407072EF83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobChannelSample", "samples\FeatureSamples\BlobChannel\BlobChannelSample.csproj", "{F034AA50-BB9C-43AA-91D7-9DBC16E917B6}"
 EndProject
@@ -84,10 +86,6 @@ Global
 		{529399A1-8363-4498-8770-0B053ADC9B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{529399A1-8363-4498-8770-0B053ADC9B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{529399A1-8363-4498-8770-0B053ADC9B80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9A997BE-A480-479A-B32B-E9407072EF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9A997BE-A480-479A-B32B-E9407072EF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9A997BE-A480-479A-B32B-E9407072EF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9A997BE-A480-479A-B32B-E9407072EF83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F034AA50-BB9C-43AA-91D7-9DBC16E917B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F034AA50-BB9C-43AA-91D7-9DBC16E917B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F034AA50-BB9C-43AA-91D7-9DBC16E917B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -150,7 +148,6 @@ Global
 		{870E4E6B-ACF8-4804-8C31-ABA81DF3FB92} = {55081F1E-460D-4D6F-92CA-EB8A0C7CD33C}
 		{2397561E-A1A6-4946-9C09-ABBA688643FE} = {55081F1E-460D-4D6F-92CA-EB8A0C7CD33C}
 		{529399A1-8363-4498-8770-0B053ADC9B80} = {90B392B4-BC7D-4221-BCD0-FF6FF04EAB56}
-		{C9A997BE-A480-479A-B32B-E9407072EF83} = {8BE57ED6-C768-4D79-92F0-7F40198FC9B6}
 		{F034AA50-BB9C-43AA-91D7-9DBC16E917B6} = {8BE57ED6-C768-4D79-92F0-7F40198FC9B6}
 		{E0AA886C-98B3-4532-BB93-75E8F0D99DC0} = {8BE57ED6-C768-4D79-92F0-7F40198FC9B6}
 		{13DBE5D6-625E-4635-BF30-820AFD3CD64F} = {8BE57ED6-C768-4D79-92F0-7F40198FC9B6}

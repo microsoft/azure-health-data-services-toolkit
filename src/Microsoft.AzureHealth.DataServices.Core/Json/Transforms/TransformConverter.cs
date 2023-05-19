@@ -12,8 +12,8 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// Creates a concrete transform and returns as abstract transform type.
         /// </summary>
         /// <param name="objectType">Transform object type.</param>
-        /// <param name="jObject">Transform object.</param>
-        /// <returns></returns>
+        /// <param name="jObject">Transform json object.</param>
+        /// <returns>Concrete transform object.</returns>
         protected override Transform Create(Type objectType, JObject jObject)
         {
             if (FieldExists(jObject, "name", JTokenType.String))

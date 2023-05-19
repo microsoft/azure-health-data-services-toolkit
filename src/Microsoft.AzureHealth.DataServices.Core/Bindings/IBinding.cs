@@ -10,16 +10,6 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
     public interface IBinding
     {
         /// <summary>
-        /// Gets the name of the binding.
-        /// </summary>
-        public abstract string Name { get; }
-
-        /// <summary>
-        /// Gets the unique id on the binding instance.
-        /// </summary>
-        string Id { get; }
-
-        /// <summary>
         /// An event that signals an error in the binding.
         /// </summary>
         event EventHandler<BindingErrorEventArgs> OnError;
@@ -30,10 +20,20 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         event EventHandler<BindingCompleteEventArgs> OnComplete;
 
         /// <summary>
+        /// Gets the name of the binding.
+        /// </summary>
+        public abstract string Name { get; }
+
+        /// <summary>
+        /// Gets the unique id on the binding instance.
+        /// </summary>
+        string Id { get; }
+
+        /// <summary>
         /// Executes binding.
         /// </summary>
         /// <param name="context">Operation context.</param>
-        /// <returns>Operation context.</returns>
+        /// <returns>Modified operation context.</returns>
         Task<OperationContext> ExecuteAsync(OperationContext context);
     }
 }

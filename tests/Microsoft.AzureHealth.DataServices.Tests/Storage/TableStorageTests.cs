@@ -4,26 +4,25 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using AzureCore = Azure;
 using Azure.Data.Tables;
-using Azure.Data.Tables.Models;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using AzureCore = Azure;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Storage
 {
     [TestClass]
     public class TableStorageTests
     {
+        private static readonly string LogPath = "../../storagetablelog.txt";
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static StorageTable storage;
-        private static readonly string logPath = "../../storagetablelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
         private static ConcurrentQueue<string> queue;
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
 
         [ClassInitialize]
@@ -40,9 +39,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
 
             queue = new ConcurrentQueue<string>();
 
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -60,12 +59,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             storage = new(connectionString, logger);
         }
 
-        [TestInitialize()]
-        public void Initialize()
+        [TestInitialize]
+        public static void Initialize()
         {
-            var result = storage.ListTables();
+            List<AzureCore.Data.Tables.Models.TableItem> result = storage.ListTables();
 
-            foreach (var item in result)
+            foreach (AzureCore.Data.Tables.Models.TableItem item in result)
             {
                 storage.DeleteTableIfExistsAsync(item.Name).GetAwaiter();
             }
@@ -74,8 +73,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
         [ClassCleanup]
         public static async Task CleanupTestSuite()
         {
-            var result = storage.ListTables();
-            foreach (var item in result)
+            List<AzureCore.Data.Tables.Models.TableItem> result = storage.ListTables();
+            foreach (AzureCore.Data.Tables.Models.TableItem item in result)
             {
                 await storage.DeleteTableIfExistsAsync(item.Name);
             }
@@ -110,7 +109,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string partitionKey = "somePartition";
             string rowKey = "1";
             var entity = new TableEntity(partitionKey, rowKey);
-            var response = await storage.UpsertEntityAsync(tableName, entity);
+            AzureCore.Response response = await storage.UpsertEntityAsync(tableName, entity);
             Assert.IsTrue(response.Status == 204, $"Invalid status code {response.Status}.");
         }
 
@@ -123,9 +122,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             queue.Enqueue(tableName2);
             _ = await storage.CreateTableIsNotExistsAsync($"test{tableName1}");
             _ = await storage.CreateTableIsNotExistsAsync($"test{tableName2}");
-            var result = storage.ListTables();
+            List<AzureCore.Data.Tables.Models.TableItem> result = storage.ListTables();
             List<string> names = new List<string>();
-            foreach (var item in result)
+            foreach (AzureCore.Data.Tables.Models.TableItem item in result)
             {
                 names.Add(item.Name);
             }
@@ -133,7 +132,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             Assert.IsTrue(names.Contains($"test{tableName1}"), $"Table name test{tableName1} not found.");
             Assert.IsTrue(names.Contains($"test{tableName2}"), $"Table name test{tableName2} not found.");
         }
-
 
         [TestMethod]
         public async Task Table_QueryTable_WithQueryTest()
@@ -146,7 +144,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             MyEntity entity = new(partitionKey, rowKey, "FirstName", "LastName");
             _ = await storage.UpsertEntityAsync(tableName, entity);
 
-            var result = storage.QueryTable<MyEntity>(tableName, $"PartitionKey eq '{partitionKey}'");
+            List<MyEntity> result = storage.QueryTable<MyEntity>(tableName, $"PartitionKey eq '{partitionKey}'");
             Assert.IsTrue(result.Count == 1, "Unexpected number of entities.");
             Assert.AreEqual(result[0].PartitionKey, partitionKey, "PartitionKey mismatch.");
         }
@@ -163,7 +161,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             _ = await storage.AddEntityAsync(tableName, entity);
 
             string filter = $"PartitionKey eq '{partitionKey}'";
-            var result = storage.QueryTable<MyEntity>(tableName, filter);
+            List<MyEntity> result = storage.QueryTable<MyEntity>(tableName, filter);
 
             Assert.IsTrue(result.Count == 1, "Unexpected number of entities.");
             Assert.AreEqual(result[0].PartitionKey, partitionKey, "PartitionKey mismatch.");
@@ -183,7 +181,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             Assert.IsTrue(result.Status == 204);
         }
 
-
         [TestMethod]
         public async Task Table_UpsertEntityAsync()
         {
@@ -193,7 +190,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string partitionKey = "somePartition";
             string rowKey = "1";
             var entity = new TableEntity(partitionKey, rowKey);
-            var response = await storage.UpsertEntityAsync(tableName, entity);
+            AzureCore.Response response = await storage.UpsertEntityAsync(tableName, entity);
             Assert.IsTrue(response.Status == 204, "entity not inserted or updated.");
         }
 
@@ -205,7 +202,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             _ = await storage.CreateTableIsNotExistsAsync(tableName);
             var entity = new MyEntity("key1", "mid1", "John", "Smith");
             _ = await storage.UpsertEntityAsync(tableName, entity);
-            //_ = await storage.InsertOrMergeEntityAsync(tableName, entity);
+
+            // _ = await storage.InsertOrMergeEntityAsync(tableName, entity);
             entity.LastName = "Smith2";
             entity.ETag = new AzureCore.ETag("*");
             AzureCore.Response result2 = await storage.UpsertEntityAsync(tableName, entity);
@@ -222,7 +220,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string rowKey = "1";
             var entity = new TableEntity(partitionKey, rowKey)
             {
-                ETag = new AzureCore.ETag("*")
+                ETag = new AzureCore.ETag("*"),
             };
             _ = await storage.UpsertEntityAsync(tableName, entity);
             AzureCore.Response result = await storage.DeleteEntityAsync(tableName, entity);
@@ -248,7 +246,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 

@@ -8,17 +8,22 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeFilterWithContent : IFilter
     {
+        private string id;
+
         public FakeFilterWithContent()
         {
             Id = Guid.NewGuid().ToString();
         }
 
-        private string id;
-
         public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
         public string Id
         {
-            get { return id; }
+            get
+            {
+                return id;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -31,7 +36,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
                 }
             }
         }
-
 
         public string Name => "FakeFilterWithContent";
 

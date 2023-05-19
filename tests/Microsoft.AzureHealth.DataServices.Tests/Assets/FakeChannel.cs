@@ -7,18 +7,32 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeChannel : IInputChannel, IOutputChannel
     {
+        private string id;
+        private ChannelState state;
+        private bool disposed;
+
         public FakeChannel()
         {
             Id = Guid.NewGuid().ToString();
         }
 
-        private string id;
-        private ChannelState state;
-        private bool disposed;
+        public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         public string Id
         {
-            get { return id; }
+            get
+            {
+                return id;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -55,12 +69,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             }
         }
 
-        public event EventHandler<ChannelCloseEventArgs> OnClose;
-        public event EventHandler<ChannelErrorEventArgs> OnError;
-        public event EventHandler<ChannelOpenEventArgs> OnOpen;
-        public event EventHandler<ChannelReceivedEventArgs> OnReceive;
-        public event EventHandler<ChannelStateEventArgs> OnStateChange;
-
         public async Task AddMessageAsync(byte[] message)
         {
             OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, message));
@@ -73,7 +81,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
             await Task.CompletedTask;
         }
-
 
         public async Task OpenAsync()
         {
@@ -92,7 +99,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
         {
             await Task.CompletedTask;
         }
-
 
         public void Dispose()
         {

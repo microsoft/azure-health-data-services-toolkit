@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Consumer;
+using Azure.Messaging.EventHubs.Producer;
 using Azure.Storage.Blobs;
 using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
@@ -12,8 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Azure.Messaging.EventHubs.Producer;
-using Microsoft.Azure.Amqp.Framing;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Channels
 {
@@ -38,7 +37,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         [TestInitialize]
         public async Task InitialTest()
         {
-            //update the checkpoint
+            // update the checkpoint
             string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
             var storageClient = new BlobContainerClient(config.EventHubBlobConnectionString, config.EventHubBlobContainer);
             var processor = new EventProcessorClient(storageClient, consumerGroup, config.EventHubConnectionString, config.EventHubName);
@@ -87,7 +86,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
                 ProcessorStorageContainer = config.EventHubProcessorContainer,
             });
 
-
             IChannel channel = new EventHubChannel(options);
             channel.OnError += (a, args) =>
             {
@@ -109,12 +107,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             await Task.Delay(5000);
 
             var sender = new EventHubProducerClient(config.EventHubConnectionString, config.EventHubName);
-            using var eventBatch = await sender.CreateBatchAsync();
+            using EventDataBatch eventBatch = await sender.CreateBatchAsync();
             EventData data = new(message);
             data.ContentType = contentType;
             eventBatch.TryAdd(data);
             await sender.SendAsync(eventBatch);
-
 
             int i = 0;
             while (!completed && i < 10)
@@ -146,7 +143,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
                 ProcessorStorageContainer = config.EventHubProcessorContainer,
             });
 
-
             IChannel channel = new EventHubChannel(options);
             channel.OnError += (a, args) =>
             {
@@ -177,7 +173,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             channel.Dispose();
             Assert.IsTrue(completed, "did not complete before timeout");
         }
-
 
         [TestMethod]
         public async Task EventHubChannel_SendLargeMessage_Test()
@@ -230,6 +225,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             channel.Dispose();
             Assert.IsTrue(completed, "did not complete befor timeout.");
         }
-
     }
 }

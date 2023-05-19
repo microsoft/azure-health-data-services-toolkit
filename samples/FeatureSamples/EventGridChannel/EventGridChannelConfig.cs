@@ -1,11 +1,12 @@
-﻿
-using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace EventGridChannelSample
 {
     public class EventGridChannelConfig
     {
+#pragma warning disable CA1056
         public string TopicUriString { get; set; }
+#pragma warning restore CA1056
 
         public string Subject { get; set; }
 
@@ -22,6 +23,5 @@ namespace EventGridChannelSample
         public string FallbackStorageConnectionString { get; set; }
 
         public string FallbackStorageContainer { get; set; }
-
     }
 }

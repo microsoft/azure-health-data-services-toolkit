@@ -9,14 +9,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
     [TestClass]
     public class BundleReaderTests
     {
-        [ClassInitialize()]
+        private static string json;
+
+        [ClassInitialize]
         public static void JTokenInit(TestContext context)
         {
             context.WriteLine("JTokenExtensions");
             json = File.ReadAllTextAsync("../../../Assets/BundleRequest.json").GetAwaiter().GetResult();
         }
-
-        private static string json;
 
         [TestMethod]
         public void BundleReader_Read_IfNoneExist_True_Test()
@@ -47,7 +47,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
 
             Assert.IsTrue(count == 10);
         }
-
-
     }
 }

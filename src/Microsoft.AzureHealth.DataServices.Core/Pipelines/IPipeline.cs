@@ -11,16 +11,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
     public interface IPipeline<TRequest, TResponse>
     {
         /// <summary>
-        /// Gets the name for the pipeline.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Gets the unique identifier of the pipeline instance.
-        /// </summary>
-        string Id { get; }
-
-        /// <summary>
         /// Event that signals an error in the pipeline.
         /// </summary>
         event EventHandler<PipelineErrorEventArgs> OnError;
@@ -29,6 +19,16 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// Event that signals the pipeline as completed.
         /// </summary>
         event EventHandler<PipelineCompleteEventArgs> OnComplete;
+
+        /// <summary>
+        /// Gets the name for the pipeline.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// Gets the unique identifier of the pipeline instance.
+        /// </summary>
+        string Id { get; }
 
         /// <summary>
         /// Executes the pipeline.

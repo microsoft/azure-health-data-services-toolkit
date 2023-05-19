@@ -11,7 +11,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
     [TestClass]
     public class FilterTests
     {
-
         #region input filter collection
 
         [TestMethod]
@@ -24,7 +23,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             };
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter actual = filters[0];
             Assert.AreEqual(filter.Name, actual.Name, "Name mismatch.");
@@ -36,7 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter actual = filters[0];
             filters.Remove(actual);
@@ -49,7 +48,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             filters.RemoveAt(0);
             Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
@@ -61,7 +60,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
 
             IEnumerator<IFilter> en = filters.GetEnumerator();
@@ -77,7 +76,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter[] filterArray = filters.ToArray();
             Assert.IsTrue(filterArray.Length == 1, "Filter collection should be count = 1.");
@@ -89,7 +88,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.Contains(filter), "Filter not found.");
         }
@@ -108,7 +107,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
@@ -122,14 +121,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
 
-
         [TestMethod]
         public void InputFilterCollection_Clear_Test()
         {
             FakeFilter filter = new();
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.Count == 1, "Filter count should be 1.");
             filters.Clear();
@@ -150,7 +148,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             };
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter actual = filters[0];
             Assert.AreEqual(filter.Name, actual.Name, "Name mismatch.");
@@ -162,7 +160,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter actual = filters[0];
             filters.Remove(actual);
@@ -175,7 +173,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             filters.RemoveAt(0);
             Assert.IsTrue(filters.Count == 0, "Filter collection should be empty.");
@@ -187,7 +185,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
 
             IEnumerator<IFilter> en = filters.GetEnumerator();
@@ -203,7 +201,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             IFilter[] filterArray = filters.ToArray();
             Assert.IsTrue(filterArray.Length == 1, "Filter collection should be count = 1.");
@@ -215,7 +213,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.Contains(filter), "Filter not found.");
         }
@@ -234,7 +232,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
@@ -248,14 +246,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(filters.IndexOf(filter) == 0, "Filter index mismatch.");
         }
 
-
         [TestMethod]
         public void OutputFilterCollection_Clear_Test()
         {
             FakeFilter filter = new();
             IOutputFilterCollection filters = new OutputFilterCollection
             {
-                filter
+                filter,
             };
             Assert.IsTrue(filters.Count == 1, "Filter count should be 1.");
             filters.Clear();
@@ -263,7 +260,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         }
 
         #endregion
-
 
         [TestMethod]
         public void Filter_SignalErrorEvent_Test()
@@ -292,7 +288,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             _ = filter.ExecuteAsync(null);
             Assert.IsTrue(trigger, "Error event not triggered.");
         }
-
-
     }
 }

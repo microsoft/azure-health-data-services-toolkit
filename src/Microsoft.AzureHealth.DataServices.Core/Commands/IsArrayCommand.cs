@@ -8,6 +8,9 @@ namespace Microsoft.AzureHealth.DataServices.Commands
     /// </summary>
     public class IsArrayCommand : ICommandException
     {
+        private readonly JToken _token;
+        private readonly string _jpath;
+
         /// <summary>
         /// Creates an instance of IsArrayCommand.
         /// </summary>
@@ -15,24 +18,21 @@ namespace Microsoft.AzureHealth.DataServices.Commands
         /// <param name="jpath">Json path in JToken to excepted JArray.</param>
         public IsArrayCommand(JToken token, string jpath)
         {
-            this.token = token;
-            this.jpath = jpath;
+            _token = token;
+            _jpath = jpath;
         }
-
-        private readonly JToken token;
-        private readonly string jpath;
 
         /// <summary>
         /// Executes without exception if Json path for JToken is JArray.
         /// </summary>
         public void Execute()
         {
-            if (token.IsArray(jpath))
+            if (_token.IsArray(_jpath))
             {
                 return;
             }
 
-            throw new CommandException($"Fault IsArray command with {jpath}.");
+            throw new CommandException($"Fault IsArray command with {_jpath}.");
         }
     }
 }

@@ -2,16 +2,16 @@
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceBusChannelSample
 {
-    public class MyService : IMyService
+    public class MyService : IMyService, IDisposable
     {
+        private readonly IChannel _channel;
+        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
+        private readonly ILogger _logger;
+        private bool _disposed;
+
         public MyService(MyServiceConfig config, IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline, ILogger<MyService> logger = null)
         {
             _pipeline = pipeline;
@@ -31,10 +31,6 @@ namespace ServiceBusChannelSample
             _channel.OnReceive += Channel_OnReceive;
         }
 
-        private readonly IChannel _channel;
-        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
-        private readonly ILogger _logger;
-
         public event EventHandler<ChannelReceivedEventArgs> OnReceive;
 
         public async Task SendAsync(HttpRequestMessage message)
@@ -42,6 +38,21 @@ namespace ServiceBusChannelSample
             _logger?.LogInformation("Sending message to service bus.");
             await _pipeline.ExecuteAsync(message);
             await ReceiveAsync();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && !_disposed)
+            {
+                _disposed = true;
+                _channel.Dispose();
+            }
         }
 
         private async Task ReceiveAsync()

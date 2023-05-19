@@ -16,10 +16,11 @@ namespace Microsoft.AzureHealth.DataServices.Storage
     /// </summary>
     public class StorageQueue
     {
-        private readonly QueueServiceClient serviceClient;
-        private readonly ILogger logger;
+        private readonly QueueServiceClient _serviceClient;
+        private readonly ILogger _logger;
 
         #region ctor
+
         /// <summary>
         /// Creates an instance of StorageQueue.
         /// </summary>
@@ -28,7 +29,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(string connectionString, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(connectionString);
+            _serviceClient = new QueueServiceClient(connectionString);
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(string connectionString, QueueClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(connectionString, options);
+            _serviceClient = new QueueServiceClient(connectionString, options);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(Uri serviceUri, QueueClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(serviceUri, options);
+            _serviceClient = new QueueServiceClient(serviceUri, options);
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(Uri serviceUri, TokenCredential credential, QueueClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(serviceUri, credential, options);
+            _serviceClient = new QueueServiceClient(serviceUri, credential, options);
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(Uri serviceUri, AzureSasCredential credential, QueueClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(serviceUri, credential, options);
+            _serviceClient = new QueueServiceClient(serviceUri, credential, options);
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public StorageQueue(Uri serviceUri, StorageSharedKeyCredential credential, QueueClientOptions options = null, ILogger logger = null)
             : this(logger)
         {
-            serviceClient = new QueueServiceClient(serviceUri, credential, options);
+            _serviceClient = new QueueServiceClient(serviceUri, credential, options);
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <param name="logger">Optional ILogger</param>
         protected StorageQueue(ILogger logger = null)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         #endregion
@@ -114,10 +115,10 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if queue created or exists; otherwise false.</returns>
         public async Task<bool> CreateQueueIfNotExistsAsync(string queueName, IDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
-            QueueClient queueClient = serviceClient.GetQueueClient(queueName);
+            QueueClient queueClient = _serviceClient.GetQueueClient(queueName);
             Response response = await queueClient.CreateIfNotExistsAsync(metadata, cancellationToken);
             bool result = response?.Status != null;
-            logger?.LogTrace(new EventId(96010, "StorageQueue.CreateQueueIfNotExistsAsync"), "Created queue {QueueName} with status code {Result}.", queueName, result);
+            _logger?.LogTrace(new EventId(96010, "StorageQueue.CreateQueueIfNotExistsAsync"), "Created queue {QueueName} with status code {Result}.", queueName, result);
             return result;
         }
 
@@ -129,9 +130,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if queue deleted or not exists; otherwise false.</returns>
         public async Task<bool> DeleteQueueIfExistsAsync(string queueName, CancellationToken cancellationToken = default)
         {
-            QueueClient queueClient = serviceClient.GetQueueClient(queueName);
+            QueueClient queueClient = _serviceClient.GetQueueClient(queueName);
             Response<bool> response = await queueClient.DeleteIfExistsAsync(cancellationToken);
-            logger?.LogTrace(new EventId(96020, "StorageQueue.DeleteQueueIfExistsAsync"), "Delete queue {QueueName} {Value}.", queueName, response.Value);
+            _logger?.LogTrace(new EventId(96020, "StorageQueue.DeleteQueueIfExistsAsync"), "Delete queue {QueueName} {Value}.", queueName, response.Value);
             return response.Value;
         }
 
@@ -144,19 +145,19 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>Queue names as list of string.</returns>
         public async Task<List<string>> ListQueuesAsync(QueueTraits traits = QueueTraits.None, string prefix = null, CancellationToken cancellationToken = default)
         {
-            var result = serviceClient.GetQueuesAsync(traits, prefix, cancellationToken)
+            IAsyncEnumerable<Page<QueueItem>> result = _serviceClient.GetQueuesAsync(traits, prefix, cancellationToken)
                 .AsPages(default, null);
 
             List<string> queueNames = new();
             await foreach (Page<QueueItem> queueItem in result)
             {
-                foreach (var item in queueItem.Values)
+                foreach (QueueItem item in queueItem.Values)
                 {
                     queueNames.Add(item.Name);
                 }
             }
 
-            logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAsync"), message: "Returned list of {Count} queue names.", queueNames.Count);
+            _logger?.LogTrace(new EventId(96030, "StorageQueue.ListQueuesAsync"), message: "Returned list of {Count} queue names.", queueNames.Count);
             return queueNames;
         }
 
@@ -172,9 +173,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task<SendReceipt> EnqueueAsync(string queueName, byte[] message, TimeSpan? visibilityTimeout, TimeSpan? ttl, CancellationToken cancellationToken = default)
         {
             BinaryData data = new(message);
-            QueueClient client = serviceClient.GetQueueClient(queueName);
-            var response = await client.SendMessageAsync(data, visibilityTimeout, ttl, cancellationToken);
-            logger?.LogTrace(new EventId(96040, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName);
+            Response<SendReceipt> response = await client.SendMessageAsync(data, visibilityTimeout, ttl, cancellationToken);
+            _logger?.LogTrace(new EventId(96040, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -189,9 +190,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>SendReceipt</returns>
         public async Task<SendReceipt> EnqueueAsync(string queueName, string message, TimeSpan? visibilityTimeout, TimeSpan? ttl, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
-            var response = await client.SendMessageAsync(message, visibilityTimeout, ttl, cancellationToken);
-            logger?.LogTrace(new EventId(96050, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            Response<SendReceipt> response = await client.SendMessageAsync(message, visibilityTimeout, ttl, cancellationToken);
+            _logger?.LogTrace(new EventId(96050, "StorageQueue.EnqueueAsync"), message: "Enqueued message in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -204,9 +205,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>QueueMessage</returns>
         public async Task<QueueMessage> DequeueAsync(string queueName, TimeSpan? visibilityTimeout, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
-            var response = await client.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
-            logger?.LogTrace(new EventId(96060, "StorageQueue.DequeueAsync"), message: "Dequeued message in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            Response<QueueMessage> response = await client.ReceiveMessageAsync(visibilityTimeout, cancellationToken);
+            _logger?.LogTrace(new EventId(96060, "StorageQueue.DequeueAsync"), message: "Dequeued message in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -217,12 +218,12 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <param name="maxMessages">Maximum number of messages to dequeue in batch.</param>
         /// <param name="visibilityTimeout">Visibility timeout. Optional with a default value of 0. Cannot be larger than 7 days.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>Queue message array.</returns>
         public async Task<QueueMessage[]> DequeueBatchAsync(string queueName, int? maxMessages, TimeSpan? visibilityTimeout, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
-            var response = await client.ReceiveMessagesAsync(maxMessages, visibilityTimeout, cancellationToken);
-            logger?.LogTrace(new EventId(96070, "StorageQueue.DequeueBatchAsync"), message: "Dequeued batch messages in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            Response<QueueMessage[]> response = await client.ReceiveMessagesAsync(maxMessages, visibilityTimeout, cancellationToken);
+            _logger?.LogTrace(new EventId(96070, "StorageQueue.DequeueBatchAsync"), message: "Dequeued batch messages in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -234,9 +235,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>PeekedMessage</returns>
         public async Task<PeekedMessage> PeekMessageAsync(string queueName, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
-            var response = await client.PeekMessageAsync(cancellationToken);
-            logger?.LogTrace(new EventId(96080, "StorageQueue.PeekMessageAsync"), message: "Peeked message in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            Response<PeekedMessage> response = await client.PeekMessageAsync(cancellationToken);
+            _logger?.LogTrace(new EventId(96080, "StorageQueue.PeekMessageAsync"), message: "Peeked message in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -249,9 +250,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>Array of PeekedMessage.</returns>
         public async Task<PeekedMessage[]> PeekMessagesAsync(string queueName, int? maxMessages, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
-            var response = await client.PeekMessagesAsync(maxMessages, cancellationToken);
-            logger?.LogTrace(new EventId(96090, "StorageQueue.PeekMessagesAsync"), "Peeked messages in {QueueName} queue.", queueName);
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            Response<PeekedMessage[]> response = await client.PeekMessagesAsync(maxMessages, cancellationToken);
+            _logger?.LogTrace(new EventId(96090, "StorageQueue.PeekMessagesAsync"), "Peeked messages in {QueueName} queue.", queueName);
             return response.Value;
         }
 
@@ -263,9 +264,9 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>Task</returns>
         public async Task ClearMessagesAsync(string queueName, CancellationToken cancellationToken = default)
         {
-            QueueClient client = serviceClient.GetQueueClient(queueName.ToLowerInvariant());
+            QueueClient client = _serviceClient.GetQueueClient(queueName.ToLowerInvariant());
             _ = await client.ClearMessagesAsync(cancellationToken);
-            logger?.LogTrace(new EventId(96100, "StorageQueue.ClearMessagesAsync"), message: "Cleared messages in {QueueName} queue.", queueName);
+            _logger?.LogTrace(new EventId(96100, "StorageQueue.ClearMessagesAsync"), message: "Cleared messages in {QueueName} queue.", queueName);
         }
     }
 }

@@ -8,34 +8,42 @@ namespace SimpleCustomOperation.Filters
 {
     public class SimpleOutputFilter : IOutputFilter
     {
+        private readonly StatusType _status;
+        private readonly string _id;
+        private readonly ILogger _logger;
+
         public SimpleOutputFilter(IOptions<SimpleOutputFilterOptions> options, ILogger<SimpleOutputFilter> logger = null)
         {
-            status = options.Value.ExecutionStatus;
-            this.logger = logger;
-            id = Guid.NewGuid().ToString();
+            _status = options.Value.ExecutionStatus;
+            _logger = logger;
+            _id = Guid.NewGuid().ToString();
         }
 
-        private readonly StatusType status;
-        private readonly string id;
-        private readonly ILogger logger;
-        public string Id => id;
+        public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
+        public string Id => _id;
 
         public string Name => "SimpleOutputFilter";
 
-        public StatusType ExecutionStatusType => status;
-
-#pragma warning disable CS0067 // The event 'SimpleOutputFilter.OnFilterError' is never used
-        public event EventHandler<FilterErrorEventArgs> OnFilterError;
-#pragma warning restore CS0067 // The event 'SimpleOutputFilter.OnFilterError' is never used
+        public StatusType ExecutionStatusType => _status;
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
-            logger?.LogInformation("Entered {Name}", Name);
-            var output = JsonConvert.DeserializeObject<Message>(context.ContentString);
-            output.Value = $"{output.Value}-{Name}";
-            context.StatusCode = System.Net.HttpStatusCode.OK;
-            context.ContentString = JsonConvert.SerializeObject(output);
-            return await Task.FromResult<OperationContext>(context);
+            try
+            {
+                _logger?.LogInformation("Entered {Name}", Name);
+                Message output = JsonConvert.DeserializeObject<Message>(context.ContentString);
+                output.Value = $"{output.Value}-{Name}";
+                context.StatusCode = System.Net.HttpStatusCode.OK;
+                context.ContentString = JsonConvert.SerializeObject(output);
+                return await Task.FromResult<OperationContext>(context);
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error in {Name}", Name);
+                OnFilterError?.Invoke(this, new FilterErrorEventArgs(Name, Id, true));
+                return context;
+            }
         }
     }
 }

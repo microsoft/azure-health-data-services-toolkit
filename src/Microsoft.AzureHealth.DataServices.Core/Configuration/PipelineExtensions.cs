@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Azure.Core;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -31,7 +32,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         {
             services.AddLogging(builder =>
             {
-                builder.AddFilter<ApplicationInsightsLoggerProvider>("", logLevel);
+                builder.AddFilter<ApplicationInsightsLoggerProvider>(string.Empty, logLevel);
                 builder.AddApplicationInsights(op => op.ConnectionString = instrumentationConnectionString, op => op.FlushOnDispose = true);
             });
 
@@ -56,30 +57,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
 
         /// <summary>
-        /// Use the authenticator for acquisition of access tokens from Azure AD.
-        /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for configuration.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAuthenticator(this IServiceCollection services, Action<ServiceIdentityOptions> options)
-        {
-            services.AddScoped<IAuthenticator, Authenticator>();
-            services.Configure<ServiceIdentityOptions>(options);
-
-            return services;
-        }
-
-        /// <summary>
-        /// Use the authenticator with DefaultCredentials for acquistion of access tokens from Azure AD.
-        /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection UseAuthenticator(this IServiceCollection services)
-        {
-            return services.UseAuthenticator(options => options.CredentialType = null);
-        }
-
-        /// <summary>
         /// Uses a Azure Function pipeline.
         /// </summary>
         /// <param name="services">IServiceCollection</param>
@@ -93,8 +70,6 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             services.AddScoped<IPipeline<HttpRequestData, HttpResponseData>, AzureFunctionPipeline>();
             return services;
         }
-
-
 
         /// <summary>
         /// Use a Web pipeline for Web services.
@@ -111,18 +86,16 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             return services;
         }
 
-
         /// <summary>
         /// Use custom http headers to when sending http requests.
         /// </summary>
         /// <param name="services">Services collection.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection UseCustomHeaders(this IServiceCollection services)
         {
             services.AddScoped<IHttpCustomHeaderCollection, HttpCustomHeaderCollection>();
             return services;
         }
-
 
         /// <summary>
         /// Adds a custom header for sending http requests.
@@ -131,13 +104,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="name">Name of the http header to add.</param>
         /// <param name="value">Value of the http header.</param>
         /// <param name="headerType">Type of custom header.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddCustomHeader(this IServiceCollection services, string name, string value, CustomHeaderType headerType)
         {
             services.Add(new ServiceDescriptor(typeof(IHeaderNameValuePair), new HeaderNameValuePair(name, value, headerType)));
             return services;
         }
-
 
         /// <summary>
         /// Adds an input filter.
@@ -146,8 +118,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input filter.</param>
         /// <param name="options">Options for input filter.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddInputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -159,13 +132,12 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input filter.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddInputFilter(this IServiceCollection services, Type type)
         {
             services.Add(new ServiceDescriptor(typeof(IInputFilter), type, ServiceLifetime.Scoped));
             return services;
         }
-
 
         /// <summary>
         /// Add an output filter.
@@ -174,8 +146,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output filter.</param>
         /// <param name="options">Options for output filter.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddOutputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddOutputFilter<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -187,7 +160,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output filter.</param>
-        /// <returns>Services collection.</returns>
+        /// <returns>Modified Services collection.</returns>
         public static IServiceCollection AddOutputFilter(this IServiceCollection services, Type type)
         {
             services.Add(new ServiceDescriptor(typeof(IOutputFilter), type, ServiceLifetime.Scoped));
@@ -201,8 +174,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of input channel.</param>
         /// <param name="options">Options for input channel.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddInputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IInputChannel), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -216,8 +190,9 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">Services collection.</param>
         /// <param name="type">Type of output channel.</param>
         /// <param name="options">Options for output channel.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <returns>Modified Services collection.</returns>
+        public static IServiceCollection AddOutputChannel<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options)
+            where TOptions : class
         {
             services.Add(new ServiceDescriptor(typeof(IOutputChannel), type, ServiceLifetime.Scoped));
             services.Configure<TOptions>(options);
@@ -225,45 +200,65 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         }
 
         /// <summary>
-        /// Add a binding
+        /// Adds an instance of the specified binding type <typeparamref name="TBinding"/> to the <paramref name="services"/> collection, and configures an <see cref="HttpClient"/> instance for the binding with the specified <paramref name="baseAddress"/>.
         /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <param name="type">Type of binding.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddBinding(this IServiceCollection services, Type type)
+        /// <typeparam name="TBinding">The binding type to add to the <paramref name="services"/> collection.</typeparam>
+        /// <param name="services">The <see cref="IServiceCollection"/> instance to add the binding to.</param>
+        /// <param name="baseAddress">The base URI address for the binding's client.</param>
+        /// <param name="credential">Credential used by the binding to access the target.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="baseAddress"/> is null.</exception>
+        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress, TokenCredential credential = null)
+            where TBinding : class, IBinding
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
-            return services;
+            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(TBinding), ServiceLifetime.Scoped));
+
+            IHttpClientBuilder clientBuilder = services.AddHttpClient<IBinding, TBinding>(client =>
+            {
+                client.BaseAddress = baseAddress;
+            });
+
+            if (credential is not null)
+            {
+                clientBuilder.UseCredential(credential, baseAddress);
+            }
+
+            return clientBuilder;
         }
 
         /// <summary>
-        /// Adds a binding.
+        /// Adds an instance of the specified binding type <typeparamref name="TBinding"/> to the <paramref name="services"/> collection, configures it with the specified <paramref name="options"/>, and configures an <see cref="HttpClient"/> instance using the configuration object/>.
         /// </summary>
-        /// <typeparam name="TOptions">Type of options for binding.</typeparam>
-        /// <param name="services">Services collection.</param>
-        /// <param name="type">Type of binding.</param>
-        /// <param name="options">Options for binding.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddBinding<TOptions>(this IServiceCollection services, Type type, Action<TOptions> options) where TOptions : class
+        /// <typeparam name="TBinding">The binding type to add to the <paramref name="services"/> collection.</typeparam>
+        /// <typeparam name="TOptions">The type of options to configure for the binding. Must implement the <see cref="IBinding"/> interface.</typeparam>
+        /// <param name="services">The <see cref="IServiceCollection"/> instance to add the binding to.</param>
+        /// <param name="options">An action that configures the <typeparamref name="TOptions"/> instance for the binding.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="options"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when an instance of <typeparamref name="TOptions"/> cannot be created using the default constructor.</exception>
+        public static IHttpClientBuilder AddBinding<TBinding, TOptions>(this IServiceCollection services, Action<TOptions> options)
+            where TBinding : class, IBinding
+            where TOptions : class, IBindingOptions
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), type, ServiceLifetime.Scoped));
+            TOptions optionsValue = Activator.CreateInstance<TOptions>();
+            options(optionsValue);
+
             services.Configure<TOptions>(options);
-            return services;
+            return services.AddBinding<TBinding>(optionsValue.BaseAddress, optionsValue.Credential);
         }
-
 
         /// <summary>
-        /// Adds a REST binding.
+        /// Configures the <see cref="IHttpClientBuilder"/> to use the specified <paramref name="credential"/> for authentication using the Azure Token Credential library.
         /// </summary>
-        /// <param name="services">Services collection.</param>
-        /// <param name="options">Options for REST binding.</param>
-        /// <returns>Services collection.</returns>
-        public static IServiceCollection AddRestBinding(this IServiceCollection services, Action<RestBindingOptions> options)
+        /// <param name="builder">The <see cref="IHttpClientBuilder"/> instance to configure.</param>
+        /// <param name="credential">The <see cref="TokenCredential"/> instance to use for authentication.</param>
+        /// <param name="baseAddress">Base address for the client using the credential. Used for resource based scoping via {{baseAddress}}/.default</param>
+        /// <param name="scopes">The optional list of scopes required for the authentication. If omitted, the default value of null is used.</param>
+        /// <returns>The <see cref="IHttpClientBuilder"/> instance with the <see cref="BearerTokenHandler"/> added to its message handlers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="builder"/> or <paramref name="credential"/> is null.</exception>
+        public static IHttpClientBuilder UseCredential(this IHttpClientBuilder builder, TokenCredential credential, Uri baseAddress, string[] scopes = default)
         {
-            services.Add(new ServiceDescriptor(typeof(IBinding), typeof(RestBinding), ServiceLifetime.Scoped));
-            services.Configure<RestBindingOptions>(options);
-            return services;
+            return builder.AddHttpMessageHandler(x => new BearerTokenHandler(credential, baseAddress, scopes));
         }
-
     }
 }

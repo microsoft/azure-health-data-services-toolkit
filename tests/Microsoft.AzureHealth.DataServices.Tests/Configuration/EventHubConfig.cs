@@ -27,12 +27,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// <param name="blobConnectionString">Connection string to Blob storage.</param>
         /// <param name="blobContainer">Blob container used to output messages that exceed Event Hub size.</param>
         /// <param name="eventhubProcessorContainer">Event Hub processor container in Blob storage used to track Event Hub receive operations.</param>
-        public EventHubConfig(EventHubSkuType eventhubSku,
-                                string eventhubConnectionString,
-                                string eventhubName,
-                                string blobConnectionString,
-                                string blobContainer,
-                                string eventhubProcessorContainer)
+        public EventHubConfig(
+            EventHubSkuType eventhubSku,
+            string eventhubConnectionString,
+            string eventhubName,
+            string blobConnectionString,
+            string blobContainer,
+            string eventhubProcessorContainer)
         {
             this.EventHubSku = eventhubSku;
             this.EventHubConnectionString = eventhubConnectionString;
@@ -78,6 +79,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// <remarks>Used only when reading an event hub.</remarks>
         [JsonProperty("eventhubProcessorContainer")]
         public string EventHubProcessorContainer { get; set; }
-
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Clients;
-using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Security;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -17,35 +14,23 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
     /// </summary>
     public class RestBinding : IBinding
     {
+        private readonly IOptions<RestBindingOptions> _options;
+        private readonly HttpClient client;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Creates an instance of RestBinding.
         /// </summary>
         /// <param name="options">Rest binding options.</param>
-        /// <param name="authenticator">Optional authenticator to acquire security token.</param>
+        /// <param name="client">HttpClient used to exeucute the binding</param>
         /// <param name="logger">Optional logger.</param>
-        public RestBinding(IOptions<RestBindingOptions> options, IAuthenticator authenticator = null, ILogger<RestBinding> logger = null)
+        public RestBinding(IOptions<RestBindingOptions> options, HttpClient client, ILogger<RestBinding> logger = null)
         {
-            this.options = options;
-            this.authenticator = authenticator;
+            _options = options;
+            this.client = client;
             this.logger = logger;
             Id = Guid.NewGuid().ToString();
         }
-
-        private readonly IOptions<RestBindingOptions> options;
-        private readonly IAuthenticator authenticator;
-        private readonly ILogger logger;
-
-
-        /// <summary>
-        /// Gets the name of the binding "RestBinding".
-        /// </summary>
-        public string Name => "RestBinding";
-
-        /// <summary>
-        /// Gets a unique ID of the binding instance.
-        /// </summary>
-        public string Id { get; internal set; }
 
         /// <summary>
         /// An event that signals an error in the binding.
@@ -58,10 +43,20 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         public event EventHandler<BindingCompleteEventArgs> OnComplete;
 
         /// <summary>
+        /// Gets the name of the binding "RestBinding".
+        /// </summary>
+        public string Name => "RestBinding";
+
+        /// <summary>
+        /// Gets a unique ID of the binding instance.
+        /// </summary>
+        public string Id { get; internal set; }
+
+        /// <summary>
         /// Executes the binding.
         /// </summary>
         /// <param name="context">Operation context.</param>
-        /// <returns>Operation context.</returns>
+        /// <returns>Modified operation context by binding.</returns>
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {
             logger?.LogInformation("{Name}-{Id} binding received.", Name, Id);
@@ -76,28 +71,28 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
             {
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
 
-                string securityToken = null;
-                if (authenticator != null)
-                {
-                    string userAssertion = authenticator.RequiresOnBehalfOf ? context.Request.Headers.Authorization.Parameter.TrimStart("Bearer ".ToCharArray()) : null;
-                    securityToken = await authenticator.AcquireTokenForClientAsync(options.Value.ServerUrl, options.Value.Scopes, null, null, userAssertion);
-                }
+                // Forward the token if required via configuration.
+                string token = _options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.Parameter?.ToString() : null;
 
+                string contentType = context.Request.Content?.Headers?.ContentType?.MediaType?.ToString() ?? "application/json";
 
-                RestRequestBuilder builder = new(context.Request.Method.ToString(),
-                                                                    options.Value.ServerUrl,
-                                                                    securityToken,
-                                                                    context.Request.RequestUri.LocalPath,
-                                                                    context.Request.RequestUri.Query,
-                                                                    headers,
-                                                                    context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
-                                                                    "application/json");
-                RestRequest req = new(builder);
-                var resp = await req.SendAsync();
+                HttpRequestMessageBuilder builder = new(
+                    method: context.Request.Method,
+                    baseUrl: _options.Value.BaseAddress,
+                    path: context.Request.RequestUri.LocalPath,
+                    query: context.Request.RequestUri.Query,
+                    headers: headers,
+                    content: context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                    securityToken: token,
+                    contentType: contentType);
+
+                HttpRequestMessage request = builder.Build();
+                HttpResponseMessage resp = await client.SendAsync(request);
+
                 context.StatusCode = resp.StatusCode;
                 context.Content = await resp.Content?.ReadAsByteArrayAsync();
 
-                if (options.Value.AddResponseHeaders)
+                if (_options.Value.AddResponseHeaders)
                 {
                     context.Headers.UpdateFromResponse(resp);
                 }
@@ -117,6 +112,5 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 return context;
             }
         }
-
     }
 }

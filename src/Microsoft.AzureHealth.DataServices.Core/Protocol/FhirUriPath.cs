@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 
 namespace Microsoft.AzureHealth.DataServices.Protocol
 {
     /// <summary>
-    /// FHIR URI path.
+    /// Class to parse and build FHIR request URIs.
     /// </summary>
     public class FhirUriPath : Uri
     {
@@ -15,9 +16,20 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// Creates an instance of FhirPath.
         /// </summary>
         /// <param name="method">HTTP method used in request.</param>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="routePrefix">Optional route prefix.</param>
+        public FhirUriPath(HttpMethod method, Uri requestUri, string routePrefix = "")
+            : this(method, requestUri.ToString(), routePrefix)
+        {
+        }
+
+        /// <summary>
+        /// Creates an instance of FhirPath.
+        /// </summary>
+        /// <param name="method">HTTP method used in request.</param>
         /// <param name="requestUriString">The request URI.</param>
-        /// <param name="routePrefix">Optional route prefix; default is 'fhir'.</param>
-        public FhirUriPath(string method, string requestUriString, string routePrefix = "fhir")
+        /// <param name="routePrefix">Optional route prefix.</param>
+        public FhirUriPath(HttpMethod method, string requestUriString, string routePrefix = "")
             : base(requestUriString)
         {
             Method = method;
@@ -33,7 +45,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the HTTP method used with the request URI.
         /// </summary>
-        public string Method { get; set; }
+        public HttpMethod Method { get; set; }
 
         /// <summary>
         /// Gets or sets the FHIR resource in the request URI.
@@ -48,7 +60,7 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Gets or sets the FHIR operation in the request URI.
         /// </summary>
-        public string Operation { get; set; }
+        public string Operation { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the FHIR version in the request URI.
@@ -62,18 +74,13 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         {
             get
             {
-                StringBuilder builder = new();
-
+                string rtn = string.Empty;
                 if (!string.IsNullOrEmpty(RoutePrefix))
                 {
-                    builder = AddPathSegment(RoutePrefix, builder);
+                    rtn = $"{RoutePrefix}/";
                 }
 
-                builder = AddPathSegment(Resource, builder);
-                builder = AddPathSegment(Id, builder);
-                builder = AddPathSegment(Operation, builder);
-                builder = AddPathSegment(Version, builder);
-                return builder.ToString().TrimEnd('/');
+                return rtn + NormalizedPath;
             }
         }
 
@@ -85,24 +92,47 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
             get
             {
                 StringBuilder builder = new();
-                if (Resource != null)
+
+                if (Operation is not null)
                 {
-                    builder.Append(Resource);
+                    if (Resource is not null)
+                    {
+                        AddPathSegment(Resource, builder);
+                        if (Id is not null)
+                        {
+                            AddPathSegment(Id, builder);
+                        }
+
+                        AddPathSegment(Operation, builder);
+
+                        return builder.ToString().TrimEnd('/');
+                    }
+
+                    if (Id is null)
+                    {
+                        AddPathSegment(Operation, builder);
+                    }
+                    else
+                    {
+                        AddPathSegment("_operations", builder);
+                        AddPathSegment(Operation, builder);
+                        AddPathSegment($"{Id}", builder);
+                    }
                 }
 
-                if (Id != null)
+                if (Resource is not null)
                 {
-                    builder.Append($"/{Id}");
-                }
+                    AddPathSegment(Resource, builder);
+                    if (Id != null)
+                    {
+                        AddPathSegment($"{Id}", builder);
+                    }
 
-                if (Operation != null)
-                {
-                    builder.Append($"/{Operation}");
-                }
-
-                if (Version != null)
-                {
-                    builder.Append($"/{Version}");
+                    if (Version is not null)
+                    {
+                        AddPathSegment("_history", builder);
+                        AddPathSegment(Version, builder);
+                    }
                 }
 
                 return builder.ToString().TrimEnd('/');
@@ -112,16 +142,16 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         /// <summary>
         /// Indicates whether a query string parameter is present in the request URI.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">Key for query parameter.</param>
+        /// <returns>If query parameter is in Uri.</returns>
         public bool HasQueryParameter(string key)
         {
-            if (base.Query == null)
+            if (Query is null)
             {
                 return false;
             }
 
-            NameValueCollection query = HttpUtility.ParseQueryString(base.Query);
+            NameValueCollection query = HttpUtility.ParseQueryString(Query);
             return query.AllKeys.Any(str => str.ToLowerInvariant().Contains(key.ToLowerInvariant()));
         }
 
@@ -139,16 +169,60 @@ namespace Microsoft.AzureHealth.DataServices.Protocol
         {
             Uri uri = new Uri(uriString).RemoveRoutePrefix(routePrefix);
 
-            var values = (from item in uri.Segments
-                          where (item.Length > 0 && item != "/")
-                          select item.Replace("/", ""));
+            System.Collections.Generic.IEnumerable<string> values = from item in uri.Segments
+                          where item.Length > 0 && item != "/"
+                          select item.Replace("/", string.Empty);
 
-            var parts = values.ToArray();
-            Resource = parts.Length > 0 ? parts.ElementAt(0) : null;
-            Id = parts.Length > 1 ? parts.ElementAt(1) : null;
-            Operation = parts.Length > 2 ? parts.ElementAt(2) : null;
-            Version = parts.Length > 3 ? parts.ElementAt(3) : null;
+            // Handle root requests like posting bundles
+            if (values is null || !values.Any())
+            {
+                return;
+            }
+
+            // Handle root level operation= requests
+            if (values.ElementAt(0).StartsWith('$'))
+            {
+                Operation = values.ElementAt(0);
+                return;
+            }
+
+            // Handle operation instance requests
+            if (values.ElementAt(0).Equals("_operations", StringComparison.CurrentCultureIgnoreCase) && values.Count() > 2)
+            {
+                Operation = values.ElementAt(1);
+                Id = values.ElementAt(2);
+                return;
+            }
+
+            // Handle resource requests
+            Resource = values.ElementAt(0);
+
+            if (values.Count() == 1)
+            {
+                return;
+            }
+
+            // Handle resource level operations
+            if (values.ElementAt(1).StartsWith('$'))
+            {
+                Operation = values.ElementAt(1);
+                return;
+            }
+
+            Id = values.Count() <= 1 ? null : values.ElementAt(1);
+
+            if (values.Count() == 2)
+            {
+                return;
+            }
+
+            // Handle resource instance level operations
+            if (values.ElementAt(2).StartsWith('$'))
+            {
+                Operation = values.ElementAt(2);
+            }
+
+            Version = values.Count() > 3 && string.Equals(values.ElementAt(2), "_history", StringComparison.CurrentCultureIgnoreCase) ? values.ElementAt(3) : null;
         }
-
     }
 }

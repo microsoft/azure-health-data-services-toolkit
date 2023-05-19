@@ -25,7 +25,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         public override JObject Execute(string json)
         {
             JObject jobj = JObject.Parse(json);
-            JToken? token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
+            JToken token = jobj.Exists(JsonPath) ? jobj.SelectToken(JsonPath) : null;
 
             if (token.IsNullOrEmpty())
             {
@@ -33,7 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
             }
             else
             {
-                JToken? temp = jobj.SelectToken(JsonPath);
+                JToken temp = jobj.SelectToken(JsonPath);
                 if (temp.Type == JTokenType.Property)
                 {
                     jobj.SelectToken(JsonPath).Remove();

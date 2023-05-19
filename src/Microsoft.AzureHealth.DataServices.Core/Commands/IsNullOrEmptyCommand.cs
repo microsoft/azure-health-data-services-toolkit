@@ -8,6 +8,9 @@ namespace Microsoft.AzureHealth.DataServices.Commands
     /// </summary>
     public class IsNullOrEmptyCommand : ICommandException
     {
+        private readonly JToken token;
+        private readonly string jpath;
+
         /// <summary>
         /// Creates an instance of IsNotNullOrEmptyCommand.
         /// </summary>
@@ -18,9 +21,6 @@ namespace Microsoft.AzureHealth.DataServices.Commands
             this.token = token;
             this.jpath = jpath;
         }
-
-        private readonly JToken token;
-        private readonly string jpath;
 
         /// <summary>
         /// Executes without exception if Json path for JToken is null or empty.

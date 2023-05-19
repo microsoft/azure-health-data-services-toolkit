@@ -8,13 +8,11 @@ namespace Microsoft.AzureHealth.DataServices.Json
     /// </summary>
     public class JPathException : Exception
     {
-
         /// <summary>
         /// Creates an instance of JPathException.
         /// </summary>
         public JPathException()
         {
-
         }
 
         /// <summary>
@@ -24,7 +22,6 @@ namespace Microsoft.AzureHealth.DataServices.Json
         public JPathException(string message)
             : base(message)
         {
-
         }
 
         /// <summary>
@@ -35,7 +32,6 @@ namespace Microsoft.AzureHealth.DataServices.Json
         public JPathException(string message, Exception innerException)
             : base(message, innerException)
         {
-
         }
 
         /// <summary>
@@ -46,9 +42,6 @@ namespace Microsoft.AzureHealth.DataServices.Json
         protected JPathException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-
         }
-
-
     }
 }

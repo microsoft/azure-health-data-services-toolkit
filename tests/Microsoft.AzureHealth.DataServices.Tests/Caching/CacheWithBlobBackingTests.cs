@@ -9,16 +9,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Microsoft.AzureHealth.DataServices.Tests.Caching
 {
     [TestClass]
     public class CacheWithBlobBackingTests
     {
-        private static BlobStorageConfig config;
-        private static string connectionString;
-        private static readonly string container = "blobbackingstore";
-        private static IHost host;
-        private static IJsonObjectCache cache;
+        private static readonly string Container = "blobbackingstore";
+        private static BlobStorageConfig s_config;
+        private static string s_connectionString;
+        private static IHost s_host;
+        private static IJsonObjectCache s_cache;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -27,20 +28,20 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
             builder.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
-            config = new BlobStorageConfig();
-            root.Bind(config);
-            connectionString = config.BlobStorageChannelConnectionString;
-            StorageBlob storage = new(connectionString);
-            _ = storage.CreateContainerIfNotExistsAsync(container).GetAwaiter().GetResult();
+            s_config = new BlobStorageConfig();
+            root.Bind(s_config);
+            s_connectionString = s_config.BlobStorageChannelConnectionString;
+            StorageBlob storage = new(s_connectionString);
+            _ = storage.CreateContainerIfNotExistsAsync(Container).GetAwaiter().GetResult();
 
-            host = Host.CreateDefaultBuilder()
+            s_host = Host.CreateDefaultBuilder()
               .ConfigureServices(services =>
               {
                   services.AddMemoryCache();
                   services.AddAzureBlobCacheBackingStore(options =>
                   {
-                      options.ConnectionString = config.BlobStorageChannelConnectionString;
-                      options.Container = container;
+                      options.ConnectionString = s_config.BlobStorageChannelConnectionString;
+                      options.Container = Container;
                   });
                   services.AddJsonObjectMemoryCache(options =>
                   {
@@ -48,9 +49,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   });
               })
               .Build();
-            host.Start();
+            s_host.Start();
 
-            cache = host.Services.GetRequiredService<IJsonObjectCache>();
+            s_cache = s_host.Services.GetRequiredService<IJsonObjectCache>();
 
             Console.WriteLine(context.TestName);
         }
@@ -58,132 +59,56 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
         [ClassCleanup]
         public static void Cleanup()
         {
-            //IHost host = Host.CreateDefaultBuilder()
-            //  .ConfigureServices(services =>
-            //  {
-            //      services.AddMemoryCache();
-            //      services.AddAzureBlobCacheBackingStore(options =>
-            //      {
-            //          options.ConnectionString = config.BlobStorageChannelConnectionString;
-            //          options.Container = container;
-            //      });
-            //      services.AddJsonObjectMemoryCache(options =>
-            //      {
-            //          options.CacheItemExpiry = TimeSpan.FromSeconds(1.0);
-            //      });
-            //  })
-            //  .Build();
-            //host.Start();
-            //IJsonObjectMemoryCache cache = host.Services.GetRequiredService<IJsonObjectMemoryCache>();
-            _ = cache.RemoveAsync("key1").GetAwaiter().GetResult();
-            _ = cache.RemoveAsync("key2").GetAwaiter().GetResult();
-            _ = cache.RemoveAsync("key3").GetAwaiter().GetResult();
-            //host.StopAsync().GetAwaiter();
-            //host.Dispose();
+            _ = s_cache.RemoveAsync("key1").GetAwaiter().GetResult();
+            _ = s_cache.RemoveAsync("key2").GetAwaiter().GetResult();
+            _ = s_cache.RemoveAsync("key3").GetAwaiter().GetResult();
         }
 
         [TestMethod]
         public async Task BlobCacheFromMemory_Test()
         {
-            //IHost host = Host.CreateDefaultBuilder()
-            //  .ConfigureServices(services =>
-            //  {
-            //      services.AddMemoryCache();
-            //      services.AddAzureBlobCacheBackingStore(options =>
-            //      {
-            //          options.ConnectionString = config.BlobStorageChannelConnectionString;
-            //          options.Container = container;
-            //      });
-            //      services.AddJsonObjectMemoryCache(options =>
-            //      {
-            //          options.CacheItemExpiry = TimeSpan.FromSeconds(1.0);
-            //      });
-            //  })
-            //  .Build();
-            //await host.StartAsync();
-            //IJsonObjectMemoryCache cache = host.Services.GetRequiredService<IJsonObjectMemoryCache>();
             string value1 = "foo1";
             string value2 = "bar2";
             string key = "key1";
             TestJsonObject jsonObject = new(value1, value2);
 
-            await cache.AddAsync(key, jsonObject);
-            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            await s_cache.AddAsync(key, jsonObject);
+            TestJsonObject jo = await s_cache.GetAsync<TestJsonObject>(key);
             Assert.AreEqual(value1, jo.Prop1, "Mismatch");
             Assert.AreEqual(value2, jo.Prop2, "Mismatch");
-            //await host.StopAsync();
-            //host.Dispose();
         }
 
         [TestMethod]
         public async Task BlobCacheFromBackingStore_Test()
         {
-            //IHost host = Host.CreateDefaultBuilder()
-            //  .ConfigureServices(services =>
-            //  {
-            //      services.AddMemoryCache();
-            //      services.AddAzureBlobCacheBackingStore(options =>
-            //      {
-            //          options.ConnectionString = config.BlobStorageChannelConnectionString;
-            //          options.Container = container;
-            //      });
-            //      services.AddJsonObjectMemoryCache(options =>
-            //      {
-            //          options.CacheItemExpiry = TimeSpan.FromSeconds(1.0);
-            //      });
-            //  })
-            //  .Build();
-            //await host.StartAsync();
-            //IJsonObjectMemoryCache cache = host.Services.GetRequiredService<IJsonObjectMemoryCache>();
             string value1 = "foo2";
             string value2 = "bar2";
             string key = "key2";
             TestJsonObject jsonObject = new(value1, value2);
 
-            await cache.AddAsync(key, jsonObject);
+            await s_cache.AddAsync(key, jsonObject);
             await Task.Delay(6000);
-            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            TestJsonObject jo = await s_cache.GetAsync<TestJsonObject>(key);
             Assert.AreEqual(value1, jo.Prop1, "Mismatch");
             Assert.AreEqual(value2, jo.Prop2, "Mismatch");
-            //await host.StopAsync();
-            //host.Dispose();
         }
 
         [TestMethod]
         public async Task BlobCacheRemove_Test()
         {
-            //IHost host = Host.CreateDefaultBuilder()
-            //  .ConfigureServices(services =>
-            //  {
-            //      services.AddMemoryCache();
-            //      services.AddAzureBlobCacheBackingStore(options =>
-            //      {
-            //          options.ConnectionString = config.BlobStorageChannelConnectionString;
-            //          options.Container = config.BlobStorageChannelContainer;
-            //      });
-            //      services.AddJsonObjectMemoryCache(options =>
-            //      {
-            //          options.CacheItemExpiry = TimeSpan.FromSeconds(5.0);
-            //      });
-            //  })
-            //  .Build();
-            //await host.StartAsync();
-            //IJsonObjectMemoryCache cache = host.Services.GetRequiredService<IJsonObjectMemoryCache>();
             string value1 = "foo3";
             string value2 = "bar3";
             string key = "key3";
             TestJsonObject jsonObject = new(value1, value2);
 
-            await cache.AddAsync(key, jsonObject);
-            TestJsonObject jo = await cache.GetAsync<TestJsonObject>(key);
+            await s_cache.AddAsync(key, jsonObject);
+            TestJsonObject jo = await s_cache.GetAsync<TestJsonObject>(key);
             Assert.AreEqual(value1, jo.Prop1, "Mismatch");
             Assert.AreEqual(value2, jo.Prop2, "Mismatch");
-            bool removed = await cache.RemoveAsync(key);
+            bool removed = await s_cache.RemoveAsync(key);
             Assert.IsTrue(removed);
-            TestJsonObject joRemoved = await cache.GetAsync<TestJsonObject>(key);
+            TestJsonObject joRemoved = await s_cache.GetAsync<TestJsonObject>(key);
             Assert.IsNull(joRemoved, "Not null.");
-            //await host.StopAsync();
-            //host.Dispose();
         }
     }
 }

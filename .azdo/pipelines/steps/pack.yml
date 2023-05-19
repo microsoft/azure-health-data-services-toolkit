@@ -5,6 +5,11 @@ parameters:
 - name: FileVersion
 
 steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK'
+    inputs:
+      useGlobalJson: true
+
   # Script is used here so we can pass custom parameters to dotnet pack
   - task: Bash@3
     displayName: Pack
@@ -13,7 +18,7 @@ steps:
       script: |
         find . -type f \( -iname "*Microsoft.AzureHealth.DataServices.*.csproj" ! -iname "*Test*" ! -iname "*Sample*" \) -print0 | while read -d $'\0' file
         do
-            echo "Packing $file with version $VERSION / $ASS_VERSION / $FILE_VERSION"
+            echo "Packing $file with version $VERSION / $ASS_VERSION / $FILE_VERSION to path $PACKAGE_OUTPUT"
             dotnet pack "$file" --output "$PACKAGE_OUTPUT" /p:Configuration=Release /p:Version="$VERSION" /p:AssemblyVersion="$ASS_VERSION" /p:FileVersion="$FILE_VERSION" /p:PackageReleaseNotes="$NOTES"
         done
     env:

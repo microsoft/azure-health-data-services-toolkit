@@ -8,15 +8,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class HttpTestListener
     {
-
-        private HttpListener listener;
         private static List<Tuple<string, string>> responseHeaders;
+        private HttpListener listener;
 
         public async Task StartAsync(int port, List<Tuple<string, string>> responseEchoHeaders = null)
         {
             listener = new HttpListener
             {
-                Realm = "localhost"
+                Realm = "localhost",
             };
 
             responseHeaders = responseEchoHeaders;
@@ -60,7 +59,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             }
         }
 
-
         private static async Task ProcessGet(HttpListenerContext context)
         {
             try
@@ -72,13 +70,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             {
                 Console.WriteLine(ex.Message);
             }
+
             await Task.CompletedTask;
         }
 
-
         private static async Task WriteResponseHeadersAsync(HttpListenerContext context)
         {
-            foreach (var item in responseHeaders)
+            foreach (Tuple<string, string> item in responseHeaders)
             {
                 string value = context.Request.Headers[item.Item1];
                 string content = $"{{ \"{item.Item2}\": \"{value}\" }}";

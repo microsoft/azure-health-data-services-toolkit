@@ -3,12 +3,16 @@ using Azure.Storage.Queues.Models;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace EventGridChannelSample
 {
     public class PipelineService : IPipelineService
     {
+        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline;
+        private readonly ILogger logger;
+        private readonly AzureQueueConfig config;
+        private readonly StorageQueue queue;
+
         public PipelineService(IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline, AzureQueueConfig config, ILogger<PipelineService> logger = null)
         {
             this.pipeline = pipeline;
@@ -16,11 +20,6 @@ namespace EventGridChannelSample
             this.logger = logger;
             queue = new StorageQueue(config.ConnectionString, logger);
         }
-
-        private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline;
-        private readonly ILogger logger;
-        private readonly AzureQueueConfig config;
-        private readonly StorageQueue queue;
 
         public event EventHandler<ReceiveEventArgs> OnReceive;
 

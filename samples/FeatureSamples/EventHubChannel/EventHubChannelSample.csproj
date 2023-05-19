@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <UserSecretsId>d3307977-6b7f-4658-8a33-1185ac439e5a</UserSecretsId>
@@ -11,7 +10,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels.Extensions" Version="1.0.0" Condition="'$(LocalPackages)' != 'true'" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
 
   <!-- Default to version 1.0.0 if SdkVersion is not set -->

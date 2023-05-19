@@ -12,6 +12,9 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
     /// </summary>
     public class AzureJsonBlobStorageProvider : ICacheBackingStoreProvider
     {
+        private readonly StorageBlob storage;
+        private readonly string container;
+
         /// <summary>
         /// Creates an instance of AzureJsonBlobStorageProvider.
         /// </summary>
@@ -30,10 +33,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             container = options.Value.Container;
         }
 
-
-        private readonly StorageBlob storage;
-        private readonly string container;
-
         /// <summary>
         /// Adds an object to cache.
         /// </summary>
@@ -46,7 +45,6 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             string json = JsonConvert.SerializeObject(value);
             await storage.WriteBlockBlobAsync(container, $"{key}.json", "application/json", Encoding.UTF8.GetBytes(json));
         }
-
 
         /// <summary>
         /// Adds an item to the cache.

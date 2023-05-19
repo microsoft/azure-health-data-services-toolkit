@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Messaging.EventGrid;
-using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Logging;
@@ -17,6 +16,20 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     /// <remarks>The EventGridChannel and only send events, not receive.</remarks>
     public class EventGridChannel : IInputChannel, IOutputChannel
     {
+        private readonly string _fallbackStorageConnectionString;
+        private readonly string _container;
+        private readonly string _topic;
+        private readonly string _accessKey;
+        private readonly string _subject;
+        private readonly string _eventType;
+        private readonly string _dataVersion;
+        private readonly ILogger _logger;
+        private readonly StatusType _statusType;
+        private EventGridPublisherClient _client;
+        private StorageBlob _storage;
+        private bool _disposed;
+        private ChannelState _state;
+
         /// <summary>
         /// Creates an instance of EventGridChannel.
         /// </summary>
@@ -24,75 +37,15 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="logger">ILogger</param>
         public EventGridChannel(IOptions<EventGridChannelOptions> options, ILogger<EventGridChannel> logger = null)
         {
-            fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
-            container = options.Value.FallbackStorageContainer;
-            topic = options.Value.TopicUriString;
-            accessKey = options.Value.AccessKey;
-            subject = options.Value.Subject;
-            eventType = options.Value.EventType;
-            dataVersion = options.Value.DataVersion;
-            statusType = options.Value.ExecutionStatusType;
-            this.logger = logger;
-        }
-
-        private readonly string fallbackStorageConnectionString;
-        private readonly string container;
-        private readonly string topic;
-        private readonly string accessKey;
-        private readonly string subject;
-        private readonly string eventType;
-        private readonly string dataVersion;
-        private EventGridPublisherClient client;
-        private StorageBlob storage;
-        private bool disposed;
-        private ChannelState state;
-        private readonly ILogger logger;
-        private readonly StatusType statusType;
-
-        /// <summary>
-        /// Gets the instance ID of the channel.
-        /// </summary>
-        public string Id { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the channel, i.e., "EventGridChannel".
-        /// </summary>
-        public string Name => "EventGridChannel";
-
-        /// <summary>
-        /// Gets the requirement for executing the channel.
-        /// </summary>
-        public StatusType ExecutionStatusType => statusType;
-
-        /// <summary>
-        /// Gets and indicator to whether the channel has authenticated the user, which is by default always false.
-        /// </summary>
-        public bool IsAuthenticated => false;
-
-        /// <summary>
-        /// Indicates whether the channel is encrypted, which is always true.
-        /// </summary>
-        public bool IsEncrypted => true;
-
-        /// <summary>
-        /// Gets the port used, which by default always 0.
-        /// </summary>
-        public int Port => 0;
-
-        /// <summary>
-        /// Gets or sets the channel state.
-        /// </summary>
-        public ChannelState State
-        {
-            get => state;
-            set
-            {
-                if (state != value)
-                {
-                    state = value;
-                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, state));
-                }
-            }
+            _fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
+            _container = options.Value.FallbackStorageContainer;
+            _topic = options.Value.TopicUriString;
+            _accessKey = options.Value.AccessKey;
+            _subject = options.Value.Subject;
+            _eventType = options.Value.EventType;
+            _dataVersion = options.Value.DataVersion;
+            _statusType = options.Value.ExecutionStatusType;
+            _logger = logger;
         }
 
         /// <summary>
@@ -121,6 +74,52 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the channel, i.e., "EventGridChannel".
+        /// </summary>
+        public string Name => "EventGridChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => _statusType;
+
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which is by default always false.
+        /// </summary>
+        public bool IsAuthenticated => false;
+
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
+        public bool IsEncrypted => true;
+
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
+        public int Port => 0;
+
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
+        public ChannelState State
+        {
+            get => _state;
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, _state));
+                }
+            }
+        }
+
+        /// <summary>
         /// Add a message to the channel which is surface by the OnReceive event.
         /// </summary>
         /// <param name="message">Message to add.</param>
@@ -141,7 +140,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -153,15 +152,15 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            client = new EventGridPublisherClient(
-                        new Uri(topic),
-                        new AzureKeyCredential(accessKey));
+            _client = new EventGridPublisherClient(
+                        new Uri(_topic),
+                        new AzureKeyCredential(_accessKey));
 
-            storage = new StorageBlob(fallbackStorageConnectionString, null, null, null, logger);
+            _storage = new StorageBlob(_fallbackStorageConnectionString, null, null, null, _logger);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
+            _logger?.LogInformation("{Name}-{Id} channel opened.", Name, Id);
 
             await Task.CompletedTask;
         }
@@ -171,16 +170,13 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// </summary>
         /// <returns>Task</returns>
         /// <remarks>Receive operation is omitted without error for an EventGridChannel.</remarks>
-
         public async Task ReceiveAsync()
         {
             await Task.CompletedTask;
         }
 
-
-
         /// <summary>
-        ///Sends a message to an Event Grid if size &lt; SKU constraint; otherwise uses blob storage.
+        /// Sends a message to an Event Grid if size &lt; SKU constraint; otherwise uses blob storage.
         /// </summary>
         /// <param name="message">Message to send.</param>
         /// <param name="items">Additional optional parameters.</param>
@@ -190,15 +186,14 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         {
             try
             {
-                EventGridEvent eventData = message.Length < Constants.EventGridMaxMessageLength ? new(subject, eventType,
-                                               dataVersion, message) : await GetBlobEventAsync(message);
+                EventGridEvent eventData = message.Length < Constants.EventGridMaxMessageLength ? new(_subject, _eventType, _dataVersion, message) : await GetBlobEventAsync(message);
 
-                await client.SendEventAsync(eventData);
+                await _client.SendEventAsync(eventData);
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
+                _logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
             }
         }
 
@@ -217,31 +212,31 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="disposing">Indicator is true if disposing.</param>
         protected void Dispose(bool disposing)
         {
-            if (disposing && !disposed)
+            if (disposing && !_disposed)
             {
-                disposed = true;
-                storage = null;
-                client = null;
+                _disposed = true;
+                _storage = null;
+                _client = null;
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} channel disposed.", Name, Id);
             }
         }
 
-
         private async Task<EventGridEvent> GetBlobEventAsync(byte[] message)
         {
-            //write the message to storage.
+            // write the message to storage.
             string blobName = await WriteBlobAsync("text/plain", message);
-            byte[] eventData = Encoding.UTF8.GetBytes($"{container},{blobName}");
-            //return the reference event;.
-            return new EventGridEvent(subject, "Reference", dataVersion, eventData);
+            byte[] eventData = Encoding.UTF8.GetBytes($"{_container},{blobName}");
+
+            // return the reference event;.
+            return new EventGridEvent(_subject, "Reference", _dataVersion, eventData);
         }
 
         private async Task<string> WriteBlobAsync(string contentType, byte[] message)
         {
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(container, blob, contentType, message);
+            await _storage.WriteBlockBlobAsync(_container, blob, contentType, message);
             return blob;
         }
     }

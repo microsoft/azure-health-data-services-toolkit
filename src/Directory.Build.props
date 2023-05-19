@@ -1,50 +1,14 @@
 <Project>
-
-  <!-- Nuget related properties.-->
+  <Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props" />
+  
   <PropertyGroup>
-    <Authors>Microsoft</Authors>
-    <Company>Microsoft Corporation</Company>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <Product>Microsoft(R) Azure Health Data Services Toolkit</Product>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
-    <PackageIcon>Icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <RepositoryUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/microsoft/azure-health-data-services-toolkit/</PackageProjectUrl>
-
-    <DebugType>Portable</DebugType>
-    <Deterministic>true</Deterministic>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <HighEntropyVA>true</HighEntropyVA>
-    <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RootNamespace>Microsoft.AzureHealth.DataServices</RootNamespace>
-
-    <AnalysisLevel>latest</AnalysisLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-    <TargetFramework>net6.0</TargetFramework>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/CustomAnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="Icon.png" Pack="true" PackagePath="\" />
     <None Include="README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
   </ItemGroup>
 
 </Project>

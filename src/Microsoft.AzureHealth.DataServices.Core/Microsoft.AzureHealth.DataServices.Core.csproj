@@ -1,28 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Title>Azure Health Data Services Toolkit Core Library</Title>
     <PackageId>Microsoft.AzureHealth.DataServices.Core</PackageId>
     <AssemblyName>Microsoft.AzureHealth.DataServices.Core</AssemblyName>
     <Description>Core extensability framework for creating custom operations for Azure Health Data Services.</Description>
+    <UserSecretsId>08d93315-c963-4b4c-8673-0ac4a08f537a</UserSecretsId>
   </PropertyGroup>  
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.7.0" />
-    <PackageReference Include="Azure.Security.KeyVault.Certificates" Version="4.4.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.21.6" />
+    <PackageReference Include="Azure.Core" Version="1.25.0" />
+    <PackageReference Include="Azure.Identity" Version="1.8.2" />
+    <PackageReference Include="Ensure.That" Version="10.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.9.0" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.23.1" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    
   </ItemGroup>
 </Project>

@@ -7,14 +7,24 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FakeChannelWithCtorParam : IChannel
     {
+        private ChannelState _state;
+        private bool _disposed;
+
         public FakeChannelWithCtorParam(string name)
         {
             Name = name;
             Id = Guid.NewGuid().ToString();
         }
 
-        private ChannelState state;
-        private bool disposed;
+        public event EventHandler<ChannelCloseEventArgs> OnClose;
+
+        public event EventHandler<ChannelErrorEventArgs> OnError;
+
+        public event EventHandler<ChannelOpenEventArgs> OnOpen;
+
+        public event EventHandler<ChannelReceivedEventArgs> OnReceive;
+
+        public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         public string Id { get; private set; }
 
@@ -30,22 +40,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 
         public ChannelState State
         {
-            get => state;
+            get => _state;
             set
             {
-                if (state != value)
+                if (_state != value)
                 {
-                    state = value;
-                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, state));
+                    _state = value;
+                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, _state));
                 }
             }
         }
-
-        public event EventHandler<ChannelCloseEventArgs> OnClose;
-        public event EventHandler<ChannelErrorEventArgs> OnError;
-        public event EventHandler<ChannelOpenEventArgs> OnOpen;
-        public event EventHandler<ChannelReceivedEventArgs> OnReceive;
-        public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         public async Task AddMessageAsync(byte[] message)
         {
@@ -59,7 +63,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
             await Task.CompletedTask;
         }
-
 
         public async Task OpenAsync()
         {
@@ -80,7 +83,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             await Task.CompletedTask;
         }
 
-
         public void Dispose()
         {
             Dispose(true);
@@ -89,10 +91,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 
         protected void Dispose(bool dispose)
         {
-            if (dispose && !disposed)
+            if (dispose && !_disposed)
             {
-                disposed = true;
-                if (state != ChannelState.Closed)
+                _disposed = true;
+                if (_state != ChannelState.Closed)
                 {
                     CloseAsync().GetAwaiter();
                 }

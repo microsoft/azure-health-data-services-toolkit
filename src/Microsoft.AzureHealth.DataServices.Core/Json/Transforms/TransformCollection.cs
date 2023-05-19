@@ -8,6 +8,8 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
     /// </summary>
     public class TransformCollection : ICollection<Transform>, IList<Transform>
     {
+        private readonly List<Transform> transforms;
+
         /// <summary>
         /// Creates an instance of the transform collection.
         /// </summary>
@@ -15,8 +17,6 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         {
             transforms = new List<Transform>();
         }
-
-        private readonly List<Transform> transforms;
 
         /// <summary>
         /// Gets the number of transforms in the collection.
@@ -119,6 +119,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         {
             return transforms.GetEnumerator();
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return transforms.GetEnumerator();

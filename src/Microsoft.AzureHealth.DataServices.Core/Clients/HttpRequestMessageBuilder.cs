@@ -3,14 +3,13 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
     /// <summary>
     /// Builder pattern for REST requests.
     /// </summary>
-    public class RestRequestBuilder
+    public class HttpRequestMessageBuilder
     {
         /// <summary>
         /// Creates an instance of RestRequestBuilder.
@@ -23,14 +22,15 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <param name="headers">Http headers to add to request.</param>
         /// <param name="content">Body content of the http request.</param>
         /// <param name="contentType">Content type of the http request.</param>
-        public RestRequestBuilder(string method,
-                                  string baseUrl,
-                                  string? securityToken,
-                                  string? path,
-                                  string? query,
-                                  NameValueCollection? headers,
-                                  byte[]? content,
-                                  string contentType = "application/json")
+        public HttpRequestMessageBuilder(
+            HttpMethod method,
+            Uri baseUrl,
+            string path = null,
+            string query = null,
+            NameValueCollection headers = null,
+            byte[] content = null,
+            string securityToken = null,
+            string contentType = "application/json")
         {
             _ = method ?? throw new ArgumentNullException(nameof(method));
             _ = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
@@ -38,61 +38,25 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             Method = method;
             BaseUrl = baseUrl;
-            Path = path;
-            QueryString = query;
+            Path = path ?? string.Empty;
+            QueryString = query ?? string.Empty;
             ContentType = contentType;
-            Headers = headers;
+            Headers = headers ?? new NameValueCollection();
             Content = content;
-            SecurityToken = string.IsNullOrEmpty(securityToken) ? null : securityToken;
-        }
-
-        /// <summary>
-        /// Creates an instance of RestRequestBuilder.
-        /// </summary>
-        /// <param name="method">Http Method.</param>
-        /// <param name="baseUrl">Base URL for http request, i.e., scheme and authority.</param>
-        /// <param name="certificate">X509 certificate to use as a security token.</param>
-        /// <param name="path">Path of the http request, i.e., scheme://authority/path</param>
-        /// <param name="query">Query string for http request.</param>
-        /// <param name="headers">Http headers to add to request.</param>
-        /// <param name="content">Body content of the http request.</param>
-        /// <param name="contentType">Content type of the http request.</param>
-        public RestRequestBuilder(string method,
-                                  string baseUrl,
-                                  X509Certificate2 certificate,
-                                  string? path,
-                                  string? query,
-                                  NameValueCollection? headers,
-                                  byte[]? content,
-                                  string contentType = "application/json")
-        {
-            _ = method ?? throw new ArgumentNullException(nameof(method));
-            _ = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
-            _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
-            _ = certificate ?? throw new ArgumentNullException(nameof(certificate));
-
-            Method = method;
-            BaseUrl = baseUrl;
-            Path = path;
-            QueryString = query;
-            ContentType = contentType;
-            Headers = headers;
-            Content = content;
-            Certificate = certificate;
+            SecurityToken = securityToken;
         }
 
         /// <summary>
         /// Default User-Agent http header.
         /// </summary>
-        public static ProductHeaderValue DefaultUserAgentHeader = new ProductHeaderValue(
+        public static ProductHeaderValue DefaultUserAgentHeader { get; } = new(
             "Microsoft.AzureHealth.DataServices.Toolkit",
-            Assembly.GetExecutingAssembly().GetName().Version.ToString()
-        );
+            Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
         /// <summary>
         /// Gets the base url of the request.
         /// </summary>
-        public string BaseUrl { get; private set; }
+        public Uri BaseUrl { get; private set; }
 
         /// <summary>
         /// Gets the content type of the request.
@@ -122,17 +86,12 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// <summary>
         /// Gets the HTTP method of the request.
         /// </summary>
-        public string Method { get; private set; }
+        public HttpMethod Method { get; private set; }
 
         /// <summary>
         /// Gets a security token (JWT) if used in the request.
         /// </summary>
         public string SecurityToken { get; private set; }
-
-        /// <summary>
-        /// Get a client certificate if used in the request.
-        /// </summary>
-        public X509Certificate2 Certificate { get; internal set; }
 
         /// <summary>
         /// Builds an HttpRequestMessage.
@@ -143,25 +102,14 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             UriBuilder builder = new(BaseUrl)
             {
                 Path = Path,
-                Query = QueryString
+                Query = QueryString,
             };
 
-            HttpMethod method = Method.ToUpperInvariant() switch
-            {
-                "GET" => HttpMethod.Get,
-                "POST" => HttpMethod.Post,
-                "PUT" => HttpMethod.Put,
-                "DELETE" => HttpMethod.Delete,
-                "PATCH" => HttpMethod.Patch,
-                _ => throw new Exception("Invalid Http method."),
+            string baseUrl = new Uri(builder.ToString()).AbsoluteUri;
 
-            };
+            HttpRequestMessage request = new(Method, baseUrl);
 
-            string? baseUrl = new Uri(builder.ToString()).AbsoluteUri;
-
-            HttpRequestMessage request = new(method, baseUrl);
-
-            if (Headers != null)
+            if (Headers?.AllKeys is not null)
             {
                 Headers.Remove("Content-Type");
                 Headers.Remove("Content-Length");
@@ -170,13 +118,16 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                 Headers.Remove("Host");
                 Headers.Remove("User-Agent");
 
-                foreach (string item in Headers.AllKeys)
+                foreach (var item in Headers.AllKeys)
                 {
-                    request.Headers.Add(item, Headers.Get(item));
+                    if (item is not null)
+                    {
+                        request.Headers.Add(item, Headers.Get(item));
+                    }
                 }
             }
 
-            request.Headers.Add("Host", new Uri(BaseUrl).Authority);
+            request.Headers.Add("Host", BaseUrl.Authority);
             request.Headers.Add("Accept", ContentType);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
 

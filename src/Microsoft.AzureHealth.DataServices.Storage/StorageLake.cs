@@ -21,6 +21,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         private readonly ILogger logger;
 
         #region ctor
+
         /// <summary>
         /// Creates an instance of StorageLake.
         /// </summary>
@@ -160,7 +161,6 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <param name="publicAccess">Optionally specifies whether data in the file system may be accessed publicly and the level of access; defualt in "None", i.e., no public access.</param>
         /// <param name="metadata">Optional file system metadata.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
-        /// <returns></returns>
         public async Task CreateFileSystemAsync(string fileSystemName, PublicAccessType publicAccess = PublicAccessType.None, IDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             _ = await serviceClient.CreateFileSystemAsync(fileSystemName, publicAccess, metadata, cancellationToken);
@@ -174,8 +174,8 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         /// <returns>True if file system exists; otherwise false.</returns>
         public async Task<bool> FileSystemExistsAsync(string fileSystemName)
         {
-            var fsClient = serviceClient.GetFileSystemClient(fileSystemName);
-            var response = await fsClient.ExistsAsync();
+            DataLakeFileSystemClient fsClient = serviceClient.GetFileSystemClient(fileSystemName);
+            Response<bool> response = await fsClient.ExistsAsync();
             logger?.LogTrace(new EventId(92020, "StorageLake.FileSystemExistsAsync"), "File system {FileSystemName} exists {Value}.", fileSystemName, response.Value);
             return response.Value;
         }
@@ -221,7 +221,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task<bool> DirectoryExistsAsync(string fileSystemName, string path)
         {
             DataLakeFileSystemClient fsClient = serviceClient.GetFileSystemClient(fileSystemName);
-            var dirClient = fsClient.GetDirectoryClient(path);
+            DataLakeDirectoryClient dirClient = fsClient.GetDirectoryClient(path);
             Response<bool> response = await dirClient.ExistsAsync();
             logger?.LogTrace(new EventId(92050, "StorageLake.DirectoryExistsAsync"), "File system {FileSystemName} with directory {Path} exists {Value}.", fileSystemName, path, response.Value);
             return response.Value;
@@ -300,10 +300,12 @@ namespace Microsoft.AzureHealth.DataServices.Storage
             DataLakeDirectoryClient directoryClient = fsClient.GetDirectoryClient(directoryName);
             DataLakeFileClient fileClient = directoryClient.GetFileClient(filename);
             Stream stream = await fileClient.OpenReadAsync(options, cancellationToken);
+
             byte[] buffer = new byte[stream.Length];
             _ = await stream.ReadAsync(buffer, cancellationToken);
             await stream.DisposeAsync();
-            logger?.LogTrace(new EventId(92090, "StorageLake.ReadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} read file {FileName} with {Count} bytes.", fileSystemName, directoryName, filename, buffer?.Length);
+
+            logger?.LogTrace(new EventId(92090, "StorageLake.ReadFileAsync"), "File system {FileSystemName} with directory {DirectoryName} read file {FileName} with {Count} bytes.", fileSystemName, directoryName, filename, buffer.Length);
             return buffer;
         }
 

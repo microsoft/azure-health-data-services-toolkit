@@ -9,6 +9,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
     {
         [JsonProperty("value")]
         public string Value { get; set; }
-
     }
 }

@@ -29,6 +29,8 @@ stages:
         vmImage: $(VmImage)
       steps:
       - template: ./steps/build.yml
+        parameters:
+          targetBuildFramework: 'net7.0'
 
       - template: ./steps/versionVariables.yml
       

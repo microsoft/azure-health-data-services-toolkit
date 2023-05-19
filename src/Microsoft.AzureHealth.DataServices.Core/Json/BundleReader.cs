@@ -8,6 +8,8 @@ namespace Microsoft.AzureHealth.DataServices.Json
     /// </summary>
     public class BundleReader : JObjectReader
     {
+        private readonly bool _ifNoneExist;
+
         /// <summary>
         /// Creates a new instance of BundleReader.
         /// </summary>
@@ -16,10 +18,8 @@ namespace Microsoft.AzureHealth.DataServices.Json
         public BundleReader(JObject root, bool ifNoneExist)
             : base(root)
         {
-            this.ifNoneExist = ifNoneExist;
+            _ifNoneExist = ifNoneExist;
         }
-
-        private readonly bool ifNoneExist;
 
         /// <summary>
         /// Gets the bundle enumerator.
@@ -27,10 +27,10 @@ namespace Microsoft.AzureHealth.DataServices.Json
         /// <returns>Enumerator of JToken if exists, otherwise null.</returns>
         public override IEnumerator<JToken> GetEnumerator()
         {
-            if (root.IsArray("$.entry"))
+            if (Root.IsArray("$.entry"))
             {
-                JArray entries = (JArray)root["entry"];
-                return new BundleEnumerator(entries, ifNoneExist);
+                JArray entries = (JArray)Root["entry"];
+                return new BundleEnumerator(entries, _ifNoneExist);
             }
             else
             {

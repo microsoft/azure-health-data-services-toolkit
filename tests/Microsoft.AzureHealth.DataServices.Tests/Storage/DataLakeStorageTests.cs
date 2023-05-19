@@ -8,21 +8,20 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 
-
 namespace Microsoft.AzureHealth.DataServices.Tests.Storage
 {
-    //Go to Data protection and disable soft delete and use no event triggers
+    // Go to Data protection and disable soft delete and use no event triggers
 
     [TestClass]
     public class DataLakeStorageTests
     {
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
+        private static readonly string LogPath = "../../storagelakelog.txt";
         private static Random random;
         private static ConcurrentQueue<string> containers;
         private static StorageLake storage;
         private static string fileSystemName;
         private static ConcurrentQueue<string> filesystems;
-        private static readonly string logPath = "../../storagelakelog.txt";
         private static Microsoft.Extensions.Logging.ILogger logger;
 
         [ClassInitialize]
@@ -34,13 +33,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             ConfigurationBuilder builder = new();
             builder.AddUserSecrets<DataLakeStorageTests>(true);
             builder.AddEnvironmentVariables("PROXY_");
-            var root = builder.Build();
+            IConfigurationRoot root = builder.Build();
             string connectionString = root["StorageConnectionString"];
             containers = new();
             filesystems = new();
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -58,9 +57,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             storage = new(connectionString, logger);
         }
 
-
         [TestInitialize]
-        public async Task Initialize()
+        public static async Task Initialize()
         {
             while (!containers.IsEmpty)
             {
@@ -74,7 +72,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             {
                 await storage.CreateFileSystemAsync(fileSystemName);
             }
-
         }
 
         [ClassCleanup]
@@ -144,7 +141,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             string path = GetRandomName();
             containers.Enqueue(path);
             await storage.CreateDirectoryAsync(fileSystemName, path);
-            string filename = $"{GetRandomName()}.txt"; ;
+            string filename = $"{GetRandomName()}.txt";
             string contentString = "hi";
             await storage.WriteFileAsync(fileSystemName, path, filename, Encoding.UTF8.GetBytes(contentString));
             byte[] actual = await storage.ReadFileAsync(fileSystemName, path, filename);
@@ -158,7 +155,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 

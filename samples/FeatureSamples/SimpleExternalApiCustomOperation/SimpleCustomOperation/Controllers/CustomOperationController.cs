@@ -1,6 +1,5 @@
-using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Http;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace SimpleCustomOperation.Controllers
 {
@@ -20,7 +19,7 @@ namespace SimpleCustomOperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string value)
         {
-            _logger?.LogTrace("Value {val}", value);
+            _logger?.LogTrace("Value {Val}", value);
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
@@ -33,7 +32,6 @@ namespace SimpleCustomOperation.Controllers
                 _logger?.LogTrace("Response bad request");
                 return BadRequest(response);
             }
-
         }
     }
 }

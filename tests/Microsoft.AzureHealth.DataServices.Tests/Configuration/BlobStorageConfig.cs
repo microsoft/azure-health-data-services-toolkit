@@ -22,10 +22,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// <param name="initialTransferSize">Optional initial transfer size in bytes.</param>
         /// <param name="maxConcurrency">Optional maximum concurrency.</param>
         /// <param name="maxTransferSize">Optional maximum transfer size in bytes.</param>
-        public BlobStorageConfig(string connectionString, string container,
-                                 long? initialTransferSize = null,
-                                 int? maxConcurrency = null,
-                                 int? maxTransferSize = null)
+        public BlobStorageConfig(
+            string connectionString,
+            string container,
+            long? initialTransferSize = null,
+            int? maxConcurrency = null,
+            int? maxTransferSize = null)
         {
             BlobStorageChannelConnectionString = connectionString;
             BlobStorageChannelContainer = container;
@@ -63,6 +65,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// </summary>
         [JsonProperty("maxTransferSize")]
         public int? MaxTransferSize { get; set; }
-
     }
 }

@@ -26,6 +26,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <summary>
         /// Dedicated SKU
         /// </summary>
-        Dedicated
+        Dedicated,
     }
 }

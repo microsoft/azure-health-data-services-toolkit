@@ -8,6 +8,7 @@ namespace Microsoft.AzureHealth.DataServices.Filters
     /// </summary>
     public class OutputFilterCollection : IOutputFilterCollection
     {
+        private readonly List<IFilter> filters;
 
         /// <summary>
         /// Creates an instance of OutputFilterCollection.
@@ -17,8 +18,6 @@ namespace Microsoft.AzureHealth.DataServices.Filters
         {
             filters = outputFilters != null ? new List<IFilter>(outputFilters) : new List<IFilter>();
         }
-
-        private readonly List<IFilter> filters;
 
         /// <summary>
         /// Gets the number of filters in the collection.

@@ -8,14 +8,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
     [TestClass]
     public class ExceptionCommandTests
     {
-        [ClassInitialize()]
+        private static string json;
+
+        [ClassInitialize]
         public static void JTokenInit(TestContext context)
         {
             context.WriteLine("JTokenExtensions");
             json = File.ReadAllTextAsync("../../../Assets/BundleRequest.json").GetAwaiter().GetResult();
         }
-
-        private static string json;
 
         [TestMethod]
         public void TokenExistsCommand_Test()
@@ -94,7 +94,5 @@ namespace Microsoft.AzureHealth.DataServices.Tests.JsonExtensions
             var cmd = new IsMatchCommand<string>(token, jpath, value);
             cmd.Execute();
         }
-
-
     }
 }

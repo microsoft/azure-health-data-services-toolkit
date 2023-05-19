@@ -7,8 +7,5 @@ namespace ServiceBusChannelSample
         event EventHandler<ChannelReceivedEventArgs> OnReceive;
 
         Task SendAsync(HttpRequestMessage message);
-
-
-
     }
 }

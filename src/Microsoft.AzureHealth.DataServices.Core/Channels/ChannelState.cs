@@ -38,6 +38,6 @@
         /// <summary>
         /// Channel has aborted.
         /// </summary>
-        Aborted
+        Aborted,
     }
 }

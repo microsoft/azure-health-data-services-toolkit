@@ -9,7 +9,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
     [TestClass]
     public class ChannelTests
     {
-
         [TestMethod]
         public void InputChannelCollection_Add_Test()
         {
@@ -33,8 +32,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 Assert.Fail("should not error");
             };
 
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
             IChannel actual = channels[0];
             channels.Remove(actual);
             Assert.IsTrue(channels.Count == 0, "Channel collection should be empty.");
@@ -44,8 +45,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void InputChannelCollection_RemoveAt_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
             channels.RemoveAt(0);
             Assert.IsTrue(channels.Count == 0, "Channel collection should be empty.");
         }
@@ -54,8 +57,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void InputChannelCollection_GetEnumerator_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
 
             IEnumerator<IChannel> en = channels.GetEnumerator();
             while (en.MoveNext())
@@ -68,8 +73,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void InputChannelCollection_ToArray_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
 
             IChannel[] channelArray = channels.ToArray();
             Assert.IsTrue(channelArray.Length == 1, "Channel collection should be count = 1.");
@@ -79,8 +86,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void InputChannelCollection_Contains_True_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.Contains(channel), "Channel not found.");
         }
 
@@ -96,8 +105,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void InputChannelCollection_IndexOf_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.IndexOf(channel) == 0, "Channel index mismatch.");
         }
 
@@ -110,18 +121,18 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(channels.IndexOf(channel) == 0, "Channel index mismatch.");
         }
 
-
         [TestMethod]
         public void InputChannelCollection_Clear_Test()
         {
             FakeChannel channel = new();
-            InputChannelCollection channels = new();
-            channels.Add(channel);
+            InputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.Count == 1, "Channel count should be 1.");
             channels.Clear();
             Assert.IsTrue(channels.Count == 0, "Channel count should be 0.");
         }
-
 
         #region output channel
         [TestMethod]
@@ -147,8 +158,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 Assert.Fail("should not error");
             };
 
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
             IChannel actual = channels[0];
             channels.Remove(actual);
             Assert.IsTrue(channels.Count == 0, "Channel collection should be empty.");
@@ -158,8 +171,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void OutputChannelCollection_RemoveAt_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
             channels.RemoveAt(0);
             Assert.IsTrue(channels.Count == 0, "Channel collection should be empty.");
         }
@@ -168,8 +183,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void OutputChannelCollection_GetEnumerator_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
 
             IEnumerator<IChannel> en = channels.GetEnumerator();
             while (en.MoveNext())
@@ -182,8 +199,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void OutputChannelCollection_ToArray_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
 
             IChannel[] channelArray = channels.ToArray();
             Assert.IsTrue(channelArray.Length == 1, "Channel collection should be count = 1.");
@@ -193,8 +212,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void OutputChannelCollection_Contains_True_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.Contains(channel), "Channel not found.");
         }
 
@@ -210,8 +231,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public void OutputChannelCollection_IndexOf_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.IndexOf(channel) == 0, "Channel index mismatch.");
         }
 
@@ -224,13 +247,14 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             Assert.IsTrue(channels.IndexOf(channel) == 0, "Channel index mismatch.");
         }
 
-
         [TestMethod]
         public void OutputChannelCollection_Clear_Test()
         {
             FakeChannel channel = new();
-            OutputChannelCollection channels = new();
-            channels.Add(channel);
+            OutputChannelCollection channels = new()
+            {
+                channel,
+            };
             Assert.IsTrue(channels.Count == 1, "Channel count should be 1.");
             channels.Clear();
             Assert.IsTrue(channels.Count == 0, "Channel count should be 0.");

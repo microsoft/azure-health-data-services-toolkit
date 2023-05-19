@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AzureHealth.DataServices.Caching;
@@ -17,9 +16,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
     [TestClass]
     public class CacheWithRedisBackingTests
     {
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static StorageProviderConfig config;
         private static List<string> cacheKeyList;
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
 
         [ClassInitialize]
@@ -176,7 +175,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 15)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 15)]));
                 i++;
             }
 

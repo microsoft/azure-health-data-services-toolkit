@@ -8,6 +8,5 @@ namespace Shared
     {
         [JsonProperty("value")]
         public string Value { get; set; }
-
     }
 }

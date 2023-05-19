@@ -8,7 +8,6 @@
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
     <Authors>Microsoft</Authors>
 
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Microsoft.Capl.Core</AssemblyName>
 

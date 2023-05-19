@@ -5,6 +5,5 @@
         event EventHandler<ReceiveEventArgs> OnReceive;
 
         Task ExecuteAsync(HttpRequestMessage message);
-
     }
 }

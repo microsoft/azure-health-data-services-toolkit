@@ -6,13 +6,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
 {
     public class SimpleService
     {
+        private readonly int port;
+        private IHost host;
+
         public SimpleService(int port)
         {
             this.port = port;
         }
-
-        private readonly int port;
-        private IHost host;
 
         public void Start()
         {
@@ -24,7 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         {
             host.StopAsync().GetAwaiter();
         }
-
 
         private IHostBuilder CreateHostBuilder(string[] args)
         {

@@ -11,19 +11,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
     {
         private const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+        private readonly List<string> _values;
+
         public LargeJsonMessage()
         {
-            values = new List<string>();
+            _values = new List<string>();
             Fields = new List<KeyValuePair<string, string>>();
         }
 
-
-
-        private readonly List<string> values;
-
         [JsonProperty("fields")]
         public List<KeyValuePair<string, string>> Fields { get; set; }
-
 
         public void Load(int fields, int totalSizeBytes)
         {
@@ -35,14 +32,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             {
                 var randomString = new string(Enumerable.Repeat(Chars, length)
                                                         .Select(s => s[random.Next(s.Length)]).ToArray());
-                values.Add(randomString);
+                _values.Add(randomString);
             }
 
-            for (int i = 0; i < values.Count; i++)
+            for (int i = 0; i < _values.Count; i++)
             {
-                Fields.Add(new KeyValuePair<string, string>($"field{i}", values[i]));
+                Fields.Add(new KeyValuePair<string, string>($"field{i}", _values[i]));
             }
-
         }
     }
 }

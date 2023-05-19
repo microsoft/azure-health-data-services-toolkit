@@ -39,7 +39,6 @@ These samples go deep into individual feature areas of this toolkit, showing you
 
 | Sample | Description |
 | --- | --- |
-| [Authenticator](./FeatureSamples/Authenticator/) | Shows how you can get a token for accessing Azure resources inside your custom operation. |
 | [Blob Channel](./FeatureSamples/BlobChannel/) | Shows how to use a Blob Channel. |
 | [Custom Headers](./FeatureSamples/CustomHeaders/) | Shows how to inject custom headers. |
 | [Event Grid Channel](./FeatureSamples/EventGridChannel/) | Shows how to use an Event Grid Channel. |
@@ -49,9 +48,3 @@ These samples go deep into individual feature areas of this toolkit, showing you
 | [Memory/Redis Cache](./FeatureSamples/MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
 | [Service Bus Channel](./FeatureSamples/ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
 | [Simple External API](./FeatureSamples/SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
-
-## Use Case Samples
-
-These samples will show you how to implement a real FHIR customization use case, end-to-end.
-
-*Coming soon!*

@@ -6,13 +6,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleWebServiceAsset
 {
     public class SimpleWebService
     {
+        private readonly int port;
+        private IHost host;
+
         public SimpleWebService(int port)
         {
             this.port = port;
         }
-
-        private readonly int port;
-        private IHost host;
 
         public void Start()
         {
@@ -24,7 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleWebServiceAsset
         {
             host.StopAsync().GetAwaiter();
         }
-
 
         private IHostBuilder CreateHostBuilder(string[] args)
         {

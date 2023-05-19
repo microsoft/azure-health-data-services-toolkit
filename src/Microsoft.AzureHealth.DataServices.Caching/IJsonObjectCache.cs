@@ -27,7 +27,7 @@
         /// </summary>
         /// <typeparam name="T">Type of item to return from cache.</typeparam>
         /// <param name="key">Cache key.</param>
-        /// <returns></returns>
+        /// <returns>Requested object of type T.</returns>
         Task<T> GetAsync<T>(string key);
 
         /// <summary>
@@ -43,6 +43,5 @@
         /// <param name="key">Cache key.</param>
         /// <returns>True if removed otherwise false.</returns>
         Task<bool> RemoveAsync(string key);
-
     }
 }

@@ -58,7 +58,7 @@ namespace Microsoft.AzureHealth.DataServices.Json.Transforms
         /// <returns>Json string as transformed document.</returns>
         public string Transform(string json)
         {
-            foreach (var trans in Transforms)
+            foreach (Transform trans in Transforms)
             {
                 JObject jobject = trans.Execute(json);
                 json = jobject.ToString();

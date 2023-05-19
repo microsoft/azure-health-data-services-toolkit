@@ -8,6 +8,9 @@ namespace Microsoft.AzureHealth.DataServices.Commands
     /// </summary>
     public class TokenExistsCommand : ICommandException
     {
+        private readonly JToken token;
+        private readonly string jpath;
+
         /// <summary>
         /// Creates an instance of TokenExistsCommand.
         /// </summary>
@@ -18,9 +21,6 @@ namespace Microsoft.AzureHealth.DataServices.Commands
             this.token = token;
             this.jpath = jpath;
         }
-
-        private readonly JToken token;
-        private readonly string jpath;
 
         /// <summary>
         /// Executes without exception if JToken exists in the Json path.

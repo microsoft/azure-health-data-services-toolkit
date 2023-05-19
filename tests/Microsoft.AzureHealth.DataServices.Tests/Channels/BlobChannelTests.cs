@@ -18,9 +18,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
     [TestClass]
     public class BlobChannelTests
     {
+        private static readonly string Alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static ConcurrentQueue<string> cleanupContainers;
         private static StorageBlob storage;
-        private static readonly string alphabet = "abcdefghijklmnopqrtsuvwxyz";
         private static Random random;
         private static BlobStorageConfig config;
 
@@ -41,7 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         }
 
         [TestCleanup]
-        public async Task CleanupTest()
+        public static async Task CleanupTest()
         {
             while (!cleanupContainers.IsEmpty)
             {
@@ -83,7 +83,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -118,7 +118,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -149,7 +149,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -174,7 +174,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
             {
-                {propertyName, value }
+                { propertyName, value },
             };
 
             string content = "hi";
@@ -190,7 +190,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -208,7 +208,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(content, actualContent, "Content mismatch.");
 
-            var props = await storage.GetBlobPropertiesAsync(container, blob);
+            BlobProperties props = await storage.GetBlobPropertiesAsync(container, blob);
             Assert.AreEqual(value, props.Metadata[propertyName], "Metadata mismatch.");
         }
 
@@ -228,7 +228,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -267,7 +267,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -307,7 +307,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -334,7 +334,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
             {
-                {propertyName, value }
+                { propertyName, value },
             };
 
             string content = "hi";
@@ -350,7 +350,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -368,7 +368,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(content, actualContent, "Content mismatch.");
 
-            var props = await storage.GetBlobPropertiesAsync(container, blob);
+            BlobProperties props = await storage.GetBlobPropertiesAsync(container, blob);
             Assert.AreEqual(value, props.Metadata[propertyName], "Metadata mismatch.");
         }
 
@@ -379,7 +379,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string value = "Value1";
             IDictionary<string, string> metadata = new Dictionary<string, string>()
             {
-                {propertyName, value }
+                { propertyName, value },
             };
 
             string contentString1 = "hi";
@@ -399,7 +399,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IOptions<BlobStorageChannelOptions> options = Options.Create<BlobStorageChannelOptions>(new BlobStorageChannelOptions()
             {
                 ConnectionString = config.BlobStorageChannelConnectionString,
-                Container = config.BlobStorageChannelContainer
+                Container = config.BlobStorageChannelContainer,
             });
 
             IChannel channel = new BlobStorageChannel(options);
@@ -423,7 +423,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string actualContent = Encoding.UTF8.GetString(result.Content.ToArray());
             Assert.AreEqual(contentString, actualContent, "Content mismatch.");
 
-            var props = await storage.GetBlobPropertiesAsync(container, blob);
+            BlobProperties props = await storage.GetBlobPropertiesAsync(container, blob);
             Assert.AreEqual(value, props.Metadata[propertyName], "Metadata mismatch.");
         }
 
@@ -433,7 +433,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             int i = 0;
             while (i < 10)
             {
-                builder.Append(Convert.ToString(alphabet.ToCharArray()[random.Next(0, 25)]));
+                builder.Append(Convert.ToString(Alphabet.ToCharArray()[random.Next(0, 25)]));
                 i++;
             }
 

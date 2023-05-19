@@ -125,11 +125,11 @@ If you don't want to use the APIM and are planning to call the Azure function in
 ### Quickstart function app
 
 - `Program.cs` outlines how we can use Azure Function for Simple custom operation using various types of services like authenticator, headers and filters.
-  - UseAuthenticator() Used for accessing Azure resources, it uses azure default credentials.
   - UseCustomHeaders()  Used  for custom headers Setup, using this service we can add custom header, here we have added custom header with name `X-MS-AZUREFHIR-AUDIT-USER-TOKEN-TEST`.
   - UseAzureFunctionPipeline() setup pipeline for Azure function.
   - AddInputFilter(typeof(QuickstartFilter)) Input filter added with name `QuickStart` which in turn used to modify the patient data using JsonTransform.
   - Add binding to pass the call to the FHIR service.
+  - UseAuthenticator() Configures the binding to use an Azure.Identity DefaultAzureCredential.
 - Please refer `QuickstartFilter.cs` file for input filter modifications in the Patient Data.
   - Added language to resource as ‘en’ (English)
   - If there is no `Patient.meta.security` label, added [HTEST](https://www.hl7.org/fhir/resource-definitions.html#Meta.security)

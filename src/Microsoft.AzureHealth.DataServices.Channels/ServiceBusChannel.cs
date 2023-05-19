@@ -2,7 +2,6 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
-using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,22 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     /// </summary>
     public class ServiceBusChannel : IInputChannel, IOutputChannel
     {
+        private readonly ILogger _logger;
+        private readonly StatusType _statusType;
+        private readonly string _connectionString;
+        private readonly string _fallbackStorageConnectionString;
+        private readonly string _storageContainer;
+        private readonly string _topic;
+        private readonly string _subscription;
+        private readonly string _queue;
+        private readonly ServiceBusSkuType _sku;
+        private ChannelState _state;
+        private StorageBlob _storage;
+        private bool _disposed;
+        private ServiceBusClient _client;
+        private ServiceBusSender _sender;
+        private ServiceBusProcessor _processor;
+
         /// <summary>
         /// Creates an instance of ServiceBusChannel for sending or receiving messages from service bus.
         /// </summary>
@@ -25,78 +40,20 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public ServiceBusChannel(IOptions<ServiceBusChannelOptions> options, ILogger<ServiceBusChannel> logger = null)
         {
             Id = Guid.NewGuid().ToString();
-            sku = options.Value.Sku;
-            connectionString = options.Value.ConnectionString;
-            fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
-            storageContainer = options.Value.FallbackStorageContainer;
-            topic = options.Value.Topic;
-            subscription = options.Value.Subscription;
-            queue = options.Value.Queue;
-            statusType = options.Value.ExecutionStatusType;
-            this.logger = logger;
+            _sku = options.Value.Sku;
+            _connectionString = options.Value.ConnectionString;
+            _fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
+            _storageContainer = options.Value.FallbackStorageContainer;
+            _topic = options.Value.Topic;
+            _subscription = options.Value.Subscription;
+            _queue = options.Value.Queue;
+            _statusType = options.Value.ExecutionStatusType;
+            _logger = logger;
         }
 
-
-        private ChannelState state;
-        private readonly ILogger logger;
-        private readonly StatusType statusType;
-        private readonly string connectionString;
-        private readonly string fallbackStorageConnectionString;
-        private readonly string storageContainer;
-        private readonly string topic;
-        private readonly string subscription;
-        private readonly string queue;
-        private readonly ServiceBusSkuType sku;
-        private StorageBlob storage;
-        private bool disposed;
-        private ServiceBusClient client;
-        private ServiceBusSender sender;
-        private ServiceBusProcessor processor;
-
-        /// <summary>
-        /// Gets the instance ID of the channel.
-        /// </summary>
-        public string Id { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the channel, i.e., "ServiceBusChannel".
-        /// </summary>
-        public string Name => "ServiceBusChannel";
-
-        /// <summary>
-        /// Gets the requirement for executing the channel.
-        /// </summary>
-        public StatusType ExecutionStatusType => statusType;
-
-        /// <summary>
-        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
-        /// </summary>
-        public bool IsAuthenticated => false;
-
-        /// <summary>
-        /// Indicates whether the channel is encrypted, which is always true.
-        /// </summary>
-        public bool IsEncrypted => true;
-
-        /// <summary>
-        /// Gets the port used, which by default always 0.
-        /// </summary>
-        public int Port => 0;
-
-        /// <summary>
-        /// Gets or sets the channel state.
-        /// </summary>
-        public ChannelState State
+        public ServiceBusChannel(ServiceBusSkuType sku)
         {
-            get => state;
-            set
-            {
-                if (state != value)
-                {
-                    state = value;
-                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, state));
-                }
-            }
+            _sku = sku;
         }
 
         /// <summary>
@@ -125,6 +82,52 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public event EventHandler<ChannelStateEventArgs> OnStateChange;
 
         /// <summary>
+        /// Gets the instance ID of the channel.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the channel, i.e., "ServiceBusChannel".
+        /// </summary>
+        public string Name => "ServiceBusChannel";
+
+        /// <summary>
+        /// Gets the requirement for executing the channel.
+        /// </summary>
+        public StatusType ExecutionStatusType => _statusType;
+
+        /// <summary>
+        /// Gets and indicator to whether the channel has authenticated the user, which by default always false.
+        /// </summary>
+        public bool IsAuthenticated => false;
+
+        /// <summary>
+        /// Indicates whether the channel is encrypted, which is always true.
+        /// </summary>
+        public bool IsEncrypted => true;
+
+        /// <summary>
+        /// Gets the port used, which by default always 0.
+        /// </summary>
+        public int Port => 0;
+
+        /// <summary>
+        /// Gets or sets the channel state.
+        /// </summary>
+        public ChannelState State
+        {
+            get => _state;
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    OnStateChange?.Invoke(this, new ChannelStateEventArgs(Id, _state));
+                }
+            }
+        }
+
+        /// <summary>
         /// Add a message to the channel which is surface by the OnReceive event.
         /// </summary>
         /// <param name="message">Message to add.</param>
@@ -141,22 +144,22 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            if (string.IsNullOrEmpty(fallbackStorageConnectionString))
+            if (string.IsNullOrEmpty(_fallbackStorageConnectionString))
             {
-                logger?.LogWarning("Service Bus channel not configured fallback storage connection string.");
+                _logger?.LogWarning("Service Bus channel not configured fallback storage connection string.");
             }
             else
             {
-                storage = new StorageBlob(fallbackStorageConnectionString, null, 10, null, logger);
+                _storage = new StorageBlob(_fallbackStorageConnectionString, null, 10, null, _logger);
             }
 
-            client = new(connectionString);
-            string resource = topic ?? queue;
-            sender = client.CreateSender(resource);
+            _client = new(_connectionString);
+            string resource = _topic ?? _queue;
+            _sender = _client.CreateSender(resource);
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));
-            logger?.LogInformation("{Name}-{Id} opened.", Name, Id);
+            _logger?.LogInformation("{Name}-{Id} opened.", Name, Id);
             await Task.CompletedTask;
         }
 
@@ -165,7 +168,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// </summary>
         /// <param name="message">Message to send.</param>
         /// <param name="items">Additional optional parameters, where required is the content type.</param>
-        /// <returns></returns>
         public async Task SendAsync(byte[] message, params object[] items)
         {
             try
@@ -173,10 +175,9 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                 string contentType = (string)items[0];
                 ServiceBusMessage data = null;
 
-
-                if ((sku != ServiceBusSkuType.Premium &&
+                if ((_sku != ServiceBusSkuType.Premium &&
                     message.Length > Constants.ServiceBusNonPremiumSkuMaxMessageLength) ||
-                    (sku == ServiceBusSkuType.Premium && message.Length > Constants.ServiceBusPremiumSkuMaxMessageLength))
+                    (_sku == ServiceBusSkuType.Premium && message.Length > Constants.ServiceBusPremiumSkuMaxMessageLength))
                 {
                     string blob = await WriteBlobAsync(contentType, message);
                     data = await GetBlobEventDataAsync(contentType, blob);
@@ -186,12 +187,12 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                     data = await GetServiceBusEventDataAsync(contentType, message);
                 }
 
-                await sender.SendMessageAsync(data);
+                await _sender.SendMessageAsync(data);
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
+                _logger?.LogError(ex, "{Name}-{Id} error attempting to send message.", Name, Id);
             }
         }
 
@@ -202,12 +203,12 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <remarks>Receive operation and subscription in Service Bus.</remarks>
         public async Task ReceiveAsync()
         {
-            if (string.IsNullOrEmpty(subscription) && string.IsNullOrEmpty(queue))
+            if (string.IsNullOrEmpty(_subscription) && string.IsNullOrEmpty(_queue))
             {
                 throw new InvalidOperationException("Neither queue or subscription configured to receive");
             }
 
-            if (!string.IsNullOrEmpty(subscription) && !string.IsNullOrEmpty(queue))
+            if (!string.IsNullOrEmpty(_subscription) && !string.IsNullOrEmpty(_queue))
             {
                 throw new InvalidOperationException("Both queue and subscription cannot be configured to receive");
             }
@@ -217,53 +218,53 @@ namespace Microsoft.AzureHealth.DataServices.Channels
                 ServiceBusProcessorOptions options = new()
                 {
                     AutoCompleteMessages = true,
-                    ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete
+                    ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete,
                 };
 
-                if (queue != null)
+                if (_queue != null)
                 {
-                    processor = client.CreateProcessor(queue, options);
-                    logger?.LogInformation("{Name}-{Id} queue {queue} receiving.", Name, Id, queue);
+                    _processor = _client.CreateProcessor(_queue, options);
+                    _logger?.LogInformation("{Name}-{Id} queue {queue} receiving.", Name, Id, _queue);
                 }
 
-                if (subscription != null)
+                if (_subscription != null)
                 {
-                    processor = client.CreateProcessor(topic, subscription, options);
-                    logger?.LogInformation("{Name}-{Id} topic {topic} subscription {sub} receiving.", Name, Id, topic, subscription);
+                    _processor = _client.CreateProcessor(_topic, _subscription, options);
+                    _logger?.LogInformation("{Name}-{Id} topic {topic} subscription {sub} receiving.", Name, Id, _topic, _subscription);
                 }
 
-                processor.ProcessErrorAsync += async (args) =>
+                _processor.ProcessErrorAsync += async (args) =>
                 {
-                    logger?.LogInformation("{Name}-{Id} received error in processor.", Name, Id);
+                    _logger?.LogInformation("{Name}-{Id} received error in processor.", Name, Id);
                     OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, args.Exception));
                     await Task.CompletedTask;
                 };
 
-                processor.ProcessMessageAsync += async (args) =>
+                _processor.ProcessMessageAsync += async (args) =>
                 {
                     ServiceBusReceivedMessage msg = args.Message;
-                    logger?.LogInformation("{Name}-{Id} message received.", Name, Id);
+                    _logger?.LogInformation("{Name}-{Id} message received.", Name, Id);
 
                     if (msg.ApplicationProperties.ContainsKey("PassedBy") && (string)msg.ApplicationProperties["PassedBy"] == "Reference")
                     {
-                        var byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
-                        var result = await storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
-                        logger?.LogInformation("{Name}-{Id} processing large message from blob.", Name, Id);
+                        EventDataByReference byRef = JsonConvert.DeserializeObject<EventDataByReference>(Encoding.UTF8.GetString(msg.Body.ToArray()));
+                        var result = await _storage.ReadBlockBlobAsync(byRef.Container, byRef.Blob);
+                        _logger?.LogInformation("{Name}-{Id} processing large message from blob.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, result));
                     }
                     else
                     {
-                        logger?.LogInformation("{Name}-{Id} processing subscription message.", Name, Id);
+                        _logger?.LogInformation("{Name}-{Id} processing subscription message.", Name, Id);
                         OnReceive?.Invoke(this, new ChannelReceivedEventArgs(Id, Name, msg.Body.ToArray()));
                     }
                 };
 
-                await processor.StartProcessingAsync();
+                await _processor.StartProcessingAsync();
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, ex));
-                logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
+                _logger?.LogError(ex, "{Name}-{Id} error receiving messages.", Name, Id);
             }
         }
 
@@ -277,7 +278,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             {
                 State = ChannelState.Closed;
                 OnClose?.Invoke(this, new ChannelCloseEventArgs(Id, Name));
-                logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} channel closed.", Name, Id);
             }
 
             await Task.CompletedTask;
@@ -298,43 +299,50 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="disposing">Indicator is true if disposing.</param>
         protected async void Dispose(bool disposing)
         {
-            if (disposing && !disposed)
+            if (disposing && !_disposed)
             {
-                disposed = true;
+                _disposed = true;
 
                 try
                 {
-                    storage = null;
+                    _storage = null;
 
-                    if (sender != null)
+                    if (_sender != null)
                     {
-                        await sender.DisposeAsync();
+                        await _sender.DisposeAsync();
                     }
 
-                    if (processor != null)
+                    if (_processor != null)
                     {
-                        await processor.StopProcessingAsync();
-                        await processor.DisposeAsync();
+                        await _processor.StopProcessingAsync();
+                        await _processor.DisposeAsync();
                     }
 
-                    if (client != null)
+                    if (_client != null)
                     {
-                        await client.DisposeAsync();
+                        await _client.DisposeAsync();
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger?.LogError(ex, "{Name}-{Id} fault disposing.", Name, Id);
+                    _logger?.LogError(ex, "{Name}-{Id} fault disposing.", Name, Id);
                 }
 
                 CloseAsync().GetAwaiter();
-                logger?.LogInformation("{Name}-{Id} disposed.", Name, Id);
+                _logger?.LogInformation("{Name}-{Id} disposed.", Name, Id);
             }
+        }
+
+        private static async Task<ServiceBusMessage> GetServiceBusEventDataAsync(string contentType, byte[] message)
+        {
+            ServiceBusMessage data = new(message);
+            data.ContentType = contentType;
+            return await Task.FromResult<ServiceBusMessage>(data);
         }
 
         private async Task<string> WriteBlobAsync(string contentType, byte[] message)
         {
-            if (storage == null)
+            if (_storage == null)
             {
                 var exception = new ServiceBusChannelException("Requires blob storage configured to write.");
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
@@ -343,30 +351,23 @@ namespace Microsoft.AzureHealth.DataServices.Channels
 
             string guid = Guid.NewGuid().ToString();
             string blob = $"{guid}T{DateTime.UtcNow:HH-MM-ss-fffff}";
-            await storage.WriteBlockBlobAsync(storageContainer, blob, contentType, message);
+            await _storage.WriteBlockBlobAsync(_storageContainer, blob, contentType, message);
             return blob;
         }
 
         private async Task<ServiceBusMessage> GetBlobEventDataAsync(string contentType, string blobName)
         {
-            if (storageContainer == null)
+            if (_storageContainer == null)
             {
                 var exception = new ServiceBusChannelException("Requires blob storage container configured to write event data.");
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
                 throw exception;
             }
 
-            EventDataByReference byref = new(storageContainer, blobName, contentType);
+            EventDataByReference byref = new(_storageContainer, blobName, contentType);
             string json = JsonConvert.SerializeObject(byref);
             ServiceBusMessage data = new(Encoding.UTF8.GetBytes(json));
             data.ApplicationProperties.Add("PassedBy", "Reference");
-            data.ContentType = contentType;
-            return await Task.FromResult<ServiceBusMessage>(data);
-        }
-
-        private static async Task<ServiceBusMessage> GetServiceBusEventDataAsync(string contentType, byte[] message)
-        {
-            ServiceBusMessage data = new(message);
             data.ContentType = contentType;
             return await Task.FromResult<ServiceBusMessage>(data);
         }

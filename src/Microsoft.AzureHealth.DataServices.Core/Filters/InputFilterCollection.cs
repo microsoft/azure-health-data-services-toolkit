@@ -8,6 +8,7 @@ namespace Microsoft.AzureHealth.DataServices.Filters
     /// </summary>
     public class InputFilterCollection : IInputFilterCollection
     {
+        private readonly List<IFilter> filters;
 
         /// <summary>
         /// Creates an instance of InputFilterCollection.
@@ -17,8 +18,6 @@ namespace Microsoft.AzureHealth.DataServices.Filters
         {
             filters = inputFilters != null ? new List<IFilter>(inputFilters) : new List<IFilter>();
         }
-
-        private readonly List<IFilter> filters;
 
         /// <summary>
         /// Gets the number of filters in the collection.

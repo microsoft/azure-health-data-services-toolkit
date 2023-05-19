@@ -7,19 +7,20 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
 {
     public class FaultFilter : IFilter
     {
+        private readonly string _id;
+
         public FaultFilter()
         {
-            id = Guid.NewGuid().ToString();
+            _id = Guid.NewGuid().ToString();
         }
 
-        private readonly string id;
-        public string Id => id;
+        public event EventHandler<FilterErrorEventArgs> OnFilterError;
+
+        public string Id => _id;
 
         public string Name => "FaultFilter";
 
         public StatusType ExecutionStatusType => StatusType.Any;
-
-        public event EventHandler<FilterErrorEventArgs> OnFilterError;
 
         public async Task<OperationContext> ExecuteAsync(OperationContext context)
         {

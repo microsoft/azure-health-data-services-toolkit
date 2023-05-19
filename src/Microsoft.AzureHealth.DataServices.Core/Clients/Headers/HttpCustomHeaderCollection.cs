@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -13,13 +14,14 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
     /// </summary>
     public class HttpCustomHeaderCollection : IHttpCustomHeaderCollection
     {
+        private readonly IList<IHeaderNameValuePair> _headers;
+
         /// <summary>
         /// Creates an empty instance of HttpCustomHeaderCollection.
         /// </summary>
-        public HttpCustomHeaderCollection() :
-            this(new IHeaderNameValuePair[] { })
+        public HttpCustomHeaderCollection()
+            : this(Array.Empty<IHeaderNameValuePair>())
         {
-
         }
 
         /// <summary>
@@ -28,23 +30,13 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <param name="items">Items to initialize the collection.</param>
         public HttpCustomHeaderCollection(IEnumerable<IHeaderNameValuePair> items)
         {
-            headers = new List<IHeaderNameValuePair>(items);
+            _headers = new List<IHeaderNameValuePair>(items);
         }
-
-        private readonly IList<IHeaderNameValuePair> headers;
-
-
-        /// <summary>
-        /// Gets an item in the collection by its index.
-        /// </summary>
-        /// <param name="index">Index of item to return.</param>
-        /// <returns>INameValuePair</returns>
-        public IHeaderNameValuePair this[int index] { get => headers[index]; set => headers[index] = value; }
 
         /// <summary>
         /// Gets the number of items in the collection.
         /// </summary>
-        public int Count => headers.Count;
+        public int Count => _headers.Count;
 
         /// <summary>
         /// Gets an indicator of whether the collection is read-only.
@@ -52,12 +44,19 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         public bool IsReadOnly => false;
 
         /// <summary>
+        /// Gets an item in the collection by its index.
+        /// </summary>
+        /// <param name="index">Index of item to return.</param>
+        /// <returns>INameValuePair</returns>
+        public IHeaderNameValuePair this[int index] { get => _headers[index]; set => _headers[index] = value; }
+
+        /// <summary>
         /// Add an item to the collection.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">Header item.</param>
         public void Add(IHeaderNameValuePair item)
         {
-            headers.Add(item);
+            _headers.Add(item);
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <returns>The existing headers with the headers in the collection appended.</returns>
         public NameValueCollection AppendHeaders(NameValueCollection items)
         {
-            foreach (IHeaderNameValuePair nvp in headers)
+            foreach (IHeaderNameValuePair nvp in _headers)
             {
                 items.Add(nvp.Name, nvp.Value);
             }
@@ -80,7 +79,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// </summary>
         public void Clear()
         {
-            headers.Clear();
+            _headers.Clear();
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <returns>True is item in is the collection; otherwise false.</returns>
         public bool Contains(IHeaderNameValuePair item)
         {
-            return headers.Contains(item);
+            return _headers.Contains(item);
         }
 
         /// <summary>
@@ -100,7 +99,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <param name="arrayIndex">Starting index to fill the array.</param>
         public void CopyTo(IHeaderNameValuePair[] array, int arrayIndex)
         {
-            headers.CopyTo(array, arrayIndex);
+            _headers.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <returns>Enumerator of name value pairs.</returns>
         public IEnumerator<IHeaderNameValuePair> GetEnumerator()
         {
-            return headers.GetEnumerator();
+            return _headers.GetEnumerator();
         }
 
         /// <summary>
@@ -119,7 +118,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         public NameValueCollection GetHeaders()
         {
             NameValueCollection collection = new();
-            foreach (IHeaderNameValuePair item in headers)
+            foreach (IHeaderNameValuePair item in _headers)
             {
                 collection.Add(item.Name, item.Value);
             }
@@ -137,26 +136,30 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         {
             NameValueCollection nvc = request.GetHeaders(restricted);
 
-            foreach (IHeaderNameValuePair item in headers)
+            foreach (IHeaderNameValuePair item in _headers)
             {
                 if (item.HeaderType == CustomHeaderType.RequestStatic)
                 {
                     if (!string.IsNullOrEmpty(nvc[item.Name]))
+                    {
                         nvc.Remove(item.Name);
+                    }
 
                     nvc.Add(item.Name, item.Value);
                 }
 
                 if (item.HeaderType == CustomHeaderType.RequestIdentity)
                 {
-                    var principal = request.GetClaimsPrincipal();
+                    ClaimsPrincipal principal = request.GetClaimsPrincipal();
                     if (principal is not null && principal.HasClaim(claim => claim.Type == item.Value))
                     {
                         IEnumerable<Claim> claimset = principal.Claims.Where(claim => claim.Type == item.Value);
-                        foreach (var claim in claimset)
+                        foreach (Claim claim in claimset)
                         {
                             if (!string.IsNullOrEmpty(nvc[item.Name]))
+                            {
                                 nvc.Remove(item.Name);
+                            }
 
                             nvc.Add(item.Name, claim.Value);
                         }
@@ -184,14 +187,14 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <param name="restricted">If true (default), omits the following headers, Content-Length, Authorization, Transfer-Encoding.  Otherwise, returns all headers. </param>
         public void UpdateFromResponse(HttpResponseMessage response, bool restricted = true)
         {
-            var nvc = response.GetHeaders(restricted);
+            NameValueCollection nvc = response.GetHeaders(restricted);
 
             foreach (var key in nvc.AllKeys)
             {
                 // If the current input element does not match a static response header in our existing collection
-                if (!headers.Where(x => x.Name == key && x.HeaderType == CustomHeaderType.ResponseStatic).Any())
+                if (!_headers.Where(x => x.Name == key && x.HeaderType == CustomHeaderType.ResponseStatic).Any())
                 {
-                    headers.Add(new HeaderNameValuePair(key, nvc[key], CustomHeaderType.ResponseStatic));
+                    _headers.Add(new HeaderNameValuePair(key, nvc[key], CustomHeaderType.ResponseStatic));
                 }
             }
         }
@@ -203,7 +206,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <returns>Index of the item in the collection.</returns>
         public int IndexOf(IHeaderNameValuePair item)
         {
-            return headers.IndexOf(item);
+            return _headers.IndexOf(item);
         }
 
         /// <summary>
@@ -213,7 +216,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <param name="item">Item to insert.</param>
         public void Insert(int index, IHeaderNameValuePair item)
         {
-            headers.Insert(index, item);
+            _headers.Insert(index, item);
         }
 
         /// <summary>
@@ -223,7 +226,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <returns>True is the item is removed; otherwise false.</returns>
         public bool Remove(IHeaderNameValuePair item)
         {
-            return headers.Remove(item);
+            return _headers.Remove(item);
         }
 
         /// <summary>
@@ -232,7 +235,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         /// <param name="index">Index of item to remove.</param>
         public void RemoveAt(int index)
         {
-            headers.RemoveAt(index);
+            _headers.RemoveAt(index);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

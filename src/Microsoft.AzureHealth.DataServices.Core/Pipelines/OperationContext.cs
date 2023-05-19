@@ -13,6 +13,9 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
     /// </summary>
     public class OperationContext
     {
+        private readonly Dictionary<string, string> properties;
+        private readonly IHttpCustomHeaderCollection headers;
+
         /// <summary>
         /// Creates an instance of OperationContext
         /// </summary>
@@ -21,9 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             properties = new Dictionary<string, string>();
             headers = new HttpCustomHeaderCollection();
         }
-
-        private readonly Dictionary<string, string> properties;
-        private readonly IHttpCustomHeaderCollection headers;
 
         /// <summary>
         /// Creates an instance of OperationContext
@@ -35,7 +35,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             Request = message;
             properties = new Dictionary<string, string>();
-            this.headers = new HttpCustomHeaderCollection();
+            headers = new HttpCustomHeaderCollection();
             SetContentAsync(message).GetAwaiter();
         }
 
@@ -84,7 +84,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// </summary>
         public string ContentString
         {
-            get => Content != null ? System.Text.Encoding.UTF8.GetString(Content) : null;
+            get => Content is not null ? System.Text.Encoding.UTF8.GetString(Content) : string.Empty;
             set => Content = value != null ? System.Text.Encoding.UTF8.GetBytes(value) : null;
         }
 
@@ -109,14 +109,16 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="version">Optional FHIR version</param>
         public void UpdateFhirRequestUri(HttpMethod method, string routePrefix = null, string resource = null, string id = null, string operation = null, string version = null)
         {
-            FhirUriPath requestPath = new(method.ToString(), Request.RequestUri.ToString(), routePrefix);
+            FhirUriPath requestPath = new(method, Request.RequestUri, routePrefix);
             requestPath.Resource = resource ?? requestPath.Resource;
             requestPath.Id = id ?? requestPath.Id;
             requestPath.Operation = operation ?? requestPath.Operation;
             requestPath.Version = version ?? requestPath.Version;
 
-            UriBuilder uriBuilder = new(this.Request.RequestUri);
-            uriBuilder.Path = requestPath.Path;
+            UriBuilder uriBuilder = new(Request.RequestUri)
+            {
+                Path = requestPath.Path,
+            };
             Request.RequestUri = uriBuilder.Uri;
 
             Request.Method = method;
@@ -131,9 +133,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <param name="query">Optional query.</param>
         public void UpdateRequestUri(HttpMethod method, string baseUrl, string path = null, string query = null)
         {
-            UriBuilder uriBuilder = new(baseUrl);
-            uriBuilder.Path = path;
-            uriBuilder.Query = query;
+            UriBuilder uriBuilder = new(baseUrl)
+            {
+                Path = path,
+                Query = query,
+            };
             Request.RequestUri = uriBuilder.Uri;
             Request.Method = method;
         }

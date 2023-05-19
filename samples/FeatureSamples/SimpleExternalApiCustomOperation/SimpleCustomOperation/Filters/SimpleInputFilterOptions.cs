@@ -1,12 +1,13 @@
-﻿
-using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace SimpleCustomOperation.Filters
 {
     public class SimpleInputFilterOptions
     {
-        public string HttpMethod { get; set; }
-        public string BaseUrl { get; set; }
+        public HttpMethod HttpMethod { get; set; }
+
+        public Uri BaseUrl { get; set; }
+
         public string Path { get; set; }
 
         public StatusType ExecutionStatus { get; set; }

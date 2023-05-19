@@ -13,6 +13,6 @@
         /// <summary>
         /// Append blob.
         /// </summary>
-        Append
+        Append,
     }
 }

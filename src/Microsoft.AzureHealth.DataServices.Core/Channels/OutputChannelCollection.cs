@@ -8,6 +8,8 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     /// </summary>
     public class OutputChannelCollection : IOutputChannelCollection
     {
+        private readonly List<IChannel> channels;
+
         /// <summary>
         /// Creates an instance of OutputChannelCollection.
         /// </summary>
@@ -16,8 +18,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         {
             channels = outputChannels != null ? new List<IChannel>(outputChannels) : new List<IChannel>();
         }
-
-        private readonly List<IChannel> channels;
 
         /// <summary>
         /// Gets the count of channels in the collection.
@@ -35,7 +35,6 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="index">Index of channel</param>
         /// <returns>IChannel</returns>
         public IChannel this[int index] { get => channels[index]; set => channels[index] = value; }
-
 
         /// <summary>
         /// Gets the index of a channel.

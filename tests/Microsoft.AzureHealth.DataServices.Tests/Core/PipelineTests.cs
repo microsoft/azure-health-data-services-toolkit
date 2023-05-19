@@ -1,39 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.AzureHealth.DataServices.Channels;
-using Microsoft.AzureHealth.DataServices.Filters;
-using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.AzureHealth.DataServices.Channels;
+using Microsoft.AzureHealth.DataServices.Filters;
+using Microsoft.AzureHealth.DataServices.Pipelines;
+using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System.Linq;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Core
 {
     [TestClass]
     public class PipelineTests
     {
-        private static readonly string logPath = "../../pipelinelog.txt";
+        private static readonly string LogPath = "../../pipelinelog.txt";
         private static Microsoft.Extensions.Logging.ILogger<WebPipeline> logger;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
-            if (File.Exists(logPath))
+            if (File.Exists(LogPath))
             {
-                File.Delete(logPath);
+                File.Delete(LogPath);
             }
 
-            var slog = new LoggerConfiguration()
+            Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
-            logPath,
+            LogPath,
             shared: true,
             flushToDiskInterval: TimeSpan.FromMilliseconds(10000))
             .MinimumLevel.Debug()
@@ -118,7 +118,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
             HttpResponseMessage output = await pipeline.ExecuteAsync(request);
             string copyPath = $"../../copypipelinelog.txt";
-            File.Copy(logPath, copyPath, true);
+            File.Copy(LogPath, copyPath, true);
             using StreamReader reader = new(copyPath);
 
             bool anyStatus = false;
@@ -129,6 +129,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 anyStatus = anyStatus || line.Contains("executed with status Any");
                 faultStatus = faultStatus || line.Contains("not executed due to status Fault");
             }
+
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsTrue(anyStatus, "Any status not found.");
             Assert.IsTrue(faultStatus, "Fault status not found.");
@@ -157,7 +158,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpRequestMessage request = new(HttpMethod.Get, requestUriString);
             HttpResponseMessage output = await pipeline.ExecuteAsync(request);
             string copyPath = $"../../copypipelinelog.txt";
-            File.Copy(logPath, copyPath, true);
+            File.Copy(LogPath, copyPath, true);
             using StreamReader reader = new(copyPath);
 
             bool anyStatus = false;
@@ -168,6 +169,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 anyStatus = anyStatus || line.Contains("executed with status Normal");
                 faultStatus = faultStatus || line.Contains("not executed due to status Fault");
             }
+
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsTrue(anyStatus, "Any status not found.");
             Assert.IsTrue(faultStatus, "Fault status not found.");
@@ -187,7 +189,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string requestUriString = "http://example.org/path";
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters, null, null, null, null, null, null);
             bool complete = false;
@@ -212,7 +214,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string requestUriString = "http://example.org/path";
             IInputChannelCollection channels = new InputChannelCollection
             {
-                channel
+                channel,
             };
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(null, channels);
             bool trigger = false;
@@ -237,7 +239,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             string requestUriString = "http://example.org/path";
             IInputChannelCollection channels = new InputChannelCollection
             {
-                channel
+                channel,
             };
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(null, channels);
             bool complete = false;
@@ -254,10 +256,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             _ = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Fail to complete.");
         }
-
-
-
-
 
         [TestMethod]
         public async Task WebPipeline_NoContent_Test()
@@ -277,7 +275,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             {
                 complete = true;
             };
-            ;
+
             HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(complete, "Pipeline not signal complete.");
             Assert.IsNotNull(response, "Response is null.");
@@ -324,11 +322,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             };
             IInputFilterCollection filters = new InputFilterCollection
             {
-                filter
+                filter,
             };
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters);
-
-
 
             bool complete = false;
             pipeline.OnComplete += (a, args) =>
@@ -344,7 +340,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
             HttpMethod method = HttpMethod.Get;
             string requestUriString = "http://example.org/test";
             HttpRequestMessage request = new(method, requestUriString);
-            var response = await pipeline.ExecuteAsync(request);
+            HttpResponseMessage response = await pipeline.ExecuteAsync(request);
             Assert.IsTrue(faulted, "Not faulted.");
             Assert.IsFalse(complete, "Should not be complete.");
             Assert.IsTrue(fault, "Should have fault.");
@@ -357,8 +353,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
-            List<KeyValuePair<string, string>> headerList = new();
-            headerList.Add(new KeyValuePair<string, string>("Accept", "application/json"));
+            List<KeyValuePair<string, string>> headerList = new()
+            {
+                new KeyValuePair<string, string>("Accept", "application/json"),
+            };
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
             IInputFilterCollection filters = new InputFilterCollection();
@@ -394,11 +392,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
-            List<KeyValuePair<string, string>> headerList = new();
-            headerList.Add(new KeyValuePair<string, string>("Accept", "application/json"));
+            List<KeyValuePair<string, string>> headerList = new()
+            {
+                new KeyValuePair<string, string>("Accept", "application/json"),
+            };
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
-            var response = await pipeline.ExecuteAsync(request);
+            HttpResponseData response = await pipeline.ExecuteAsync(request);
 
             Assert.IsNotNull(response, "Response is null.");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
@@ -413,14 +413,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         {
             string requestUriString = "http://example.org/test";
             FunctionContext funcContext = new FakeFunctionContext();
-            List<KeyValuePair<string, string>> headerList = new();
-            headerList.Add(new KeyValuePair<string, string>("Accept", "application/json"));
+            List<KeyValuePair<string, string>> headerList = new()
+            {
+                new KeyValuePair<string, string>("Accept", "application/json"),
+            };
             HttpHeadersCollection headers = new();
             HttpRequestData request = new FakeHttpRequestData(funcContext, "GET", requestUriString, null, headers);
 
             IInputFilterCollection filters = new InputFilterCollection
             {
-                new FaultFilter()
+                new FaultFilter(),
             };
             IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters);
 
@@ -435,7 +437,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
                 fault = true;
             };
 
-            var response = await pipeline.ExecuteAsync(request);
+            HttpResponseData response = await pipeline.ExecuteAsync(request);
             Assert.IsFalse(complete, "Should not be complete.");
             Assert.IsTrue(fault, "Should have fault.");
             Assert.IsNotNull(response, "Response is null.");
@@ -446,8 +448,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         public async Task WebPipeline_OutputsResponseHeaders_Test()
         {
             string requestUriString = "http://example.org/path";
-            IInputFilterCollection filters = new InputFilterCollection();
-            filters.Add(new FakeFilterWithContent());
+            IInputFilterCollection filters = new InputFilterCollection
+            {
+                new FakeFilterWithContent(),
+            };
 
             IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline = new WebPipeline(filters);
 
