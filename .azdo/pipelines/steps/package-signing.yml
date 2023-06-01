@@ -1,0 +1,115 @@
+parameters:
+- name: PackagesPath
+  type: string
+  default: ''
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    useGlobalJson: true
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+# Expand packages as zip
+- task: PowerShell@2
+  displayName: 'Expand nuget packages'
+  inputs:
+    packagePath: filePath
+    filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
+    arguments: '-packagePath "${{ parameters.PackagesPath }}"'
+
+- task: EsrpCodeSigning@1
+  displayName: 'Sign Package DLLs'
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '${{ parameters.PackagesPath }}'
+    Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
+    UseMinimatch: false
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "sign",
+          "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-230012",
+            "operationSetCode": "SigntoolVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
+  # Repackage with signed dlls
+- task: PowerShell@2
+  displayName: 'Repack nuget packages'
+  inputs:
+    packagePath: filePath
+    filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/RepackNugetPackages.ps1'
+    arguments: '-packageFolderPath "${{ parameters.PackagesPath }}" -signedPath "${{ parameters.PackagesPath }}-signed"'
+
+- task: CopyFiles@2
+  displayName: 'Copy symbols'
+  inputs:
+    sourceFolder: ${{ parameters.PackagesPath }}
+    contents: '*.snupkg'
+    targetFolder: ${{ parameters.PackagesPath }}-signed
+
+# Sign Packages
+- task: EsrpCodeSigning@1
+  displayName: 'Sign Nuget Packages'
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing'
+    FolderPath: '${{ parameters.PackagesPath }}-signed/'
+    Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
+    UseMinimatch: false
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetSign",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        },
+        {
+            "keyCode": "CP-401405",
+            "operationSetCode": "NuGetVerify",
+            "parameters": [ ],
+            "toolName": "sign",
+            "toolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
