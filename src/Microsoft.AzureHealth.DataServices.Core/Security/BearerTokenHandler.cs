@@ -51,6 +51,16 @@ namespace Microsoft.AzureHealth.DataServices.Security
         }
 
         /// <summary>
+        /// Gets an access token using the AcceseTokenCache.
+        /// </summary>
+        /// <param name="cancellationToken">Async cancellation token.</param>
+        /// <returns>AccessToken object from Azure.Core.</returns>
+        public async Task<AccessToken> GetTokenAsync(CancellationToken cancellationToken)
+        {
+            return await _accessTokenCache.GetTokenAsync(_scopes, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Sends the request with the bearer token header.
         /// </summary>
         /// <param name="request">Incoming request message.</param>

@@ -67,6 +67,12 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                 return null;
             }
 
+            // If the status code was set earlier in the pipeline, skip the binding.
+            if (context.StatusCode > 0)
+            {
+                return context;
+            }
+
             try
             {
                 NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
