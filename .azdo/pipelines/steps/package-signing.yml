@@ -4,12 +4,14 @@ parameters:
   default: ''
 
 steps:
+- checkout: self
+  clean: true
+  depth: 1
+
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk'
   inputs:
-    packageType: sdk
     useGlobalJson: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 # Expand packages as zip
 - task: PowerShell@2

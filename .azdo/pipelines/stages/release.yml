@@ -25,7 +25,7 @@ stages:
               - download: current
                 artifact: ${{ parameters.PackageArtifactName }}
                 timeoutInMinutes: 5
-
+              
               - template: ../steps/package-signing.yml
                 parameters:
                   PackagesPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}'
