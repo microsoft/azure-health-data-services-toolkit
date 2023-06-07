@@ -6,7 +6,7 @@ parameters:
 steps:
 - checkout: self
   clean: true
-  depth: 1
+  fetchDepth: 1
 
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk'
