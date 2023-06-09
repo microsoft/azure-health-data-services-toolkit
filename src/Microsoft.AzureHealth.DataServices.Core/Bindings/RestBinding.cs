@@ -75,7 +75,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
 
             try
             {
-                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, false);
+                NameValueCollection headers = context.Headers.RequestAppendAndReplace(context.Request, true);
 
                 // Forward the token if required via configuration.
                 string token = _options.Value.PassThroughAuthorizationHeader ? context.Request.Headers.Authorization?.Parameter?.ToString() : null;
@@ -100,7 +100,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
 
                 if (_options.Value.AddResponseHeaders)
                 {
-                    context.Headers.UpdateFromResponse(resp);
+                    context.Headers.UpdateFromResponse(resp, true);
                 }
 
                 OnComplete?.Invoke(this, new BindingCompleteEventArgs(Id, Name, context));

@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.AzureHealth.DataServices.Clients;
+using Microsoft.AzureHealth.DataServices.Clients.Headers;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Microsoft.AzureHealth.DataServices.Pipelines
@@ -35,19 +38,15 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 message.Content = new StringContent(req.ReadAsString() ?? string.Empty);
             }
 
-            foreach (System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.IEnumerable<string>> header in req.Headers)
+            foreach (KeyValuePair<string, IEnumerable<string>> header in req.Headers)
             {
-                if (header.Key.ToLowerInvariant() == "content-type")
+                if (HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, header.Key, StringComparison.OrdinalIgnoreCase)))
                 {
-                    message.Content.Headers.ContentType = new MediaTypeHeaderValue(header.Value.ToArray()[0]);
-                }
-                else if (header.Key.ToLowerInvariant() == "content-length")
-                {
-                    message.Content.Headers.ContentLength = Convert.ToInt64(header.Value.ToArray()[0]);
+                    message.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
                 }
                 else
                 {
-                    message.Headers.Add(header.Key, header.Value);
+                    message.Headers.TryAddWithoutValidation(header.Key, header.Value);
                 }
             }
 
@@ -64,12 +63,14 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         {
             HttpResponseData data = request.CreateResponse(message.StatusCode);
 
-            System.Collections.Specialized.NameValueCollection messageHeaders = message.GetHeaders();
+            NameValueCollection messageHeaders = message.GetHeaders();
+            messageHeaders.Add(message.GetContentHeaders());
+
             foreach (var messageHeaderKey in messageHeaders.AllKeys)
             {
                 if (messageHeaderKey is not null && messageHeaders[messageHeaderKey] is not null)
                 {
-                    data.Headers.Add(messageHeaderKey, messageHeaders[messageHeaderKey]);
+                    data.Headers.TryAddWithoutValidation(messageHeaderKey, messageHeaders[messageHeaderKey]);
                 }
             }
 
@@ -92,12 +93,12 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         }
 
         /// <summary>
-        /// Converts HttpResponseData to HttpResponseData.
+        /// Converts OperationContext to HttpResponseData.
         /// </summary>
         /// <param name="context">OperationContext</param>
         /// <param name="request">HttpRequestData</param>
         /// <returns>HttpResponseData</returns>
-        public static async Task<HttpResponseData> ConvertToHttpResponseData(this OperationContext context, HttpRequestData request)
+        public static HttpResponseData ConvertToHttpResponseData(this OperationContext context, HttpRequestData request)
         {
             HttpResponseData data = request.CreateResponse(context.StatusCode);
 
@@ -105,21 +106,13 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             {
                 if ((int)data.StatusCode < 400)
                 {
-                    data.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    data.StatusCode = HttpStatusCode.InternalServerError;
                 }
-                else
-                {
-                    data.StatusCode = context.StatusCode;
-                }
-
-                return data;
             }
 
-            if (!string.IsNullOrEmpty(context.ContentString))
+            foreach (IHeaderNameValuePair header in context.Headers)
             {
-                data.Headers.Add("Content-Type", "application/json");
-                data.Headers.Add("Content-Length", context.ContentString.Length.ToString());
-                await data.WriteStringAsync(context.ContentString);
+                data.Headers.TryAddWithoutValidation(header.Name, header.Value);
             }
 
             data.StatusCode = context.StatusCode;
@@ -134,7 +127,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
         /// <returns>ClaimsPrincipal</returns>
         public static ClaimsPrincipal GetClaimsPrincipal(this HttpRequestData request)
         {
-            if (!request.Headers.TryGetValues("Authorization", out System.Collections.Generic.IEnumerable<string> tokens))
+            if (!request.Headers.TryGetValues("Authorization", out IEnumerable<string> tokens))
             {
                 return null;
             }

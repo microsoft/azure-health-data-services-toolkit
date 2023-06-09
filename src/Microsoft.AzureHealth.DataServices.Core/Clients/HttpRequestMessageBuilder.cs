@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using HeaderNames = Microsoft.Net.Http.Headers.HeaderNames;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
@@ -111,16 +113,9 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             if (Headers?.AllKeys is not null)
             {
-                Headers.Remove("Content-Type");
-                Headers.Remove("Content-Length");
-                Headers.Remove("Authorization");
-                Headers.Remove("Accept");
-                Headers.Remove("Host");
-                Headers.Remove("User-Agent");
-
                 foreach (var item in Headers.AllKeys)
                 {
-                    if (item is not null)
+                    if (item is not null && !HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
                     {
                         request.Headers.Add(item, Headers.Get(item));
                     }
@@ -128,13 +123,18 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             }
 
             request.Headers.Add("Host", BaseUrl.Authority);
-            request.Headers.Add("Accept", ContentType);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
 
             if (Content != null)
             {
                 request.Content = new ByteArrayContent(Content);
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
+
+                if (!string.IsNullOrEmpty(ContentType))
+                {
+                    request.Content.Headers.Remove(HeaderNames.ContentType);
+                    request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
+                }
+
                 request.Content.Headers.ContentLength = Content.Length;
             }
 
