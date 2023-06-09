@@ -115,7 +115,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             {
                 foreach (var item in Headers.AllKeys)
                 {
-                    if (item is not null && !HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
+                    if (item is not null && !HttpMessageExtensions.ContentHeaderNames.Where(x => x != HeaderNames.UserAgent).Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
                     {
                         request.Headers.Add(item, Headers.Get(item));
                     }

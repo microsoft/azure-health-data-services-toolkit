@@ -138,7 +138,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                 HttpResponseMessage response = new(_context.StatusCode);
 
                 response.Content = !string.IsNullOrEmpty(_context.ContentString) ? new ByteArrayContent(_context.Content) : null;
-                response.AddCustomHeadersToResponse(_headers);
+
+                foreach (var errorHeader in response.AddCustomHeadersToResponse(_headers))
+                {
+                    logger?.LogInformation($"Could not add header {errorHeader.Name} with value {errorHeader.Value} due to validation error.");
+                }
 
                 logger?.LogInformation("Pipeline {Name}-{Id} complete {ExecutionTime}ms", Name, Id, TimeSpan.FromTicks(DateTime.Now.Ticks - _startTicks).TotalMilliseconds);
                 OnComplete?.Invoke(this, new PipelineCompleteEventArgs(Id, Name, _context));

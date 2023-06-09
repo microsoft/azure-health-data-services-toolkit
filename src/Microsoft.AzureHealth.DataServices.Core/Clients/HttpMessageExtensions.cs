@@ -84,19 +84,30 @@ namespace Microsoft.AzureHealth.DataServices.Clients
         /// </summary>
         /// <param name="response">Response data to modify.</param>
         /// <param name="headers">Custom headers collection.</param>
-        public static void AddCustomHeadersToResponse(this HttpResponseMessage response, IHttpCustomHeaderCollection headers)
+        public static IHttpCustomHeaderCollection AddCustomHeadersToResponse(this HttpResponseMessage response, IHttpCustomHeaderCollection headers)
         {
+            HttpCustomHeaderCollection errors = new();
+
             foreach (IHeaderNameValuePair header in headers.Where(x => x.HeaderType == CustomHeaderType.ResponseStatic))
             {
-                if (ContentHeaderNames.Any(x => string.Equals(x, header.Name, StringComparison.OrdinalIgnoreCase)))
+                try
                 {
-                    response.Content.Headers.TryAddWithoutValidation(header.Name, header.Value);
+                    if (ContentHeaderNames.Any(x => string.Equals(x, header.Name, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        response.Content.Headers.Add(header.Name, header.Value);
+                    }
+                    else
+                    {
+                        response.Headers.Add(header.Name, header.Value);
+                    }
                 }
-                else
+                catch (ArgumentException)
                 {
-                    response.Headers.TryAddWithoutValidation(header.Name, header.Value);
+                    errors.Add(header);
                 }
             }
+
+            return errors;
         }
 
         private static NameValueCollection GetHeaders(HttpHeaders genericHeaderList, IReadOnlyCollection<string> restrictedHeaderList)
