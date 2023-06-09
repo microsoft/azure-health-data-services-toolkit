@@ -4,12 +4,15 @@ parameters:
   default: ''
 
 steps:
+- checkout: self
+  clean: true
+  fetchDepth: 1
+
 - task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
+  displayName: 'Use .NET Core sdk (for code signing)'
   inputs:
     packageType: sdk
-    useGlobalJson: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+    version: 3.1.x
 
 # Expand packages as zip
 - task: PowerShell@2
