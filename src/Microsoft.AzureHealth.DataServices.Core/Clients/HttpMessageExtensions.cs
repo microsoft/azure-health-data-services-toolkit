@@ -101,7 +101,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
                         response.Headers.Add(header.Name, header.Value);
                     }
                 }
-                catch (ArgumentException)
+                catch (Exception)
                 {
                     errors.Add(header);
                 }
