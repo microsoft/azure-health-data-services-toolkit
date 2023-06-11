@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.1" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.31.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>

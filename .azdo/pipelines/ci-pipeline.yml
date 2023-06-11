@@ -4,12 +4,6 @@
 name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
 trigger: none
 
-resources:
-  repositories:
-  - repository: azure-health-data-services-toolkit-build-tools
-    type: git
-    name: AzureHealthDataServicesToolkit/azure-health-data-services-toolkit-build-tools
-
 variables:
   - group: toolkit-test-pack
   - group: toolkit-build-version-configuration
@@ -41,7 +35,7 @@ stages:
           AssemblyVersion: $(ReleaseAssemblyVersion)
           FileVersion: $(ReleaseFileVersion)
 
-      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
+      - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AppliedOpenSourceTools'))}}:
         - template: ./steps/pack.yml
           parameters:
             PackageArtifactName: PrereleasePackages
@@ -50,15 +44,15 @@ stages:
             FileVersion: $(PrereleaseFileVersion)
 
     # Run release only on manual build (Build.Reason is sometimes blank here) against the internal project. Run for both release and pre-release
-  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AzureHealthDataServicesToolkit'))}}:
+  - ${{if and(in(variables['Build.Reason'], 'Manual', ''), eq(variables['System.TeamProject'], 'AppliedOpenSourceTools'))}}:
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: PrereleasePackages
-        DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: ReleasePackages
-        DevOpsFeedID: AzureHealthDataServicesToolkit/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
         IsPrerelease: false

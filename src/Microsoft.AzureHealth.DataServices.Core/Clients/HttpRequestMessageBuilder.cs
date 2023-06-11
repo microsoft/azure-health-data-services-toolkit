@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using Azure.Core;
+using Microsoft.AspNetCore.Routing;
+using HeaderNames = Microsoft.Net.Http.Headers.HeaderNames;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
 {
@@ -109,32 +113,18 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             HttpRequestMessage request = new(Method, baseUrl);
 
-            if (Headers?.AllKeys is not null)
-            {
-                Headers.Remove("Content-Type");
-                Headers.Remove("Content-Length");
-                Headers.Remove("Authorization");
-                Headers.Remove("Accept");
-                Headers.Remove("Host");
-                Headers.Remove("User-Agent");
-
-                foreach (var item in Headers.AllKeys)
-                {
-                    if (item is not null)
-                    {
-                        request.Headers.Add(item, Headers.Get(item));
-                    }
-                }
-            }
-
-            request.Headers.Add("Host", BaseUrl.Authority);
-            request.Headers.Add("Accept", ContentType);
-            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
+            AddPipelineHeadersToRequest(request, Headers);
 
             if (Content != null)
             {
                 request.Content = new ByteArrayContent(Content);
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
+
+                if (!string.IsNullOrEmpty(ContentType))
+                {
+                    request.Content.Headers.Remove(HeaderNames.ContentType);
+                    request.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
+                }
+
                 request.Content.Headers.ContentLength = Content.Length;
             }
 
@@ -144,6 +134,26 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             }
 
             return request;
+        }
+
+        private static void AddPipelineHeadersToRequest(HttpRequestMessage request, NameValueCollection headers)
+        {
+            if (headers?.AllKeys is not null)
+            {
+                foreach (var item in headers.AllKeys)
+                {
+                    if (
+                        item is not null &&
+                        !HttpMessageExtensions.ContentHeaderNames
+                            .Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        request.Headers.Add(item, headers.Get(item));
+                    }
+                }
+            }
+
+            request.Headers.Add("Host", request.RequestUri.Authority);
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
         }
     }
 }

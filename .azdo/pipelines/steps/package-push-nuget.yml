@@ -1,0 +1,21 @@
+parameters:
+  - name: ArtifactPath
+  - name: PackageName
+
+steps:
+- pwsh: |
+    if (Test-Path -Path '${{ parameters.ArtifactPath }}') {
+        Write-Host "Folder ${{ parameters.ArtifactPath }} containing..."
+        Get-ChildItem -Path '${{ parameters.ArtifactPath }}'
+    } else {
+        Throw 'Provided ArtifactPath does not exist: ${{ parameters.ArtifactPath }}'
+    }
+  displayName: 'Ensure provided ArtifactPath exists'
+
+- task: NuGetCommand@2
+  displayName: 'Publish ${{ parameters.PackageName }} package to NuGet.org'
+  inputs:
+    command: push
+    packagesToPush: '${{ parameters.ArtifactPath }}/${{ parameters.PackageName }}*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet ${{ parameters.PackageName }} Push'

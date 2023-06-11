@@ -16,6 +16,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-incremental -p:ContinuousIntegrationBuild=true -warnaserror -f ${{parameters.targetBuildFramework}}'
     projects: '**/Microsoft.AzureHealth.DataServices.*.csproj'
   displayName: 'Build toolkit projects'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'

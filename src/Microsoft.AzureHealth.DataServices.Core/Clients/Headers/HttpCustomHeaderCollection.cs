@@ -188,6 +188,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients.Headers
         public void UpdateFromResponse(HttpResponseMessage response, bool restricted = true)
         {
             NameValueCollection nvc = response.GetHeaders(restricted);
+            nvc.Add(response.GetContentHeaders(restricted));
 
             foreach (var key in nvc.AllKeys)
             {
