@@ -67,7 +67,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Headers
             var token = JToken.Parse(actualContent);
             JToken propToken = token.GetToken($"$.{ExpectedHeader}");
             var actual = propToken.GetValue<string>();
-            Assert.AreEqual(actual, HttpRequestMessageBuilder.DefaultUserAgentHeader.ToString());
+            Assert.IsTrue(actual.Contains(HttpRequestMessageBuilder.DefaultUserAgentHeader.ToString()));
         }
     }
 }

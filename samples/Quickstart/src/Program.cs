@@ -11,7 +11,7 @@ using Quickstart.Configuration;
 using Quickstart.Filters;
 
 #pragma warning disable CA1852
-internal class Program
+internal static class Program
 {
     private static async Task Main(string[] args)
     {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using Azure.Core;
+using Microsoft.AspNetCore.Routing;
 using HeaderNames = Microsoft.Net.Http.Headers.HeaderNames;
 
 namespace Microsoft.AzureHealth.DataServices.Clients
@@ -111,19 +113,7 @@ namespace Microsoft.AzureHealth.DataServices.Clients
 
             HttpRequestMessage request = new(Method, baseUrl);
 
-            if (Headers?.AllKeys is not null)
-            {
-                foreach (var item in Headers.AllKeys)
-                {
-                    if (item is not null && !HttpMessageExtensions.ContentHeaderNames.Where(x => x != HeaderNames.UserAgent).Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        request.Headers.Add(item, Headers.Get(item));
-                    }
-                }
-            }
-
-            request.Headers.Add("Host", BaseUrl.Authority);
-            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
+            AddPipelineHeadersToRequest(request, Headers);
 
             if (Content != null)
             {
@@ -144,6 +134,26 @@ namespace Microsoft.AzureHealth.DataServices.Clients
             }
 
             return request;
+        }
+
+        private static void AddPipelineHeadersToRequest(HttpRequestMessage request, NameValueCollection headers)
+        {
+            if (headers?.AllKeys is not null)
+            {
+                foreach (var item in headers.AllKeys)
+                {
+                    if (
+                        item is not null &&
+                        !HttpMessageExtensions.ContentHeaderNames
+                            .Any(x => string.Equals(x, item, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        request.Headers.Add(item, headers.Get(item));
+                    }
+                }
+            }
+
+            request.Headers.Add("Host", request.RequestUri.Authority);
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(DefaultUserAgentHeader));
         }
     }
 }
