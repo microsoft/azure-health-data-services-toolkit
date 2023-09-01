@@ -17,7 +17,7 @@ This quickstart will walk you through creating a simple custom operation on top 
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
-- [.NET 6.0](https://dotnet.microsoft.com/download)
+- [.NET 7.0](https://dotnet.microsoft.com/download)
 - [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [Azure Developer CLI](https://docs.microsoft.com/azure/developer/azure-developer-cli/get-started?tabs=bare-metal%2Cwindows&pivots=programming-language-csharp#prerequisites)
 - Visual Studio or Visual Studio Code
@@ -43,33 +43,20 @@ This quickstart will create the below resources. These will be used both for loc
 
 ### Deploy Quickstart
 
-1. Create a new directory on your local machine and open that directory in a terminal or command prompt.
-2. Setup your local Quickstart files .
-
-    ```dotnetcli
-    azd init --template Azure-Samples/azure-health-data-services-toolkit-fhir-function-quickstart
-    ```
-    > **Note:** lower-case name is needed to be compatible with all the resource types
-
-3. If you want to use an existing FHIR Service, you need to open `infra/main.parameters.json` in a code editor and change the following settings:
+1. Make sure you have this repository cloned and up to date on your local system. Open the `samples/Quickstart` directory from this repository on your local system.
+2. If you want to use an existing FHIR Service, you need to open `infra/main.parameters.json` in a code editor and change the following settings:
 
     - `existingResourceGroupName`: The name of an existing resource group if you want to deploy your Function App there.
     - `existingAzureHealthDataServicesWorkspaceName`: The name of your existing Azure Health Data Services workspace.
     - `existingFhirServiceName`: The name of your existing FHIR Service.
 
-4. By default, APIM is enabled for use. if you do not want to use APIM then pass `useAPIM` value as false Or  Open `infra/main.parameters.json` in a code editor and set the value of the parameter named `useAPIM` to false.
+3. By default, APIM is enabled for use. if you do not want to use APIM then pass `useAPIM` value as false Or  Open `infra/main.parameters.json` in a code editor and set the value of the parameter named `useAPIM` to false.
  
 
-5. Next, you need to provision your Azure resources to run the sample with azd. If you are creating a new FHIR Service, this deploy may take 20 minutes.
+4. Next, you will need to deploy the infrastructure and code. Open a terminal/command prompt into the `samples/Quickstart` folder in the context of this repository. NOTE: This may take 10-20 minutes if you are deploying a new FHIR Service.
 
     ```dotnetcli
-    azd provision
-    ```
-
-6. To deploy your code (this can be done after local testing), run the deploy command.
-
-    ```dotnetcli
-    azd deploy
+    azd up
     ```
 
 *Note*: For more information for developing on the Azure Health Data Services Toolkit, check out the [concepts document](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/concepts.md).
