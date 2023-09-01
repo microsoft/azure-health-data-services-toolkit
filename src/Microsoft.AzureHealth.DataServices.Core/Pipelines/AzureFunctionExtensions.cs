@@ -41,14 +41,21 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
 
             foreach (KeyValuePair<string, IEnumerable<string>> header in req.Headers)
             {
-                if (string.Equals(header.Key, Net.Http.Headers.HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase))
+                if (HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, header.Key, StringComparison.OrdinalIgnoreCase)))
                 {
-                    // only include the first value for Content-Type
-                    message.Content.Headers.ContentType = new MediaTypeHeaderValue(header.Value.First());
+                    if (string.Equals(header.Key, Net.Http.Headers.HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // only include the first value for Content-Type
+                        message.Content.Headers.ContentType = new MediaTypeHeaderValue(header.Value.First());
+                    }
+                    else
+                    {
+                        message.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    }
                 }
                 else
                 {
-                    message.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    message.Headers.TryAddWithoutValidation(header.Key, header.Value);
                 }
             }
 
