@@ -88,7 +88,7 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
             APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
             APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-            SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+            SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
             ENABLE_ORYX_BUILD: 'true'
         }, functionSettings)
 }
