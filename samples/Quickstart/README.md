@@ -53,16 +53,10 @@ This quickstart will create the below resources. These will be used both for loc
 3. By default, APIM is enabled for use. if you do not want to use APIM then pass `useAPIM` value as false Or  Open `infra/main.parameters.json` in a code editor and set the value of the parameter named `useAPIM` to false.
  
 
-4. Next, you need to provision your Azure resources to run the sample with azd. If you are creating a new FHIR Service, this deploy may take 20 minutes. Open a terminal/command prompt into the `samples/Quickstart` folder in the context of this repository.
+4. Next, you will need to deploy the infrastructure and code. Open a terminal/command prompt into the `samples/Quickstart` folder in the context of this repository. NOTE: This may take 10-20 minutes if you are deploying a new FHIR Service.
 
     ```dotnetcli
-    azd provision
-    ```
-
-6. To deploy your code (this can be done after local testing), run the deploy command. Open a terminal/command prompt into the `samples/Quickstart` folder in the context of this repository.
-
-    ```dotnetcli
-    azd deploy
+    azd up
     ```
 
 *Note*: For more information for developing on the Azure Health Data Services Toolkit, check out the [concepts document](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/concepts.md).
