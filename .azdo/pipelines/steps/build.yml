@@ -1,6 +1,6 @@
 parameters:
   unitTest: true
-  componentGovernance: false
+  componentGovernance: true
   targetBuildFramework: ''
 
 steps:
