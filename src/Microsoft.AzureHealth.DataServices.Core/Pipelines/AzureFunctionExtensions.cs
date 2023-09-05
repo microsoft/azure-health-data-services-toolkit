@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -42,7 +43,15 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             {
                 if (HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, header.Key, StringComparison.OrdinalIgnoreCase)))
                 {
-                    message.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    if (string.Equals(header.Key, Net.Http.Headers.HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // only include the first value for Content-Type
+                        message.Content.Headers.ContentType = new MediaTypeHeaderValue(header.Value.First());
+                    }
+                    else
+                    {
+                        message.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    }
                 }
                 else
                 {
