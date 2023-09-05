@@ -88,7 +88,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
                     path: context.Request.RequestUri.LocalPath,
                     query: context.Request.RequestUri.Query,
                     headers: headers,
-                    content: context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync(),
+                    content: context.Content == null ? (context.Request.Content == null ? null : await context.Request.Content.ReadAsByteArrayAsync()) : context.Content,
                     securityToken: token,
                     contentType: contentType);
 

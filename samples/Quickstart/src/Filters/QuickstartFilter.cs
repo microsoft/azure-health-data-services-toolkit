@@ -1,4 +1,5 @@
 ﻿using System.Net;
+
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AzureHealth.DataServices.Filters;
@@ -49,13 +50,12 @@ namespace Quickstart.Filters
             {
                 JObject jobj = JObject.Parse(context.ContentString);
                 TransformCollection transforms = new();
-
-                if (!jobj.Exists("$.language"))
+                if (!jobj.Exists("$.communication"))
                 {
                     AddTransform addTrans = new()
                     {
                         JsonPath = "$",
-                        AppendNode = "{ \"language\": \"en\" }",
+                        AppendNode = "{\"communication\":[{\"language\": {\"coding\": [{\"system\":\"urn:ietf:bcp:47\",\"code\": \"en\",\"display\": \"English\"}],\"text\": \"English\"},\"preferred\": true}]}",
                     };
                     transforms.Add(addTrans);
                 }
@@ -73,7 +73,6 @@ namespace Quickstart.Filters
                 TransformPolicy policy = new(transforms);
                 string transformedJson = policy.Transform(context.ContentString);
                 context.ContentString = transformedJson;
-
                 return Task.FromResult(context);
             }
             catch (JPathException jpathExp)
