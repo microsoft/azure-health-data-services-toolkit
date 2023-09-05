@@ -1,0 +1,41 @@
+name: "CodeQL"
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '30 17 * * 5'
+
+jobs:
+  CodeQL-Build:
+   
+    runs-on: [self-hosted, 1ES.Pool=GithubRunPool]
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Fetch all history for all tags and branches
+      run: |
+        git fetch --prune --unshallow
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'csharp'
+
+    - name: dotnet restore
+      run: dotnet restore
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:csharp"
