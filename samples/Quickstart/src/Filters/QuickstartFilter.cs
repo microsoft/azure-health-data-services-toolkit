@@ -73,7 +73,6 @@ namespace Quickstart.Filters
                 TransformPolicy policy = new(transforms);
                 string transformedJson = policy.Transform(context.ContentString);
                 context.ContentString = transformedJson;
-                context.Request.Content.Headers.ContentType = null;
                 return Task.FromResult(context);
             }
             catch (JPathException jpathExp)
