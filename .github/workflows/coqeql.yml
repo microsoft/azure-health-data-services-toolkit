@@ -9,7 +9,7 @@ on:
 jobs:
   CodeQL-Build:
    
-    runs-on: [self-hosted, 1ES.Pool=GithubRunPool]
+    runs-on: ubuntu-latest
 
     permissions:
       actions: read
