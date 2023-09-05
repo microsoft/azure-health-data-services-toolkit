@@ -4,7 +4,6 @@
     <When Condition="'$(TargetFramework)' == 'net7.0'">
       <PropertyGroup>
         <RuntimePackageVersion>7.0.0</RuntimePackageVersion>
-        <AspNetPackageVersion>7.0.1</AspNetPackageVersion>
       </PropertyGroup>
       <ItemGroup>
         <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
@@ -13,7 +12,6 @@
     <Otherwise>
       <PropertyGroup>
         <RuntimePackageVersion>6.0.0</RuntimePackageVersion>
-        <AspNetPackageVersion>6.0.12</AspNetPackageVersion>
       </PropertyGroup>
       <ItemGroup>
         <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.21" />
