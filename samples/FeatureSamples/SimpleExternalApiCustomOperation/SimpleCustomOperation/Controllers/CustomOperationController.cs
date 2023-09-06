@@ -19,7 +19,11 @@ namespace SimpleCustomOperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string value)
         {
-            _logger?.LogTrace("Value {Val}", value);
+            // Replace is used to remove new lines from the log message per CodeQL security scanning.
+            // https://cwe.mitre.org/data/definitions/117.html
+            // https://owasp.org/www-community/attacks/Log_Injection
+            _logger?.LogTrace("Value {Val}", value.Replace(Environment.NewLine, ""));
+
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)

@@ -80,11 +80,18 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets
             {
                 string value = context.Request.Headers[item.Item1];
                 string content = $"{{ \"{item.Item2}\": \"{value}\" }}";
-                byte[] buffer = Encoding.UTF8.GetBytes(content);
+                string sanitizedContent = SanitizeForHtml(content);
+
+                byte[] buffer = Encoding.UTF8.GetBytes(sanitizedContent);
                 context.Response.ContentLength64 = buffer.Length;
                 context.Response.ContentType = "application/json";
                 await context.Response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
             }
+        }
+
+        private static string SanitizeForHtml(string userInput)
+        {
+            return WebUtility.HtmlEncode(userInput);
         }
     }
 }
