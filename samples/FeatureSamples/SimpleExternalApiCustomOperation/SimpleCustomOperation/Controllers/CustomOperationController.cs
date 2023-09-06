@@ -22,7 +22,7 @@ namespace SimpleCustomOperation.Controllers
             // Replace is used to remove new lines from the log message per CodeQL security scanning.
             // https://cwe.mitre.org/data/definitions/117.html
             // https://owasp.org/www-community/attacks/Log_Injection
-            _logger?.LogTrace("Value {Val}", value.Replace(Environment.NewLine, ""));
+            _logger?.LogTrace("Value {Val}", value.Replace(System.Environment.NewLine, string.Empty, StringComparison.InvariantCultureIgnoreCase));
 
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
