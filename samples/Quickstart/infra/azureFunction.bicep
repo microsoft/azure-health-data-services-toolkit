@@ -49,7 +49,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            linuxFxVersion: 'dotnet-isolated|6.0'
+            linuxFxVersion: 'dotnet-isolated|7.0'
             use32BitWorkerProcess: false
         }
     }
@@ -88,8 +88,8 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
             APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
             APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-            SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
-            ENABLE_ORYX_BUILD: 'true'
+            SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+            ENABLE_ORYX_BUILD: 'false'
         }, functionSettings)
 }
 
