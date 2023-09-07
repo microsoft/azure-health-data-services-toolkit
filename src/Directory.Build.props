@@ -11,4 +11,9 @@
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
+  </ItemGroup>
+
 </Project>

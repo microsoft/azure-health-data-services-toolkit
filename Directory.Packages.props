@@ -1,0 +1,57 @@
+<Project>
+  <!-- SDK Packages -->
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net7.0'">
+      <PropertyGroup>
+        <RuntimePackageVersion>7.0.0</RuntimePackageVersion>
+      </PropertyGroup>
+      <ItemGroup>
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RuntimePackageVersion>6.0.0</RuntimePackageVersion>
+      </PropertyGroup>
+      <ItemGroup>
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.21" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <PackageVersion Include="Azure.Core" Version="1.32.0" />
+    <PackageVersion Include="Azure.Data.Tables" Version="12.8.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.9.0" />
+    <PackageVersion Include="Azure.Messaging.EventGrid" Version="4.17.0" />
+    <PackageVersion Include="Azure.Messaging.EventHubs" Version="5.9.2" />
+    <PackageVersion Include="Azure.Messaging.EventHubs.Processor" Version="5.9.2" />
+    <PackageVersion Include="Azure.Messaging.ServiceBus" Version="7.15.0" />
+    <PackageVersion Include="Azure.Storage.Files.DataLake" Version="12.14.0" />
+    <PackageVersion Include="Azure.Storage.Files.Shares" Version="12.14.0" />
+    <PackageVersion Include="Azure.Storage.Queues" Version="12.14.0" />
+    <PackageVersion Include="coverlet.collector" Version="3.1.2" />
+    <PackageVersion Include="Ensure.That" Version="10.1.0" />
+    <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    <PackageVersion Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.2.0" />
+    <PackageVersion Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.31.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1 "/>
+    <PackageVersion Include="Moq" Version="4.18.4" />
+    <PackageVersion Include="MSTest.TestAdapter" Version="3.0.4" />
+    <PackageVersion Include="MSTest.TestFramework" Version="3.0.4" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Serilog" Version="2.12.0" />
+    <PackageVersion Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+    <PackageVersion Include="System.Drawing.Common" Version="$(RuntimePackageVersion)" />
+  </ItemGroup>
+</Project>

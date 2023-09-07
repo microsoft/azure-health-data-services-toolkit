@@ -25,6 +25,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RootNamespace>Microsoft.AzureHealth.DataServices</RootNamespace>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
     <AnalysisLevel>latest</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -35,9 +36,4 @@
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
-  </ItemGroup>
 </Project>

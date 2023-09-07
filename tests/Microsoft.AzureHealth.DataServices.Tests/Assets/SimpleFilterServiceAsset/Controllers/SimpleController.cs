@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AzureHealth.DataServices.Pipelines;
@@ -23,8 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         [HttpPost]
         public async Task<IActionResult> Post(TestMessage message)
         {
-            _logger?.LogInformation("{info}", message.Value);
-
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
