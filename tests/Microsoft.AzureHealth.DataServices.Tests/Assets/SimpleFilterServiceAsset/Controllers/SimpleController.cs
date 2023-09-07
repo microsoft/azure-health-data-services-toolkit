@@ -24,11 +24,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Assets.SimpleFilterServiceAss
         [HttpPost]
         public async Task<IActionResult> Post(TestMessage message)
         {
-            // Replace is used to remove new lines from the log message per CodeQL security scanning.
-            // https://cwe.mitre.org/data/definitions/117.html
-            // https://owasp.org/www-community/attacks/Log_Injection
-            _logger?.LogInformation("{info}", message.Value.Replace(Environment.NewLine, string.Empty));
-
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
