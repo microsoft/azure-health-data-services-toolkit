@@ -19,8 +19,6 @@ namespace SimpleCustomOperation.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string value)
         {
-            _logger?.LogTrace($"Value {SanitizeForLogging(value)}");
-
             HttpRequestMessage request = Request.ConvertToHttpRequestMessage();
             HttpResponseMessage response = await _pipeline.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
