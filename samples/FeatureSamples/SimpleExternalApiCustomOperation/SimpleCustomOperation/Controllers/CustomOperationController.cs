@@ -32,15 +32,5 @@ namespace SimpleCustomOperation.Controllers
                 return BadRequest(response);
             }
         }
-
-        // Replace is used to remove new lines from the log message per CodeQL security scanning.
-        // https://cwe.mitre.org/data/definitions/117.html
-        // https://owasp.org/www-community/attacks/Log_Injection
-        private static string SanitizeForLogging(string userInput)
-        {
-            return userInput
-                .Replace("\r", string.Empty, StringComparison.OrdinalIgnoreCase)
-                .Replace("\n", string.Empty, StringComparison.OrdinalIgnoreCase);
-        }
     }
 }
