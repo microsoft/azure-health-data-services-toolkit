@@ -17,6 +17,7 @@ param apiDescription string
 param functionAppUrl string
 
 @description('Default Key of the function app for implementing this API.')
+@secure()
 param functionAppKey string
 
 @description('Absolute URL of the backend Fhir Service for implementing this API.')
