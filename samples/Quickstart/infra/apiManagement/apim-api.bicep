@@ -16,8 +16,11 @@ param apiDescription string
 @description('Absolute URL of the backend function app for implementing this API.')
 param functionAppUrl string
 
-@description('Default Key of the function app for implementing this API.')
-param functionAppKey string
+@description('Function App Name')
+param functionAppName string
+//@description('Default Key of the function app for implementing this API.')
+//@secure()
+//param functionAppKey string
 
 @description('Absolute URL of the backend Fhir Service for implementing this API.')
 param fhirServiceUrl string
@@ -32,11 +35,18 @@ var fhirApiPolicyContent = replace(loadTextContent('policies/apim-fhir-api-polic
 
 var QuickStartPolicyContent = replace(loadTextContent('policies/apim-quickstart-api-policy.xml'), '{functionAppUrl}', functionAppUrl)
 
-var QuickStartPolicy = replace(QuickStartPolicyContent,'{funDefaultKey}',functionAppKey)
+
 
 resource apimService 'Microsoft.ApiManagement/service@2021-08-01' existing = if(useAPIM) {
     name: name
 }
+
+resource functionApp 'Microsoft.Web/sites@2021-03-01' existing = {
+    name: functionAppName
+}
+
+var functionAppKey = listkeys('${functionApp.id}/host/default', '2016-08-01').functionKeys.default
+var QuickStartPolicy = replace(QuickStartPolicyContent,'{funDefaultKey}',functionAppKey)
 
 resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview' = if(useAPIM) {
     name: apiName
