@@ -93,9 +93,6 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
         }, functionSettings)
 }
 
-var defaultHostKey = listkeys('${functionApp.id}/host/default', '2016-08-01').functionKeys.default
-output functionAppKey string = defaultHostKey
-output functionAppName string = functionAppName
 output functionAppPrincipalId string = functionApp.identity.principalId
 output hostName string = functionApp.properties.defaultHostName
 output functionBaseUrl string = 'https://${functionApp.properties.defaultHostName}'
