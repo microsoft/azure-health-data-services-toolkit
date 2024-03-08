@@ -8,7 +8,4 @@ services:
     project: src/
     language: csharp
     host: function
- trigger:
-  branches:
-    include:
-      - Personal/v-aljagtap/fromMain   
+ 
