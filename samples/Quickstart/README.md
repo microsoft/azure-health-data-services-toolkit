@@ -150,4 +150,16 @@ Please follow the below instructions if you want to perform operations using the
   - Copy the default key value from the above [command](##get-the-deployment-details) and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
 
 
+## Monitoring
+### Dashboard Monitoring
+
+![Architecture](./Images/Toolkit_Dashboard.png)
+
+Dasboard contain below details.
+
+  Gateway
+ - Api call distribution - This pie chart includes the number of requests routed to the toolkit and the number of requests routed to the FHIR service.
  
+- Backend duration (FHIR)- This time chart includes response time in seconds for FHIR requests.
+
+- Backend duration (Toolkit)- This Time chart includes respose time in seconds for Toolkit requests. 
