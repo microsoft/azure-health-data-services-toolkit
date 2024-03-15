@@ -5,7 +5,6 @@
     <PackageId>Microsoft.AzureHealth.DataServices.Storage</PackageId>
     <AssemblyName>Microsoft.AzureHealth.DataServices.Storage</AssemblyName>
     <Description>Storage library to assist with creating custom operations for Azure Health Data Services.</Description>
-    <UserSecretsId>14ea5db0-dc6e-4861-b4b5-a771d6343c4d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +14,6 @@
     <PackageReference Include="Azure.Storage.Queues" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
   </ItemGroup>
 
 </Project>

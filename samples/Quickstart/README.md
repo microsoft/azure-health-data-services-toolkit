@@ -157,9 +157,29 @@ Please follow the below instructions if you want to perform operations using the
 
 Dasboard contain below details.
 
-  Gateway
+Gateway.
  - Api call distribution - This pie chart includes the number of requests routed to the toolkit and the number of requests routed to the FHIR service.
  
 - Backend duration (FHIR)- This time chart includes response time in seconds for FHIR requests.
 
 - Backend duration (Toolkit)- This Time chart includes respose time in seconds for Toolkit requests. 
+
+Reliability.
+
+ - Failed requests - This metric provides a summarized view of the number of failed requests for a specific service or resource.
+
+ - Server expectations and dependency failures -
+    - "Server Expectations" displays metrics related to server performance and health.   
+   - "Dependency failures" provides insights into failures or issues with external dependencies.
+
+ - Average process I/O rate - This metric displays the average rate of input/output operations per second for a specific process, offering insights into its disk usage and performance.
+
+ - Availability test results count - This metric provides a count of the results from availability tests, offering insights into the overall health and reliability of monitored services or endpoints.
+
+Responsiveness. 
+
+  - Server response time - This metric displays the average time taken by the server to respond to requests.
+
+  - Average processor and process CPU utilization - This metric provides insights into the average CPU usage for both the overall system processor and specific processes.
+
+  - Average available memory - This metric displays the average amount of memory that is available across monitored resources or systems.
