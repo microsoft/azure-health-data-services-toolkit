@@ -5,7 +5,6 @@
     <OutputType>Exe</OutputType>
     <UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
     <ImplicitUsings>enable</ImplicitUsings>
-    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
