@@ -14,7 +14,7 @@
   <ItemGroup Condition="'$(SdkVersion)' == 'local'">
     <ProjectReference Include="..\..\..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
   </ItemGroup>
-
+  
   <!-- If neither of the above, read version from SdkVersion  -->
   <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />

@@ -9,7 +9,7 @@ namespace EventHubChannelSample
     {
         private readonly ILogger _logger;
         private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
-        private readonly IChannel receiveChannel;
+        private readonly EventHubChannel receiveChannel;
         private bool _disposed;
 
         public MyService(MyServiceConfig config, IPipeline<HttpRequestMessage, HttpResponseMessage> pipeline, ILogger<MyService> logger = null)

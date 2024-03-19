@@ -40,7 +40,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <param name="info">SerializationInfo</param>
         /// <param name="context">StreamingContext</param>
         protected ServiceBusChannelException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
+       : base(info.GetString("Message"), (Exception)info.GetValue("InnerException", typeof(Exception)))
         {
         }
     }

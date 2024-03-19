@@ -6,6 +6,8 @@ param publisherName string
 param publisherEmail string
 param appInsightsInstrumentationKey string
 param useAPIM bool
+param appInsightsName string
+param appInsightsExternalId string = '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/microsoft.insights/components/${appInsightsName}'
 
 resource apim 'Microsoft.ApiManagement/service@2021-12-01-preview' = if (useAPIM) {
   name: apiManagementServiceName
@@ -22,9 +24,9 @@ resource apim 'Microsoft.ApiManagement/service@2021-12-01-preview' = if (useAPIM
     publisherEmail: publisherEmail
     publisherName: publisherName
   }
-
+ 
   resource apimLogger 'loggers' = {
-    name: 'appinsights'
+    name:  appInsightsName 
     properties: {
       loggerType: 'applicationInsights'
       credentials: {
@@ -32,6 +34,7 @@ resource apim 'Microsoft.ApiManagement/service@2021-12-01-preview' = if (useAPIM
         instrumentationKey: appInsightsInstrumentationKey
       }
       isBuffered: true
+      resourceId: appInsightsExternalId
     }
   }
 

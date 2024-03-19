@@ -152,6 +152,7 @@ module apimService './apiManagement/apim.bicep' = if (useAPIM) {
         publisherEmail: publisherEmail
         appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
         useAPIM:useAPIM
+        appInsightsName:appInsightsName
     }
 }
 
