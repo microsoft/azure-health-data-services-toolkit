@@ -1,24 +1,10 @@
 <Project>
   <!-- SDK Packages -->
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'net7.0'">
-      <PropertyGroup>
-        <RuntimePackageVersion>7.0.0</RuntimePackageVersion>
-      </PropertyGroup>
-      <ItemGroup>
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <PropertyGroup>
-        <RuntimePackageVersion>6.0.0</RuntimePackageVersion>
-      </PropertyGroup>
-      <ItemGroup>
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.21" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <ItemGroup>
+<PropertyGroup>
+     <RuntimePackageVersion>8.0.0</RuntimePackageVersion>
+</PropertyGroup>
+   <ItemGroup>
+ <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
     <PackageVersion Include="Azure.Core" Version="1.38.0" />
     <PackageVersion Include="Azure.Data.Tables" Version="12.8.0" />
     <PackageVersion Include="Azure.Identity" Version="1.10.4" />
