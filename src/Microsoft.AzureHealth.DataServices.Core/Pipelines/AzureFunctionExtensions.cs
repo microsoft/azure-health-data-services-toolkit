@@ -46,8 +46,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
                     if (string.Equals(header.Key, Net.Http.Headers.HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase))
                     {
                         // only include the first value for Content-Type
-                        var contentTypeHeaderValue = header.Value.First();
-                        message.Content.Headers.ContentType = contentTypeHeaderValue.ParseMediaType();
+                        message.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(header.Value.First());
                     }
                     else
                     {
@@ -165,24 +164,6 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             JsonWebToken jwt = new(header);
             ClaimsIdentity identity = new(jwt.Claims);
             return new ClaimsPrincipal(identity);
-        }
-
-        public static MediaTypeHeaderValue ParseMediaType(this string headerValue)
-        {
-            var parts = headerValue.Split(';');
-            string charSet = null;
-
-            if (parts.Length > 1)
-            {
-                var charsetPart = parts[1].Trim();
-                if (charsetPart.StartsWith("charset=", StringComparison.OrdinalIgnoreCase))
-                {
-                    charSet = charsetPart.Substring("charset=".Length).Trim();
-                }
-            }
-
-            // Use the MediaTypeHeaderValue constructor to create the object
-            return new MediaTypeHeaderValue(parts[0].Trim(), charSet);
         }
     }
 }
