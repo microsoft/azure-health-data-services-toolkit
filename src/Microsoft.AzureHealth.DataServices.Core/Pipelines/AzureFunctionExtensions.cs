@@ -43,10 +43,11 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             {
                 if (HttpMessageExtensions.ContentHeaderNames.Any(x => string.Equals(x, header.Key, StringComparison.OrdinalIgnoreCase)))
                 {
+                    message.Content ??= new ByteArrayContent(Array.Empty<byte>());
                     if (string.Equals(header.Key, Net.Http.Headers.HeaderNames.ContentType, StringComparison.OrdinalIgnoreCase))
                     {
                         // only include the first value for Content-Type
-                        message.Content.Headers.ContentType = new MediaTypeHeaderValue(header.Value.First());
+                        message.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(header.Value.First());
                     }
                     else
                     {
