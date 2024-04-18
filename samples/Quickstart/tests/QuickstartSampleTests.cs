@@ -47,7 +47,7 @@ namespace QuickstartSample.Tests
 
             JObject jobj = JObject.Parse(resultContext.ContentString);
 
-            Assert.AreEqual("en", jobj["language"]!);
+            Assert.AreEqual("en", jobj["communication"]![0]!["language"]!["coding"]![0]!["code"]!);
             Assert.AreEqual("HTEST", jobj["meta"]!["security"]![0]!["code"]!);
         }
     }

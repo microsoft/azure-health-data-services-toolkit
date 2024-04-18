@@ -7,7 +7,7 @@ namespace ServiceBusChannelSample
 {
     public class MyService : IMyService, IDisposable
     {
-        private readonly IChannel _channel;
+        private readonly ServiceBusChannel _channel;
         private readonly IPipeline<HttpRequestMessage, HttpResponseMessage> _pipeline;
         private readonly ILogger _logger;
         private bool _disposed;

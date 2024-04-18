@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -165,6 +166,24 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             JsonWebToken jwt = new(header);
             ClaimsIdentity identity = new(jwt.Claims);
             return new ClaimsPrincipal(identity);
+        }
+
+        public static MediaTypeHeaderValue ParseMediaType(this string headerValue)
+        {
+            var parts = headerValue.Split(';');
+            string charSet = null;
+
+            if (parts.Length > 1)
+            {
+                var charsetPart = parts[1].Trim();
+                if (charsetPart.StartsWith("charset=", StringComparison.OrdinalIgnoreCase))
+                {
+                    charSet = charsetPart.Substring("charset=".Length).Trim();
+                }
+            }
+
+            // Use the MediaTypeHeaderValue constructor to create the object
+            return new MediaTypeHeaderValue(parts[0].Trim(), charSet);
         }
     }
 }
