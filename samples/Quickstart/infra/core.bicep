@@ -152,6 +152,7 @@ module apimService './apiManagement/apim.bicep' = if (useAPIM) {
         publisherEmail: publisherEmail
         appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
         useAPIM:useAPIM
+        appInsightsName:appInsightsName
     }
 }
 
@@ -165,7 +166,7 @@ module apimApi './apiManagement/apim-api.bicep' = if (useAPIM) {
         apiDescription: 'This is a QuickStart API'
         functionAppUrl: function.outputs.functionBaseUrl
         fhirServiceUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
-        functionAppKey: function.outputs.functionAppKey
+        functionAppName: functionAppName
         apimServiceLoggerId: useAPIM ? apimService.outputs.serviceLoggerId : ''
         useAPIM:useAPIM
     }

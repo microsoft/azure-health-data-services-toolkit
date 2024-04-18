@@ -409,6 +409,42 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
         }
 
         [TestMethod]
+        [DataRow(null)]
+        [DataRow("application/json")]
+        [DataRow("application/json; charset=utf-8")]
+        public async Task FunctionPipelineManager_WithJsonContent_Test(string contentTypeHeaderValue)
+        {
+            string content = "{ \"property\": \"value\" }";
+            IInputFilterCollection filters = new InputFilterCollection();
+            IInputChannelCollection channels = new InputChannelCollection();
+            filters.Add(new FakeFilter());
+            filters.Add(new FakeFilterWithContent());
+            channels.Add(new FakeChannel());
+
+            IPipeline<HttpRequestData, HttpResponseData> pipeline = new AzureFunctionPipeline(filters, channels);
+
+            string requestUriString = "http://example.org/test";
+            FunctionContext funcContext = new FakeFunctionContext();
+            HttpHeadersCollection headers = new();
+            if (contentTypeHeaderValue != null)
+            {
+                headers.Add("Content-Type", contentTypeHeaderValue);
+            }
+
+            using var contentStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(content));
+
+            HttpRequestData request = new FakeHttpRequestData(funcContext, "POST", requestUriString, contentStream, headers);
+            HttpResponseData response = await pipeline.ExecuteAsync(request);
+
+            Assert.IsNotNull(response, "Response is null.");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Http status code mismatch.");
+            Assert.AreEqual(content.Length, response.Body.Length, "Content length mismatch.");
+
+            // Tests default content-type.
+            Assert.AreEqual("application/json", response.Headers.FirstOrDefault(x => x.Key == "Content-Type").Value.First(), "Content type mismatch.");
+        }
+
+        [TestMethod]
         public async Task FunctionPipelineManager_ForcedError_Test()
         {
             string requestUriString = "http://example.org/test";

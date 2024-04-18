@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
@@ -8,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.10.2" />
+    <PackageReference Include="Azure.Identity" Version="1.11.1" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.10.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.15.0" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
@@ -28,9 +29,9 @@
   <ItemGroup Condition="'$(SdkVersion)' == 'local'">
     <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
   </ItemGroup>
-
+  
   <!-- If neither of the above, read version from SdkVersion  -->
-  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
   </ItemGroup>
 
