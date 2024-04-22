@@ -43,7 +43,7 @@ var createFhirService = empty(existingFhirServiceName) ? true : false
 
 var appTags = {
   'azd-env-name': name
-  'app-id': 'azure-health-data-services-toolkit-fhir-function-quickstart'
+  'app-id': 'azure-health-data-services-toolkit-fhir-function-usecasesample'
 }
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = if (createResourceGroup) {

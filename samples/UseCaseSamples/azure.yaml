@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: azure-health-data-services-toolkit-fhir-function-quickstart
+name: azure-health-data-services-toolkit-fhir-function-usecasesample
 metadata:
-  template: azure-health-data-services-toolkit-fhir-function-quickstart@0.0.1-beta
+  template: azure-health-data-services-toolkit-fhir-function-usecasesample@0.0.1-beta
 services:
   func:
     project: src/

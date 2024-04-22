@@ -49,7 +49,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            linuxFxVersion: 'dotnet-isolated|7.0'
+            linuxFxVersion: 'dotnet-isolated|8.0'
             use32BitWorkerProcess: false
         }
     }
