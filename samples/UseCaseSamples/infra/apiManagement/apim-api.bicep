@@ -16,8 +16,8 @@ param apiDescription string
 @description('Absolute URL of the backend function app for implementing this API.')
 param functionAppUrl string
 
-@description('Function App Name')
-param functionAppName string
+//@description('Function App Name')
+// param functionAppName string
 //@description('Default Key of the function app for implementing this API.')
 //@secure()
 //param functionAppKey string
@@ -33,20 +33,12 @@ var apiPolicyContent = loadTextContent('policies/apim-api-policy.xml')
 
 var fhirApiPolicyContent = replace(loadTextContent('policies/apim-fhir-api-policy.xml'), '{fhirServiceUrl}', fhirServiceUrl)
 
-var QuickStartPolicyContent = replace(loadTextContent('policies/apim-quickstart-api-policy.xml'), '{functionAppUrl}', functionAppUrl)
-
+var UseCasePolicyContent = loadTextContent('policies/apim-usecase-api-policy.xml'), '{functionAppUrl}', functionAppUrl)
 
 
 resource apimService 'Microsoft.ApiManagement/service@2021-08-01' existing = if(useAPIM) {
     name: name
 }
-
-resource functionApp 'Microsoft.Web/sites@2021-03-01' existing = {
-    name: functionAppName
-}
-
-var functionAppKey = listkeys('${functionApp.id}/host/default', '2016-08-01').functionKeys.default
-var QuickStartPolicy = replace(QuickStartPolicyContent,'{funDefaultKey}',functionAppKey)
 
 resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview' = if(useAPIM) {
     name: apiName
@@ -71,95 +63,19 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
         }
     }
 
-    resource QuickStartPatientGet 'operations' = {
-        name: 'get-patient'
+    resource UseCaseSample 'operations' = {
+        name: 'metadata'
         properties: {
-            displayName: 'Patient'
+            displayName: 'metadata'
             method: 'GET'
-            urlTemplate: '/Patient/{id}'
-            templateParameters: [
-                {
-                    name: 'id'
-                    description: 'ID of the Patient'
-                    required: true
-                    type: 'SecureString'
-                }
-            ]
+            urlTemplate: '/metadata'
         }
 
         resource QuickStartApiPolicy 'policies' = {
             name: 'policy'
             properties: {
                 format: 'rawxml'
-                value: QuickStartPolicy
-            }
-        }
-    }
-
-    resource QuickStartPatientPut 'operations' = {
-        name: 'put-patient'
-        properties: {
-            displayName: 'Patient'
-            method: 'PUT'
-            urlTemplate: '/Patient/{id}'
-            templateParameters: [
-                {
-                    name: 'id'
-                    description: 'ID of the Patient'
-                    required: true
-                    type: 'SecureString'
-                }
-            ]
-        }
-
-        resource QuickStartApiPolicy 'policies' = {
-            name: 'policy'
-            properties: {
-                format: 'rawxml'
-                value: QuickStartPolicy
-            }
-        }
-    }
-
-    resource QuickStartPatientDelete 'operations' = {
-        name: 'delete-patient'
-        properties: {
-            displayName: 'Patient'
-            method: 'DELETE'
-            urlTemplate: '/Patient/{id}'
-            templateParameters: [
-                {
-                    name: 'id'
-                    description: 'ID of the Patient'
-                    required: true
-                    type: 'SecureString'
-                }
-            ]
-        }
-
-        resource QuickStartApiPolicy 'policies' = {
-            name: 'policy'
-            properties: {
-                format: 'rawxml'
-                value: QuickStartPolicy
-            }
-        }
-    }
-
-
-    resource QuickStartPatientPost 'operations' = {
-        name: 'post-patient'
-        properties: {
-            displayName: 'Patient'
-            method: 'POST'
-            urlTemplate: '/Patient'
-        }
-
-        resource QuickStartApiPolicy 'policies' = {
-            name: 'policy'
-            properties: {
-                format: 'rawxml'
-                value: QuickStartPolicy
+                value: UseCasePolicyContent
             }
         }
     }

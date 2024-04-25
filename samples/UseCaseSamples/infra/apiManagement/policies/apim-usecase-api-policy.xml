@@ -2,9 +2,6 @@
 	<inbound>
 		<base />
 		<set-backend-service base-url="{functionAppUrl}" />
-		<set-query-parameter name="code" exists-action="override">
-			<value>{funDefaultKey}</value>
-		</set-query-parameter>
 	</inbound>
 	<backend>
 		<base />

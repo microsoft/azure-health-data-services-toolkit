@@ -78,20 +78,6 @@ module monitoring './monitoring.bicep'= {
     }
 }
 
-@description('Name for app insights resource used to monitor the Function App and APIM')
-var dashboardName = '${prefixName}-dash'
-
-@description('Deploy monitoring dashboard')
-module dashboard './dashboard.bicep'= {
-    name: 'dashboard'
-    params: {
-        location: location
-        tags: appTags
-        applicationInsightsName: appInsightsName
-        name: dashboardName
-    }
-}
-
 @description('Name for the App Service used to host the Function App.')
 var appServiceName = '${prefixName}-appserv'
 
@@ -161,12 +147,12 @@ module apimApi './apiManagement/apim-api.bicep' = if (useAPIM) {
     name: 'apim-api-deployment'
     params: {
         name: useAPIM ? apimService.outputs.apimName : apiManagementServiceName
-        apiName: 'quickstart-api'
-        apiDisplayName: 'QuickStart API'
-        apiDescription: 'This is a QuickStart API'
+        apiName: 'usecase-api'
+        apiDisplayName: 'UseCase API'
+        apiDescription: 'This is a UseCase API'
         functionAppUrl: function.outputs.functionBaseUrl
         fhirServiceUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
-        functionAppName: functionAppName
+        //functionAppName: functionAppName
         apimServiceLoggerId: useAPIM ? apimService.outputs.serviceLoggerId : ''
         useAPIM:useAPIM
     }
