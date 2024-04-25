@@ -20,7 +20,7 @@ namespace UseCaseSample
         }
 
         [Function("UseCaseSample")]
-        public async Task<HttpResponseData> UseCaseSample([HttpTrigger(AuthorizationLevel.Function, Route = "{*all}")] HttpRequestData req)
+        public async Task<HttpResponseData> UseCaseSample([HttpTrigger(AuthorizationLevel.Anonymous, Route = "metadata")] HttpRequestData req)
         {
             // This is what hooks up the Azure Function to the Custom Operation pipeline
             _logger.LogInformation("UseCaseSample sample pipeline started...");
