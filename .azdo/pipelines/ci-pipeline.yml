@@ -24,7 +24,7 @@ stages:
       steps:
       - template: ./steps/build.yml
         parameters:
-          targetBuildFramework: 'net7.0'
+          targetBuildFramework: 'net8.0'
 
       - template: ./steps/versionVariables.yml
       
