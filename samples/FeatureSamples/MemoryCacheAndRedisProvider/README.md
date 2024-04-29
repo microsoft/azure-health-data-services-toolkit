@@ -11,7 +11,7 @@ This sample provides easy configuration steps to cache the pipeline data to in-m
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 - An authenticated Azure environment.
   - Usually you need to be logged in with the [Azure CLI](https://docs.microsoft.com/cli/azure/).
   - You also cae be logged into Azure inside Visual Studio or Visual Studio Code.

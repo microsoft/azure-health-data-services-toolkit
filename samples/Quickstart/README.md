@@ -17,7 +17,7 @@ This quickstart will walk you through creating a simple custom operation on top 
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
-- [.NET 7.0](https://dotnet.microsoft.com/download)
+- [.NET 8.0](https://dotnet.microsoft.com/download)
 - [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [Azure Developer CLI](https://docs.microsoft.com/azure/developer/azure-developer-cli/get-started?tabs=bare-metal%2Cwindows&pivots=programming-language-csharp#prerequisites)
 - Visual Studio or Visual Studio Code
@@ -129,7 +129,7 @@ If you don't want to use APIM and are planning to call the Azure function instea
 
 ### APIM- Azure API Management
 
-- APIM supports the complete API lifecycle, this template was prepared useing APIM for FHIR Service and Function App endpoints.
+- APIM supports the complete API lifecycle, this template was prepared using APIM for FHIR Service and Function App endpoints.
 - In given APIM, all the operations related to Patient are routed to QuickStart function app and for FHIR Service endpoints we have four methods like GET, POST, PUT, DELETE.
 
 ### Calling the Azure Function 
