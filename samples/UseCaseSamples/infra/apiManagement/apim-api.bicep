@@ -33,7 +33,7 @@ var apiPolicyContent = loadTextContent('policies/apim-api-policy.xml')
 
 var fhirApiPolicyContent = replace(loadTextContent('policies/apim-fhir-api-policy.xml'), '{fhirServiceUrl}', fhirServiceUrl)
 
-var UseCasePolicyContent = loadTextContent('policies/apim-usecase-api-policy.xml'), '{functionAppUrl}', functionAppUrl)
+var UseCasePolicyContent = replace(loadTextContent('policies/apim-usecase-api-policy.xml'), '{functionAppUrl}', functionAppUrl)
 
 
 resource apimService 'Microsoft.ApiManagement/service@2021-08-01' existing = if(useAPIM) {
