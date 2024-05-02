@@ -1,0 +1,34 @@
+templateApi: 1.0.0
+metadata:
+  type: repo
+  name: azure-health-data-services-toolkit-fhir-function-usecase
+  description: UseCase for FHIR Function App with Azure Health Data Services Toolkit 
+
+repo:
+  includeProjectAssets: false
+
+  remotes:
+    - name: azure-samples-main
+      url: git@github.com:Azure-Samples/azure-health-data-services-toolkit-fhir-function-usecase.git
+    - name: azure-samples-staging
+      url: git@github.com:Azure-Samples/azure-health-data-services-toolkit-fhir-function-usecase.git
+      branch: staging
+
+  rewrite:
+    rules:
+      - from: "<!--"
+        to: ""
+        patterns:
+          - "README.md"
+
+      - from: "-->"
+        to: ""
+        patterns:
+          - "README.md"
+
+  assets:
+    # Common assets
+    - from: ./
+      to: ./
+      ignore:
+        - repo.yaml
