@@ -16,7 +16,7 @@ To implement how requests and responses work, there are two applications:
 ## Prerequisites
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) downloaded and installed on your computer.
 
 
 ## Build the sample

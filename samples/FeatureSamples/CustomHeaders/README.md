@@ -24,7 +24,7 @@ Response header modifications are useful when you want to return headers to the 
 
 - This repository cloned to your machine and an editor (e.g. Visual Studio or Visual Studio Code).
 - Open the `CustomHeaderSample.sln` solution file in Visual Studio or open `samples/FeatureSamples/CustomHeaders` folder in Visual Studio Code.
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download) installed on your computer.
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) installed on your computer.
 
 ## Build and run the sample
 

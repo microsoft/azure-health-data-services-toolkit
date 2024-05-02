@@ -4,12 +4,13 @@ These samples show how this toolkit works for a few sample scenarios:
 
 - **Quickstart**: A simple example showing how to setup, test, and deploy a custom operation.
 - **Feature Samples**: Small projects showing how the toolkit features work. Local only.
+- **UseCaseSample**: A simple example showing how to setup, test, and deploy a custom operation.
 
 ## Sample prerequisites
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
-- [.NET 6.0](https://dotnet.microsoft.com/en-us/download)
+- [.NET 8.0](https://dotnet.microsoft.com/en-us/download)
 - Visual Studio or Visual Studio Code
   - Or another code editor and proficiency with the command line
 
@@ -48,3 +49,12 @@ These samples go deep into individual feature areas of this toolkit, showing you
 | [Memory/Redis Cache](./FeatureSamples/MemoryCacheAndRedisProvider/) | Shows how to use a memory cache with Redis backing. |
 | [Service Bus Channel](./FeatureSamples/ServiceBusChannel/) | Shows how to use a Service Bus Channel. |
 | [Simple External API](./FeatureSamples/SimpleExternalApiCustomOperation/) | Shows how an external API could be used with a custom operation. |
+
+## UseCaseSample
+
+Use [UseCase sample](./UseCaseSamples/) to see a basic end-to-end deployment of the Azure Health Data Services toolkit.
+
+- Getting an access token for the FHIR service.
+- Adding a header to audit the original requestor.
+- Using a transform for a basic modification of FHIR server behavior.
+- Using a pipeline with output filters to modify the response.
