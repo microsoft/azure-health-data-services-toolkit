@@ -96,7 +96,20 @@ Follow this tutorial to learn how to deploy the quickstart sample manually with 
 
  - Please follow the "Deploy Quickstart" [steps](README.md)
 
-## 5. Configuring secure storage of quickstart sample.
+## 5. Secure an Azure Function App
+This step offers detailed instructions on how to secure an Azure Function App
+- **Steps :**
+    - Navigate to your Azure Function App in the Azure portal.On the left-hand side, find and click on the "Networking" tab.
+    - Inside the "Networking" tab, click on "Access Restrictions" from the options provided.
+    - In Public network access, click on Disabled. This will prevent anyone from accessing your Function App over the public internet.
+    - Still inside the "Networking" tab, find and click on "Virtual Network Integration.
+    - Choose the Virtual Network which you have created in section 1.
+    - Select the specific Subnet within that Virtual Network that you want to use.
+    - After configuring the Virtual Network and Subnet, save the changes.
+    - Now, Function App will only be accessible via the specified Virtual Network and Subnet, and public access will be restricted.
+
+
+## 6. Configuring secure storage of quickstart sample.
 This step provides detailed instructions for configuring secure storage of quickstart sample. The process involves setting up networking configurations and creating a private endpoint to ensure secure access to your storage account.
 - **Step 1: Configure Networking for the Storage Account**
     - Navigate to the created storage account in the Azure Portal.
@@ -111,17 +124,7 @@ This step provides detailed instructions for configuring secure storage of quick
     - Follow the steps outlined in Section 3 for creating private endpoint connections
     - By following these steps, you will have successfully configured secure storage in Azure with the necessary networking configurations and private endpoint connections.
 
-## 6. Secure an Azure Function App
-This step offers detailed instructions on how to secure an Azure Function App
-- **Steps :**
-    - Navigate to your Azure Function App in the Azure portal.On the left-hand side, find and click on the "Networking" tab.
-    - Inside the "Networking" tab, click on "Access Restrictions" from the options provided.
-    - Find the rule that allow public access and uncheck them. This will prevent anyone from accessing your Function App over the public internet.
-    - Still inside the "Networking" tab, find and click on "Virtual Network Integration.
-    - Choose the Virtual Network which you have created in section 1.
-    - Select the specific Subnet within that Virtual Network that you want to use.
-    - After configuring the Virtual Network and Subnet, save the changes.
-    - Now, Function App will only be accessible via the specified Virtual Network and Subnet, and public access will be restricted.
+
 
 ## 7. Vnet Integration for APIM
 This step offers detailed instructions on how to integrate APIM with Vnet
