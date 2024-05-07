@@ -23,11 +23,11 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   location: location
   kind: 'functionapp'
   sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
+    name: 'S1'
+    tier: 'Standard'
   }
   properties: {
-    reserved: true
+    //reserved: true
   }
   tags: appTags
 }
@@ -49,8 +49,9 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            linuxFxVersion: 'dotnet-isolated|8.0'
-            use32BitWorkerProcess: false
+            alwaysOn: true
+            //linuxFxVersion: 'dotnet-isolated|8.0'
+            //use32BitWorkerProcess: false
         }
     }
 

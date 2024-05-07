@@ -12,11 +12,11 @@ param useAPIM bool
 
 @description('The pricing tier of this API Management service')
 @allowed([ 'Consumption', 'Basic', 'Developer', 'Standard', 'Premium' ])
-param sku string = 'Consumption'
+param sku string = 'Premium'
 
 @description('The instance size of this API Management service.')
 @allowed([0, 1, 2])
-param skuCount int = 0
+param skuCount int = 1
 
 @description('The name of the owner of the API Management resource')
 @minLength(1)
