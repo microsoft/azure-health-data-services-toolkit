@@ -26,7 +26,7 @@ namespace Microsoft.AzureHealth.DataServices.Bindings
         /// <summary>
         /// Gets or sets the scopes required to call the server.  This is purely optional and used with non-default scopes are required.
         /// </summary>
-        public string[] Scopes { get; set; }
+        public string[] Scopes { get; set; } = null;
 
         /// <summary>
         /// Adds the response headers from the binding to the pipeline
