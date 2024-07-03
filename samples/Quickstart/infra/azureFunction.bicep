@@ -14,6 +14,9 @@ resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
     sku: {
         name: 'Standard_LRS'
     }
+    properties: {
+        allowSharedKeyAccess: false
+    }
     tags: appTags
 }
 
@@ -49,6 +52,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
+            netFrameworkVersion: 'v8.0'
             //linuxFxVersion: 'dotnet-isolated|8.0'
             //use32BitWorkerProcess: false
             alwaysOn: true
@@ -80,11 +84,11 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     }
 }
 
-resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
+resource functionAppSettings 'Microsoft.Web/sites/config@2022-09-01' = {
     name: 'appsettings'
     parent: functionApp
     properties: union({
-            AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
+            AzureWebJobsStorage__accountname: storageAccountName
             FUNCTIONS_EXTENSION_VERSION: '~4'
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
             APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
@@ -92,6 +96,32 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2020-12-01' = {
             SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
             ENABLE_ORYX_BUILD: 'false'
         }, functionSettings)
+}
+
+
+resource roleAssignment1 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+    name: guid('roleStorageBlobDataOwner-${storageAccountName}')
+    properties: {
+      roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b')
+      principalId: functionApp.identity.principalId
+    }
+}
+
+resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+    name: guid('roleStorageAccountContributor-${storageAccountName}')
+    properties: {
+      roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', '17d1049b-9a84-46fb-8f53-869881c3d3ab')
+      principalId: functionApp.identity.principalId
+    }
+}
+
+
+resource roleAssignment3 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+    name: guid('roleStorageQueueDataContributor-${storageAccountName}')
+    properties: {
+      roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', '974c5e8b-45b9-4653-ba55-5f855dd0fb88')
+      principalId: functionApp.identity.principalId
+    }
 }
 
 output functionAppPrincipalId string = functionApp.identity.principalId
