@@ -7,9 +7,15 @@ products:
 - azure-healthcare-apis
 description: Get started quickly with the Azure Health Data Services Toolkit on Azure Functions
 ----->
-# Azure Health Data Services Toolkit Azure Function Custom Operation UseCaseSample
+# Azure Health Data Services Toolkit Azure Function Custom Operation UseCaseSample (Use case: Modify Capability Statement)
 
 This UseCaseSample will walk you through creating a simple custom operation on top of the FHIR Service using Azure Functions. We'll cover everything from deploying infrastructure, debugging locally, and deploying to Azure.
+
+This use case sample modifies capability statement to pass US Core v4.0.0 capability statement test suite.
+
+It is a post process sample, once we receive response for get metadata operation, we use json transform to update response.
+
+This use case sample uses output filter to update the response, in filter we check if url contains "metadata" & if response does not have "instantiates" property, the metadata response is updated to add "instantiates" property with value "http://hl7.org/fhir/us/core/CapabilityStatement/us-core-server".
 
 *This sample does not address authorization for simplicity - the endpoint is open to anyone with the address. Please only use test or sample data for this Use Case Sample.*
 
@@ -65,7 +71,7 @@ This UseCaseSample will create the below resources. These will be used both for 
 
 ### Visual Studio Code
 
-1. Open this folder in Visual Studio Code (`samples/UseCaseSamples`).
+1. Open this folder in Visual Studio Code (`samples/UseCaseSamples/ModifyCapabilityStatement`).
 2. You may be asked to install recommended extensions for the repository. Click "Yes" to install the needed tools
     1. Relaunch Visual Studio Code if this is your first time working with the Azure Function Tools.
 3. Start the Azurite emulator by clicking `Azurite Blob Service` in the bottom blue bar or selecting `Azurite: Start` from the command palate.
@@ -131,3 +137,8 @@ Please follow the below instructions if you want to perform operations using the
      
 
   -  Please copy the UseCaseSampleFunction URL from the above [command](##get-the-deployment-details) and replace it with `UseCaseSampleFunctionURL`.
+
+  - Verify response dhas "instantiates" property.
+
+
+
