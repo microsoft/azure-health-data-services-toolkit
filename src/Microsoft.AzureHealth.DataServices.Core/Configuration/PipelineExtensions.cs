@@ -206,9 +206,10 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
         /// <param name="services">The <see cref="IServiceCollection"/> instance to add the binding to.</param>
         /// <param name="baseAddress">The base URI address for the binding's client.</param>
         /// <param name="credential">Credential used by the binding to access the target.</param>
+        /// <param name="scopes">Scopes used by the binding to access the target.</param>
         /// <returns>The <see cref="IHttpClientBuilder"/> instance for the binding's client.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="services"/> or <paramref name="baseAddress"/> is null.</exception>
-        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress, TokenCredential credential = null)
+        public static IHttpClientBuilder AddBinding<TBinding>(this IServiceCollection services, Uri baseAddress, TokenCredential credential = null, string[] scopes = default)
             where TBinding : class, IBinding
         {
             services.Add(new ServiceDescriptor(typeof(IBinding), typeof(TBinding), ServiceLifetime.Scoped));
@@ -220,7 +221,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
 
             if (credential is not null)
             {
-                clientBuilder.UseCredential(credential, baseAddress);
+                clientBuilder.UseCredential(credential, baseAddress, scopes);
             }
 
             return clientBuilder;
@@ -244,7 +245,7 @@ namespace Microsoft.AzureHealth.DataServices.Configuration
             options(optionsValue);
 
             services.Configure<TOptions>(options);
-            return services.AddBinding<TBinding>(optionsValue.BaseAddress, optionsValue.Credential);
+            return services.AddBinding<TBinding>(optionsValue.BaseAddress, optionsValue.Credential, optionsValue.Scopes);
         }
 
         /// <summary>
