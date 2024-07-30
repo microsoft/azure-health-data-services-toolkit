@@ -62,9 +62,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickstartSample.Tests", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "useCaseSample", "useCaseSample", "{8FA52AD6-D111-432A-AB00-4C746F5AC840}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCaseSample", "samples\UseCaseSamples\src\UseCaseSample.csproj", "{D342996E-B48A-417B-91D2-B430AA123B70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCaseSample", "samples\UseCaseSamples\ModifyCapabilityStatement\src\UseCaseSample.csproj", "{D342996E-B48A-417B-91D2-B430AA123B70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCaseSample.Tests", "samples\UseCaseSamples\tests\UseCaseSample.Tests.csproj", "{EB443EFD-843E-4CCA-94DE-56D0AF61E3D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCaseSample.Tests", "samples\UseCaseSamples\ModifyCapabilityStatement\tests\UseCaseSample.Tests.csproj", "{EB443EFD-843E-4CCA-94DE-56D0AF61E3D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,6 +11,10 @@ description: Get started quickly with the Azure Health Data Services Toolkit on 
 
 This quickstart will walk you through creating a simple custom operation on top of the FHIR Service using Azure Functions. We'll cover everything from deploying infrastructure, debugging locally, and deploying to Azure.
 
+This sample has QuickstartFilter, which is an input filter, it  does a preprocessing on PUT and POST requests on patient resources.
+In case request body for PUT and POST request does not have "Communication" and "meta.security" objects, filter would add these objects in requests using json transform feature.
+QuickstartFilter also implements extension to handle exceptions. In case of an exception it logs the details ad sets the error body in context as part of post process.
+
 *This sample does not address authorization for simplicity - the endpoint is open to anyone with the address. Please only use test or sample data for this quickstart.*
 
 ## Prerequisites
@@ -74,7 +78,7 @@ This quickstart will create the below resources. These will be used both for loc
 
 ### Visual Studio
 
-1. Open the `Quickstart.sln` project inside of Visual Studio.
+1. Open the `QuickstartSample.sln` project inside of Visual Studio.
 2. Debug the custom operation inside of Visual Studio.
 3. You can now test your code locally! Set a breakpoint and go to `http://localhost:7256/Patient` in your browser or API testing tool.
 

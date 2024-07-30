@@ -5,9 +5,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
-    <PackageVersion Include="Azure.Core" Version="1.38.0" />
+    <PackageVersion Include="Azure.Core" Version="1.40.0" />
     <PackageVersion Include="Azure.Data.Tables" Version="12.8.0" />
-    <PackageVersion Include="Azure.Identity" Version="1.11.4" />
+    <PackageVersion Include="Azure.Identity" Version="1.12.0" />
     <PackageVersion Include="Azure.Messaging.EventGrid" Version="4.17.0" />
     <PackageVersion Include="Azure.Messaging.EventHubs" Version="5.9.2" />
     <PackageVersion Include="Azure.Messaging.EventHubs.Processor" Version="5.9.2" />
