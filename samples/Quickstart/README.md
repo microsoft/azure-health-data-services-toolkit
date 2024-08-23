@@ -153,6 +153,75 @@ Please follow the below instructions if you want to perform operations using the
 
   - Copy the default key value from the above [command](##get-the-deployment-details) and replace it with 'defaultkey'. Remove the `?Code='defaultkey'` from the URL if AuthorizationLevel is Anonymous as it does not require any authorization.
 
+## Generate Postman Collection for Quickstart function app
+### Overview
+
+This PowerShell script is designed to generate a Postman collection for the deployed Quickstart Function App. It extracts the necessary details from the provided Function App Resource ID and creates a Postman collection with GET, POST, PUT, and DELETE requests for the "Patient" Resource.
+
+## Prerequisites
+
+- Azure CLI: Ensure the Azure CLI is installed on your system.
+  - [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/cli/azure/install-azure-cli)
+- PowerShell: Ensure the PowerShell is installed on your system.
+  - [PowerShell Installation Guide](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)
+
+## Instructions to run the script
+
+1. Download the script
+   - Click on this GitHub link
+     [Github Link](https://github.com/microsoft/azure-health-data-services-toolkit/tree/main/samples/Quickstart)
+   - Browse to the folder under this path and download the script (..\script\GeneratePostmanCollection.ps1)
+2. Launch PowerShell on your system
+3. Run the Script
+   - Navigate to the directory where the script is downloaded. Execute the script as below:
+
+     ![PowerShell](./Images/Run_PostmanCollection_Script.png)
+   
+   - It will prompt to enter the Function App Resource ID.
+
+     ![PowerShell](./Images/Enter_ResourceId.png)
+
+4. Get the Function App Resource ID
+  
+   To get the Function App Resource ID, follow these steps:
+     - Log in to the [Azure Portal](https://ms.portal.azure.com/)
+    - Go to "Resource Groups" and select the Resource Group where your Quickstart Function App is deployed. Click on the Function App.
+    - Click on the "JSON View" for the Function App as shown below.
+
+      ![FunctionApp](./Images/FunctionApp_OverviewPage.png)
+     
+    - Copy the Resource ID (Highlighted in green box in below image).
+
+      ![FunctionApp](./Images/Copy_ResourceId.png)
+     
+5. When prompted by the script, paste the copied Resource ID and press Enter.
+
+## Post-Execution
+
+- The Postman collection will be saved as PostmanCollection.json in the same directory from where the script is executed.
+- Open Postman and import the PostmanCollection.json file to start using the generated API requests. The collection will be named as "Quickstart Collection".
+- You will find following URL templates, where QuickStartFunctionURL and defaultkey will be automatically configured for you.
+
+  For POST,
+
+      url : <QuickStartFunctionURL>/Patient?Code=defaultkey
+    
+  For GET/PUT/DELETE,
+  
+      url : <QuickStartFunctionURL>/Patient/{id}?Code=defaultkey
+  
+    
+- In above URL's,
+  - QuickStartFunctionURL will be replaced with the base URL of your Function App 
+  - defaultkey will be replaced with the master key provided by the Function App.
+  - Enter the desired patient ID where {id} is indicated in the request URL.
+
+## Troubleshooting
+
+- Missing Azure CLI - Ensure that the Azure CLI is installed on your system. After installation, restart your PowerShell session and re-run the script.
+- Invalid Function App Resource ID - Verify the format of the Function App Resource ID.
+- Script execution policy - Ensure that the PowerShell execution policy allows running the script. You may need to adjust the execution policy using 'Set-ExecutionPolicy'.
+- Script execution errors - If you encounter any errors, check the error messages displayed in PowerShell. The script includes error handling that will provide information on what went wrong.
 
 ## Monitoring
 ### Dashboard Monitoring
