@@ -58,3 +58,26 @@ Use [UseCase sample](./UseCaseSamples/) to see a basic end-to-end deployment of 
 - Adding a header to audit the original requestor.
 - Using a transform for a basic modification of FHIR server behavior.
 - Using a pipeline with output filters to modify the response.
+
+## OnBehalfOfCredential
+
+One workaround to accommodate the OnBehalfOfCredential in our "token cache" is to pass the token by hand using an InputFilter.
+
+**Program.cs**
+
+```csharp
+builder.Services.AddBinding<RestBinding, RestBindingOptions>(options =>
+{
+  options.BaseAddress = new Uri(configuration.GetValue<string>("FhirServerUrl"));
+  options. PassThroughAuthorizationHeader = true;
+});
+```
+
+**CustomAuthInputBinding.cs**
+
+```csharp
+var credential = new OnBehalfOfCredential(<TenantId>, <clientId>, <clientSecret>,  context.Request.Headers.Authorization.Parameter);
+var scopes = string[]{ $"{<fhirAddress>.TrimEnd('/')}/.default" }
+var accessToken = await _tokenCredential.GetTokenAsync(TokenRequestContext(scopes), <cancellationToken>));
+context.Headers.Add(new HeaderNameValuePair("Authorization", accessToken.Token, CustomHeaderType.RequestStatic));
+```
