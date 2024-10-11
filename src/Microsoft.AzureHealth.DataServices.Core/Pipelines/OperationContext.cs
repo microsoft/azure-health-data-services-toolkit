@@ -36,7 +36,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             Request = message;
             properties = new Dictionary<string, string>();
             headers = new HttpCustomHeaderCollection();
-            SetContentAsync(message).GetAwaiter();
+            SetContentAsync(message).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Microsoft.AzureHealth.DataServices.Pipelines
             Request = message;
             properties = new Dictionary<string, string>();
             this.headers = headers;
-            SetContentAsync(message).GetAwaiter();
+            SetContentAsync(message).GetAwaiter().GetResult();
         }
 
         /// <summary>
