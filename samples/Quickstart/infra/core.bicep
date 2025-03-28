@@ -109,10 +109,10 @@ module function './azureFunction.bicep'= {
         functionAppName: functionAppName
         storageAccountName: funcStorName
         location: location
-        appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
+        appInsightsConnectionString: monitoring.outputs.appInsightsInstrumentationString
         functionSettings: union({
                 AZURE_FhirServerUrl: 'https://${workspaceName}-${fhirServiceName}.fhir.azurehealthcareapis.com'
-                AZURE_InstrumentationKey: monitoring.outputs.appInsightsInstrumentationString
+                AZURE_AppInsightsConnectionString: monitoring.outputs.appInsightsInstrumentationString
             }, functionAppCustomSettings)
         appTags: appTags
     }
@@ -150,7 +150,7 @@ module apimService './apiManagement/apim.bicep' = if (useAPIM) {
         skuCount: skuCount
         publisherName: publisherName
         publisherEmail: publisherEmail
-        appInsightsInstrumentationKey: monitoring.outputs.appInsightsInstrumentationKey
+        appInsightsConnectionString: monitoring.outputs.appInsightsInstrumentationString
         useAPIM:useAPIM
         appInsightsName:appInsightsName
     }

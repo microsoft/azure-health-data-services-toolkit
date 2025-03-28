@@ -1,7 +1,7 @@
 param storageAccountName string
 param appServiceName string
 param functionAppName string
-param appInsightsInstrumentationKey string
+param appInsightsConnectionString string
 param location string
 param functionSettings object = {}
 param appTags object = {}
@@ -90,8 +90,7 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2022-09-01' = {
             AzureWebJobsStorage__accountname: storageAccountName
             FUNCTIONS_EXTENSION_VERSION: '~4'
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
-            APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-            APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
+            APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
             SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
             ENABLE_ORYX_BUILD: 'false'
         }, functionSettings)

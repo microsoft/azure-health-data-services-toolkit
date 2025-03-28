@@ -4,6 +4,6 @@
     {
         public Uri FhirServerUrl { get; set; }
 
-        public string InstrumentationKey { get; set; }
+        public string AppInsightsConnectionString { get; set; }
     }
 }

@@ -36,10 +36,10 @@ internal static class Program
             .ConfigureFunctionsWorkerDefaults()
             .ConfigureServices(services =>
             {
-                if (config.InstrumentationKey != null)
+                if (config.AppInsightsConnectionString != null)
                 {
-                    services.UseAppInsightsLogging(config.InstrumentationKey, LogLevel.Information);
-                    services.UseTelemetry(config.InstrumentationKey);
+                    services.UseAppInsightsLogging(config.AppInsightsConnectionString, LogLevel.Information);
+                    services.UseTelemetry(config.AppInsightsConnectionString);
                 }
 
                 // Setup custom headers for use in an Input Filter
