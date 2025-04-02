@@ -52,9 +52,11 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            netFrameworkVersion: 'v8.0'
+            //netFrameworkVersion: 'v8.0'
             //linuxFxVersion: 'dotnet-isolated|8.0'
-            //use32BitWorkerProcess: false
+            windowsFxVersion: 'dotnetisolated|8.0'
+            netFrameworkVersion: 'v8.0'
+            use32BitWorkerProcess: false
             alwaysOn: true
         }
     }

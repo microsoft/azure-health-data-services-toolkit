@@ -11,8 +11,7 @@ steps:
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk (for code signing)'
   inputs:
-    packageType: sdk
-    version: 3.1.x
+    useGlobalJson: true
 
 # Expand packages as zip
 - task: PowerShell@2
