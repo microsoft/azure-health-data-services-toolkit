@@ -24,7 +24,7 @@
     <PackageVersion Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(RuntimePackageVersion)" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimePackageVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimePackageVersion)" />
