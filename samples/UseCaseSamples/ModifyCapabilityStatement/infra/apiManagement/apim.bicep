@@ -4,7 +4,7 @@ param sku string
 param skuCount int
 param publisherName string
 param publisherEmail string
-param appInsightsInstrumentationKey string
+param appInsightsConnectionString string
 param useAPIM bool
 param appInsightsName string
 param appInsightsExternalId string = '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/microsoft.insights/components/${appInsightsName}'
@@ -30,8 +30,7 @@ resource apim 'Microsoft.ApiManagement/service@2021-12-01-preview' = if (useAPIM
     properties: {
       loggerType: 'applicationInsights'
       credentials: {
-        appInsightsInstrumentationKey: appInsightsInstrumentationKey
-        instrumentationKey: appInsightsInstrumentationKey
+        connectionString: appInsightsConnectionString
       }
       isBuffered: true
       resourceId: appInsightsExternalId

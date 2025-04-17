@@ -1,7 +1,7 @@
 param storageAccountName string
 param appServiceName string
 param functionAppName string
-param appInsightsInstrumentationKey string
+param appInsightsConnectionString string
 param location string
 param functionSettings object = {}
 param appTags object = {}
@@ -26,11 +26,11 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   location: location
   kind: 'functionapp'
   sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
+    name: 'S1'
+    tier: 'Standard'
   }
   properties: {
-    reserved: true
+    //reserved: true
   }
   tags: appTags
 }
@@ -55,6 +55,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
             netFrameworkVersion: 'v8.0'
             //linuxFxVersion: 'dotnet-isolated|8.0'
             //use32BitWorkerProcess: false
+            alwaysOn:true
         }
     }
 
@@ -90,8 +91,7 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2022-09-01' = {
             AzureWebJobsStorage__accountname: storageAccountName
             FUNCTIONS_EXTENSION_VERSION: '~4'
             FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
-            APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-            APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${appInsightsInstrumentationKey}'
+            APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
             SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
             ENABLE_ORYX_BUILD: 'false'
         }, functionSettings)
