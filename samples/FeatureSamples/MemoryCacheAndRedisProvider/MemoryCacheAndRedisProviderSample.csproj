@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <!-- Default to version 1.0.0 if SdkVersion is not set -->
-  <ItemGroup Condition="'$(SdkVersion)' == ''" >
+  <ItemGroup Condition="'$(SdkVersion)' == ''">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="1.0.0" />
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Caching" Version="1.0.0" />
   </ItemGroup>
@@ -18,9 +18,13 @@
   </ItemGroup>
 
   <!-- If neither of the above, read version from SdkVersion  -->
-  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'" >
+  <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Caching" Version="$(SdkVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.41.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
 </Project>
