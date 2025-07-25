@@ -17,7 +17,7 @@ stages:
       - deployment: SignPackage
         environment: esrp
         pool:
-          vmImage: $(VmImage)
+          vmImage: $(WindowsVmImage)
         strategy:
           runOnce:
             deploy:
