@@ -22,20 +22,27 @@ steps:
     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
 
-- task: EsrpCodeSigning@1
-  displayName: 'Sign Package DLLs'
+- task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+  displayName: 'ESRP CodeSigning - Sign Package DLLs'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing'
+    ConnectedServiceName: 'Code_Signing'
+    AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+    AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
+    AuthAKVName: 'kv-toolkit-202506232024'
+    AuthCertName: 'cert-toolkit-2025'
+    AuthSignCertName: 'buildtask-1fdsign'
     FolderPath: '${{ parameters.PackagesPath }}'
     Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
-    UseMinimatch: false
+    SessionTimeout: 90
+    ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+    MaxConcurrency: 25
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
         {
-          "keyCode": "CP-230012",
-          "operationSetCode": "SigntoolSign",
-          "parameters": [
+          "KeyCode": "CP-230012",
+          "OperationCode": "SigntoolSign",
+          "Parameters": [
             {
               "parameterName": "OpusName",
               "parameterValue": "Microsoft"
@@ -57,22 +64,19 @@ steps:
               "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
             }
           ],
-          "toolName": "sign",
-          "toolVersion": "1.0"
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
         },
         {
-            "keyCode": "CP-230012",
-            "operationSetCode": "SigntoolVerify",
-            "parameters": [ ],
-            "toolName": "sign",
-            "toolVersion": "1.0"
+          "KeyCode": "CP-230012",
+          "OperationCode": "SigntoolVerify",
+          "Parameters": [ ],
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
         }
       ]
-    SessionTimeout: '60'
-    MaxConcurrency: '50'
-    MaxRetryAttempts: '5'
 
-  # Repackage with signed dlls
+# Repackage with signed dlls
 - task: PowerShell@2
   displayName: 'Repack nuget packages'
   inputs:
@@ -88,31 +92,35 @@ steps:
     targetFolder: ${{ parameters.PackagesPath }}-signed
 
 # Sign Packages
-- task: EsrpCodeSigning@1
-  displayName: 'Sign Nuget Packages'
+- task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+  displayName: 'ESRP CodeSigning - Sign Nuget Packages'
   inputs:
-    ConnectedServiceName: 'ESRP Code Signing'
+    ConnectedServiceName: 'Code_Signing'
+    AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+    AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
+    AuthAKVName: 'kv-toolkit-202506232024'
+    AuthCertName: 'cert-toolkit-2025'
+    AuthSignCertName: 'buildtask-1fdsign'
     FolderPath: '${{ parameters.PackagesPath }}-signed/'
     Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
-    UseMinimatch: false
+    SessionTimeout: 90
+    ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+    MaxConcurrency: 25
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
         {
-            "keyCode": "CP-401405",
-            "operationSetCode": "NuGetSign",
-            "parameters": [ ],
-            "toolName": "sign",
-            "toolVersion": "1.0"
+          "KeyCode": "CP-401405",
+          "OperationCode": "NuGetSign",
+          "Parameters": [ ],
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
         },
         {
-            "keyCode": "CP-401405",
-            "operationSetCode": "NuGetVerify",
-            "parameters": [ ],
-            "toolName": "sign",
-            "toolVersion": "1.0"
+          "KeyCode": "CP-401405",
+          "OperationCode": "NuGetVerify",
+          "Parameters": [ ],
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
         }
       ]
-    SessionTimeout: '60'
-    MaxConcurrency: '50'
-    MaxRetryAttempts: '5'
