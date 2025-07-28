@@ -36,6 +36,7 @@ steps:
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
+    UseMSIAuthentication: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
@@ -107,6 +108,7 @@ steps:
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
     signConfigType: 'inlineSignParams'
+    UseMSIAuthentication: true
     inlineOperation: |
       [
         {
