@@ -26,7 +26,7 @@ steps:
   displayName: 'ESRP CodeSigning - Sign Package DLLs'
   inputs:
     ConnectedServiceName: 'Code_Signing'
-    #AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+    AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
     AuthAKVName: 'kv-toolkit-202506232024'
     AuthCertName: 'cert-toolkit-2025'
@@ -97,7 +97,7 @@ steps:
   displayName: 'ESRP CodeSigning - Sign Nuget Packages'
   inputs:
     ConnectedServiceName: 'Code_Signing'
-    #AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+    AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
     AuthAKVName: 'kv-toolkit-202506232024'
     AuthCertName: 'cert-toolkit-2025'
