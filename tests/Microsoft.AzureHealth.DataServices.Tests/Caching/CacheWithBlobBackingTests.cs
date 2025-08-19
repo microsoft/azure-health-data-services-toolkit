@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Microsoft.AzureHealth.DataServices.Caching;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
@@ -8,6 +9,7 @@ using Microsoft.AzureHealth.DataServices.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.AzureHealth.DataServices.Tests.Caching
@@ -17,7 +19,6 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
     {
         private static readonly string Container = "blobbackingstore";
         private static BlobStorageConfig s_config;
-        private static string s_connectionString;
         private static IHost s_host;
         private static IJsonObjectCache s_cache;
 
@@ -30,8 +31,18 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
             IConfigurationRoot root = builder.Build();
             s_config = new BlobStorageConfig();
             root.Bind(s_config);
-            s_connectionString = s_config.BlobStorageChannelConnectionString;
-            StorageBlob storage = new(s_connectionString);
+
+            // Set environment variables for app registration if available
+            if (!string.IsNullOrEmpty(root["ClientId"]) && !string.IsNullOrEmpty(root["TenantId"]) && !string.IsNullOrEmpty(root["ClientSecret"]))
+            {
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", root["ClientId"]);
+                Environment.SetEnvironmentVariable("AZURE_TENANT_ID", root["TenantId"]);
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
+            }
+
+            credential = new DefaultAzureCredential();
+            
+            StorageBlob storage = new(new Uri($"https://{s_config.BlobStorageAccountName}.blob.core.windows.net"), credential);
             _ = storage.CreateContainerIfNotExistsAsync(Container).GetAwaiter().GetResult();
 
             s_host = Host.CreateDefaultBuilder()
@@ -40,7 +51,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   services.AddMemoryCache();
                   services.AddAzureBlobCacheBackingStore(options =>
                   {
-                      options.ConnectionString = s_config.BlobStorageChannelConnectionString;
+                      options.AccountUri = new Uri($"https://{s_config.BlobStorageAccountName}.blob.core.windows.net");
                       options.Container = Container;
                   });
                   services.AddJsonObjectMemoryCache(options =>

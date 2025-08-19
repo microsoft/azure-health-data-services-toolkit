@@ -1,4 +1,5 @@
-﻿using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Azure.Identity;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace Microsoft.AzureHealth.DataServices.Channels
 {
@@ -46,5 +47,15 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// Gets or sets an Azure Blob Storage container used to store data when data exceeds the allowable Azure Event Grid size.
         /// </summary>
         public string FallbackStorageContainer { get; set; }
+
+        /// <summary>
+        /// Gets or sets an Azure Blob Storage account used to store data when data exceeds the allowable Azure Event Grid size.
+        /// </summary>
+        public string FallbackStorageAccountName { get; set; }
+
+        /// <summary>
+        /// Gets or sets an Azure Blob Storage account used to store data when data exceeds the allowable Azure Event Grid size.
+        /// </summary>
+        public DefaultAzureCredential Credential { get; set; }
     }
 }

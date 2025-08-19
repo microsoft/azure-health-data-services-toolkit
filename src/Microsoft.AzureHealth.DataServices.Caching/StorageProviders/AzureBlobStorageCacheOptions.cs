@@ -6,6 +6,11 @@
     public class AzureBlobStorageCacheOptions
     {
         /// <summary>
+        /// Gets or sets the Azure Blob Storage Account URI.
+        /// </summary>
+        public Uri AccountUri { get; set; }
+
+         /// <summary>
         /// Gets or sets the Azure Blob Storage connection string.
         /// </summary>
         public string ConnectionString { get; set; }

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure;
+using Azure.Identity;
 using Azure.Messaging.EventGrid;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
@@ -17,6 +18,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     public class EventGridChannel : IInputChannel, IOutputChannel
     {
         private readonly string _fallbackStorageConnectionString;
+        private readonly string _fallbackStorageAccountName;
         private readonly string _container;
         private readonly string _topic;
         private readonly string _accessKey;
@@ -25,6 +27,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         private readonly string _dataVersion;
         private readonly ILogger _logger;
         private readonly StatusType _statusType;
+        private readonly DefaultAzureCredential _credential;
         private EventGridPublisherClient _client;
         private StorageBlob _storage;
         private bool _disposed;
@@ -38,6 +41,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public EventGridChannel(IOptions<EventGridChannelOptions> options, ILogger<EventGridChannel> logger = null)
         {
             _fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
+            _fallbackStorageAccountName = options.Value.FallbackStorageAccountName;
             _container = options.Value.FallbackStorageContainer;
             _topic = options.Value.TopicUriString;
             _accessKey = options.Value.AccessKey;
@@ -45,6 +49,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             _eventType = options.Value.EventType;
             _dataVersion = options.Value.DataVersion;
             _statusType = options.Value.ExecutionStatusType;
+            _credential = options.Value.Credential;
             _logger = logger;
         }
 
@@ -152,11 +157,25 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            _client = new EventGridPublisherClient(
-                        new Uri(_topic),
-                        new AzureKeyCredential(_accessKey));
+            // Create Event Grid client
+            if (!string.IsNullOrWhiteSpace(_accessKey))
+            {
+                _client = new EventGridPublisherClient(new Uri(_topic), new AzureKeyCredential(_accessKey));
+            }
+            else
+            {
+                // Use Managed Identity / Azure AD authentication
+                _client = new EventGridPublisherClient(new Uri(_topic), _credential);
+            }
 
-            _storage = new StorageBlob(_fallbackStorageConnectionString, null, null, null, _logger);
+            if (!string.IsNullOrEmpty(_fallbackStorageConnectionString))
+            {
+                _storage = new StorageBlob(_fallbackStorageConnectionString, null, null, null, _logger);
+            }
+            else
+            {
+                _storage = new StorageBlob(new Uri($"https://{_fallbackStorageAccountName}.blob.core.windows.net"), _credential, null, null, null, null, _logger);
+            }
 
             State = ChannelState.Open;
             OnOpen?.Invoke(this, new ChannelOpenEventArgs(Id, Name, null));

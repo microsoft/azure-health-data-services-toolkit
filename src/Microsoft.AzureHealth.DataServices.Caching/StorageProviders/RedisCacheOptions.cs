@@ -1,4 +1,6 @@
-﻿namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
+﻿using Azure.Identity;
+
+namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
 {
     /// <summary>
     /// Options for redis cache backing store.
@@ -14,5 +16,10 @@
         /// Optional instance name
         /// </summary>
         public string InstanceName { get; set; }
+
+        /// <summary>
+        /// Optional DefultAzureCredential
+        /// </summary>
+        public DefaultAzureCredential Credential { get; set; }
     }
 }

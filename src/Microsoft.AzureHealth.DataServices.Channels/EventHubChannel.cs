@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
@@ -21,10 +22,13 @@ namespace Microsoft.AzureHealth.DataServices.Channels
     {
         private readonly EventHubSkuType _sku;
         private readonly string _connectionString;
+        private readonly string _namespace;
         private readonly string _hubName;
         private readonly string _processorContainer;
         private readonly string _fallbackStorageConnectionString;
         private readonly string _fallbackContainer;
+        private readonly DefaultAzureCredential _credential;
+        private readonly string _storageAccountName;
         private readonly ILogger _logger;
         private readonly StatusType _statusType;
         private ChannelState _state;
@@ -42,11 +46,14 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         {
             _sku = options.Value.Sku;
             _connectionString = options.Value.ConnectionString;
+            _namespace = options.Value.Namespace;
+            _credential = options.Value.Credential;
             _hubName = options.Value.HubName;
             _statusType = options.Value.ExecutionStatusType;
             _fallbackStorageConnectionString = options.Value.FallbackStorageConnectionString;
             _fallbackContainer = options.Value.FallbackStorageContainer;
             _processorContainer = options.Value.ProcessorStorageContainer;
+            _storageAccountName = options.Value.StorageAccountName;
             _logger = logger;
         }
 
@@ -138,11 +145,22 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            _sender = new EventHubProducerClient(_connectionString, _hubName);
+            if (!string.IsNullOrEmpty(_connectionString))
+            {
+                _sender = new EventHubProducerClient(_connectionString, _hubName);
+            }
+            else
+            {
+                _sender = new EventHubProducerClient(_namespace, _hubName, _credential);
+            }
 
-            if (_fallbackStorageConnectionString != null)
+            if (!string.IsNullOrEmpty(_fallbackStorageConnectionString))
             {
                 _storage = new StorageBlob(_fallbackStorageConnectionString);
+            }
+            else
+            {
+                _storage = new StorageBlob(new Uri($"https://{_storageAccountName}.blob.core.windows.net"), _credential);
             }
 
             State = ChannelState.Open;
@@ -174,9 +192,9 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <remarks>Receive operation uses the EventHubProcessor.</remarks>
         public async Task ReceiveAsync()
         {
-            if (string.IsNullOrEmpty(_fallbackStorageConnectionString) || string.IsNullOrEmpty(_processorContainer))
+            if (string.IsNullOrEmpty(_processorContainer))
             {
-                var exception = new EventHubChannelException("Requires blob storage and container configured to receive event data.");
+                var exception = new EventHubChannelException("Requires blob storage container configured to receive event data.");
                 OnError?.Invoke(this, new ChannelErrorEventArgs(Id, Name, exception));
                 throw exception;
             }
@@ -184,8 +202,14 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             try
             {
                 string consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
-                var storageClient = new BlobContainerClient(_fallbackStorageConnectionString, _processorContainer);
-                _processor = new EventProcessorClient(storageClient, consumerGroup, _connectionString, _hubName);
+
+                var storageClient = !string.IsNullOrEmpty(_fallbackStorageConnectionString)
+                    ? new BlobContainerClient(_fallbackStorageConnectionString, _processorContainer)
+                    : new BlobContainerClient(new Uri($"https://{_storageAccountName}.blob.core.windows.net/{_processorContainer}"), _credential);
+
+                _processor = !string.IsNullOrEmpty(_connectionString)
+                    ? new EventProcessorClient(storageClient, consumerGroup, _connectionString, _hubName)
+                    : new EventProcessorClient(storageClient, consumerGroup, _namespace, _hubName, _credential);
 
                 _processor.ProcessEventAsync += async (args) =>
                 {

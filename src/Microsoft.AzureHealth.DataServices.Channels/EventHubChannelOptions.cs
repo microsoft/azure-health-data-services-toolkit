@@ -1,4 +1,5 @@
-﻿using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Azure.Identity;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace Microsoft.AzureHealth.DataServices.Channels
 {
@@ -23,6 +24,16 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public string HubName { get; set; }
 
         /// <summary>
+        /// Gets or sets the Azure Event Hub namespace used for this channel.
+        /// </summary>
+        public string Namespace { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Azure Event Hub storage account name used for this channel.
+        /// </summary>
+        public string StorageAccountName { get; set; }
+
+        /// <summary>
         /// Gets or sets the requirement for execution of the channel.
         /// </summary>
         public StatusType ExecutionStatusType { get; set; }
@@ -42,5 +53,10 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// </summary>
         /// <remarks>Used only for receiving from Event Hub.</remarks>
         public string ProcessorStorageContainer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Azure credential for Managed Identity or other Azure authentication methods.
+        /// </summary>
+        public DefaultAzureCredential Credential { get; set; }
     }
 }
