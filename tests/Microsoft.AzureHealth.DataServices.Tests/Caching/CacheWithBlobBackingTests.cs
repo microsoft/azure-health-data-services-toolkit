@@ -40,8 +40,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                 Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
             }
 
-            credential = new DefaultAzureCredential();
-            
+            var credential = new DefaultAzureCredential();
             StorageBlob storage = new(new Uri($"https://{s_config.BlobStorageAccountName}.blob.core.windows.net"), credential);
             _ = storage.CreateContainerIfNotExistsAsync(Container).GetAwaiter().GetResult();
 
