@@ -29,8 +29,8 @@ steps:
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
     AuthAKVName: 'kv-toolkit-202506232024'
-    AuthCertName: 'cert-toolkit-2025'
-    AuthSignCertName: 'cert-toolkit-2025'
+    AuthCertName: 'toolkit-2025-cert'
+    AuthSignCertName: 'toolkit-2025-cert'
     FolderPath: '${{ parameters.PackagesPath }}'
     Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
     SessionTimeout: 90
@@ -100,8 +100,8 @@ steps:
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
     AuthAKVName: 'kv-toolkit-202506232024'
-    AuthCertName: 'cert-toolkit-2025'
-    AuthSignCertName: 'cert-toolkit-2025'
+    AuthCertName: 'toolkit-2025-cert'
+    AuthSignCertName: 'toolkit-2025-cert'
     FolderPath: '${{ parameters.PackagesPath }}-signed/'
     Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
     SessionTimeout: 90
