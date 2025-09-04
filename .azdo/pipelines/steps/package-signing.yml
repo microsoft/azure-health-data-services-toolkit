@@ -22,8 +22,9 @@ steps:
     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
 
+# ESRP CodeSigning - Sign AzureHealth DLLs
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
-  displayName: 'ESRP CodeSigning - Sign Package DLLs'
+  displayName: 'ESRP CodeSigning - Sign AzureHealth DLLs'
   inputs:
     ConnectedServiceName: 'Code_Signing'
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
@@ -32,7 +33,7 @@ steps:
     AuthCertName: 'test-toolkit-cert-2025'
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}'
-    Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
+    Pattern: 'Microsoft.AzureHealth.DataServices.*.dll'
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
@@ -75,8 +76,7 @@ steps:
           "ToolName": "sign",
           "ToolVersion": "1.0"
         }
-      ]
-
+      ] 
 # Repackage with signed dlls
 - task: PowerShell@2
   displayName: 'Repack nuget packages'
