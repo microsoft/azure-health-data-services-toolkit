@@ -22,6 +22,8 @@ steps:
     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
 
+  Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
+
 # ESRP CodeSigning - Sign AzureHealth DLLs
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
   displayName: 'ESRP CodeSigning - Sign AzureHealth DLLs'
