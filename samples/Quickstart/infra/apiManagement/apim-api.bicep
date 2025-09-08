@@ -73,6 +73,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource QuickStartPatientGet 'operations' = {
         name: 'get-patient'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'Patient'
             method: 'GET'
@@ -98,6 +99,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource QuickStartPatientPut 'operations' = {
         name: 'put-patient'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'Patient'
             method: 'PUT'
@@ -123,6 +125,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource QuickStartPatientDelete 'operations' = {
         name: 'delete-patient'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'Patient'
             method: 'DELETE'
@@ -149,6 +152,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource QuickStartPatientPost 'operations' = {
         name: 'post-patient'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'Patient'
             method: 'POST'
@@ -166,6 +170,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource FHIRServerGet 'operations' = {
         name: 'get-fhir'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'FHIR Server'
             method: 'GET'
@@ -183,6 +188,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource FHIRServerPost 'operations' = {
         name: 'post-fhir'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'FHIR Server'
             method: 'POST'
@@ -200,6 +206,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource FHIRServerPut 'operations' = {
         name: 'put-fhir'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'FHIR Server'
             method: 'PUT'
@@ -217,6 +224,7 @@ resource quickStartApi 'Microsoft.ApiManagement/service/apis@2021-12-01-preview'
 
     resource FHIRServerDelete 'operations' = {
         name: 'delete-fhir'
+        dependsOn: [ apiPolicy ]
         properties: {
             displayName: 'FHIR Server'
             method: 'DELETE'
