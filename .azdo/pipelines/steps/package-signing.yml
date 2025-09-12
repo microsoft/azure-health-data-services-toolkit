@@ -126,7 +126,6 @@
 #           "toolVersion": "1.0"
 #         }
 #       ]
-
 parameters:
 - name: PackagesPath
   type: string
@@ -151,6 +150,15 @@ steps:
     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
     Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
+
+# List DLLs to be signed (diagnostic step)
+- task: PowerShell@2
+  displayName: 'List DLLs to be signed'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "Listing DLLs in ${{ parameters.PackagesPath }}:"
+      Get-ChildItem -Path "${{ parameters.PackagesPath }}" -Recurse -Filter *.dll | Select-Object FullName | ForEach-Object { Write-Host $_.FullName }
 
 # ESRP CodeSigning - Sign Package DLLs in batches to avoid operationSet code length exceeded error
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
