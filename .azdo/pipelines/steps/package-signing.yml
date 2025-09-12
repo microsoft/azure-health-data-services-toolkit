@@ -23,8 +23,8 @@ steps:
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
     Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
 
-- task: EsrpCodeSigning@1
-  displayName: 'Sign Package DLLs'
+- task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+  displayName: 'ESRP CodeSigning - Sign Package DLLs'
   inputs:
     ConnectedServiceName: 'Code_Signing'
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
@@ -34,7 +34,10 @@ steps:
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}'
     Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
-    UseMinimatch: false
+    SessionTimeout: 90
+    ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+    MaxConcurrency: 25
+    UseMSIAuthentication: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
@@ -89,8 +92,9 @@ steps:
     contents: '*.snupkg'
     targetFolder: ${{ parameters.PackagesPath }}-signed
 
-- task: EsrpCodeSigning@1
-  displayName: 'Sign Nuget Packages'
+# Sign Packages
+- task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+  displayName: 'ESRP CodeSigning - Sign Nuget Packages'
   inputs:
     ConnectedServiceName: 'Code_Signing'
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
@@ -100,7 +104,6 @@ steps:
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}-signed/'
     Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
-    UseMinimatch: false
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
