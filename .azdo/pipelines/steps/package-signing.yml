@@ -1,3 +1,132 @@
+# parameters:
+# - name: PackagesPath
+#   type: string
+#   default: ''
+
+# steps:
+# - checkout: self
+#   clean: true
+#   fetchDepth: 1
+
+# - task: UseDotNet@2
+#   displayName: 'Use .NET Core sdk (for code signing)'
+#   inputs:
+#     packageType: sdk
+#     version: 3.1.x
+
+# # Expand packages as zip
+# - task: PowerShell@2
+#   displayName: 'Expand nuget packages'
+#   inputs:
+#     packagePath: filePath
+#     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/ExpandNugetPackages.ps1'
+#     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
+#     Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
+
+# - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+#   displayName: 'ESRP CodeSigning - Sign Package DLLs'
+#   inputs:
+#     ConnectedServiceName: 'Code_Signing'
+#     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+#     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
+#     AuthAKVName: 'kv-toolkit-202506232024'
+#     AuthCertName: 'test-toolkit-cert-2025'
+#     AuthSignCertName: 'test-toolkit-cert-2025'
+#     FolderPath: '${{ parameters.PackagesPath }}'
+#     Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
+#     SessionTimeout: 90
+#     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+#     MaxConcurrency: 25
+#     UseMSIAuthentication: true
+#     signConfigType: 'inlineSignParams'
+#     inlineOperation: |
+#       [
+#         {
+#           "keyCode": "CP-230012",
+#           "operationCode": "SigntoolSign",
+#           "parameters": [
+#             {
+#               "parameterName": "OpusName",
+#               "parameterValue": "Microsoft"
+#             },
+#             {
+#               "parameterName": "OpusInfo",
+#               "parameterValue": "http://www.microsoft.com"
+#             },
+#             {
+#               "parameterName": "PageHash",
+#               "parameterValue": "/NPH"
+#             },
+#             {
+#               "parameterName": "FileDigest",
+#               "parameterValue": "/fd sha256"
+#             },
+#             {
+#               "parameterName": "TimeStamp",
+#               "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+#             }
+#           ],
+#           "toolName": "sign",
+#           "toolVersion": "1.0"
+#         },
+#         {
+#           "keyCode": "CP-230012",
+#           "operationCode": "SigntoolVerify",
+#           "parameters": [ ],
+#           "toolName": "sign",
+#           "toolVersion": "1.0"
+#         }
+#       ] 
+# # Repackage with signed dlls
+# - task: PowerShell@2
+#   displayName: 'Repack nuget packages'
+#   inputs:
+#     packagePath: filePath
+#     filePath: '$(Build.SourcesDirectory)/.azdo/pipelines/scripts/RepackNugetPackages.ps1'
+#     arguments: '-packageFolderPath "${{ parameters.PackagesPath }}" -signedPath "${{ parameters.PackagesPath }}-signed"'
+
+# - task: CopyFiles@2
+#   displayName: 'Copy symbols'
+#   inputs:
+#     sourceFolder: ${{ parameters.PackagesPath }}
+#     contents: '*.snupkg'
+#     targetFolder: ${{ parameters.PackagesPath }}-signed
+
+# # Sign Packages
+# - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+#   displayName: 'ESRP CodeSigning - Sign Nuget Packages'
+#   inputs:
+#     ConnectedServiceName: 'Code_Signing'
+#     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+#     AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
+#     AuthAKVName: 'kv-toolkit-202506232024'
+#     AuthCertName: 'test-toolkit-cert-2025'
+#     AuthSignCertName: 'test-toolkit-cert-2025'
+#     FolderPath: '${{ parameters.PackagesPath }}-signed/'
+#     Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
+#     SessionTimeout: 90
+#     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+#     MaxConcurrency: 25
+#     signConfigType: 'inlineSignParams'
+#     UseMSIAuthentication: true
+#     inlineOperation: |
+#       [
+#         {
+#           "keyCode": "CP-401405",
+#           "operationCode": "NuGetSign",
+#           "parameters": [ ],
+#           "toolName": "sign",
+#           "toolVersion": "1.0"
+#         },
+#         {
+#           "keyCode": "CP-401405",
+#           "operationCode": "NuGetVerify",
+#           "parameters": [ ],
+#           "toolName": "sign",
+#           "toolVersion": "1.0"
+#         }
+#       ]
+
 parameters:
 - name: PackagesPath
   type: string
@@ -23,8 +152,9 @@ steps:
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
     Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
 
+# ESRP CodeSigning - Sign Package DLLs in batches to avoid operationSet code length exceeded error
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
-  displayName: 'ESRP CodeSigning - Sign Package DLLs'
+  displayName: 'ESRP CodeSigning - Sign Package DLLs Batch 1'
   inputs:
     ConnectedServiceName: 'Code_Signing'
     AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
@@ -33,7 +163,7 @@ steps:
     AuthCertName: 'test-toolkit-cert-2025'
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}'
-    Pattern: 'Microsoft.AzureHealth.DataServices.*.dll,Microsoft.Capl.*.dll'
+    Pattern: 'Microsoft.AzureHealth.DataServices.Caching.dll,Microsoft.AzureHealth.DataServices.Channels.dll,Microsoft.AzureHealth.DataServices.Core.dll'
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
@@ -77,6 +207,62 @@ steps:
           "toolVersion": "1.0"
         }
       ] 
+
+- task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
+  displayName: 'ESRP CodeSigning - Sign Package DLLs Batch 2'
+  inputs:
+    ConnectedServiceName: 'Code_Signing'
+    AppRegistrationClientId: '83032b7a-1253-4736-84b0-3899f3b0cfa1'
+    AppRegistrationTenantId: '33e01921-4d64-4f8c-a055-5bdaffd5e33d'
+    AuthAKVName: 'kv-toolkit-202506232024'
+    AuthCertName: 'test-toolkit-cert-2025'
+    AuthSignCertName: 'test-toolkit-cert-2025'
+    FolderPath: '${{ parameters.PackagesPath }}'
+    Pattern: 'Microsoft.AzureHealth.DataServices.Storage.dll,Microsoft.Capl.Core.dll'
+    SessionTimeout: 90
+    ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
+    MaxConcurrency: 25
+    UseMSIAuthentication: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "keyCode": "CP-230012",
+          "operationCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd sha256"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            }
+          ],
+          "toolName": "sign",
+          "toolVersion": "1.0"
+        },
+        {
+          "keyCode": "CP-230012",
+          "operationCode": "SigntoolVerify",
+          "parameters": [ ],
+          "toolName": "sign",
+          "toolVersion": "1.0"
+        }
+      ] 
+
 # Repackage with signed dlls
 - task: PowerShell@2
   displayName: 'Repack nuget packages'
