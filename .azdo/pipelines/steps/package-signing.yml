@@ -171,7 +171,7 @@ steps:
     AuthCertName: 'test-toolkit-cert-2025'
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}'
-    Pattern: 'Microsoft.AzureHealth.DataServices.Caching.dll,Microsoft.AzureHealth.DataServices.Channels.dll,Microsoft.AzureHealth.DataServices.Core.dll'
+    Pattern: 'Microsoft.AzureHealth.DataServices.Caching.dll;Microsoft.AzureHealth.DataServices.Channels.dll;Microsoft.AzureHealth.DataServices.Core.dll'
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
