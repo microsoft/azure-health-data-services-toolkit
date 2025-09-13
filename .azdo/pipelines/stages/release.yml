@@ -10,7 +10,7 @@ parameters:
     default: microsoft/azure-health-data-services-toolkit
 
 stages:
-  - stage: InstallMono
+  - stage: InstallMonoPrereq
     jobs:
     - job: InstallMonoAndRelease
       steps:
