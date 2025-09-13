@@ -10,15 +10,6 @@ parameters:
     default: microsoft/azure-health-data-services-toolkit
 
 stages:
-  - stage: InstallMonoPrereq
-    jobs:
-    - job: InstallMonoAndRelease
-      steps:
-      - script: |
-          sudo apt update
-          sudo apt install -y mono-complete
-        displayName: 'Install Mono on Ubuntu'
-    
   - stage: ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
     displayName: 'Sign Code & Packages'
     dependsOn: Build
