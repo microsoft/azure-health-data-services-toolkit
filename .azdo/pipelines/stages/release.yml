@@ -58,24 +58,24 @@ stages:
       - ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
       - ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
     jobs:
-    - deployment: PublishPackageDevOps
+    - job: PublishPackageDevOps #deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
       #environment: nuget-internal
       pool:
         vmImage: $(VmImage)
 
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: '${{ parameters.PackageArtifactName }}-signed'
+      #strategy:
+        # runOnce:
+        #   deploy:
+      steps:
+        - download: current
+          artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: ../steps/package-push-internal.yml
-              parameters:
-                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
-                PackageName: ${{ parameters.PackagePrefix }}
-                DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
+        - template: ../steps/package-push-internal.yml
+          parameters:
+          ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+          PackageName: ${{ parameters.PackagePrefix }}
+          DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
 
   # Add integration tests here
 
