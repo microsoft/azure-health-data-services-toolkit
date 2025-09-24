@@ -60,7 +60,7 @@ stages:
     jobs:
     - deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
-      environment: nuget-internal
+      #environment: nuget-internal
       pool:
         vmImage: $(VmImage)
 
