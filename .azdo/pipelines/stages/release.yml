@@ -73,9 +73,9 @@ stages:
 
         - template: ../steps/package-push-internal.yml
           parameters:
-          ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
-          PackageName: ${{ parameters.PackagePrefix }}
-          DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
+            ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+            PackageName: ${{ parameters.PackagePrefix }}
+            DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
 
   # Add integration tests here
 
