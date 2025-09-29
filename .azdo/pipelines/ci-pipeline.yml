@@ -49,11 +49,11 @@ stages:
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: PrereleasePackages
-        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/Azure-Health-Data-Services-Toolkit-Public
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: ReleasePackages
-        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/Azure-Health-Data-Services-Toolkit-Public
         IsPrerelease: false
