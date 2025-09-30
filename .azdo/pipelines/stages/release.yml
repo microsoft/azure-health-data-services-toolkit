@@ -92,7 +92,7 @@ stages:
         displayName: 'Publish Nuget Prerelease'
       ${{ else }}:
         displayName: 'Publish NuGet Release'
-      environment: nuget
+      # environment: nuget
       pool:
         vmImage: $(VmImage)
       steps:
