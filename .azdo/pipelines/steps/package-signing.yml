@@ -23,6 +23,16 @@ steps:
     arguments: '-packagePath "${{ parameters.PackagesPath }}"'
     Write-Host "Pattern: $(${{ parameters.PackagesPath }})"
 
+# Diagnostic step: List DLLs to be signed
+- task: PowerShell@2
+  displayName: 'List DLLs to be signed'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "Listing DLLs in ${{ parameters.PackagesPath }}:"
+      Get-ChildItem -Path "${{ parameters.PackagesPath }}" -Recurse -Filter *.dll | Select-Object FullName | ForEach-Object { Write-Host $_.FullName }
+
+
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@5
   displayName: 'ESRP CodeSigning - Sign Package DLLs'
   inputs:
@@ -103,7 +113,7 @@ steps:
     AuthCertName: 'test-toolkit-cert-2025'
     AuthSignCertName: 'test-toolkit-cert-2025'
     FolderPath: '${{ parameters.PackagesPath }}-signed/'
-    Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg;Microsoft.Capl*.nupkg'
+    Pattern: 'Microsoft.AzureHealth.DataServices*.nupkg,Microsoft.Capl*.nupkg'
     SessionTimeout: 90
     ServiceEndpointUrl: 'https://api.esrp.microsoft.com/api/v2'
     MaxConcurrency: 25
