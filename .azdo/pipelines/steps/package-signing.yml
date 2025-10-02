@@ -52,8 +52,8 @@ steps:
     inlineOperation: |
       [
         {
-          "keyCode": "CP-230012",
-          "operationCode": "SigntoolSign",
+          "KeyCode": "CP-230012",
+          "OperationSetCode": "SigntoolSign",
           "parameters": [
             {
               "parameterName": "OpusName",
@@ -76,17 +76,17 @@ steps:
               "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
             }
           ],
-          "toolName": "sign",
-          "toolVersion": "1.0"
+          "ToolName": "signtool.exe",
+          "ToolVersion": "6.2.9304.0"
         },
         {
-          "keyCode": "CP-230012",
-          "operationCode": "SigntoolVerify",
+          "KeyCode": "CP-230012",
+          "OperationSetCode": "SigntoolVerify",
           "parameters": [ ],
-          "toolName": "sign",
-          "toolVersion": "1.0"
+          "ToolName": "signtool.exe",
+          "ToolVersion": "6.2.9304.0"
         }
-      ] 
+      ]  
 # Repackage with signed dlls
 - task: PowerShell@2
   displayName: 'Repack nuget packages'
@@ -122,18 +122,18 @@ steps:
     inlineOperation: |
       [
         {
-          "keyCode": "CP-401405",
-          "operationCode": "NuGetSign",
+          "KeyCode": "CP-401405",
+          "OperationSetCode": "NuGetSign",
           "parameters": [ ],
-          "toolName": "sign",
-          "toolVersion": "1.0"
+          "ToolName": "nuget.exe",
+          "ToolVersion": "6.2.9304.0"
         },
         {
-          "keyCode": "CP-401405",
-          "operationCode": "NuGetVerify",
+          "KeyCode": "CP-401405",
+          "OperationSetCode": "NuGetVerify",
           "parameters": [ ],
-          "toolName": "sign",
-          "toolVersion": "1.0"
+          "ToolName": "nuget.exe",
+          "ToolVersion": "6.2.9304.0"
         }
       ]
 
