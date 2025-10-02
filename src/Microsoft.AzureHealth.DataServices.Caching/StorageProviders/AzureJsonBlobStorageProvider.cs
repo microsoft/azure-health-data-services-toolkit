@@ -27,7 +27,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
             }
             else
             {
-                storage = new(new Uri(options.Value.BlobServiceEndpoint), new DefaultAzureCredential());
+                storage = new(options.Value.AccountUri, new DefaultAzureCredential());
             }
 
             container = options.Value.Container;

@@ -29,9 +29,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         [TestMethod]
         public void EventHubSettings_Test()
         {
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubBlobConnectionString));
+            // Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubBlobConnectionString));
             Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubBlobContainer));
-            Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubConnectionString));
+
+            // Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubConnectionString));
             Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubName));
             Assert.IsTrue(!string.IsNullOrEmpty(eventHubConfig.EventHubProcessorContainer));
             Assert.IsTrue(eventHubConfig.EventHubSku == EventHubSkuType.Basic);
@@ -40,9 +41,10 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         [TestMethod]
         public void ServiceBusSettings_Test()
         {
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusBlobConnectionString));
+            // Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusBlobConnectionString));
             Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusBlobContainer));
-            Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusConnectionString));
+
+            // Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusConnectionString));
             Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusSubscription));
             Assert.IsTrue(!string.IsNullOrEmpty(serviceBusConfig.ServiceBusTopic));
             Assert.IsTrue(serviceBusConfig.ServiceBusSku == ServiceBusSkuType.Standard);

@@ -19,7 +19,7 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "FhirServerUrl": "foobar", // can stay foobar
 
   "StorageConnectionString": "<general-storage-connection-string>",
-
+  "StorageAccountName": "<general-storage-account-name>",
   "KeyVaultUri": "<general-keyvault-uri>",
   "KeyVaultCertificateName": "localhost",
 
@@ -28,11 +28,15 @@ To setup your system for testing, add these values as .NET user secrets like bel
 
   "BlobStorageChannelConnectionString": "<general-storage-connection-string>",
   "BlobStorageChannelContainer": "blob-tests",
+  "BlobStorageAccountName": "<general-storage-account-name>",
+
 
   "CacheConnectionString": "<general-redis-connection-string>",
+  "CacheHostName": "<general-redis-cache-hostname>",
 
   "EventGridBlobConnectionString": "<general-storage-connection-string>",
   "EventGridBlobContainer": "eventgrid-tests",
+  "EventGridBlobStorageAccountName": "<general-storage-account-name>",
   "EventGridDataVersion": "1.0",
   "EventGridEventType": "Proxy",
   "EventGrid_Message_Queue": "eventgridqueue",
@@ -46,13 +50,17 @@ To setup your system for testing, add these values as .NET user secrets like bel
   "EventHubSku": "Basic",
   "EventHubBlobConnectionString": "<general-storage-connection-string>",
   "EventHubBlobContainer": "eventhub-blobs",
+  "EventHubBlobStorageAccountName": "<general-storage-account-name>",
+
 
   "ServiceBusConnectionString": "<general-service-bus-connection-string>",
+  "ServicebusNamespace": "<general-service-bus-namespace>",
   "ServiceBusQueue": "testqueue",
   "ServiceBusSku": "Standard",
   "ServiceBusSubscription": "sub1",
   "ServiceBusTopic": "test",
   "ServiceBusBlobContainer": "servicebus-blobs",
-  "ServiceBusBlobConnectionString": "<general-storage-connection-string>"
+  "ServiceBusBlobStorageAccountName": "toolkitteststa",
+  "ServiceBusBlobConnectionString": "<general-storage-account-name>"
 }
 ```

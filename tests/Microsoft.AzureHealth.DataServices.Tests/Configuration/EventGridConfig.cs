@@ -72,5 +72,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// </summary>
         [JsonProperty("eventGridBlobContainer")]
         public string EventGridBlobContainer { get; set; }
+
+        /// <summary>
+        /// Gets or sets Azure blob storage account name for managing large files.
+        /// </summary>
+        [JsonProperty("eventGridBlobStorageAccountName")]
+        public string EventGridBlobStorageAccountName { get; set; }
     }
 }

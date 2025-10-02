@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Azure.Messaging.ServiceBus;
 using Microsoft.AzureHealth.DataServices.Pipelines;
 using Microsoft.AzureHealth.DataServices.Storage;
@@ -19,10 +20,12 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         private readonly StatusType _statusType;
         private readonly string _connectionString;
         private readonly string _fallbackStorageConnectionString;
+        private readonly string _fallbackStorageAccountName;
         private readonly string _storageContainer;
         private readonly string _topic;
         private readonly string _subscription;
         private readonly string _queue;
+        private readonly string _fullyQualifiedNamespace;
         private readonly ServiceBusSkuType _sku;
         private ChannelState _state;
         private StorageBlob _storage;
@@ -30,6 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         private ServiceBusClient _client;
         private ServiceBusSender _sender;
         private ServiceBusProcessor _processor;
+        private DefaultAzureCredential _azureCredential;
 
         /// <summary>
         /// Creates an instance of ServiceBusChannel for sending or receiving messages from service bus.
@@ -49,6 +53,9 @@ namespace Microsoft.AzureHealth.DataServices.Channels
             _queue = options.Value.Queue;
             _statusType = options.Value.ExecutionStatusType;
             _logger = logger;
+            _azureCredential = options.Value.Credential;
+            _fullyQualifiedNamespace = options.Value.Namespace;
+            _fallbackStorageAccountName = options.Value.FallbackStorageAccountName;
         }
 
         public ServiceBusChannel(ServiceBusSkuType sku)
@@ -144,16 +151,28 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// <returns>Task</returns>
         public async Task OpenAsync()
         {
-            if (string.IsNullOrEmpty(_fallbackStorageConnectionString))
-            {
-                _logger?.LogWarning("Service Bus channel not configured fallback storage connection string.");
-            }
-            else
+            if (!string.IsNullOrEmpty(_fallbackStorageConnectionString))
             {
                 _storage = new StorageBlob(_fallbackStorageConnectionString, null, 10, null, _logger);
             }
+            else if (string.IsNullOrEmpty(_fallbackStorageConnectionString) && _azureCredential != null)
+            {
+                _storage = new StorageBlob(new Uri($"https://{_fallbackStorageAccountName}.blob.core.windows.net"), _azureCredential, null, null, 10, null, _logger);
+            }
 
-            _client = new(_connectionString);
+            if (!string.IsNullOrWhiteSpace(_connectionString))
+            {
+                _client = new ServiceBusClient(_connectionString);
+            }
+            else if (!string.IsNullOrWhiteSpace(_fullyQualifiedNamespace) && _azureCredential != null)
+            {
+                _client = new ServiceBusClient(_fullyQualifiedNamespace, _azureCredential);
+            }
+            else
+            {
+                throw new InvalidOperationException("Service Bus client configuration is invalid: provide either a connection string or both fully qualified namespace and Azure credential.");
+            }
+
             string resource = _topic ?? _queue;
             _sender = _client.CreateSender(resource);
 

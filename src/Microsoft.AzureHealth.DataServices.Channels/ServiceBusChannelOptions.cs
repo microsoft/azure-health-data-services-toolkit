@@ -1,4 +1,5 @@
-﻿using Microsoft.AzureHealth.DataServices.Pipelines;
+﻿using Azure.Identity;
+using Microsoft.AzureHealth.DataServices.Pipelines;
 
 namespace Microsoft.AzureHealth.DataServices.Channels
 {
@@ -16,6 +17,11 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         /// Gets or sets the service bus connection string.
         /// </summary>
         public string ConnectionString { get; set; }
+
+        /// <summary>
+        /// Gets or sets the service bus namespace.
+        /// </summary>
+        public string Namespace { get; set; }
 
         /// <summary>
         /// Gets or sets the service bus topic.
@@ -44,8 +50,18 @@ namespace Microsoft.AzureHealth.DataServices.Channels
         public string FallbackStorageConnectionString { get; set; }
 
         /// <summary>
+        /// Gets or sets the token credentials.
+        /// </summary>
+        public DefaultAzureCredential Credential { get; set; }
+
+        /// <summary>
         /// Gets or sets the fallback storage container for messages of excessive size.
         /// </summary>
         public string FallbackStorageContainer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fallback storage uri for messages of excessive size.
+        /// </summary>
+        public string FallbackStorageAccountName { get; set; }
     }
 }

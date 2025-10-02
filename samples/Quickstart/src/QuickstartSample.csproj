@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.2" />
     <PackageReference Include="Azure.Core" Version="1.41.0" />
-    <PackageReference Include="Azure.Identity" Version="1.12.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
@@ -31,7 +31,7 @@
   <ItemGroup Condition="'$(SdkVersion)' == 'local'">
     <ProjectReference Include="..\..\..\src\Microsoft.AzureHealth.DataServices.Core\Microsoft.AzureHealth.DataServices.Core.csproj" />
   </ItemGroup>
-  
+
   <!-- If neither of the above, read version from SdkVersion  -->
   <ItemGroup Condition="'$(SdkVersion)' != '' And '$(SdkVersion)' != 'local'">
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Core" Version="$(SdkVersion)" />
