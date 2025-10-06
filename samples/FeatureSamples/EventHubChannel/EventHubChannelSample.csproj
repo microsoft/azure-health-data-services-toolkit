@@ -25,7 +25,7 @@
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Channels" Version="$(SdkVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Azure.Core" Version="1.41.0" />
+    <PackageReference Include="Azure.Core" Version="1.47.1" />
   </ItemGroup>
 
 </Project>

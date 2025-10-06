@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AzureHealth.DataServices.Caching" Version="$(SdkVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Azure.Core" Version="1.41.0" />
+    <PackageReference Include="Azure.Core" Version="1.47.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
