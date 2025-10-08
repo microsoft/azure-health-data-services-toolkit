@@ -5,7 +5,7 @@ name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:-r)
 trigger: none
 
 variables:
-  #- group: toolkit-test-pack
+  - group: toolkit-test-pack
   - group: toolkit-build-version-configuration
 
 stages:
@@ -25,7 +25,6 @@ stages:
       - template: ./steps/build.yml
         parameters:
           targetBuildFramework: 'net8.0'
-          unitTest : false
 
       - template: ./steps/versionVariables.yml
       
