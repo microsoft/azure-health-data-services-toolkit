@@ -41,9 +41,9 @@ steps:
       projects: '**/Microsoft.AzureHealth.DataServices.Tests.csproj'
     displayName: 'Run all tests'
     env:
-      TenantId: $(proxy-tenant-id)
-      ClientId: $(kv-client-id)
-      ClientSecret: $(kv-client-secret)
+      AZURE_TENANT_ID: $(proxy-tenant-id)
+      AZURE_CLIENT_ID: $(kv-client-id)
+      AZURE_CLIENT_SECRET: $(kv-client-secret)
       FhirServerUrl: $(fhir-api-url)
       KeyVaultUri: $(proxy-key-vault-uri)
       KeyVaultCertificateName: $(proxy-key-vault-certificate-name)
