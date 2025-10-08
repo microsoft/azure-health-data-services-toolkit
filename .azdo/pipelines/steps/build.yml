@@ -84,3 +84,11 @@ steps:
       EventGrid_Reference_Queue: $(eventgrid-reference-queue)
       CacheConnectionString: $(cicd-redis-cache-connectionstring)
       CacheHostName: $(cicd-redis-cache-hostname)
+
+  - script: |
+      echo "TENANT: $AZURE_TENANT_ID"
+      echo "CLIENT: $AZURE_CLIENT_ID"
+    displayName: 'Echo Azure Auth Vars'
+    env:
+      AZURE_TENANT_ID: $(proxy-tenant-id)
+      AZURE_CLIENT_ID: $(kv-client-id)
