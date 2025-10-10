@@ -33,6 +33,13 @@ steps:
       failOnAlert: true
 
 - ${{ if eq(parameters.unitTest, 'true') }}:
+  - script: |
+      echo "TENANT: $AZURE_TENANT_ID"
+      echo "CLIENT: $AZURE_CLIENT_ID"
+    displayName: 'Echo Azure Auth Vars'
+    env:
+      AZURE_TENANT_ID: $(proxy-tenant-id)
+      AZURE_CLIENT_ID: $(kv-client-id)
   - task: DotNetCoreCLI@2
     inputs:
       command: 'test'
@@ -41,10 +48,10 @@ steps:
       projects: '**/Microsoft.AzureHealth.DataServices.Tests.csproj'
     displayName: 'Run all tests'
     env:
-      PROXY_TenantId: $(proxy-tenant-id)
-      PROXY_ClientId: $(kv-client-id)
-      PROXY_ClientSecret: $(kv-client-secret)
-      PROXY_FhirServerUrl: $(fhir-api-url)
+      AZURE_TENANT_ID: $(proxy-tenant-id)
+      AZURE_CLIENT_ID: $(kv-client-id)
+      AZURE_CLIENT_SECRET: $(kv-client-secret)
+      FhirServerUrl: $(fhir-api-url)
       PROXY_KeyVaultUri: $(proxy-key-vault-uri)
       PROXY_KeyVaultCertificateName: $(proxy-key-vault-certificate-name)
       PROXY_InstrumentationKey: $(proxy-instrumentation-key)
@@ -84,3 +91,4 @@ steps:
       PROXY_EventGrid_Reference_Queue: $(eventgrid-reference-queue)
       PROXY_CacheConnectionString: $(cicd-redis-cache-connectionstring)
       PROXY_CacheHostName: $(cicd-redis-cache-hostname)
+
