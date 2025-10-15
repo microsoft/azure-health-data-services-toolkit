@@ -133,7 +133,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             string expected = Convert.ToBase64String(message);
 
             await channel.SendAsync(message);
-            await Task.Delay(5000);
+            await Task.Delay(10000);
             QueueMessage result = await queueStorage.DequeueAsync(referenceQueue, TimeSpan.FromSeconds(5.0));
             string jsonString = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(result.Body.ToArray())));
             JObject jobj = JObject.Parse(jsonString);
