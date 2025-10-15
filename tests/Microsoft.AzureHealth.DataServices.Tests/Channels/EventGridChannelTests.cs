@@ -110,6 +110,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         [TestMethod]
         public async Task Send_LargeMessage_Test()
         {
+            await queueStorage.ClearMessagesAsync(messageQueue);
+            await queueStorage.ClearMessagesAsync(referenceQueue);
+
             IOptions<EventGridChannelOptions> options = Options.Create<EventGridChannelOptions>(new EventGridChannelOptions()
             {
                 FallbackStorageAccountName = config.EventGridBlobStorageAccountName,
