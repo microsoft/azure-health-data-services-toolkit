@@ -139,6 +139,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             JObject jobj = JObject.Parse(jsonString);
             string b64Data = jobj["data"].Value<string>();
             string actualReference = Encoding.UTF8.GetString(Convert.FromBase64String(b64Data));
+            Console.WriteLine($"Blob reference: {actualReference}");
             string[] parts = actualReference.Split(new char[] { ',' });
             string container = parts[0];
             string blobName = parts[1];
