@@ -24,13 +24,13 @@ resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
 resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: appServiceName
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   sku: {
     name: 'S1'
     tier: 'Standard'
   }
   properties: {
-    //reserved: true
+    reserved: true
   }
   tags: appTags
 }
@@ -52,9 +52,9 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            netFrameworkVersion: 'v8.0'
-            //linuxFxVersion: 'dotnet-isolated|8.0'
-            //use32BitWorkerProcess: false
+            //netFrameworkVersion: 'v8.0'
+            linuxFxVersion: 'dotnet-isolated|8.0'
+            use32BitWorkerProcess: false
             alwaysOn:true
         }
     }
