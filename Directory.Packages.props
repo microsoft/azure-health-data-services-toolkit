@@ -2,6 +2,7 @@
   <!-- SDK Packages -->
   <PropertyGroup>
     <RuntimePackageVersion>8.0.0</RuntimePackageVersion>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Azure.ResourceManager.ServiceBus" Version="1.1.0" />
@@ -29,11 +30,11 @@
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.4.0" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.1" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1 " />
     <PackageVersion Include="Moq" Version="4.18.4" />
@@ -43,6 +44,7 @@
     <PackageVersion Include="Serilog" Version="2.12.0" />
     <PackageVersion Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+    <PackageVersion Include="Microsoft.Bcl.Memory" Version="9.0.15" />
     <PackageVersion Include="System.Drawing.Common" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>

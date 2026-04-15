@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="9.0.15" />
   </ItemGroup>
 
 </Project>
