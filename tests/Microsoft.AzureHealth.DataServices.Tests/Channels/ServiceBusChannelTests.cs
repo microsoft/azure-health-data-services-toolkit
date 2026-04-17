@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Azure.Messaging.ServiceBus;
 using Microsoft.AzureHealth.DataServices.Channels;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
@@ -22,6 +24,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         private static readonly string LogPath = "../../servicebuslog.txt";
         private static ServiceBusConfig config;
         private static Microsoft.Extensions.Logging.ILogger<ServiceBusChannel> logger;
+        private static DefaultAzureCredential credential;
+        private static string fullyQualifiedNamespace;
 
         public ServiceBusChannelTests()
         {
@@ -37,6 +41,18 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             IConfigurationRoot root = builder.Build();
             config = new ServiceBusConfig();
             root.Bind(config);
+
+            // Set environment variables for app registration if available
+            if (!string.IsNullOrEmpty(root["ClientId"]) && !string.IsNullOrEmpty(root["TenantId"]) && !string.IsNullOrEmpty(root["ClientSecret"]))
+            {
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", root["ClientId"]);
+                Environment.SetEnvironmentVariable("AZURE_TENANT_ID", root["TenantId"]);
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
+            }
+
+            credential = new DefaultAzureCredential();
+
+            fullyQualifiedNamespace = $"{config.ServiceBusNamespace}.servicebus.windows.net";
 
             Serilog.Core.Logger slog = new LoggerConfiguration()
             .WriteTo.File(
@@ -62,7 +78,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         [TestCleanup]
         public async Task CleanupTest()
         {
-            ServiceBusClient client = new(config.ServiceBusConnectionString);
+            ServiceBusClient client = new(fullyQualifiedNamespace, credential);
             ServiceBusReceiver subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
 
             while (await subscriptionReceiver.PeekMessageAsync() != null)
@@ -83,7 +99,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         [TestInitialize]
         public async Task InitialTest()
         {
-            ServiceBusClient client = new(config.ServiceBusConnectionString);
+            ServiceBusClient client = new(fullyQualifiedNamespace, credential);
             ServiceBusReceiver subscriptionReceiver = client.CreateReceiver(config.ServiceBusTopic, config.ServiceBusSubscription);
 
             while (await subscriptionReceiver.PeekMessageAsync() != null)
@@ -112,12 +128,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
 
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
                 Sku = config.ServiceBusSku,
-                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
                 Topic = config.ServiceBusTopic,
                 Subscription = config.ServiceBusSubscription,
+                Credential = credential,
             });
 
             IChannel channel = new ServiceBusChannel(options);
@@ -154,12 +171,13 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         {
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
                 Sku = config.ServiceBusSku,
-                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
                 Topic = config.ServiceBusTopic,
                 Subscription = config.ServiceBusSubscription,
+                Credential = credential,
             });
 
             LargeJsonMessage msg = new();
@@ -219,11 +237,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
 
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
                 Sku = config.ServiceBusSku,
-                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
                 Queue = config.ServiceBusQueue,
+                Credential = credential,
             });
 
             IChannel channel = new ServiceBusChannel(options);
@@ -260,11 +279,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
         {
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
                 Sku = config.ServiceBusSku,
-                FallbackStorageConnectionString = config.ServiceBusBlobConnectionString,
                 FallbackStorageContainer = config.ServiceBusBlobContainer,
                 Queue = config.ServiceBusQueue,
+                Credential = credential,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
             });
 
             LargeJsonMessage msg = new();
@@ -324,9 +344,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
 
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
                 Sku = config.ServiceBusSku,
                 Queue = config.ServiceBusQueue,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
+                Credential = credential,
             });
 
             IChannel channel = new ServiceBusChannel(options);
@@ -347,7 +369,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             await channel.OpenAsync();
             await channel.ReceiveAsync();
 
-            ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
+            ServiceBusClient client = new ServiceBusClient(fullyQualifiedNamespace, credential);
             ServiceBusSender sender = client.CreateSender(config.ServiceBusQueue);
             ServiceBusMessage msg = new(message);
             msg.ContentType = contentType;
@@ -375,10 +397,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
 
             IOptions<ServiceBusChannelOptions> options = Options.Create<ServiceBusChannelOptions>(new ServiceBusChannelOptions()
             {
-                ConnectionString = config.ServiceBusConnectionString,
+                Namespace = fullyQualifiedNamespace,
+                FallbackStorageAccountName = config.ServiceBusBlobStorageAccountName,
                 Sku = config.ServiceBusSku,
                 Topic = config.ServiceBusTopic,
                 Subscription = config.ServiceBusSubscription,
+                Credential = credential,
             });
 
             IChannel channel = new ServiceBusChannel(options);
@@ -399,7 +423,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Channels
             await channel.OpenAsync();
             await channel.ReceiveAsync();
 
-            ServiceBusClient client = new ServiceBusClient(config.ServiceBusConnectionString);
+            ServiceBusClient client = new ServiceBusClient(fullyQualifiedNamespace, credential);
             ServiceBusSender sender = client.CreateSender(config.ServiceBusTopic);
             ServiceBusMessage msg = new(message);
             msg.ContentType = contentType;

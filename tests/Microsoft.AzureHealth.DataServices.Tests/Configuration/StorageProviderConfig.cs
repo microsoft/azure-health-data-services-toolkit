@@ -20,6 +20,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         [JsonProperty("cacheConnectionString")]
         public string CacheConnectionString { get; set; }
 
+        [JsonProperty("cacheHostName")]
+        public string CacheHostName { get; set; }
+
         [JsonProperty("cacheExpirationMilliseconds")]
         public double CacheExpirationMilliseconds { get; set; }
     }

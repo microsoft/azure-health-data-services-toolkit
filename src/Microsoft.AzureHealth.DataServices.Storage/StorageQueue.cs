@@ -116,10 +116,28 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task<bool> CreateQueueIfNotExistsAsync(string queueName, IDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             QueueClient queueClient = _serviceClient.GetQueueClient(queueName);
-            Response response = await queueClient.CreateIfNotExistsAsync(metadata, cancellationToken);
-            bool result = response?.Status != null;
-            _logger?.LogTrace(new EventId(96010, "StorageQueue.CreateQueueIfNotExistsAsync"), "Created queue {QueueName} with status code {Result}.", queueName, result);
-            return result;
+
+            int maxRetries = 10; // wait up to ~50 seconds
+            int delayMs = 5000;  // 5 seconds delay between checks
+
+            for (int attempt = 0; attempt < maxRetries; attempt++)
+            {
+                try
+                {
+                    Response response = await queueClient.CreateIfNotExistsAsync(metadata, cancellationToken);
+                    bool result = response?.Status != null;
+                    _logger?.LogTrace(new EventId(96010, "StorageQueue.CreateQueueIfNotExistsAsync"), "Created queue {QueueName} with status code {Result}.", queueName, result);
+                    return result;
+                }
+                catch (Azure.RequestFailedException ex) when (ex.ErrorCode == "QueueBeingDeleted")
+                {
+                    _logger?.LogWarning("Queue {QueueName} is being deleted. Waiting {Delay}s before retry ({Attempt}/{Max}).", queueName, delayMs / 1000, attempt + 1, maxRetries);
+                    await Task.Delay(delayMs, cancellationToken);
+                }
+            }
+
+            _logger?.LogTrace(new EventId(96010, "StorageQueue.CreateQueueIfNotExistsAsync"), "Created queue {QueueName} with status code {Result}.", queueName, false);
+            return false;
         }
 
         /// <summary>

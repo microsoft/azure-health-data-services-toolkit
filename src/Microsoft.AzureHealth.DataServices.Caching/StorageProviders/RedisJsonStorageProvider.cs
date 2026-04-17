@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
 {
@@ -13,6 +14,7 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
     {
         private readonly IHost host;
         private readonly IDistributedCache redis;
+        private readonly IDatabase redisDb;
 
         /// <summary>
         /// Creates an instance of RedisJsonStorageProvider.
@@ -20,15 +22,38 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         /// <param name="options">Redis cache options.</param>
         public RedisJsonStorageProvider(IOptions<RedisCacheOptions> options)
         {
-            host = Host.CreateDefaultBuilder()
-              .ConfigureServices(services => services.AddStackExchangeRedisCache(op =>
-              {
-                  op.Configuration = options.Value.ConnectionString;
-                  op.InstanceName = options.Value.InstanceName ?? string.Empty;
-              }))
-              .Build();
+            if (!string.IsNullOrWhiteSpace(options.Value.ConnectionString))
+            {
+                // Case 1: Connection string
+                host = Host.CreateDefaultBuilder()
+                    .ConfigureServices(services =>
+                    {
+                        services.AddStackExchangeRedisCache(op =>
+                        {
+                            op.Configuration = options.Value.ConnectionString;
+                            op.InstanceName = options.Value.InstanceName ?? string.Empty;
+                        });
+                    })
+                    .Build();
 
-            redis = host.Services.GetRequiredService<IDistributedCache>();
+                redis = host.Services.GetRequiredService<IDistributedCache>();
+            }
+            else if (options.Value.Credential != null)
+            {
+                var cacheHostName = options.Value.InstanceName;
+                var configurationOptions = ConfigurationOptions.Parse($"{cacheHostName}:6380");
+                configurationOptions.Ssl = true;
+                configurationOptions.AbortOnConnectFail = true;
+                configurationOptions = configurationOptions.ConfigureForAzureWithTokenCredentialAsync(options.Value.Credential).GetAwaiter().GetResult();
+                var connectionMultiplexer = ConnectionMultiplexer.ConnectAsync(configurationOptions).GetAwaiter().GetResult();
+                redisDb = connectionMultiplexer.GetDatabase();
+            }
+            else
+            {
+                // No valid Redis configuration
+                throw new InvalidOperationException(
+                    "No Redis connection string or DefaultAzureCredential provided for Redis cache.");
+            }
         }
 
         /// <summary>
@@ -41,7 +66,14 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         public async Task AddAsync<T>(string key, T value)
         {
             string json = JsonConvert.SerializeObject(value);
-            await redis.SetStringAsync(key, json);
+            if (redis != null)
+            {
+                await redis.SetStringAsync(key, json);
+            }
+            else if (redisDb != null)
+            {
+                await redisDb.StringSetAsync(key, json);
+            }
         }
 
         /// <summary>
@@ -53,7 +85,14 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         public async Task AddAsync(string key, object value)
         {
             string json = JsonConvert.SerializeObject(value);
-            await redis.SetStringAsync(key, json);
+            if (redis != null)
+            {
+                await redis.SetStringAsync(key, json);
+            }
+            else if (redisDb != null)
+            {
+                await redisDb.StringSetAsync(key, json);
+            }
         }
 
         /// <summary>
@@ -64,15 +103,18 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         /// <returns>Object from cache.</returns>
         public async Task<T> GetAsync<T>(string key)
         {
-            string json = await redis.GetStringAsync(key);
-            if (json == null)
+            string json = null;
+
+            if (redis != null)
             {
-                return default;
+                json = await redis.GetStringAsync(key);
             }
-            else
+            else if (redisDb != null)
             {
-                return JsonConvert.DeserializeObject<T>(json);
+                json = await redisDb.StringGetAsync(key);
             }
+
+            return json == null ? default : JsonConvert.DeserializeObject<T>(json);
         }
 
         /// <summary>
@@ -82,7 +124,16 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         /// <returns>Item from cache as a JSON string.</returns>
         public async Task<string> GetAsync(string key)
         {
-            return await redis.GetStringAsync(key);
+            if (redis != null)
+            {
+                return await redis.GetStringAsync(key);
+            }
+            else if (redisDb != null)
+            {
+                return await redisDb.StringGetAsync(key);
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -92,7 +143,15 @@ namespace Microsoft.AzureHealth.DataServices.Caching.StorageProviders
         /// <returns>True if object removed otherwise false.</returns>
         public async Task<bool> RemoveAsync(string key)
         {
-            await redis.RemoveAsync(key);
+            if (redis != null)
+            {
+                await redis.RemoveAsync(key);
+            }
+            else if (redisDb != null)
+            {
+                await redisDb.KeyDeleteAsync(key);
+            }
+
             return true;
         }
     }

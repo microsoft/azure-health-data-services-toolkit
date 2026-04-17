@@ -25,6 +25,12 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         public string ServiceBusConnectionString { get; set; }
 
         /// <summary>
+        /// Gets or sets Service Bus name.
+        /// </summary>
+        [JsonProperty("servicebusNamespace")]
+        public string ServiceBusNamespace { get; set; }
+
+        /// <summary>
         /// Gets or sets Service Bus SKU.
         /// </summary>
         [JsonProperty("servicebusSku")]
@@ -60,5 +66,11 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// </summary>
         [JsonProperty("serviceBusBlobContainer")]
         public string ServiceBusBlobContainer { get; set; }
+
+        /// <summary>
+        /// Gets or sets blob storage account name for managing large files.
+        /// </summary>
+        [JsonProperty("serviceBusBlobStorageAccountName")]
+        public string ServiceBusBlobStorageAccountName { get; set; }
     }
 }

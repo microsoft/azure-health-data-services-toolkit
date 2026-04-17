@@ -17,7 +17,7 @@ stages:
       - deployment: SignPackage
         environment: esrp
         pool:
-          vmImage: $(VmImage)
+          vmImage: $(WindowsVmImage)
         strategy:
           runOnce:
             deploy:
@@ -58,24 +58,24 @@ stages:
       - ${{ format('Signing_{0}', parameters.PackageArtifactName) }}
       - ${{ format('AnalyzeCode_{0}', parameters.PackageArtifactName) }}
     jobs:
-    - deployment: PublishPackageDevOps
+    - job: PublishPackageDevOps #deployment: PublishPackageDevOps
       displayName: 'Publish packages to DevOps Feed'
-      environment: nuget-internal
+      #environment: nuget-internal
       pool:
         vmImage: $(VmImage)
 
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: '${{ parameters.PackageArtifactName }}-signed'
+      #strategy:
+        # runOnce:
+        #   deploy:
+      steps:
+        - download: current
+          artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: ../steps/package-push-internal.yml
-              parameters:
-                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
-                PackageName: ${{ parameters.PackagePrefix }}
-                DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
+        - template: ../steps/package-push-internal.yml
+          parameters:
+            ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+            PackageName: ${{ parameters.PackagePrefix }}
+            DevOpsFeedID: ${{ parameters.DevOpsFeedID }}
 
   # Add integration tests here
 
@@ -86,34 +86,29 @@ stages:
       displayName: 'GitHub/Nuget Release Publish'
     dependsOn: ${{ format('ReleaseInternal_{0}', parameters.PackageArtifactName) }}
     jobs:
-    - deployment: PublishPackageNuGet
+    #- deployment: PublishPackageNuGet
+    - job: PublishPackageNuGet
       ${{ if eq( parameters['IsPrerelease'], true) }}:
         displayName: 'Publish Nuget Prerelease'
       ${{ else }}:
         displayName: 'Publish NuGet Release'
-      environment: nuget
+      # environment: nuget
       pool:
         vmImage: $(VmImage)
+      steps:
+      - download: current
+        artifact: '${{ parameters.PackageArtifactName }}-signed'
+      - template: ../steps/package-push-nuget.yml
+        parameters:
+          ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+          PackageName: ${{ parameters.PackagePrefix }}
 
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: '${{ parameters.PackageArtifactName }}-signed'
-
-            - template: ../steps/package-push-nuget.yml
-              parameters:
-                ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
-                PackageName: ${{ parameters.PackagePrefix }}
-
-    - deployment: GithubRelease
+    - job: GithubRelease
       ${{ if eq( parameters['IsPrerelease'], true) }}:
         displayName: 'Create GitHub Release (Prerelease)'
       ${{ else }}:
         displayName: 'Create GitHub Release (Release)'
-      dependsOn: 'PublishPackageNuGet'
-      environment: github
+      dependsOn: PublishPackageNuGet
       pool:
         vmImage: $(VmImage)
       variables:
@@ -121,26 +116,69 @@ stages:
           PackageVersion: $(SetVariables.PrereleaseVersion)
         ${{ else }}:
           PackageVersion: $(SetVariables.ReleaseVersion)
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              artifact: '${{ parameters.PackageArtifactName }}-signed'
+      steps:
+      - download: current
+        artifact: '${{ parameters.PackageArtifactName }}-signed'
+      - template: ../steps/versionVariables.yml
+      - task: GithubRelease@1 
+        displayName: 'Create GitHub Release'
+        inputs:
+          gitHubConnection: 'Github (${{ parameters.RepositoryName }})'
+          repositoryName: ${{ parameters.RepositoryName }}
+          action: 'create'
+          tagSource: userSpecifiedTag
+          tag: release/$(PackageVersion)
+          title: ${{ parameters.PackagePrefix }} $(PackageVersion)
+          isPreRelease: ${{ parameters.IsPrerelease }}
+          assets: |
+            $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg
+            $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.snupkg
+      # strategy:
+      #   runOnce:
+      #     deploy:
+      #       steps:
+      #       - download: current
+      #         artifact: '${{ parameters.PackageArtifactName }}-signed'
 
-            - template: ../steps/versionVariables.yml
+      #       - template: ../steps/package-push-nuget.yml
+      #         parameters:
+      #           ArtifactPath: '$(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed'
+      #           PackageName: ${{ parameters.PackagePrefix }}
 
-            - task: GithubRelease@1 
-              displayName: 'Create GitHub Release'
-              inputs:
-                gitHubConnection: 'Github (${{ parameters.RepositoryName }})'
-                repositoryName: ${{ parameters.RepositoryName }}
-                action: 'create'
-                tagSource: userSpecifiedTag
+    # - deployment: GithubRelease
+    #   ${{ if eq( parameters['IsPrerelease'], true) }}:
+    #     displayName: 'Create GitHub Release (Prerelease)'
+    #   ${{ else }}:
+    #     displayName: 'Create GitHub Release (Release)'
+    #   dependsOn: 'PublishPackageNuGet'
+    #   environment: github
+    #   pool:
+    #     vmImage: $(VmImage)
+    #   variables:
+    #     ${{ if eq( parameters['IsPrerelease'], true) }}:
+    #       PackageVersion: $(SetVariables.PrereleaseVersion)
+    #     ${{ else }}:
+    #       PackageVersion: $(SetVariables.ReleaseVersion)
+    #   strategy:
+    #     runOnce:
+    #       deploy:
+    #         steps:
+    #         - download: current
+    #           artifact: '${{ parameters.PackageArtifactName }}-signed'
+
+    #         - template: ../steps/versionVariables.yml
+
+    #         - task: GithubRelease@1 
+    #           displayName: 'Create GitHub Release'
+    #           inputs:
+    #             gitHubConnection: 'Github (${{ parameters.RepositoryName }})'
+    #             repositoryName: ${{ parameters.RepositoryName }}
+    #             action: 'create'
+    #             tagSource: userSpecifiedTag
                 
-                tag: release/$(PackageVersion)
-                title: ${{ parameters.PackagePrefix }} $(PackageVersion)
-                isPreRelease: ${{ parameters.IsPrerelease }}
-                assets: |
-                  $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg
-                  $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.snupkg
+    #             tag: release/$(PackageVersion)
+    #             title: ${{ parameters.PackagePrefix }} $(PackageVersion)
+    #             isPreRelease: ${{ parameters.IsPrerelease }}
+    #             assets: |
+    #               $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.nupkg
+    #               $(Pipeline.Workspace)/${{ parameters.PackageArtifactName }}-signed/*.snupkg

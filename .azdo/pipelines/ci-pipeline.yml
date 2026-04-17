@@ -25,6 +25,7 @@ stages:
       - template: ./steps/build.yml
         parameters:
           targetBuildFramework: 'net8.0'
+          unitTest: false
 
       - template: ./steps/versionVariables.yml
       
@@ -48,11 +49,11 @@ stages:
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: PrereleasePackages
-        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/Azure-Health-Data-Services-Toolkit-Public
         IsPrerelease: true
 
     - template: ./stages/release.yml
       parameters:
         PackageArtifactName: ReleasePackages
-        DevOpsFeedID: AppliedOpenSourceTools/AzureHealthDataServicesToolkitInternal
+        DevOpsFeedID: AppliedOpenSourceTools/Azure-Health-Data-Services-Toolkit-Public
         IsPrerelease: false

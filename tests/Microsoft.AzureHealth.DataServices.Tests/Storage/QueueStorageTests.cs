@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             builder.AddUserSecrets<QueueStorageTests>(true);
             builder.AddEnvironmentVariables("PROXY_");
             IConfigurationRoot root = builder.Build();
-            string connectionString = root["StorageConnectionString"];
+            string accountName = root["StorageAccountName"];
             random = new();
             containers = new();
             Serilog.Core.Logger slog = new LoggerConfiguration()
@@ -51,7 +53,20 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
 
             logger = factory.CreateLogger("test");
             factory.Dispose();
-            storage = new(connectionString, logger);
+
+            // Set environment variables for app registration if available
+            if (!string.IsNullOrEmpty(root["ClientId"]) && !string.IsNullOrEmpty(root["TenantId"]) && !string.IsNullOrEmpty(root["ClientSecret"]))
+            {
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", root["ClientId"]);
+                Environment.SetEnvironmentVariable("AZURE_TENANT_ID", root["TenantId"]);
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
+            }
+
+            // Use Managed Identity
+            var credential = new DefaultAzureCredential();
+
+            // Initialize storage class using Managed Identity
+            storage = new StorageQueue(new Uri($"https://{accountName}.queue.core.windows.net"), credential, null, logger);
 
             preExistingQueue = GetRandomName();
             _ = storage.CreateQueueIfNotExistsAsync(preExistingQueue).GetAwaiter().GetResult();

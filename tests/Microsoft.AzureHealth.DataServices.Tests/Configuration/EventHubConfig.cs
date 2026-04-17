@@ -25,6 +25,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         /// <param name="eventhubConnectionString">Connection string for Event Hub.</param>
         /// <param name="eventhubName">Name of Event Hub used.</param>
         /// <param name="blobConnectionString">Connection string to Blob storage.</param>
+        /// <param name="blobStorageAccountName">name string to Blob storage account.</param>
         /// <param name="blobContainer">Blob container used to output messages that exceed Event Hub size.</param>
         /// <param name="eventhubProcessorContainer">Event Hub processor container in Blob storage used to track Event Hub receive operations.</param>
         public EventHubConfig(
@@ -33,6 +34,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             string eventhubName,
             string blobConnectionString,
             string blobContainer,
+            string blobStorageAccountName,
             string eventhubProcessorContainer)
         {
             this.EventHubSku = eventhubSku;
@@ -41,6 +43,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
             this.EventHubBlobConnectionString = blobConnectionString;
             this.EventHubBlobContainer = blobContainer;
             this.EventHubProcessorContainer = eventhubProcessorContainer;
+            this.EventHubBlobStorageAccountName = blobStorageAccountName;
         }
 
         /// <summary>
@@ -62,10 +65,22 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Configuration
         public string EventHubName { get; set; }
 
         /// <summary>
+        /// Gets or sets Event Hub namespace.
+        /// </summary>
+        [JsonProperty("eventhubNamespace")]
+        public string EventHubNamespace { get; set; }
+
+        /// <summary>
         /// Gets or sets Azure storage connection string for managing large files.
         /// </summary>
         [JsonProperty("eventHubBlobConnectionString")]
         public string EventHubBlobConnectionString { get; set; }
+
+        /// <summary>
+        /// Gets or sets Azure storage account name for managing large files.
+        /// </summary>
+        [JsonProperty("eventHubBlobStorageAccountName")]
+        public string EventHubBlobStorageAccountName { get; set; }
 
         /// <summary>
         /// Gets or sets blob storage container name for managing large files.

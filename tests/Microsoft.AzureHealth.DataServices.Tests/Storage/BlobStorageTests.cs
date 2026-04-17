@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AzureHealth.DataServices.Storage;
 using Microsoft.AzureHealth.DataServices.Tests.Configuration;
@@ -33,7 +34,19 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Storage
             root.Bind(config);
             random = new Random();
             cleanupContainers = new();
-            storage = new StorageBlob(config.BlobStorageChannelConnectionString);
+
+            // Set environment variables for app registration if available
+            if (!string.IsNullOrEmpty(root["ClientId"]) && !string.IsNullOrEmpty(root["TenantId"]) && !string.IsNullOrEmpty(root["ClientSecret"]))
+            {
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", root["ClientId"]);
+                Environment.SetEnvironmentVariable("AZURE_TENANT_ID", root["TenantId"]);
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
+            }
+
+            // Use Managed Identity with DefaultAzureCredential
+            var credential = new DefaultAzureCredential();
+
+            storage = new StorageBlob(new Uri($"https://{config.BlobStorageAccountName}.blob.core.windows.net"), credential);
 
             Console.WriteLine(context.TestName);
         }

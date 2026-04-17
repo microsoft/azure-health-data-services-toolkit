@@ -12,6 +12,11 @@ steps:
     }
   displayName: 'Ensure provided ArtifactPath exists'
 
+- script: |
+    sudo apt update
+    sudo apt install -y mono-complete
+  displayName: 'Install Mono on Ubuntu'
+
 - task: NuGetCommand@2
   displayName: 'Publish ${{ parameters.PackageName }} package to NuGet.org'
   inputs:

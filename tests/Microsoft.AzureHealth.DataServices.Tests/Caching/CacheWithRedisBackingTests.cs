@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Identity;
 using Microsoft.AzureHealth.DataServices.Caching;
 using Microsoft.AzureHealth.DataServices.Tests.Assets;
 using Microsoft.AzureHealth.DataServices.Tests.Configuration;
@@ -20,6 +21,7 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
         private static StorageProviderConfig config;
         private static List<string> cacheKeyList;
         private static Random random;
+        private static DefaultAzureCredential credential;
 
         [ClassInitialize]
         public static void Initialize(TestContext context)
@@ -30,6 +32,16 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
             IConfigurationRoot root = builder.Build();
             config = new StorageProviderConfig();
             root.Bind(config);
+
+            // Set environment variables for app registration if available
+            if (!string.IsNullOrEmpty(root["ClientId"]) && !string.IsNullOrEmpty(root["TenantId"]) && !string.IsNullOrEmpty(root["ClientSecret"]))
+            {
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", root["ClientId"]);
+                Environment.SetEnvironmentVariable("AZURE_TENANT_ID", root["TenantId"]);
+                Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", root["ClientSecret"]);
+            }
+
+            credential = new DefaultAzureCredential();
 
             cacheKeyList = new();
             random = new();
@@ -46,7 +58,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   services.AddMemoryCache();
                   services.AddRedisCacheBackingStore(options =>
                   {
-                      options.ConnectionString = config.CacheConnectionString;
+                      options.InstanceName = config.CacheHostName;
+                      options.Credential = credential;
                   });
                   services.AddJsonObjectMemoryCache(options =>
                   {
@@ -74,7 +87,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   services.AddMemoryCache();
                   services.AddRedisCacheBackingStore(options =>
                   {
-                      options.ConnectionString = config.CacheConnectionString;
+                      options.InstanceName = config.CacheHostName;
+                      options.Credential = credential;
                   });
                   services.AddJsonObjectMemoryCache(options =>
                   {
@@ -107,7 +121,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   services.AddMemoryCache();
                   services.AddRedisCacheBackingStore(options =>
                   {
-                      options.ConnectionString = config.CacheConnectionString;
+                      options.InstanceName = config.CacheHostName;
+                      options.Credential = credential;
                   });
                   services.AddJsonObjectMemoryCache(options =>
                   {
@@ -141,7 +156,8 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Caching
                   services.AddMemoryCache();
                   services.AddRedisCacheBackingStore(options =>
                   {
-                      options.ConnectionString = config.CacheConnectionString;
+                      options.InstanceName = config.CacheHostName;
+                      options.Credential = credential;
                   });
                   services.AddJsonObjectMemoryCache(options =>
                   {
