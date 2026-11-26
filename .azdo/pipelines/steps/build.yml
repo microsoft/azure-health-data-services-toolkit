@@ -20,7 +20,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) --no-incremental -p:ContinuousIntegrationBuild=true -warnaserror -f ${{parameters.targetBuildFramework}}'
+    arguments: '--configuration $(buildConfiguration) -p:ContinuousIntegrationBuild=true -warnaserror -f ${{parameters.targetBuildFramework}}'
     projects: '**/samples/**/*.csproj'
   displayName: 'Build samples projects'
 

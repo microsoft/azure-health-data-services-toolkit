@@ -5,7 +5,6 @@ using Microsoft.AzureHealth.DataServices.Filters;
 using Microsoft.AzureHealth.DataServices.Json;
 using Microsoft.AzureHealth.DataServices.Json.Transforms;
 using Microsoft.AzureHealth.DataServices.Pipelines;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using UseCaseSample.Extensions;
 

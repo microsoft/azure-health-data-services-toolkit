@@ -382,7 +382,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task WriteBlockBlobAsync(string containerName, string blobName, string contentType, Stream content, BlockBlobOpenWriteOptions options = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             byte[] buffer = new byte[content.Length];
-            await content.ReadAsync(buffer, cancellationToken);
+            await content.ReadExactlyAsync(buffer, cancellationToken);
             await WriteBlockBlobAsync(containerName, blobName, contentType, buffer, options, metadata, conditions, cancellationToken);
             logger?.LogTrace(new EventId(91110, "StorageBlob.WriteBlockBlobAsync"), "Container {ContainerName} blob {BlobName} written.", containerName, blobName);
         }
@@ -439,7 +439,7 @@ namespace Microsoft.AzureHealth.DataServices.Storage
         public async Task WriteAppendBlobAsync(string containerName, string blobName, string contentType, Stream content, AppendBlobOpenWriteOptions writeOptions = null, AppendBlobCreateOptions createOptions = null, IDictionary<string, string> metadata = null, BlobRequestConditions conditions = null, CancellationToken cancellationToken = default)
         {
             byte[] buffer = new byte[content.Length];
-            await content.ReadAsync(buffer, cancellationToken);
+            await content.ReadExactlyAsync(buffer, cancellationToken);
             await WriteAppendBlobAsync(containerName, blobName, contentType, buffer, writeOptions, createOptions, metadata, conditions, cancellationToken);
             logger?.LogTrace(new EventId(91130, "StorageBlob.WriteAppendBlobAsync"), "Container {ContainerName} blob {BlobName} written.", containerName, blobName);
         }
