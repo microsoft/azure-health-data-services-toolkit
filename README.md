@@ -7,10 +7,10 @@ With the growth of health data workloads on Azure, we’ve found that developers
 
 | Package Name | Description |
 | --- | --- |
-| [Microsoft.AzureHealth.DataServices.Core](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core)| .NET 8 toolkit for creating custom operations when using Azure Health Data Services. |
-| [Microsoft.AzureHealth.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions) | .NET 8 toolkit for extending channels using Azure Health Data Services. |
-| [Microsoft.AzureHealth.DataServices.Caching](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching) | .NET 8 toolkit for adding caching using Azure Health Data Services. |
-| [Microsoft.AzureHealth.DataServices.Storage](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage)| .NET 8 toolkit to simplify Azure storage operations when using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Core](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Core.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Core)| .NET 11 toolkit for creating custom operations when using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Channels.Extensions](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Channels.Extensions.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Channels.Extensions) | .NET 11 toolkit for extending channels using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Caching](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Caching.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Caching) | .NET 11 toolkit for adding caching using Azure Health Data Services. |
+| [Microsoft.AzureHealth.DataServices.Storage](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage/)<br/>[![NuGet](https://img.shields.io/nuget/v/Microsoft.AzureHealth.DataServices.Storage.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.AzureHealth.DataServices.Storage)| .NET 11 toolkit to simplify Azure storage operations when using Azure Health Data Services. |
 
 ## Getting started
 
@@ -52,7 +52,7 @@ When building custom operations, you’ll come across these concepts related to 
 
 - This toolkit lets you go beyond the proxy pattern and gives you tools for more extensive customization with programmatic components that flexibly connect to the broader Azure ecosystem.
 - This toolkit is designed to be used in smaller operation-specific modules. If you are customizing a certain behavior, you don’t need to proxy the rest of your API calls.
-- This toolkit is compute-agnostic and can be deployed on any .NET 6.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
+- This toolkit is compute-agnostic and can be deployed on any .NET 11.0 server like Azure Functions, Azure App Service, Azure Kubernetes Service, etc.
 - This toolkit is released and versioned via NuGet packages.
 - We have designed this toolkit with coding best practices in mind, like object-oriented pipelines and extended testing.
 

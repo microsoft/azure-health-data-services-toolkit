@@ -10,7 +10,7 @@ These samples show how this toolkit works for a few sample scenarios:
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
-- [.NET 8.0](https://dotnet.microsoft.com/en-us/download)
+- [.NET 11.0](https://dotnet.microsoft.com/en-us/download)
 - Visual Studio or Visual Studio Code
   - Or another code editor and proficiency with the command line
 

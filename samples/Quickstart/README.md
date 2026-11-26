@@ -21,7 +21,7 @@ QuickstartFilter also implements extension to handle exceptions. In case of an e
 
 - An Azure account with an active subscription.
   - You need access to create resource groups, resources, and role assignments in Azure
-- [.NET 8.0](https://dotnet.microsoft.com/download)
+- [.NET 11.0](https://dotnet.microsoft.com/download)
 - [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [Azure Developer CLI](https://docs.microsoft.com/azure/developer/azure-developer-cli/get-started?tabs=bare-metal%2Cwindows&pivots=programming-language-csharp#prerequisites)
 - Visual Studio or Visual Studio Code

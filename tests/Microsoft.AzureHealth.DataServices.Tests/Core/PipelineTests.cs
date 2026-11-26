@@ -123,9 +123,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             bool anyStatus = false;
             bool faultStatus = false;
-            while (!reader.EndOfStream)
+            string line;
+            while ((line = await reader.ReadLineAsync()) != null)
             {
-                string line = reader.ReadLine();
                 anyStatus = anyStatus || line.Contains("executed with status Any");
                 faultStatus = faultStatus || line.Contains("not executed due to status Fault");
             }
@@ -163,9 +163,9 @@ namespace Microsoft.AzureHealth.DataServices.Tests.Core
 
             bool anyStatus = false;
             bool faultStatus = false;
-            while (!reader.EndOfStream)
+            string line;
+            while ((line = await reader.ReadLineAsync()) != null)
             {
-                string line = reader.ReadLine();
                 anyStatus = anyStatus || line.Contains("executed with status Normal");
                 faultStatus = faultStatus || line.Contains("not executed due to status Fault");
             }

@@ -26,7 +26,6 @@
     <PackageReference Include="MSTest.TestFramework" />
     <PackageReference Include="Serilog" />
     <PackageReference Include="Serilog.Extensions.Logging.File" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Azure.Functions.Sdk/1.1.0">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
-    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
     <UserSecretsId>37c15143-13b6-4f02-b07a-33294d95e1c8</UserSecretsId>
     <ImplicitUsings>enable</ImplicitUsings>
+    <MSBuildWarningsNotAsErrors>$(MSBuildWarningsNotAsErrors);AZFW0108</MSBuildWarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +12,11 @@
     <PackageReference Include="Azure.Identity" Version="1.13.2" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.15.0" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.3" />
 	  <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.21.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="11.0.0" />
   </ItemGroup>
 
   <!-- Default to latest version if SdkVersion is not set -->

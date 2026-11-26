@@ -1,7 +1,7 @@
 ## Microsoft.AzureHealth.DataServices.Core
 
 ### Overview
-.NET 6 SDK for creating custom operations for FHIR in Azure Health Data Services.
+.NET 11 SDK for creating custom operations for FHIR in Azure Health Data Services.
 - [Getting Started](https://github.com/microsoft/azure-health-data-services-toolkit#getting-started)
 - [Conceptual Docs](https://github.com/microsoft/azure-health-data-services-toolkit/blob/main/docs/concepts.md)
 - For more information, please see the Github repository [here.](https://github.com/microsoft/azure-health-data-services-toolkit)

@@ -52,8 +52,8 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         reserved: true
         clientAffinityEnabled: false
         siteConfig: {
-            //netFrameworkVersion: 'v8.0'
-            linuxFxVersion: 'dotnet-isolated|8.0'
+            //netFrameworkVersion: 'v11.0'
+            linuxFxVersion: 'dotnet-isolated|11.0'
             use32BitWorkerProcess: false
             alwaysOn:true
         }

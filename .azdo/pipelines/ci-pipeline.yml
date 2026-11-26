@@ -24,7 +24,7 @@ stages:
       steps:
       - template: ./steps/build.yml
         parameters:
-          targetBuildFramework: 'net8.0'
+          targetBuildFramework: 'net11.0'
           unitTest: false
 
       - template: ./steps/versionVariables.yml

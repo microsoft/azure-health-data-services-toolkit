@@ -1,7 +1,7 @@
 <Project>
   <!-- SDK Packages -->
   <PropertyGroup>
-    <RuntimePackageVersion>8.0.0</RuntimePackageVersion>
+    <RuntimePackageVersion>11.0.0</RuntimePackageVersion>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
@@ -9,7 +9,7 @@
     <PackageVersion Include="Azure.Security.KeyVault.Certificates" Version="4.8.0" />
     <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
     <PackageVersion Include="Microsoft.Azure.StackExchangeRedis" Version="3.2.1" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Azure.Core" Version="1.47.1" />
     <PackageVersion Include="Azure.Data.Tables" Version="12.8.0" />
     <PackageVersion Include="Azure.Identity" Version="1.13.2" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(RuntimePackageVersion)" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimePackageVersion)" />
@@ -44,8 +44,8 @@
     <PackageVersion Include="Serilog" Version="2.12.0" />
     <PackageVersion Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
-    <PackageVersion Include="Microsoft.Bcl.Memory" Version="9.0.15" />
+    <PackageVersion Include="Microsoft.Bcl.Memory" Version="$(RuntimePackageVersion)" />
     <PackageVersion Include="System.Drawing.Common" Version="$(RuntimePackageVersion)" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
+    <PackageVersion Include="System.Text.Json" Version="$(RuntimePackageVersion)" />
   </ItemGroup>
 </Project>

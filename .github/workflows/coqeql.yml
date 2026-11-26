@@ -24,6 +24,11 @@ jobs:
       run: |
         git fetch --prune --unshallow
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+      with:
+        global-json-file: global.json
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@b8d3b6e8af63cde30bdc382c0bc28114f4346c88 # v2.28.1
       with:

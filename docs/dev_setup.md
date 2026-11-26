@@ -20,7 +20,7 @@ We're only covering the recommended developer workflow for custom operations bui
 
 Before you start creating custom operations, you need to install some tools on your system required for the development workflow. Go through the tools below and make sure you have them installed on your system.
 
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download)
+- [.NET 11.0 SDK](https://dotnet.microsoft.com/download)
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [Azure Developer CLI](https://docs.microsoft.com/azure/developer/azure-developer-cli/get-started?tabs=bare-metal%2Cwindows&pivots=programming-language-csharp#prerequisites)
   - Quick install command on Windows: `powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' | Invoke-Expression"`
